@@ -5,8 +5,11 @@ import { usePathname } from "next/navigation";
 const navItems = [
   { href: "/", label: "Dashboard" },
   { href: "/races", label: "Races" },
+  { href: "/risk", label: "Risk" },
   { href: "/drivers", label: "Drivers" },
   { href: "/tracks", label: "Tracks" },
+  { href: "/model", label: "Stats" },
+  { href: "/import", label: "Import" },
 ];
 
 export function Nav() {

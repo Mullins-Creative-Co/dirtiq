@@ -5,12 +5,13 @@ export type Race = {
   id: number; name: string; track_id: number; track_name: string;
   race_date: string; division: string; distance: number | null;
   track_condition: string; weather_notes: string | null;
-  status: "upcoming" | "complete" | "cancelled"; created_at: string;
+  status: "upcoming" | "complete" | "cancelled"; is_live: number; created_at: string;
 };
 
 export type RaceEntry = {
   id: number; race_id: number; driver_id: number; driver_name: string;
   car_number: string | null; starting_position: number | null;
+  qualifying_time: number | null; heat_position: number | null;
   finishing_position: number | null; laps_led: number; dnf: number; dnf_reason: string | null;
 };
 
@@ -42,6 +43,20 @@ export function recordResult(data: { race_id: number; driver_id: number; finishi
     .run(data.finishing_position ?? null, data.laps_led ?? 0, data.dnf ? 1 : 0, data.dnf_reason ?? null, data.race_id, data.driver_id);
 }
 
+export function updatePreRaceData(data: { race_id: number; driver_id: number; qualifying_time?: number; heat_position?: number; starting_position?: number }): void {
+  getDb().prepare(`UPDATE race_entries SET qualifying_time = ?, heat_position = ?, starting_position = ? WHERE race_id = ? AND driver_id = ?`)
+    .run(data.qualifying_time ?? null, data.heat_position ?? null, data.starting_position ?? null, data.race_id, data.driver_id);
+}
+
 export function completeRace(raceId: number): void {
   getDb().prepare(`UPDATE races SET status = 'complete' WHERE id = ?`).run(raceId);
+}
+
+export function updateRaceConditions(data: { race_id: number; track_condition: string; weather_notes?: string; track_notes?: string }): void {
+  getDb().prepare(`UPDATE races SET track_condition = ?, weather_notes = ? WHERE id = ?`)
+    .run(data.track_condition, data.weather_notes ?? null, data.race_id);
+}
+
+export function setRaceLive(raceId: number, isLive: boolean): void {
+  getDb().prepare(`UPDATE races SET is_live = ? WHERE id = ?`).run(isLive ? 1 : 0, raceId);
 }

@@ -90,11 +90,84 @@ function migrate(db: DatabaseSync) {
       UNIQUE(driver_id, season, series)
     );
     CREATE INDEX IF NOT EXISTS idx_season_stats_driver ON driver_season_stats(driver_id);
+    CREATE TABLE IF NOT EXISTS bets (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      race_id INTEGER NOT NULL REFERENCES races(id) ON DELETE CASCADE,
+      driver_id INTEGER NOT NULL REFERENCES drivers(id) ON DELETE RESTRICT,
+      bettor_name TEXT,
+      amount REAL NOT NULL,
+      american_odds TEXT NOT NULL,
+      payout_if_win REAL NOT NULL,
+      status TEXT NOT NULL DEFAULT 'open' CHECK (status IN ('open','won','lost','void')),
+      created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+    );
+    CREATE INDEX IF NOT EXISTS idx_bets_race ON bets(race_id);
+    CREATE INDEX IF NOT EXISTS idx_bets_driver ON bets(driver_id);
+    CREATE TABLE IF NOT EXISTS race_risk_limits (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      race_id INTEGER NOT NULL UNIQUE REFERENCES races(id) ON DELETE CASCADE,
+      max_payout_per_driver REAL,
+      max_bet_size REAL,
+      alert_handle_pct REAL NOT NULL DEFAULT 0.30
+    );
+    CREATE TABLE IF NOT EXISTS bettors (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      persona TEXT NOT NULL DEFAULT 'square',
+      bankroll REAL NOT NULL DEFAULT 1000,
+      created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+    );
+    CREATE TABLE IF NOT EXISTS sim_bets (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      race_id INTEGER NOT NULL REFERENCES races(id) ON DELETE CASCADE,
+      bettor_id INTEGER NOT NULL REFERENCES bettors(id),
+      driver_id INTEGER NOT NULL REFERENCES drivers(id),
+      amount REAL NOT NULL,
+      american_odds TEXT NOT NULL,
+      payout_if_win REAL NOT NULL,
+      status TEXT NOT NULL DEFAULT 'open' CHECK (status IN ('open','won','lost','void','blocked')),
+      blocked_reason TEXT,
+      created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+    );
+    CREATE INDEX IF NOT EXISTS idx_sim_bets_race ON sim_bets(race_id);
+    CREATE INDEX IF NOT EXISTS idx_sim_bets_bettor ON sim_bets(bettor_id);
+    CREATE TABLE IF NOT EXISTS player_accounts (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL UNIQUE,
+      balance REAL NOT NULL DEFAULT 1000,
+      created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+    );
+    CREATE TABLE IF NOT EXISTS player_bets (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      account_id INTEGER NOT NULL REFERENCES player_accounts(id) ON DELETE CASCADE,
+      race_id INTEGER NOT NULL REFERENCES races(id) ON DELETE CASCADE,
+      prop_type TEXT NOT NULL DEFAULT 'win',
+      description TEXT NOT NULL,
+      driver_id INTEGER REFERENCES drivers(id),
+      driver_b_id INTEGER REFERENCES drivers(id),
+      american_odds TEXT NOT NULL,
+      stake REAL NOT NULL,
+      payout_if_win REAL NOT NULL,
+      status TEXT NOT NULL DEFAULT 'open' CHECK (status IN ('open','won','lost','void')),
+      created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+    );
+    CREATE INDEX IF NOT EXISTS idx_player_bets_account ON player_bets(account_id);
+    CREATE INDEX IF NOT EXISTS idx_player_bets_race ON player_bets(race_id);
+  `);
+  db.exec(`
+    INSERT OR IGNORE INTO bettors (id, name, persona, bankroll) VALUES
+      (1, 'The Square',      'square',       500),
+      (2, 'Chalk Charlie',   'chalk_chaser', 1000),
+      (3, 'The Contrarian',  'contrarian',   300),
+      (4, 'The Sharp',       'sharp',        1500),
+      (5, 'Tommy Two-Dollar','small_stakes', 200),
+      (6, 'Big Money Bob',   'high_roller',  2000)
   `);
   try { db.exec(`ALTER TABLE drivers ADD COLUMN mrp_driver_id INTEGER`); } catch {}
   try { db.exec(`ALTER TABLE races ADD COLUMN mrp_event_id INTEGER`); } catch {}
   try { db.exec(`ALTER TABLE race_entries ADD COLUMN qualifying_time REAL`); } catch {}
   try { db.exec(`ALTER TABLE race_entries ADD COLUMN heat_position INTEGER`); } catch {}
+  try { db.exec(`ALTER TABLE races ADD COLUMN is_live INTEGER NOT NULL DEFAULT 0`); } catch {}
 }
 
 export function getDb() {

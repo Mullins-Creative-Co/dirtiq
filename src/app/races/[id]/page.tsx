@@ -7,6 +7,10 @@ import { calculateRaceOdds, type DriverOdds } from "@/lib/odds";
 import { listDrivers } from "@/lib/drivers";
 import { AddEntryForm } from "@/components/add-entry-form";
 import { RecordResultsForm } from "@/components/record-results-form";
+import { PreRaceDataForm } from "@/components/pre-race-form";
+import { LiveConditionsForm } from "@/components/live-conditions-form";
+import { LivePolling } from "@/components/live-polling";
+import { GoLiveButton } from "@/components/go-live-button";
 
 const fmt = new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric" });
 
@@ -39,21 +43,42 @@ function ReasoningCard({ d }: { d: DriverOdds }) {
         <OddsChip odds={d.americanOdds} />
       </div>
 
-      <div className="grid grid-cols-4 sm:grid-cols-8 gap-px bg-[var(--border)]">
+      {/* Tonight's prelim banner — only shown when heat data is entered */}
+      {(r.tonightHeatPos !== null || r.tonightQtRank !== null) && (
+        <div className="flex items-center gap-4 px-4 py-2 bg-amber-500/10 border-b border-[var(--border)]">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400">Tonight</span>
+          {r.tonightQtRank !== null && (
+            <span className={`text-xs font-semibold ${r.tonightQtRank === 1 ? "text-amber-400" : r.tonightQtRank <= 3 ? "text-green-400" : "text-[var(--muted)]"}`}>
+              QT #{r.tonightQtRank}/{r.tonightQtRunners}
+            </span>
+          )}
+          {r.tonightHeatPos !== null && (
+            <span className={`text-xs font-semibold ${r.tonightHeatPos === 1 ? "text-amber-400" : r.tonightHeatPos <= 3 ? "text-green-400" : "text-[var(--muted)]"}`}>
+              Heat P{r.tonightHeatPos}
+            </span>
+          )}
+        </div>
+      )}
+
+      <div className="grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-12 gap-px bg-[var(--border)]">
         {[
-          { label: "Track W%", value: r.trackStarts > 0 ? pct(r.trackWinRate) : "—", sub: `${r.trackStarts} starts` },
-          { label: "Sim Track", value: r.similarTrackStarts > 0 ? pct(r.similarTrackWinRate) : "—", sub: `${r.similarTrackStarts} wtd` },
-          { label: "Season W%", value: pct(r.seasonWinRate), sub: `${r.seasonStarts} starts` },
-          { label: "Avg Fin", value: r.avgFinish != null ? r.avgFinish.toFixed(1) : "—", sub: "season avg" },
-          { label: "Last 5", value: r.last5AvgFinish != null ? r.last5AvgFinish.toFixed(1) : "—", sub: r.last5AvgFinish != null && r.last5AvgFinish <= 4.5 ? "🔥 hot" : r.last5AvgFinish != null && r.last5AvgFinish >= 14 ? "❄ cold" : "avg finish" },
-          { label: "QT Rate", value: pct(r.quickTimeRate), sub: "fast qual %" },
-          { label: "Heat W%", value: pct(r.heatWinRate), sub: "heat wins %" },
-          { label: "DNF Risk", value: pct(r.dnfRate), sub: r.dnfRate != null && r.dnfRate > 0.12 ? "⚠ high" : "normal" },
+          { label: "Track W%",   value: r.trackStarts > 0 ? pct(r.trackWinRate) : "—",          sub: r.trackStarts > 0 ? `${r.trackStarts} starts` : "no history",    hot: false, warn: false },
+          { label: "Last Here",  value: r.lastEventHere != null ? `P${r.lastEventHere}` : "—",   sub: r.lastEventHere === 1 ? "won it" : r.lastEventHere != null ? "last visit" : "first time", hot: r.lastEventHere === 1, warn: false },
+          { label: "Sim Trk",    value: r.similarTrackStarts > 0 ? pct(r.similarTrackWinRate) : "—", sub: `${r.similarTrackStarts} wtd`,                               hot: false, warn: false },
+          { label: "Season W%",  value: pct(r.seasonWinRate),                                    sub: `${r.seasonStarts} starts`,                                       hot: (r.seasonWinRate ?? 0) >= 0.25, warn: false },
+          { label: "Streak",     value: r.streak > 0 ? `${r.streak}` : "—",                     sub: r.streak > 0 ? r.streakType : "no streak",                        hot: r.streak >= 2, warn: false },
+          { label: "Avg Fin",    value: r.avgFinish != null ? r.avgFinish.toFixed(1) : "—",      sub: "season avg",                                                     hot: (r.avgFinish ?? 99) <= 5, warn: false },
+          { label: "Last 5",     value: r.last5AvgFinish != null ? r.last5AvgFinish.toFixed(1) : "—", sub: (r.last5AvgFinish ?? 99) <= 4.5 ? "🔥 hot" : (r.last5AvgFinish ?? 0) >= 14 ? "❄ cold" : "avg fin", hot: (r.last5AvgFinish ?? 99) <= 4.5, warn: (r.last5AvgFinish ?? 0) >= 14 },
+          { label: "Dist W%",    value: r.distanceStarts >= 2 ? pct(r.distanceWinRate) : "—",   sub: r.distanceStarts >= 2 ? `${r.distanceStarts} races` : "no data",  hot: (r.distanceWinRate ?? 0) >= 0.3, warn: false },
+          { label: "QT%",        value: pct(r.quickTimeRate),                                    sub: "season QT rate",                                                 hot: (r.quickTimeRate ?? 0) >= 0.25, warn: false },
+          { label: "Heat W%",    value: pct(r.heatWinRate),                                      sub: "heat wins",                                                      hot: (r.heatWinRate ?? 0) >= 0.45, warn: false },
+          { label: "DNF%",       value: pct(r.dnfRate),                                          sub: (r.dnfRate ?? 0) > 0.12 ? "⚠ high" : "normal",                   hot: false, warn: (r.dnfRate ?? 0) > 0.12 },
+          { label: "F+/-",       value: r.featurePlusMinus != null ? (r.featurePlusMinus >= 0 ? `+${r.featurePlusMinus.toFixed(1)}` : r.featurePlusMinus.toFixed(1)) : "—", sub: r.featurePmRaces > 0 ? `${r.featurePmRaces} races` : "pending", hot: (r.featurePlusMinus ?? -99) >= 3, warn: (r.featurePlusMinus ?? 0) <= -3 },
         ].map((stat) => (
-          <div key={stat.label} className="bg-[var(--surface)] px-3 py-3 text-center">
-            <div className="text-xs text-[var(--muted)] mb-1">{stat.label}</div>
-            <div className={`text-sm font-semibold ${stat.sub?.includes("⚠") ? "text-red-400" : "text-white"}`}>{stat.value}</div>
-            <div className="text-[10px] text-[var(--muted)] mt-0.5">{stat.sub}</div>
+          <div key={stat.label} className="bg-[var(--surface)] px-2 py-3 text-center">
+            <div className="text-[10px] text-[var(--muted)] mb-1">{stat.label}</div>
+            <div className={`text-xs font-semibold ${stat.warn ? "text-red-400" : stat.hot ? "text-green-400" : "text-white"}`}>{stat.value}</div>
+            <div className="text-[10px] text-[var(--muted)] mt-0.5 truncate">{stat.sub}</div>
           </div>
         ))}
       </div>
@@ -95,9 +120,11 @@ export default async function RacePage({ params }: { params: Promise<{ id: strin
   const availableDrivers = allDrivers.filter((d) => !entryDriverIds.has(d.id));
   const isUpcoming = race.status === "upcoming";
   const isComplete = race.status === "complete";
+  const isLive = !isComplete && !!(race as any).is_live;
 
   return (
     <div className="min-h-screen bg-[var(--background)]">
+      <LivePolling enabled={isLive} />
       <Nav />
       <main className="mx-auto max-w-7xl px-6 py-10 space-y-8">
         <div className="flex items-start justify-between gap-4">
@@ -114,9 +141,15 @@ export default async function RacePage({ params }: { params: Promise<{ id: strin
               {race.weather_notes && <><span>·</span><span>{race.weather_notes}</span></>}
             </div>
           </div>
-          <span className={`rounded-full px-3 py-1 text-sm font-semibold shrink-0 ${isComplete ? "bg-green-500/20 text-green-400" : "bg-amber-500/20 text-amber-400"}`}>
-            {isComplete ? "Complete" : "Upcoming"}
-          </span>
+          <div className="flex items-center gap-3 shrink-0">
+            <Link href={`/races/${raceId}/book`} className="rounded-full border border-[var(--border)] px-3 py-1 text-sm font-semibold text-[var(--muted)] hover:text-white hover:border-white transition-colors">
+              Book →
+            </Link>
+            {!isComplete && <GoLiveButton raceId={raceId} isLive={isLive} />}
+            <span className={`rounded-full px-3 py-1 text-sm font-semibold ${isComplete ? "bg-green-500/20 text-green-400" : isLive ? "bg-red-500/20 text-red-400" : "bg-amber-500/20 text-amber-400"}`}>
+              {isComplete ? "Complete" : isLive ? "Live" : "Upcoming"}
+            </span>
+          </div>
         </div>
 
         <div className="grid gap-6 xl:grid-cols-[1fr_340px]">
@@ -138,7 +171,7 @@ export default async function RacePage({ params }: { params: Promise<{ id: strin
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b border-[var(--border)] bg-[var(--surface-raised)]">
-                        {["Rank", "Driver", "#", "Odds", "Win%", "Track", "Sim Trk", "Season W%", "Avg Fin", "Last 5", "QT%", "DNF%", ...(isComplete ? ["Finish"] : [])].map((h) => (
+                        {["Rank", "Driver", "#", "Odds", "Win%", "Elo", "Streak", "Track", "Last Here", "Sim Trk", "Season W%", "Avg Fin", "Last 5", "Dist W%", "QT%", "DNF%", ...(isComplete ? ["Finish"] : [])].map((h) => (
                           <th key={h} className={`px-3 py-3 text-[10px] font-semibold uppercase tracking-widest text-[var(--muted)] ${["Rank","Driver","#"].includes(h) ? "text-left" : "text-right"}`}>{h}</th>
                         ))}
                       </tr>
@@ -156,8 +189,25 @@ export default async function RacePage({ params }: { params: Promise<{ id: strin
                               <OddsChip odds={d.americanOdds} />
                             </td>
                             <td className="px-3 py-2.5 text-right text-[var(--muted)] tabular-nums text-xs">{(d.impliedProbability * 100).toFixed(1)}%</td>
+                            <td className="px-3 py-2.5 text-right tabular-nums text-xs">
+                              <span className={d.eloRating >= 1600 ? "text-amber-400 font-semibold" : d.eloRating >= 1540 ? "text-green-400" : "text-[var(--muted)]"}>
+                                {d.eloRating}
+                              </span>
+                            </td>
+                            <td className="px-3 py-2.5 text-right tabular-nums text-xs">
+                              {r.streak > 0
+                                ? <span className={r.streak >= 3 ? "text-amber-400 font-bold" : r.streak >= 2 ? "text-green-400" : "text-[var(--muted)]"}>
+                                    {r.streak}{r.streakType === "win" ? "W" : r.streakType === "podium" ? "P" : "T5"}
+                                  </span>
+                                : <span className="text-slate-600">—</span>}
+                            </td>
                             <td className="px-3 py-2.5 text-right text-[var(--muted)] tabular-nums text-xs">
                               {r.trackStarts > 0 ? `${pct(r.trackWinRate)} (${r.trackStarts})` : <span className="text-slate-600">—</span>}
+                            </td>
+                            <td className="px-3 py-2.5 text-right tabular-nums text-xs">
+                              {r.lastEventHere != null
+                                ? <span className={r.lastEventHere === 1 ? "text-amber-400 font-bold" : r.lastEventHere <= 3 ? "text-green-400" : "text-[var(--muted)]"}>P{r.lastEventHere}</span>
+                                : <span className="text-slate-600">—</span>}
                             </td>
                             <td className="px-3 py-2.5 text-right text-[var(--muted)] tabular-nums text-xs">
                               {r.similarTrackStarts > 0 ? pct(r.similarTrackWinRate) : <span className="text-slate-600">—</span>}
@@ -174,6 +224,9 @@ export default async function RacePage({ params }: { params: Promise<{ id: strin
                               {r.last5AvgFinish != null
                                 ? <span className={r.last5AvgFinish <= 4.5 ? "text-green-400 font-semibold" : r.last5AvgFinish <= 9 ? "text-amber-400" : "text-[var(--muted)]"}>{r.last5AvgFinish.toFixed(1)}</span>
                                 : <span className="text-slate-600">—</span>}
+                            </td>
+                            <td className="px-3 py-2.5 text-right text-[var(--muted)] tabular-nums text-xs">
+                              {r.distanceStarts >= 2 ? pct(r.distanceWinRate) : <span className="text-slate-600">—</span>}
                             </td>
                             <td className="px-3 py-2.5 text-right text-[var(--muted)] tabular-nums text-xs">
                               {r.quickTimeRate !== null ? pct(r.quickTimeRate) : <span className="text-slate-600">—</span>}
@@ -210,13 +263,26 @@ export default async function RacePage({ params }: { params: Promise<{ id: strin
                   ))}
                 </div>
                 <p className="mt-4 text-xs text-[var(--muted)]">
-                  Model weights: track history 30% · similar-track 25% · season win% 18% · avg finish 12% · who&apos;s hot (last 5) 12% · quick time 9% · heat win rate 8% · DNF risk −12% penalty. Stats sourced from dirtrackr.com.
+                  Model weights: track history 30% · similar-track 25% · season win% 18% · avg finish 12% · who&apos;s hot (last 5) 12% · quick time 9% · heat win rate 8% · feature positions gained 10% · DNF risk −12% penalty. F+/- populates after races with MRP start data. Stats sourced from dirtrackr.com.
                 </p>
               </section>
             )}
           </div>
 
           <aside className="space-y-5">
+            {/* Live conditions — always visible, not just upcoming */}
+            <div className="rounded-2xl border border-amber-500/30 bg-[var(--surface)] p-5">
+              <div className="flex items-center justify-between mb-1">
+                <h3 className="font-semibold text-white">Track Conditions</h3>
+                <span className="text-[10px] rounded-full px-2 py-0.5 bg-amber-500/20 text-amber-400 font-semibold uppercase tracking-wide">Live</span>
+              </div>
+              <p className="text-[10px] text-[var(--muted)] mb-4">84°F · 40% humidity · clear · 5 mph WSW — update as the surface evolves</p>
+              <LiveConditionsForm
+                raceId={raceId}
+                currentCondition={race.track_condition}
+                currentNotes={race.weather_notes}
+              />
+            </div>
             {isUpcoming && (
               <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5">
                 <h3 className="font-semibold text-white mb-4">Add to Field</h3>
@@ -225,6 +291,13 @@ export default async function RacePage({ params }: { params: Promise<{ id: strin
                 ) : (
                   <AddEntryForm raceId={raceId} drivers={availableDrivers} />
                 )}
+              </div>
+            )}
+            {entries.length > 0 && (
+              <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5">
+                <h3 className="font-semibold text-white mb-1">Pre-Race Data</h3>
+                <p className="text-[10px] text-[var(--muted)] mb-4">QT = qualifying time in seconds · Heat = heat finish · Start = feature starting position</p>
+                <PreRaceDataForm raceId={raceId} entries={entries} />
               </div>
             )}
             {isUpcoming && entries.length > 0 && (

@@ -7,14 +7,68 @@ const MRP_EVENT_ID = 597630;
 interface MrpResult {
   driver_name: string;
   car_number: string;
-  position: number;
-  laps_completed: number;
+  finishing_position: number;
+  starting_position: number | null;
+  feature_plus_minus: number | null;
   dnf: boolean;
   quick_time: number | null;
 }
 
+function parseMrpResultsHtml(html: string): MrpResult[] {
+  // MRP race result tables: Finish | Start | # | Competitor | Hometown | +/-
+  // Parse all <tr> rows and extract cell text
+  const rows = html.match(/<tr[^>]*>([\s\S]*?)<\/tr>/gi) ?? [];
+  const results: MrpResult[] = [];
+  const seen = new Set<string>();
+
+  for (const row of rows) {
+    const cells = [...row.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)]
+      .map((m) => m[1].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim());
+
+    if (cells.length < 4) continue;
+
+    // Col 0: finish position (may include " DNF" suffix)
+    const rawFinish = cells[0];
+    const isDnf = /dnf/i.test(rawFinish) || /dns/i.test(rawFinish);
+    const finishPos = parseInt(rawFinish, 10);
+    if (!finishPos || isNaN(finishPos)) continue;
+
+    // Col 1: start position
+    const startPos = parseInt(cells[1], 10) || null;
+
+    // Col 2: car number (may be empty cell with an icon)
+    const carNum = cells[2] || null;
+
+    // Col 3: competitor name — strip hometown which follows a newline
+    const rawName = cells[3].split(/\r?\n/)[0].trim();
+    if (!rawName || rawName.length < 2) continue;
+
+    // Col 5: +/- (positions gained)
+    const rawPlusMinus = cells[5] ?? "";
+    const featurePlusMinus = /^-?\d+$/.test(rawPlusMinus.trim())
+      ? parseInt(rawPlusMinus.trim(), 10)
+      : null;
+
+    // Deduplicate by name+finish (multiple race sessions on same page)
+    const key = `${rawName}|${finishPos}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+
+    results.push({
+      driver_name: rawName,
+      car_number: carNum ?? "",
+      finishing_position: finishPos,
+      starting_position: startPos,
+      feature_plus_minus: featurePlusMinus,
+      dnf: isDnf,
+      quick_time: null,
+    });
+  }
+
+  return results;
+}
+
 async function fetchMrpResults(eventId: number): Promise<MrpResult[]> {
-  // MRP uses cookie-based session — try to read cached cookies
   let cookieFile = "";
   try {
     execSync("test -f /tmp/mrp3.txt", { timeout: 1000 });
@@ -22,34 +76,20 @@ async function fetchMrpResults(eventId: number): Promise<MrpResult[]> {
   } catch {}
 
   const url = `https://www.myracepass.com/events/${eventId}/races`;
-  let rawJson: string;
+  let html: string;
   try {
-    rawJson = execSync(
-      `curl -s --max-time 10 ${cookieFile} -H "Accept: application/json" "${url}"`,
+    html = execSync(
+      `curl -s --max-time 10 ${cookieFile} -A "Mozilla/5.0" "${url}"`,
       { timeout: 15000 }
     ).toString();
   } catch {
     return [];
   }
 
-  let data: unknown;
-  try { data = JSON.parse(rawJson); } catch { return []; }
+  // If HTML has no result tables, race hasn't happened yet
+  if (!/<th[^>]*>\s*Finish\s*<\/th>/i.test(html)) return [];
 
-  const results: MrpResult[] = [];
-  const rows = Array.isArray(data) ? data : (data as Record<string, unknown[]>)?.races ?? [];
-  for (const item of rows as Record<string, unknown>[]) {
-    const pos = Number(item.finishing_position ?? item.position ?? 0);
-    if (!pos) continue;
-    results.push({
-      driver_name: String(item.driver_name ?? item.name ?? ""),
-      car_number: String(item.car_number ?? item.number ?? ""),
-      position: pos,
-      laps_completed: Number(item.laps ?? item.laps_completed ?? 0),
-      dnf: Boolean(item.dnf ?? item.did_not_finish ?? false),
-      quick_time: item.quick_time ? Number(item.quick_time) : null,
-    });
-  }
-  return results;
+  return parseMrpResultsHtml(html);
 }
 
 function fuzzyMatchDriver(name: string, db: ReturnType<typeof getDb>): number | null {
@@ -76,7 +116,7 @@ export async function GET(req: NextRequest) {
   if (results.length === 0) {
     return NextResponse.json({
       synced: 0,
-      message: "No results from MRP — race may not have started or session expired",
+      message: "No results from MRP — race may not have started or login session expired",
     });
   }
 
@@ -85,25 +125,43 @@ export async function GET(req: NextRequest) {
     const driverId = fuzzyMatchDriver(r.driver_name, db);
     if (!driverId) continue;
 
-    db.prepare(`INSERT OR IGNORE INTO race_entries (race_id, driver_id, car_number) VALUES (?, ?, ?)`).run(raceId, driverId, r.car_number || null);
-    db.prepare(`UPDATE race_entries SET finishing_position = ?, dnf = ?, qualifying_time = ? WHERE race_id = ? AND driver_id = ?`)
-      .run(r.position, r.dnf ? 1 : 0, r.quick_time ?? null, raceId, driverId);
+    db.prepare(`INSERT OR IGNORE INTO race_entries (race_id, driver_id, car_number) VALUES (?, ?, ?)`)
+      .run(raceId, driverId, r.car_number || null);
+    db.prepare(`
+      UPDATE race_entries
+      SET finishing_position = ?,
+          starting_position = ?,
+          dnf = ?,
+          qualifying_time = ?
+      WHERE race_id = ? AND driver_id = ?
+    `).run(r.finishing_position, r.starting_position ?? null, r.dnf ? 1 : 0, r.quick_time ?? null, raceId, driverId);
     synced++;
   }
 
-  if (results.length > 0 && results.every((r) => r.position > 0)) {
+  if (results.length > 0) {
     db.prepare("UPDATE races SET status = 'complete' WHERE id = ?").run(raceId);
   }
 
-  return NextResponse.json({ synced, total: results.length, preview: results.slice(0, 5) });
+  return NextResponse.json({
+    synced,
+    total: results.length,
+    preview: results.slice(0, 5).map((r) => ({
+      name: r.driver_name,
+      finish: r.finishing_position,
+      start: r.starting_position,
+      plusMinus: r.feature_plus_minus,
+      dnf: r.dnf,
+    })),
+  });
 }
 
-// Manual result entry: POST { race_id, driver_name, position, dnf?, quick_time? }
+// Manual result entry: POST { race_id, driver_name, position, starting_position?, dnf?, quick_time? }
 export async function POST(req: NextRequest) {
   const body = await req.json() as {
     race_id: number;
     driver_name: string;
     position: number;
+    starting_position?: number;
     dnf?: boolean;
     quick_time?: number;
   };
@@ -115,8 +173,14 @@ export async function POST(req: NextRequest) {
   }
 
   db.prepare(`INSERT OR IGNORE INTO race_entries (race_id, driver_id) VALUES (?, ?)`).run(body.race_id, driverId);
-  db.prepare(`UPDATE race_entries SET finishing_position = ?, dnf = ?, qualifying_time = ? WHERE race_id = ? AND driver_id = ?`)
-    .run(body.position || null, body.dnf ? 1 : 0, body.quick_time ?? null, body.race_id, driverId);
+  db.prepare(`
+    UPDATE race_entries
+    SET finishing_position = ?,
+        starting_position = ?,
+        dnf = ?,
+        qualifying_time = ?
+    WHERE race_id = ? AND driver_id = ?
+  `).run(body.position || null, body.starting_position ?? null, body.dnf ? 1 : 0, body.quick_time ?? null, body.race_id, driverId);
 
   return NextResponse.json({ ok: true, driver_id: driverId });
 }
