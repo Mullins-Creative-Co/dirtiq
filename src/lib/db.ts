@@ -84,6 +84,8 @@ function migrate(db: DatabaseSync) {
       top10 INTEGER NOT NULL DEFAULT 0,
       laps_led INTEGER NOT NULL DEFAULT 0,
       dnfs INTEGER NOT NULL DEFAULT 0,
+      avg_finish REAL,
+      last5_avg_finish REAL,
       points_pos INTEGER,
       UNIQUE(driver_id, season, series)
     );

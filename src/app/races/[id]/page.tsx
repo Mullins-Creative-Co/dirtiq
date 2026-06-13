@@ -39,14 +39,16 @@ function ReasoningCard({ d }: { d: DriverOdds }) {
         <OddsChip odds={d.americanOdds} />
       </div>
 
-      <div className="grid grid-cols-3 sm:grid-cols-6 gap-px bg-[var(--border)]">
+      <div className="grid grid-cols-4 sm:grid-cols-8 gap-px bg-[var(--border)]">
         {[
-          { label: "Track W%", value: r.trackStarts > 0 ? pct(r.trackWinRate) : "No data", sub: `${r.trackStarts} starts` },
-          { label: "Sim Track W%", value: r.similarTrackStarts > 0 ? pct(r.similarTrackWinRate) : "No data", sub: `${r.similarTrackStarts} wtd starts` },
-          { label: "Season W%", value: pct(r.seasonWinRate), sub: `${r.seasonStarts} WoO starts` },
-          { label: "QT Rate", value: pct(r.quickTimeRate), sub: "quick times/starts" },
-          { label: "Heat W%", value: pct(r.heatWinRate), sub: "heat wins/starts" },
-          { label: "DNF Risk", value: pct(r.dnfRate), sub: r.dnfRate && r.dnfRate > 0.15 ? "⚠ elevated" : "normal" },
+          { label: "Track W%", value: r.trackStarts > 0 ? pct(r.trackWinRate) : "—", sub: `${r.trackStarts} starts` },
+          { label: "Sim Track", value: r.similarTrackStarts > 0 ? pct(r.similarTrackWinRate) : "—", sub: `${r.similarTrackStarts} wtd` },
+          { label: "Season W%", value: pct(r.seasonWinRate), sub: `${r.seasonStarts} starts` },
+          { label: "Avg Fin", value: r.avgFinish != null ? r.avgFinish.toFixed(1) : "—", sub: "season avg" },
+          { label: "Last 5", value: r.last5AvgFinish != null ? r.last5AvgFinish.toFixed(1) : "—", sub: r.last5AvgFinish != null && r.last5AvgFinish <= 4.5 ? "🔥 hot" : r.last5AvgFinish != null && r.last5AvgFinish >= 14 ? "❄ cold" : "avg finish" },
+          { label: "QT Rate", value: pct(r.quickTimeRate), sub: "fast qual %" },
+          { label: "Heat W%", value: pct(r.heatWinRate), sub: "heat wins %" },
+          { label: "DNF Risk", value: pct(r.dnfRate), sub: r.dnfRate != null && r.dnfRate > 0.12 ? "⚠ high" : "normal" },
         ].map((stat) => (
           <div key={stat.label} className="bg-[var(--surface)] px-3 py-3 text-center">
             <div className="text-xs text-[var(--muted)] mb-1">{stat.label}</div>
@@ -136,7 +138,7 @@ export default async function RacePage({ params }: { params: Promise<{ id: strin
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b border-[var(--border)] bg-[var(--surface-raised)]">
-                        {["Rank", "Driver", "#", "Odds", "Win%", "Track", "Sim Track", "Season", "QT%", "DNF%", ...(isComplete ? ["Finish"] : [])].map((h) => (
+                        {["Rank", "Driver", "#", "Odds", "Win%", "Track", "Sim Trk", "Season W%", "Avg Fin", "Last 5", "QT%", "DNF%", ...(isComplete ? ["Finish"] : [])].map((h) => (
                           <th key={h} className={`px-3 py-3 text-[10px] font-semibold uppercase tracking-widest text-[var(--muted)] ${["Rank","Driver","#"].includes(h) ? "text-left" : "text-right"}`}>{h}</th>
                         ))}
                       </tr>
@@ -163,10 +165,20 @@ export default async function RacePage({ params }: { params: Promise<{ id: strin
                             <td className="px-3 py-2.5 text-right text-[var(--muted)] tabular-nums text-xs">
                               {r.seasonWinRate !== null ? pct(r.seasonWinRate) : <span className="text-slate-600">—</span>}
                             </td>
+                            <td className="px-3 py-2.5 text-right tabular-nums text-xs">
+                              {r.avgFinish != null
+                                ? <span className={r.avgFinish <= 5 ? "text-green-400" : r.avgFinish <= 9 ? "text-amber-400" : "text-[var(--muted)]"}>{r.avgFinish.toFixed(1)}</span>
+                                : <span className="text-slate-600">—</span>}
+                            </td>
+                            <td className="px-3 py-2.5 text-right tabular-nums text-xs">
+                              {r.last5AvgFinish != null
+                                ? <span className={r.last5AvgFinish <= 4.5 ? "text-green-400 font-semibold" : r.last5AvgFinish <= 9 ? "text-amber-400" : "text-[var(--muted)]"}>{r.last5AvgFinish.toFixed(1)}</span>
+                                : <span className="text-slate-600">—</span>}
+                            </td>
                             <td className="px-3 py-2.5 text-right text-[var(--muted)] tabular-nums text-xs">
                               {r.quickTimeRate !== null ? pct(r.quickTimeRate) : <span className="text-slate-600">—</span>}
                             </td>
-                            <td className={`px-3 py-2.5 text-right tabular-nums text-xs ${r.dnfRate && r.dnfRate > 0.15 ? "text-red-400" : "text-[var(--muted)]"}`}>
+                            <td className={`px-3 py-2.5 text-right tabular-nums text-xs ${r.dnfRate != null && r.dnfRate > 0.12 ? "text-red-400" : "text-[var(--muted)]"}`}>
                               {r.dnfRate !== null ? pct(r.dnfRate) : <span className="text-slate-600">—</span>}
                             </td>
                             {isComplete && (
@@ -198,7 +210,7 @@ export default async function RacePage({ params }: { params: Promise<{ id: strin
                   ))}
                 </div>
                 <p className="mt-4 text-xs text-[var(--muted)]">
-                  Model weights: track history 35% · similar-track history 25% · season win% 20% · quick time rate 10% · heat win rate 10% · DNF risk −15% penalty · momentum 10% bonus
+                  Model weights: track history 30% · similar-track 25% · season win% 18% · avg finish 12% · who&apos;s hot (last 5) 12% · quick time 9% · heat win rate 8% · DNF risk −12% penalty. Stats sourced from dirtrackr.com.
                 </p>
               </section>
             )}
