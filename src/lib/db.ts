@@ -18,6 +18,7 @@ function migrate(db: DatabaseSync) {
       hometown TEXT,
       division TEXT NOT NULL DEFAULT 'Open',
       active INTEGER NOT NULL DEFAULT 1,
+      mrp_driver_id INTEGER,
       notes TEXT,
       created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
     );
@@ -30,6 +31,14 @@ function migrate(db: DatabaseSync) {
       notes TEXT,
       created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
     );
+    CREATE TABLE IF NOT EXISTS track_similars (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      track_id INTEGER NOT NULL REFERENCES tracks(id) ON DELETE CASCADE,
+      similar_track_id INTEGER NOT NULL REFERENCES tracks(id) ON DELETE CASCADE,
+      similarity_weight REAL NOT NULL DEFAULT 0.7,
+      notes TEXT,
+      UNIQUE(track_id, similar_track_id)
+    );
     CREATE TABLE IF NOT EXISTS races (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
@@ -40,6 +49,7 @@ function migrate(db: DatabaseSync) {
       track_condition TEXT NOT NULL DEFAULT 'Tacky' CHECK (track_condition IN ('Dry Slick','Tacky','Heavy','Muddy','Cushion','Groomed')),
       weather_notes TEXT,
       status TEXT NOT NULL DEFAULT 'upcoming' CHECK (status IN ('upcoming','complete','cancelled')),
+      mrp_event_id INTEGER,
       created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
     );
     CREATE INDEX IF NOT EXISTS idx_races_track ON races(track_id);
@@ -50,6 +60,8 @@ function migrate(db: DatabaseSync) {
       driver_id INTEGER NOT NULL REFERENCES drivers(id) ON DELETE RESTRICT,
       car_number TEXT,
       starting_position INTEGER,
+      qualifying_time REAL,
+      heat_position INTEGER,
       finishing_position INTEGER,
       laps_led INTEGER NOT NULL DEFAULT 0,
       dnf INTEGER NOT NULL DEFAULT 0,
@@ -59,7 +71,28 @@ function migrate(db: DatabaseSync) {
     );
     CREATE INDEX IF NOT EXISTS idx_entries_race ON race_entries(race_id);
     CREATE INDEX IF NOT EXISTS idx_entries_driver ON race_entries(driver_id);
+    CREATE TABLE IF NOT EXISTS driver_season_stats (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      driver_id INTEGER NOT NULL REFERENCES drivers(id) ON DELETE CASCADE,
+      season INTEGER NOT NULL,
+      series TEXT NOT NULL DEFAULT 'WoO Late Models',
+      starts INTEGER NOT NULL DEFAULT 0,
+      wins INTEGER NOT NULL DEFAULT 0,
+      quick_times INTEGER NOT NULL DEFAULT 0,
+      heat_wins INTEGER NOT NULL DEFAULT 0,
+      top5 INTEGER NOT NULL DEFAULT 0,
+      top10 INTEGER NOT NULL DEFAULT 0,
+      laps_led INTEGER NOT NULL DEFAULT 0,
+      dnfs INTEGER NOT NULL DEFAULT 0,
+      points_pos INTEGER,
+      UNIQUE(driver_id, season, series)
+    );
+    CREATE INDEX IF NOT EXISTS idx_season_stats_driver ON driver_season_stats(driver_id);
   `);
+  try { db.exec(`ALTER TABLE drivers ADD COLUMN mrp_driver_id INTEGER`); } catch {}
+  try { db.exec(`ALTER TABLE races ADD COLUMN mrp_event_id INTEGER`); } catch {}
+  try { db.exec(`ALTER TABLE race_entries ADD COLUMN qualifying_time REAL`); } catch {}
+  try { db.exec(`ALTER TABLE race_entries ADD COLUMN heat_position INTEGER`); } catch {}
 }
 
 export function getDb() {
