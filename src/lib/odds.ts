@@ -32,6 +32,10 @@ export interface ReasoningFactors {
   tonightHeatPos: number | null;
   tonightQtRank: number | null;        // 1 = fastest tonight
   tonightQtRunners: number;
+  // Tonight's starting position (once lineup is posted)
+  startingPosition: number | null;
+  startingPosWinRate: number | null;   // historical win rate from same bracket at this/similar tracks
+  startingPosStarts: number;
   // Qualitative
   quickTimeRate: number | null;
   heatWinRate: number | null;
@@ -60,6 +64,15 @@ function applyVig(probs: number[], vig = 0.12): number[] {
   const vigged = probs.map((p) => (p / total) * (1 + vig));
   const vigTotal = vigged.reduce((a, b) => a + b, 0);
   return vigged.map((p) => p / vigTotal);
+}
+
+// Group starting positions into brackets for historical comparison
+function startPosBracket(pos: number): { min: number; max: number; label: string } {
+  if (pos <= 3)  return { min: 1,  max: 3,   label: "pole/front-3" };
+  if (pos <= 6)  return { min: 4,  max: 6,   label: "rows 2-3" };
+  if (pos <= 10) return { min: 7,  max: 10,  label: "rows 4-5" };
+  if (pos <= 15) return { min: 11, max: 15,  label: "mid-pack" };
+  return          { min: 16, max: 9999, label: "tail-end" };
 }
 
 // Map laps to a distance bucket label
@@ -131,6 +144,18 @@ export function calculateRaceOdds(raceId: number, trackId: number): DriverOdds[]
     `SELECT COUNT(*) as n FROM race_entries WHERE race_id = ? AND heat_position IS NOT NULL`
   ).get(raceId) as { n: number }).n;
   const hasPrelimData = heatDataCount >= Math.ceil(fieldSize * 0.25);
+
+  // ── Check if tonight's starting lineup has been posted ────────────────────────
+  const lineupDataCount = (db.prepare(
+    `SELECT COUNT(*) as n FROM race_entries WHERE race_id = ? AND starting_position IS NOT NULL`
+  ).get(raceId) as { n: number }).n;
+  const hasLineup = lineupDataCount >= Math.ceil(fieldSize * 0.25);
+
+  // ── Build a map of tonight's starting positions ───────────────────────────────
+  const lineupRows = db.prepare(
+    `SELECT driver_id, starting_position FROM race_entries WHERE race_id = ? AND starting_position IS NOT NULL`
+  ).all(raceId) as Array<{ driver_id: number; starting_position: number }>;
+  const lineupMap = new Map<number, number>(lineupRows.map((r) => [r.driver_id, r.starting_position]));
 
   const results: DriverOdds[] = [];
 
@@ -214,7 +239,50 @@ export function calculateRaceOdds(raceId: number, trackId: number): DriverOdds[]
         AND re.dnf = 0 AND r.status = 'complete'
     `).get(dId) as { avg_pm: number | null; pm_starts: number };
 
-    // ── 9. Condition-specific win rate ────────────────────────────────────────
+    // ── 9. Starting position conversion (this track + similar tracks) ────────────
+    const tonightStartPos = lineupMap.get(dId) ?? null;
+    let startPosWR: number | null = null;
+    let startPosStarts = 0;
+    if (tonightStartPos !== null) {
+      const bracket = startPosBracket(tonightStartPos);
+
+      // History at this exact track from the same bracket
+      const spTrack = db.prepare(`
+        SELECT COUNT(*) as starts,
+               SUM(CASE WHEN re.finishing_position = 1 THEN 1 ELSE 0 END) as wins
+        FROM race_entries re JOIN races r ON r.id = re.race_id
+        WHERE re.driver_id = ?
+          AND r.track_id = ?
+          AND r.status = 'complete'
+          AND re.starting_position >= ? AND re.starting_position <= ?
+          AND re.finishing_position IS NOT NULL
+          AND re.race_id != ?
+      `).get(dId, trackId, bracket.min, bracket.max, raceId) as { starts: number; wins: number };
+
+      let spWStarts = spTrack.starts;
+      let spWWins = spTrack.wins;
+
+      // Also pull history at similar tracks (weighted)
+      for (const sim of similars) {
+        const sh = db.prepare(`
+          SELECT COUNT(*) as starts,
+                 SUM(CASE WHEN re.finishing_position = 1 THEN 1 ELSE 0 END) as wins
+          FROM race_entries re JOIN races r ON r.id = re.race_id
+          WHERE re.driver_id = ?
+            AND r.track_id = ?
+            AND r.status = 'complete'
+            AND re.starting_position >= ? AND re.starting_position <= ?
+            AND re.finishing_position IS NOT NULL
+        `).get(dId, sim.similar_track_id, bracket.min, bracket.max) as { starts: number; wins: number };
+        spWStarts += sh.starts * sim.similarity_weight;
+        spWWins   += sh.wins   * sim.similarity_weight;
+      }
+
+      startPosStarts = Math.round(spWStarts);
+      startPosWR = spWStarts >= 3 ? spWWins / spWStarts : null;
+    }
+
+    // ── 10. Condition-specific win rate ──────────────────────────────────────
     let condWR: number | null = null, condStarts = 0;
     if (trackCondition) {
       const cr = db.prepare(`
@@ -324,6 +392,36 @@ export function calculateRaceOdds(raceId: number, trackId: number): DriverOdds[]
       if (heatWR >= 0.45) highlights.push(`Dominant in heats — ${Math.round(heatWR * 100)}% heat win rate`);
     }
 
+    // 15 ── Starting Position (0.12 when lineup is posted) ────────────────────
+    // Blends raw grid advantage with historical conversion from that bracket.
+    // Conversion rate at this track + similar tracks anchors the adjustment —
+    // a driver who historically charges from P2 is worth more than one who fades.
+    if (hasLineup && tonightStartPos !== null) {
+      const posAdvantage = Math.max(0, (fieldSize - (tonightStartPos - 1)) / fieldSize);
+      const conversionRate = startPosWR !== null ? startPosWR : posAdvantage * 0.5; // prior when sparse
+      // Blend: 60% position advantage, 40% historical conversion
+      const startScore = 0.60 * posAdvantage + 0.40 * conversionRate;
+      score += startScore * 0.12;
+
+      const bracket = startPosBracket(tonightStartPos);
+      if (tonightStartPos === 1) {
+        highlights.push(startPosWR !== null
+          ? `Starts on the pole — ${Math.round(startPosWR * 100)}% win rate from front-3`
+          : "Starts on the pole");
+      } else if (tonightStartPos <= 3) {
+        highlights.push(startPosWR !== null
+          ? `Starts P${tonightStartPos} — ${Math.round(startPosWR * 100)}% win rate from ${bracket.label}`
+          : `Starts P${tonightStartPos} (${bracket.label})`);
+      } else if (tonightStartPos <= 6) {
+        if (startPosWR !== null && startPosWR >= 0.20)
+          highlights.push(`Strong converter from P${tonightStartPos} — ${Math.round(startPosWR * 100)}% win rate`);
+        else if (startPosWR !== null && startPosWR < 0.05 && startPosStarts >= 3)
+          warnings.push(`Rarely converts from ${bracket.label} (${Math.round(startPosWR * 100)}% in ${startPosStarts} tries)`);
+      } else if (tonightStartPos > Math.ceil(fieldSize * 0.5)) {
+        warnings.push(`Starts P${tonightStartPos} — deep in the field`);
+      }
+    }
+
     // 11 ── DNF risk penalty (-0.12 if elevated) ──────────────────────────────
     const allDnfs   = (th.dnfs || 0) + (seasonStats?.dnfs || 0);
     const allStarts = (th.starts || 0) + (seasonStats?.starts || 0);
@@ -390,6 +488,9 @@ export function calculateRaceOdds(raceId: number, trackId: number): DriverOdds[]
         tonightHeatPos,
         tonightQtRank,
         tonightQtRunners: qtRunners,
+        startingPosition: tonightStartPos,
+        startingPosWinRate: startPosWR,
+        startingPosStarts: startPosStarts,
         quickTimeRate: qtRate,
         heatWinRate: heatWR,
         distanceWinRate: distWR,

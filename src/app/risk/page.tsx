@@ -55,7 +55,7 @@ export default async function RiskPage() {
   return (
     <div className="min-h-screen bg-[var(--background)]">
       <Nav />
-      <main className="mx-auto max-w-6xl px-6 py-10 space-y-10">
+      <main className="mx-auto max-w-6xl px-4 sm:px-6 py-10 space-y-10">
 
         {/* Header */}
         <div>

@@ -11,6 +11,7 @@ import { PreRaceDataForm } from "@/components/pre-race-form";
 import { LiveConditionsForm } from "@/components/live-conditions-form";
 import { LivePolling } from "@/components/live-polling";
 import { GoLiveButton } from "@/components/go-live-button";
+import { MrpSyncPanel } from "@/components/mrp-sync-panel";
 
 const fmt = new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric" });
 
@@ -43,10 +44,18 @@ function ReasoningCard({ d }: { d: DriverOdds }) {
         <OddsChip odds={d.americanOdds} />
       </div>
 
-      {/* Tonight's prelim banner — only shown when heat data is entered */}
-      {(r.tonightHeatPos !== null || r.tonightQtRank !== null) && (
+      {/* Tonight's prelim banner — shown when lineup, heat, or QT data is entered */}
+      {(r.tonightHeatPos !== null || r.tonightQtRank !== null || r.startingPosition !== null) && (
         <div className="flex items-center gap-4 px-4 py-2 bg-amber-500/10 border-b border-[var(--border)]">
           <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400">Tonight</span>
+          {r.startingPosition !== null && (
+            <span className={`text-xs font-semibold ${r.startingPosition <= 3 ? "text-amber-400" : r.startingPosition <= 6 ? "text-green-400" : "text-[var(--muted)]"}`}>
+              Grid P{r.startingPosition}
+              {r.startingPosWinRate !== null && r.startingPosStarts >= 3 && (
+                <span className="ml-1 text-[var(--muted)]">({Math.round(r.startingPosWinRate * 100)}% W from here)</span>
+              )}
+            </span>
+          )}
           {r.tonightQtRank !== null && (
             <span className={`text-xs font-semibold ${r.tonightQtRank === 1 ? "text-amber-400" : r.tonightQtRank <= 3 ? "text-green-400" : "text-[var(--muted)]"}`}>
               QT #{r.tonightQtRank}/{r.tonightQtRunners}
@@ -74,6 +83,7 @@ function ReasoningCard({ d }: { d: DriverOdds }) {
           { label: "Heat W%",    value: pct(r.heatWinRate),                                      sub: "heat wins",                                                      hot: (r.heatWinRate ?? 0) >= 0.45, warn: false },
           { label: "DNF%",       value: pct(r.dnfRate),                                          sub: (r.dnfRate ?? 0) > 0.12 ? "⚠ high" : "normal",                   hot: false, warn: (r.dnfRate ?? 0) > 0.12 },
           { label: "F+/-",       value: r.featurePlusMinus != null ? (r.featurePlusMinus >= 0 ? `+${r.featurePlusMinus.toFixed(1)}` : r.featurePlusMinus.toFixed(1)) : "—", sub: r.featurePmRaces > 0 ? `${r.featurePmRaces} races` : "pending", hot: (r.featurePlusMinus ?? -99) >= 3, warn: (r.featurePlusMinus ?? 0) <= -3 },
+          { label: "Grid W%",    value: r.startingPosition != null ? (r.startingPosStarts >= 3 && r.startingPosWinRate != null ? pct(r.startingPosWinRate) : `P${r.startingPosition}`) : "—", sub: r.startingPosition != null ? (r.startingPosStarts >= 3 ? `${r.startingPosStarts} starts` : "sparse data") : "no lineup", hot: r.startingPosition != null && r.startingPosition <= 3, warn: r.startingPosition != null && r.startingPosition > 12 },
         ].map((stat) => (
           <div key={stat.label} className="bg-[var(--surface)] px-2 py-3 text-center">
             <div className="text-[10px] text-[var(--muted)] mb-1">{stat.label}</div>
@@ -126,7 +136,7 @@ export default async function RacePage({ params }: { params: Promise<{ id: strin
     <div className="min-h-screen bg-[var(--background)]">
       <LivePolling enabled={isLive} />
       <Nav />
-      <main className="mx-auto max-w-7xl px-6 py-10 space-y-8">
+      <main className="mx-auto max-w-7xl px-4 sm:px-6 py-10 space-y-8">
         <div className="flex items-start justify-between gap-4">
           <div>
             <Link href="/races" className="text-xs text-[var(--muted)] hover:text-white transition-colors">← Races</Link>
@@ -167,8 +177,8 @@ export default async function RacePage({ params }: { params: Promise<{ id: strin
                   Add drivers to the field to generate odds.
                 </div>
               ) : (
-                <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] overflow-hidden">
-                  <table className="w-full text-sm">
+                <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] overflow-x-auto">
+                  <table className="w-full text-sm min-w-[900px]">
                     <thead>
                       <tr className="border-b border-[var(--border)] bg-[var(--surface-raised)]">
                         {["Rank", "Driver", "#", "Odds", "Win%", "Elo", "Streak", "Track", "Last Here", "Sim Trk", "Season W%", "Avg Fin", "Last 5", "Dist W%", "QT%", "DNF%", ...(isComplete ? ["Finish"] : [])].map((h) => (
@@ -291,6 +301,18 @@ export default async function RacePage({ params }: { params: Promise<{ id: strin
                 ) : (
                   <AddEntryForm raceId={raceId} drivers={availableDrivers} />
                 )}
+              </div>
+            )}
+            {isUpcoming && (
+              <div className="rounded-2xl border border-blue-500/30 bg-[var(--surface)] p-5">
+                <div className="flex items-center justify-between mb-1">
+                  <h3 className="font-semibold text-white">MyRacePass Sync</h3>
+                  <span className="text-[10px] rounded-full px-2 py-0.5 bg-blue-500/20 text-blue-400 font-semibold uppercase tracking-wide">Live Lines</span>
+                </div>
+                <p className="text-[10px] text-[var(--muted)] mb-4">
+                  Pull heat results, QT times, and feature lineup from MRP to update the odds model.
+                </p>
+                <MrpSyncPanel raceId={raceId} mrpEventId={(race as any).mrp_event_id ?? null} />
               </div>
             )}
             {entries.length > 0 && (

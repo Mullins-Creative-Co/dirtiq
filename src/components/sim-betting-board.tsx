@@ -241,7 +241,7 @@ export function SimBettingBoard({
               {/* Quick amounts */}
               <div className="space-y-1.5">
                 <label className="block text-xs font-medium text-[var(--muted)]">Quick add</label>
-                <div className="grid grid-cols-4 gap-1.5">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
                   {[5, 10, 25, 50].map((amt) => (
                     <button
                       key={amt}

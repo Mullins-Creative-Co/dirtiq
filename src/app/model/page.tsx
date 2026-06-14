@@ -47,7 +47,7 @@ export default async function ModelPage() {
   return (
     <div className="min-h-screen bg-[var(--background)]">
       <Nav />
-      <main className="mx-auto max-w-7xl px-6 py-10 space-y-10">
+      <main className="mx-auto max-w-7xl px-4 sm:px-6 py-10 space-y-10">
 
         {/* Header */}
         <div>
@@ -103,8 +103,8 @@ export default async function ModelPage() {
               Accuracy = how often the driver best in that factor actually won
             </span>
           </h2>
-          <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] overflow-hidden">
-            <table className="w-full text-sm">
+          <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] overflow-x-auto">
+            <table className="w-full text-sm min-w-[480px]">
               <thead>
                 <tr className="border-b border-[var(--border)] bg-[var(--surface-raised)]">
                   {["Factor", "Weight", "What it measures", "Races", "Accuracy"].map((h) => (

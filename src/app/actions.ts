@@ -8,6 +8,7 @@ import {
   type PlayerAccount, type PropType,
 } from "@/lib/player-bets";
 import { extractEventId, fetchWooHtml, fetchWooRecaps, parseWooHtml, importWooResults, type WooEventSummary } from "@/lib/woo-import";
+import { fetchMrpLineup } from "@/lib/mrp-lineup";
 import { getDb } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 
@@ -308,7 +309,8 @@ export async function getOrCreateAccountAction(
 ): Promise<{ error?: string; account?: PlayerAccount }> {
   if (!name.trim()) return { error: "Name is required." };
   try {
-    const account = getOrCreateAccount(name);
+    const raw = getOrCreateAccount(name);
+    const account: PlayerAccount = { id: raw.id, name: raw.name, balance: raw.balance, created_at: raw.created_at };
     return { account };
   } catch (e) {
     return { error: e instanceof Error ? e.message : "Failed to create account." };
@@ -344,5 +346,147 @@ export async function addFundsAction(
     return {};
   } catch (e) {
     return { error: e instanceof Error ? e.message : "Failed to add funds." };
+  }
+}
+
+// ── MRP Lineup Sync ────────────────────────────────────────────────────────────
+
+export async function setMrpEventIdAction(
+  raceId: number,
+  mrpEventId: number
+): Promise<{ error?: string }> {
+  try {
+    getDb()
+      .prepare("UPDATE races SET mrp_event_id = ? WHERE id = ?")
+      .run(mrpEventId, raceId);
+    revalidatePath(`/races/${raceId}`);
+    return {};
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to save MRP event ID." };
+  }
+}
+
+export type MrpSyncResult = {
+  error?: string;
+  event_name?: string;
+  sessions?: Array<{ name: string; type: string; count: number }>;
+  updated?: number;
+  added?: number;
+  warnings?: string[];
+};
+
+export async function syncMrpLineupAction(raceId: number): Promise<MrpSyncResult> {
+  const db = getDb();
+  const race = db
+    .prepare("SELECT mrp_event_id FROM races WHERE id = ?")
+    .get(raceId) as { mrp_event_id: number | null } | undefined;
+
+  if (!race) return { error: "Race not found." };
+  if (!race.mrp_event_id) return { error: "No MRP Event ID linked to this race. Set one first." };
+
+  let lineup;
+  try {
+    lineup = await fetchMrpLineup(race.mrp_event_id);
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to fetch MRP lineup." };
+  }
+
+  if (lineup.entries.length === 0) {
+    return {
+      event_name: lineup.event_name,
+      sessions: lineup.sessions.map((s) => ({ name: s.name, type: s.type, count: s.entries.length })),
+      updated: 0,
+      added: 0,
+      warnings: lineup.warnings,
+    };
+  }
+
+  // Fuzzy driver match helper
+  function matchDriver(name: string): number | null {
+    const norm = name.trim().toLowerCase();
+    const exact = db
+      .prepare("SELECT id FROM drivers WHERE LOWER(name) = ? LIMIT 1")
+      .get(norm) as { id: number } | undefined;
+    if (exact) return exact.id;
+    const lastName = norm.split(/\s+/).pop() ?? "";
+    if (!lastName || lastName.length < 3) return null;
+    const fuzzy = db
+      .prepare("SELECT id FROM drivers WHERE LOWER(name) LIKE ? LIMIT 1")
+      .get(`%${lastName}%`) as { id: number } | undefined;
+    return fuzzy?.id ?? null;
+  }
+
+  let updated = 0;
+  let added = 0;
+
+  for (const entry of lineup.entries) {
+    const driverId = matchDriver(entry.driver_name);
+    if (!driverId) continue;
+
+    // Ensure race entry exists
+    const exists = db
+      .prepare("SELECT id FROM race_entries WHERE race_id = ? AND driver_id = ?")
+      .get(raceId, driverId) as { id: number } | undefined;
+
+    if (!exists) {
+      db.prepare(
+        "INSERT OR IGNORE INTO race_entries (race_id, driver_id, car_number) VALUES (?, ?, ?)"
+      ).run(raceId, driverId, entry.car_number ?? null);
+      added++;
+    }
+
+    // Update pre-race data — only write fields that MRP returned
+    const sets: string[] = [];
+    const vals: (number | string | null)[] = [];
+
+    if (entry.qualifying_time !== null) {
+      sets.push("qualifying_time = ?");
+      vals.push(entry.qualifying_time);
+    }
+    if (entry.heat_position !== null) {
+      sets.push("heat_position = ?");
+      vals.push(entry.heat_position);
+    }
+    if (entry.starting_position !== null) {
+      sets.push("starting_position = ?");
+      vals.push(entry.starting_position);
+    }
+    if (entry.car_number) {
+      sets.push("car_number = COALESCE(car_number, ?)");
+      vals.push(entry.car_number);
+    }
+
+    if (sets.length > 0) {
+      db.prepare(
+        `UPDATE race_entries SET ${sets.join(", ")} WHERE race_id = ? AND driver_id = ?`
+      ).run(...vals, raceId, driverId);
+      if (exists) updated++;
+    }
+  }
+
+  revalidatePath(`/races/${raceId}`);
+  revalidatePath(`/bet/${raceId}`);
+
+  return {
+    event_name: lineup.event_name,
+    sessions: lineup.sessions.map((s) => ({ name: s.name, type: s.type, count: s.entries.length })),
+    updated,
+    added,
+    warnings: lineup.warnings,
+  };
+}
+
+export async function resetPrelimDataAction(raceId: number): Promise<{ error?: string }> {
+  try {
+    getDb()
+      .prepare(
+        "UPDATE race_entries SET qualifying_time = NULL, heat_position = NULL WHERE race_id = ?"
+      )
+      .run(raceId);
+    revalidatePath(`/races/${raceId}`);
+    revalidatePath(`/bet/${raceId}`);
+    return {};
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to reset prelim data." };
   }
 }

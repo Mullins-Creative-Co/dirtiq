@@ -14,7 +14,7 @@ export default async function RacesPage() {
   return (
     <div className="min-h-screen bg-[var(--background)]">
       <Nav />
-      <main className="mx-auto max-w-6xl px-6 py-10 space-y-6">
+      <main className="mx-auto max-w-6xl px-4 sm:px-6 py-10 space-y-6">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-white">Races</h1>

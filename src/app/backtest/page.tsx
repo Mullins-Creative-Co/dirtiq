@@ -116,7 +116,7 @@ export default async function BacktestPage({
   return (
     <div className="min-h-screen bg-[var(--background)]">
       <Nav />
-      <main className="mx-auto max-w-6xl px-6 py-10 space-y-8">
+      <main className="mx-auto max-w-6xl px-4 sm:px-6 py-10 space-y-8">
 
         {/* Header */}
         <div>
@@ -179,7 +179,7 @@ export default async function BacktestPage({
             </div>
 
             {/* Model accuracy */}
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
                 { label: "Model Favorite Won", value: `${summary.favoriteWonCount}/${summary.racesRun}`, sub: `${pct(summary.favoriteWonCount / summary.racesRun)} hit rate`, note: "base rate ~10%" },
                 { label: "Winner in Top 3", value: `${summary.top3WonCount}/${summary.racesRun}`, sub: `${pct(summary.top3WonCount / summary.racesRun)} of races`, note: "base rate ~25%" },

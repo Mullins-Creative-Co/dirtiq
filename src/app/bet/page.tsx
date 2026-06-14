@@ -34,7 +34,7 @@ export default async function BetLobbyPage({
   return (
     <div className="min-h-screen bg-[var(--background)]">
       <Nav />
-      <main className="mx-auto max-w-6xl px-6 py-10 space-y-8">
+      <main className="mx-auto max-w-6xl px-4 sm:px-6 py-10 space-y-8">
 
         {/* Header */}
         <div className="flex items-start justify-between gap-4 flex-wrap">

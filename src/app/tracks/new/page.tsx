@@ -20,7 +20,7 @@ export default function NewTrackPage() {
   return (
     <div className="min-h-screen bg-[var(--background)]">
       <Nav />
-      <main className="mx-auto max-w-xl px-6 py-10">
+      <main className="mx-auto max-w-xl px-4 sm:px-6 py-10">
         <h1 className="text-2xl font-bold text-white mb-6">Add Track</h1>
         <form onSubmit={handleSubmit} className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 space-y-5">
           {error && <p className="rounded-lg bg-red-500/10 px-4 py-3 text-sm text-red-400">{error}</p>}

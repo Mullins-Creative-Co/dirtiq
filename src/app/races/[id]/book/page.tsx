@@ -138,7 +138,7 @@ export default async function BookPage({ params }: { params: Promise<{ id: strin
     <div className="min-h-screen bg-[var(--background)]">
       <LivePolling enabled={isLive} />
       <Nav />
-      <main className="mx-auto max-w-7xl px-6 py-10 space-y-8">
+      <main className="mx-auto max-w-7xl px-4 sm:px-6 py-10 space-y-8">
 
         {/* Header */}
         <div className="flex items-start justify-between gap-4 flex-wrap">
@@ -198,8 +198,8 @@ export default async function BookPage({ params }: { params: Promise<{ id: strin
                   No drivers in the field yet.
                 </div>
               ) : (
-                <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] overflow-hidden">
-                  <table className="w-full text-sm">
+                <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] overflow-x-auto">
+                  <table className="w-full text-sm min-w-[600px]">
                     <thead>
                       <tr className="border-b border-[var(--border)] bg-[var(--surface-raised)]">
                         {["Driver", "Odds", "Bets", "Handle %", "Staked", "Payout If Win", "House P&L"].map((h) => (
@@ -286,8 +286,8 @@ export default async function BookPage({ params }: { params: Promise<{ id: strin
                   Bet Ledger
                   <span className="ml-2 text-xs font-normal text-[var(--muted)]">{bets.length} bets</span>
                 </h2>
-                <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] overflow-hidden">
-                  <table className="w-full text-sm">
+                <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] overflow-x-auto">
+                  <table className="w-full text-sm min-w-[560px]">
                     <thead>
                       <tr className="border-b border-[var(--border)] bg-[var(--surface-raised)]">
                         {["#", "Bettor", "Driver", "Odds", "Stake", "To Win", "Status", ""].map((h) => (

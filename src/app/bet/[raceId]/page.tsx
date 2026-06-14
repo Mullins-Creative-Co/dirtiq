@@ -2,9 +2,10 @@ import { connection } from "next/server";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Nav } from "@/components/nav";
-import { getRace } from "@/lib/races";
+import { getRace, getRaceEntries } from "@/lib/races";
 import { getOrCreateAccount, getPlayerRaceBets, generateProps } from "@/lib/player-bets";
 import { PlayerBettingBoard } from "@/components/player-betting-board";
+import { LiveLinesPanel } from "@/components/live-lines-panel";
 
 const fmt = new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric" });
 
@@ -30,6 +31,7 @@ export default async function BetRacePage({
   const account = name ? plain(getOrCreateAccount(name)) : null;
   const existingBets = account ? plain(getPlayerRaceBets(account.id, raceId)) : [];
   const markets = plain(generateProps(raceId, race.track_id));
+  const entries = plain(getRaceEntries(raceId));
 
   const isSettled = race.status === "complete";
   const lobbyHref = account
@@ -39,7 +41,7 @@ export default async function BetRacePage({
   return (
     <div className="min-h-screen bg-[var(--background)]">
       <Nav />
-      <main className="mx-auto max-w-7xl px-6 py-10 space-y-6">
+      <main className="mx-auto max-w-7xl px-4 sm:px-6 py-10 space-y-6">
 
         {/* Breadcrumb + header */}
         <div className="flex items-start justify-between gap-4 flex-wrap">
@@ -65,6 +67,10 @@ export default async function BetRacePage({
           <div className="rounded-2xl border border-green-500/30 bg-green-500/5 px-5 py-4 text-sm text-green-400">
             This race has been settled — bets have been graded. Results are final.
           </div>
+        )}
+
+        {!isSettled && entries.length > 0 && (
+          <LiveLinesPanel raceId={raceId} entries={entries} />
         )}
 
         {markets.length === 0 ? (

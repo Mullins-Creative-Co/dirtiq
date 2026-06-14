@@ -71,7 +71,7 @@ export default async function SimPage({ params }: { params: Promise<{ id: string
   return (
     <div className="min-h-screen bg-[var(--background)]">
       <Nav />
-      <main className="mx-auto max-w-7xl px-6 py-8 space-y-8">
+      <main className="mx-auto max-w-7xl px-4 sm:px-6 py-8 space-y-8">
 
         {/* ── Header ── */}
         <div className="flex items-start justify-between gap-4 flex-wrap">
