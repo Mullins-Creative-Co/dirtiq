@@ -1,9 +1,18 @@
 import "server-only";
 import { mkdirSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { dirname, isAbsolute, join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 
-const databasePath = join(process.cwd(), "data", "dirtiq.db");
+const databaseDirectory =
+  process.env.DIRTIQ_DATABASE_DIR ?? process.env.RAILWAY_VOLUME_MOUNT_PATH ?? join(process.cwd(), "data");
+const databasePath = join(
+  isAbsolute(databaseDirectory) ? databaseDirectory : join(/* turbopackIgnore: true */ process.cwd(), databaseDirectory),
+  "dirtiq.db",
+);
+
+export function getDatabasePath() {
+  return databasePath;
+}
 
 declare global { var sqliteDatabase: DatabaseSync | undefined; }
 
