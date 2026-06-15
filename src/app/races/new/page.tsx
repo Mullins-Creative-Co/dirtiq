@@ -64,6 +64,50 @@ export default function NewRacePage() {
               </select>
             </div>
           </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-widest text-[var(--muted)] mb-1.5">Time of Day</label>
+              <select name="time_of_day" className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2.5 text-sm text-white focus:border-[var(--accent)] focus:outline-none">
+                <option value="night">Night</option>
+                <option value="afternoon">Afternoon</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-widest text-[var(--muted)] mb-1.5">Distance (laps)</label>
+              <input name="distance" type="number" min="1" className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2.5 text-sm text-white placeholder-[var(--muted)] focus:border-[var(--accent)] focus:outline-none" placeholder="e.g. 50" />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-widest text-[var(--muted)] mb-1.5">Temp (°F)</label>
+              <input name="temperature_f" type="number" step="1" className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2.5 text-sm text-white placeholder-[var(--muted)] focus:border-[var(--accent)] focus:outline-none" placeholder="e.g. 78" />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-widest text-[var(--muted)] mb-1.5">Humidity (%)</label>
+              <input name="humidity_pct" type="number" step="1" min="0" max="100" className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2.5 text-sm text-white placeholder-[var(--muted)] focus:border-[var(--accent)] focus:outline-none" placeholder="e.g. 55" />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-widest text-[var(--muted)] mb-1.5">Precip last 48h (in)</label>
+              <input name="precip_48h_in" type="number" step="0.01" min="0" className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2.5 text-sm text-white placeholder-[var(--muted)] focus:border-[var(--accent)] focus:outline-none" placeholder="e.g. 0.25" />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-widest text-[var(--muted)] mb-1.5">Water Truck Runs</label>
+              <input name="water_truck_runs" type="number" step="1" min="0" className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2.5 text-sm text-white placeholder-[var(--muted)] focus:border-[var(--accent)] focus:outline-none" placeholder="e.g. 3" />
+            </div>
+          </div>
+          <div>
+            <label className="block text-xs font-semibold uppercase tracking-widest text-[var(--muted)] mb-1.5">Groove Stage</label>
+            <select name="groove_stage" className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2.5 text-sm text-white focus:border-[var(--accent)] focus:outline-none">
+              <option value="">Unknown</option>
+              <option value="fresh">Fresh prep</option>
+              <option value="early">Early rubber</option>
+              <option value="mid">Mid-groove development</option>
+              <option value="cushion">Cushion forming</option>
+              <option value="slick">Slick/locked down</option>
+            </select>
+          </div>
           <div className="flex gap-3 pt-2">
             <button type="submit" disabled={pending || tracks.length === 0} className="flex-1 rounded-lg bg-[var(--accent)] py-2.5 text-sm font-semibold text-black disabled:opacity-50 hover:opacity-90">{pending ? "Creating…" : "Create Race"}</button>
             <button type="button" onClick={() => router.back()} className="rounded-lg border border-[var(--border)] px-4 py-2.5 text-sm font-medium text-[var(--muted)] hover:text-white">Cancel</button>

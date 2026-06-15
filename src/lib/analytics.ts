@@ -17,6 +17,7 @@ export interface ConditionBreakdown {
 }
 
 export interface DriverFactorRow {
+  driverId: number;
   name: string;
   eloRating: number;
   seasonWins: number;
@@ -228,6 +229,7 @@ export function getDriverFactorTable(): DriverFactorRow[] {
     `).get(d.id) as { starts: number; wins: number };
 
     return {
+      driverId: d.id,
       name: d.name,
       eloRating: 1500, // placeholder; real Elo would require importing computeEloRatings
       seasonWins: ss?.wins ?? 0,

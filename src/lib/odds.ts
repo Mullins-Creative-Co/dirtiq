@@ -1,6 +1,7 @@
 import "server-only";
 import { getDb } from "./db";
 import { eloWinProbabilities, getDriverEloRatings } from "./elo";
+import { getDriverSpecialtyBonus } from "./driver-specialties";
 
 export interface DriverOdds {
   driverId: number;
@@ -46,6 +47,7 @@ export interface ReasoningFactors {
   featurePmRaces: number;
   conditionWinRate: number | null;
   conditionStarts: number;
+  specialtyBonus: number;
   compositeScore: number;
   highlights: string[];
   warnings: string[];
@@ -119,9 +121,18 @@ export function calculateRaceOdds(raceId: number, trackId: number): DriverOdds[]
 
   const fieldSize = entries.length;
 
-  const similars = db.prepare(
-    `SELECT similar_track_id, similarity_weight FROM track_similars WHERE track_id = ?`
-  ).all(trackId) as Array<{ similar_track_id: number; similarity_weight: number }>;
+  // Bidirectional — find all tracks that have a similarity relationship with this track
+  const similars = db.prepare(`
+    SELECT
+      CASE WHEN track_id = ? THEN similar_track_id ELSE track_id END AS similar_track_id,
+      similarity_weight
+    FROM track_similars
+    WHERE track_id = ? OR similar_track_id = ?
+  `).all(trackId, trackId, trackId) as Array<{ similar_track_id: number; similarity_weight: number }>;
+
+  const trackMeta = db.prepare(`SELECT track_family FROM tracks WHERE id = ?`)
+    .get(trackId) as { track_family: string | null } | undefined;
+  const trackFamily = trackMeta?.track_family ?? null;
 
   const raceInfo = db.prepare(`SELECT track_condition, distance FROM races WHERE id = ?`)
     .get(raceId) as { track_condition: string; distance: number | null } | undefined;
@@ -463,6 +474,13 @@ export function calculateRaceOdds(raceId: number, trackId: number): DriverOdds[]
       else if (tonightQtRank <= 3)   highlights.push(`Top-${tonightQtRank} qualifier tonight`);
     }
 
+    // 16 ── Driver specialty bonus (manually set via Intelligence page) ─────────
+    const specialtyBonus = getDriverSpecialtyBonus(dId, trackId, trackFamily);
+    if (specialtyBonus > 0) {
+      score += specialtyBonus;
+      highlights.push(`Track specialist — ${Math.round(specialtyBonus * 100)}pt affinity bonus`);
+    }
+
     if (score <= 0) score = 0.005;
 
     results.push({
@@ -500,6 +518,7 @@ export function calculateRaceOdds(raceId: number, trackId: number): DriverOdds[]
         featurePmRaces: pmRow.pm_starts,
         conditionWinRate: condWR,
         conditionStarts: condStarts,
+        specialtyBonus,
         compositeScore: score,
         highlights,
         warnings,

@@ -45,6 +45,25 @@ export default function NewTrackPage() {
               <input name="track_length" type="number" step="0.001" min="0" className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2.5 text-sm text-white placeholder-[var(--muted)] focus:border-[var(--accent)] focus:outline-none" placeholder="e.g. 0.5" />
             </div>
           </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-widest text-[var(--muted)] mb-1.5">Clay Type</label>
+              <select name="clay_type" className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2.5 text-sm text-white focus:border-[var(--accent)] focus:outline-none">
+                <option value="">Unknown</option>
+                <option value="red">Red</option>
+                <option value="black">Black</option>
+                <option value="brown">Brown</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-widest text-[var(--muted)] mb-1.5">Banking Angle (°)</label>
+              <input name="banking_angle" type="number" step="0.5" min="0" max="90" className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2.5 text-sm text-white placeholder-[var(--muted)] focus:border-[var(--accent)] focus:outline-none" placeholder="e.g. 18" />
+            </div>
+          </div>
+          <div>
+            <label className="block text-xs font-semibold uppercase tracking-widest text-[var(--muted)] mb-1.5">Avg Caution Rate (per race)</label>
+            <input name="avg_caution_rate" type="number" step="0.1" min="0" className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2.5 text-sm text-white placeholder-[var(--muted)] focus:border-[var(--accent)] focus:outline-none" placeholder="e.g. 3.5" />
+          </div>
           <div>
             <label className="block text-xs font-semibold uppercase tracking-widest text-[var(--muted)] mb-1.5">Notes</label>
             <textarea name="notes" rows={3} className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2.5 text-sm text-white placeholder-[var(--muted)] focus:border-[var(--accent)] focus:outline-none resize-none" placeholder="Track characteristics..." />

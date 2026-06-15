@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Nav } from "@/components/nav";
 import { fetchWooRecaps } from "@/lib/woo-import";
 import { ImportEventForm } from "@/components/import-event-form";
+import { ImportStandingsForm } from "@/components/import-standings-form";
 import { getDb } from "@/lib/db";
 
 export default async function ImportPage() {
@@ -41,6 +42,19 @@ export default async function ImportPage() {
             </a>
           </p>
         </div>
+
+        {/* WoO Season Points Standings */}
+        <section className="mb-10 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6">
+          <h2 className="text-sm font-bold uppercase tracking-widest text-[var(--muted)] mb-1">Season Points Standings</h2>
+          <p className="text-xs text-[var(--muted)] mb-4">
+            Bulk-import 2026 WoO driver stats from{" "}
+            <a href="https://worldofoutlaws.com/series-points/?series=latemodels&season=2026" target="_blank" rel="noreferrer" className="text-[var(--accent)] hover:underline">
+              worldofoutlaws.com/series-points
+            </a>
+            . This seeds <strong className="text-white">driver_season_stats</strong> for all 251+ drivers — major model improvement.
+          </p>
+          <ImportStandingsForm />
+        </section>
 
         {/* Manual event URL import */}
         <section className="mb-10 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6">

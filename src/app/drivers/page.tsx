@@ -32,7 +32,9 @@ export default async function DriversPage() {
               <tbody>
                 {drivers.map((d) => (
                   <tr key={d.id} className="border-b border-[var(--border)] last:border-0 hover:bg-[var(--surface-raised)] transition-colors">
-                    <td className="px-4 py-3 font-semibold text-white">{d.name}</td>
+                    <td className="px-4 py-3 font-semibold text-white">
+                      <Link href={`/drivers/${d.id}`} className="hover:text-[var(--accent)] transition-colors">{d.name}</Link>
+                    </td>
                     <td className="px-4 py-3 text-[var(--muted)]">{d.car_number ?? "—"}</td>
                     <td className="px-4 py-3 text-[var(--muted)]">{d.division}</td>
                     <td className="px-4 py-3 text-[var(--muted)]">{d.hometown ?? "—"}</td>

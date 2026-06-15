@@ -1,13 +1,14 @@
 "use server";
-import { createDriver } from "@/lib/drivers";
-import { createTrack, listTracks } from "@/lib/tracks";
+import { createDriver, listDrivers, getDriver } from "@/lib/drivers";
+import { createTrack, listTracks, updateTrack, getTrack, getTrackSimilars, upsertTrackSimilar, removeTrackSimilar } from "@/lib/tracks";
 import { createRace, addRaceEntry, recordResult, completeRace, updatePreRaceData, updateRaceConditions, setRaceLive } from "@/lib/races";
 import { placeBet, settleBets, setRiskLimits } from "@/lib/book";
 import {
   getOrCreateAccount, addFunds, placePlayerBet, settlePlayerBets,
   type PlayerAccount, type PropType,
 } from "@/lib/player-bets";
-import { extractEventId, fetchWooHtml, fetchWooRecaps, parseWooHtml, importWooResults, type WooEventSummary } from "@/lib/woo-import";
+import { upsertDriverSpecialty, removeDriverSpecialty } from "@/lib/driver-specialties";
+import { extractEventId, fetchWooHtml, fetchWooRecaps, parseWooHtml, importWooResults, fetchWooStandings, importWooStandings, type WooEventSummary, type StandingsImportResult } from "@/lib/woo-import";
 import { fetchMrpLineup } from "@/lib/mrp-lineup";
 import { getDb } from "@/lib/db";
 import { revalidatePath } from "next/cache";
@@ -24,8 +25,10 @@ export async function createTrackAction(fd: FormData): Promise<{ error?: string;
   const name = (fd.get("name") as string)?.trim();
   if (!name) return { error: "Track name is required." };
   const lengthStr = fd.get("track_length") as string;
+  const bankingStr = fd.get("banking_angle") as string;
+  const cautionStr = fd.get("avg_caution_rate") as string;
   try {
-    return { id: createTrack({ name, location: (fd.get("location") as string) || undefined, surface_type: (fd.get("surface_type") as string) || undefined, track_length: lengthStr ? parseFloat(lengthStr) : undefined, notes: (fd.get("notes") as string) || undefined }) };
+    return { id: createTrack({ name, location: (fd.get("location") as string) || undefined, surface_type: (fd.get("surface_type") as string) || undefined, track_length: lengthStr ? parseFloat(lengthStr) : undefined, banking_angle: bankingStr ? parseFloat(bankingStr) : undefined, clay_type: (fd.get("clay_type") as string) || undefined, avg_caution_rate: cautionStr ? parseFloat(cautionStr) : undefined, notes: (fd.get("notes") as string) || undefined }) };
   } catch { return { error: "Failed to create track." }; }
 }
 
@@ -41,8 +44,12 @@ export async function createRaceAction(fd: FormData): Promise<{ error?: string; 
   if (!trackIdStr) return { error: "Track is required." };
   if (!raceDate) return { error: "Date is required." };
   const distanceStr = fd.get("distance") as string;
+  const tempStr = fd.get("temperature_f") as string;
+  const humidStr = fd.get("humidity_pct") as string;
+  const precipStr = fd.get("precip_48h_in") as string;
+  const wtStr = fd.get("water_truck_runs") as string;
   try {
-    return { id: createRace({ name, track_id: parseInt(trackIdStr, 10), race_date: raceDate, division: (fd.get("division") as string) || undefined, distance: distanceStr ? parseInt(distanceStr, 10) : undefined, track_condition: (fd.get("track_condition") as string) || undefined, weather_notes: (fd.get("weather_notes") as string) || undefined }) };
+    return { id: createRace({ name, track_id: parseInt(trackIdStr, 10), race_date: raceDate, division: (fd.get("division") as string) || undefined, distance: distanceStr ? parseInt(distanceStr, 10) : undefined, track_condition: (fd.get("track_condition") as string) || undefined, weather_notes: (fd.get("weather_notes") as string) || undefined, time_of_day: (fd.get("time_of_day") as string) || undefined, temperature_f: tempStr ? parseFloat(tempStr) : undefined, humidity_pct: humidStr ? parseFloat(humidStr) : undefined, precip_48h_in: precipStr ? parseFloat(precipStr) : undefined, water_truck_runs: wtStr ? parseInt(wtStr, 10) : undefined, groove_stage: (fd.get("groove_stage") as string) || undefined }) };
   } catch { return { error: "Failed to create race." }; }
 }
 
@@ -52,15 +59,15 @@ export async function addEntryAction(fd: FormData): Promise<{ error?: string }> 
   if (!raceIdStr || !driverIdStr) return { error: "Missing required fields." };
   const startPosStr = fd.get("starting_position") as string;
   try {
-    addRaceEntry({ race_id: parseInt(raceIdStr, 10), driver_id: parseInt(driverIdStr, 10), starting_position: startPosStr ? parseInt(startPosStr, 10) : undefined });
+    addRaceEntry({ race_id: parseInt(raceIdStr, 10), driver_id: parseInt(driverIdStr, 10), starting_position: startPosStr ? parseInt(startPosStr, 10) : undefined, engine_builder: (fd.get("engine_builder") as string) || undefined, tire_compound: (fd.get("tire_compound") as string) || undefined, crew_chief: (fd.get("crew_chief") as string) || undefined });
     return {};
   } catch { return { error: "Failed to add entry." }; }
 }
 
-export async function recordResultsAction(data: { race_id: number; results: { driver_id: number; finishing_position?: number; laps_led?: number; dnf?: boolean }[] }): Promise<{ error?: string }> {
+export async function recordResultsAction(data: { race_id: number; results: { driver_id: number; finishing_position?: number; laps_led?: number; dnf?: boolean; margin?: string; money?: number }[] }): Promise<{ error?: string }> {
   try {
     for (const r of data.results) {
-      recordResult({ race_id: data.race_id, driver_id: r.driver_id, finishing_position: r.finishing_position, laps_led: r.laps_led, dnf: r.dnf });
+      recordResult({ race_id: data.race_id, driver_id: r.driver_id, finishing_position: r.finishing_position, laps_led: r.laps_led, dnf: r.dnf, margin: r.margin, money: r.money });
     }
     completeRace(data.race_id);
     const winner = data.results.find((r) => r.finishing_position === 1 && !r.dnf);
@@ -106,15 +113,26 @@ export async function voidBetAction(betId: number): Promise<{ error?: string }> 
 export async function setRaceLiveAction(raceId: number, live: boolean): Promise<{ error?: string }> {
   try {
     setRaceLive(raceId, live);
+    // Lock prediction snapshot the first time a race goes live
+    if (live) {
+      const { calculateRaceOdds } = await import("@/lib/odds");
+      const { lockPredictions } = await import("@/lib/predictions");
+      const { getRace } = await import("@/lib/races");
+      const race = getRace(raceId);
+      if (race) {
+        const odds = calculateRaceOdds(raceId, race.track_id);
+        if (odds.length > 0) lockPredictions(raceId, odds);
+      }
+    }
     revalidatePath(`/races/${raceId}`);
     revalidatePath(`/races/${raceId}/book`);
     return {};
   } catch { return { error: "Failed to update race status." }; }
 }
 
-export async function updateConditionsAction(data: { race_id: number; track_condition: string; weather_notes: string }): Promise<{ error?: string }> {
+export async function updateConditionsAction(data: { race_id: number; track_condition: string; weather_notes: string; time_of_day?: string; temperature_f?: number | null; humidity_pct?: number | null; precip_48h_in?: number | null; water_truck_runs?: number | null; groove_stage?: string | null }): Promise<{ error?: string }> {
   try {
-    updateRaceConditions({ race_id: data.race_id, track_condition: data.track_condition, weather_notes: data.weather_notes });
+    updateRaceConditions({ race_id: data.race_id, track_condition: data.track_condition, weather_notes: data.weather_notes, time_of_day: data.time_of_day, temperature_f: data.temperature_f, humidity_pct: data.humidity_pct, precip_48h_in: data.precip_48h_in, water_truck_runs: data.water_truck_runs, groove_stage: data.groove_stage });
     return {};
   } catch { return { error: "Failed to update conditions." }; }
 }
@@ -243,6 +261,21 @@ export async function importWooEventAction(params: {
     };
   } catch (e) {
     return { error: e instanceof Error ? e.message : "Import failed." };
+  }
+}
+
+// ── WoO Points Standings import ───────────────────────────────────────────────
+
+export async function importWooStandingsAction(season: number): Promise<StandingsImportResult & { error?: string }> {
+  try {
+    const entries = await fetchWooStandings(season);
+    const result = importWooStandings(season, entries);
+    revalidatePath("/import");
+    revalidatePath("/drivers");
+    revalidatePath("/model");
+    return result;
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Standings import failed.", season, total: 0, created: 0, matched: 0, warnings: [] };
   }
 }
 
@@ -488,5 +521,235 @@ export async function resetPrelimDataAction(raceId: number): Promise<{ error?: s
     return {};
   } catch (e) {
     return { error: e instanceof Error ? e.message : "Failed to reset prelim data." };
+  }
+}
+
+// ── Track Management ──────────────────────────────────────────────────────────
+
+export async function updateTrackAction(
+  id: number,
+  data: { name?: string; location?: string; surface_type?: string; track_length?: number | null; banking_angle?: number | null; clay_type?: string | null; avg_caution_rate?: number | null; track_family?: string | null; notes?: string | null }
+): Promise<{ error?: string }> {
+  try {
+    updateTrack(id, data);
+    revalidatePath(`/tracks/${id}`);
+    revalidatePath("/tracks");
+    return {};
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to update track." };
+  }
+}
+
+export async function upsertTrackSimilarAction(
+  trackId: number, similarTrackId: number, weight: number, notes?: string
+): Promise<{ error?: string }> {
+  try {
+    upsertTrackSimilar(trackId, similarTrackId, weight, notes);
+    revalidatePath(`/tracks/${trackId}`);
+    revalidatePath(`/tracks/${similarTrackId}`);
+    return {};
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to save similarity." };
+  }
+}
+
+export async function removeTrackSimilarAction(
+  trackId: number, similarTrackId: number
+): Promise<{ error?: string }> {
+  try {
+    removeTrackSimilar(trackId, similarTrackId);
+    revalidatePath(`/tracks/${trackId}`);
+    revalidatePath(`/tracks/${similarTrackId}`);
+    return {};
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to remove similarity." };
+  }
+}
+
+// ── Driver Specialties ─────────────────────────────────────────────────────────
+
+export async function upsertDriverSpecialtyAction(data: {
+  driver_id: number;
+  track_family?: string | null;
+  track_id?: number | null;
+  bonus_score: number;
+  notes?: string | null;
+}): Promise<{ error?: string }> {
+  try {
+    upsertDriverSpecialty(data);
+    revalidatePath(`/drivers/${data.driver_id}`);
+    return {};
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to save specialty." };
+  }
+}
+
+export async function removeDriverSpecialtyAction(id: number, driverId: number): Promise<{ error?: string }> {
+  try {
+    removeDriverSpecialty(id);
+    revalidatePath(`/drivers/${driverId}`);
+    return {};
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to remove specialty." };
+  }
+}
+
+// ── AI Suggest Actions ─────────────────────────────────────────────────────────
+
+export type AISimilaritySuggestion = {
+  track_id: number;
+  track_name: string;
+  weight: number;
+  reasoning: string;
+};
+
+export type AISpecialtySuggestion = {
+  track_family: string;
+  track_id: number | null;
+  bonus_score: number;
+  reasoning: string;
+};
+
+export async function suggestTrackSimilarsAction(
+  trackId: number
+): Promise<{ error?: string; suggestions?: AISimilaritySuggestion[] }> {
+  try {
+    const Anthropic = (await import("@anthropic-ai/sdk")).default;
+    const client = new Anthropic();
+
+    const target = getTrack(trackId);
+    if (!target) return { error: "Track not found." };
+
+    const allTracks = listTracks().filter((t) => t.id !== trackId);
+    if (allTracks.length === 0) return { error: "No other tracks to compare." };
+
+    const existing = getTrackSimilars(trackId);
+    const existingIds = new Set(existing.map((e) => e.similar_track_id));
+
+    const trackList = allTracks.map((t) =>
+      `ID ${t.id}: "${t.name}" — ${t.location ?? "unknown location"}, ${t.surface_type}, ${t.track_length ? t.track_length + " mi" : "unknown length"}${t.track_family ? `, family: ${t.track_family}` : ""}`
+    ).join("\n");
+
+    const prompt = `You are an expert in dirt track late model racing track analysis. Given a target track, suggest similarity weights to other tracks based on characteristics that directly influence racing performance — specifically how well results at one track predict results at another.
+
+Similarity weights (0.0–1.0):
+- 0.85–1.0: Nearly identical style, length, and surface prep — results transfer very strongly
+- 0.60–0.84: Very similar — same length family, similar region and style
+- 0.35–0.59: Moderate similarity — shared characteristics but meaningful differences
+- 0.10–0.34: Loose similarity — different but some skill transfer
+- 0.0: No meaningful similarity
+
+Target track: "${target.name}" — ${target.location ?? "unknown location"}, ${target.surface_type}, ${target.track_length ? target.track_length + " mi" : "unknown length"}${target.track_family ? `, family: ${target.track_family}` : ""}
+
+Key factors to weigh: track length (strongest predictor of setup similarity), surface type, geographic region (affects typical soil and weather), banking style, and speed/racing groove style (bullring vs racy).
+
+Other tracks:
+${trackList}
+
+Return ONLY valid JSON in this exact format, no other text:
+{"similarities": [{"track_id": <number>, "weight": <0.0-1.0>, "reasoning": "<1 sentence>"}]}
+
+Include all ${allTracks.length} tracks with their appropriate weights.`;
+
+    const message = await client.messages.create({
+      model: "claude-opus-4-8",
+      max_tokens: 1024,
+      messages: [{ role: "user", content: prompt }],
+    });
+
+    const text = message.content[0].type === "text" ? message.content[0].text : "";
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) return { error: "AI returned unexpected format." };
+
+    const parsed = JSON.parse(jsonMatch[0]) as {
+      similarities: Array<{ track_id: number; weight: number; reasoning: string }>;
+    };
+
+    const suggestions: AISimilaritySuggestion[] = parsed.similarities
+      .map((s) => {
+        const t = allTracks.find((x) => x.id === s.track_id);
+        if (!t) return null;
+        return {
+          track_id: s.track_id,
+          track_name: t.name,
+          weight: Math.max(0, Math.min(1, s.weight)),
+          reasoning: s.reasoning,
+          existing: existingIds.has(s.track_id),
+        };
+      })
+      .filter(Boolean) as AISimilaritySuggestion[];
+
+    return { suggestions };
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "AI suggestion failed." };
+  }
+}
+
+export async function suggestDriverSpecialtiesAction(
+  driverId: number
+): Promise<{ error?: string; suggestions?: AISpecialtySuggestion[] }> {
+  try {
+    const Anthropic = (await import("@anthropic-ai/sdk")).default;
+    const client = new Anthropic();
+
+    const driver = getDriver(driverId);
+    if (!driver) return { error: "Driver not found." };
+
+    const allTracks = listTracks();
+    const trackList = allTracks.map((t) =>
+      `ID ${t.id}: "${t.name}" — ${t.location ?? "unknown"}, ${t.surface_type}, ${t.track_length ? t.track_length + " mi" : "?"}${t.track_family ? `, family: ${t.track_family}` : ""}`
+    ).join("\n");
+
+    const prompt = `You are an expert in WoO (World of Outlaws) Late Model dirt track racing. Given a driver's profile, identify which track types and specific tracks they are known to excel at — their "specialties" where their results are stronger than their overall average.
+
+Driver: ${driver.name}
+Car number: ${driver.car_number ?? "unknown"}
+Hometown: ${driver.hometown ?? "unknown"}
+Notes: ${driver.notes ?? "none"}
+
+Consider:
+1. Regional specialists — drivers near their hometown often have home-track advantages at local tracks
+2. Track style specialists — bullring experts vs big-track specialists
+3. Surface specialists — some drivers excel on drier/slicker surfaces
+4. Known historical strengths you have from training data about this driver
+
+Tracks in our database:
+${trackList}
+
+For each specialty:
+- track_family: a descriptive label like "Illinois Quarter Mile", "WV Clay Half Mile", "Midwest Bullring" — used to group similar tracks. Can be a new family not listed above.
+- track_id: specific track ID if this is a specific-track specialty (null if it applies to a family)
+- bonus_score: 0.05–0.25 (0.05 = modest edge, 0.15 = strong specialist, 0.25 = dominant home-track advantage)
+- reasoning: one sentence why
+
+Return ONLY valid JSON, no other text:
+{"specialties": [{"track_family": "<string>", "track_id": <number or null>, "bonus_score": <0.05-0.25>, "reasoning": "<1 sentence>"}]}
+
+Only include meaningful specialties (at least 1, max 5). If you have no knowledge of this driver, return {"specialties": []}.`;
+
+    const message = await client.messages.create({
+      model: "claude-opus-4-8",
+      max_tokens: 1024,
+      messages: [{ role: "user", content: prompt }],
+    });
+
+    const text = message.content[0].type === "text" ? message.content[0].text : "";
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) return { error: "AI returned unexpected format." };
+
+    const parsed = JSON.parse(jsonMatch[0]) as {
+      specialties: Array<{ track_family: string; track_id: number | null; bonus_score: number; reasoning: string }>;
+    };
+
+    const suggestions: AISpecialtySuggestion[] = parsed.specialties.map((s) => ({
+      track_family: s.track_family,
+      track_id: s.track_id,
+      bonus_score: Math.max(0.05, Math.min(0.30, s.bonus_score)),
+      reasoning: s.reasoning,
+    }));
+
+    return { suggestions };
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "AI suggestion failed." };
   }
 }

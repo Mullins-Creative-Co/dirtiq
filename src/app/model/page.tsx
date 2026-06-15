@@ -1,18 +1,23 @@
 import { connection } from "next/server";
+import Link from "next/link";
 import { Nav } from "@/components/nav";
 import { computeFactorAccuracy, computeConditionBreakdown, getDriverFactorTable } from "@/lib/analytics";
+import { calculateRaceOdds } from "@/lib/odds";
+import { listRaces, getRace } from "@/lib/races";
+import { RaceOddsBreakdown } from "@/components/race-odds-breakdown";
+import { RacePicker } from "@/components/race-picker";
 
 function pct(n: number | null, decimals = 0) {
   if (n === null) return "—";
   return `${(n * 100).toFixed(decimals)}%`;
 }
 
-function AccuracyBar({ value, max = 1 }: { value: number | null; max?: number }) {
-  if (value === null) return <span className="text-xs text-slate-600 italic">need more data</span>;
-  const w = Math.round((value / max) * 100);
+function AccuracyBar({ value }: { value: number | null }) {
+  if (value === null) return <span className="text-xs text-slate-600 italic">need data</span>;
+  const w = Math.round(value * 100);
   const color = value >= 0.6 ? "bg-green-500" : value >= 0.4 ? "bg-amber-500" : "bg-slate-600";
   return (
-    <div className="flex items-center gap-2 min-w-0">
+    <div className="flex items-center gap-2">
       <div className="h-2 w-24 rounded-full bg-slate-800 shrink-0">
         <div className={`h-2 rounded-full ${color}`} style={{ width: `${w}%` }} />
       </div>
@@ -37,12 +42,33 @@ function WeightBar({ weight }: { weight: string }) {
   );
 }
 
-export default async function ModelPage() {
+export default async function ModelPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ race?: string }>;
+}) {
   await connection();
+  const { race: raceParam } = await searchParams;
+
+  const plain = <T,>(x: T): T => JSON.parse(JSON.stringify(x));
+
+  const allRaces = plain(listRaces());
+  const selectedRaceId = raceParam ? parseInt(raceParam, 10) : null;
+  const selectedRace = selectedRaceId ? getRace(selectedRaceId) : null;
+
+  let odds: ReturnType<typeof calculateRaceOdds> = [];
+  if (selectedRace) {
+    try {
+      odds = plain(calculateRaceOdds(selectedRace.id, selectedRace.track_id));
+    } catch {}
+  }
 
   const factorAccuracy = computeFactorAccuracy();
   const conditions = computeConditionBreakdown();
   const driverTable = getDriverFactorTable();
+
+  // Default to most recent upcoming race if none selected
+  const defaultRace = allRaces.find((r) => r.status === "upcoming") ?? allRaces[0] ?? null;
 
   return (
     <div className="min-h-screen bg-[var(--background)]">
@@ -50,58 +76,106 @@ export default async function ModelPage() {
       <main className="mx-auto max-w-7xl px-4 sm:px-6 py-10 space-y-10">
 
         {/* Header */}
-        <div>
-          <div className="flex items-center gap-3 mb-1">
-            <h1 className="text-3xl font-bold text-white">Model Training</h1>
-            <span className="rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-400 text-xs font-semibold px-3 py-1">Not predictions</span>
+        <div className="flex items-start justify-between gap-4 flex-wrap">
+          <div>
+            <h1 className="text-3xl font-bold text-white">Odds Intelligence</h1>
+            <p className="mt-1 text-sm text-[var(--muted)] max-w-2xl">
+              Select a race to see the full breakdown — every scoring factor, its weight, and exactly why each driver is priced the way they are.
+            </p>
           </div>
-          <p className="mt-1 text-sm text-[var(--muted)] max-w-2xl">
-            This is the training and validation layer — factor weights, historical accuracy, and what the data says about each signal.
-            Actual race predictions (odds boards) live under <a href="/races" className="text-amber-400 hover:underline">Races</a>.
-          </p>
+          {defaultRace && !selectedRaceId && (
+            <Link
+              href={`/model?race=${defaultRace.id}`}
+              className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-bold text-black hover:opacity-90 transition-opacity"
+            >
+              View {defaultRace.name} →
+            </Link>
+          )}
+        </div>
+
+        {/* Race picker */}
+        <RacePicker races={allRaces} selectedId={selectedRaceId} />
+
+        {/* Odds breakdown for selected race */}
+        {selectedRace ? (
+          <section className="space-y-4">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h2 className="text-xl font-bold text-white">{selectedRace.name}</h2>
+                <p className="text-sm text-[var(--muted)] mt-0.5">
+                  {selectedRace.track_name} · {selectedRace.race_date} · {selectedRace.track_condition} · {odds.length} drivers
+                </p>
+              </div>
+              <div className="flex gap-2 shrink-0">
+                <Link href={`/races/${selectedRace.id}`}
+                  className="text-xs border border-[var(--border)] rounded-lg px-3 py-1.5 text-[var(--muted)] hover:text-white transition-colors">
+                  Race page →
+                </Link>
+                <Link href={`/bet/${selectedRace.id}`}
+                  className="text-xs border border-[var(--border)] rounded-lg px-3 py-1.5 text-[var(--muted)] hover:text-white transition-colors">
+                  Bet page →
+                </Link>
+              </div>
+            </div>
+
+            {odds.length === 0 ? (
+              <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-6 py-12 text-center">
+                <p className="text-[var(--muted)] text-sm">No drivers entered for this race yet.</p>
+                <Link href={`/races/${selectedRace.id}`} className="mt-2 inline-block text-xs text-[var(--accent)] hover:underline">
+                  Add drivers to the race →
+                </Link>
+              </div>
+            ) : (
+              <RaceOddsBreakdown odds={odds} fieldSize={odds.length} />
+            )}
+          </section>
+        ) : (
+          /* Landing state — no race selected */
+          <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-6 py-12 text-center space-y-3">
+            <p className="text-white font-semibold">Select a race above to see the full odds breakdown</p>
+            <p className="text-sm text-[var(--muted)] max-w-md mx-auto">
+              Each driver card shows all 16 scoring factors — track history, season form, tonight's heat results, driver specialties, and the Elo blend — with their exact contribution to the final odds.
+            </p>
+            {defaultRace && (
+              <Link href={`/model?race=${defaultRace.id}`}
+                className="inline-block rounded-lg bg-[var(--accent)] px-5 py-2.5 text-sm font-bold text-black hover:opacity-90 transition-opacity">
+                View {defaultRace.name}
+              </Link>
+            )}
+          </div>
+        )}
+
+        {/* Divider */}
+        <div className="border-t border-[var(--border)] pt-2">
+          <p className="text-xs uppercase tracking-widest text-slate-600 font-semibold">Model Calibration</p>
         </div>
 
         {/* How the model works */}
         <section className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 space-y-4">
-          <h2 className="text-base font-semibold text-white">How Odds Are Built</h2>
+          <h2 className="text-base font-semibold text-white">Scoring Architecture</h2>
           <div className="grid sm:grid-cols-2 gap-4 text-sm text-[var(--muted)]">
             <div className="space-y-2">
-              <p>
-                dirtIQ blends two independent signals: a <strong className="text-white">composite score</strong> built
-                from track/season stats (55% weight) and an <strong className="text-white">Elo rating</strong> seeded
-                from dirtlatemodel.com and updated with every race result (45% weight).
-              </p>
-              <p>
-                This prevents either signal from dominating: Elo provides broad historical context
-                while the composite score captures recent form, track-specific history, and
-                tonight&apos;s surface conditions.
-              </p>
+              <p>16 factors are weighted into a <strong className="text-white">composite score</strong> (track/season/prelim stats). This blends with an <strong className="text-white">Elo rating</strong> at 45/55 normally, shifting to 30/70 once heat data is entered for ≥25% of the field.</p>
+              <p>Driver <strong className="text-amber-400">specialties</strong> (set via Drivers page or AI Suggest) add a flat bonus before the Elo blend — useful for regional specialists where historical data is sparse.</p>
             </div>
             <div className="space-y-2">
-              <p>
-                Raw scores are converted to win probabilities, then a <strong className="text-white">12% vig</strong> is
-                applied — matching standard sportsbook overround — to produce American odds.
-              </p>
-              <p>
-                Feature Plus/Minus (positions gained in features) is tracked per driver and will
-                gain weight as we accumulate starting-position data from MRP race syncs.
-              </p>
+              <p>Track <strong className="text-amber-400">similarity weights</strong> (set via Tracks page or AI Suggest) make this track's historical results count at other similar tracks — bidirectional.</p>
+              <p>A <strong className="text-white">12% vig</strong> is applied to raw win probabilities to produce American odds. Prop bets (top-3, H2H, DNF) de-vig the win probs first before applying their own vig.</p>
             </div>
           </div>
-          <div className="flex flex-wrap gap-3 pt-2 text-xs text-[var(--muted)]">
-            <span className="rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 px-3 py-1">55% Composite (track + season stats)</span>
-            <span className="rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 px-3 py-1">45% Elo (DLM-seeded, race-updated)</span>
-            <span className="rounded-full bg-slate-700/50 border border-slate-600 px-3 py-1">12% vig applied</span>
+          <div className="flex flex-wrap gap-2 pt-1 text-xs">
+            <span className="rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 px-3 py-1">55% Composite</span>
+            <span className="rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 px-3 py-1">45% Elo</span>
+            <span className="rounded-full bg-blue-500/20 border border-blue-500/40 text-blue-300 px-3 py-1 font-semibold">→ 70% Composite when heat data set</span>
+            <span className="rounded-full bg-slate-700/50 border border-slate-600 text-slate-300 px-3 py-1">12% vig</span>
           </div>
         </section>
 
         {/* Factor weights + accuracy */}
         <section>
           <h2 className="text-base font-semibold text-white mb-4">
-            Factor Weights &amp; Predictive Accuracy
-            <span className="ml-2 text-xs font-normal text-[var(--muted)]">
-              Accuracy = how often the driver best in that factor actually won
-            </span>
+            Factor Weights &amp; Historical Accuracy
+            <span className="ml-2 text-xs font-normal text-[var(--muted)]">how often does the #1 driver on each factor actually win?</span>
           </h2>
           <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] overflow-x-auto">
             <table className="w-full text-sm min-w-[480px]">
@@ -121,41 +195,25 @@ export default async function ModelPage() {
                     <td className="px-4 py-3 text-center text-[var(--muted)] text-xs tabular-nums">
                       {f.racesWithData > 0 ? `${f.timesTopPickWon}/${f.racesWithData}` : "—"}
                     </td>
-                    <td className="px-4 py-3 flex justify-center">
-                      <AccuracyBar value={f.accuracy} />
-                    </td>
+                    <td className="px-4 py-3"><div className="flex justify-center"><AccuracyBar value={f.accuracy} /></div></td>
                   </tr>
                 ))}
-                {/* Elo row */}
-                <tr className="border-b border-[var(--border)] last:border-0 bg-blue-500/5 hover:bg-blue-500/10 transition-colors">
-                  <td className="px-4 py-3 font-medium text-blue-300 whitespace-nowrap">Elo Rating</td>
+                <tr className="border-b border-[var(--border)] bg-blue-500/5">
+                  <td className="px-4 py-3 font-medium text-blue-300">Elo Rating</td>
                   <td className="px-4 py-3"><WeightBar weight="45% blend" /></td>
-                  <td className="px-4 py-3 text-[var(--muted)] text-xs">DLM-seeded skill rating updated pairwise after every race result</td>
-                  <td className="px-4 py-3 text-center text-[var(--muted)] text-xs tabular-nums">all races</td>
-                  <td className="px-4 py-3 flex justify-center"><span className="text-xs text-blue-400">blended signal</span></td>
-                </tr>
-                <tr className="last:border-0 bg-slate-800/30 hover:bg-[var(--surface-raised)] transition-colors">
-                  <td className="px-4 py-3 font-medium text-slate-400 whitespace-nowrap">Feature +/−</td>
-                  <td className="px-4 py-3"><WeightBar weight="5%" /></td>
-                  <td className="px-4 py-3 text-[var(--muted)] text-xs">Avg positions gained in features — grows as MRP start data accumulates</td>
-                  <td className="px-4 py-3 text-center text-slate-600 text-xs">no data yet</td>
-                  <td className="px-4 py-3 flex justify-center"><span className="text-xs text-slate-600 italic">pending</span></td>
+                  <td className="px-4 py-3 text-[var(--muted)] text-xs">DLM-seeded, updated pairwise after every result</td>
+                  <td className="px-4 py-3 text-center text-[var(--muted)] text-xs">all races</td>
+                  <td className="px-4 py-3"><div className="flex justify-center"><span className="text-xs text-blue-400">blended signal</span></div></td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <p className="mt-2 text-xs text-[var(--muted)]">
-            Accuracy uses only completed races with ≥3 data points per factor. Low sample sizes (shown as "—") mean accuracy isn't statistically meaningful yet.
-          </p>
         </section>
 
-        {/* Track condition breakdown */}
+        {/* Condition breakdown */}
         {conditions.length > 0 && (
           <section>
-            <h2 className="text-base font-semibold text-white mb-4">
-              Winners by Track Condition
-              <span className="ml-2 text-xs font-normal text-[var(--muted)]">which drivers perform best on each surface</span>
-            </h2>
+            <h2 className="text-base font-semibold text-white mb-4">Winners by Track Condition</h2>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {conditions.map((c) => (
                 <div key={c.condition} className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5">
@@ -164,7 +222,7 @@ export default async function ModelPage() {
                     <span className="text-xs text-[var(--muted)]">{c.races} race{c.races !== 1 ? "s" : ""}</span>
                   </div>
                   {c.topDrivers.length === 0 ? (
-                    <p className="text-xs text-[var(--muted)]">No wins recorded yet.</p>
+                    <p className="text-xs text-[var(--muted)]">No wins recorded.</p>
                   ) : (
                     <div className="space-y-1.5">
                       {c.topDrivers.map((d) => (
@@ -172,17 +230,12 @@ export default async function ModelPage() {
                           <span className="text-white">{d.name}</span>
                           <div className="flex items-center gap-2 text-xs text-[var(--muted)] tabular-nums">
                             <span className="text-amber-400 font-semibold">{d.wins}W</span>
-                            <span>/ {d.starts} starts</span>
+                            <span>/ {d.starts}</span>
                             <span className="text-slate-600">({Math.round((d.wins / d.starts) * 100)}%)</span>
                           </div>
                         </div>
                       ))}
                     </div>
-                  )}
-                  {c.races < 5 && (
-                    <p className="mt-3 text-[10px] text-slate-600 italic">
-                      Small sample — add more races with this condition to improve reliability.
-                    </p>
                   )}
                 </div>
               ))}
@@ -193,10 +246,12 @@ export default async function ModelPage() {
         {/* Driver factor table */}
         {driverTable.length > 0 && (
           <section>
-            <h2 className="text-base font-semibold text-white mb-4">
-              Driver Factor Breakdown
-              <span className="ml-2 text-xs font-normal text-[var(--muted)]">2026 WoO Late Model season stats</span>
-            </h2>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-base font-semibold text-white">
+                Driver Season Stats
+                <span className="ml-2 text-xs font-normal text-[var(--muted)]">feeds the model — import more via <Link href="/import" className="text-[var(--accent)] hover:underline">WoO Import</Link></span>
+              </h2>
+            </div>
             <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] overflow-hidden overflow-x-auto">
               <table className="w-full text-sm whitespace-nowrap">
                 <thead>
@@ -213,7 +268,9 @@ export default async function ModelPage() {
                       const winRate = d.seasonStarts > 0 ? d.seasonWins / d.seasonStarts : 0;
                       return (
                         <tr key={d.name} className="border-b border-[var(--border)] last:border-0 hover:bg-[var(--surface-raised)] transition-colors">
-                          <td className="px-3 py-2.5 font-medium text-white">{d.name}</td>
+                          <td className="px-3 py-2.5 font-medium text-white">
+                            <Link href={`/drivers/${d.driverId ?? "#"}`} className="hover:text-[var(--accent)] transition-colors">{d.name}</Link>
+                          </td>
                           <td className="px-3 py-2.5 text-right text-[var(--muted)] tabular-nums">{d.seasonStarts}</td>
                           <td className="px-3 py-2.5 text-right tabular-nums">
                             <span className={d.seasonWins > 0 ? "text-amber-400 font-semibold" : "text-[var(--muted)]"}>{d.seasonWins}</span>
@@ -246,24 +303,6 @@ export default async function ModelPage() {
             </div>
           </section>
         )}
-
-        {/* What we're building toward */}
-        <section className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6">
-          <h2 className="text-base font-semibold text-white mb-3">Factors Planned — More Data Needed</h2>
-          <div className="grid sm:grid-cols-2 gap-3 text-sm text-[var(--muted)]">
-            {[
-              { name: "Feature +/−", desc: "Positions gained/lost per race. Populates after MRP syncs with start data. Drivers who consistently charge from mid-pack get a bonus." },
-              { name: "Condition Win Rate", desc: "Win rate by surface condition (Tacky, Dry Slick, Cushion, etc.). Currently all tracked data is Tacky. Differentiation comes with more tagged races." },
-              { name: "Weather Correlation", desc: "Precip/humidity in the 24hrs before a race affects track moisture. Will integrate Weather Underground data per race date once we have enough race history." },
-              { name: "Track Rubber Buildup", desc: "Rubber accumulates across events at the same track — lap times and groove change. Will model as events-since-last-prep once track prep calendar is mapped." },
-            ].map((item) => (
-              <div key={item.name} className="space-y-1">
-                <div className="text-xs font-semibold text-slate-400 uppercase tracking-wide">{item.name}</div>
-                <div className="text-xs leading-relaxed">{item.desc}</div>
-              </div>
-            ))}
-          </div>
-        </section>
 
       </main>
     </div>

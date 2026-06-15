@@ -26,9 +26,9 @@ export default async function TracksPage() {
         ) : (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {tracks.map((t) => (
-              <div key={t.id} className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 space-y-3">
+              <div key={t.id} className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 space-y-3 hover:border-[var(--accent)]/40 transition-colors">
                 <div>
-                  <p className="font-semibold text-white">{t.name}</p>
+                  <Link href={`/tracks/${t.id}`} className="font-semibold text-white hover:text-[var(--accent)] transition-colors">{t.name}</Link>
                   {t.location && <p className="text-xs text-[var(--muted)] mt-0.5">{t.location}</p>}
                 </div>
                 <div className="flex gap-4 text-xs">

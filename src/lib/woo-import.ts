@@ -234,6 +234,126 @@ function findDriverId(name: string, drivers: Array<{ id: number; name: string }>
 
 // ── DB import ─────────────────────────────────────────────────────────────────
 
+// ── WoO Series Points standings importer ────────────────────────────────────
+
+export type StandingsEntry = {
+  pos: number;
+  car_number: string;
+  driver_name: string;
+  hometown: string;
+  points: number;
+  starts: number;
+  wins: number;
+  top5: number;
+  top10: number;
+};
+
+export type StandingsImportResult = {
+  season: number;
+  total: number;
+  created: number;
+  matched: number;
+  warnings: string[];
+};
+
+export async function fetchWooStandings(season: number): Promise<StandingsEntry[]> {
+  const url = `https://worldofoutlaws.com/series-points/?series=latemodels&season=${season}`;
+  const res = await fetch(url, {
+    headers: {
+      "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+      Accept: "text/html,application/xhtml+xml",
+    },
+    signal: AbortSignal.timeout(15000),
+  });
+  if (!res.ok) throw new Error(`WoO standings returned HTTP ${res.status}`);
+  const html = await res.text();
+  return parseStandingsHtml(html);
+}
+
+function parseStandingsHtml(html: string): StandingsEntry[] {
+  const entries: StandingsEntry[] = [];
+
+  // Find the main standings table rows
+  const rowRegex = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
+  let rowMatch: RegExpExecArray | null;
+
+  while ((rowMatch = rowRegex.exec(html)) !== null) {
+    const rowHtml = rowMatch[1];
+    const cells: string[] = [];
+    const cellRegex = /<td[^>]*>([\s\S]*?)<\/td>/gi;
+    let cellMatch: RegExpExecArray | null;
+    while ((cellMatch = cellRegex.exec(rowHtml)) !== null) {
+      cells.push(stripHtml(cellMatch[1]).trim());
+    }
+
+    // Columns: Pos | No. | Driver | Hometown | Points | Gap | Starts | Wins | Top5s | Top10s
+    if (cells.length < 10) continue;
+
+    const pos = parseInt(cells[0], 10);
+    if (isNaN(pos) || pos < 1) continue;
+
+    const carNum = cells[1];
+    const driverName = cells[2];
+    const hometown = cells[3];
+    const points = parseInt(cells[4].replace(/,/g, ""), 10) || 0;
+    // cells[5] = Gap (skip)
+    const starts = parseInt(cells[6], 10) || 0;
+    const wins = parseInt(cells[7], 10) || 0;
+    const top5 = parseInt(cells[8], 10) || 0;
+    const top10 = parseInt(cells[9], 10) || 0;
+
+    if (!driverName || driverName.length < 2) continue;
+
+    entries.push({ pos, car_number: carNum, driver_name: driverName, hometown, points, starts, wins, top5, top10 });
+  }
+
+  return entries;
+}
+
+export function importWooStandings(season: number, entries: StandingsEntry[]): StandingsImportResult {
+  const db = getDb();
+  const warnings: string[] = [];
+  let created = 0, matched = 0;
+
+  const allDrivers = db.prepare("SELECT id, name, hometown FROM drivers").all() as Array<{ id: number; name: string; hometown: string | null }>;
+
+  for (const entry of entries) {
+    let driverId = findDriverId(entry.driver_name, allDrivers);
+
+    if (!driverId) {
+      const r = db.prepare(
+        `INSERT INTO drivers (name, car_number, division, hometown) VALUES (?, ?, 'WoO Late Models', ?)`
+      ).run(entry.driver_name, entry.car_number || null, entry.hometown || null);
+      driverId = r.lastInsertRowid as number;
+      allDrivers.push({ id: driverId, name: entry.driver_name, hometown: entry.hometown || null });
+      created++;
+    } else {
+      // Update car number and hometown if missing
+      db.prepare(`UPDATE drivers SET car_number = COALESCE(car_number, ?), hometown = COALESCE(hometown, ?) WHERE id = ?`)
+        .run(entry.car_number || null, entry.hometown || null, driverId);
+      matched++;
+    }
+
+    // Upsert season stats
+    db.prepare(`
+      INSERT INTO driver_season_stats (driver_id, season, series, starts, wins, top5, top10, points_pos)
+      VALUES (?, ?, 'WoO Late Models', ?, ?, ?, ?, ?)
+      ON CONFLICT(driver_id, season, series) DO UPDATE SET
+        starts = excluded.starts,
+        wins = excluded.wins,
+        top5 = excluded.top5,
+        top10 = excluded.top10,
+        points_pos = excluded.points_pos
+    `).run(driverId, season, entry.starts, entry.wins, entry.top5, entry.top10, entry.pos);
+  }
+
+  if (entries.length === 0) warnings.push("No entries found — the page may use JavaScript rendering");
+
+  return { season, total: entries.length, created, matched, warnings };
+}
+
+// ── WoO event results importer ────────────────────────────────────────────────
+
 export function importWooResults(raceId: number, event: ParsedEvent): ImportResult {
   const db = getDb();
   const warnings: string[] = [];

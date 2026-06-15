@@ -3,8 +3,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { recordResultsAction } from "@/app/actions";
 
-type Entry = { race_id: number; driver_id: number; driver_name: string; finishing_position: number | null; laps_led: number; dnf: number };
-type RowState = { pos: string; laps: string; dnf: boolean };
+type Entry = { race_id: number; driver_id: number; driver_name: string; finishing_position: number | null; laps_led: number; dnf: number; margin: string | null; money: number | null };
+type RowState = { pos: string; laps: string; dnf: boolean; margin: string; money: string };
 
 export function RecordResultsForm({ raceId, entries }: { raceId: number; entries: Entry[] }) {
   const router = useRouter();
@@ -15,6 +15,8 @@ export function RecordResultsForm({ raceId, entries }: { raceId: number; entries
       pos: e.finishing_position?.toString() ?? "",
       laps: e.laps_led > 0 ? e.laps_led.toString() : "",
       dnf: e.dnf === 1,
+      margin: e.margin ?? "",
+      money: e.money != null ? e.money.toString() : "",
     }]))
   );
 
@@ -32,6 +34,8 @@ export function RecordResultsForm({ raceId, entries }: { raceId: number; entries
           finishing_position: r.dnf ? undefined : parseInt(r.pos, 10) || undefined,
           laps_led: parseInt(r.laps, 10) || undefined,
           dnf: r.dnf,
+          margin: r.margin.trim() || undefined,
+          money: parseInt(r.money, 10) || undefined,
         };
       });
       const result = await recordResultsAction({ race_id: raceId, results: payload });
@@ -43,28 +47,37 @@ export function RecordResultsForm({ raceId, entries }: { raceId: number; entries
     <form onSubmit={handleSubmit} className="space-y-3">
       {error && <p className="text-xs text-red-400">{error}</p>}
 
-      {/* Column headers */}
-      <div className="grid grid-cols-[1fr_44px_52px_42px] gap-1.5 px-1">
+      <div className="grid grid-cols-[1fr_40px_48px_60px_60px_36px] gap-1.5 px-1">
         <span className="text-[10px] uppercase tracking-widest text-[var(--muted)]">Driver</span>
         <span className="text-[10px] uppercase tracking-widest text-[var(--muted)] text-right">Pos</span>
-        <span className="text-[10px] uppercase tracking-widest text-[var(--muted)] text-right">Laps Led</span>
+        <span className="text-[10px] uppercase tracking-widest text-[var(--muted)] text-right">Laps</span>
+        <span className="text-[10px] uppercase tracking-widest text-[var(--muted)] text-right">Margin</span>
+        <span className="text-[10px] uppercase tracking-widest text-[var(--muted)] text-right">Money</span>
         <span className="text-[10px] uppercase tracking-widest text-[var(--muted)] text-right">DNF</span>
       </div>
 
-      <div className="space-y-1.5 max-h-72 overflow-y-auto pr-1">
+      <div className="space-y-1.5 max-h-96 overflow-y-auto pr-1">
         {entries.map((entry) => {
           const r = results[entry.driver_id];
           return (
-            <div key={entry.driver_id} className="grid grid-cols-[1fr_44px_52px_42px] gap-1.5 items-center">
+            <div key={entry.driver_id} className="grid grid-cols-[1fr_40px_48px_60px_60px_36px] gap-1.5 items-center">
               <span className="text-xs text-white truncate">{entry.driver_name}</span>
               <input type="number" min="1" placeholder="1" disabled={r.dnf}
                 value={r.pos}
                 onChange={(ev) => set(entry.driver_id, "pos", ev.target.value)}
-                className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-2 py-1.5 text-xs text-white text-right tabular-nums disabled:opacity-40 placeholder:text-slate-600 focus:border-[var(--accent)] focus:outline-none" />
+                className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-1.5 py-1.5 text-xs text-white text-right tabular-nums disabled:opacity-40 placeholder:text-slate-600 focus:border-[var(--accent)] focus:outline-none" />
               <input type="number" min="0" placeholder="0" disabled={r.dnf}
                 value={r.laps}
                 onChange={(ev) => set(entry.driver_id, "laps", ev.target.value)}
-                className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-2 py-1.5 text-xs text-white text-right tabular-nums disabled:opacity-40 placeholder:text-slate-600 focus:border-[var(--accent)] focus:outline-none" />
+                className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-1.5 py-1.5 text-xs text-white text-right tabular-nums disabled:opacity-40 placeholder:text-slate-600 focus:border-[var(--accent)] focus:outline-none" />
+              <input type="text" placeholder="-1.2s" disabled={r.dnf}
+                value={r.margin}
+                onChange={(ev) => set(entry.driver_id, "margin", ev.target.value)}
+                className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-1.5 py-1.5 text-xs text-white text-right disabled:opacity-40 placeholder:text-slate-600 focus:border-[var(--accent)] focus:outline-none" />
+              <input type="number" min="0" placeholder="$" disabled={r.dnf}
+                value={r.money}
+                onChange={(ev) => set(entry.driver_id, "money", ev.target.value)}
+                className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-1.5 py-1.5 text-xs text-white text-right tabular-nums disabled:opacity-40 placeholder:text-slate-600 focus:border-[var(--accent)] focus:outline-none" />
               <div className="flex justify-center">
                 <input type="checkbox" checked={r.dnf}
                   onChange={(ev) => set(entry.driver_id, "dnf", ev.target.checked)}

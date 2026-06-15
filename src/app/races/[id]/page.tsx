@@ -152,6 +152,11 @@ export default async function RacePage({ params }: { params: Promise<{ id: strin
             </div>
           </div>
           <div className="flex items-center gap-3 shrink-0">
+            {isComplete && (
+              <Link href={`/races/${raceId}/scorecard`} className="rounded-full border border-amber-500/40 px-3 py-1 text-sm font-semibold text-amber-400 hover:bg-amber-500/10 transition-colors">
+                Scorecard →
+              </Link>
+            )}
             <Link href={`/races/${raceId}/book`} className="rounded-full border border-[var(--border)] px-3 py-1 text-sm font-semibold text-[var(--muted)] hover:text-white hover:border-white transition-colors">
               Book →
             </Link>
@@ -286,11 +291,17 @@ export default async function RacePage({ params }: { params: Promise<{ id: strin
                 <h3 className="font-semibold text-white">Track Conditions</h3>
                 <span className="text-[10px] rounded-full px-2 py-0.5 bg-amber-500/20 text-amber-400 font-semibold uppercase tracking-wide">Live</span>
               </div>
-              <p className="text-[10px] text-[var(--muted)] mb-4">84°F · 40% humidity · clear · 5 mph WSW — update as the surface evolves</p>
+              <p className="text-[10px] text-[var(--muted)] mb-4">Update surface condition and environmental data as the event progresses.</p>
               <LiveConditionsForm
                 raceId={raceId}
                 currentCondition={race.track_condition}
                 currentNotes={race.weather_notes}
+                currentTimeOfDay={race.time_of_day}
+                currentTempF={race.temperature_f}
+                currentHumidityPct={race.humidity_pct}
+                currentPrecip48hIn={race.precip_48h_in}
+                currentWaterTruckRuns={race.water_truck_runs}
+                currentGrooveStage={race.groove_stage}
               />
             </div>
             {isUpcoming && (
