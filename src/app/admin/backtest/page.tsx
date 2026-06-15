@@ -2,6 +2,7 @@ import { connection } from "next/server";
 import Link from "next/link";
 import { Nav } from "@/components/nav";
 import { runBacktest, type BacktestResult } from "@/lib/simulate";
+import { runModelComparison, type ModelComparisonResult } from "@/lib/model-compare";
 
 const usd = (n: number) =>
   new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(n);
@@ -95,6 +96,137 @@ function PLChart({ paths, racesRun }: { paths: BacktestResult["summary"]["cumPat
   );
 }
 
+// ── Model Comparison component ───────────────────────────────────────────────
+function RankBadge({ rank, fieldSize }: { rank: number; fieldSize: number }) {
+  const color =
+    rank === 1 ? "text-green-400 font-bold" :
+    rank <= 3  ? "text-amber-400 font-semibold" :
+    rank <= Math.ceil(fieldSize * 0.25) ? "text-slate-300" :
+    "text-slate-600";
+  return <span className={`tabular-nums text-xs ${color}`}>#{rank}</span>;
+}
+
+function ModelComparison({ comparison }: { comparison: ModelComparisonResult }) {
+  const { blended, elo_only, composite_only, races } = comparison;
+  if (races.length === 0) return null;
+
+  const meanRank = (v: typeof blended) =>
+    v.racesRun > 0 ? (v.totalWinnerRank / v.racesRun).toFixed(2) : "—";
+
+  const models = [
+    { key: "blended" as const, label: "Blended (current)", desc: "45% ELO + 55% composite (30/70 w/ heat data)", color: "border-[var(--accent)]/40 bg-[var(--accent)]/5", badge: "bg-[var(--accent)]/20 text-amber-300", variant: blended },
+    { key: "elo_only" as const, label: "ELO Only", desc: "Plackett-Luce win probs from DLM-seeded Elo ratings", color: "border-blue-500/40 bg-blue-500/5", badge: "bg-blue-500/20 text-blue-300", variant: elo_only },
+    { key: "composite_only" as const, label: "Composite Only", desc: "16-factor scoring model, no Elo component", color: "border-slate-600 bg-slate-800/30", badge: "bg-slate-700 text-slate-300", variant: composite_only },
+  ] as const;
+
+  return (
+    <section className="space-y-5">
+      <div>
+        <h2 className="text-xl font-bold text-white">Model Comparison</h2>
+        <p className="text-sm text-[var(--muted)] mt-0.5">
+          How accurately does each model rank the actual winner? Backtested across {races.length} completed races.
+        </p>
+      </div>
+
+      {/* Stat cards — 3 columns */}
+      <div className="grid sm:grid-cols-3 gap-4">
+        {models.map(({ label, desc, color, badge, variant }) => (
+          <div key={label} className={`rounded-2xl border p-5 space-y-3 ${color}`}>
+            <div className="flex items-start justify-between gap-2">
+              <div>
+                <div className="font-semibold text-white text-sm">{label}</div>
+                <div className="text-[11px] text-[var(--muted)] mt-0.5 leading-tight">{desc}</div>
+              </div>
+            </div>
+            <div className="grid grid-cols-3 gap-2 text-center">
+              <div>
+                <div className="text-lg font-bold text-white tabular-nums">
+                  {variant.racesRun > 0 ? pct(variant.favoriteWonCount / variant.racesRun) : "—"}
+                </div>
+                <div className="text-[10px] text-[var(--muted)] mt-0.5">Fav won</div>
+                <div className={`text-[10px] rounded-full px-1.5 py-0.5 mt-1 inline-block ${badge}`}>
+                  {variant.favoriteWonCount}/{variant.racesRun}
+                </div>
+              </div>
+              <div>
+                <div className="text-lg font-bold text-white tabular-nums">
+                  {variant.racesRun > 0 ? pct(variant.top3WonCount / variant.racesRun) : "—"}
+                </div>
+                <div className="text-[10px] text-[var(--muted)] mt-0.5">Top-3 hit</div>
+                <div className={`text-[10px] rounded-full px-1.5 py-0.5 mt-1 inline-block ${badge}`}>
+                  {variant.top3WonCount}/{variant.racesRun}
+                </div>
+              </div>
+              <div>
+                <div className="text-lg font-bold text-white tabular-nums">{meanRank(variant)}</div>
+                <div className="text-[10px] text-[var(--muted)] mt-0.5">Avg rank</div>
+                <div className={`text-[10px] rounded-full px-1.5 py-0.5 mt-1 inline-block ${badge}`}>
+                  of {races.length > 0 ? Math.round(races.reduce((s, r) => s + r.fieldSize, 0) / races.length) : "—"}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Race-by-race table */}
+      <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] overflow-hidden overflow-x-auto">
+        <table className="w-full text-sm whitespace-nowrap">
+          <thead>
+            <tr className="border-b border-[var(--border)] bg-[var(--surface-raised)]">
+              {["Race", "Date", "Field", "Actual Winner", "Win Prob", "Blended", "ELO", "Composite"].map((h) => (
+                <th key={h} className={`px-3 py-3 text-[10px] font-semibold uppercase tracking-widest text-[var(--muted)] ${["Race", "Actual Winner"].includes(h) ? "text-left" : "text-right"}`}>
+                  {h}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {races.map((r) => {
+              const best = Math.min(r.winnerRankBlended, r.winnerRankElo, r.winnerRankComposite);
+              return (
+                <tr key={r.raceId}
+                  className={`border-b border-[var(--border)] last:border-0 transition-colors ${best === 1 ? "bg-green-500/5" : "hover:bg-[var(--surface-raised)]"}`}>
+                  <td className="px-3 py-2.5">
+                    <Link href={`/admin/races/${r.raceId}`} className="text-white font-medium hover:text-[var(--accent)] transition-colors">
+                      {r.raceName}
+                    </Link>
+                  </td>
+                  <td className="px-3 py-2.5 text-right text-xs text-[var(--muted)] tabular-nums">
+                    {fmt.format(new Date(r.raceDate + "T12:00:00"))}
+                  </td>
+                  <td className="px-3 py-2.5 text-right text-xs text-[var(--muted)] tabular-nums">{r.fieldSize}</td>
+                  <td className="px-3 py-2.5 text-xs font-medium text-white">{r.actualWinner}</td>
+                  <td className="px-3 py-2.5 text-right text-xs text-[var(--muted)] tabular-nums">
+                    {r.actualWinnerProb > 0 ? pct(r.actualWinnerProb) : "—"}
+                  </td>
+                  <td className="px-3 py-2.5 text-right">
+                    <RankBadge rank={r.winnerRankBlended} fieldSize={r.fieldSize} />
+                  </td>
+                  <td className="px-3 py-2.5 text-right">
+                    <RankBadge rank={r.winnerRankElo} fieldSize={r.fieldSize} />
+                  </td>
+                  <td className="px-3 py-2.5 text-right">
+                    <RankBadge rank={r.winnerRankComposite} fieldSize={r.fieldSize} />
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+          <tfoot>
+            <tr className="border-t border-[var(--border)] bg-[var(--surface-raised)]">
+              <td colSpan={5} className="px-3 py-2.5 text-xs text-[var(--muted)]">Avg winner rank</td>
+              <td className="px-3 py-2.5 text-right text-xs font-semibold text-white tabular-nums">{meanRank(blended)}</td>
+              <td className="px-3 py-2.5 text-right text-xs font-semibold text-white tabular-nums">{meanRank(elo_only)}</td>
+              <td className="px-3 py-2.5 text-right text-xs font-semibold text-white tabular-nums">{meanRank(composite_only)}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+  );
+}
+
 export default async function BacktestPage({
   searchParams,
 }: {
@@ -112,6 +244,7 @@ export default async function BacktestPage({
 
   const result = runBacktest(params);
   const { summary, races } = result;
+  const comparison = runModelComparison();
 
   return (
     <div className="min-h-screen bg-[var(--background)]">
@@ -124,6 +257,14 @@ export default async function BacktestPage({
           <p className="mt-1 text-sm text-[var(--muted)]">
             Replays {summary.racesRun} completed races with {params.numSimulations} Monte Carlo simulations per race to model sportsbook risk.
           </p>
+        </div>
+
+        {/* ── Model Comparison ──────────────────────────────────────────────── */}
+        <ModelComparison comparison={comparison} />
+
+        {/* ── Divider ───────────────────────────────────────────────────────── */}
+        <div className="border-t border-[var(--border)] pt-2">
+          <p className="text-xs uppercase tracking-widest text-slate-600 font-semibold">Monte Carlo Book Risk</p>
         </div>
 
         {/* Parameter form */}

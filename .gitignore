@@ -13,6 +13,16 @@ data/
 .env.local
 .env.*.local
 
+# build artifacts
+tsconfig.tsbuildinfo
+
+# local data files (csvs, docs, saved pages)
+*.docx
+*.pdf
+WoO_*.csv
+woo_*.csv
+RACEFEST*/
+
 # misc
 .DS_Store
 *.pem
