@@ -44,7 +44,7 @@ export function ImportEventForm({ existingRaces, eventId: prefillId, compact }: 
           <div className="text-xs text-red-400 max-w-xs text-right">{result.error}</div>
         )}
         {result?.raceId && !result.error && (
-          <a href={`/races/${result.raceId}`}
+          <a href={`/admin/races/${result.raceId}`}
             className="text-xs text-green-400 hover:underline">
             {result.updated} entries imported →
           </a>
@@ -132,7 +132,7 @@ export function ImportEventForm({ existingRaces, eventId: prefillId, compact }: 
           <div className="flex items-center justify-between">
             <span className="text-sm font-semibold text-green-400">Import complete</span>
             <a
-              href={`/races/${result.raceId}`}
+              href={`/admin/races/${result.raceId}`}
               className="text-sm font-semibold text-[var(--accent)] hover:underline"
             >
               View race →

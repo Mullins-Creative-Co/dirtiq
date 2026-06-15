@@ -124,8 +124,8 @@ export async function setRaceLiveAction(raceId: number, live: boolean): Promise<
         if (odds.length > 0) lockPredictions(raceId, odds);
       }
     }
-    revalidatePath(`/races/${raceId}`);
-    revalidatePath(`/races/${raceId}/book`);
+    revalidatePath(`/admin/races/${raceId}`);
+    revalidatePath(`/admin/races/${raceId}/book`);
     return {};
   } catch { return { error: "Failed to update race status." }; }
 }
@@ -248,9 +248,9 @@ export async function importWooEventAction(params: {
     }
 
     const result = importWooResults(raceId, parsed);
-    revalidatePath(`/races/${raceId}`);
-    revalidatePath("/races");
-    revalidatePath("/import");
+    revalidatePath(`/admin/races/${raceId}`);
+    revalidatePath("/admin/races");
+    revalidatePath("/admin/import");
 
     return {
       raceId,
@@ -270,9 +270,9 @@ export async function importWooStandingsAction(season: number): Promise<Standing
   try {
     const entries = await fetchWooStandings(season);
     const result = importWooStandings(season, entries);
-    revalidatePath("/import");
-    revalidatePath("/drivers");
-    revalidatePath("/model");
+    revalidatePath("/admin/import");
+    revalidatePath("/admin/drivers");
+    revalidatePath("/admin/model");
     return result;
   } catch (e) {
     return { error: e instanceof Error ? e.message : "Standings import failed.", season, total: 0, created: 0, matched: 0, warnings: [] };
@@ -392,7 +392,7 @@ export async function setMrpEventIdAction(
     getDb()
       .prepare("UPDATE races SET mrp_event_id = ? WHERE id = ?")
       .run(mrpEventId, raceId);
-    revalidatePath(`/races/${raceId}`);
+    revalidatePath(`/admin/races/${raceId}`);
     return {};
   } catch (e) {
     return { error: e instanceof Error ? e.message : "Failed to save MRP event ID." };
@@ -497,8 +497,8 @@ export async function syncMrpLineupAction(raceId: number): Promise<MrpSyncResult
     }
   }
 
-  revalidatePath(`/races/${raceId}`);
-  revalidatePath(`/bet/${raceId}`);
+  revalidatePath(`/admin/races/${raceId}`);
+  revalidatePath(`/race/${raceId}`);
 
   return {
     event_name: lineup.event_name,
@@ -516,8 +516,8 @@ export async function resetPrelimDataAction(raceId: number): Promise<{ error?: s
         "UPDATE race_entries SET qualifying_time = NULL, heat_position = NULL WHERE race_id = ?"
       )
       .run(raceId);
-    revalidatePath(`/races/${raceId}`);
-    revalidatePath(`/bet/${raceId}`);
+    revalidatePath(`/admin/races/${raceId}`);
+    revalidatePath(`/race/${raceId}`);
     return {};
   } catch (e) {
     return { error: e instanceof Error ? e.message : "Failed to reset prelim data." };
@@ -532,8 +532,8 @@ export async function updateTrackAction(
 ): Promise<{ error?: string }> {
   try {
     updateTrack(id, data);
-    revalidatePath(`/tracks/${id}`);
-    revalidatePath("/tracks");
+    revalidatePath(`/admin/tracks/${id}`);
+    revalidatePath("/admin/tracks");
     return {};
   } catch (e) {
     return { error: e instanceof Error ? e.message : "Failed to update track." };
@@ -545,8 +545,8 @@ export async function upsertTrackSimilarAction(
 ): Promise<{ error?: string }> {
   try {
     upsertTrackSimilar(trackId, similarTrackId, weight, notes);
-    revalidatePath(`/tracks/${trackId}`);
-    revalidatePath(`/tracks/${similarTrackId}`);
+    revalidatePath(`/admin/tracks/${trackId}`);
+    revalidatePath(`/admin/tracks/${similarTrackId}`);
     return {};
   } catch (e) {
     return { error: e instanceof Error ? e.message : "Failed to save similarity." };
@@ -558,8 +558,8 @@ export async function removeTrackSimilarAction(
 ): Promise<{ error?: string }> {
   try {
     removeTrackSimilar(trackId, similarTrackId);
-    revalidatePath(`/tracks/${trackId}`);
-    revalidatePath(`/tracks/${similarTrackId}`);
+    revalidatePath(`/admin/tracks/${trackId}`);
+    revalidatePath(`/admin/tracks/${similarTrackId}`);
     return {};
   } catch (e) {
     return { error: e instanceof Error ? e.message : "Failed to remove similarity." };
@@ -577,7 +577,7 @@ export async function upsertDriverSpecialtyAction(data: {
 }): Promise<{ error?: string }> {
   try {
     upsertDriverSpecialty(data);
-    revalidatePath(`/drivers/${data.driver_id}`);
+    revalidatePath(`/admin/drivers/${data.driver_id}`);
     return {};
   } catch (e) {
     return { error: e instanceof Error ? e.message : "Failed to save specialty." };
@@ -587,7 +587,7 @@ export async function upsertDriverSpecialtyAction(data: {
 export async function removeDriverSpecialtyAction(id: number, driverId: number): Promise<{ error?: string }> {
   try {
     removeDriverSpecialty(id);
-    revalidatePath(`/drivers/${driverId}`);
+    revalidatePath(`/admin/drivers/${driverId}`);
     return {};
   } catch (e) {
     return { error: e instanceof Error ? e.message : "Failed to remove specialty." };

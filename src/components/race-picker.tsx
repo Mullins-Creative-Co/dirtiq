@@ -25,7 +25,7 @@ export function RacePicker({
 
   function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
     const val = e.target.value;
-    if (val) router.push(`/model?race=${val}`);
+    if (val) router.push(`/admin/model?race=${val}`);
   }
 
   return (
@@ -58,7 +58,7 @@ export function RacePicker({
 
       {selectedId && (
         <button
-          onClick={() => router.push("/model")}
+          onClick={() => router.push("/admin/model")}
           className="text-xs text-[var(--muted)] hover:text-white border border-[var(--border)] rounded-lg px-3 py-2.5 transition-colors"
         >
           Clear
