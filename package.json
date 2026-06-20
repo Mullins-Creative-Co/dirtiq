@@ -5,18 +5,33 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "start": "HOSTNAME=0.0.0.0 node .next/standalone/server.js",
+    "lint": "eslint",
+    "models:audit": "python3 scripts/maintain_models.py --audit-routing --limit 30",
+    "models:enable-xgboost": "python3 scripts/enable_xgboost_openmp.py",
+    "models:train": "python3 scripts/maintain_models.py --train all",
+    "models:score": "python3 scripts/maintain_models.py --score-upcoming --limit 30",
+    "models:refresh": "python3 scripts/maintain_models.py --refresh --limit 30",
+    "mrp:sync-prelims": "node --experimental-strip-types scripts/sync_mrp_prelims.mjs",
+    "mrp:sync-results": "node --experimental-strip-types scripts/sync_mrp_results.mjs",
+    "signals:audit": "python3 scripts/signal_audit.py",
+    "driver:audit": "python3 scripts/driver_profile_audit.py",
+    "hypothesis:audit": "python3 scripts/hypothesis_regression_audit.py",
+    "xgb:audit": "python3 scripts/xgb_historical_audit.py",
+    "crown:replay": "python3 scripts/crown_replay_table.py",
+    "discover:eldora": "python3 scripts/discover_eldora_event_coverage.py",
+    "import:dirtondirt-major": "python3 scripts/import_dirtondirt_major_history.py",
+    "import:eldora-box": "python3 scripts/import_eldora_box_score.py",
+    "import:summer-nationals": "python3 scripts/import_summer_nationals.py",
+    "agent:audit": "python3 scripts/agent_overlay_audit.py"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.104.1",
+    "@neondatabase/serverless": "^1.1.0",
     "next": "16.2.6",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "xlsx": "^0.18.5"
-  },
-  "engines": {
-    "node": ">=22.5.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -27,5 +42,9 @@
     "eslint-config-next": "16.2.6",
     "tailwindcss": "^4",
     "typescript": "^5"
-  }
+  },
+  "engines": {
+    "node": "24.x"
+  },
+  "packageManager": "npm@11.4.2"
 }

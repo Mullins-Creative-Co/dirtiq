@@ -31,7 +31,7 @@ export default async function ScorecardPage({ params }: { params: Promise<{ id: 
   // Fall back to recalculating odds for races that went live before this feature shipped
   const useLocked = hasPredictions(raceId);
   let scorecard: ReturnType<typeof getScorecardData> | null = null;
-  let fallbackModelRankMap = new Map<number, number>();
+  const fallbackModelRankMap = new Map<number, number>();
   let fallbackOdds: ReturnType<typeof calculateRaceOdds> = [];
 
   if (useLocked) {
@@ -140,6 +140,71 @@ export default async function ScorecardPage({ params }: { params: Promise<{ id: 
   const purse = (race as typeof race & { purse_to_win?: number }).purse_to_win;
   const lockedAt = scorecard?.summary.locked_at;
   const hadPrelim = scorecard?.summary.had_prelim_data ?? false;
+  const underrated = [...scorecardRows]
+    .filter((r) => !r.dnf && r.delta != null && r.delta >= 3)
+    .sort((a, b) => (b.delta ?? 0) - (a.delta ?? 0))
+    .slice(0, 5);
+  const overrated = [...scorecardRows]
+    .filter((r) => !r.dnf && r.delta != null && r.delta <= -3)
+    .sort((a, b) => (a.delta ?? 0) - (b.delta ?? 0))
+    .slice(0, 5);
+  const learningVerdict =
+    winnerModelRank === 1
+      ? "Model favorite won. Keep the feature mix stable and only inspect undercard misses."
+      : winnerModelRank != null && winnerModelRank <= 3
+        ? "Winner was inside the playable group. Review line pricing, not the whole model."
+        : winnerModelRank != null && winnerModelRank <= 6
+          ? "Winner was close but not protected enough. Look for a repeatable missing signal."
+          : "Winner was outside the core model group. Review entries, prelim data, local/similar-track history, and caveats before retraining.";
+  const completedResults = results.filter((r) => r.finishing_position != null && !r.dnf);
+  const startRows = completedResults.filter((r) => r.starting_position != null);
+  const heatRows = completedResults.filter((r) => r.heat_position != null);
+  const bmainRows = completedResults.filter((r) => r.bmain_position != null);
+  const deepStarterTop10 = completedResults
+    .filter((r) => (r.starting_position ?? 0) >= 15 && (r.finishing_position ?? 999) <= 10)
+    .sort((a, b) => (a.finishing_position ?? 999) - (b.finishing_position ?? 999));
+  const frontRow = completedResults.filter((r) => r.starting_position != null && r.starting_position <= 2);
+  const frontRowTop3 = frontRow.filter((r) => (r.finishing_position ?? 999) <= 3);
+  const improvementQueue = [
+    {
+      title: "Lock a pre-feature snapshot",
+      status: useLocked ? "Done" : "Needed",
+      detail: useLocked
+        ? "This scorecard is comparing against the locked go-live odds."
+        : "No locked odds snapshot was found, so review uses leakage-protected recalculated odds. Next race, hit go-live before the feature.",
+    },
+    {
+      title: "Complete the feature lineup",
+      status: startRows.length >= completedResults.length * 0.9 ? "Done" : "Needed",
+      detail: `${startRows.length}/${completedResults.length} finishers have starting spots. Missing starts make pole, front-row, and passing signals weaker.`,
+    },
+    {
+      title: "Capture B-main/provisional paths",
+      status: bmainRows.length > 0 ? "Tracked" : "Needed",
+      detail: bmainRows.length > 0
+        ? `${bmainRows.length} B-main/provisional path rows were captured. Keep feeding this into retraining.`
+        : "No B-main rows are structured yet. Add B-main/provisional tags so deep-field downgrades become automatic.",
+    },
+    {
+      title: "Split win picks from props",
+      status: top3hits >= 2 ? "High value" : "Review",
+      detail: `Model top-3 overlap was ${top3hits}/3. Use top-3/top-5 props when the win favorite is clear but contender order is clustered.`,
+    },
+    {
+      title: "Audit front-row conversion",
+      status: frontRow.length > 0 ? "Watch" : "Sparse",
+      detail: frontRow.length > 0
+        ? `${frontRowTop3.length}/${frontRow.length} front-row starters finished top 3. Keep track-specific pole/front-row weight active.`
+        : "No front-row rows found, so starting-position learning is incomplete.",
+    },
+    {
+      title: "Review deep movers",
+      status: deepStarterTop10.length > 0 ? "Feature candidate" : "Clean",
+      detail: deepStarterTop10.length > 0
+        ? `${deepStarterTop10.map((r) => `${r.driver_name} P${r.finishing_position} from ${r.starting_position}`).join(", ")}. Consider passing/track-state features.`
+        : "No major deep-starter top-10 exceptions in the final result.",
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-white text-gray-900 font-sans">
@@ -325,6 +390,102 @@ export default async function ScorecardPage({ params }: { params: Promise<{ id: 
           <p className="mt-2 text-[10px] text-gray-400">
             Delta: positive = finished better than model predicted · negative = worse · Spearman ρ measures full-field rank correlation (1.0 = perfect)
           </p>
+        </section>
+
+        {/* Post-Race Learning Review */}
+        <section className="border-t border-gray-200 pt-6">
+          <h2 className="text-lg font-bold text-black mb-1 tracking-tight">Post-Race Learning Review</h2>
+          <p className="text-xs text-gray-500 mb-4">
+            Use this before adding features. Caveats explain one race; features require repeatable patterns across many races.
+          </p>
+
+          <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 mb-4">
+            <div className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Underwriter read</div>
+            <p className="text-sm font-semibold text-gray-900">{learningVerdict}</p>
+            <div className="mt-3 grid gap-2 text-xs text-gray-600 sm:grid-cols-3">
+              <div>
+                <span className="font-bold text-gray-900">Model baseline:</span>{" "}
+                {winnerModelRank != null ? `winner ranked #${winnerModelRank}` : "no winner rank"}
+              </div>
+              <div>
+                <span className="font-bold text-gray-900">Review mode:</span>{" "}
+                {useLocked ? "locked pre-race snapshot" : "recalculated fallback"}
+              </div>
+              <div>
+                <span className="font-bold text-gray-900">Race-night data:</span>{" "}
+                {hadPrelim ? "included prelim inputs" : "missing heat/QT snapshot"}
+              </div>
+            </div>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="rounded-lg border border-gray-200 p-4">
+              <div className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">Model Underrated</div>
+              {underrated.length === 0 ? (
+                <p className="text-sm text-gray-400">No major positive misses.</p>
+              ) : (
+                <div className="space-y-2">
+                  {underrated.map((r) => (
+                    <div key={r.driverId} className="flex items-center justify-between gap-3 text-sm">
+                      <span className="font-medium text-gray-900">{r.driverName}</span>
+                      <span className="text-xs font-semibold text-green-700">
+                        Model #{r.modelRank} · P{r.actualPos} · +{r.delta}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <p className="mt-3 text-[10px] leading-4 text-gray-400">
+                If the same kind of driver repeats here, convert the reason into a structured feature.
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-gray-200 p-4">
+              <div className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">Model Overrated</div>
+              {overrated.length === 0 ? (
+                <p className="text-sm text-gray-400">No major negative misses.</p>
+              ) : (
+                <div className="space-y-2">
+                  {overrated.map((r) => (
+                    <div key={r.driverId} className="flex items-center justify-between gap-3 text-sm">
+                      <span className="font-medium text-gray-900">{r.driverName}</span>
+                      <span className="text-xs font-semibold text-red-600">
+                        Model #{r.modelRank} · P{r.actualPos ?? "DNF"} · {r.delta}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <p className="mt-3 text-[10px] leading-4 text-gray-400">
+                Check whether the miss came from entry status, poor prelim data, DNF risk, or over-weighted history.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-4 rounded-lg border border-gray-200 p-4">
+            <div className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">Next Iteration Steps</div>
+            <ol className="grid gap-2 text-xs leading-5 text-gray-600 sm:grid-cols-4">
+              <li><span className="font-bold text-gray-900">1.</span> Save race notes for any obvious caveat.</li>
+              <li><span className="font-bold text-gray-900">2.</span> Add missing structured data, not just text.</li>
+              <li><span className="font-bold text-gray-900">3.</span> Retrain after the result is complete.</li>
+              <li><span className="font-bold text-gray-900">4.</span> Run XG audit and keep only proven signal.</li>
+            </ol>
+          </div>
+
+          <div className="mt-4 rounded-lg border border-gray-200 p-4">
+            <div className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">Improvement Queue</div>
+            <div className="grid gap-2">
+              {improvementQueue.map((item) => (
+                <div key={item.title} className="grid gap-2 border border-gray-100 bg-white px-3 py-3 sm:grid-cols-[140px_1fr]">
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400">{item.status}</p>
+                    <p className="mt-1 text-sm font-bold text-gray-900">{item.title}</p>
+                  </div>
+                  <p className="text-xs leading-5 text-gray-600">{item.detail}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </section>
 
         {/* Model Performance Summary */}

@@ -78,7 +78,7 @@ export default async function ModelPage({
         {/* Header */}
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div>
-            <h1 className="text-3xl font-bold text-white">Odds Intelligence</h1>
+            <h1 className="text-3xl font-bold text-white">Model Intelligence</h1>
             <p className="mt-1 text-sm text-[var(--muted)] max-w-2xl">
               Select a race to see the full breakdown — every scoring factor, its weight, and exactly why each driver is priced the way they are.
             </p>
@@ -111,10 +111,6 @@ export default async function ModelPage({
                   className="text-xs border border-[var(--border)] rounded-lg px-3 py-1.5 text-[var(--muted)] hover:text-white transition-colors">
                   Race page →
                 </Link>
-                <Link href={`/race/${selectedRace.id}`}
-                  className="text-xs border border-[var(--border)] rounded-lg px-3 py-1.5 text-[var(--muted)] hover:text-white transition-colors">
-                  Bet page →
-                </Link>
               </div>
             </div>
 
@@ -134,7 +130,7 @@ export default async function ModelPage({
           <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-6 py-12 text-center space-y-3">
             <p className="text-white font-semibold">Select a race above to see the full odds breakdown</p>
             <p className="text-sm text-[var(--muted)] max-w-md mx-auto">
-              Each driver card shows all 16 scoring factors — track history, season form, tonight's heat results, driver specialties, and the Elo blend — with their exact contribution to the final odds.
+              Each driver card shows all 16 scoring factors — track history, season form, tonight&apos;s heat results, driver specialties, and the Elo blend — with their exact contribution to the final odds.
             </p>
             {defaultRace && (
               <Link href={`/admin/model?race=${defaultRace.id}`}
@@ -159,7 +155,7 @@ export default async function ModelPage({
               <p>Driver <strong className="text-amber-400">specialties</strong> (set via Drivers page or AI Suggest) add a flat bonus before the Elo blend — useful for regional specialists where historical data is sparse.</p>
             </div>
             <div className="space-y-2">
-              <p>Track <strong className="text-amber-400">similarity weights</strong> (set via Tracks page or AI Suggest) make this track's historical results count at other similar tracks — bidirectional.</p>
+              <p>Track <strong className="text-amber-400">similarity weights</strong> (set via Tracks page or AI Suggest) make this track&apos;s historical results count at other similar tracks — bidirectional.</p>
               <p>A <strong className="text-white">12% vig</strong> is applied to raw win probabilities to produce American odds. Prop bets (top-3, H2H, DNF) de-vig the win probs first before applying their own vig.</p>
             </div>
           </div>

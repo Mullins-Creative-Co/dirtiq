@@ -1,7 +1,7 @@
 "use server";
-import { createDriver, listDrivers, getDriver } from "@/lib/drivers";
+import { createDriver, getDriver } from "@/lib/drivers";
 import { createTrack, listTracks, updateTrack, getTrack, getTrackSimilars, upsertTrackSimilar, removeTrackSimilar } from "@/lib/tracks";
-import { createRace, addRaceEntry, recordResult, completeRace, updatePreRaceData, updateRaceConditions, setRaceLive } from "@/lib/races";
+import { createRace, addRaceEntry, recordResult, completeRace, updatePreRaceData, updateRaceConditions, setRaceLive, lockBetting, reopenBetting, updateEntryStatus, type RaceEntry } from "@/lib/races";
 import { placeBet, settleBets, setRiskLimits } from "@/lib/book";
 import {
   getOrCreateAccount, addFunds, placePlayerBet, settlePlayerBets,
@@ -9,15 +9,47 @@ import {
 } from "@/lib/player-bets";
 import { upsertDriverSpecialty, removeDriverSpecialty } from "@/lib/driver-specialties";
 import { extractEventId, fetchWooHtml, fetchWooRecaps, parseWooHtml, importWooResults, fetchWooStandings, importWooStandings, type WooEventSummary, type StandingsImportResult } from "@/lib/woo-import";
-import { fetchMrpLineup } from "@/lib/mrp-lineup";
+import { fetchMrpLineup, filterMrpLineupForRace } from "@/lib/mrp-lineup";
+import { fetchMrpFinalResults } from "@/lib/mrp-results";
+import { findMrpEventForRace } from "@/lib/mrp-event-search";
+import { applyRaceResults, type RaceSettlementResult } from "@/lib/race-settlement";
 import { getDb } from "@/lib/db";
 import { revalidatePath } from "next/cache";
+import { applyRationalMarketLines, clearMarketLines, deleteMarketLine, upsertMarketLine } from "@/lib/market-lines";
+import { createLineCaveat, resolveLineCaveat, type LineCaveatSeverity } from "@/lib/line-caveats";
+import { createRaceContextAdjustment, resolveRaceContextAdjustment } from "@/lib/race-context-adjustments";
+import { applySeriesCommitmentConflicts } from "@/lib/series-commitments";
+import { applyPreviousDayFieldCarryForward } from "@/lib/field-carry-forward";
+import { createUnderwritingNote, resolveUnderwritingNote } from "@/lib/underwriting-notes";
+import { createTrackDriverTrend, resolveTrackDriverTrend } from "@/lib/track-driver-trends";
+import { upsertModelRaceReview } from "@/lib/model-race-reviews";
+import { missReasonOptions, type ModelMissReason } from "@/lib/model-race-review-options";
+import { ensureLiveBetTables, getLiveBetSql, hasLiveBetDatabase } from "@/lib/live-bets-db";
+
+const unsupportedDivisions = new Set(["Sprint", "Sprint Car", "Modified"]);
+const modelMissReasons = new Set<ModelMissReason>(missReasonOptions.map((option) => option.value));
+
+function rowCount(value: unknown): number {
+  if (Array.isArray(value)) return value.length;
+  if (value && typeof value === "object" && "rows" in value && Array.isArray((value as { rows?: unknown }).rows)) {
+    return ((value as { rows: unknown[] }).rows).length;
+  }
+  return 0;
+}
+
+function unsupportedDivisionMessage(division: string) {
+  return `${division} support is not enabled yet. Dirt IQ is currently focused on late models, Lucas Oil LMDS, WoO Late Models, DIRTcar Summer Nationals, crown jewels, and independent/open late model entries.`;
+}
 
 export async function createDriverAction(fd: FormData): Promise<{ error?: string; id?: number }> {
   const name = (fd.get("name") as string)?.trim();
   if (!name) return { error: "Name is required." };
+  const division = (fd.get("division") as string) || undefined;
+  if (division && unsupportedDivisions.has(division)) {
+    return { error: unsupportedDivisionMessage(division) };
+  }
   try {
-    return { id: createDriver({ name, car_number: (fd.get("car_number") as string) || undefined, hometown: (fd.get("hometown") as string) || undefined, division: (fd.get("division") as string) || undefined, notes: (fd.get("notes") as string) || undefined }) };
+    return { id: createDriver({ name, car_number: (fd.get("car_number") as string) || undefined, hometown: (fd.get("hometown") as string) || undefined, division, notes: (fd.get("notes") as string) || undefined }) };
   } catch { return { error: "Failed to create driver." }; }
 }
 
@@ -48,8 +80,12 @@ export async function createRaceAction(fd: FormData): Promise<{ error?: string; 
   const humidStr = fd.get("humidity_pct") as string;
   const precipStr = fd.get("precip_48h_in") as string;
   const wtStr = fd.get("water_truck_runs") as string;
+  const division = (fd.get("division") as string) || undefined;
+  if (division && unsupportedDivisions.has(division)) {
+    return { error: unsupportedDivisionMessage(division) };
+  }
   try {
-    return { id: createRace({ name, track_id: parseInt(trackIdStr, 10), race_date: raceDate, division: (fd.get("division") as string) || undefined, distance: distanceStr ? parseInt(distanceStr, 10) : undefined, track_condition: (fd.get("track_condition") as string) || undefined, weather_notes: (fd.get("weather_notes") as string) || undefined, time_of_day: (fd.get("time_of_day") as string) || undefined, temperature_f: tempStr ? parseFloat(tempStr) : undefined, humidity_pct: humidStr ? parseFloat(humidStr) : undefined, precip_48h_in: precipStr ? parseFloat(precipStr) : undefined, water_truck_runs: wtStr ? parseInt(wtStr, 10) : undefined, groove_stage: (fd.get("groove_stage") as string) || undefined }) };
+    return { id: createRace({ name, track_id: parseInt(trackIdStr, 10), race_date: raceDate, division, series_mode: division, distance: distanceStr ? parseInt(distanceStr, 10) : undefined, track_condition: (fd.get("track_condition") as string) || undefined, weather_notes: (fd.get("weather_notes") as string) || undefined, time_of_day: (fd.get("time_of_day") as string) || undefined, temperature_f: tempStr ? parseFloat(tempStr) : undefined, humidity_pct: humidStr ? parseFloat(humidStr) : undefined, precip_48h_in: precipStr ? parseFloat(precipStr) : undefined, water_truck_runs: wtStr ? parseInt(wtStr, 10) : undefined, groove_stage: (fd.get("groove_stage") as string) || undefined }) };
   } catch { return { error: "Failed to create race." }; }
 }
 
@@ -59,9 +95,26 @@ export async function addEntryAction(fd: FormData): Promise<{ error?: string }> 
   if (!raceIdStr || !driverIdStr) return { error: "Missing required fields." };
   const startPosStr = fd.get("starting_position") as string;
   try {
-    addRaceEntry({ race_id: parseInt(raceIdStr, 10), driver_id: parseInt(driverIdStr, 10), starting_position: startPosStr ? parseInt(startPosStr, 10) : undefined, engine_builder: (fd.get("engine_builder") as string) || undefined, tire_compound: (fd.get("tire_compound") as string) || undefined, crew_chief: (fd.get("crew_chief") as string) || undefined });
+    addRaceEntry({ race_id: parseInt(raceIdStr, 10), driver_id: parseInt(driverIdStr, 10), starting_position: startPosStr ? parseInt(startPosStr, 10) : undefined, entry_series: (fd.get("entry_series") as string) || undefined, entry_status: (fd.get("entry_status") as string) || undefined, engine_builder: (fd.get("engine_builder") as string) || undefined, tire_compound: (fd.get("tire_compound") as string) || undefined, crew_chief: (fd.get("crew_chief") as string) || undefined });
     return {};
   } catch { return { error: "Failed to add entry." }; }
+}
+
+export async function updateEntryStatusAction(data: {
+  raceId: number;
+  driverId: number;
+  entryStatus: RaceEntry["entry_status"];
+}): Promise<{ error?: string }> {
+  try {
+    updateEntryStatus(data.raceId, data.driverId, data.entryStatus);
+    revalidatePath(`/admin/races/${data.raceId}`);
+    revalidatePath(`/admin/races/${data.raceId}/prediction`);
+    revalidatePath(`/admin/races/${data.raceId}/book`);
+    revalidatePath("/bet");
+    return {};
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to update entry status." };
+  }
 }
 
 export async function recordResultsAction(data: { race_id: number; results: { driver_id: number; finishing_position?: number; laps_led?: number; dnf?: boolean; margin?: string; money?: number }[] }): Promise<{ error?: string }> {
@@ -69,17 +122,51 @@ export async function recordResultsAction(data: { race_id: number; results: { dr
     for (const r of data.results) {
       recordResult({ race_id: data.race_id, driver_id: r.driver_id, finishing_position: r.finishing_position, laps_led: r.laps_led, dnf: r.dnf, margin: r.margin, money: r.money });
     }
-    completeRace(data.race_id);
+    completeRace(data.race_id, "manual");
     const winner = data.results.find((r) => r.finishing_position === 1 && !r.dnf);
     if (winner) settleBets(data.race_id, winner.driver_id);
-    settlePlayerBets(data.race_id, data.results.map((r) => ({
+    await settlePlayerBets(data.race_id, data.results.map((r) => ({
       driver_id: r.driver_id,
       finishing_position: r.finishing_position ?? null,
       laps_led: r.laps_led ?? 0,
       dnf: r.dnf ?? false,
     })));
+    revalidatePath(`/admin/races/${data.race_id}`);
+    revalidatePath(`/admin/races/${data.race_id}/book`);
+    revalidatePath(`/race/${data.race_id}`);
     return {};
   } catch { return { error: "Failed to record results." }; }
+}
+
+export async function saveModelRaceReviewAction(
+  _previousState: { error?: string },
+  fd: FormData
+): Promise<{ error?: string }> {
+  const raceId = Number.parseInt(String(fd.get("race_id") ?? ""), 10);
+  const missReason = String(fd.get("miss_reason") ?? "") as ModelMissReason;
+  const confidence = Number.parseFloat(String(fd.get("confidence") ?? "0.5"));
+
+  if (!Number.isFinite(raceId)) return { error: "Race ID is required." };
+  if (!modelMissReasons.has(missReason)) return { error: "Choose a valid miss reason." };
+
+  try {
+    upsertModelRaceReview({
+      race_id: raceId,
+      miss_reason: missReason,
+      quick_time_mattered: fd.get("quick_time_mattered") === "on",
+      starting_position_mattered: fd.get("starting_position_mattered") === "on",
+      local_track_history_mattered: fd.get("local_track_history_mattered") === "on",
+      should_be_feature: fd.get("should_be_feature") === "on",
+      confidence: Number.isFinite(confidence) ? Math.min(1, Math.max(0, confidence)) : 0.5,
+      notes: String(fd.get("notes") ?? ""),
+    });
+    revalidatePath("/admin/accuracy");
+    revalidatePath("/admin/testing");
+    revalidatePath(`/admin/races/${raceId}`);
+    return {};
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to save model review." };
+  }
 }
 
 export async function placeBetAction(data: { race_id: number; driver_id: number; bettor_name?: string; amount: number; american_odds: string }): Promise<{ error?: string }> {
@@ -88,6 +175,317 @@ export async function placeBetAction(data: { race_id: number; driver_id: number;
     placeBet(data);
     return {};
   } catch (e) { return { error: e instanceof Error ? e.message : "Failed to place bet." }; }
+}
+
+export async function saveMarketLineAction(data: {
+  race_id: number;
+  driver_id: number;
+  market_odds: string;
+}): Promise<{ error?: string }> {
+  try {
+    const marketOdds = data.market_odds.trim();
+
+    if (marketOdds) {
+      upsertMarketLine({
+        race_id: data.race_id,
+        driver_id: data.driver_id,
+        market_odds: marketOdds,
+      });
+    } else {
+      deleteMarketLine(data.race_id, data.driver_id);
+    }
+
+    revalidatePath(`/admin/races/${data.race_id}/prediction`);
+    revalidatePath(`/admin/races/${data.race_id}/book`);
+    revalidatePath(`/admin/races/${data.race_id}`);
+    return {};
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to save market line." };
+  }
+}
+
+export async function refreshMlPredictionsAction(
+  raceId: number,
+  model: "auto" | "crown" | "lucas" | "woo" | "summer" = "auto"
+): Promise<{ error?: string; scored?: number; output?: string }> {
+  if (!Number.isFinite(raceId)) return { error: "Race ID is required." };
+
+  try {
+    const { execFile } = await import("node:child_process");
+    const { promisify } = await import("node:util");
+    const run = promisify(execFile);
+    const args = ["scripts/predict_model.py", String(raceId), "--cache"];
+    if (model !== "auto") args.push("--model", model);
+
+    const { stdout, stderr } = await run("python3", args, {
+      cwd: process.cwd(),
+      timeout: 60_000,
+      maxBuffer: 10 * 1024 * 1024,
+    });
+
+    const payload = JSON.parse(stdout) as { predictions?: unknown[] };
+    revalidatePath(`/admin/races/${raceId}/prediction`);
+    revalidatePath(`/admin/races/${raceId}/book`);
+    revalidatePath(`/admin/races/${raceId}`);
+    revalidatePath("/");
+
+    return {
+      scored: payload.predictions?.length ?? 0,
+      output: stderr ? `${stdout}\n${stderr}` : stdout,
+    };
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to refresh model predictions." };
+  }
+}
+
+async function scoreMlPredictions(raceId: number, model: "auto" | "crown" | "lucas" | "woo" | "summer" = "auto") {
+  const { execFile } = await import("node:child_process");
+  const { promisify } = await import("node:util");
+  const run = promisify(execFile);
+  const args = ["scripts/predict_model.py", String(raceId), "--cache"];
+  if (model !== "auto") args.push("--model", model);
+
+  const { stdout, stderr } = await run("python3", args, {
+    cwd: process.cwd(),
+    timeout: 60_000,
+    maxBuffer: 10 * 1024 * 1024,
+  });
+
+  const payload = JSON.parse(stdout) as { predictions?: unknown[] };
+  return {
+    scored: payload.predictions?.length ?? 0,
+    output: stderr ? `${stdout}\n${stderr}` : stdout,
+  };
+}
+
+export async function applyRationalMarketLinesAction(
+  raceId: number
+): Promise<{ error?: string; linesWritten?: number; source?: string }> {
+  if (!Number.isFinite(raceId)) return { error: "Race ID is required." };
+
+  try {
+    const result = applyRationalMarketLines(raceId);
+    revalidatePath(`/admin/races/${raceId}/prediction`);
+    revalidatePath(`/admin/races/${raceId}/book`);
+    revalidatePath(`/admin/races/${raceId}`);
+    revalidatePath("/");
+    return { linesWritten: result.linesWritten, source: result.source };
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to apply rational lines." };
+  }
+}
+
+export async function clearMarketLinesAction(
+  raceId: number
+): Promise<{ error?: string; deleted?: number }> {
+  if (!Number.isFinite(raceId)) return { error: "Race ID is required." };
+
+  try {
+    const deleted = clearMarketLines(raceId);
+    revalidatePath(`/admin/races/${raceId}/prediction`);
+    revalidatePath(`/admin/races/${raceId}/book`);
+    revalidatePath(`/admin/races/${raceId}`);
+    revalidatePath(`/race/${raceId}`);
+    revalidatePath("/bet");
+    revalidatePath("/");
+    return { deleted };
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to clear odds." };
+  }
+}
+
+export async function freshModelSlateAction(
+  raceId: number,
+  model: "auto" | "crown" | "lucas" | "woo" | "summer" = "auto"
+): Promise<{ error?: string; deleted?: number; scored?: number; linesWritten?: number; source?: string }> {
+  if (!Number.isFinite(raceId)) return { error: "Race ID is required." };
+
+  try {
+    const scored = await scoreMlPredictions(raceId, model);
+    const deleted = clearMarketLines(raceId);
+    const result = applyRationalMarketLines(raceId);
+
+    revalidatePath(`/admin/races/${raceId}/prediction`);
+    revalidatePath(`/admin/races/${raceId}/book`);
+    revalidatePath(`/admin/races/${raceId}`);
+    revalidatePath(`/race/${raceId}`);
+    revalidatePath("/bet");
+    revalidatePath("/");
+
+    return {
+      deleted,
+      scored: scored.scored,
+      linesWritten: result.linesWritten,
+      source: result.source,
+    };
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to start fresh from the model." };
+  }
+}
+
+export async function createLineCaveatAction(data: {
+  raceId: number;
+  driverId: number | null;
+  caveatType: string;
+  severity: LineCaveatSeverity;
+  probabilityMultiplier: number;
+  note: string;
+  sourceUrl?: string | null;
+}): Promise<{ error?: string }> {
+  try {
+    createLineCaveat(data);
+    revalidatePath(`/admin/races/${data.raceId}/prediction`);
+    revalidatePath(`/admin/races/${data.raceId}/book`);
+    revalidatePath(`/admin/races/${data.raceId}`);
+    revalidatePath(`/race/${data.raceId}`);
+    revalidatePath("/bet");
+    revalidatePath("/");
+    return {};
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to save caveat." };
+  }
+}
+
+export async function resolveLineCaveatAction(
+  raceId: number,
+  caveatId: number
+): Promise<{ error?: string }> {
+  try {
+    resolveLineCaveat(caveatId);
+    revalidatePath(`/admin/races/${raceId}/prediction`);
+    revalidatePath(`/admin/races/${raceId}/book`);
+    revalidatePath(`/admin/races/${raceId}`);
+    revalidatePath(`/race/${raceId}`);
+    revalidatePath("/bet");
+    revalidatePath("/");
+    return {};
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to resolve caveat." };
+  }
+}
+
+export async function createUnderwritingNoteAction(data: {
+  raceId: number;
+  trackId: number;
+  driverId?: number | null;
+  scope: "race" | "track" | "driver";
+  noteType?: string | null;
+  title: string;
+  note: string;
+  sourceUrl?: string | null;
+}): Promise<{ error?: string }> {
+  try {
+    createUnderwritingNote({
+      raceId: data.scope === "track" ? null : data.raceId,
+      trackId: data.scope === "race" ? null : data.trackId,
+      driverId: data.scope === "driver" ? data.driverId ?? null : null,
+      noteType: data.noteType,
+      title: data.title,
+      note: data.note,
+      sourceUrl: data.sourceUrl,
+    });
+    revalidatePath(`/admin/races/${data.raceId}/prediction`);
+    revalidatePath(`/admin/races/${data.raceId}`);
+    revalidatePath(`/admin/tracks/${data.trackId}`);
+    return {};
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to save underwriting note." };
+  }
+}
+
+export async function resolveUnderwritingNoteAction(
+  raceId: number,
+  trackId: number,
+  noteId: number
+): Promise<{ error?: string }> {
+  try {
+    resolveUnderwritingNote(noteId);
+    revalidatePath(`/admin/races/${raceId}/prediction`);
+    revalidatePath(`/admin/races/${raceId}`);
+    revalidatePath(`/admin/tracks/${trackId}`);
+    return {};
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to archive underwriting note." };
+  }
+}
+
+export async function createRaceContextAdjustmentAction(data: {
+  raceId: number;
+  driverId?: number | null;
+  contextType: string;
+  label: string;
+  scoreDelta: number;
+  note?: string | null;
+  sourceUrl?: string | null;
+}): Promise<{ error?: string }> {
+  try {
+    createRaceContextAdjustment(data);
+    revalidatePath(`/admin/races/${data.raceId}/prediction`);
+    revalidatePath(`/admin/races/${data.raceId}/book`);
+    revalidatePath(`/admin/races/${data.raceId}`);
+    revalidatePath("/bet");
+    return {};
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to save race context." };
+  }
+}
+
+export async function resolveRaceContextAdjustmentAction(
+  raceId: number,
+  adjustmentId: number
+): Promise<{ error?: string }> {
+  try {
+    resolveRaceContextAdjustment(adjustmentId);
+    revalidatePath(`/admin/races/${raceId}/prediction`);
+    revalidatePath(`/admin/races/${raceId}/book`);
+    revalidatePath(`/admin/races/${raceId}`);
+    revalidatePath("/bet");
+    return {};
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to archive race context." };
+  }
+}
+
+export async function applySeriesCommitmentConflictsAction(
+  raceId: number
+): Promise<{ error?: string; conflicts?: number; scratched?: number; skippedConfirmed?: number }> {
+  try {
+    const conflicts = applySeriesCommitmentConflicts(raceId);
+    revalidatePath(`/admin/races/${raceId}`);
+    revalidatePath(`/admin/races/${raceId}/prediction`);
+    revalidatePath(`/admin/races/${raceId}/book`);
+    revalidatePath("/bet");
+    return {
+      conflicts: conflicts.length,
+      scratched: conflicts.filter((conflict) => conflict.action === "scratched").length,
+      skippedConfirmed: conflicts.filter((conflict) => conflict.action === "skipped_confirmed").length,
+    };
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to apply series commitments." };
+  }
+}
+
+export async function applyPreviousDayFieldCarryForwardAction(
+  raceId: number
+): Promise<{
+  error?: string;
+  previousRaceId?: number | null;
+  previousRaceName?: string | null;
+  confirmed?: number;
+  added?: number;
+  scratched?: number;
+  unconfirmed?: number;
+}> {
+  try {
+    const result = applyPreviousDayFieldCarryForward(raceId);
+    revalidatePath(`/admin/races/${raceId}`);
+    revalidatePath(`/admin/races/${raceId}/prediction`);
+    revalidatePath(`/admin/races/${raceId}/book`);
+    revalidatePath("/bet");
+    return result;
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to carry forward previous field." };
+  }
 }
 
 export async function setRiskLimitsAction(data: {
@@ -126,8 +524,99 @@ export async function setRaceLiveAction(raceId: number, live: boolean): Promise<
     }
     revalidatePath(`/admin/races/${raceId}`);
     revalidatePath(`/admin/races/${raceId}/book`);
+    revalidatePath(`/race/${raceId}`);
     return {};
   } catch { return { error: "Failed to update race status." }; }
+}
+
+export async function closeBettingAction(raceId: number): Promise<{ error?: string }> {
+  try {
+    lockBetting(raceId, "manual close");
+    revalidatePath(`/admin/races/${raceId}`);
+    revalidatePath(`/admin/races/${raceId}/book`);
+    revalidatePath(`/race/${raceId}`);
+    return {};
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to close betting." };
+  }
+}
+
+export async function reopenBettingAction(raceId: number): Promise<{ error?: string }> {
+  try {
+    reopenBetting(raceId);
+    revalidatePath(`/admin/races/${raceId}`);
+    revalidatePath(`/admin/races/${raceId}/book`);
+    revalidatePath(`/race/${raceId}`);
+    return {};
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to reopen betting." };
+  }
+}
+
+export async function cancelRaceAction(raceId: number): Promise<{ error?: string; voided?: number }> {
+  try {
+    const db = getDb();
+    let voided = 0;
+    db.exec("BEGIN");
+    try {
+      db.prepare(
+        `UPDATE races
+         SET status = 'cancelled',
+             is_live = 0,
+             betting_status = 'void',
+             betting_locked_at = COALESCE(betting_locked_at, strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
+             betting_lock_reason = 'race cancelled'
+         WHERE id = ?`
+      ).run(raceId);
+
+      const voidTables = ["bets", "player_bets", "sim_bets", "featured_board_bets"];
+      for (const table of voidTables) {
+        try {
+          const keyColumn = table === "featured_board_bets" ? "race_key" : "race_id";
+          const result = db.prepare(`UPDATE ${table} SET status = 'void' WHERE ${keyColumn} = ? AND status = 'open'`).run(raceId);
+          voided += Number(result.changes ?? 0);
+        } catch {
+          // Some betting modules are optional in local/dev databases.
+        }
+      }
+
+      db.exec("COMMIT");
+    } catch (error) {
+      db.exec("ROLLBACK");
+      throw error;
+    }
+
+    if (hasLiveBetDatabase()) {
+      await ensureLiveBetTables();
+      const sql = getLiveBetSql();
+      if (sql) {
+        const playerResult = await sql`
+          UPDATE player_bets
+          SET status = 'void'
+          WHERE race_id = ${raceId}
+            AND status = 'open'
+          RETURNING id
+        `;
+        const featuredResult = await sql`
+          UPDATE featured_board_bets
+          SET status = 'void'
+          WHERE race_key = ${String(raceId)}
+            AND status = 'open'
+          RETURNING id
+        `;
+        voided += rowCount(playerResult) + rowCount(featuredResult);
+      }
+    }
+
+    revalidatePath(`/admin/races/${raceId}`);
+    revalidatePath(`/admin/races/${raceId}/book`);
+    revalidatePath(`/race/${raceId}`);
+    revalidatePath("/admin/live");
+    revalidatePath("/bet");
+    return { voided };
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to cancel race." };
+  }
 }
 
 export async function updateConditionsAction(data: { race_id: number; track_condition: string; weather_notes: string; time_of_day?: string; temperature_f?: number | null; humidity_pct?: number | null; precip_48h_in?: number | null; water_truck_runs?: number | null; groove_stage?: string | null }): Promise<{ error?: string }> {
@@ -342,7 +831,7 @@ export async function getOrCreateAccountAction(
 ): Promise<{ error?: string; account?: PlayerAccount }> {
   if (!name.trim()) return { error: "Name is required." };
   try {
-    const raw = getOrCreateAccount(name);
+    const raw = await getOrCreateAccount(name);
     const account: PlayerAccount = { id: raw.id, name: raw.name, balance: raw.balance, created_at: raw.created_at };
     return { account };
   } catch (e) {
@@ -362,7 +851,9 @@ export async function placePlayerBetAction(data: {
 }): Promise<{ error?: string }> {
   if (data.stake <= 0) return { error: "Stake must be greater than zero." };
   try {
-    placePlayerBet(data);
+    await placePlayerBet(data);
+    revalidatePath("/bet");
+    revalidatePath(`/race/${data.race_id}`);
     return {};
   } catch (e) {
     return { error: e instanceof Error ? e.message : "Failed to place bet." };
@@ -375,10 +866,30 @@ export async function addFundsAction(
 ): Promise<{ error?: string }> {
   if (amount <= 0) return { error: "Amount must be positive." };
   try {
-    addFunds(accountId, amount);
+    await addFunds(accountId, amount);
+    revalidatePath("/bet");
     return {};
   } catch (e) {
     return { error: e instanceof Error ? e.message : "Failed to add funds." };
+  }
+}
+
+export async function placeFeaturedBoardBetAction(data: {
+  accountId: number;
+  pickId: string;
+  stake: number;
+}): Promise<{ error?: string }> {
+  if (!Number.isFinite(data.stake) || data.stake <= 0) {
+    return { error: "Stake must be greater than zero." };
+  }
+  try {
+    const { placeFeaturedBoardBet } = await import("@/lib/featured-sportsbook");
+    await placeFeaturedBoardBet(data);
+    revalidatePath("/");
+    revalidatePath("/bet");
+    return {};
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to place bet." };
   }
 }
 
@@ -405,21 +916,118 @@ export type MrpSyncResult = {
   sessions?: Array<{ name: string; type: string; count: number }>;
   updated?: number;
   added?: number;
+  scratched?: number;
+  modelScored?: number;
+  modelError?: string;
   warnings?: string[];
+  settlement?: RaceSettlementResult;
 };
+
+export type MrpEventLookupResult = {
+  error?: string;
+  linked?: boolean;
+  eventId?: number;
+  eventName?: string;
+  trackName?: string;
+  url?: string;
+  score?: number;
+  reasons?: string[];
+  candidates?: Array<{
+    eventId: number;
+    eventName: string;
+    trackName: string;
+    url: string;
+    score: number;
+    reasons: string[];
+  }>;
+};
+
+export async function findAndSetMrpEventIdAction(raceId: number): Promise<MrpEventLookupResult> {
+  const db = getDb();
+  const race = db
+    .prepare(
+      `SELECT r.name, r.race_date, r.division, r.series_mode, r.mrp_event_id, t.name AS track_name
+       FROM races r
+       JOIN tracks t ON t.id = r.track_id
+       WHERE r.id = ?`
+    )
+    .get(raceId) as
+      | {
+          name: string;
+          race_date: string;
+          division: string | null;
+          series_mode: string | null;
+          mrp_event_id: number | null;
+          track_name: string;
+        }
+      | undefined;
+
+  if (!race) return { error: "Race not found." };
+  if (race.mrp_event_id) {
+    return {
+      linked: true,
+      eventId: race.mrp_event_id,
+      eventName: "Already linked",
+      trackName: race.track_name,
+      score: 100,
+      reasons: ["existing MRP ID"],
+    };
+  }
+
+  try {
+    const result = await findMrpEventForRace(race);
+    const candidates = result.candidates.map((candidate) => ({
+      eventId: candidate.event_id,
+      eventName: candidate.event_name,
+      trackName: candidate.track_name,
+      url: candidate.url,
+      score: candidate.score,
+      reasons: candidate.reasons,
+    }));
+
+    if (!result.best) {
+      return {
+        linked: false,
+        error: "No confident MRP match found.",
+        candidates,
+      };
+    }
+
+    db.prepare("UPDATE races SET mrp_event_id = ? WHERE id = ?").run(result.best.event_id, raceId);
+    revalidatePath(`/admin/races/${raceId}`);
+    revalidatePath(`/admin/races/${raceId}/book`);
+
+    return {
+      linked: true,
+      eventId: result.best.event_id,
+      eventName: result.best.event_name,
+      trackName: result.best.track_name,
+      url: result.best.url,
+      score: result.best.score,
+      reasons: result.best.reasons,
+      candidates,
+    };
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to search MRP events." };
+  }
+}
 
 export async function syncMrpLineupAction(raceId: number): Promise<MrpSyncResult> {
   const db = getDb();
   const race = db
-    .prepare("SELECT mrp_event_id FROM races WHERE id = ?")
-    .get(raceId) as { mrp_event_id: number | null } | undefined;
+    .prepare("SELECT name, division, series_mode, mrp_event_id FROM races WHERE id = ?")
+    .get(raceId) as
+      | { name: string; division: string | null; series_mode: string | null; mrp_event_id: number | null }
+      | undefined;
 
   if (!race) return { error: "Race not found." };
   if (!race.mrp_event_id) return { error: "No MRP Event ID linked to this race. Set one first." };
 
+  let rawLineup;
   let lineup;
   try {
-    lineup = await fetchMrpLineup(race.mrp_event_id);
+    rawLineup = await fetchMrpLineup(race.mrp_event_id);
+    lineup = filterMrpLineupForRace(rawLineup, race);
   } catch (e) {
     return { error: e instanceof Error ? e.message : "Failed to fetch MRP lineup." };
   }
@@ -430,6 +1038,7 @@ export async function syncMrpLineupAction(raceId: number): Promise<MrpSyncResult
       sessions: lineup.sessions.map((s) => ({ name: s.name, type: s.type, count: s.entries.length })),
       updated: 0,
       added: 0,
+      scratched: 0,
       warnings: lineup.warnings,
     };
   }
@@ -451,6 +1060,11 @@ export async function syncMrpLineupAction(raceId: number): Promise<MrpSyncResult
 
   let updated = 0;
   let added = 0;
+  let scratched = 0;
+  const targetNames = new Set(lineup.entries.map((entry) => entry.driver_name.trim().toLowerCase()));
+  const excludedEntries = rawLineup.entries.filter(
+    (entry) => !targetNames.has(entry.driver_name.trim().toLowerCase())
+  );
 
   for (const entry of lineup.entries) {
     const driverId = matchDriver(entry.driver_name);
@@ -463,7 +1077,7 @@ export async function syncMrpLineupAction(raceId: number): Promise<MrpSyncResult
 
     if (!exists) {
       db.prepare(
-        "INSERT OR IGNORE INTO race_entries (race_id, driver_id, car_number) VALUES (?, ?, ?)"
+        "INSERT OR IGNORE INTO race_entries (race_id, driver_id, car_number, entry_status, entry_status_updated_at) VALUES (?, ?, ?, 'confirmed', strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))"
       ).run(raceId, driverId, entry.car_number ?? null);
       added++;
     }
@@ -472,6 +1086,9 @@ export async function syncMrpLineupAction(raceId: number): Promise<MrpSyncResult
     const sets: string[] = [];
     const vals: (number | string | null)[] = [];
 
+    sets.push("entry_status = 'confirmed'");
+    sets.push("entry_status_updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now')");
+
     if (entry.qualifying_time !== null) {
       sets.push("qualifying_time = ?");
       vals.push(entry.qualifying_time);
@@ -479,6 +1096,10 @@ export async function syncMrpLineupAction(raceId: number): Promise<MrpSyncResult
     if (entry.heat_position !== null) {
       sets.push("heat_position = ?");
       vals.push(entry.heat_position);
+    }
+    if (entry.bmain_position !== null) {
+      sets.push("bmain_position = ?");
+      vals.push(entry.bmain_position);
     }
     if (entry.starting_position !== null) {
       sets.push("starting_position = ?");
@@ -497,14 +1118,54 @@ export async function syncMrpLineupAction(raceId: number): Promise<MrpSyncResult
     }
   }
 
+  for (const entry of excludedEntries) {
+    const exact = db
+      .prepare("SELECT id FROM drivers WHERE LOWER(name) = ? LIMIT 1")
+      .get(entry.driver_name.trim().toLowerCase()) as { id: number } | undefined;
+    if (!exact) continue;
+    const existing = db
+      .prepare("SELECT id, entry_status FROM race_entries WHERE race_id = ? AND driver_id = ?")
+      .get(raceId, exact.id) as { id: number; entry_status: string } | undefined;
+    if (!existing || existing.entry_status === "scratched") continue;
+
+    db.prepare(
+      `UPDATE race_entries
+       SET entry_status = 'scratched',
+           entry_status_updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now'),
+           qualifying_time = NULL,
+           heat_position = NULL,
+           starting_position = NULL
+       WHERE race_id = ? AND driver_id = ?`
+    ).run(raceId, exact.id);
+    scratched++;
+  }
+
+  let modelScored = 0;
+  let modelError: string | undefined;
+  if (updated + added + scratched > 0) {
+    try {
+      const scored = await scoreMlPredictions(raceId);
+      modelScored = scored.scored ?? 0;
+    } catch (e) {
+      modelError = e instanceof Error ? e.message : "Failed to refresh model predictions.";
+    }
+  }
+
   revalidatePath(`/admin/races/${raceId}`);
+  revalidatePath(`/admin/races/${raceId}/prediction`);
+  revalidatePath(`/admin/races/${raceId}/book`);
   revalidatePath(`/race/${raceId}`);
+  revalidatePath("/admin/testing");
+  revalidatePath("/admin/upcoming");
 
   return {
     event_name: lineup.event_name,
     sessions: lineup.sessions.map((s) => ({ name: s.name, type: s.type, count: s.entries.length })),
     updated,
     added,
+    scratched,
+    modelScored,
+    modelError,
     warnings: lineup.warnings,
   };
 }
@@ -521,6 +1182,45 @@ export async function resetPrelimDataAction(raceId: number): Promise<{ error?: s
     return {};
   } catch (e) {
     return { error: e instanceof Error ? e.message : "Failed to reset prelim data." };
+  }
+}
+
+export async function syncMrpResultsAction(raceId: number): Promise<MrpSyncResult> {
+  const db = getDb();
+  const race = db
+    .prepare("SELECT mrp_event_id FROM races WHERE id = ?")
+    .get(raceId) as { mrp_event_id: number | null } | undefined;
+
+  if (!race) return { error: "Race not found." };
+  if (!race.mrp_event_id) return { error: "No MRP Event ID linked to this race. Set one first." };
+
+  try {
+    const imported = await fetchMrpFinalResults(race.mrp_event_id);
+    if (imported.results.length === 0) {
+      return {
+        event_name: imported.event_name,
+        warnings: imported.warnings,
+        error: "No final results were available from MRP yet.",
+      };
+    }
+
+    const settlement = await applyRaceResults(raceId, imported.results, `MRP ${race.mrp_event_id}`);
+    revalidatePath(`/admin/races/${raceId}`);
+    revalidatePath(`/admin/races/${raceId}/book`);
+    revalidatePath(`/race/${raceId}`);
+    return {
+      event_name: imported.event_name,
+      sessions: [{ name: imported.session_name, type: "feature", count: imported.results.length }],
+      updated: settlement.synced,
+      added: 0,
+      warnings: [
+        ...imported.warnings,
+        ...settlement.unmatched.map((name) => `No local driver match for ${name}.`),
+      ],
+      settlement,
+    };
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to sync MRP results." };
   }
 }
 
@@ -563,6 +1263,47 @@ export async function removeTrackSimilarAction(
     return {};
   } catch (e) {
     return { error: e instanceof Error ? e.message : "Failed to remove similarity." };
+  }
+}
+
+export async function createTrackDriverTrendAction(data: {
+  track_id: number;
+  driver_id?: number | null;
+  trend_type?: string;
+  label: string;
+  score_delta: number;
+  note?: string | null;
+  source_url?: string | null;
+}): Promise<{ error?: string }> {
+  try {
+    if (!data.label.trim()) return { error: "Trend label is required." };
+    createTrackDriverTrend({
+      ...data,
+      driver_id: data.driver_id || null,
+      trend_type: data.trend_type || "track_history",
+      score_delta: Number.isFinite(data.score_delta) ? data.score_delta : 0,
+      label: data.label.trim(),
+      note: data.note?.trim() || null,
+      source_url: data.source_url?.trim() || null,
+    });
+    revalidatePath(`/admin/tracks/${data.track_id}`);
+    revalidatePath("/admin/races");
+    revalidatePath("/bet");
+    return {};
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to save track trend." };
+  }
+}
+
+export async function resolveTrackDriverTrendAction(id: number, trackId: number): Promise<{ error?: string }> {
+  try {
+    resolveTrackDriverTrend(id);
+    revalidatePath(`/admin/tracks/${trackId}`);
+    revalidatePath("/admin/races");
+    revalidatePath("/bet");
+    return {};
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to resolve track trend." };
   }
 }
 

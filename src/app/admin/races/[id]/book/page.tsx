@@ -2,14 +2,17 @@ import { connection } from "next/server";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Nav } from "@/components/nav";
-import { getRace, getRaceEntries } from "@/lib/races";
+import { getRace, getRaceEntries, isRaceBettingOpen } from "@/lib/races";
 import { calculateRaceOdds } from "@/lib/odds";
 import { getRaceBets, getDriverLiabilities, getBookSummary, getRiskLimits } from "@/lib/book";
+import { americanOddsToImpliedProbability, getMarketLineMap } from "@/lib/market-lines";
 import { PlaceBetForm } from "@/components/place-bet-form";
 import { RiskLimitsForm } from "@/components/risk-limits-form";
 import { VoidBetButton } from "@/components/void-bet-button";
 import { LivePolling } from "@/components/live-polling";
 import { GoLiveButton } from "@/components/go-live-button";
+import { BettingControls } from "@/components/betting-controls";
+import { getPublicSportsbookExposure } from "@/lib/underwriting";
 
 const fmt = new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric" });
 const usd = (n: number) =>
@@ -57,29 +60,46 @@ export default async function BookPage({ params }: { params: Promise<{ id: strin
 
   const plain = <T,>(x: T): T => JSON.parse(JSON.stringify(x));
 
+  const isComplete = race.status === "complete";
+  const isLive = !isComplete && !!race.is_live;
+  const bettingStatus = race.betting_status ?? "open";
+  const bettingOpen = isRaceBettingOpen(race);
   const entries = plain(getRaceEntries(raceId));
-  const odds = plain(calculateRaceOdds(raceId, race.track_id));
+  const odds = isComplete ? [] : plain(calculateRaceOdds(raceId, race.track_id));
   const bets = plain(getRaceBets(raceId));
   const liabilities = plain(getDriverLiabilities(raceId));
   const summary = plain(getBookSummary(raceId));
   const limits = plain(getRiskLimits(raceId));
+  const publicExposure = plain(await getPublicSportsbookExposure(raceId));
+  const marketLineMap = isComplete ? {} : plain(getMarketLineMap(raceId));
+  const activeEntries = entries.filter(
+    (entry: { entry_status?: string | null }) => (entry.entry_status ?? "expected") !== "scratched"
+  );
+  const activeDriverIds = new Set(activeEntries.map((entry: { driver_id: number }) => entry.driver_id));
+  const activeOdds = odds.filter((o: { driverId: number }) => activeDriverIds.has(o.driverId));
 
-  const isComplete = race.status === "complete";
-  const isLive = !isComplete && !!(race as any).is_live;
-
-  // Theoretical hold from the sum of implied probabilities
-  const sumImplied = odds.reduce((sum: number, o: { impliedProbability: number }) => sum + o.impliedProbability, 0);
-  const theoreticalHold = sumImplied > 1 ? (sumImplied - 1) / sumImplied : 0;
+  // Theoretical hold from the currently offered market lines.
+  const marketImpliedTotal = activeOdds.reduce((sum: number, o: { driverId: number; impliedProbability: number }) => {
+    const marketOdds = marketLineMap[o.driverId];
+    return sum + (marketOdds ? americanOddsToImpliedProbability(marketOdds) ?? o.impliedProbability : o.impliedProbability);
+  }, 0);
+  const theoreticalHold = marketImpliedTotal > 1 ? (marketImpliedTotal - 1) / marketImpliedTotal : 0;
 
   // True (de-vigged) win probabilities for each driver
+  const sumImplied = activeOdds.reduce((sum: number, o: { impliedProbability: number }) => sum + o.impliedProbability, 0);
   const probMap = new Map(
-    odds.map((o: { driverId: number; impliedProbability: number }) => [
+    activeOdds.map((o: { driverId: number; impliedProbability: number }) => [
       o.driverId,
       sumImplied > 0 ? o.impliedProbability / sumImplied : 0,
     ])
   );
 
-  const oddsMap = new Map(odds.map((o: { driverId: number; americanOdds: string }) => [o.driverId, o.americanOdds]));
+  const oddsMap = new Map(
+    activeOdds.map((o: { driverId: number; americanOdds: string }) => [
+      o.driverId,
+      marketLineMap[o.driverId] ?? o.americanOdds,
+    ])
+  );
   const liabilityMap = new Map(liabilities.map((l) => [l.driver_id, l]));
 
   type FullRow = {
@@ -94,9 +114,17 @@ export default async function BookPage({ params }: { params: Promise<{ id: strin
     has_bets: boolean;
     trueProb: number;
     suggestedOdds: string | null;
+    metricSeries: string | null;
   };
 
-  const fullRows: FullRow[] = entries.map((e: { driver_id: number; driver_name: string }) => {
+  const profileMap = new Map(
+    activeOdds.map((o: { driverId: number; reasoning: { metricSeries: string } }) => [
+      o.driverId,
+      o.reasoning.metricSeries,
+    ])
+  );
+
+  const fullRows: FullRow[] = activeEntries.map((e: { driver_id: number; driver_name: string }) => {
     const lib = liabilityMap.get(e.driver_id);
     const currentOdds = oddsMap.get(e.driver_id) ?? "—";
     const trueProb = probMap.get(e.driver_id) ?? 0;
@@ -115,6 +143,7 @@ export default async function BookPage({ params }: { params: Promise<{ id: strin
       suggestedOdds: lib && handlePct > limits.alert_handle_pct
         ? suggestLineMoveOdds(currentOdds, handlePct, trueProb)
         : null,
+      metricSeries: profileMap.get(e.driver_id) ?? null,
     };
   });
 
@@ -128,10 +157,10 @@ export default async function BookPage({ params }: { params: Promise<{ id: strin
 
   const overexposedRows = fullRows.filter((r) => r.has_bets && r.handle_pct > limits.alert_handle_pct);
 
-  const oddsEntries = odds.map((o: { driverId: number; driverName: string; americanOdds: string }) => ({
+  const oddsEntries = activeOdds.map((o: { driverId: number; driverName: string; americanOdds: string }) => ({
     driver_id: o.driverId,
     driver_name: o.driverName,
-    american_odds: o.americanOdds,
+    american_odds: marketLineMap[o.driverId] ?? o.americanOdds,
   }));
 
   return (
@@ -148,7 +177,7 @@ export default async function BookPage({ params }: { params: Promise<{ id: strin
               <span>/</span>
               <Link href={`/admin/races/${raceId}`} className="hover:text-white transition-colors">{race.name}</Link>
               <span>/</span>
-              <span className="text-white">Book</span>
+              <span className="text-white">{isComplete ? "Settled Book Review" : "Betting Book"}</span>
               <span>/</span>
               <Link href={`/admin/races/${raceId}/sim`} className="hover:text-white transition-colors text-[var(--accent)]">Simulation →</Link>
             </div>
@@ -160,7 +189,10 @@ export default async function BookPage({ params }: { params: Promise<{ id: strin
           <div className="flex items-center gap-3 shrink-0">
             {!isComplete && <GoLiveButton raceId={raceId} isLive={isLive} />}
             <span className={`rounded-full px-3 py-1 text-sm font-semibold ${isComplete ? "bg-green-500/20 text-green-400" : isLive ? "bg-red-500/20 text-red-400" : "bg-blue-500/20 text-blue-400"}`}>
-              {isComplete ? "Settled" : isLive ? "Live" : "Book Open"}
+              {isComplete ? "Settled Review" : isLive ? "Live" : "Book Open"}
+            </span>
+            <span className={`rounded-full px-3 py-1 text-sm font-semibold ${bettingOpen ? "bg-blue-500/20 text-blue-400" : isComplete ? "bg-green-500/20 text-green-400" : "bg-red-500/20 text-red-400"}`}>
+              {bettingOpen ? "Betting Open" : isComplete ? "Payouts Posted" : "Betting Closed"}
             </span>
           </div>
         </div>
@@ -189,13 +221,16 @@ export default async function BookPage({ params }: { params: Promise<{ id: strin
           <div className="space-y-5">
             <section>
               <h2 className="text-base font-semibold text-white mb-3">
-                Liability Board
-                <span className="ml-2 text-xs font-normal text-[var(--muted)]">{entries.length} drivers in field</span>
+                {isComplete ? "Settled Liability Review" : "Live Liability Board"}
+                <span className="ml-2 text-xs font-normal text-[var(--muted)]">
+                  {activeEntries.length} active drivers
+                  {entries.length > activeEntries.length ? ` / ${entries.length - activeEntries.length} scratched` : ""}
+                </span>
               </h2>
 
-              {entries.length === 0 ? (
+              {activeEntries.length === 0 ? (
                 <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-6 py-12 text-center text-sm text-[var(--muted)]">
-                  No drivers in the field yet.
+                  No active drivers in the field yet.
                 </div>
               ) : (
                 <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] overflow-x-auto">
@@ -220,6 +255,9 @@ export default async function BookPage({ params }: { params: Promise<{ id: strin
                             <td className="px-3 py-2.5">
                               <div className="flex items-center gap-2 flex-wrap">
                                 <span className="font-semibold text-white">{row.driver_name}</span>
+                                {row.metricSeries && (
+                                  <span className="text-[10px] text-blue-300 font-medium">{row.metricSeries}</span>
+                                )}
                                 {isWorstCase && <span className="text-[10px] text-red-400 font-medium">MAX EXPOSURE</span>}
                                 {isAlert && row.suggestedOdds && (
                                   <span className="text-[10px] text-amber-400 font-medium">
@@ -326,11 +364,73 @@ export default async function BookPage({ params }: { params: Promise<{ id: strin
                 </div>
               </section>
             )}
+
+            {publicExposure.selections.length > 0 && (
+              <section>
+                <h2 className="text-base font-semibold text-white mb-3">
+                  Public Sportsbook Exposure
+                  <span className="ml-2 text-xs font-normal text-[var(--muted)]">
+                    {publicExposure.totalTickets} tickets · {usd(publicExposure.totalHandle)} handle
+                  </span>
+                </h2>
+                <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] overflow-x-auto">
+                  <table className="w-full text-sm min-w-[640px]">
+                    <thead>
+                      <tr className="border-b border-[var(--border)] bg-[var(--surface-raised)]">
+                        {["Market", "Odds", "Tickets", "Staked", "Payout If Win", "House P&L", "Corridor"].map((h) => (
+                          <th key={h} className={`px-3 py-3 text-[10px] font-semibold uppercase tracking-widest text-[var(--muted)] ${h === "Market" ? "text-left" : "text-right"}`}>
+                            {h}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {publicExposure.selections.map((row) => (
+                        <tr key={row.key} className={`border-b border-[var(--border)] last:border-0 transition-colors ${row.corridor.status === "closed" ? "bg-red-500/5" : row.corridor.status === "limited" ? "bg-amber-500/5" : "hover:bg-[var(--surface-raised)]"}`}>
+                          <td className="px-3 py-2.5">
+                            <div className="font-semibold text-white text-xs">{row.description}</div>
+                            <div className="text-[10px] uppercase tracking-wider text-[var(--muted)]">{row.prop_type}</div>
+                          </td>
+                          <td className="px-3 py-2.5 text-right tabular-nums text-xs text-[var(--muted)]">{row.american_odds}</td>
+                          <td className="px-3 py-2.5 text-right tabular-nums text-xs text-[var(--muted)]">{row.tickets}</td>
+                          <td className="px-3 py-2.5 text-right tabular-nums text-xs text-white">{usd(row.total_staked)}</td>
+                          <td className="px-3 py-2.5 text-right tabular-nums text-xs text-[var(--muted)]">{usd(row.payout_if_win)}</td>
+                          <td className="px-3 py-2.5 text-right"><PLBadge value={row.net_pl_if_win} /></td>
+                          <td className="px-3 py-2.5 text-right">
+                            <span className={`text-[10px] font-semibold uppercase ${
+                              row.corridor.status === "closed"
+                                ? "text-red-400"
+                                : row.corridor.status === "limited"
+                                ? "text-amber-400"
+                                : "text-green-400"
+                            }`}>
+                              {row.corridor.status === "open" ? `max ${usd(row.corridor.maxStake)}` : row.corridor.message ?? row.corridor.status}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            )}
           </div>
 
           {/* Sidebar */}
           <aside className="space-y-5">
-            {!isComplete && oddsEntries.length > 0 && (
+            <div className="rounded-2xl border border-red-500/30 bg-[var(--surface)] p-5">
+              <h3 className="font-semibold text-white mb-1">Betting & Results</h3>
+              <p className="text-[10px] text-[var(--muted)] mb-4">Close lines, reopen if needed, or sync MRP finals to grade every bet.</p>
+              <BettingControls
+                raceId={raceId}
+                bettingStatus={bettingStatus}
+                raceStatus={race.status}
+                isLive={isLive}
+                hasMrpEvent={!!race.mrp_event_id}
+              />
+            </div>
+
+            {bettingOpen && oddsEntries.length > 0 && (
               <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5">
                 <h3 className="font-semibold text-white mb-4">Place Bet</h3>
                 <PlaceBetForm raceId={raceId} oddsEntries={oddsEntries} />
@@ -338,6 +438,32 @@ export default async function BookPage({ params }: { params: Promise<{ id: strin
             )}
 
             {/* Book health */}
+            {publicExposure.selections.length > 0 && (
+              <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 space-y-3">
+                <h3 className="font-semibold text-white">Public Risk Corridor</h3>
+                <div className="space-y-3 text-sm">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[var(--muted)]">Public handle</span>
+                    <span className="text-white font-semibold tabular-nums">{usd(publicExposure.totalHandle)}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[var(--muted)]">Worst public outcome</span>
+                    <PLBadge value={publicExposure.worstCasePl} />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[var(--muted)]">Largest payout</span>
+                    <span className="text-white font-semibold tabular-nums">{usd(publicExposure.worstSelectionPayout)}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[var(--muted)]">Limited markets</span>
+                    <span className="text-amber-400 font-semibold">
+                      {publicExposure.selections.filter((row) => row.corridor.status !== "open").length}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {bets.length > 0 && (
               <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 space-y-4">
                 <h3 className="font-semibold text-white">Book Health</h3>

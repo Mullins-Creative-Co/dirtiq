@@ -12,6 +12,14 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    ".vercel/**",
+    "data/**",
+    "RACEFEST*/**",
+    "*.html",
+    "*.csv",
+    "*.db",
+    "*.db-shm",
+    "*.db-wal",
   ]),
 ]);
 

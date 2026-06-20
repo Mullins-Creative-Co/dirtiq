@@ -1,5 +1,6 @@
 import "server-only";
 import { getDb } from "./db";
+import { isRaceBettingOpen } from "./races";
 
 export type RiskLimits = {
   race_id: number;
@@ -83,6 +84,30 @@ export function placeBet(data: {
   american_odds: string;
 }): void {
   const db = getDb();
+  const race = db
+    .prepare("SELECT race_date, division, series_mode, status, is_live, betting_status FROM races WHERE id = ?")
+    .get(data.race_id) as
+      | { race_date: string; division: string | null; series_mode: string | null; status: string; is_live: number; betting_status: string | null }
+      | undefined;
+  if (!race) throw new Error("Race not found.");
+  if (!isRaceBettingOpen(race)) {
+    throw new Error("Betting is closed for this race.");
+  }
+
+  const scratched = db
+    .prepare(
+      `SELECT d.name
+       FROM race_entries re
+       JOIN drivers d ON d.id = re.driver_id
+       WHERE re.race_id = ?
+         AND re.driver_id = ?
+         AND COALESCE(re.entry_status, 'expected') = 'scratched'`
+    )
+    .get(data.race_id, data.driver_id) as { name: string } | undefined;
+  if (scratched) {
+    throw new Error(`${scratched.name} is scratched and not bettable.`);
+  }
+
   const limits = getRiskLimits(data.race_id);
 
   if (limits.max_bet_size !== null && data.amount > limits.max_bet_size) {
@@ -200,6 +225,7 @@ export function getBookSummary(raceId: number): BookSummary {
       `SELECT COUNT(*) AS uncovered
        FROM race_entries re
        WHERE re.race_id = ?
+         AND COALESCE(re.entry_status, 'expected') != 'scratched'
          AND re.driver_id NOT IN (
            SELECT DISTINCT driver_id FROM bets WHERE race_id = ? AND status != 'void'
          )`

@@ -121,7 +121,7 @@ export function DriverIntelligenceEditor({
         {/* How it works */}
         <div className="border-t border-[var(--border)] px-5 py-2.5 bg-amber-500/5">
           <p className="text-[10px] text-[var(--muted)]">
-            A specialty adds a flat bonus to the composite score when {driver.name} runs at a track matching the family or specific track ID. Use <strong className="text-amber-400">Track Family</strong> (e.g. "Illinois Quarter Mile") to apply across all similar tracks, or a specific track for a pinpoint override. Bonus is added <em>before</em> Elo blending.
+            A specialty adds a flat bonus to the composite score when {driver.name} runs at a track matching the family or specific track ID. Use <strong className="text-amber-400">Track Family</strong> (e.g. &quot;Illinois Quarter Mile&quot;) to apply across all similar tracks, or a specific track for a pinpoint override. Bonus is added <em>before</em> Elo blending.
           </p>
         </div>
 

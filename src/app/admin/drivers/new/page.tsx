@@ -34,14 +34,17 @@ export default function NewDriverPage() {
               <input name="car_number" className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2.5 text-sm text-white placeholder-[var(--muted)] focus:border-[var(--accent)] focus:outline-none" placeholder="e.g. 32" />
             </div>
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-widest text-[var(--muted)] mb-1.5">Division</label>
+              <label className="block text-xs font-semibold uppercase tracking-widest text-[var(--muted)] mb-1.5">Series / Division</label>
               <select name="division" className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2.5 text-sm text-white focus:border-[var(--accent)] focus:outline-none">
-                <option value="Open">Open / Late Model</option>
-                <option value="Modified">Modified</option>
-                <option value="Sprint">Sprint Car</option>
-                <option value="UMP">UMP Modified</option>
-                <option value="Street Stock">Street Stock</option>
+                <option value="WoO Late Models">WoO Late Models</option>
+                <option value="Lucas Oil LMDS">Lucas Oil LMDS</option>
+                <option value="Crown Jewel / Combined">Crown Jewel / Combined</option>
+                <option value="DIRTcar Summer Nationals">DIRTcar Summer Nationals</option>
+                <option value="Independent">Independent / Open Late Model</option>
               </select>
+              <p className="mt-1.5 text-xs leading-5 text-[var(--muted)]">
+                Sprint cars and modifieds are hidden from active model targets until their own data and model features exist.
+              </p>
             </div>
           </div>
           <div>

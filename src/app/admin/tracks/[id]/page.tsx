@@ -5,6 +5,8 @@ import { Nav } from "@/components/nav";
 import { getTrack, getTrackSimilars, listTracks } from "@/lib/tracks";
 import { TrackIntelligenceEditor } from "@/components/track-intelligence-editor";
 import { getDb } from "@/lib/db";
+import { listDrivers } from "@/lib/drivers";
+import { listTrackDriverTrends } from "@/lib/track-driver-trends";
 
 export default async function TrackDetailPage({
   params,
@@ -21,8 +23,11 @@ export default async function TrackDetailPage({
 
   const plain = <T,>(x: T): T => JSON.parse(JSON.stringify(x));
 
+  const trackForEditor = plain(track);
   const similars = plain(getTrackSimilars(trackId));
   const allTracks = plain(listTracks().filter((t) => t.id !== trackId));
+  const allDrivers = plain(listDrivers().filter((d) => d.active === 1));
+  const trackTrends = plain(listTrackDriverTrends(trackId));
 
   const races = getDb().prepare(`
     SELECT r.id, r.name, r.race_date, r.status, COUNT(re.id) AS entry_count
@@ -51,9 +56,11 @@ export default async function TrackDetailPage({
 
         {/* Intelligence editor (track info + similarities + AI suggest) */}
         <TrackIntelligenceEditor
-          track={track}
+          track={trackForEditor}
           similars={similars}
           allTracks={allTracks}
+          allDrivers={allDrivers}
+          trackTrends={trackTrends}
         />
 
         {/* Recent races */}

@@ -12,6 +12,7 @@ data/
 .env
 .env.local
 .env.*.local
+.vercel/
 
 # build artifacts
 tsconfig.tsbuildinfo
@@ -19,6 +20,14 @@ tsconfig.tsbuildinfo
 # local data files (csvs, docs, saved pages)
 *.docx
 *.pdf
+*.csv
+*.html
+*.db
+*.db-shm
+*.db-wal
+!public/
+!public/data/
+!public/data/dirtiq.seed.db
 WoO_*.csv
 woo_*.csv
 RACEFEST*/

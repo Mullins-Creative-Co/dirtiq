@@ -3,14 +3,29 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   updateTrackAction, upsertTrackSimilarAction, removeTrackSimilarAction,
-  suggestTrackSimilarsAction, type AISimilaritySuggestion,
+  suggestTrackSimilarsAction, createTrackDriverTrendAction, resolveTrackDriverTrendAction,
+  type AISimilaritySuggestion,
 } from "@/app/actions";
 
 type Track = {
   id: number; name: string; location: string | null; surface_type: string;
-  track_length: number | null; track_family: string | null; notes: string | null;
+  track_length: number | null; banking_angle?: number | null; clay_type?: string | null;
+  avg_caution_rate?: number | null; track_family: string | null; notes: string | null;
 };
 type Similar = { id: number; track_id: number; similar_track_id: number; similar_name: string; similarity_weight: number; notes: string | null };
+type Driver = { id: number; name: string; car_number: string | null; hometown: string | null };
+type TrackTrend = {
+  id: number;
+  track_id: number;
+  driver_id: number | null;
+  driver_name: string | null;
+  trend_type: string;
+  label: string;
+  score_delta: number;
+  note: string | null;
+  source_url: string | null;
+  active: number;
+};
 
 const SURFACE_TYPES = ["Clay", "Dirt", "Asphalt", "Concrete"];
 
@@ -18,10 +33,14 @@ export function TrackIntelligenceEditor({
   track,
   similars: initialSimilars,
   allTracks,
+  allDrivers,
+  trackTrends: initialTrackTrends,
 }: {
   track: Track;
   similars: Similar[];
   allTracks: Track[];
+  allDrivers: Driver[];
+  trackTrends: TrackTrend[];
 }) {
   const router = useRouter();
 
@@ -31,6 +50,9 @@ export function TrackIntelligenceEditor({
   const [location, setLocation] = useState(track.location ?? "");
   const [surfaceType, setSurfaceType] = useState(track.surface_type);
   const [trackLength, setTrackLength] = useState(track.track_length?.toString() ?? "");
+  const [bankingAngle, setBankingAngle] = useState(track.banking_angle?.toString() ?? "");
+  const [clayType, setClayType] = useState(track.clay_type ?? "");
+  const [avgCautionRate, setAvgCautionRate] = useState(track.avg_caution_rate?.toString() ?? "");
   const [trackFamily, setTrackFamily] = useState(track.track_family ?? "");
   const [notes, setNotes] = useState(track.notes ?? "");
   const [savingInfo, setSavingInfo] = useState(false);
@@ -53,6 +75,18 @@ export function TrackIntelligenceEditor({
   const [suggestError, setSuggestError] = useState<string | null>(null);
   const [applyingIdx, setApplyingIdx] = useState<number | null>(null);
 
+  // Durable track trend state
+  const [trackTrends, setTrackTrends] = useState(initialTrackTrends);
+  const [trendDriverId, setTrendDriverId] = useState("");
+  const [trendType, setTrendType] = useState("track_history");
+  const [trendLabel, setTrendLabel] = useState("");
+  const [trendDelta, setTrendDelta] = useState("0.025");
+  const [trendNote, setTrendNote] = useState("");
+  const [trendSourceUrl, setTrendSourceUrl] = useState("");
+  const [savingTrend, setSavingTrend] = useState(false);
+  const [trendError, setTrendError] = useState<string | null>(null);
+  const [removingTrendId, setRemovingTrendId] = useState<number | null>(null);
+
   async function saveInfo() {
     setSavingInfo(true);
     setInfoSaved(false);
@@ -61,6 +95,9 @@ export function TrackIntelligenceEditor({
       location: location || null,
       surface_type: surfaceType,
       track_length: trackLength ? parseFloat(trackLength) : null,
+      banking_angle: bankingAngle ? parseFloat(bankingAngle) : null,
+      clay_type: clayType || null,
+      avg_caution_rate: avgCautionRate ? parseFloat(avgCautionRate) : null,
       track_family: trackFamily || null,
       notes: notes || null,
     });
@@ -116,6 +153,49 @@ export function TrackIntelligenceEditor({
     router.refresh();
   }
 
+  async function addTrend() {
+    const scoreDelta = parseFloat(trendDelta);
+    if (!trendLabel.trim() || !Number.isFinite(scoreDelta)) return;
+
+    setSavingTrend(true);
+    setTrendError(null);
+    const result = await createTrackDriverTrendAction({
+      track_id: track.id,
+      driver_id: trendDriverId ? parseInt(trendDriverId, 10) : null,
+      trend_type: trendType,
+      label: trendLabel,
+      score_delta: scoreDelta,
+      note: trendNote || null,
+      source_url: trendSourceUrl || null,
+    });
+    setSavingTrend(false);
+
+    if (result.error) {
+      setTrendError(result.error);
+      return;
+    }
+
+    setTrendDriverId("");
+    setTrendType("track_history");
+    setTrendLabel("");
+    setTrendDelta("0.025");
+    setTrendNote("");
+    setTrendSourceUrl("");
+    router.refresh();
+  }
+
+  async function removeTrend(trendId: number) {
+    setRemovingTrendId(trendId);
+    const result = await resolveTrackDriverTrendAction(trendId, track.id);
+    setRemovingTrendId(null);
+    if (result.error) {
+      setTrendError(result.error);
+      return;
+    }
+    setTrackTrends((prev) => prev.filter((trend) => trend.id !== trendId));
+    router.refresh();
+  }
+
   const weightColor = (w: number) =>
     w >= 0.75 ? "text-green-400" : w >= 0.45 ? "text-amber-400" : "text-[var(--muted)]";
 
@@ -160,8 +240,23 @@ export function TrackIntelligenceEditor({
                   className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2 text-sm text-white tabular-nums focus:border-[var(--accent)] focus:outline-none" />
               </label>
               <label className="space-y-1">
+                <span className="text-[10px] uppercase tracking-widest text-[var(--muted)]">Banking angle</span>
+                <input type="number" step="1" min="0" max="40" value={bankingAngle} onChange={(e) => setBankingAngle(e.target.value)} placeholder="e.g. 22"
+                  className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2 text-sm text-white tabular-nums focus:border-[var(--accent)] focus:outline-none" />
+              </label>
+              <label className="space-y-1">
+                <span className="text-[10px] uppercase tracking-widest text-[var(--muted)]">Clay / surface style</span>
+                <input value={clayType} onChange={(e) => setClayType(e.target.value)} placeholder="e.g. red clay, abrasive"
+                  className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2 text-sm text-white focus:border-[var(--accent)] focus:outline-none" />
+              </label>
+              <label className="space-y-1">
+                <span className="text-[10px] uppercase tracking-widest text-[var(--muted)]">Avg cautions</span>
+                <input type="number" step="0.1" min="0" value={avgCautionRate} onChange={(e) => setAvgCautionRate(e.target.value)} placeholder="e.g. 4.5"
+                  className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2 text-sm text-white tabular-nums focus:border-[var(--accent)] focus:outline-none" />
+              </label>
+              <label className="space-y-1">
                 <span className="text-[10px] uppercase tracking-widest text-[var(--muted)]">Track Family</span>
-                <input value={trackFamily} onChange={(e) => setTrackFamily(e.target.value)} placeholder="e.g. Illinois Quarter Mile"
+                <input value={trackFamily} onChange={(e) => setTrackFamily(e.target.value)} placeholder="e.g. High-banked Southeast 4/10"
                   className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2 text-sm text-white focus:border-[var(--accent)] focus:outline-none" />
               </label>
               <label className="space-y-1 col-span-2">
@@ -171,7 +266,7 @@ export function TrackIntelligenceEditor({
               </label>
             </div>
             <div className="text-[10px] text-[var(--muted)]">
-              <strong className="text-amber-400">Track Family</strong> groups this track with others of the same style for driver specialty matching. Use a consistent name across similar tracks — e.g. "Illinois Quarter Mile" for Fairbury, Farmer City, and Gateway.
+              <strong className="text-amber-400">Track Family</strong> groups this track with others of the same style for driver specialty matching. Use a consistent name across similar tracks such as Illinois Quarter Mile for Fairbury, Farmer City, and Gateway.
             </div>
             <button onClick={saveInfo} disabled={savingInfo}
               className="rounded-lg bg-[var(--accent)] px-5 py-2.5 text-sm font-bold text-black disabled:opacity-50 hover:opacity-90 transition-opacity">
@@ -267,6 +362,112 @@ export function TrackIntelligenceEditor({
           <span><span className="text-green-400 font-semibold">0.75+</span> Very similar</span>
           <span><span className="text-amber-400 font-semibold">0.45–0.74</span> Moderately similar</span>
           <span><span className="text-[var(--muted)] font-semibold">&lt;0.45</span> Loosely similar</span>
+        </div>
+      </div>
+
+      {/* -- Durable Track Trends ------------------------------------------------ */}
+      <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] overflow-hidden">
+        <div className="px-5 py-4 border-b border-[var(--border)]">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <span className="text-sm font-semibold text-white">Driver / Track Trends</span>
+              <p className="mt-0.5 text-[10px] text-[var(--muted)]">
+                Reusable model nudges for this track. These apply automatically to future races here.
+              </p>
+            </div>
+            <span className="text-[10px] text-[var(--muted)]">{trackTrends.length} active</span>
+          </div>
+        </div>
+
+        {trackTrends.length > 0 && (
+          <div className="divide-y divide-[var(--border)]">
+            {trackTrends.map((trend) => (
+              <div key={trend.id} className="grid gap-3 px-5 py-3 sm:grid-cols-[1.1fr_0.7fr_0.35fr_auto] sm:items-center hover:bg-[var(--surface-raised)] transition-colors">
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-sm font-medium text-white">{trend.label}</span>
+                    <span className="rounded border border-[var(--border)] px-1.5 py-0.5 text-[10px] text-[var(--muted)]">
+                      {trend.trend_type.replaceAll("_", " ")}
+                    </span>
+                  </div>
+                  {trend.note && <p className="mt-1 text-xs text-[var(--muted)]">{trend.note}</p>}
+                  {trend.source_url && (
+                    <a href={trend.source_url} target="_blank" rel="noreferrer" className="mt-1 inline-block text-[10px] text-blue-400 hover:text-blue-300">
+                      Source
+                    </a>
+                  )}
+                </div>
+                <div className="text-xs text-[var(--muted)]">
+                  {trend.driver_name ?? "Track-wide"}
+                </div>
+                <div className={`text-sm font-bold tabular-nums ${trend.score_delta >= 0 ? "text-green-400" : "text-red-400"}`}>
+                  {trend.score_delta > 0 ? "+" : ""}{trend.score_delta.toFixed(3)}
+                </div>
+                <button
+                  onClick={() => removeTrend(trend.id)}
+                  disabled={removingTrendId === trend.id}
+                  className="justify-self-start rounded-lg border border-[var(--border)] px-3 py-1.5 text-xs text-[var(--muted)] hover:border-red-400/50 hover:text-red-400 disabled:opacity-50 transition-colors"
+                >
+                  {removingTrendId === trend.id ? "…" : "Resolve"}
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <div className="border-t border-[var(--border)] px-5 py-4 space-y-3">
+          <div className="grid gap-3 md:grid-cols-[1fr_1fr_0.45fr]">
+            <label className="space-y-1">
+              <span className="text-[10px] uppercase tracking-widest text-[var(--muted)]">Target</span>
+              <select value={trendDriverId} onChange={(e) => setTrendDriverId(e.target.value)}
+                className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2 text-sm text-white focus:border-[var(--accent)] focus:outline-none">
+                <option value="">Track-wide trend</option>
+                {allDrivers.map((driver) => (
+                  <option key={driver.id} value={driver.id}>
+                    {driver.name}{driver.car_number ? ` #${driver.car_number}` : ""}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className="space-y-1">
+              <span className="text-[10px] uppercase tracking-widest text-[var(--muted)]">Trend type</span>
+              <select value={trendType} onChange={(e) => setTrendType(e.target.value)}
+                className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2 text-sm text-white focus:border-[var(--accent)] focus:outline-none">
+                <option value="track_history">Track history</option>
+                <option value="regional_fit">Regional fit</option>
+                <option value="similar_track">Similar-track trend</option>
+                <option value="driving_style">Driving style</option>
+                <option value="field_strength">Field strength</option>
+              </select>
+            </label>
+            <label className="space-y-1">
+              <span className="text-[10px] uppercase tracking-widest text-[var(--muted)]">Score delta</span>
+              <input type="number" step="0.005" min="-0.2" max="0.2" value={trendDelta} onChange={(e) => setTrendDelta(e.target.value)}
+                className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2 text-sm text-white tabular-nums focus:border-[var(--accent)] focus:outline-none" />
+            </label>
+          </div>
+          <label className="space-y-1 block">
+            <span className="text-[10px] uppercase tracking-widest text-[var(--muted)]">Label</span>
+            <input value={trendLabel} onChange={(e) => setTrendLabel(e.target.value)} placeholder="e.g. Smoky and Southeast elite fit"
+              className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2 text-sm text-white focus:border-[var(--accent)] focus:outline-none" />
+          </label>
+          <div className="grid gap-3 md:grid-cols-2">
+            <label className="space-y-1">
+              <span className="text-[10px] uppercase tracking-widest text-[var(--muted)]">Note</span>
+              <textarea value={trendNote} onChange={(e) => setTrendNote(e.target.value)} rows={2} placeholder="What should underwriting remember next time?"
+                className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2 text-sm text-white focus:border-[var(--accent)] focus:outline-none resize-none" />
+            </label>
+            <label className="space-y-1">
+              <span className="text-[10px] uppercase tracking-widest text-[var(--muted)]">Source URL</span>
+              <input value={trendSourceUrl} onChange={(e) => setTrendSourceUrl(e.target.value)} placeholder="https://..."
+                className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2 text-sm text-white focus:border-[var(--accent)] focus:outline-none" />
+            </label>
+          </div>
+          {trendError && <p className="text-xs text-red-400">{trendError}</p>}
+          <button onClick={addTrend} disabled={savingTrend || !trendLabel.trim()}
+            className="rounded-lg bg-[var(--accent)] px-5 py-2.5 text-sm font-bold text-black disabled:opacity-50 hover:opacity-90 transition-opacity">
+            {savingTrend ? "Saving…" : "Add Trend"}
+          </button>
         </div>
       </div>
 

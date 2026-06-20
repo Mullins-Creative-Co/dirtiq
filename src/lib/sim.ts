@@ -1,6 +1,6 @@
 import "server-only";
 import { getDb } from "./db";
-import { oddsToMultiplier, payoutFromOdds, getRiskLimits } from "./book";
+import { payoutFromOdds, getRiskLimits } from "./book";
 
 export type Bettor = {
   id: number;
@@ -128,7 +128,7 @@ function generatePersonaBets(persona: string, bankroll: number, odds: OddsInput[
     case "small_stakes": {
       // 3-5 small bets on random longshots
       const pool = longshots.length >= 2 ? longshots : sorted;
-      const picks = pick(pool, 3 + Math.floor(Math.random() * 3), _ => 1);
+      const picks = pick(pool, 3 + Math.floor(Math.random() * 3), () => 1);
       return picks.map(o => ({ driver_id: o.driverId, driver_name: o.driverName, amount: rand(2, 10), american_odds: o.americanOdds }));
     }
 

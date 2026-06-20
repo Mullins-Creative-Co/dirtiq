@@ -1,9 +1,16 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "dirtIQ — Dirt Track Underwriting",
-  description: "Predict winners, set odds, and manage your dirt track racing book.",
+  title: "dirtIQ | 2026 Dirt Late Model Market Desk",
+  description: "Model, price, publish, and settle dirt late model markets from one race-night workspace.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#07090b",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

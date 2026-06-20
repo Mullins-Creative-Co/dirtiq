@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Nav } from "@/components/nav";
@@ -29,7 +30,7 @@ export default function NewRacePage() {
         <h1 className="text-2xl font-bold text-white mb-6">New Race</h1>
         <form onSubmit={handleSubmit} className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 space-y-5">
           {error && <p className="rounded-lg bg-red-500/10 px-4 py-3 text-sm text-red-400">{error}</p>}
-          {tracks.length === 0 && <p className="rounded-lg bg-amber-500/10 px-4 py-3 text-sm text-amber-400">No tracks yet. <a href="/admin/tracks/new" className="underline">Add a track first</a>.</p>}
+          {tracks.length === 0 && <p className="rounded-lg bg-amber-500/10 px-4 py-3 text-sm text-amber-400">No tracks yet. <Link href="/admin/tracks/new" className="underline">Add a track first</Link>.</p>}
           <div>
             <label className="block text-xs font-semibold uppercase tracking-widest text-[var(--muted)] mb-1.5">Race Name *</label>
             <input name="name" required className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2.5 text-sm text-white placeholder-[var(--muted)] focus:border-[var(--accent)] focus:outline-none" placeholder="e.g. Friday Night Feature" />
@@ -49,11 +50,17 @@ export default function NewRacePage() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-widest text-[var(--muted)] mb-1.5">Division</label>
+              <label className="block text-xs font-semibold uppercase tracking-widest text-[var(--muted)] mb-1.5">Series / Division</label>
               <select name="division" className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2.5 text-sm text-white focus:border-[var(--accent)] focus:outline-none">
-                <option value="Open">Open / Late Model</option><option value="Modified">Modified</option>
-                <option value="Sprint">Sprint Car</option><option value="UMP">UMP Modified</option><option value="Street Stock">Street Stock</option>
+                <option value="WoO Late Models">WoO Late Models</option>
+                <option value="Lucas Oil LMDS">Lucas Oil LMDS</option>
+                <option value="Crown Jewel / Combined">Crown Jewel / Combined</option>
+                <option value="DIRTcar Summer Nationals">DIRTcar Summer Nationals</option>
+                <option value="Independent">Independent / Open Late Model</option>
               </select>
+              <p className="mt-1.5 text-xs leading-5 text-[var(--muted)]">
+                Sprint cars and modifieds are hidden from active model targets until their own data and model features exist.
+              </p>
             </div>
             <div>
               <label className="block text-xs font-semibold uppercase tracking-widest text-[var(--muted)] mb-1.5">Track Condition</label>

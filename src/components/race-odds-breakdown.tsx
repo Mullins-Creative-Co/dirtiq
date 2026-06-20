@@ -18,6 +18,7 @@ type Reasoning = {
   conditionWinRate: number | null; conditionStarts: number;
   specialtyBonus: number;
   compositeScore: number;
+  metricSeries: string;
   highlights: string[]; warnings: string[];
 };
 
@@ -246,7 +247,6 @@ function DriverCard({
     return b.contribution - a.contribution;
   });
 
-  const isTopFavorite = rank <= 3;
   const activePrelim = r.tonightHeatPos !== null || r.tonightQtRank !== null || r.startingPosition !== null;
 
   return (
@@ -270,6 +270,9 @@ function DriverCard({
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-base font-bold text-white">{d.driverName}</span>
             {d.carNumber && <span className="text-xs font-mono text-amber-400">#{d.carNumber}</span>}
+            <span className="text-[9px] font-bold uppercase tracking-wider bg-blue-500/10 text-blue-300 border border-blue-500/30 rounded px-1.5 py-0.5">
+              {r.metricSeries}
+            </span>
             {activePrelim && (
               <span className="text-[9px] font-bold uppercase tracking-wider bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded px-1.5 py-0.5">
                 Live Data
@@ -336,6 +339,10 @@ function DriverCard({
             <div>
               <span className="text-[var(--muted)]">Implied prob </span>
               <span className="text-[var(--accent)] font-bold tabular-nums">{impliedPct}%</span>
+            </div>
+            <div>
+              <span className="text-[var(--muted)]">Profile </span>
+              <span className="text-blue-300 font-bold">{r.metricSeries}</span>
             </div>
             <div>
               <span className="text-[var(--muted)]">Elo blend </span>

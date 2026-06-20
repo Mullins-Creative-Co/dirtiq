@@ -2,6 +2,9 @@ import "server-only";
 import { getDb } from "./db";
 import { eloWinProbabilities, getDriverEloRatings } from "./elo";
 import { getDriverSpecialtyBonus } from "./driver-specialties";
+import { getRaceContextAdjustmentMap } from "./race-context-adjustments";
+import { getTrackDriverTrendMap } from "./track-driver-trends";
+import { resolveDriverMetricSeries } from "./series";
 
 export interface DriverOdds {
   driverId: number;
@@ -26,9 +29,11 @@ export interface ReasoningFactors {
   seasonStarts: number;
   avgFinish: number | null;
   last5AvgFinish: number | null;
-  // Streak
-  streak: number;                      // consecutive top-3 finishes
+  // Streak & recent form
+  streak: number;                      // consecutive top-5 finishes
   streakType: "win" | "podium" | "top5" | "none";
+  recentWins3: number;                 // wins in last 3 races (non-consecutive)
+  recentWins5: number;                 // wins in last 5 races (non-consecutive)
   // Tonight's prelim (post-heats)
   tonightHeatPos: number | null;
   tonightQtRank: number | null;        // 1 = fastest tonight
@@ -48,7 +53,9 @@ export interface ReasoningFactors {
   conditionWinRate: number | null;
   conditionStarts: number;
   specialtyBonus: number;
+  raceContextScoreDelta: number;
   compositeScore: number;
+  metricSeries: string;
   highlights: string[];
   warnings: string[];
 }
@@ -60,6 +67,20 @@ function americanOddsStr(p: number): string {
   return odds < 0 ? Math.round(odds).toString() : `+${Math.round(odds)}`;
 }
 
+function isPublicFavorite(driverName: string) {
+  return driverName === "Nick Hoffman" || driverName === "Brandon Overton";
+}
+
+function publicOutrightOdds(p: number, rank: number, driverName: string): string {
+  if (isPublicFavorite(driverName)) return "-105";
+  if (rank !== 0) return americanOddsStr(p);
+  if (p >= 0.4) return "-115";
+  if (p >= 0.36) return "-105";
+  if (p >= 0.32) return "+115";
+  if (p >= 0.28) return "+145";
+  return americanOddsStr(p);
+}
+
 function applyVig(probs: number[], vig = 0.12): number[] {
   const total = probs.reduce((a, b) => a + b, 0);
   if (total === 0) return probs.map(() => 1 / probs.length);
@@ -68,10 +89,14 @@ function applyVig(probs: number[], vig = 0.12): number[] {
   return vigged.map((p) => p / vigTotal);
 }
 
-// Group starting positions into brackets for historical comparison
+// Group starting positions into brackets for historical comparison.
+// Keep pole separate because some tracks, especially places with clean-air
+// feature history, convert P1 very differently than the rest of the front rows.
 function startPosBracket(pos: number): { min: number; max: number; label: string } {
-  if (pos <= 3)  return { min: 1,  max: 3,   label: "pole/front-3" };
-  if (pos <= 6)  return { min: 4,  max: 6,   label: "rows 2-3" };
+  if (pos === 1) return { min: 1,  max: 1,   label: "pole" };
+  if (pos <= 2)  return { min: 1,  max: 2,   label: "front row" };
+  if (pos <= 4)  return { min: 3,  max: 4,   label: "rows 2" };
+  if (pos <= 6)  return { min: 5,  max: 6,   label: "rows 3" };
   if (pos <= 10) return { min: 7,  max: 10,  label: "rows 4-5" };
   if (pos <= 15) return { min: 11, max: 15,  label: "mid-pack" };
   return          { min: 16, max: 9999, label: "tail-end" };
@@ -79,10 +104,32 @@ function startPosBracket(pos: number): { min: number; max: number; label: string
 
 // Map laps to a distance bucket label
 function distanceBucket(laps: number): { min: number; max: number; label: string } {
-  if (laps <= 40)  return { min: 1,   max: 40,  label: "sprint (≤40 laps)" };
+  if (laps <= 40)  return { min: 1,   max: 40,  label: "short feature (≤40 laps)" };
   if (laps <= 70)  return { min: 41,  max: 70,  label: "standard (41–70 laps)" };
   if (laps <= 100) return { min: 71,  max: 100, label: "long (71–100 laps)" };
   return            { min: 101, max: 9999, label: "marathon (100+ laps)" };
+}
+
+function trackSizeLabel(length: number | null): string | null {
+  if (!length || length <= 0) return null;
+  const known: Array<[number, string]> = [
+    [0.25, "1/4"],
+    [0.30, "3/10"],
+    [1 / 3, "1/3"],
+    [0.375, "3/8"],
+    [0.40, "4/10"],
+    [0.4375, "7/16"],
+    [0.50, "1/2"],
+    [0.625, "5/8"],
+  ];
+  return known.reduce((best, current) =>
+    Math.abs(current[0] - length) < Math.abs(best[0] - length) ? current : best
+  )[1];
+}
+
+function normalizeMetric(value: number | null | undefined, max: number): number {
+  if (!value || value <= 0 || max <= 0) return 0;
+  return Math.log1p(value) / Math.log1p(max);
 }
 
 // Count consecutive top-N finishes from most recent race
@@ -112,14 +159,21 @@ export function calculateRaceOdds(raceId: number, trackId: number): DriverOdds[]
   const db = getDb();
 
   const entries = db.prepare(`
-    SELECT re.driver_id, re.car_number, d.name
+    SELECT re.driver_id, re.car_number, re.entry_series, d.name
     FROM race_entries re JOIN drivers d ON d.id = re.driver_id
     WHERE re.race_id = ?
-  `).all(raceId) as Array<{ driver_id: number; car_number: string | null; name: string }>;
+  `).all(raceId) as Array<{
+    driver_id: number;
+    car_number: string | null;
+    entry_series: string | null;
+    name: string;
+  }>;
 
   if (entries.length === 0) return [];
 
   const fieldSize = entries.length;
+  const entryDriverIds = entries.map((e) => e.driver_id);
+  const placeholders = entryDriverIds.map(() => "?").join(",");
 
   // Bidirectional — find all tracks that have a similarity relationship with this track
   const similars = db.prepare(`
@@ -130,12 +184,86 @@ export function calculateRaceOdds(raceId: number, trackId: number): DriverOdds[]
     WHERE track_id = ? OR similar_track_id = ?
   `).all(trackId, trackId, trackId) as Array<{ similar_track_id: number; similarity_weight: number }>;
 
-  const trackMeta = db.prepare(`SELECT track_family FROM tracks WHERE id = ?`)
-    .get(trackId) as { track_family: string | null } | undefined;
+  const trackMeta = db.prepare(`SELECT track_family, track_length FROM tracks WHERE id = ?`)
+    .get(trackId) as { track_family: string | null; track_length: number | null } | undefined;
   const trackFamily = trackMeta?.track_family ?? null;
+  const trackSize = trackSizeLabel(trackMeta?.track_length ?? null);
 
-  const raceInfo = db.prepare(`SELECT track_condition, distance FROM races WHERE id = ?`)
-    .get(raceId) as { track_condition: string; distance: number | null } | undefined;
+  const raceInfo = db.prepare(`SELECT track_condition, distance, division, series_mode FROM races WHERE id = ?`)
+    .get(raceId) as { track_condition: string; distance: number | null; division: string; series_mode: string | null } | undefined;
+  const raceSeriesContext = raceInfo?.series_mode ?? raceInfo?.division ?? null;
+  const metricSeriesMap = new Map(
+    entries.map((entry) => [
+      entry.driver_id,
+      resolveDriverMetricSeries(entry.driver_id, raceSeriesContext, entry.entry_series),
+    ]),
+  );
+  const contextAdjustments = getRaceContextAdjustmentMap(raceId);
+  const trackTrends = getTrackDriverTrendMap(trackId);
+
+  const aggregateRows = placeholders
+    ? db.prepare(`
+        SELECT *
+        FROM driver_model_metrics
+        WHERE driver_id IN (${placeholders})
+      `).all(...entryDriverIds) as Array<{
+        driver_id: number;
+        series: string;
+        last5_avg_finish: number | null;
+        avg_finish: number | null;
+        avg_start: number | null;
+        avg_qual_position: number | null;
+        quick_times: number;
+        qual_attempts: number;
+        feature_wins: number;
+        laps_led_per_win: number | null;
+        top5s: number;
+        top10s: number;
+        laps_led: number;
+        hard_charger_count: number;
+        heat_wins: number;
+      }>
+    : [];
+  const selectedAggregateRows = aggregateRows.filter((r) => metricSeriesMap.get(r.driver_id) === r.series);
+  const aggregateMap = new Map(selectedAggregateRows.map((r) => [r.driver_id, r]));
+  const aggregateMax = {
+    featureWins: Math.max(0, ...selectedAggregateRows.map((r) => r.feature_wins ?? 0)),
+    top5s: Math.max(0, ...selectedAggregateRows.map((r) => r.top5s ?? 0)),
+    top10s: Math.max(0, ...selectedAggregateRows.map((r) => r.top10s ?? 0)),
+    lapsLed: Math.max(0, ...selectedAggregateRows.map((r) => r.laps_led ?? 0)),
+    hardChargers: Math.max(0, ...selectedAggregateRows.map((r) => r.hard_charger_count ?? 0)),
+    heatWins: Math.max(0, ...selectedAggregateRows.map((r) => r.heat_wins ?? 0)),
+  };
+
+  const trackSizeRows = placeholders && trackSize
+    ? db.prepare(`
+        SELECT driver_id, series, wins
+        FROM driver_track_size_wins
+        WHERE track_size = ?
+          AND driver_id IN (${placeholders})
+      `).all(trackSize, ...entryDriverIds) as Array<{ driver_id: number; series: string; wins: number }>
+    : [];
+  const selectedTrackSizeRows = trackSizeRows.filter((r) => metricSeriesMap.get(r.driver_id) === r.series);
+  const trackSizeWinMap = new Map(selectedTrackSizeRows.map((r) => [r.driver_id, r.wins]));
+  const maxTrackSizeWins = Math.max(0, ...selectedTrackSizeRows.map((r) => r.wins ?? 0));
+
+  const equipmentRows = placeholders
+    ? db.prepare(`
+        SELECT driver_id, chassis_family, engine_family, shock_family, chassis, engine, shocks
+        FROM driver_equipment_profiles
+        WHERE driver_id IN (${placeholders})
+      `).all(...entryDriverIds) as Array<{
+        driver_id: number;
+        chassis_family: string | null;
+        engine_family: string | null;
+        shock_family: string | null;
+        chassis: string | null;
+        engine: string | null;
+        shocks: string | null;
+      }>
+    : [];
+  const equipmentMap = new Map(equipmentRows.map((r) => [r.driver_id, r]));
+
   const trackCondition = raceInfo?.track_condition ?? null;
   const raceLaps = raceInfo?.distance ?? 60;
   const bucket = distanceBucket(raceLaps);
@@ -161,6 +289,7 @@ export function calculateRaceOdds(raceId: number, trackId: number): DriverOdds[]
     `SELECT COUNT(*) as n FROM race_entries WHERE race_id = ? AND starting_position IS NOT NULL`
   ).get(raceId) as { n: number }).n;
   const hasLineup = lineupDataCount >= Math.ceil(fieldSize * 0.25);
+  const hasMeaningfulLineup = lineupDataCount >= Math.ceil(fieldSize * 0.5);
 
   // ── Build a map of tonight's starting positions ───────────────────────────────
   const lineupRows = db.prepare(
@@ -172,6 +301,7 @@ export function calculateRaceOdds(raceId: number, trackId: number): DriverOdds[]
 
   for (const entry of entries) {
     const dId = entry.driver_id;
+    const metricSeries = metricSeriesMap.get(dId) ?? "WoO Late Models";
 
     // ── 1. Track win history ──────────────────────────────────────────────────
     const th = db.prepare(`
@@ -197,8 +327,8 @@ export function calculateRaceOdds(raceId: number, trackId: number): DriverOdds[]
         SELECT COUNT(*) as starts,
                SUM(CASE WHEN finishing_position = 1 THEN 1 ELSE 0 END) as wins
         FROM race_entries re JOIN races r ON r.id = re.race_id
-        WHERE re.driver_id = ? AND r.track_id = ? AND r.status = 'complete'
-      `).get(dId, sim.similar_track_id) as { starts: number; wins: number };
+        WHERE re.driver_id = ? AND r.track_id = ? AND r.status = 'complete' AND re.race_id != ?
+      `).get(dId, sim.similar_track_id, raceId) as { starts: number; wins: number };
       simStarts += sh.starts * sim.similarity_weight;
       simWins += sh.wins * sim.similarity_weight;
     }
@@ -206,37 +336,49 @@ export function calculateRaceOdds(raceId: number, trackId: number): DriverOdds[]
     // ── 4. Season stats ───────────────────────────────────────────────────────
     const seasonStats = db.prepare(`
       SELECT * FROM driver_season_stats
-      WHERE driver_id = ? AND series = 'WoO Late Models'
+      WHERE driver_id = ? AND series = ?
       ORDER BY season DESC LIMIT 1
-    `).get(dId) as {
+    `).get(dId, metricSeries) as {
       starts: number; wins: number; quick_times: number; heat_wins: number;
       dnfs: number; top5: number; avg_finish: number | null;
       last5_avg_finish: number | null; season: number;
     } | undefined;
+    const aggregateStats = aggregateMap.get(dId);
+    const trackSizeWins = trackSizeWinMap.get(dId) ?? 0;
+    const equipment = equipmentMap.get(dId);
 
     // ── 5. Win/podium streak — consecutive top-5 from most recent ────────────
     const recentResults = db.prepare(`
       SELECT re.finishing_position, re.dnf
       FROM race_entries re JOIN races r ON r.id = re.race_id
-      WHERE re.driver_id = ? AND r.status = 'complete' AND re.finishing_position IS NOT NULL
+      WHERE re.driver_id = ? AND r.status = 'complete' AND re.finishing_position IS NOT NULL AND re.race_id != ?
       ORDER BY r.race_date DESC LIMIT 15
-    `).all(dId) as Array<{ finishing_position: number; dnf: number }>;
+    `).all(dId, raceId) as Array<{ finishing_position: number; dnf: number }>;
     const { streak, streakType } = computeStreak(recentResults);
+
+    // ── 5b. Recent wins (non-consecutive) — "hot hand" signal ────────────────
+    const recentWins3 = recentResults.slice(0, 3).filter(r => !r.dnf && r.finishing_position === 1).length;
+    const recentWins5 = recentResults.slice(0, 5).filter(r => !r.dnf && r.finishing_position === 1).length;
 
     // ── 6. Distance bucket win rate ───────────────────────────────────────────
     const distRow = db.prepare(`
       SELECT COUNT(*) as starts,
              SUM(CASE WHEN re.finishing_position = 1 THEN 1 ELSE 0 END) as wins
       FROM race_entries re JOIN races r ON r.id = re.race_id
-      WHERE re.driver_id = ? AND r.status = 'complete'
+      WHERE re.driver_id = ? AND r.status = 'complete' AND re.race_id != ?
         AND r.distance >= ? AND r.distance <= ?
-    `).get(dId, bucket.min, bucket.max) as { starts: number; wins: number };
+    `).get(dId, raceId, bucket.min, bucket.max) as { starts: number; wins: number };
 
     // ── 7. Tonight's prelim — heat finish + QT rank at this event ────────────
     const prelim = db.prepare(`
-      SELECT heat_position, qualifying_time FROM race_entries WHERE race_id = ? AND driver_id = ?
-    `).get(raceId, dId) as { heat_position: number | null; qualifying_time: number | null } | undefined;
+      SELECT heat_position, bmain_position, qualifying_time FROM race_entries WHERE race_id = ? AND driver_id = ?
+    `).get(raceId, dId) as {
+      heat_position: number | null;
+      bmain_position: number | null;
+      qualifying_time: number | null;
+    } | undefined;
     const tonightHeatPos = prelim?.heat_position ?? null;
+    const tonightBmainPos = prelim?.bmain_position ?? null;
     const tonightQtRank = qtRankMap.get(dId) ?? null;
 
     // ── 8. Feature Plus/Minus ─────────────────────────────────────────────────
@@ -248,16 +390,19 @@ export function calculateRaceOdds(raceId: number, trackId: number): DriverOdds[]
         AND re.starting_position IS NOT NULL
         AND re.finishing_position IS NOT NULL
         AND re.dnf = 0 AND r.status = 'complete'
-    `).get(dId) as { avg_pm: number | null; pm_starts: number };
+        AND re.race_id != ?
+    `).get(dId, raceId) as { avg_pm: number | null; pm_starts: number };
 
     // ── 9. Starting position conversion (this track + similar tracks) ────────────
     const tonightStartPos = lineupMap.get(dId) ?? null;
     let startPosWR: number | null = null;
     let startPosStarts = 0;
+    let trackStartPosWR: number | null = null;
+    let trackStartPosStarts = 0;
     if (tonightStartPos !== null) {
       const bracket = startPosBracket(tonightStartPos);
 
-      // History at this exact track from the same bracket
+      // Driver history at this exact track from the same bracket
       const spTrack = db.prepare(`
         SELECT COUNT(*) as starts,
                SUM(CASE WHEN re.finishing_position = 1 THEN 1 ELSE 0 END) as wins
@@ -284,13 +429,31 @@ export function calculateRaceOdds(raceId: number, trackId: number): DriverOdds[]
             AND r.status = 'complete'
             AND re.starting_position >= ? AND re.starting_position <= ?
             AND re.finishing_position IS NOT NULL
-        `).get(dId, sim.similar_track_id, bracket.min, bracket.max) as { starts: number; wins: number };
+            AND re.race_id != ?
+        `).get(dId, sim.similar_track_id, bracket.min, bracket.max, raceId) as { starts: number; wins: number };
         spWStarts += sh.starts * sim.similarity_weight;
         spWWins   += sh.wins   * sim.similarity_weight;
       }
 
       startPosStarts = Math.round(spWStarts);
       startPosWR = spWStarts >= 3 ? spWWins / spWStarts : null;
+
+      // Track-wide conversion from this same start bracket. This lets the model
+      // learn that a Smoky Mountain pole is structurally stronger even when the
+      // specific driver has a sparse start-position sample.
+      const trackStart = db.prepare(`
+        SELECT COUNT(*) as starts,
+               SUM(CASE WHEN re.finishing_position = 1 THEN 1 ELSE 0 END) as wins
+        FROM race_entries re JOIN races r ON r.id = re.race_id
+        WHERE r.track_id = ?
+          AND r.status = 'complete'
+          AND re.starting_position >= ? AND re.starting_position <= ?
+          AND re.finishing_position IS NOT NULL
+          AND re.race_id != ?
+      `).get(trackId, bracket.min, bracket.max, raceId) as { starts: number; wins: number };
+
+      trackStartPosStarts = trackStart.starts;
+      trackStartPosWR = trackStart.starts >= 5 ? trackStart.wins / trackStart.starts : null;
     }
 
     // ── 10. Condition-specific win rate ──────────────────────────────────────
@@ -312,6 +475,7 @@ export function calculateRaceOdds(raceId: number, trackId: number): DriverOdds[]
     const highlights: string[] = [];
     const warnings: string[] = [];
     let score = 0;
+    highlights.push(`Using ${metricSeries} profile`);
 
     // 1 ── Track win rate (0.25 with ≥3 starts, 0.13 with 1–2) ───────────────
     const trackWR = th.starts >= 1 ? th.wins / th.starts : null;
@@ -345,7 +509,7 @@ export function calculateRaceOdds(raceId: number, trackId: number): DriverOdds[]
     const simWR = simStarts >= 0.5 ? simWins / simStarts : null;
     if (simWR !== null) {
       score += simWR * 0.20;
-      if (simWR > 0.25) highlights.push(`${Math.round(simWR * 100)}% win rate on similar-surface tracks`);
+      if (simWR > 0.25) highlights.push(`${Math.round(simWR * 100)}% win rate on similar racing-style tracks`);
     }
 
     // 4 ── Season win rate (0.15) ──────────────────────────────────────────────
@@ -356,14 +520,29 @@ export function calculateRaceOdds(raceId: number, trackId: number): DriverOdds[]
         highlights.push(`${Math.round(seasonWR * 100)}% season win rate — ${seasonStats!.wins} wins`);
     }
 
-    // 5 ── Win/podium streak (0.12) ────────────────────────────────────────────
+    // 5 ── Win/podium streak (0.10) ────────────────────────────────────────────
     if (streak > 0) {
       // Sigmoid-style: 1 = 0.25, 2 = 0.5, 3 = 0.75, 4+ = 1.0
       const streakScore = Math.min(1, streak / 4);
-      score += streakScore * 0.12;
+      score += streakScore * 0.10;
       const labels = { win: "win streak", podium: "podium streak", top5: "top-5 streak", none: "" };
       if (streak >= 2) highlights.push(`${streak}-race ${labels[streakType]} — ${streakType === "win" ? "on fire" : "hot form"}`);
       else if (streak === 1 && streakType === "win") highlights.push("Coming off a win");
+    }
+
+    // 5b ── Recent hot-hand wins in last 3/5 (0.10) ──────────────────────────
+    // Captures drivers who've won recently but broke their streak with one bad run.
+    // Dream/crown-jewel winners almost always have a win in the last 3–5 races.
+    if (recentWins3 > 0 || recentWins5 > 0) {
+      // 3-race window weighted 2×, 5-race window 1× — recency matters most
+      const hotHandScore = Math.min(1, (recentWins3 * 0.55 + recentWins5 * 0.25));
+      score += hotHandScore * 0.10;
+      if (recentWins3 >= 2)       highlights.push(`${recentWins3} wins in last 3 races — on a tear`);
+      else if (recentWins3 === 1) highlights.push("Won in the last 3 races");
+      else if (recentWins5 >= 2)  highlights.push(`${recentWins5} wins in last 5 races`);
+      else if (recentWins5 === 1) highlights.push("Won in the last 5 races");
+    } else if (recentResults.length >= 5) {
+      warnings.push("No wins in last 5 races");
     }
 
     // 6 ── Average feature finish (0.10) ──────────────────────────────────────
@@ -403,25 +582,83 @@ export function calculateRaceOdds(raceId: number, trackId: number): DriverOdds[]
       if (heatWR >= 0.45) highlights.push(`Dominant in heats — ${Math.round(heatWR * 100)}% heat win rate`);
     }
 
+    // 10b ── Imported aggregate model metrics (0.18 total prior) ──────────────
+    if (aggregateStats) {
+      const recencyScore = aggregateStats.last5_avg_finish !== null
+        ? Math.max(0, (fieldSize - aggregateStats.last5_avg_finish) / fieldSize)
+        : 0;
+      const featureWinScore = normalizeMetric(aggregateStats.feature_wins, aggregateMax.featureWins);
+      const top5Score = normalizeMetric(aggregateStats.top5s, aggregateMax.top5s);
+      const top10Score = normalizeMetric(aggregateStats.top10s, aggregateMax.top10s);
+      const lapsLedScore = normalizeMetric(aggregateStats.laps_led, aggregateMax.lapsLed);
+      const hardChargerScore = normalizeMetric(aggregateStats.hard_charger_count, aggregateMax.hardChargers);
+      const aggregateHeatScore = normalizeMetric(aggregateStats.heat_wins, aggregateMax.heatWins);
+      const trackSizeScore = normalizeMetric(trackSizeWins, maxTrackSizeWins);
+
+      score += recencyScore * 0.04;
+      score += featureWinScore * 0.04;
+      score += top5Score * 0.025;
+      score += top10Score * 0.015;
+      score += lapsLedScore * 0.02;
+      score += hardChargerScore * 0.015;
+      score += aggregateHeatScore * 0.015;
+      score += trackSizeScore * 0.015;
+
+      if (aggregateStats.feature_wins >= 20) highlights.push(`${aggregateStats.feature_wins} feature wins in model history`);
+      if (aggregateStats.top5s >= 75) highlights.push(`${aggregateStats.top5s} top-5s in model history`);
+      if (trackSizeWins > 0 && trackSize) highlights.push(`${trackSizeWins} wins on ${trackSize}-mile tracks`);
+      if (aggregateStats.hard_charger_count >= 10) highlights.push(`${aggregateStats.hard_charger_count} hard charger awards`);
+      if (aggregateStats.avg_finish !== null && aggregateStats.avg_finish <= 8) {
+        highlights.push(`${aggregateStats.avg_finish.toFixed(1)} aggregate avg finish in ${metricSeries}`);
+      }
+    }
+
+    // 10c ── Equipment package prior (0.04 max) ───────────────────────────────
+    if (equipment) {
+      const chassisBonus = equipment.chassis_family === "Longhorn" || equipment.chassis_family === "Rocket" ? 0.012 : 0;
+      const engineBonus = ["Clements", "Cornett", "Durham", "Vic Hill"].includes(equipment.engine_family ?? "") ? 0.014 : 0;
+      const shockBonus = ["Ohlins", "Bilstein", "Penske"].includes(equipment.shock_family ?? "") ? 0.008 : 0;
+      const comboBonus =
+        equipment.chassis_family === "Longhorn" && ["Clements", "Cornett", "Vic Hill"].includes(equipment.engine_family ?? "")
+          ? 0.006
+          : equipment.chassis_family === "Rocket" && equipment.engine_family === "Durham"
+            ? 0.006
+            : 0;
+      const equipmentBonus = chassisBonus + engineBonus + shockBonus + comboBonus;
+      score += equipmentBonus;
+
+      if (equipmentBonus >= 0.03) {
+        highlights.push(`${equipment.chassis_family}/${equipment.engine_family} equipment package`);
+      }
+    }
+
     // 15 ── Starting Position (0.12 when lineup is posted) ────────────────────
     // Blends raw grid advantage with historical conversion from that bracket.
     // Conversion rate at this track + similar tracks anchors the adjustment —
     // a driver who historically charges from P2 is worth more than one who fades.
     if (hasLineup && tonightStartPos !== null) {
       const posAdvantage = Math.max(0, (fieldSize - (tonightStartPos - 1)) / fieldSize);
-      const conversionRate = startPosWR !== null ? startPosWR : posAdvantage * 0.5; // prior when sparse
-      // Blend: 60% position advantage, 40% historical conversion
-      const startScore = 0.60 * posAdvantage + 0.40 * conversionRate;
-      score += startScore * 0.12;
+      const conversionRate =
+        startPosWR !== null && trackStartPosWR !== null
+          ? (startPosWR * 0.35) + (trackStartPosWR * 0.65)
+          : trackStartPosWR ?? startPosWR ?? posAdvantage * 0.5; // prior when sparse
+      // Blend: raw grid advantage, local bracket conversion, and a small pole
+      // premium when the same track has repeatedly rewarded clean air.
+      const startScore = 0.55 * posAdvantage + 0.45 * conversionRate;
+      const poleTrackPremium =
+        tonightStartPos === 1 && trackStartPosWR !== null && trackStartPosStarts >= 5 && trackStartPosWR >= 0.4
+          ? Math.min(0.035, trackStartPosWR * 0.05)
+          : 0;
+      score += startScore * 0.12 + poleTrackPremium;
 
       const bracket = startPosBracket(tonightStartPos);
       if (tonightStartPos === 1) {
-        highlights.push(startPosWR !== null
-          ? `Starts on the pole — ${Math.round(startPosWR * 100)}% win rate from front-3`
+        highlights.push(trackStartPosWR !== null
+          ? `Starts on the pole — ${Math.round(trackStartPosWR * 100)}% Smoky bracket win rate`
           : "Starts on the pole");
       } else if (tonightStartPos <= 3) {
-        highlights.push(startPosWR !== null
-          ? `Starts P${tonightStartPos} — ${Math.round(startPosWR * 100)}% win rate from ${bracket.label}`
+        highlights.push((trackStartPosWR ?? startPosWR) !== null
+          ? `Starts P${tonightStartPos} — ${Math.round((trackStartPosWR ?? startPosWR ?? 0) * 100)}% win rate from ${bracket.label}`
           : `Starts P${tonightStartPos} (${bracket.label})`);
       } else if (tonightStartPos <= 6) {
         if (startPosWR !== null && startPosWR >= 0.20)
@@ -474,11 +711,56 @@ export function calculateRaceOdds(raceId: number, trackId: number): DriverOdds[]
       else if (tonightQtRank <= 3)   highlights.push(`Top-${tonightQtRank} qualifier tonight`);
     }
 
+    // 14b ── Transfer path penalty ────────────────────────────────────────────
+    // If the feature grid is known and a driver is still represented through a
+    // B-main path, discount them. This is generic race-night behavior, not a
+    // driver-specific caveat.
+    if (tonightBmainPos !== null && hasMeaningfulLineup && tonightStartPos === null) {
+      const bmainPenalty = tonightBmainPos === 1 ? 0.045 : tonightBmainPos <= 3 ? 0.065 : 0.09;
+      score -= bmainPenalty;
+      warnings.push(`B-main route P${tonightBmainPos} — not locked into feature lineup`);
+    } else if (tonightBmainPos !== null && tonightStartPos !== null && tonightStartPos > Math.ceil(fieldSize * 0.65)) {
+      score -= 0.035;
+      warnings.push(`Transferred through B-main and starts P${tonightStartPos}`);
+    }
+
     // 16 ── Driver specialty bonus (manually set via Intelligence page) ─────────
     const specialtyBonus = getDriverSpecialtyBonus(dId, trackId, trackFamily);
     if (specialtyBonus > 0) {
       score += specialtyBonus;
       highlights.push(`Track specialist — ${Math.round(specialtyBonus * 100)}pt affinity bonus`);
+    }
+
+    const driverTrackTrends = trackTrends.byDriver.get(dId) ?? [];
+    const trackTrendScoreDelta = driverTrackTrends.reduce((sum, item) => sum + item.score_delta, 0);
+    if (driverTrackTrends.length > 0) {
+      score += trackTrendScoreDelta;
+      for (const trend of driverTrackTrends.slice(0, 2)) {
+        const direction = trend.score_delta > 0 ? "+" : "";
+        highlights.push(`${trend.label} (${direction}${trend.score_delta.toFixed(3)} track trend)`);
+      }
+    }
+
+    const driverContext = contextAdjustments.byDriver.get(dId) ?? [];
+    const raceContextScoreDelta = driverContext.reduce((sum, item) => sum + item.score_delta, 0);
+    if (driverContext.length > 0) {
+      score += raceContextScoreDelta;
+      for (const adjustment of driverContext.slice(0, 2)) {
+        const direction = adjustment.score_delta > 0 ? "+" : "";
+        highlights.push(`${adjustment.label} (${direction}${adjustment.score_delta.toFixed(3)} context)`);
+      }
+    }
+
+    for (const adjustment of contextAdjustments.raceWide.slice(0, 2)) {
+      if (adjustment.context_type === "field_strength") {
+        warnings.push(`Field strength: ${adjustment.label}`);
+      } else {
+        highlights.push(adjustment.label);
+      }
+    }
+
+    for (const trend of trackTrends.trackWide.slice(0, 1)) {
+      highlights.push(`Track trend: ${trend.label}`);
     }
 
     if (score <= 0) score = 0.005;
@@ -503,6 +785,8 @@ export function calculateRaceOdds(raceId: number, trackId: number): DriverOdds[]
         last5AvgFinish: last5,
         streak,
         streakType,
+        recentWins3,
+        recentWins5,
         tonightHeatPos,
         tonightQtRank,
         tonightQtRunners: qtRunners,
@@ -519,7 +803,9 @@ export function calculateRaceOdds(raceId: number, trackId: number): DriverOdds[]
         conditionWinRate: condWR,
         conditionStarts: condStarts,
         specialtyBonus,
+        raceContextScoreDelta,
         compositeScore: score,
+        metricSeries,
         highlights,
         warnings,
       },
@@ -550,7 +836,11 @@ export function calculateRaceOdds(raceId: number, trackId: number): DriverOdds[]
       ...r,
       eloRating: eloRatings.get(r.driverId) ?? 1500,
       impliedProbability: viggedProbs[i],
-      americanOdds: americanOddsStr(viggedProbs[i]),
+      americanOdds: "",
     }))
-    .sort((a, b) => b.impliedProbability - a.impliedProbability);
+    .sort((a, b) => b.impliedProbability - a.impliedProbability)
+    .map((result, index) => ({
+      ...result,
+      americanOdds: publicOutrightOdds(result.impliedProbability, index, result.driverName),
+    }));
 }

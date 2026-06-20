@@ -6,6 +6,7 @@ export type MrpSessionEntry = {
   driver_name: string;
   car_number: string | null;
   position: number;
+  starting_position: number | null;
   time: number | null;   // qualifying time in seconds
   dnf: boolean;
 };
@@ -21,6 +22,7 @@ export type MrpLineupEntry = {
   car_number: string | null;
   qualifying_time: number | null;
   heat_position: number | null;    // best heat finish
+  bmain_position: number | null;   // best B-main finish/transfer path
   starting_position: number | null; // feature grid position
 };
 
@@ -31,18 +33,34 @@ export type MrpLineupResult = {
   warnings: string[];
 };
 
+export type MrpRaceTarget = {
+  name?: string | null;
+  division?: string | null;
+  series_mode?: string | null;
+};
+
 // ── HTML helpers ──────────────────────────────────────────────────────────────
 
 function stripTags(html: string): string {
-  return html.replace(/<[^>]+>/g, " ").replace(/&amp;/g, "&").replace(/&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+  return html
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&#39;|&apos;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&#(\d+);/g, (_, code: string) => String.fromCharCode(Number(code)))
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function classifySession(name: string): MrpSessionType {
   const l = name.toLowerCase();
   if (/qualif|time.?trial|\bqt\b/.test(l)) return "qualifying";
+  if (/\bhot.?laps?\b|\bpractice\b/.test(l)) return "unknown";
   if (/\bb.?main\b|\bb.?feat|\bconsolation\b/.test(l)) return "bmain";
   if (/\bheat\b|\bprelim/.test(l)) return "heat";
-  if (/\ba.?feat|\bfeature\b|\bmain.?event\b|\bfeature\b/.test(l)) return "feature";
+  if (/\bdirt late model dream\b|\bdream\b/.test(l) && !/\bprelim\b|\bheat\b|\bqualif/.test(l)) return "feature";
+  if (/\ba.?main\b|\ba.?feat|\bfeature\b|\bmain.?event\b/.test(l)) return "feature";
   return "unknown";
 }
 
@@ -54,6 +72,7 @@ function colIdx(headers: string[], pattern: RegExp): number {
 function parseResultTable(headers: string[], rows: string[][]): MrpSessionEntry[] {
   // Flexible column detection
   const finIdx = colIdx(headers, /^finish$|^fin$|^pos$|^position$|^start.*pos/);
+  const startIdx = colIdx(headers, /^start$|^st$/);
   const carIdx = colIdx(headers, /^#$|^car/);
   const nameIdx = colIdx(headers, /compet|driver|name/);
   const timeIdx = colIdx(headers, /time/);
@@ -73,18 +92,38 @@ function parseResultTable(headers: string[], rows: string[][]): MrpSessionEntry[
     let driverRaw = "";
     if (nameIdx >= 0) {
       driverRaw = cells[nameIdx];
+      if (!/[A-Za-z]/.test(driverRaw)) {
+        driverRaw = cells
+          .slice(nameIdx + 1, nameIdx + 3)
+          .find((c) => /[A-Za-z]/.test(c)) ?? "";
+      }
     } else {
       // Find longest cell that looks like a name (letters, no lone digits)
       driverRaw = cells.find((c) => /^[A-Za-z]/.test(c) && c.length > 3) ?? "";
     }
-    const driver = driverRaw.split(/\r?\n/)[0].trim();
+    if (!/[A-Za-z]/.test(driverRaw)) {
+      driverRaw = cells.find((c) => /^[A-Za-z]/.test(c.trim()) && c.trim().length > 3) ?? "";
+    }
+    let driverText = driverRaw.split(/\r?\n/)[0].trim();
+    for (const cell of cells) {
+      const suffix = cell.trim();
+      if (suffix && suffix !== driverText && driverText.endsWith(suffix)) {
+        driverText = driverText.slice(0, -suffix.length).trim();
+      }
+    }
+    const driver = driverText;
     if (!driver || driver.length < 2) continue;
 
     const carNum = carIdx >= 0 ? (cells[carIdx] || null) : null;
+    const start = startIdx >= 0 ? parseInt(cells[startIdx] ?? "", 10) : NaN;
+    const starting_position = Number.isFinite(start) && start > 0 ? start : null;
 
     let time: number | null = null;
     if (timeIdx >= 0) {
-      const t = parseFloat(cells[timeIdx]);
+      let t = parseFloat(cells[timeIdx]);
+      if (isNaN(t) && cells[timeIdx + 1]) {
+        t = parseFloat(cells[timeIdx + 1]);
+      }
       if (!isNaN(t) && t > 0) time = t;
     }
 
@@ -92,7 +131,14 @@ function parseResultTable(headers: string[], rows: string[][]): MrpSessionEntry[
     if (seen.has(key)) continue;
     seen.add(key);
 
-    results.push({ driver_name: driver, car_number: carNum?.trim() || null, position: pos, time, dnf: isDnf });
+    results.push({
+      driver_name: driver,
+      car_number: carNum?.trim() || null,
+      position: pos,
+      starting_position,
+      time,
+      dnf: isDnf,
+    });
   }
 
   return results;
@@ -107,11 +153,6 @@ export function parseMrpEventPage(html: string): { event_name: string; sessions:
   const titleM = html.match(/<title[^>]*>([^<]+)<\/title>/i);
   const h1M = html.match(/<h1[^>]*>([^<]+)<\/h1>/i);
   const event_name = stripTags(h1M?.[1] ?? titleM?.[1] ?? "").replace(/\s*[-|]\s*MyRacePass.*$/i, "").trim();
-
-  // Strategy 1: find section blocks — look for heading elements followed by tables
-  // We'll scan for all <h1>-<h6> tags, then find the next <table> within range
-  const sectionRegex = /<(h[1-6]|div[^>]+(?:card-header|session-name|race-title)[^>]*)[^>]*>([\s\S]*?)<\/\1>/gi;
-  const tableRegex = /<table[\s\S]*?<\/table>/gi;
 
   // Collect all table positions in the HTML
   const tables: Array<{ start: number; end: number; html: string }> = [];
@@ -220,6 +261,7 @@ export function mergeSessions(sessions: MrpSession[]): MrpLineupEntry[] {
         car_number: carNum,
         qualifying_time: null,
         heat_position: null,
+        bmain_position: null,
         starting_position: null,
       });
     }
@@ -246,11 +288,21 @@ export function mergeSessions(sessions: MrpSession[]): MrpLineupEntry[] {
         }
       }
 
+      if (session.type === "bmain") {
+        // Best B-main finish. This is a live transfer-path signal, separate
+        // from heat results so the model does not treat a B-main win like a
+        // heat win.
+        if (!e.dnf) {
+          if (entry.bmain_position === null || e.position < entry.bmain_position) {
+            entry.bmain_position = e.position;
+          }
+        }
+      }
+
       if (session.type === "feature") {
-        // If the table has a starting grid (no finish yet), use as starting_position
-        // If it has finish positions too, that's post-race
-        const isGrid = e.position > 0 && !e.dnf;
-        if (isGrid && entry.starting_position === null) {
+        if (e.starting_position !== null) {
+          entry.starting_position = e.starting_position;
+        } else if (entry.starting_position === null && e.position > 0 && !e.dnf) {
           entry.starting_position = e.position;
         }
       }
@@ -261,6 +313,42 @@ export function mergeSessions(sessions: MrpSession[]): MrpLineupEntry[] {
   }
 
   return Array.from(map.values());
+}
+
+// ── Race target filtering ────────────────────────────────────────────────────
+
+function normalizeText(value: string | null | undefined): string {
+  return String(value ?? "").toLowerCase();
+}
+
+function sessionHasExplicitSupportClass(name: string): boolean {
+  const l = normalizeText(name);
+  return /\b(sportsman|sportmods?|pro late models?|crate|604|602|limited|steel block|modifieds?|mods?|sprints?|stock cars?|street stocks?|factory stocks?|hornets?|mini stocks?|pro stocks?|super stocks?|4[- ]?cylinders?|front wheel|fwd|warriors?)\b/.test(l);
+}
+
+export function filterMrpLineupForRace(
+  lineup: MrpLineupResult,
+  race: MrpRaceTarget
+): MrpLineupResult {
+  const context = normalizeText(`${race.name ?? ""} ${race.division ?? ""} ${race.series_mode ?? ""}`);
+  const raceIsSupportClass = /\b(sportsman|crate|604|602|limited|steel block)\b/.test(context);
+
+  if (raceIsSupportClass) return lineup;
+
+  const filteredSessions = lineup.sessions.filter((session) => !sessionHasExplicitSupportClass(session.name));
+
+  if (filteredSessions.length === lineup.sessions.length) return lineup;
+
+  const removed = lineup.sessions.length - filteredSessions.length;
+  return {
+    ...lineup,
+    sessions: filteredSessions,
+    entries: mergeSessions(filteredSessions),
+    warnings: [
+      ...lineup.warnings,
+      `${removed} MRP support-class session${removed === 1 ? " was" : "s were"} ignored for this late model race.`,
+    ],
+  };
 }
 
 // ── Fetch from MRP ────────────────────────────────────────────────────────────
