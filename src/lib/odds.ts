@@ -67,12 +67,7 @@ function americanOddsStr(p: number): string {
   return odds < 0 ? Math.round(odds).toString() : `+${Math.round(odds)}`;
 }
 
-function isPublicFavorite(driverName: string) {
-  return driverName === "Nick Hoffman" || driverName === "Brandon Overton";
-}
-
-function publicOutrightOdds(p: number, rank: number, driverName: string): string {
-  if (isPublicFavorite(driverName)) return "-105";
+function publicOutrightOdds(p: number, rank: number): string {
   if (rank !== 0) return americanOddsStr(p);
   if (p >= 0.4) return "-115";
   if (p >= 0.36) return "-105";
@@ -841,6 +836,6 @@ export function calculateRaceOdds(raceId: number, trackId: number): DriverOdds[]
     .sort((a, b) => b.impliedProbability - a.impliedProbability)
     .map((result, index) => ({
       ...result,
-      americanOdds: publicOutrightOdds(result.impliedProbability, index, result.driverName),
+      americanOdds: publicOutrightOdds(result.impliedProbability, index),
     }));
 }
