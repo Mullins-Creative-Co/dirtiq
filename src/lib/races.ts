@@ -55,6 +55,19 @@ export function isActiveModelTarget(race: { division: string | null; series_mode
   return isLateModelDivision(`${race.division ?? ""} ${race.series_mode ?? ""}`);
 }
 
+export function isFocusedModelSeries(race: { name?: string | null; division: string | null; series_mode?: string | null }) {
+  const normalized = `${race.name ?? ""} ${race.division ?? ""} ${race.series_mode ?? ""}`.toLowerCase();
+  return (
+    normalized.includes("lucas oil lmds") ||
+    normalized.includes("lucas oil late model") ||
+    normalized.includes("woo late models") ||
+    normalized.includes("world of outlaws") ||
+    normalized.includes("dirtcar summer nationals") ||
+    normalized.includes("hell tour") ||
+    normalized.includes("helltour")
+  );
+}
+
 export function isRaceBettingOpen(race: {
   race_date: string;
   division: string | null;

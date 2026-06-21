@@ -2,7 +2,7 @@ import { connection } from "next/server";
 import Link from "next/link";
 
 import { Nav } from "@/components/nav";
-import { isActiveModelTarget, listRaces } from "@/lib/races";
+import { isActiveModelTarget, isFocusedModelSeries, listRaces } from "@/lib/races";
 
 const fmt = new Intl.DateTimeFormat("en-US", {
   month: "short",
@@ -25,15 +25,17 @@ export default async function RacesPage() {
 
   const races = listRaces();
   const activeTargetRaces = races.filter(isActiveModelTarget);
+  const focusedRaces = activeTargetRaces.filter(isFocusedModelSeries);
+  const minimizedRaces = activeTargetRaces.filter((race) => !isFocusedModelSeries(race));
   const hiddenUnsupported = races.length - activeTargetRaces.length;
-  const upcomingRaces = activeTargetRaces.filter((race) => race.status === "upcoming");
-  const completedRaces = activeTargetRaces.filter((race) => race.status === "complete");
-  const cancelledRaces = activeTargetRaces.filter((race) => race.status === "cancelled");
+  const upcomingRaces = focusedRaces.filter((race) => race.status === "upcoming");
+  const completedRaces = focusedRaces.filter((race) => race.status === "complete");
+  const cancelledRaces = focusedRaces.filter((race) => race.status === "cancelled");
   const reviewRaces = [...completedRaces, ...cancelledRaces];
-  const totalRaces = activeTargetRaces.length;
-  const divisions = new Set(activeTargetRaces.map((race) => race.division).filter(Boolean)).size;
-  const tracks = new Set(activeTargetRaces.map((race) => race.track_name).filter(Boolean)).size;
-  const activeYear = activeTargetRaces[0]?.race_date ? new Date(`${activeTargetRaces[0].race_date}T12:00:00`).getFullYear() : 2026;
+  const totalRaces = focusedRaces.length;
+  const divisions = new Set(focusedRaces.map((race) => race.division).filter(Boolean)).size;
+  const tracks = new Set(focusedRaces.map((race) => race.track_name).filter(Boolean)).size;
+  const activeYear = focusedRaces[0]?.race_date ? new Date(`${focusedRaces[0].race_date}T12:00:00`).getFullYear() : 2026;
 
   function raceRows(sectionRaces: typeof races, mode: "betting" | "review") {
     return sectionRaces.map((race, index) => (
@@ -97,10 +99,10 @@ export default async function RacesPage() {
                 Race control
               </p>
               <h1 className="mt-3 text-4xl font-black uppercase leading-none text-white sm:text-5xl">
-                Schedule & Results
+                Focused Schedule
               </h1>
               <p className="mt-3 max-w-2xl text-sm leading-6 text-[var(--muted)]">
-                Late-model model targets only: upcoming boards, underwriting inputs, prediction output, and result validation.
+                Primary model targets only: Lucas Oil LMDS, WoO Late Models, and DIRTcar Summer Nationals / Hell Tour.
               </p>
             </div>
             <div className="grid min-w-full grid-cols-3 border-t border-[var(--border)] bg-[#0f1216] lg:min-w-[420px] lg:border-l lg:border-t-0">
@@ -122,7 +124,7 @@ export default async function RacesPage() {
           <div className="flex flex-wrap items-center justify-between gap-3 bg-[#11100d] px-4 py-3 sm:px-5">
             <div className="flex flex-wrap gap-2">
               {[
-                { label: "All", value: totalRaces, active: true },
+                { label: "Focused", value: totalRaces, active: true },
                 { label: "Upcoming", value: upcomingRaces.length },
                 { label: "Complete", value: completedRaces.length },
                 { label: "Divisions", value: divisions },
@@ -150,10 +152,15 @@ export default async function RacesPage() {
                 {hiddenUnsupported} unsupported hidden
               </span>
             ) : null}
+            {minimizedRaces.length > 0 ? (
+              <span className="border border-[var(--border)] px-3 py-2 text-[10px] font-black uppercase tracking-wider text-[var(--muted)]">
+                {minimizedRaces.length} other late-model rows minimized
+              </span>
+            ) : null}
           </div>
         </section>
 
-        {activeTargetRaces.length === 0 ? (
+        {focusedRaces.length === 0 ? (
           <section className="border border-[var(--border)] bg-[var(--surface)] px-6 py-16 text-center">
             <p className="text-[var(--muted)]">No races yet.</p>
             <Link
@@ -207,6 +214,30 @@ export default async function RacesPage() {
                 </table>
               </div>
             </section>
+
+            {minimizedRaces.length > 0 ? (
+              <details className="border border-[var(--border)] bg-[var(--surface)]">
+                <summary className="cursor-pointer px-5 py-4 text-xs font-black uppercase tracking-[0.18em] text-[var(--muted)] hover:text-white">
+                  Other late-model races minimized ({minimizedRaces.length})
+                </summary>
+                <div className="border-t border-[var(--border)] px-5 py-4">
+                  <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                    {minimizedRaces.slice(0, 18).map((race) => (
+                      <Link
+                        key={race.id}
+                        href={`/admin/races/${race.id}`}
+                        className="border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-3 hover:border-[var(--accent)]"
+                      >
+                        <p className="truncate text-xs font-black uppercase text-white">{race.name}</p>
+                        <p className="mt-1 text-[10px] uppercase tracking-wider text-[var(--muted)]">
+                          {race.division} · {fmt.format(new Date(`${race.race_date}T12:00:00`))}
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </details>
+            ) : null}
 
             <section className="border border-[var(--border)] bg-[var(--surface)]">
               <div className="flex flex-wrap items-end justify-between gap-4 border-b border-[var(--border)] bg-[#12161c] px-5 py-4">

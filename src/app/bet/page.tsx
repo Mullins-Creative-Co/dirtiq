@@ -79,10 +79,15 @@ function listThisWeeksNextSeriesRaces(): Race[] {
          AND r.is_live = 0
          AND COALESCE(r.betting_status, 'open') = 'open'
          AND (
-           lower(COALESCE(r.division, '')) LIKE '%late model%'
-           OR lower(COALESCE(r.division, '')) LIKE '%lucas oil lmds%'
-           OR lower(COALESCE(r.division, '')) LIKE '%crown jewel%'
+           lower(COALESCE(r.division, '') || ' ' || COALESCE(r.series_mode, '') || ' ' || r.name) LIKE '%lucas oil lmds%'
+           OR lower(COALESCE(r.division, '') || ' ' || COALESCE(r.series_mode, '') || ' ' || r.name) LIKE '%lucas oil late model%'
+           OR lower(COALESCE(r.division, '') || ' ' || COALESCE(r.series_mode, '') || ' ' || r.name) LIKE '%woo late models%'
+           OR lower(COALESCE(r.division, '') || ' ' || COALESCE(r.series_mode, '') || ' ' || r.name) LIKE '%world of outlaws%'
+           OR lower(COALESCE(r.division, '') || ' ' || COALESCE(r.series_mode, '') || ' ' || r.name) LIKE '%dirtcar summer nationals%'
+           OR lower(COALESCE(r.division, '') || ' ' || COALESCE(r.series_mode, '') || ' ' || r.name) LIKE '%hell tour%'
+           OR lower(COALESCE(r.division, '') || ' ' || COALESCE(r.series_mode, '') || ' ' || r.name) LIKE '%helltour%'
          )
+         AND lower(COALESCE(r.division, '') || ' ' || COALESCE(r.series_mode, '') || ' ' || r.name) NOT LIKE '%sprint%'
        ORDER BY r.race_date ASC, r.id ASC`
     )
     .all(todayDateString(), endOfCurrentWeekDateString()) as Race[];

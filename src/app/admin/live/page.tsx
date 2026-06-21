@@ -3,7 +3,7 @@ import { connection } from "next/server";
 import { Nav } from "@/components/nav";
 import { LiveSyncControl } from "@/components/live-sync-control";
 import { buildPredictionCard } from "@/lib/prediction-card";
-import { isActiveModelTarget, listRaces } from "@/lib/races";
+import { isActiveModelTarget, isFocusedModelSeries, listRaces, todayDateString } from "@/lib/races";
 import { getStorageStatus } from "@/lib/storage-status";
 
 const dateFmt = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" });
@@ -25,9 +25,33 @@ function statusLabel(status: string, isLive: number, bettingStatus: string | nul
 export default async function LiveAdminPage() {
   await connection();
 
-  const races = listRaces()
-    .filter((race) => isActiveModelTarget(race) && (race.status === "upcoming" || race.is_live || race.status === "complete"))
-    .slice(0, 6)
+  const allModelRaces = listRaces()
+    .filter((race) => isActiveModelTarget(race) && (race.status === "upcoming" || race.is_live || race.status === "complete"));
+  const focusedModelRaces = allModelRaces.filter(isFocusedModelSeries);
+  const otherModelRaces = allModelRaces.filter((race) => !isFocusedModelSeries(race));
+  const today = todayDateString();
+  const seriesPriority = ["lucas", "woo", "hell"];
+  const seriesKey = (race: { name: string; division: string | null; series_mode: string | null }) => {
+    const normalized = `${race.name} ${race.division ?? ""} ${race.series_mode ?? ""}`.toLowerCase();
+    if (normalized.includes("lucas")) return "lucas";
+    if (normalized.includes("woo") || normalized.includes("world of outlaws")) return "woo";
+    if (normalized.includes("dirtcar") || normalized.includes("summer nationals") || normalized.includes("hell")) return "hell";
+    return "other";
+  };
+  const focusRows = seriesPriority.flatMap((series) => {
+    const rows = focusedModelRaces.filter((race) => seriesKey(race) === series);
+    const current = rows
+      .filter((race) => race.status === "upcoming" && race.race_date >= today)
+      .sort((a, b) => a.race_date.localeCompare(b.race_date) || a.id - b.id)
+      .slice(0, 2);
+    if (current.length > 0) return current;
+    return rows
+      .filter((race) => race.status === "complete")
+      .sort((a, b) => b.race_date.localeCompare(a.race_date) || b.id - a.id)
+      .slice(0, 1);
+  });
+
+  const races = focusRows
     .map((race) => {
       const card = buildPredictionCard(race.id);
       return {
@@ -106,8 +130,10 @@ export default async function LiveAdminPage() {
 
         <section className="space-y-3">
           <div className="flex items-center justify-between gap-3">
-            <h2 className="text-sm font-black uppercase tracking-[0.16em] text-white">Model Control Races</h2>
-            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--muted)]">Back end only</span>
+            <h2 className="text-sm font-black uppercase tracking-[0.16em] text-white">Focused Model Control</h2>
+            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--muted)]">
+              Lucas · WoO · Hell Tour
+            </span>
           </div>
 
           {races.map((race) => (
@@ -165,6 +191,26 @@ export default async function LiveAdminPage() {
               No active late-model races loaded.
             </div>
           )}
+
+          {otherModelRaces.length > 0 ? (
+            <details className="border border-[var(--border)] bg-[var(--surface)]">
+              <summary className="cursor-pointer px-4 py-3 text-[10px] font-black uppercase tracking-[0.18em] text-[var(--muted)] hover:text-white">
+                Other model races minimized ({otherModelRaces.length})
+              </summary>
+              <div className="grid gap-2 border-t border-[var(--border)] p-3 sm:grid-cols-2">
+                {otherModelRaces.slice(0, 10).map((race) => (
+                  <Link
+                    key={race.id}
+                    href={`/admin/races/${race.id}`}
+                    className="border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2 hover:border-[var(--accent)]"
+                  >
+                    <p className="truncate text-xs font-black uppercase text-white">{race.name}</p>
+                    <p className="mt-1 text-[10px] text-[var(--muted)]">{race.race_date} · {race.division}</p>
+                  </Link>
+                ))}
+              </div>
+            </details>
+          ) : null}
         </section>
       </main>
     </div>
