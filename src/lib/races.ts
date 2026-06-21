@@ -62,6 +62,8 @@ export function isFocusedModelSeries(race: { name?: string | null; division: str
     normalized.includes("lucas oil late model") ||
     normalized.includes("woo late models") ||
     normalized.includes("world of outlaws") ||
+    normalized.includes("crown jewel") ||
+    normalized.includes("combined") ||
     normalized.includes("dirtcar summer nationals") ||
     normalized.includes("hell tour") ||
     normalized.includes("helltour")

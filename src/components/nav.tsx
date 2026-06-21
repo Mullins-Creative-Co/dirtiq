@@ -5,6 +5,7 @@ import { useState } from "react";
 
 const adminItems = [
   { href: "/admin/live", label: "Control" },
+  { href: "/admin/today", label: "Today Odds" },
   { href: "/admin/testing", label: "Model Lab" },
   { href: "/admin/races", label: "Races" },
   { href: "/admin/maintenance", label: "Refresh" },
@@ -12,7 +13,7 @@ const adminItems = [
 
 const mobileDockItems = [
   { href: "/admin/live", label: "Control" },
-  { href: "/admin/testing", label: "Model" },
+  { href: "/admin/today", label: "Odds" },
   { href: "/admin/races", label: "Races" },
   { href: "/admin/maintenance", label: "Refresh" },
 ];
@@ -117,6 +118,7 @@ export function Nav() {
           <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
             <div className="hidden md:flex items-stretch gap-0">
               <Link href="/admin/live" className={adminLinkClass("/admin/live")}>Control</Link>
+              <Link href="/admin/today" className={adminLinkClass("/admin/today")}>Today Odds</Link>
               <Link href="/admin/testing" className={adminLinkClass("/admin/testing")}>Model Lab</Link>
               <Link href="/admin/races" className={adminLinkClass("/admin/races")}>Races</Link>
             </div>
