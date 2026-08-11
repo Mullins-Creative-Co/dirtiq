@@ -299,15 +299,15 @@ export function PlayerBettingBoard({
   // No account — show sign-in
   if (!account) {
     return (
-      <div className="max-w-md mx-auto pt-4">
-        <div className="border-l-2 border-[var(--accent)] border border-[var(--border)] bg-[var(--surface)] p-8">
-          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--accent)] mb-2">dirtIQ Sportsbook</p>
-          <h2 style={{ fontFamily: "var(--font-display)" }} className="text-2xl font-black uppercase text-white mb-1">Open a play-money wallet</h2>
-          <p className="text-sm text-[var(--muted)] mb-6">
+      <div className="mx-auto max-w-md pt-4">
+        <div className="panel-raised p-8">
+          <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--accent)]">dirtIQ Sportsbook</p>
+          <h2 style={{ fontFamily: "var(--font-display)" }} className="mb-1 text-2xl font-extrabold text-white">Open a play-money wallet</h2>
+          <p className="mb-6 text-sm text-[var(--muted-strong)]">
             Returning players keep their balance. New wallets start with $1,000.
           </p>
           <form onSubmit={handleSignIn} className="space-y-3">
-            {nameError && <p className="text-xs text-red-400">{nameError}</p>}
+            {nameError && <p className="text-xs text-[var(--racing-red)]">{nameError}</p>}
             <input
               type="text"
               placeholder="Wallet name"
@@ -315,12 +315,12 @@ export function PlayerBettingBoard({
               onChange={(e) => setNameInput(e.target.value)}
               maxLength={40}
               autoFocus
-              className="w-full border border-[var(--border)] bg-[var(--surface-raised)] px-4 py-3 text-sm text-white placeholder:text-[var(--muted)] focus:border-[var(--accent)] focus:outline-none"
+              className="w-full rounded-md border border-[var(--border)] bg-[var(--surface-raised)] px-4 py-3 text-sm text-white placeholder:text-[var(--muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/20"
             />
             <button
               type="submit"
               disabled={namePending || !nameInput.trim()}
-              className="w-full bg-[var(--accent)] py-3 text-sm font-black uppercase tracking-widest text-black disabled:opacity-40 hover:opacity-90 active:scale-[.98] transition-all"
+              className="btn-accent w-full py-3 text-sm font-extrabold uppercase tracking-widest"
             >
               {namePending ? "Loading..." : "Open Wallet"}
             </button>
@@ -334,22 +334,25 @@ export function PlayerBettingBoard({
     <div className="space-y-6">
 
       {/* Wallet strip */}
-      <div className="flex items-center justify-between gap-4 border-l-2 border-[var(--accent)] border border-[var(--border)] bg-[var(--surface)] px-5 py-3.5 flex-wrap">
+      <div className="panel-raised flex flex-wrap items-center justify-between gap-4 px-5 py-3.5">
         <div className="flex items-center gap-4">
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[var(--accent)]/12 text-sm font-black uppercase text-[var(--accent)]">
+            {account.name.slice(0, 2)}
+          </span>
           <div>
-            <div className="text-[10px] font-bold text-[var(--muted)] uppercase tracking-[0.2em]">Playing as</div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">Playing as</div>
             <div className="font-bold text-white">{account.name}</div>
           </div>
           <div className="h-8 w-px bg-[var(--border)]" />
           <div>
-            <div className="text-[10px] font-bold text-[var(--muted)] uppercase tracking-[0.2em]">Balance</div>
-            <div style={{ fontFamily: "var(--font-display)" }} className="text-2xl font-black tabular-nums text-[var(--accent)]">{usd(account.balance)}</div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">Balance</div>
+            <div style={{ fontFamily: "var(--font-display)" }} className="text-2xl font-extrabold tabular-nums text-[var(--accent)]">{usd(account.balance)}</div>
           </div>
         </div>
         <button
           onClick={handleAddFunds}
           disabled={addingFunds}
-          className="border border-[var(--accent)]/40 px-4 py-2 text-[11px] font-bold uppercase tracking-widest text-[var(--accent)] hover:bg-[var(--accent)] hover:text-black transition-all active:scale-95 disabled:opacity-50"
+          className="rounded-md border border-[var(--accent)]/40 px-4 py-2 text-[11px] font-bold uppercase tracking-widest text-[var(--accent)] transition-all hover:bg-[var(--accent)] hover:text-[#0b0d10] active:scale-95 disabled:opacity-50"
         >
           {addingFunds ? "Adding…" : "+ $500 Free Money"}
         </button>
@@ -365,14 +368,15 @@ export function PlayerBettingBoard({
               if (h2hPairs.length === 0) return null;
               return (
                 <section key="h2h">
-                  <div className="flex items-baseline justify-between mb-3">
-                    <h2 className="text-sm font-semibold text-white">Head to Head</h2>
-                    <span className="text-[10px] text-[var(--muted)]">{SECTION_DESCRIPTIONS.h2h}</span>
+                  <div className="mb-3 flex items-center gap-3">
+                    <span className="h-4 w-1 rounded-full bg-[var(--accent)]" />
+                    <h2 style={{ fontFamily: "var(--font-display)" }} className="text-sm font-bold uppercase tracking-[0.14em] text-white">Head to Head</h2>
+                    <span className="ml-auto text-[10px] text-[var(--muted)]">{SECTION_DESCRIPTIONS.h2h}</span>
                   </div>
-                  <div className="border border-[var(--border)] bg-[var(--surface)] overflow-hidden divide-y divide-[var(--border)]">
+                  <div className="panel divide-y divide-[var(--border)] overflow-hidden">
                     {h2hPairs.map((pair, idx) => (
                       <div key={idx} className="px-4 py-3">
-                        <div className="text-[10px] text-[var(--muted)] mb-2 uppercase tracking-wider">
+                        <div className="mb-2 text-[10px] uppercase tracking-wider text-[var(--muted)]">
                           {pair.a.driver_name} vs {pair.b.driver_name}
                         </div>
                         <div className="flex items-center gap-2">
@@ -380,36 +384,30 @@ export function PlayerBettingBoard({
                           <button
                             onClick={() => !closed && select(pair.a)}
                             disabled={closed}
-                            className={`flex-1 flex items-center justify-between px-3 py-2.5 transition-all
-                              ${isInSlip(pair.a)
-                                ? "bg-[var(--accent)]/15 border border-[var(--accent)]/50"
-                                : "bg-[var(--surface-raised)] border border-transparent hover:border-[var(--accent)]/30"}
-                              ${closed ? "cursor-default opacity-50" : "cursor-pointer"}`}
+                            data-selected={isInSlip(pair.a)}
+                            className={`odds-pill flex flex-1 items-center justify-between px-3 py-2.5 ${closed ? "cursor-default opacity-50" : "cursor-pointer"}`}
                           >
                             <span className="min-w-0 pr-2">
-                              <span className="block truncate text-sm font-semibold text-white">{pair.a.driver_name}</span>
+                              <span className={`block truncate text-sm font-semibold ${isInSlip(pair.a) ? "text-[#0b0d10]" : "text-white"}`}>{pair.a.driver_name}</span>
                             </span>
-                            <span className={`text-sm font-black tabular-nums shrink-0 ${parseInt(pair.a.american_odds) > 0 ? "text-green-400" : "text-[var(--accent)]"}`}>
+                            <span className="shrink-0 text-sm font-extrabold tabular-nums">
                               {pair.a.american_odds}
                             </span>
                           </button>
 
-                          <span className="text-[10px] text-[var(--muted)] font-bold shrink-0">vs</span>
+                          <span className="shrink-0 text-[10px] font-bold text-[var(--muted)]">vs</span>
 
                           {/* Side B */}
                           <button
                             onClick={() => !closed && select(pair.b)}
                             disabled={closed}
-                            className={`flex-1 flex items-center justify-between px-3 py-2.5 transition-all
-                              ${isInSlip(pair.b)
-                                ? "bg-[var(--accent)]/15 border border-[var(--accent)]/50"
-                                : "bg-[var(--surface-raised)] border border-transparent hover:border-[var(--accent)]/30"}
-                              ${closed ? "cursor-default opacity-50" : "cursor-pointer"}`}
+                            data-selected={isInSlip(pair.b)}
+                            className={`odds-pill flex flex-1 items-center justify-between px-3 py-2.5 ${closed ? "cursor-default opacity-50" : "cursor-pointer"}`}
                           >
                             <span className="min-w-0 pr-2">
-                              <span className="block truncate text-sm font-semibold text-white">{pair.b.driver_name}</span>
+                              <span className={`block truncate text-sm font-semibold ${isInSlip(pair.b) ? "text-[#0b0d10]" : "text-white"}`}>{pair.b.driver_name}</span>
                             </span>
-                            <span className={`text-sm font-black tabular-nums shrink-0 ${parseInt(pair.b.american_odds) > 0 ? "text-green-400" : "text-[var(--accent)]"}`}>
+                            <span className="shrink-0 text-sm font-extrabold tabular-nums">
                               {pair.b.american_odds}
                             </span>
                           </button>
@@ -426,11 +424,12 @@ export function PlayerBettingBoard({
 
             return (
               <section key={type}>
-                <div className="flex items-baseline justify-between mb-3">
-                  <h2 className="text-sm font-semibold text-white">{SECTION_LABELS[type]}</h2>
-                  <span className="text-[10px] text-[var(--muted)]">{SECTION_DESCRIPTIONS[type]}</span>
+                <div className="mb-3 flex items-center gap-3">
+                  <span className="h-4 w-1 rounded-full bg-[var(--accent)]" />
+                  <h2 style={{ fontFamily: "var(--font-display)" }} className="text-sm font-bold uppercase tracking-[0.14em] text-white">{SECTION_LABELS[type]}</h2>
+                  <span className="ml-auto text-[10px] text-[var(--muted)]">{SECTION_DESCRIPTIONS[type]}</span>
                 </div>
-                <div className="border border-[var(--border)] bg-[var(--surface)] overflow-hidden">
+                <div className="panel overflow-hidden">
                   <div className="divide-y divide-[var(--border)]">
                     {sectionMarkets.map((m, i) => {
                       const isSelected = isInSlip(m);
@@ -443,25 +442,25 @@ export function PlayerBettingBoard({
                           key={`${m.type}-${m.driver_id}-${m.driver_b_id}-${i}`}
                           onClick={() => !closed && select(m)}
                           className={`flex items-center gap-4 px-4 py-3.5 transition-colors
-                            ${isSelected ? "bg-[var(--accent)]/8" : "hover:bg-[var(--surface-raised)]"}
+                            ${isSelected ? "bg-[var(--accent)]/[0.07]" : "hover:bg-[var(--surface-raised)]"}
                             ${closed || isCapped ? "cursor-default opacity-55" : "cursor-pointer"}`}
                         >
                           {type === "win" && (
-                            <span className="text-xs text-slate-600 w-4 shrink-0 text-right">{i + 1}</span>
+                            <span className="w-5 shrink-0 text-right text-xs font-bold tabular-nums text-[var(--muted)]">{i + 1}</span>
                           )}
 
-                          <div className="flex-1 min-w-0 space-y-1.5">
-                            <div className="flex items-center gap-2 flex-wrap">
-                              <span className="font-semibold text-white text-sm">
+                          <div className="min-w-0 flex-1 space-y-1.5">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <span className="text-sm font-semibold text-white">
                                 {m.driver_name ?? m.description}
                               </span>
                               {tier && (
-                                <span className={`text-[9px] font-bold uppercase tracking-wider border rounded px-1.5 py-0.5 ${tier.className}`}>
+                                <span className={`rounded-full border px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider ${tier.className}`}>
                                   {tier.label}
                                 </span>
                               )}
                               {corridor?.message && (
-                                <span className="text-[9px] font-bold uppercase tracking-wider border border-amber-400/35 bg-amber-500/10 px-1.5 py-0.5 text-amber-300">
+                                <span className="rounded-full border border-[var(--accent)]/35 bg-[var(--accent)]/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[var(--accent)]">
                                   {corridor.message}
                                 </span>
                               )}
@@ -474,11 +473,8 @@ export function PlayerBettingBoard({
                               if (!closed) select(m);
                             }}
                             disabled={closed || isCapped}
-                            className={`px-4 py-2.5 text-sm font-black tabular-nums shrink-0 transition-all
-                              ${isSelected
-                                ? "bg-[var(--accent)] text-black shadow-lg shadow-amber-500/20 scale-105"
-                                : "bg-[var(--surface-raised)] text-[var(--accent)] hover:bg-[var(--accent)] hover:text-black hover:scale-105"}
-                              ${closed || isCapped ? "opacity-50 cursor-default" : ""}`}
+                            data-selected={isSelected}
+                            className={`odds-pill min-w-[4.75rem] px-4 py-2.5 text-sm font-extrabold tabular-nums ${closed || isCapped ? "cursor-default opacity-50" : ""}`}
                           >
                             {m.american_odds}
                           </button>
@@ -494,11 +490,14 @@ export function PlayerBettingBoard({
           {/* My bets on this race */}
           {existingBets.length > 0 && (
             <section>
-              <h2 className="text-sm font-semibold text-white mb-3">
-                My Bets on {raceName}
-                <span className="ml-2 text-xs font-normal text-[var(--muted)]">{existingBets.length} bets</span>
-              </h2>
-              <div className="border border-[var(--border)] bg-[var(--surface)] overflow-hidden">
+              <div className="mb-3 flex items-center gap-3">
+                <span className="h-4 w-1 rounded-full bg-[var(--accent)]" />
+                <h2 style={{ fontFamily: "var(--font-display)" }} className="text-sm font-bold uppercase tracking-[0.14em] text-white">
+                  My Bets on {raceName}
+                  <span className="ml-2 text-xs font-medium normal-case tracking-normal text-[var(--muted)]">{existingBets.length} bets</span>
+                </h2>
+              </div>
+              <div className="panel overflow-hidden">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-[var(--border)] bg-[var(--surface-raised)]">
@@ -514,15 +513,15 @@ export function PlayerBettingBoard({
                   </thead>
                   <tbody>
                     {existingBets.map((bet) => (
-                      <tr key={bet.id} className="border-b border-[var(--border)] last:border-0 hover:bg-[var(--surface-raised)] transition-colors">
+                      <tr key={bet.id} className="border-b border-[var(--border)] transition-colors last:border-0 hover:bg-[var(--surface-raised)]">
                         <td className="px-3 py-2.5 text-xs font-medium text-white">{bet.description}</td>
-                        <td className="px-3 py-2.5 text-right tabular-nums text-xs text-[var(--muted)]">{bet.american_odds}</td>
-                        <td className="px-3 py-2.5 text-right tabular-nums text-xs text-white">{usd(bet.stake)}</td>
-                        <td className="px-3 py-2.5 text-right tabular-nums text-xs text-green-400">
+                        <td className="px-3 py-2.5 text-right text-xs tabular-nums text-[var(--muted-strong)]">{bet.american_odds}</td>
+                        <td className="px-3 py-2.5 text-right text-xs tabular-nums text-white">{usd(bet.stake)}</td>
+                        <td className="px-3 py-2.5 text-right text-xs tabular-nums">
                           {bet.status === "won"
-                            ? <span className="text-green-400 font-bold">+{usd(bet.payout_if_win - bet.stake)}</span>
+                            ? <span className="font-bold text-[var(--racing-green)]">+{usd(bet.payout_if_win - bet.stake)}</span>
                             : bet.status === "lost"
-                            ? <span className="text-red-400">-{usd(bet.stake)}</span>
+                            ? <span className="text-[var(--racing-red)]">-{usd(bet.stake)}</span>
                             : <span className="text-[var(--muted)]">{usd(bet.payout_if_win)}</span>}
                         </td>
                         <td className="px-3 py-2.5 text-right">

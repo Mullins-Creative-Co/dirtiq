@@ -75,60 +75,61 @@ export default async function BetRacePage({
     : "/";
 
   return (
-    <div className="min-h-screen bg-[var(--background)]">
+    <div className="min-h-screen">
       <BettorNav />
-      <main className="mx-auto max-w-7xl px-4 sm:px-6 py-10 space-y-6">
+      <main className="mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6 sm:py-8">
 
         <section className="panel-raised overflow-hidden">
-          <div className="grid gap-px bg-[var(--border)] lg:grid-cols-[1fr_360px]">
-            <div className="bg-[var(--surface)] p-5 sm:p-6">
-            <div className="flex items-center gap-3 text-xs text-[var(--muted)]">
-              <Link href={lobbyHref} className="hover:text-white transition-colors">← Lobby</Link>
-              <span>/</span>
-              <span className="text-white">Race board</span>
+          <div className="grid lg:grid-cols-[1fr_360px]">
+            <div className="p-6 sm:p-7">
+              <div className="flex items-center gap-2 text-xs text-[var(--muted)]">
+                <Link href={lobbyHref} className="transition-colors hover:text-white">← Lobby</Link>
+                <span>/</span>
+                <span className="text-[var(--muted-strong)]">Race board</span>
+              </div>
+              <h1 style={{ fontFamily: "var(--font-display)" }} className="mt-3 text-pretty text-3xl font-extrabold leading-[1.05] text-white sm:text-4xl">{race.name}</h1>
+              <p className="mt-2 text-sm text-[var(--muted-strong)]">
+                {race.track_name} · {fmt.format(new Date(race.race_date + "T12:00:00"))} · {race.track_condition}
+              </p>
             </div>
-            <h1 style={{ fontFamily: "var(--font-display)" }} className="mt-3 text-4xl font-black uppercase leading-none text-white">{race.name}</h1>
-            <p className="mt-1 text-sm text-[var(--muted)]">
-              {race.track_name} · {fmt.format(new Date(race.race_date + "T12:00:00"))} · {race.track_condition}
-            </p>
-            </div>
-            <div className="grid grid-cols-2 bg-[var(--surface)]">
+            <div className="grid grid-cols-2 border-t border-[var(--border)] lg:border-l lg:border-t-0">
               {[
                 { label: "Active field", value: activeEntries.length.toString(), detail: `${scratchedEntries.length} scratched` },
                 { label: "Entry watch", value: watchEntries.length.toString(), detail: "unconfirmed" },
                 { label: "Markets", value: markets.length.toString(), detail: "priced props" },
                 { label: "Board", value: isBettingClosed ? "Closed" : "Open", detail: "straight tickets" },
-              ].map((stat) => (
-                <div key={stat.label} className="border-l border-b border-[var(--border)] px-4 py-4">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--muted)]">{stat.label}</p>
-                  <p className="mt-2 text-2xl font-black text-white">{stat.value}</p>
-                  <p className="mt-1 text-xs text-[var(--muted)]">{stat.detail}</p>
+              ].map((stat, i) => (
+                <div key={stat.label} className={`px-5 py-4 ${i % 2 === 0 ? "border-r border-[var(--border)]" : ""} ${i < 2 ? "border-b border-[var(--border)]" : ""}`}>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">{stat.label}</p>
+                  <p style={{ fontFamily: "var(--font-display)" }} className="mt-1.5 text-2xl font-extrabold tabular-nums text-white">{stat.value}</p>
+                  <p className="mt-0.5 text-xs text-[var(--muted)]">{stat.detail}</p>
                 </div>
               ))}
             </div>
           </div>
           <div className="flex items-center justify-between gap-3 border-t border-[var(--border)] bg-[var(--surface-raised)] px-5 py-3">
             <p className="text-xs text-[var(--muted)]">Markets update from the current field, risk corridor, and race status.</p>
-            <span className={`px-3 py-1 text-[11px] font-bold uppercase tracking-widest shrink-0 border ${
+            <span className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1 text-[11px] font-bold uppercase tracking-widest ${
             isSettled
               ? "border-[var(--racing-green)]/40 bg-[var(--racing-green)]/10 text-[var(--racing-green)]"
               : isBettingClosed
               ? "border-[var(--racing-red)]/40 bg-[var(--racing-red)]/10 text-[var(--racing-red)]"
-              : "border-sky-400/40 bg-sky-400/10 text-sky-300"
+              : "border-[var(--info)]/40 bg-[var(--info)]/10 text-[var(--info)]"
           }`}>
+            {!isBettingClosed && <span className="live-dot h-1.5 w-1.5 rounded-full bg-[var(--info)]" />}
             {isBettingClosed ? closedLabel : "Open"}
           </span>
           </div>
         </section>
 
         {isSettled && (
-          <div className="border border-[var(--racing-green)]/30 bg-[var(--racing-green)]/5 px-5 py-4 text-sm text-[var(--racing-green)]">
+          <div className="rounded-lg border border-[var(--racing-green)]/30 bg-[var(--racing-green)]/[0.07] px-5 py-4 text-sm text-[var(--racing-green)]">
             This race has been settled — bets have been graded. Results are final.
           </div>
         )}
 
         {!isSettled && isBettingClosed && (
-          <div className="border border-[var(--racing-red)]/30 bg-[var(--racing-red)]/5 px-5 py-4 text-sm text-[var(--racing-red)]">
+          <div className="rounded-lg border border-[var(--racing-red)]/30 bg-[var(--racing-red)]/[0.07] px-5 py-4 text-sm text-[var(--racing-red)]">
             Betting is closed for this race. Open bets will grade when final results are posted.
           </div>
         )}
@@ -136,22 +137,22 @@ export default async function BetRacePage({
         {entries.length > 0 && (
           <section className="space-y-4">
             <div className="grid gap-4 xl:grid-cols-[1.2fr_0.8fr]">
-              <div className="border border-[var(--border)] bg-[var(--surface)]">
+              <div className="panel overflow-hidden">
                 <div className="flex items-center justify-between gap-3 border-b border-[var(--border)] px-4 py-3">
                   <div>
-                    <h2 className="text-sm font-bold text-white">Market Preview</h2>
-                    <p className="mt-1 text-xs text-[var(--muted)]">Public prices currently passing risk checks.</p>
+                    <h2 style={{ fontFamily: "var(--font-display)" }} className="text-sm font-bold text-white">Market Preview</h2>
+                    <p className="mt-0.5 text-xs text-[var(--muted)]">Public prices currently passing risk checks.</p>
                   </div>
                 </div>
-                <div className="grid gap-px bg-[var(--border)] sm:grid-cols-2">
+                <div className="grid divide-y divide-[var(--border)] sm:grid-cols-2 sm:divide-y-0">
                   {boardPreview.map((market, index) => (
-                    <div key={`${market.type}-${market.driver_id}-${market.driver_b_id}-${index}`} className="bg-[var(--surface)] px-4 py-3">
-                      <div className="flex items-start justify-between gap-3">
+                    <div key={`${market.type}-${market.driver_id}-${market.driver_b_id}-${index}`} className={`px-4 py-3 ${index % 2 === 0 ? "sm:border-r sm:border-[var(--border)]" : ""} ${index < boardPreview.length - 2 ? "sm:border-b sm:border-[var(--border)]" : ""}`}>
+                      <div className="flex items-center justify-between gap-3">
                         <div className="min-w-0">
-                          <p className="text-[10px] font-bold uppercase tracking-widest text-blue-300">{market.section}</p>
+                          <p className="text-[10px] font-semibold uppercase tracking-widest text-[var(--info)]">{market.section}</p>
                           <p className="mt-1 truncate text-sm font-semibold text-white">{market.description}</p>
                         </div>
-                        <span className={`font-mono text-sm font-black ${parseInt(market.american_odds, 10) > 0 ? "text-green-300" : "text-[var(--accent)]"}`}>
+                        <span className={`text-sm font-bold tabular-nums ${parseInt(market.american_odds, 10) > 0 ? "text-[var(--racing-green)]" : "text-[var(--accent)]"}`}>
                           {market.american_odds}
                         </span>
                       </div>
@@ -161,23 +162,23 @@ export default async function BetRacePage({
               </div>
 
               <div className="space-y-4">
-                <div className="border border-[var(--border)] bg-[var(--surface)]">
+                <div className="panel overflow-hidden">
                   <div className="border-b border-[var(--border)] px-4 py-3">
-                    <h2 className="text-sm font-bold text-white">Field Intelligence</h2>
-                    <p className="mt-1 text-xs text-[var(--muted)]">Confirmed, expected, and watched entries.</p>
+                    <h2 style={{ fontFamily: "var(--font-display)" }} className="text-sm font-bold text-white">Field Intelligence</h2>
+                    <p className="mt-0.5 text-xs text-[var(--muted)]">Confirmed, expected, and watched entries.</p>
                   </div>
-                  <div className="max-h-[330px] overflow-auto divide-y divide-[var(--border)]">
+                  <div className="max-h-[330px] divide-y divide-[var(--border)] overflow-auto">
                     {entries.map((entry) => (
                       <div key={entry.id} className="flex items-center justify-between gap-3 px-4 py-2.5">
                         <div className="min-w-0">
-                          <p className={`truncate text-sm font-semibold ${entry.entry_status === "scratched" ? "text-slate-500 line-through" : "text-white"}`}>
+                          <p className={`truncate text-sm font-semibold ${entry.entry_status === "scratched" ? "text-[var(--muted)] line-through" : "text-white"}`}>
                             {entry.driver_name}
                           </p>
                           <p className="truncate text-[10px] text-[var(--muted)]">
                             {entry.entry_series ?? "series open"}{entry.starting_position ? ` · starts ${entry.starting_position}` : ""}
                           </p>
                         </div>
-                        <span className={`shrink-0 border px-2 py-1 text-[9px] font-bold uppercase tracking-wider ${statusClass(entry.entry_status)}`}>
+                        <span className={`shrink-0 rounded-full border px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider ${statusClass(entry.entry_status)}`}>
                           {entry.entry_status}
                         </span>
                       </div>
@@ -190,8 +191,8 @@ export default async function BetRacePage({
         )}
 
         {markets.length === 0 ? (
-          <div className="border border-[var(--border)] bg-[var(--surface)] px-6 py-16 text-center">
-            <p className="text-sm text-[var(--muted)]">No drivers entered yet. Markets will appear once the field is ready.</p>
+          <div className="panel px-6 py-16 text-center">
+            <p className="text-sm text-[var(--muted-strong)]">No drivers entered yet. Markets will appear once the field is ready.</p>
             <Link href={`/admin/races/${raceId}`} className="mt-3 inline-block text-xs text-[var(--accent)] hover:underline">
               Go to race page to add drivers →
             </Link>

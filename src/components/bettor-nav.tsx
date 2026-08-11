@@ -3,13 +3,13 @@
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
-function CheckeredFlag({ size = 20 }: { size?: number }) {
+function CheckeredFlag({ size = 18 }: { size?: number }) {
   const sq = size / 4;
   return (
-    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="shrink-0">
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="shrink-0" aria-hidden="true">
       {[0, 1, 2, 3].flatMap((row) =>
         [0, 1, 2, 3].map((col) => {
-          const fill = (row + col) % 2 === 0 ? "white" : "transparent";
+          const on = (row + col) % 2 === 0;
           return (
             <rect
               key={`${row}-${col}`}
@@ -17,8 +17,8 @@ function CheckeredFlag({ size = 20 }: { size?: number }) {
               y={row * sq}
               width={sq}
               height={sq}
-              fill={fill}
-              fillOpacity={fill === "white" ? 0.9 : 0}
+              fill={on ? "#0b0d10" : "transparent"}
+              fillOpacity={on ? 0.92 : 0}
             />
           );
         })
@@ -32,35 +32,57 @@ export function BettorNav() {
   const searchParams = useSearchParams();
   const name = searchParams.get("name");
   const betHref = name ? `/bet?name=${encodeURIComponent(name)}` : "/bet";
+  const onBoard = pathname === "/bet";
 
   return (
-    <header className="border-b border-[var(--border)] bg-[var(--surface)]">
-      <div className="h-[3px] bg-[linear-gradient(90deg,var(--racing-red)_0%,var(--racing-red)_22%,var(--accent)_42%,var(--accent)_72%,#91a4b7_100%)]" />
+    <header className="sticky top-0 z-40 border-b border-[var(--border)] bg-[color-mix(in_srgb,var(--surface)_86%,transparent)] backdrop-blur-md">
+      <div className="brand-rule" />
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <Link href={betHref} className="flex items-center gap-2.5">
-          <div className="border border-white/20 p-[3px]">
-            <CheckeredFlag size={20} />
-          </div>
-          <span style={{ fontFamily: "var(--font-display)" }} className="text-2xl font-black leading-none tracking-tight">
-            <span className="text-[var(--accent)]">dirt</span>
-            <span className="text-white">IQ</span>
+        <Link href={betHref} className="group flex items-center gap-2.5">
+          <span className="flex h-9 w-9 items-center justify-center rounded-md bg-gradient-to-b from-[var(--accent-hi)] to-[var(--accent-lo)] shadow-[0_6px_18px_-8px_var(--accent)]">
+            <CheckeredFlag size={18} />
           </span>
-          <span className="hidden border-l border-[var(--border)] pl-2 text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--muted)] sm:inline">
-            Betting Board
+          <span className="flex flex-col leading-none">
+            <span
+              style={{ fontFamily: "var(--font-display)" }}
+              className="text-xl font-extrabold tracking-tight"
+            >
+              <span className="text-[var(--accent)]">dirt</span>
+              <span className="text-white">IQ</span>
+            </span>
+            <span className="mt-0.5 hidden text-[9px] font-semibold uppercase tracking-[0.22em] text-[var(--muted)] sm:block">
+              Late Model Sportsbook
+            </span>
           </span>
         </Link>
 
-        <nav className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.16em]">
+        <nav className="flex items-center gap-2">
           <Link
             href={betHref}
-            className={`border px-3 py-2 ${
-              pathname === "/bet"
-                ? "border-[var(--accent)] bg-[var(--accent)] text-black"
-                : "border-[var(--border)] bg-[var(--surface-raised)] text-[var(--muted)] hover:text-white"
+            aria-current={onBoard ? "page" : undefined}
+            className={`rounded-md px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] transition-colors ${
+              onBoard
+                ? "bg-gradient-to-b from-[var(--accent-hi)] to-[var(--accent-lo)] text-[#0b0d10] shadow-[var(--glow-accent)]"
+                : "border border-[var(--border)] bg-[var(--surface-raised)] text-[var(--muted-strong)] hover:border-[var(--accent)]/50 hover:text-white"
             }`}
           >
             Board
           </Link>
+          {name ? (
+            <span className="flex items-center gap-2 rounded-md border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-1.5">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--accent)]/15 text-[10px] font-black uppercase text-[var(--accent)]">
+                {name.slice(0, 2)}
+              </span>
+              <span className="max-w-[9rem] truncate text-xs font-semibold text-white">{name}</span>
+            </span>
+          ) : (
+            <Link
+              href="/bet"
+              className="rounded-md border border-[var(--border)] bg-[var(--surface-raised)] px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] text-[var(--muted-strong)] transition-colors hover:border-[var(--accent)]/50 hover:text-white"
+            >
+              Sign In
+            </Link>
+          )}
         </nav>
       </div>
     </header>

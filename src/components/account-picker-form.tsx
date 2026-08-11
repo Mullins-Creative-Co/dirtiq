@@ -35,14 +35,14 @@ export function AccountPickerForm() {
         placeholder="Wallet name"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        className="w-full border border-[var(--border)] bg-[var(--surface-raised)] px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:border-[var(--accent)] focus:outline-none"
+        className="w-full rounded-md border border-[var(--border)] bg-[var(--surface-raised)] px-4 py-3 text-sm text-white placeholder:text-[var(--muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/20"
         maxLength={40}
         autoFocus
       />
       <button
         type="submit"
         disabled={pending || !name.trim()}
-        className="w-full bg-[var(--accent)] py-3 text-sm font-black text-black disabled:opacity-40 hover:opacity-90 active:scale-[.98] transition-all"
+        className="btn-accent w-full py-3 text-sm font-extrabold uppercase tracking-wide"
       >
         {pending ? "Loading..." : name.trim() ? `Continue as ${name.trim()}` : "Open Wallet"}
       </button>

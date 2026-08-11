@@ -317,73 +317,90 @@ export default async function BetLobbyPage({
   const publicBookSim = simulatePublicBook(topLobbyLines);
 
   return (
-    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+    <div className="min-h-screen text-[var(--foreground)]">
       <RememberAccountRedirect enabled={!name && !switchAccount} />
       <BettorNav />
 
-      <main className="mx-auto max-w-7xl px-4 sm:px-6 space-y-8 py-8">
+      <main className="mx-auto max-w-7xl px-4 sm:px-6 space-y-8 py-6 sm:py-8">
 
         <section className="panel-raised overflow-hidden">
-          <div className="grid gap-px bg-[var(--border)] lg:grid-cols-[1.35fr_0.65fr]">
-            <div className="bg-[var(--surface)] p-5 sm:p-7">
+          <div className="grid lg:grid-cols-[1.4fr_0.6fr]">
+            <div className="relative p-6 sm:p-8">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="border border-[var(--accent)]/35 bg-[var(--accent)]/10 px-2 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-[var(--accent)]">
-                  2026 public board
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--accent)]/35 bg-[var(--accent)]/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--accent)]">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
+                  2026 Public Board
                 </span>
-                <span className="border border-[var(--steel)]/30 bg-[var(--steel)]/10 px-2 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-[var(--steel)]">
-                  Fake money
+                <span className="rounded-full border border-[var(--steel)]/30 bg-[var(--steel)]/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--steel)]">
+                  Play Money
                 </span>
               </div>
               <h1
                 style={{ fontFamily: "var(--font-display)" }}
-                className="mt-4 max-w-3xl text-4xl font-black uppercase leading-none text-white sm:text-5xl"
+                className="mt-5 max-w-3xl text-pretty text-4xl font-extrabold leading-[1.02] text-white sm:text-5xl"
               >
-                Dirt late model prices for the next live boards.
+                Model-priced lines for the next{" "}
+                <span className="text-[var(--accent)]">late model</span> boards.
               </h1>
-              <p className="mt-4 max-w-2xl text-sm leading-6 text-[var(--muted)]">
-                Public play-money lines for late model boards only. Admin model testing and underwriting stay in the separate Dirt IQ tools.
+              <p className="mt-4 max-w-2xl text-sm leading-relaxed text-[var(--muted-strong)]">
+                Live, risk-checked odds on dirt late model features. Build a slip, track your wallet,
+                and see if you can beat the book.
               </p>
             </div>
-            <div className="grid grid-cols-3 bg-[var(--surface)] lg:grid-cols-1">
+            <div className="grid grid-cols-3 border-t border-[var(--border)] lg:grid-cols-1 lg:border-l lg:border-t-0">
               {[
                 { label: "Next race", value: nextRaceDate, detail: featuredRaces[0]?.track_name ?? "Awaiting schedule" },
                 { label: "Open boards", value: raceCountLabel, detail: "late model slate" },
                 { label: "Protected lines", value: topLobbyLines.length.toString(), detail: "risk checked" },
               ].map((item) => (
-                <div key={item.label} className="border-l border-[var(--border)] px-4 py-4 lg:border-l-0 lg:border-b lg:last:border-b-0">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--muted)]">{item.label}</p>
-                  <p className="mt-2 text-xl font-black text-white tabular-nums">{item.value}</p>
-                  <p className="mt-1 truncate text-xs text-[var(--muted)]">{item.detail}</p>
+                <div
+                  key={item.label}
+                  className="border-r border-[var(--border)] px-5 py-4 last:border-r-0 lg:border-r-0 lg:border-b lg:last:border-b-0"
+                >
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">{item.label}</p>
+                  <p
+                    style={{ fontFamily: "var(--font-display)" }}
+                    className="mt-1.5 text-2xl font-extrabold tabular-nums text-white"
+                  >
+                    {item.value}
+                  </p>
+                  <p className="mt-0.5 truncate text-xs text-[var(--muted)]">{item.detail}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        <div className="flex flex-wrap items-start justify-between gap-4">
+        <div className="flex flex-wrap items-stretch justify-between gap-4">
           {account ? (
-            <div className="border-l-2 border-[var(--accent)] border-t border-r border-b border-[var(--border)] bg-[var(--surface)] pl-4 pr-5 py-4">
-              <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--muted)]">Wallet</div>
-              <div className="text-lg font-black text-white mt-0.5">{account.name}</div>
-              <div
-                style={{ fontFamily: "var(--font-display)" }}
-                className="text-3xl font-black text-[var(--accent)] tabular-nums mt-1"
-              >
-                {usd(account.balance)}
+            <div className="panel-raised flex min-w-[15rem] items-center gap-4 px-5 py-4">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[var(--accent)]/12 text-base font-black uppercase text-[var(--accent)]">
+                {account.name.slice(0, 2)}
+              </span>
+              <div>
+                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
+                  {account.name}
+                </div>
+                <div
+                  style={{ fontFamily: "var(--font-display)" }}
+                  className="mt-0.5 text-3xl font-extrabold tabular-nums text-[var(--accent)]"
+                >
+                  {usd(account.balance)}
+                </div>
+                <Link href="/bet?switch=1" className="mt-0.5 inline-block text-[10px] text-[var(--muted)] transition-colors hover:text-white">
+                  Switch account →
+                </Link>
               </div>
-              <Link href="/bet?switch=1" className="text-[10px] text-[var(--muted)] hover:text-white mt-1 inline-block transition-colors">
-                Switch account →
-              </Link>
             </div>
           ) : (
-            <div className="max-w-sm border border-[var(--border)] bg-[var(--surface)] p-5 border-l-2 border-l-[var(--accent)]">
+            <div className="panel-raised max-w-sm p-6">
               <h2
                 style={{ fontFamily: "var(--font-display)" }}
-                className="text-xl font-black uppercase text-white"
+                className="text-xl font-extrabold text-white"
               >
                 Open a play-money wallet
               </h2>
-              <p className="mt-1 text-sm text-[var(--muted)]">
+              <p className="mt-1 text-sm text-[var(--muted-strong)]">
                 Returning players keep their balance. New wallets start with $1,000.
               </p>
               <div className="mt-4">
@@ -393,20 +410,20 @@ export default async function BetLobbyPage({
           )}
 
           {account && allBets.length > 0 && (
-            <div className="grid grid-cols-2 gap-px bg-[var(--border)] border border-[var(--border)] sm:grid-cols-4">
+            <div className="grid flex-1 grid-cols-2 gap-2 sm:grid-cols-4">
               {[
                 { label: "Net P&L", value: usd(netPL), tone: netPL >= 0 ? "text-[var(--racing-green)]" : "text-[var(--racing-red)]" },
                 { label: "Total Bets", value: allBets.length.toString(), tone: "text-white" },
                 { label: "W / L", value: `${wonBets.length} / ${lostBets.length}`, tone: "text-white" },
-                { label: "Open", value: openBets.length.toString(), tone: "text-sky-400" },
+                { label: "Open", value: openBets.length.toString(), tone: "text-[var(--info)]" },
               ].map((stat) => (
-                <div key={stat.label} className="bg-[var(--surface)] px-4 py-3">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--muted)]">
+                <div key={stat.label} className="panel flex flex-col justify-center px-4 py-3">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
                     {stat.label}
                   </p>
                   <p
                     style={{ fontFamily: "var(--font-display)" }}
-                    className={`mt-1 text-2xl font-black tabular-nums ${stat.tone}`}
+                    className={`mt-1 text-2xl font-extrabold tabular-nums ${stat.tone}`}
                   >
                     {stat.value}
                   </p>
@@ -421,31 +438,31 @@ export default async function BetLobbyPage({
             <BetLobbyBoard account={account} lines={topLobbyLines.filter((line) => line.driver_id > 0)} />
 
             <section className="grid gap-4 lg:grid-cols-[0.7fr_1.3fr]">
-              <div className="border border-[var(--border)] bg-[var(--surface)] p-5">
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--muted)]">Public Simulation</p>
-                <p className="mt-2 text-3xl font-black tabular-nums text-white">{usd(publicBookSim.totalHandle)}</p>
+              <div className="panel p-5">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">Public Simulation</p>
+                <p style={{ fontFamily: "var(--font-display)" }} className="mt-2 text-3xl font-extrabold tabular-nums text-white">{usd(publicBookSim.totalHandle)}</p>
                 <p className="mt-1 text-xs text-[var(--muted)]">Projected play-money handle from casual public betting.</p>
                 <div className="mt-4 border-t border-[var(--border)] pt-4">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--muted)]">Worst case P&L</p>
-                  <p className={`mt-2 text-2xl font-black tabular-nums ${publicBookSim.worstCasePl >= 0 ? "text-[var(--racing-green)]" : "text-[var(--racing-red)]"}`}>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">Worst case P&L</p>
+                  <p style={{ fontFamily: "var(--font-display)" }} className={`mt-2 text-2xl font-extrabold tabular-nums ${publicBookSim.worstCasePl >= 0 ? "text-[var(--racing-green)]" : "text-[var(--racing-red)]"}`}>
                     {usd(publicBookSim.worstCasePl)}
                   </p>
                   <p className="mt-1 text-xs text-[var(--muted)]">{publicBookSim.worstSelection}</p>
                 </div>
               </div>
-              <div className="border border-[var(--border)] bg-[var(--surface)]">
+              <div className="panel overflow-hidden">
                 <div className="border-b border-[var(--border)] px-5 py-4">
-                  <h2 className="text-sm font-black text-white">Likely Public Bets</h2>
+                  <h2 style={{ fontFamily: "var(--font-display)" }} className="text-sm font-bold text-white">Likely Public Bets</h2>
                 </div>
                 <div className="divide-y divide-[var(--border)]">
                   {publicBookSim.lines.map((exposure) => (
-                    <div key={`${exposure.line.race_id}-${exposure.line.prop_type}-${exposure.line.description}`} className="grid gap-3 px-5 py-3 sm:grid-cols-[1fr_auto_auto]">
+                    <div key={`${exposure.line.race_id}-${exposure.line.prop_type}-${exposure.line.description}`} className="grid items-center gap-3 px-5 py-3 sm:grid-cols-[1fr_auto_auto]">
                       <div className="min-w-0">
                         <p className="truncate text-sm font-semibold text-white">{exposure.line.description}</p>
-                        <p className="mt-1 text-[10px] font-bold uppercase tracking-widest text-[var(--muted)]">{exposure.line.section} · {exposure.line.track_name}</p>
+                        <p className="mt-1 text-[10px] font-semibold uppercase tracking-widest text-[var(--muted)]">{exposure.line.section} · {exposure.line.track_name}</p>
                       </div>
-                      <p className="font-mono text-sm font-black text-amber-300">{exposure.line.market_odds}</p>
-                      <p className={`font-mono text-sm font-black ${exposure.bookPlIfHits >= 0 ? "text-[var(--racing-green)]" : "text-[var(--racing-red)]"}`}>
+                      <p className="text-sm font-bold tabular-nums text-[var(--accent)]">{exposure.line.market_odds}</p>
+                      <p className={`text-sm font-bold tabular-nums ${exposure.bookPlIfHits >= 0 ? "text-[var(--racing-green)]" : "text-[var(--racing-red)]"}`}>
                         {usd(exposure.bookPlIfHits)}
                       </p>
                     </div>
@@ -457,12 +474,12 @@ export default async function BetLobbyPage({
         )}
 
         {topLobbyLines.length === 0 && (
-          <section className="panel px-6 py-14 text-center">
-            <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[var(--accent)]">No public prices posted</p>
-            <h2 style={{ fontFamily: "var(--font-display)" }} className="mt-3 text-2xl font-black uppercase text-white">
+          <section className="panel-raised px-6 py-16 text-center">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--accent)]">No public prices posted</p>
+            <h2 style={{ fontFamily: "var(--font-display)" }} className="mx-auto mt-3 max-w-xl text-pretty text-2xl font-extrabold text-white">
               Boards appear when entries and model cards are ready.
             </h2>
-            <p className="mx-auto mt-2 max-w-xl text-sm text-[var(--muted)]">
+            <p className="mx-auto mt-2 max-w-xl text-sm text-[var(--muted-strong)]">
               The schedule is loaded, but the public book waits for field data and risk limits before accepting play-money tickets.
             </p>
           </section>
@@ -470,9 +487,9 @@ export default async function BetLobbyPage({
 
         {featuredRaces.length > 0 && (
           <section>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="h-[2px] w-4 bg-[var(--accent)]" />
-              <h2 className="text-[11px] font-bold uppercase tracking-[0.25em] text-[var(--muted)]">
+            <div className="mb-4 flex items-center gap-3">
+              <span className="h-4 w-1 rounded-full bg-[var(--accent)]" />
+              <h2 style={{ fontFamily: "var(--font-display)" }} className="text-sm font-bold uppercase tracking-[0.16em] text-white">
                 Current 2026 Boards
               </h2>
             </div>
@@ -485,33 +502,36 @@ export default async function BetLobbyPage({
                   <Link
                     key={race.id}
                     href={account ? `/race/${race.id}?name=${encodeURIComponent(account.name)}` : `/race/${race.id}`}
-                    className="group block border border-[var(--border)] bg-[var(--surface)] p-4 hover:border-[var(--accent)]/50 hover:bg-[var(--surface-raised)] transition-colors"
+                    className="panel group block p-4 transition-all hover:-translate-y-0.5 hover:border-[var(--accent)]/50 hover:shadow-[var(--shadow-md)]"
                   >
-                    <div className="flex items-start justify-between gap-2 mb-2">
-                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--racing-red)]">{dateStr}</p>
-                      <span className={`text-[9px] font-black uppercase px-1.5 py-0.5 border tracking-wider ${
+                    <div className="mb-2 flex items-start justify-between gap-2">
+                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--muted-strong)]">{dateStr}</p>
+                      <span className={`inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider ${
                         race.is_live
-                          ? "border-sky-400/40 bg-sky-400/10 text-sky-300"
+                          ? "border-[var(--info)]/40 bg-[var(--info)]/10 text-[var(--info)]"
                           : bettingOpen
                           ? "border-[var(--racing-green)]/40 bg-[var(--racing-green)]/10 text-[var(--racing-green)]"
                           : "border-[var(--border)] bg-[var(--surface-raised)] text-[var(--muted)]"
                       }`}>
+                        {race.is_live && <span className="live-dot h-1.5 w-1.5 rounded-full bg-[var(--info)]" />}
                         {race.is_live ? "Live" : bettingOpen ? "Open" : "Closed"}
                       </span>
                     </div>
                     <h3
                       style={{ fontFamily: "var(--font-display)" }}
-                      className="text-base font-black uppercase leading-tight text-white group-hover:text-[var(--accent)] transition-colors"
+                      className="text-base font-bold leading-tight text-white transition-colors group-hover:text-[var(--accent)]"
                     >
                       {race.name}
                     </h3>
                     <p className="mt-1 text-xs text-[var(--muted)]">{race.track_name}</p>
                     {race.division && (
-                      <p className="mt-2 text-[10px] font-bold uppercase tracking-wider text-[var(--accent)]/70">{race.division}</p>
+                      <p className="mt-2 text-[10px] font-semibold uppercase tracking-wider text-[var(--accent)]/70">{race.division}</p>
                     )}
-                    <p className="mt-2 text-[10px] font-bold uppercase tracking-wider text-amber-200">
-                      {lineCountsByRace[race.id] ?? 0} protected line{(lineCountsByRace[race.id] ?? 0) === 1 ? "" : "s"}
-                    </p>
+                    <div className="mt-3 flex items-center gap-1.5 border-t border-[var(--border)] pt-3 text-[10px] font-semibold uppercase tracking-wider text-[var(--muted-strong)]">
+                      <span className="text-[var(--accent)]">{lineCountsByRace[race.id] ?? 0}</span>
+                      protected line{(lineCountsByRace[race.id] ?? 0) === 1 ? "" : "s"}
+                      <span className="ml-auto text-[var(--muted)] transition-transform group-hover:translate-x-0.5">→</span>
+                    </div>
                   </Link>
                 );
               })}
@@ -522,21 +542,21 @@ export default async function BetLobbyPage({
         {/* ── Bet history ──────────────────────────────────────────────────── */}
         {account && allBets.length > 0 && (
           <section>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="h-[2px] w-4 bg-[var(--accent)]" />
-              <h2 className="text-[11px] font-bold uppercase tracking-[0.25em] text-[var(--muted)]">
+            <div className="mb-4 flex items-center gap-3">
+              <span className="h-4 w-1 rounded-full bg-[var(--accent)]" />
+              <h2 style={{ fontFamily: "var(--font-display)" }} className="text-sm font-bold uppercase tracking-[0.16em] text-white">
                 Wallet History
-                <span className="ml-2 font-normal text-[var(--muted)]">· {allBets.length} bets</span>
+                <span className="ml-2 text-xs font-medium normal-case tracking-normal text-[var(--muted)]">· {allBets.length} bets</span>
               </h2>
             </div>
-            <div className="border border-[var(--border)] bg-[var(--surface)] overflow-hidden">
+            <div className="panel overflow-hidden">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-[var(--border)] bg-[var(--surface-raised)]">
                     {["Race", "Bet", "Odds", "Stake", "Return", "Status"].map((h) => (
                       <th
                         key={h}
-                        className={`px-3 py-3 text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--muted)] ${["Race", "Bet"].includes(h) ? "text-left" : "text-right"}`}
+                        className={`px-3 py-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--muted)] ${["Race", "Bet"].includes(h) ? "text-left" : "text-right"}`}
                       >
                         {h}
                       </th>
@@ -545,10 +565,10 @@ export default async function BetLobbyPage({
                 </thead>
                 <tbody>
                   {allBets.slice(0, 20).map((bet) => (
-                    <tr key={bet.id} className="border-b border-[var(--border)] last:border-0 hover:bg-[var(--surface-raised)] transition-colors">
+                    <tr key={bet.id} className="border-b border-[var(--border)] transition-colors last:border-0 hover:bg-[var(--surface-raised)]">
                       <td className="px-3 py-2.5 text-xs text-[var(--muted)]">{bet.race_name}</td>
                       <td className="px-3 py-2.5 text-xs font-medium text-white">{bet.description}</td>
-                      <td className="px-3 py-2.5 text-right text-xs tabular-nums text-[var(--muted)]">{bet.american_odds}</td>
+                      <td className="px-3 py-2.5 text-right text-xs tabular-nums text-[var(--muted-strong)]">{bet.american_odds}</td>
                       <td className="px-3 py-2.5 text-right text-xs tabular-nums text-white">{usd(bet.stake)}</td>
                       <td className="px-3 py-2.5 text-right text-xs tabular-nums">
                         {bet.status === "won" ? (
@@ -562,7 +582,15 @@ export default async function BetLobbyPage({
                         )}
                       </td>
                       <td className="px-3 py-2.5 text-right">
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-sky-300">
+                        <span className={`text-[10px] font-bold uppercase tracking-wider ${
+                          bet.status === "won"
+                            ? "text-[var(--racing-green)]"
+                            : bet.status === "lost"
+                            ? "text-[var(--racing-red)]"
+                            : bet.status === "void"
+                            ? "text-[var(--muted)]"
+                            : "text-[var(--info)]"
+                        }`}>
                           {bet.status}
                         </span>
                       </td>
