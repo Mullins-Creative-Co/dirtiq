@@ -539,15 +539,15 @@ export function PlayerBettingBoard({
         </div>
 
         {/* ── Right: Bet Slip ── */}
-        <div className="sticky top-4">
-          <div className="border border-[var(--border)] bg-[var(--surface)] overflow-hidden">
+        <div className="sticky top-24">
+          <div className="panel-raised overflow-hidden">
 
             {/* Slip header */}
-            <div className="px-5 py-4 bg-[var(--surface-raised)] border-b border-[var(--border)] flex items-center justify-between">
+            <div className="flex items-center justify-between border-b border-[var(--border)] bg-[var(--surface-raised)] px-5 py-4">
               <div className="flex items-center gap-2">
-                <span className="text-sm font-bold text-white">Straight Bet Slip</span>
+                <span style={{ fontFamily: "var(--font-display)" }} className="text-sm font-bold text-white">Straight Bet Slip</span>
                 {slip.length > 0 && (
-                  <span className="w-5 h-5 bg-[var(--accent)] text-black text-[10px] font-bold flex items-center justify-center">
+                  <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[var(--accent)] px-1.5 text-[10px] font-black text-[#0b0d10]">
                     {slip.length}
                   </span>
                 )}
@@ -555,7 +555,7 @@ export function PlayerBettingBoard({
               {slip.length > 0 && (
                 <button
                   onClick={() => { setSlip([]); setFeedback(null); }}
-                  className="text-xs text-[var(--muted)] hover:text-white transition-colors"
+                  className="text-xs text-[var(--muted)] transition-colors hover:text-white"
                 >
                   Clear
                 </button>
@@ -564,18 +564,18 @@ export function PlayerBettingBoard({
 
             {closed ? (
               <div className="px-5 py-12 text-center">
-                <div className="text-sm text-[var(--muted)]">{bettingClosedLabel ?? "Betting Closed"}</div>
-                <div className="text-xs text-slate-600 mt-1">
+                <div className="text-sm text-[var(--muted-strong)]">{bettingClosedLabel ?? "Betting Closed"}</div>
+                <div className="mt-1 text-xs text-[var(--muted)]">
                   {isSettled ? "Results are final and bets have been graded" : "Bets are no longer accepted"}
                 </div>
               </div>
             ) : slip.length === 0 ? (
-              <div className="px-5 py-14 text-center space-y-2">
-                <div className="text-sm text-[var(--muted)]">Your bet slip is empty</div>
-                <div className="text-xs text-slate-600">Tap several winner prices to build a board.</div>
+              <div className="space-y-2 px-5 py-14 text-center">
+                <div className="text-sm text-[var(--muted-strong)]">Your bet slip is empty</div>
+                <div className="text-xs text-[var(--muted)]">Tap several winner prices to build a board.</div>
               </div>
             ) : (
-              <div className="p-5 space-y-4">
+              <div className="space-y-4 p-5">
 
                 <div className="space-y-3">
                   {slip.map((pick) => {
@@ -586,32 +586,32 @@ export function PlayerBettingBoard({
                     const exceedsCorridor = corridor ? stakeNum > corridor.maxStake : false;
 
                     return (
-                      <div key={pick.id} className="border border-[var(--accent)]/25 bg-[var(--accent)]/5 px-4 py-3.5 space-y-3">
+                      <div key={pick.id} className="space-y-3 rounded-md border border-[var(--accent)]/25 bg-[var(--accent)]/[0.06] px-4 py-3.5">
                         <div className="flex items-start justify-between gap-3">
                           <div className="min-w-0">
                             <div className="flex flex-wrap items-center gap-1.5">
-                              <span className="text-[10px] text-[var(--muted)] uppercase tracking-wider">{SECTION_LABELS[pick.type]}</span>
+                              <span className="text-[10px] uppercase tracking-wider text-[var(--muted)]">{SECTION_LABELS[pick.type]}</span>
                               {pickTier && (
-                                <span className={`text-[9px] font-bold uppercase tracking-wider border px-1.5 py-0.5 ${pickTier.className}`}>
+                                <span className={`rounded-full border px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider ${pickTier.className}`}>
                                   {pickTier.label}
                                 </span>
                               )}
                               {corridor?.message && (
-                                <span className="text-[9px] font-bold uppercase tracking-wider border border-amber-400/35 bg-amber-500/10 px-1.5 py-0.5 text-amber-300">
+                                <span className="rounded-full border border-[var(--accent)]/35 bg-[var(--accent)]/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[var(--accent)]">
                                   {corridor.message}
                                 </span>
                               )}
                             </div>
-                            <div className="font-bold text-white text-sm leading-snug">{pick.description}</div>
+                            <div className="text-sm font-bold leading-snug text-white">{pick.description}</div>
                           </div>
                           <button
                             onClick={() => removePick(pick.id)}
-                            className="text-xs text-[var(--muted)] hover:text-white transition-colors"
+                            className="shrink-0 text-xs text-[var(--muted)] transition-colors hover:text-white"
                           >
                             Remove
                           </button>
                         </div>
-                        <div className={`text-2xl font-black tabular-nums ${parseInt(pick.american_odds) > 0 ? "text-green-400" : "text-[var(--accent)]"}`}>
+                        <div className={`text-2xl font-extrabold tabular-nums ${parseInt(pick.american_odds) > 0 ? "text-[var(--racing-green)]" : "text-[var(--accent)]"}`}>
                           {pick.american_odds}
                         </div>
                         <div className="grid grid-cols-4 gap-1.5">
@@ -619,7 +619,7 @@ export function PlayerBettingBoard({
                             <button
                               key={amt}
                               onClick={() => addAmount(pick.id, amt)}
-                              className="border border-[var(--border)] bg-[var(--surface-raised)] py-2 text-xs font-semibold text-white hover:border-[var(--accent)] hover:text-[var(--accent)] active:scale-95 transition-all"
+                              className="rounded-md border border-[var(--border)] bg-[var(--surface-raised)] py-2 text-xs font-semibold text-white transition-all hover:border-[var(--accent)] hover:text-[var(--accent)] active:scale-95"
                             >
                               +${amt}
                             </button>
@@ -635,21 +635,21 @@ export function PlayerBettingBoard({
                             value={pick.stake}
                             max={corridor?.maxStake}
                             onChange={(e) => setPickStake(pick.id, e.target.value)}
-                            className={`w-full border bg-[var(--surface-raised)] pl-7 pr-4 py-3 text-sm font-semibold text-white tabular-nums placeholder:text-slate-600 focus:outline-none ${
+                            className={`w-full rounded-md border bg-[var(--surface-raised)] py-3 pl-7 pr-4 text-sm font-semibold tabular-nums text-white placeholder:text-[var(--muted)] focus:outline-none focus:ring-2 ${
                               exceedsCorridor
-                                ? "border-red-400 focus:border-red-400"
-                                : "border-[var(--border)] focus:border-[var(--accent)]"
+                                ? "border-[var(--racing-red)] focus:border-[var(--racing-red)] focus:ring-[var(--racing-red)]/20"
+                                : "border-[var(--border)] focus:border-[var(--accent)] focus:ring-[var(--accent)]/20"
                             }`}
                           />
                         </div>
                         {exceedsCorridor && (
-                          <div className="text-[10px] font-semibold text-red-300">
+                          <div className="text-[10px] font-semibold text-[var(--racing-red)]">
                             Current max for this market is {usd(corridor?.maxStake ?? 0)}.
                           </div>
                         )}
                         <div className="flex items-center justify-between text-xs">
                           <span className="text-[var(--muted)]">To win</span>
-                          <span className={stakeNum > 0 ? "text-green-400 font-bold" : "text-slate-600"}>+{usd(profit)}</span>
+                          <span className={stakeNum > 0 ? "font-bold text-[var(--racing-green)]" : "text-[var(--muted)]"}>+{usd(profit)}</span>
                         </div>
                       </div>
                     );
@@ -657,22 +657,22 @@ export function PlayerBettingBoard({
                 </div>
 
                 {/* Payout preview */}
-                <div className={`px-4 py-3.5 space-y-2 ${totalStake > 0 ? "bg-[var(--surface-raised)]" : "bg-[var(--surface-raised)]/50"}`}>
+                <div className="space-y-2 rounded-md bg-[var(--surface-raised)] px-4 py-3.5">
                   <div className="flex items-center justify-between">
                     <span className="text-xs text-[var(--muted)]">Total stake</span>
-                    <span className={`text-sm font-bold tabular-nums ${totalStake > 0 ? "text-white" : "text-slate-600"}`}>
+                    <span className={`text-sm font-bold tabular-nums ${totalStake > 0 ? "text-white" : "text-[var(--muted)]"}`}>
                       {usd(totalStake)}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-xs text-[var(--muted)]">Max profit</span>
-                    <span className={`text-sm font-bold tabular-nums ${totalProfit > 0 ? "text-green-400" : "text-slate-600"}`}>
+                    <span className={`text-sm font-bold tabular-nums ${totalProfit > 0 ? "text-[var(--racing-green)]" : "text-[var(--muted)]"}`}>
                       +{usd(totalProfit)}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between border-t border-[var(--border)] pt-2">
                     <span className="text-xs text-[var(--muted)]">Max return</span>
-                    <span className={`text-sm font-bold tabular-nums ${maxReturn > 0 ? "text-white" : "text-slate-600"}`}>
+                    <span className={`text-base font-extrabold tabular-nums ${maxReturn > 0 ? "text-white" : "text-[var(--muted)]"}`}>
                       {usd(maxReturn)}
                     </span>
                   </div>
@@ -682,7 +682,7 @@ export function PlayerBettingBoard({
                 </div>
 
                 {feedback && (
-                  <div className={`px-4 py-3 text-xs ${feedback.ok ? "bg-green-500/10 text-green-400 border border-green-500/20" : "bg-red-500/10 text-red-400 border border-red-500/20"}`}>
+                  <div className={`rounded-md px-4 py-3 text-xs ${feedback.ok ? "border border-[var(--racing-green)]/25 bg-[var(--racing-green)]/10 text-[var(--racing-green)]" : "border border-[var(--racing-red)]/25 bg-[var(--racing-red)]/10 text-[var(--racing-red)]"}`}>
                     {feedback.msg}
                   </div>
                 )}
@@ -690,7 +690,7 @@ export function PlayerBettingBoard({
                 <button
                   onClick={handlePlaceBets}
                   disabled={pending || totalStake <= 0 || totalStake > account.balance || slipOverCorridor}
-                  className="w-full bg-[var(--accent)] py-3.5 text-sm font-black text-black tracking-wide disabled:opacity-40 hover:opacity-90 active:scale-[.98] transition-all"
+                  className="btn-accent w-full py-3.5 text-sm font-extrabold uppercase tracking-wide"
                 >
                   {pending
                     ? "Placing…"
@@ -699,15 +699,15 @@ export function PlayerBettingBoard({
                     : slipOverCorridor
                     ? "Adjust Capped Wagers"
                     : totalStake > 0
-                    ? `Place ${slip.length} Ticket${slip.length === 1 ? "" : "s"} - ${usd(totalStake)}`
+                    ? `Place ${slip.length} Ticket${slip.length === 1 ? "" : "s"} · ${usd(totalStake)}`
                     : "Enter Wagers"}
                 </button>
               </div>
             )}
           </div>
 
-        <div className="mt-4 border border-[var(--border)] bg-[var(--surface)] p-4 space-y-2.5 text-xs text-[var(--muted)]">
-            <div className="font-semibold text-white text-[11px] uppercase tracking-wider mb-1">Market Guide</div>
+        <div className="panel mt-4 space-y-2.5 p-4 text-xs text-[var(--muted)]">
+            <div className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-white">Market Guide</div>
             {[
               { code: "WIN", label: "Race Winner", desc: "Straight-up feature winner" },
               { code: "H2H", label: "Head to Head", desc: "Which driver finishes higher?" },
@@ -719,11 +719,11 @@ export function PlayerBettingBoard({
                 <span className="shrink-0 font-mono text-[10px] font-bold text-[var(--accent)]">{item.code}</span>
                 <div>
                   <span className="font-medium text-white">{item.label}</span>
-                  <span className="text-slate-600 ml-1">— {item.desc}</span>
+                  <span className="ml-1 text-[var(--muted)]">— {item.desc}</span>
                 </div>
               </div>
             ))}
-            <div className="pt-1 border-t border-[var(--border)] text-slate-600 text-[10px]">
+            <div className="border-t border-[var(--border)] pt-2 text-[10px] text-[var(--muted)]">
               All bets use fake money. No real wagers involved.
             </div>
           </div>

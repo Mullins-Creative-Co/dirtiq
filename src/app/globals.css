@@ -83,15 +83,7 @@ body {
 
 @media (max-width: 767px) {
   body {
-    padding-bottom: calc(env(safe-area-inset-bottom) + 5rem);
-  }
-
-  button,
-  a,
-  input,
-  select,
-  textarea {
-    scroll-margin-top: 1rem;
+    padding-bottom: env(safe-area-inset-bottom);
   }
 }
 
