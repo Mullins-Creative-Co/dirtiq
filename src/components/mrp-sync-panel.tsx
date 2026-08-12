@@ -169,7 +169,7 @@ export function MrpSyncPanel({
         <button
           onClick={findEventId}
           disabled={findingId}
-          className="w-full rounded-lg border border-[var(--accent)]/40 px-4 py-2 text-xs font-semibold text-[var(--accent)] hover:bg-[var(--accent)] hover:text-black transition-colors disabled:opacity-40"
+          className="w-full rounded-lg border border-[var(--accent)]/40 px-4 py-2 text-xs font-semibold text-[var(--accent)] hover:bg-[var(--accent)] hover:text-white transition-colors disabled:opacity-40"
         >
           {findingId ? "Searching MRP…" : currentEventId ? "Recheck / Auto-Find MRP Event" : "Auto-Find MRP Event ID"}
         </button>
@@ -219,7 +219,7 @@ export function MrpSyncPanel({
         <button
           onClick={syncLineup}
           disabled={syncing || !currentEventId}
-          className="flex-1 rounded-lg bg-[var(--accent)] py-2.5 text-xs font-bold text-black disabled:opacity-40 hover:opacity-90 active:scale-[.98] transition-all"
+          className="flex-1 rounded-lg bg-[var(--accent)] py-2.5 text-xs font-bold text-white disabled:opacity-40 hover:opacity-90 active:scale-[.98] transition-all"
         >
           {syncing ? "Syncing from MRP…" : "↓ Sync Lineup from MRP"}
         </button>

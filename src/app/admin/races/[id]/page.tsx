@@ -227,7 +227,7 @@ export default async function RacePage({ params }: { params: Promise<{ id: strin
             <a href="#race-closeout" className="border border-[var(--border)] bg-[var(--surface-raised)] px-2 py-2 text-center text-[10px] font-black uppercase tracking-wide text-white">
               Close
             </a>
-            <Link href={`/admin/races/${raceId}/book`} className="bg-[var(--accent)] px-2 py-2 text-center text-[10px] font-black uppercase tracking-wide text-black">
+            <Link href={`/admin/races/${raceId}/book`} className="bg-[var(--accent)] px-2 py-2 text-center text-[10px] font-black uppercase tracking-wide text-white">
               Lines
             </Link>
           </div>

@@ -61,7 +61,7 @@ export function Nav() {
   return (
     <>
     <header className="bg-[var(--surface)] border-b border-[var(--border)]">
-      <div className="h-[3px] bg-[linear-gradient(90deg,var(--racing-red)_0%,var(--racing-red)_18%,var(--accent)_34%,var(--accent)_64%,#91a4b7_82%,#91a4b7_100%)]" />
+      <div className="h-[3px] bg-[linear-gradient(90deg,var(--racing-red)_0%,var(--racing-red)_18%,var(--accent)_34%,var(--accent)_64%,var(--steel)_82%,var(--steel)_100%)]" />
 
       {/* Main bar */}
       <div className="mx-auto flex max-w-6xl items-stretch justify-between px-4 sm:px-6">
@@ -89,7 +89,7 @@ export function Nav() {
           {isAdmin && (
             <Link
               href="/admin/races/new"
-              className="hidden md:block bg-[var(--accent)] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.14em] text-black hover:opacity-90 transition-opacity"
+              className="hidden md:block bg-[var(--accent)] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.14em] text-white hover:opacity-90 transition-opacity"
             >
               New Race
             </Link>
@@ -149,7 +149,7 @@ export function Nav() {
               <Link
                 href="/admin/races/new"
                 onClick={() => setOpen(false)}
-                className="mt-3 block bg-[var(--accent)] px-4 py-3 text-[11px] font-bold uppercase tracking-[0.14em] text-black hover:opacity-90 text-center"
+                className="mt-3 block bg-[var(--accent)] px-4 py-3 text-[11px] font-bold uppercase tracking-[0.14em] text-white hover:opacity-90 text-center"
               >
                 New Race
               </Link>
@@ -192,7 +192,7 @@ export function Nav() {
                 onClick={() => setOpen(false)}
                 className={`min-h-11 border px-2 py-2 text-center text-[10px] font-black uppercase tracking-wide ${
                   active
-                    ? "border-[var(--accent)] bg-[var(--accent)] text-black"
+                    ? "border-[var(--accent)] bg-[var(--accent)] text-white"
                     : "border-[var(--border)] bg-[var(--surface-raised)] text-[var(--muted)]"
                 }`}
               >

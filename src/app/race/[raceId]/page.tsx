@@ -12,8 +12,8 @@ const fmt = new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", ye
 function statusClass(status: RaceEntry["entry_status"]) {
   if (status === "confirmed") return "border-green-400/35 bg-green-500/10 text-green-300";
   if (status === "scratched") return "border-red-400/35 bg-red-500/10 text-red-300";
-  if (status === "unconfirmed") return "border-amber-400/35 bg-amber-500/10 text-amber-300";
-  return "border-sky-400/35 bg-sky-500/10 text-sky-300";
+  if (status === "unconfirmed") return "border-[var(--steel)]/35 bg-[var(--steel)]/10 text-[var(--steel)]";
+  return "border-white/25 bg-white/5 text-[var(--muted-strong)]";
 }
 
 function marketPriority(type: PropMarket["type"]) {

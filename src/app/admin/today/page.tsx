@@ -80,7 +80,7 @@ export default async function TodayOddsPage() {
             </p>
             <Link
               href="/admin/races"
-              className="mt-5 inline-flex rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-bold text-black hover:opacity-90"
+              className="mt-5 inline-flex rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-bold text-white hover:opacity-90"
             >
               Review all races
             </Link>
@@ -115,7 +115,7 @@ export default async function TodayOddsPage() {
                       <Link href={`/admin/races/${board.race.id}/prediction`} className="rounded-lg border border-[var(--border)] px-3 py-2 text-xs font-semibold text-[var(--muted)] hover:text-white">
                         Prediction
                       </Link>
-                      <Link href={`/admin/races/${board.race.id}/book`} className="rounded-lg bg-[var(--accent)] px-3 py-2 text-xs font-bold text-black hover:opacity-90">
+                      <Link href={`/admin/races/${board.race.id}/book`} className="rounded-lg bg-[var(--accent)] px-3 py-2 text-xs font-bold text-white hover:opacity-90">
                         Lines
                       </Link>
                     </div>

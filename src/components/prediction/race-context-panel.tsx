@@ -229,7 +229,7 @@ export function RaceContextPanel({
           type="button"
           onClick={save}
           disabled={saveDisabled}
-          className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-bold text-black transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-bold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
         >
           Add Context
         </button>

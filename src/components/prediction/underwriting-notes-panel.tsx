@@ -104,7 +104,7 @@ export function UnderwritingNotesPanel({
                 onClick={() => setScope(value)}
                 className={`rounded-lg px-3 py-2 text-xs font-bold capitalize transition-colors ${
                   scope === value
-                    ? "bg-[var(--accent)] text-black"
+                    ? "bg-[var(--accent)] text-white"
                     : "text-[var(--muted)] hover:text-white"
                 }`}
               >
@@ -183,7 +183,7 @@ export function UnderwritingNotesPanel({
             type="button"
             onClick={save}
             disabled={saving || !title.trim() || !note.trim() || (scope === "driver" && !driverId)}
-            className="w-full rounded-lg bg-[var(--accent)] px-4 py-2.5 text-sm font-bold text-black transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+            className="w-full rounded-lg bg-[var(--accent)] px-4 py-2.5 text-sm font-bold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {saving ? "Saving..." : "Save Note"}
           </button>

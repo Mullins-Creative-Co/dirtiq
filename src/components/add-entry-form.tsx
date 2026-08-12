@@ -30,7 +30,7 @@ export function AddEntryForm({ raceId, drivers }: { raceId: number; drivers: Dri
       </select>
       <div className="flex gap-2">
         <input name="starting_position" type="number" min="1" placeholder="Start pos." className="w-24 rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2 text-sm text-white placeholder-[var(--muted)] focus:border-[var(--accent)] focus:outline-none" />
-        <button type="submit" disabled={pending} className="flex-1 rounded-lg bg-[var(--accent)] py-2 text-sm font-semibold text-black disabled:opacity-50 hover:opacity-90">{pending ? "Adding…" : "Add to Field"}</button>
+        <button type="submit" disabled={pending} className="flex-1 rounded-lg bg-[var(--accent)] py-2 text-sm font-semibold text-white disabled:opacity-50 hover:opacity-90">{pending ? "Adding…" : "Add to Field"}</button>
       </div>
       <select name="entry_series" className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2 text-xs text-white focus:border-[var(--accent)] focus:outline-none">
         <option value="">Series profile: auto</option>

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { placePlayerBetAction } from "@/app/actions";
 import type { PlayerAccount, PropType } from "@/lib/player-bets";
+import type { PricingStage } from "@/lib/book-pricing";
 
 type LobbyBetLine = {
   race_id: number;
@@ -20,6 +21,7 @@ type LobbyBetLine = {
   driver_b_name: string | null;
   market_odds: string;
   entry_status: string | null;
+  line_stage: PricingStage;
   max_stake?: number;
   corridor_status?: "open" | "limited" | "closed";
   corridor_message?: string | null;
@@ -185,6 +187,15 @@ export function BetLobbyBoard({
                     <span className="text-[10px] font-semibold uppercase tracking-widest text-[var(--muted)]">
                       {line.entry_status ?? "expected"}
                     </span>
+                    <span className={`rounded-full border px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest ${
+                      line.line_stage === "race-night"
+                        ? "border-[var(--racing-green)]/40 bg-[var(--racing-green)]/10 text-[var(--racing-green)]"
+                        : line.line_stage === "confirmed"
+                          ? "border-[var(--info)]/35 bg-[var(--info)]/10 text-[var(--info)]"
+                          : "border-[var(--steel)]/30 bg-[var(--steel)]/10 text-[var(--steel)]"
+                    }`}>
+                      {line.line_stage === "race-night" ? "Race-night model" : line.line_stage === "confirmed" ? "Confirmed field" : "Pre-race model"}
+                    </span>
                     {line.corridor_status && line.corridor_status !== "open" && (
                       <span className="rounded-full border border-[var(--accent)]/30 bg-[var(--accent)]/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-[var(--accent)]">
                         {line.corridor_status === "closed" ? "Capped" : line.corridor_message ?? "Limited"}
@@ -220,7 +231,7 @@ export function BetLobbyBoard({
       <aside className="panel h-fit overflow-hidden xl:sticky xl:top-24">
         <div className="flex items-center justify-between border-b border-[var(--border)] bg-[var(--surface-raised)] px-5 py-4">
           <h2 style={{ fontFamily: "var(--font-display)" }} className="text-sm font-bold text-white">Ticket Slip</h2>
-          <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[var(--accent)] px-1.5 text-[10px] font-black text-[#0b0d10]">
+          <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[var(--accent)] px-1.5 text-[10px] font-black text-white">
             {slip.length}
           </span>
         </div>

@@ -67,7 +67,7 @@ export function ImportEventForm({ existingRaces, eventId: prefillId, compact }: 
             <button
               type="submit"
               disabled={pending}
-              className="text-xs font-semibold bg-[var(--accent)] text-black px-3 py-1 rounded hover:opacity-90 transition-opacity disabled:opacity-50"
+              className="text-xs font-semibold bg-[var(--accent)] text-white px-3 py-1 rounded hover:opacity-90 transition-opacity disabled:opacity-50"
             >
               {pending ? "Importing…" : "Import"}
             </button>
@@ -117,7 +117,7 @@ export function ImportEventForm({ existingRaces, eventId: prefillId, compact }: 
         <button
           type="submit"
           disabled={pending || (!url.trim() && !prefillId)}
-          className="rounded-lg bg-[var(--accent)] px-5 py-2 text-sm font-semibold text-black hover:opacity-90 transition-opacity disabled:opacity-50"
+          className="rounded-lg bg-[var(--accent)] px-5 py-2 text-sm font-semibold text-white hover:opacity-90 transition-opacity disabled:opacity-50"
         >
           {pending ? "Importing…" : "Import Results"}
         </button>

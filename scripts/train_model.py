@@ -32,6 +32,9 @@ warnings.filterwarnings("ignore")
 ROOT = Path(__file__).parent.parent
 DB   = ROOT / "data" / "dirtiq.db"
 SERIES = os.environ.get("DIRTIQ_SERIES", "WoO Late Models")
+MODEL_STAGE = os.environ.get("DIRTIQ_MODEL_STAGE", "early").lower()
+if MODEL_STAGE not in ("early", "race-night"):
+    raise ValueError("DIRTIQ_MODEL_STAGE must be 'early' or 'race-night'")
 CROWN_JEWEL = SERIES == "Crown Jewel / Combined"
 CROWN_PATTERNS = [
     "show-me",
@@ -104,6 +107,25 @@ df = pd.read_sql_query(f"""
 
 print(f"  {len(df)} entries across {df['race_id'].nunique()} races, "
       f"{df['driver_id'].nunique()} drivers, {df['track_id'].nunique()} tracks for {SERIES}")
+
+# A race-night model must learn from events where the field was substantially
+# populated with information actually available after prelims. Keep all races
+# in the feature-history calculations, but restrict the final training rows.
+race_coverage = df.groupby("race_id").agg(
+    field_size=("driver_id", "size"),
+    start_count=("starting_position", "count"),
+    heat_count=("heat_position", "count"),
+    qt_count=("qualifying_time", "count"),
+)
+race_night_race_ids = set(
+    race_coverage[
+        (race_coverage["start_count"] / race_coverage["field_size"] >= 0.70)
+        & (
+            (race_coverage["heat_count"] / race_coverage["field_size"] >= 0.50)
+            | (race_coverage["qt_count"] / race_coverage["field_size"] >= 0.50)
+        )
+    ].index
+)
 
 df["race_date"] = pd.to_datetime(df["race_date"])
 df["year"]      = df["race_date"].dt.year
@@ -577,9 +599,12 @@ FEATURES = [
 
 # Drop rows where we have NO history at all (first race in dataset is untrainable)
 df_model = df[df["career_starts"] >= 1].copy()
+if MODEL_STAGE == "race-night":
+    df_model = df_model[df_model["race_id"].isin(race_night_race_ids)].copy()
+    print(f"  Race-night coverage filter retained {df_model['race_id'].nunique()} races")
 print(f"  Training rows after filtering first-race entries: {len(df_model)}")
 
-X = df_model[FEATURES].astype(float)
+X = df_model[FEATURES].astype(float).replace([np.inf, -np.inf], np.nan)
 y = df_model["win"]
 
 print(f"  Win rate in dataset: {y.mean():.3f}  (field avg {1/df_model['field_size'].mean():.3f})")
@@ -597,6 +622,16 @@ test_mask  = df_model["year"] >= 2025
 
 X_train, y_train = X[train_mask], y[train_mask]
 X_test,  y_test  = X[test_mask],  y[test_mask]
+
+# Newer sklearn/numpy combinations cannot bin a column with zero finite values.
+# Learn the usable feature set from the training period only so the test period
+# remains a true holdout, then export that reduced set for prediction.
+all_missing_features = [name for name in FEATURES if X_train[name].notna().sum() == 0]
+if all_missing_features:
+    print(f"  Dropping all-missing training features: {', '.join(all_missing_features)}")
+    FEATURES = [name for name in FEATURES if name not in all_missing_features]
+    X_train = X_train[FEATURES]
+    X_test = X_test[FEATURES]
 
 print(f"  Train: {train_mask.sum()} rows ({y_train.mean():.3f} win rate)")
 print(f"  Test:  {test_mask.sum()} rows  ({y_test.mean():.3f} win rate)")
@@ -707,8 +742,9 @@ import pickle
 import re
 
 series_slug = re.sub(r"[^a-z0-9]+", "_", SERIES.lower()).strip("_")
-model_path  = ROOT / "data" / f"dirtiq_model_{series_slug}.pkl"
-params_path = ROOT / "data" / f"feature_params_{series_slug}.json"
+artifact_slug = f"{series_slug}_race_night" if MODEL_STAGE == "race-night" else series_slug
+model_path  = ROOT / "data" / f"dirtiq_model_{artifact_slug}.pkl"
+params_path = ROOT / "data" / f"feature_params_{artifact_slug}.json"
 
 with open(model_path, "wb") as f:
     pickle.dump(model, f)
@@ -728,6 +764,13 @@ with open(params_path, "w") as f:
         "n_train":    int(train_mask.sum()),
         "n_test":     int(test_mask.sum()),
         "series": SERIES,
+        "model_stage": MODEL_STAGE,
+        "eligible_races": len(race_night_race_ids) if MODEL_STAGE == "race-night" else None,
+        "auto_select": MODEL_STAGE != "race-night" or len(race_night_race_ids) >= 100,
+        "race_night_coverage": {
+            "starting_position": 0.70,
+            "heat_or_qualifying": 0.50,
+        } if MODEL_STAGE == "race-night" else None,
     }, f, indent=2)
 
 print(f"\nModel saved → {model_path}")

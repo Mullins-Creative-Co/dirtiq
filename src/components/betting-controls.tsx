@@ -111,7 +111,7 @@ export function BettingControls({
           type="button"
           onClick={syncResults}
           disabled={syncing || !hasMrpEvent || isSettled || isCancelled}
-          className="flex-1 rounded-lg bg-[var(--accent)] px-4 py-2.5 text-xs font-black text-black hover:opacity-90 disabled:opacity-40 transition-opacity"
+          className="flex-1 rounded-lg bg-[var(--accent)] px-4 py-2.5 text-xs font-black text-white hover:opacity-90 disabled:opacity-40 transition-opacity"
         >
           {syncing ? "Settling..." : "Sync Final Results"}
         </button>

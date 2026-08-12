@@ -88,15 +88,17 @@ def audit_routing(limit=None, include_empty=True):
         )
 
 
-def train(series_key, engine):
+def train(series_key, engine, stage="early"):
     series_names = SERIES.values() if series_key == "all" else [SERIES[series_key]]
     for series in series_names:
         env = os.environ.copy()
         env["DIRTIQ_SERIES"] = series
+        env["DIRTIQ_MODEL_STAGE"] = stage
         env["DIRTIQ_SKIP_IMPORTANCE"] = env.get("DIRTIQ_SKIP_IMPORTANCE", "1")
+        env["PYTHONIOENCODING"] = "utf-8"
         if engine:
             env["DIRTIQ_MODEL_ENGINE"] = engine
-        print(f"\n=== Training {series} ===")
+        print(f"\n=== Training {series} ({stage}) ===")
         subprocess.run([sys.executable, str(TRAIN_PATH)], cwd=ROOT, env=env, check=True)
 
 
@@ -127,6 +129,7 @@ def main():
     parser.add_argument("--audit-routing", action="store_true", help="Show which model each upcoming race will use.")
     parser.add_argument("--train", choices=["all", "lucas", "woo", "crown", "summer"], help="Retrain model artifacts.")
     parser.add_argument("--engine", choices=["auto", "xgboost", "sklearn"], default=None, help="Training engine preference.")
+    parser.add_argument("--stage", choices=["early", "race-night"], default="early", help="Train the entries-only or post-prelim artifact.")
     parser.add_argument("--score-upcoming", action="store_true", help="Cache predictions for upcoming races with entries.")
     parser.add_argument("--score-race", type=int, help="Cache predictions for one race.")
     parser.add_argument("--model", choices=["auto", "crown", "lucas", "woo", "summer"], default="auto", help="Manual scoring override for --score-race.")
@@ -136,14 +139,14 @@ def main():
     args = parser.parse_args()
 
     if args.refresh:
-        train("all", args.engine)
+        train("all", args.engine, args.stage)
         score_upcoming(limit=args.limit, include_empty=args.include_empty)
         audit_routing(limit=args.limit, include_empty=True)
         return
 
     did_work = False
     if args.train:
-        train(args.train, args.engine)
+        train(args.train, args.engine, args.stage)
         did_work = True
     if args.score_race is not None:
         score_race(args.score_race, None if args.model == "auto" else args.model)

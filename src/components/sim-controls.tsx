@@ -45,7 +45,7 @@ export function SimControls({ raceId, hasOpenBets }: { raceId: number; hasOpenBe
         <button
           onClick={() => handle("run")}
           disabled={pending !== null}
-          className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-black hover:opacity-90 disabled:opacity-40 transition-opacity"
+          className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-white hover:opacity-90 disabled:opacity-40 transition-opacity"
         >
           {pending === "run" ? "Running…" : "Run Simulation"}
         </button>

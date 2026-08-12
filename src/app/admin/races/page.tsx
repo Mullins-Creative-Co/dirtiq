@@ -77,7 +77,7 @@ export default async function RacesPage() {
             {mode === "betting" ? (
               <Link
                 href={`/admin/races/${race.id}/prediction`}
-                className="bg-[var(--accent)] px-3 py-2 text-[10px] font-black uppercase tracking-wider text-black transition-opacity hover:opacity-90"
+                className="bg-[var(--accent)] px-3 py-2 text-[10px] font-black uppercase tracking-wider text-white transition-opacity hover:opacity-90"
               >
                 Output
               </Link>
@@ -94,7 +94,7 @@ export default async function RacesPage() {
       <main className="mx-auto max-w-7xl space-y-6 px-4 py-8 sm:px-6">
         <section className="overflow-hidden border border-[var(--border)] bg-[var(--surface)]">
           <div className="grid border-b border-[var(--border)] lg:grid-cols-[1fr_auto]">
-            <div className="bg-[linear-gradient(135deg,#18120c_0%,#0b0d10_55%,#15191f_100%)] px-5 py-6 sm:px-6">
+            <div className="bg-[linear-gradient(135deg,#1a1210_0%,#0b0d10_55%,#161616_100%)] px-5 py-6 sm:px-6">
               <p className="text-[10px] font-black uppercase tracking-[0.28em] text-[var(--accent)]">
                 Race control
               </p>
@@ -105,7 +105,7 @@ export default async function RacesPage() {
                 Primary model targets only: Lucas Oil LMDS, WoO Late Models, and DIRTcar Summer Nationals / Hell Tour.
               </p>
             </div>
-            <div className="grid min-w-full grid-cols-3 border-t border-[var(--border)] bg-[#0f1216] lg:min-w-[420px] lg:border-l lg:border-t-0">
+            <div className="grid min-w-full grid-cols-3 border-t border-[var(--border)] bg-[#101010] lg:min-w-[420px] lg:border-l lg:border-t-0">
               {[
                 { label: "Season", value: activeYear },
                 { label: "Events", value: totalRaces },
@@ -133,7 +133,7 @@ export default async function RacesPage() {
                   key={filter.label}
                   className={`border px-3 py-2 text-[10px] font-black uppercase tracking-wider ${
                     filter.active
-                      ? "border-[var(--accent)] bg-[var(--accent)] text-black"
+                      ? "border-[var(--accent)] bg-[var(--accent)] text-white"
                       : "border-[var(--border)] text-[var(--muted)]"
                   }`}
                 >
@@ -143,7 +143,7 @@ export default async function RacesPage() {
             </div>
             <Link
               href="/admin/races/new"
-              className="bg-[var(--accent)] px-4 py-2.5 text-[11px] font-black uppercase tracking-wider text-black transition-opacity hover:opacity-90"
+              className="bg-[var(--accent)] px-4 py-2.5 text-[11px] font-black uppercase tracking-wider text-white transition-opacity hover:opacity-90"
             >
               New Race
             </Link>
@@ -165,7 +165,7 @@ export default async function RacesPage() {
             <p className="text-[var(--muted)]">No races yet.</p>
             <Link
               href="/admin/races/new"
-              className="mt-4 inline-block bg-[var(--accent)] px-4 py-2 text-xs font-black uppercase tracking-wider text-black"
+              className="mt-4 inline-block bg-[var(--accent)] px-4 py-2 text-xs font-black uppercase tracking-wider text-white"
             >
               Create Race
             </Link>
@@ -173,7 +173,7 @@ export default async function RacesPage() {
         ) : (
           <div className="space-y-6">
             <section className="border border-[var(--border)] bg-[var(--surface)]">
-              <div className="flex flex-wrap items-end justify-between gap-4 border-b border-[var(--border)] bg-[#12161c] px-5 py-4">
+              <div className="flex flex-wrap items-end justify-between gap-4 border-b border-[var(--border)] bg-[#141414] px-5 py-4">
                 <div>
                   <p className="text-[10px] font-black uppercase tracking-[0.24em] text-[var(--accent)]">
                     Upcoming
@@ -240,7 +240,7 @@ export default async function RacesPage() {
             ) : null}
 
             <section className="border border-[var(--border)] bg-[var(--surface)]">
-              <div className="flex flex-wrap items-end justify-between gap-4 border-b border-[var(--border)] bg-[#12161c] px-5 py-4">
+              <div className="flex flex-wrap items-end justify-between gap-4 border-b border-[var(--border)] bg-[#141414] px-5 py-4">
                 <div>
                   <p className="text-[10px] font-black uppercase tracking-[0.24em] text-[var(--accent)]">
                     Results

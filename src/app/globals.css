@@ -1,28 +1,28 @@
 @import "tailwindcss";
 
 :root {
-  /* Cockpit-black surface ramp */
-  --background: #06080b;
-  --surface: #0f1319;
-  --surface-raised: #171d26;
-  --surface-hover: #1d2530;
-  --surface-warm: #1a1610;
-  --border: #262d38;
-  --border-strong: #333c49;
-  --foreground: #eef2f8;
-  --muted: #8b95a7;
-  --muted-strong: #a9b3c4;
+  /* True-black surface ramp — neutral, no blue cast */
+  --background: #050505;
+  --surface: #0d0d0d;
+  --surface-raised: #161616;
+  --surface-hover: #202020;
+  --surface-warm: #1c1211;
+  --border: #272727;
+  --border-strong: #3c3c3c;
+  --foreground: #f7f7f7;
+  --muted: #8a8a8a;
+  --muted-strong: #b6b6b6;
 
-  /* Signature gold */
-  --accent: #f4bd52;
-  --accent-hi: #ffd97a;
-  --accent-lo: #d69c31;
+  /* Signature race red */
+  --accent: #e2222c;
+  --accent-hi: #ff4b52;
+  --accent-lo: #a8121a;
 
   /* Market tones */
-  --racing-red: #f0555a;
+  --racing-red: #ff6b6b;
   --racing-green: #33d07a;
-  --info: #4aa8ff;
-  --steel: #93a6ba;
+  --info: #f0f0f0;
+  --steel: #a3a3a3;
 
   --radius: 0.625rem;
   --radius-sm: 0.375rem;
@@ -78,7 +78,7 @@ body {
 }
 ::selection {
   background: var(--accent);
-  color: #080a0e;
+  color: #ffffff;
 }
 
 @media (max-width: 767px) {
@@ -124,11 +124,11 @@ body {
   height: 3px;
   background: linear-gradient(
     90deg,
-    var(--racing-red) 0%,
-    var(--racing-red) 20%,
-    var(--accent) 40%,
-    var(--accent-hi) 60%,
-    var(--steel) 100%
+    var(--accent) 0%,
+    var(--accent-hi) 35%,
+    var(--foreground) 55%,
+    var(--steel) 75%,
+    var(--border-strong) 100%
   );
 }
 
@@ -156,7 +156,7 @@ body {
 .odds-pill[data-selected="true"] {
   background: linear-gradient(180deg, var(--accent-hi), var(--accent-lo));
   border-color: var(--accent-hi);
-  color: #0b0d10;
+  color: #ffffff;
   box-shadow: var(--glow-accent);
 }
 
@@ -164,7 +164,7 @@ body {
 .btn-accent {
   border-radius: var(--radius-sm);
   background: linear-gradient(180deg, var(--accent-hi), var(--accent-lo));
-  color: #0b0d10;
+  color: #ffffff;
   box-shadow: 0 6px 18px -8px color-mix(in srgb, var(--accent) 70%, transparent);
   transition:
     transform 0.12s ease,

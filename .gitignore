@@ -7,6 +7,10 @@ out/
 
 # database (local data)
 data/
+!data/
+data/*
+!data/dirtiq_model_*.pkl
+!data/feature_params_*.json
 
 # env files
 .env
@@ -36,3 +40,5 @@ RACEFEST*/
 .DS_Store
 *.pem
 npm-debug.log*
+.dev-server*.log
+__pycache__/

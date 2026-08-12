@@ -99,7 +99,7 @@ export function ModelRaceReviewForm({
         <button
           type="submit"
           disabled={pending}
-          className="border border-[var(--accent)] bg-[var(--accent)] px-3 py-2 text-[10px] font-black uppercase tracking-wider text-black disabled:opacity-60"
+          className="border border-[var(--accent)] bg-[var(--accent)] px-3 py-2 text-[10px] font-black uppercase tracking-wider text-white disabled:opacity-60"
         >
           {pending ? "Saving" : review ? "Update Review" : "Save Review"}
         </button>

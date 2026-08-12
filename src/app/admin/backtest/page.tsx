@@ -72,7 +72,7 @@ function PLChart({ paths, racesRun }: { paths: BacktestResult["summary"]["cumPat
           const ri = racesRun - 1 - i;
           return `L ${toX(ri).toFixed(1)} ${toY(v).toFixed(1)}`;
         }).join(" ")} Z`}
-        fill="#3b82f620"
+        fill="#ffffff15"
         stroke="none"
       />
 
@@ -81,14 +81,14 @@ function PLChart({ paths, racesRun }: { paths: BacktestResult["summary"]["cumPat
       {/* p90 line */}
       <path d={pathD(paths.p90)} fill="none" stroke="#22c55e" strokeWidth="1.5" strokeDasharray="4 2" />
       {/* p50 median line */}
-      <path d={pathD(paths.p50)} fill="none" stroke="#3b82f6" strokeWidth="2.5" />
+      <path d={pathD(paths.p50)} fill="none" stroke="#ffffff" strokeWidth="2.5" />
 
       {/* Legend */}
       <g transform={`translate(${PAD.left + 8}, ${PAD.top + 8})`}>
         <line x1="0" y1="6" x2="18" y2="6" stroke="#22c55e" strokeWidth="1.5" strokeDasharray="4 2" />
         <text x="22" y="9" fontSize="9" fill="#22c55e">90th pct</text>
-        <line x1="60" y1="6" x2="78" y2="6" stroke="#3b82f6" strokeWidth="2.5" />
-        <text x="82" y="9" fontSize="9" fill="#3b82f6">median</text>
+        <line x1="60" y1="6" x2="78" y2="6" stroke="#ffffff" strokeWidth="2.5" />
+        <text x="82" y="9" fontSize="9" fill="#ffffff">median</text>
         <line x1="128" y1="6" x2="146" y2="6" stroke="#ef4444" strokeWidth="1.5" strokeDasharray="4 2" />
         <text x="150" y="9" fontSize="9" fill="#ef4444">10th pct</text>
       </g>
@@ -101,8 +101,8 @@ function RankBadge({ rank, fieldSize }: { rank: number; fieldSize: number }) {
   const color =
     rank === 1 ? "text-green-400 font-bold" :
     rank <= 3  ? "text-amber-400 font-semibold" :
-    rank <= Math.ceil(fieldSize * 0.25) ? "text-slate-300" :
-    "text-slate-600";
+    rank <= Math.ceil(fieldSize * 0.25) ? "text-[var(--muted-strong)]" :
+    "text-[var(--muted)]";
   return <span className={`tabular-nums text-xs ${color}`}>#{rank}</span>;
 }
 
@@ -114,9 +114,9 @@ function ModelComparison({ comparison }: { comparison: ModelComparisonResult }) 
     v.racesRun > 0 ? (v.totalWinnerRank / v.racesRun).toFixed(2) : "—";
 
   const models = [
-    { key: "blended" as const, label: "Blended (current)", desc: "45% ELO + 55% composite (30/70 w/ heat data)", color: "border-[var(--accent)]/40 bg-[var(--accent)]/5", badge: "bg-[var(--accent)]/20 text-amber-300", variant: blended },
-    { key: "elo_only" as const, label: "ELO Only", desc: "Plackett-Luce win probs from DLM-seeded Elo ratings", color: "border-blue-500/40 bg-blue-500/5", badge: "bg-blue-500/20 text-blue-300", variant: elo_only },
-    { key: "composite_only" as const, label: "Composite Only", desc: "16-factor scoring model, no Elo component", color: "border-slate-600 bg-slate-800/30", badge: "bg-slate-700 text-slate-300", variant: composite_only },
+    { key: "blended" as const, label: "Blended (current)", desc: "45% ELO + 55% composite (30/70 w/ heat data)", color: "border-[var(--accent)]/40 bg-[var(--accent)]/5", badge: "bg-[var(--accent)]/20 text-[var(--accent)]", variant: blended },
+    { key: "elo_only" as const, label: "ELO Only", desc: "Plackett-Luce win probs from DLM-seeded Elo ratings", color: "border-white/30 bg-white/5", badge: "bg-white/10 text-white", variant: elo_only },
+    { key: "composite_only" as const, label: "Composite Only", desc: "16-factor scoring model, no Elo component", color: "border-[var(--border-strong)] bg-[var(--surface-raised)]", badge: "bg-[var(--surface-hover)] text-[var(--muted-strong)]", variant: composite_only },
   ] as const;
 
   return (
@@ -289,7 +289,7 @@ export default async function BacktestPage({
                 className="w-24 rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2 text-sm text-white focus:border-[var(--accent)] focus:outline-none" />
             </div>
             <button type="submit"
-              className="rounded-lg bg-[var(--accent)] px-5 py-2 text-sm font-semibold text-black hover:opacity-90">
+              className="rounded-lg bg-[var(--accent)] px-5 py-2 text-sm font-semibold text-white hover:opacity-90">
               Run
             </button>
           </div>

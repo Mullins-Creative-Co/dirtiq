@@ -336,7 +336,7 @@ export function TestingWorkbench({
       {activeRace ? (
         <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[var(--border)] bg-[#080a0d]/95 px-3 py-3 shadow-2xl shadow-black/60 backdrop-blur md:hidden">
           <div className="mx-auto grid max-w-6xl grid-cols-3 gap-2">
-            <Link href={`/admin/races/${activeRace.id}/prediction`} className="bg-[var(--accent)] px-2 py-3 text-center text-[11px] font-black uppercase tracking-wide text-black">
+            <Link href={`/admin/races/${activeRace.id}/prediction`} className="bg-[var(--accent)] px-2 py-3 text-center text-[11px] font-black uppercase tracking-wide text-white">
               Reason
             </Link>
             <Link href={`/admin/races/${activeRace.id}`} className="border border-[var(--border)] bg-[var(--surface)] px-2 py-3 text-center text-[11px] font-black uppercase tracking-wide text-white">
@@ -363,7 +363,7 @@ export function TestingWorkbench({
               update caveats or race-night inputs, then refresh and validate.
             </p>
           </div>
-          <div className="grid grid-cols-3 border-t border-[var(--border)] bg-[#0f1216] lg:border-l lg:border-t-0">
+          <div className="grid grid-cols-3 border-t border-[var(--border)] bg-[#101010] lg:border-l lg:border-t-0">
             {[
               { label: "Races", value: upcoming.length },
               { label: "Done", value: `${doneCount}/${modelingTodos.length}` },
@@ -380,7 +380,7 @@ export function TestingWorkbench({
 
       <section className="grid gap-5 xl:grid-cols-[1fr_380px]">
         <div className="border border-[var(--border)] bg-[var(--surface)]">
-          <div className="border-b border-[var(--border)] bg-[#12161c] px-5 py-4">
+          <div className="border-b border-[var(--border)] bg-[#141414] px-5 py-4">
             <p className="text-[10px] font-black uppercase tracking-[0.24em] text-[var(--accent)]">
               Active race
             </p>
@@ -477,7 +477,7 @@ export function TestingWorkbench({
               </div>
 
               <div className="mt-5 hidden flex-wrap gap-2 md:flex">
-                <Link href={`/admin/races/${activeRace.id}/prediction`} className="bg-[var(--accent)] px-4 py-2 text-sm font-black text-black hover:opacity-90">
+                <Link href={`/admin/races/${activeRace.id}/prediction`} className="bg-[var(--accent)] px-4 py-2 text-sm font-black text-white hover:opacity-90">
                   Open reasoning/edit
                 </Link>
                 <Link href={`/admin/races/${activeRace.id}`} className="border border-[var(--border)] px-4 py-2 text-sm font-semibold text-white hover:border-[var(--accent)]/60">
@@ -646,7 +646,7 @@ export function TestingWorkbench({
               Gaps show where QT, heat, or start data is missing.
             </p>
           </div>
-          <div className="grid grid-cols-2 bg-[#0f1216] sm:grid-cols-4">
+          <div className="grid grid-cols-2 bg-[#101010] sm:grid-cols-4">
             {[
               { label: "Races", value: crownSummary.races.toString() },
               { label: "XGB T3", value: rate(crownSummary.xgbTop3, crownSummary.races) },
@@ -941,7 +941,7 @@ export function TestingWorkbench({
               and mark which signals deserve a real feature test.
             </p>
           </div>
-          <div className="grid grid-cols-3 bg-[#0f1216]">
+          <div className="grid grid-cols-3 bg-[#101010]">
             {[
               { label: "Races", value: historical.summary.races.toString() },
               { label: "Early T3", value: rate(historical.summary.earlyTop3, historical.summary.races) },

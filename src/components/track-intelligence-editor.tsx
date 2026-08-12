@@ -269,7 +269,7 @@ export function TrackIntelligenceEditor({
               <strong className="text-amber-400">Track Family</strong> groups this track with others of the same style for driver specialty matching. Use a consistent name across similar tracks such as Illinois Quarter Mile for Fairbury, Farmer City, and Gateway.
             </div>
             <button onClick={saveInfo} disabled={savingInfo}
-              className="rounded-lg bg-[var(--accent)] px-5 py-2.5 text-sm font-bold text-black disabled:opacity-50 hover:opacity-90 transition-opacity">
+              className="rounded-lg bg-[var(--accent)] px-5 py-2.5 text-sm font-bold text-white disabled:opacity-50 hover:opacity-90 transition-opacity">
               {savingInfo ? "Saving…" : infoSaved ? "Saved ✓" : "Save Track Details"}
             </button>
           </div>
@@ -465,7 +465,7 @@ export function TrackIntelligenceEditor({
           </div>
           {trendError && <p className="text-xs text-red-400">{trendError}</p>}
           <button onClick={addTrend} disabled={savingTrend || !trendLabel.trim()}
-            className="rounded-lg bg-[var(--accent)] px-5 py-2.5 text-sm font-bold text-black disabled:opacity-50 hover:opacity-90 transition-opacity">
+            className="rounded-lg bg-[var(--accent)] px-5 py-2.5 text-sm font-bold text-white disabled:opacity-50 hover:opacity-90 transition-opacity">
             {savingTrend ? "Saving…" : "Add Trend"}
           </button>
         </div>

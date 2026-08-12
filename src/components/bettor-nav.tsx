@@ -62,7 +62,7 @@ export function BettorNav() {
             aria-current={onBoard ? "page" : undefined}
             className={`rounded-md px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] transition-colors ${
               onBoard
-                ? "bg-gradient-to-b from-[var(--accent-hi)] to-[var(--accent-lo)] text-[#0b0d10] shadow-[var(--glow-accent)]"
+                ? "bg-gradient-to-b from-[var(--accent-hi)] to-[var(--accent-lo)] text-white shadow-[var(--glow-accent)]"
                 : "border border-[var(--border)] bg-[var(--surface-raised)] text-[var(--muted-strong)] hover:border-[var(--accent)]/50 hover:text-white"
             }`}
           >

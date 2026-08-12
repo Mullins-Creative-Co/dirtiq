@@ -69,7 +69,7 @@ export default function NewTrackPage() {
             <textarea name="notes" rows={3} className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-2.5 text-sm text-white placeholder-[var(--muted)] focus:border-[var(--accent)] focus:outline-none resize-none" placeholder="Track characteristics..." />
           </div>
           <div className="flex gap-3 pt-2">
-            <button type="submit" disabled={pending} className="flex-1 rounded-lg bg-[var(--accent)] py-2.5 text-sm font-semibold text-black disabled:opacity-50 hover:opacity-90">{pending ? "Saving…" : "Add Track"}</button>
+            <button type="submit" disabled={pending} className="flex-1 rounded-lg bg-[var(--accent)] py-2.5 text-sm font-semibold text-white disabled:opacity-50 hover:opacity-90">{pending ? "Saving…" : "Add Track"}</button>
             <button type="button" onClick={() => router.back()} className="rounded-lg border border-[var(--border)] px-4 py-2.5 text-sm font-medium text-[var(--muted)] hover:text-white">Cancel</button>
           </div>
         </form>

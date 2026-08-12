@@ -193,7 +193,7 @@ export default async function MaintenancePage() {
                   <Link href={`/admin/races/${production.raceId}/prediction`} className="rounded-lg border border-[var(--border)] px-4 py-2 text-center text-sm font-semibold text-[var(--muted)] hover:text-white">
                     Reasoning
                   </Link>
-                  <Link href={`/admin/races/${production.raceId}/book`} className="rounded-lg bg-[var(--accent)] px-4 py-2 text-center text-sm font-bold text-black hover:opacity-90">
+                  <Link href={`/admin/races/${production.raceId}/book`} className="rounded-lg bg-[var(--accent)] px-4 py-2 text-center text-sm font-bold text-white hover:opacity-90">
                     Odds / Lines
                   </Link>
                 </div>

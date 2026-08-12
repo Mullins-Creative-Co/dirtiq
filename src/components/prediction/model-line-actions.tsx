@@ -204,7 +204,7 @@ export function ModelLineActions({
             type="button"
             onClick={applyLines}
             disabled={isPending}
-            className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-bold text-black transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-bold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
           >
             Publish Odds
           </button>

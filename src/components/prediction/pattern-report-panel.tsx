@@ -227,7 +227,7 @@ export function PatternReportPanel({
               type="button"
               onClick={saveReport}
               disabled={saving || !report.trim()}
-              className="rounded-lg bg-[var(--accent)] px-4 py-2 text-xs font-bold uppercase tracking-wider text-black transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-lg bg-[var(--accent)] px-4 py-2 text-xs font-bold uppercase tracking-wider text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {saving ? "Saving..." : "Save Report"}
             </button>

@@ -21,7 +21,7 @@ function rankLabel(rank: number) {
 function toneForRank(rank: number) {
   if (rank === 1) return "text-green-300";
   if (rank <= 3) return "text-amber-300";
-  return "text-slate-400";
+  return "text-[var(--muted)]";
 }
 
 function dataBadge(label: string, active: boolean) {
@@ -30,7 +30,7 @@ function dataBadge(label: string, active: boolean) {
       className={`border px-2 py-1 text-[9px] font-black uppercase tracking-wider ${
         active
           ? "border-green-400/25 bg-green-400/10 text-green-200"
-          : "border-slate-500/25 bg-slate-500/10 text-slate-400"
+          : "border-[var(--border-strong)] bg-white/5 text-[var(--muted)]"
       }`}
     >
       {label}

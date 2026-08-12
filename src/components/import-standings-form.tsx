@@ -55,7 +55,7 @@ export function ImportStandingsForm() {
         <button
           onClick={handleImport}
           disabled={loading}
-          className="rounded-xl bg-[var(--accent)] px-5 py-2.5 text-sm font-bold text-black hover:opacity-90 transition-opacity disabled:opacity-50"
+          className="rounded-xl bg-[var(--accent)] px-5 py-2.5 text-sm font-bold text-white hover:opacity-90 transition-opacity disabled:opacity-50"
         >
           {loading ? "Importing…" : "Import Standings"}
         </button>

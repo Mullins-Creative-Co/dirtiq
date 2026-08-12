@@ -671,8 +671,26 @@ def score_race(race_id, model_override=None):
 
     race_model_series, model_reason = resolve_race_model_series(race, model_override)
     series_slug = slug(race_model_series)
-    model_path = ROOT / "data" / f"dirtiq_model_{series_slug}.pkl"
-    params_path = ROOT / "data" / f"feature_params_{series_slug}.json"
+    field_size = len(entries)
+    start_coverage = sum(entry.get("starting_position") is not None for entry in entries) / max(field_size, 1)
+    heat_coverage = sum(entry.get("heat_position") is not None for entry in entries) / max(field_size, 1)
+    qt_coverage = sum(entry.get("qualifying_time") is not None for entry in entries) / max(field_size, 1)
+    has_race_night_inputs = start_coverage >= 0.70 and (heat_coverage >= 0.50 or qt_coverage >= 0.50)
+    race_night_slug = f"{series_slug}_race_night"
+    race_night_model = ROOT / "data" / f"dirtiq_model_{race_night_slug}.pkl"
+    race_night_params = ROOT / "data" / f"feature_params_{race_night_slug}.json"
+    race_night_metadata = json.loads(race_night_params.read_text()) if race_night_params.exists() else {}
+    race_night_enabled = race_night_metadata.get("auto_select", True)
+    use_race_night = (
+        has_race_night_inputs
+        and race_night_enabled
+        and race_night_model.exists()
+        and race_night_params.exists()
+    )
+    artifact_slug = race_night_slug if use_race_night else series_slug
+    model_stage = "race-night" if use_race_night else "early"
+    model_path = ROOT / "data" / f"dirtiq_model_{artifact_slug}.pkl"
+    params_path = ROOT / "data" / f"feature_params_{artifact_slug}.json"
 
     if not model_path.exists() or not params_path.exists():
         con.close()
@@ -681,6 +699,8 @@ def score_race(race_id, model_override=None):
             "modelSeries": race_model_series,
             "modelSlug": series_slug,
             "modelReason": model_reason,
+            "modelStage": model_stage,
+            "raceNightCoverage": {"start": start_coverage, "heat": heat_coverage, "qualifying": qt_coverage},
             "predictions": [],
         }
 
@@ -703,6 +723,7 @@ def score_race(race_id, model_override=None):
                 "modelSlug": series_slug,
                 "modelSeries": race_model_series,
                 "modelReason": model_reason,
+                "modelStage": model_stage,
                 "rawProbability": raw_probability,
                 "trainedOn": params_cache[series_slug].get("trained_on"),
                 "testAuc": params_cache[series_slug].get("test_auc"),
@@ -724,6 +745,8 @@ def score_race(race_id, model_override=None):
         "modelSeries": race_model_series,
         "modelSlug": series_slug,
         "modelReason": model_reason,
+        "modelStage": model_stage,
+        "raceNightCoverage": {"start": start_coverage, "heat": heat_coverage, "qualifying": qt_coverage},
         "predictions": predictions,
     }
 

@@ -82,7 +82,7 @@ export function RiskLimitsForm({ raceId, limits }: { raceId: number; limits: Ris
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] py-2 text-sm font-medium text-white disabled:opacity-40 hover:bg-[var(--accent)] hover:text-black transition-colors"
+        className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] py-2 text-sm font-medium text-white disabled:opacity-40 hover:bg-[var(--accent)] hover:text-white transition-colors"
       >
         {pending ? "Saving…" : "Save Limits"}
       </button>

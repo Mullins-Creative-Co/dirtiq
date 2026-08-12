@@ -94,7 +94,7 @@ export function LiveSyncControl() {
           type="button"
           onClick={() => void runSync()}
           disabled={pending}
-          className="w-full bg-[var(--accent)] px-4 py-4 text-sm font-black uppercase tracking-[0.12em] text-black disabled:opacity-50"
+          className="w-full bg-[var(--accent)] px-4 py-4 text-sm font-black uppercase tracking-[0.12em] text-white disabled:opacity-50"
         >
           {pending ? "Syncing..." : "Sync MRP Now"}
         </button>

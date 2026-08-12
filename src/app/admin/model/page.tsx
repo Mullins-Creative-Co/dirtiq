@@ -86,7 +86,7 @@ export default async function ModelPage({
           {defaultRace && !selectedRaceId && (
             <Link
               href={`/admin/model?race=${defaultRace.id}`}
-              className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-bold text-black hover:opacity-90 transition-opacity"
+              className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-bold text-white hover:opacity-90 transition-opacity"
             >
               View {defaultRace.name} →
             </Link>
@@ -134,7 +134,7 @@ export default async function ModelPage({
             </p>
             {defaultRace && (
               <Link href={`/admin/model?race=${defaultRace.id}`}
-                className="inline-block rounded-lg bg-[var(--accent)] px-5 py-2.5 text-sm font-bold text-black hover:opacity-90 transition-opacity">
+                className="inline-block rounded-lg bg-[var(--accent)] px-5 py-2.5 text-sm font-bold text-white hover:opacity-90 transition-opacity">
                 View {defaultRace.name}
               </Link>
             )}

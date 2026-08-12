@@ -57,7 +57,7 @@ function getPickTier(m: PropMarket, index?: number): { label: string; className:
   }
   return {
     label: "Contender",
-    className: "text-blue-200 border-blue-400/40 bg-blue-500/10",
+    className: "text-[var(--muted-strong)] border-[var(--border-strong)] bg-white/5",
   };
 }
 
@@ -86,10 +86,10 @@ const SECTION_DESCRIPTIONS: Record<PropType, string> = {
 };
 
 const STATUS_STYLE: Record<string, string> = {
-  won: "text-green-400",
-  lost: "text-slate-500",
-  void: "text-amber-400",
-  open: "text-blue-400",
+  won: "text-[var(--racing-green)]",
+  lost: "text-[var(--muted)]",
+  void: "text-[var(--steel)]",
+  open: "text-[var(--info)]",
 };
 
 export function PlayerBettingBoard({
@@ -352,7 +352,7 @@ export function PlayerBettingBoard({
         <button
           onClick={handleAddFunds}
           disabled={addingFunds}
-          className="rounded-md border border-[var(--accent)]/40 px-4 py-2 text-[11px] font-bold uppercase tracking-widest text-[var(--accent)] transition-all hover:bg-[var(--accent)] hover:text-[#0b0d10] active:scale-95 disabled:opacity-50"
+          className="rounded-md border border-[var(--accent)]/40 px-4 py-2 text-[11px] font-bold uppercase tracking-widest text-[var(--accent)] transition-all hover:bg-[var(--accent)] hover:text-white active:scale-95 disabled:opacity-50"
         >
           {addingFunds ? "Adding…" : "+ $500 Free Money"}
         </button>
@@ -388,7 +388,7 @@ export function PlayerBettingBoard({
                             className={`odds-pill flex flex-1 items-center justify-between px-3 py-2.5 ${closed ? "cursor-default opacity-50" : "cursor-pointer"}`}
                           >
                             <span className="min-w-0 pr-2">
-                              <span className={`block truncate text-sm font-semibold ${isInSlip(pair.a) ? "text-[#0b0d10]" : "text-white"}`}>{pair.a.driver_name}</span>
+                              <span className="block truncate text-sm font-semibold text-white">{pair.a.driver_name}</span>
                             </span>
                             <span className="shrink-0 text-sm font-extrabold tabular-nums">
                               {pair.a.american_odds}
@@ -405,7 +405,7 @@ export function PlayerBettingBoard({
                             className={`odds-pill flex flex-1 items-center justify-between px-3 py-2.5 ${closed ? "cursor-default opacity-50" : "cursor-pointer"}`}
                           >
                             <span className="min-w-0 pr-2">
-                              <span className={`block truncate text-sm font-semibold ${isInSlip(pair.b) ? "text-[#0b0d10]" : "text-white"}`}>{pair.b.driver_name}</span>
+                              <span className="block truncate text-sm font-semibold text-white">{pair.b.driver_name}</span>
                             </span>
                             <span className="shrink-0 text-sm font-extrabold tabular-nums">
                               {pair.b.american_odds}
@@ -547,7 +547,7 @@ export function PlayerBettingBoard({
               <div className="flex items-center gap-2">
                 <span style={{ fontFamily: "var(--font-display)" }} className="text-sm font-bold text-white">Straight Bet Slip</span>
                 {slip.length > 0 && (
-                  <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[var(--accent)] px-1.5 text-[10px] font-black text-[#0b0d10]">
+                  <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[var(--accent)] px-1.5 text-[10px] font-black text-white">
                     {slip.length}
                   </span>
                 )}

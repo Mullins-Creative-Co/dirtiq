@@ -158,8 +158,8 @@ export function SimBettingBoard({
                       onClick={(e) => { e.stopPropagation(); select(o); }}
                       className={`rounded-xl px-4 py-2.5 text-sm font-bold tabular-nums shrink-0 transition-all
                         ${isSelected
-                          ? "bg-[var(--accent)] text-black shadow-lg shadow-amber-500/20 scale-105"
-                          : "bg-[var(--surface-raised)] text-[var(--accent)] hover:bg-[var(--accent)] hover:text-black hover:scale-105"
+                          ? "bg-[var(--accent)] text-white shadow-lg shadow-red-500/30 scale-105"
+                          : "bg-[var(--surface-raised)] text-[var(--accent)] hover:bg-[var(--accent)] hover:text-white hover:scale-105"
                         }`}
                     >
                       {o.americanOdds}
@@ -181,7 +181,7 @@ export function SimBettingBoard({
             <div className="flex items-center gap-2">
               <span className="text-sm font-bold text-white">Bet Slip</span>
               {selected && (
-                <span className="w-5 h-5 rounded-full bg-[var(--accent)] text-black text-[10px] font-bold flex items-center justify-center">
+                <span className="w-5 h-5 rounded-full bg-[var(--accent)] text-white text-[10px] font-bold flex items-center justify-center">
                   1
                 </span>
               )}
@@ -298,7 +298,7 @@ export function SimBettingBoard({
               <button
                 onClick={placeBet}
                 disabled={pending || stakeNum <= 0}
-                className="w-full rounded-xl bg-[var(--accent)] py-3.5 text-sm font-black text-black tracking-wide disabled:opacity-40 hover:opacity-90 active:scale-[.98] transition-all"
+                className="w-full rounded-xl bg-[var(--accent)] py-3.5 text-sm font-black text-white tracking-wide disabled:opacity-40 hover:opacity-90 active:scale-[.98] transition-all"
               >
                 {pending ? "Placing…" : stakeNum > 0 ? `Place Bet  ·  $${stakeNum.toFixed(2)}` : "Enter a Wager"}
               </button>

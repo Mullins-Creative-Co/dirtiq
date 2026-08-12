@@ -10,6 +10,7 @@ import { getDb } from "@/lib/db";
 import { getMarketRiskCorridors } from "@/lib/underwriting";
 import { buildPredictionCard } from "@/lib/prediction-card";
 import { priceOutrightWinnerLines } from "@/lib/book-pricing";
+import type { PricingStage } from "@/lib/book-pricing";
 import { getOutrightExposureMap } from "@/lib/market-lines";
 
 const usd = (n: number) =>
@@ -37,6 +38,7 @@ type LobbyLine = {
   market_odds: string;
   rationale: string | null;
   entry_status: string | null;
+  line_stage: PricingStage;
   max_stake?: number;
   corridor_status?: "open" | "limited" | "closed";
   corridor_message?: string | null;
@@ -128,6 +130,7 @@ function generatedLobbyLines(races: Race[], limitPerRace = 8): LobbyLine[] {
             market_odds: price.americanOdds,
             rationale: price.rationale,
             entry_status: row.entryStatus,
+            line_stage: price.stage,
           }];
         });
     });
@@ -140,6 +143,14 @@ function generatedLobbyProps(races: Race[], limitPerRace = 16): LobbyLine[] {
     const card = buildPredictionCard(race.id);
     if (!card) return [];
     const rowsByDriver = new Map(card.rows.map((row) => [row.driverId, row]));
+    const entries = Math.max(1, card.readiness.entries);
+    const hasRaceNight =
+      card.readiness.starts >= Math.ceil(entries * 0.5) ||
+      card.readiness.heats >= Math.ceil(entries * 0.5) ||
+      card.readiness.qualifying >= Math.ceil(entries * 0.5);
+    const mostlyConfirmed =
+      card.rows.filter((row) => row.entryStatus === "confirmed").length >= Math.ceil(entries * 0.5);
+    const lineStage: PricingStage = hasRaceNight ? "race-night" : mostlyConfirmed ? "confirmed" : "opening";
     const markets = generateProps(race.id, race.track_id)
       .filter((market) => wantedTypes.has(market.type))
       .filter((market) => market.driver_id !== null)
@@ -181,6 +192,7 @@ function generatedLobbyProps(races: Race[], limitPerRace = 16): LobbyLine[] {
             ? `${market.section}; ${row.confidence.toLowerCase()} confidence; ${row.reasons[0] ?? "field-relative model signal"}`
             : market.section,
           entry_status: row?.entryStatus ?? "expected",
+          line_stage: lineStage,
         };
       });
   });

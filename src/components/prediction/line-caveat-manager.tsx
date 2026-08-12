@@ -152,7 +152,7 @@ export function LineCaveatManager({
             onClick={() => setPresetLabel(preset.label)}
             className={`rounded-lg border px-3 py-2 text-xs font-bold transition ${
               preset.label === presetLabel
-                ? "border-[var(--accent)] bg-[var(--accent)] text-black"
+                ? "border-[var(--accent)] bg-[var(--accent)] text-white"
                 : "border-[var(--border)] bg-[var(--surface-raised)] text-[var(--muted)] hover:text-white"
             }`}
           >
@@ -188,7 +188,7 @@ export function LineCaveatManager({
           type="button"
           onClick={submit}
           disabled={isPending}
-          className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-bold text-black transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+          className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-bold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
         >
           Save
         </button>

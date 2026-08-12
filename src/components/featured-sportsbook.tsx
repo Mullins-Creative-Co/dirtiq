@@ -378,7 +378,7 @@ export function FeaturedSportsbook({
         </div>
 
         <aside className="border-t border-white/10 bg-slate-950/50 p-4 xl:border-l xl:border-t-0">
-          <div ref={betSlipRef} className="sticky top-4 border border-white/10 bg-[#0c1018]">
+          <div ref={betSlipRef} className="sticky top-4 border border-white/10 bg-[#101010]">
             <div className="flex items-center justify-between border-b border-white/10 bg-white/[0.04] px-4 py-3">
               <div className="text-sm font-black text-white">Bet Slip</div>
               {selectedPick && (

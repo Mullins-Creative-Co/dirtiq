@@ -72,7 +72,7 @@ export default async function AdminStoragePage() {
             </p>
             <a
               href="/api/storage/export"
-              className="inline-flex w-full justify-center bg-[var(--accent)] px-4 py-3 text-sm font-black uppercase tracking-[0.12em] text-black sm:w-auto"
+              className="inline-flex w-full justify-center bg-[var(--accent)] px-4 py-3 text-sm font-black uppercase tracking-[0.12em] text-white sm:w-auto"
             >
               Download Snapshot
             </a>

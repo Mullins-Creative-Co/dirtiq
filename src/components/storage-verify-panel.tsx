@@ -43,7 +43,7 @@ export function StorageVerifyPanel() {
           type="button"
           onClick={verify}
           disabled={pending}
-          className="w-full bg-[var(--accent)] px-4 py-3 text-sm font-black uppercase tracking-[0.12em] text-black disabled:opacity-50 sm:w-auto"
+          className="w-full bg-[var(--accent)] px-4 py-3 text-sm font-black uppercase tracking-[0.12em] text-white disabled:opacity-50 sm:w-auto"
         >
           {pending ? "Checking..." : "Verify Storage"}
         </button>

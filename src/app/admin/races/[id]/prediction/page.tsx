@@ -220,7 +220,7 @@ export default async function PredictionPage({
             </Link>
             <Link
               href={`/admin/races/${card.raceId}/book`}
-              className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-bold text-black hover:opacity-90"
+              className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-bold text-white hover:opacity-90"
             >
               Odds / Lines
             </Link>
