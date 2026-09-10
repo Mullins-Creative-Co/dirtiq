@@ -18,7 +18,7 @@ export function getDatabasePath() {
 }
 
 function seedVercelDatabaseIfNeeded() {
-  if (!process.env.VERCEL || existsSync(databasePath) || !existsSync(seedDatabasePath)) return;
+  if (existsSync(databasePath) || !existsSync(seedDatabasePath)) return;
   copyFileSync(seedDatabasePath, databasePath);
 }
 

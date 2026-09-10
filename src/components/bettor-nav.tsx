@@ -38,7 +38,7 @@ export function BettorNav() {
     <header className="sticky top-0 z-40 border-b border-[var(--border)] bg-[color-mix(in_srgb,var(--surface)_86%,transparent)] backdrop-blur-md">
       <div className="brand-rule" />
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <Link href={betHref} className="group flex items-center gap-2.5">
+        <Link href="/" className="group flex items-center gap-2.5">
           <span className="flex h-9 w-9 items-center justify-center rounded-md bg-gradient-to-b from-[var(--accent-hi)] to-[var(--accent-lo)] shadow-[0_6px_18px_-8px_var(--accent)]">
             <CheckeredFlag size={18} />
           </span>
@@ -57,6 +57,7 @@ export function BettorNav() {
         </Link>
 
         <nav className="flex items-center gap-2">
+          <Link href="/" className="px-3 py-2 text-xs font-bold">Stats</Link>
           <Link
             href={betHref}
             aria-current={onBoard ? "page" : undefined}

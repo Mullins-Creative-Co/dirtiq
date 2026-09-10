@@ -30,7 +30,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 ROOT = Path(__file__).parent.parent
-DB   = ROOT / "data" / "dirtiq.db"
+from model_runtime import DB, MODEL_DIR, EXCLUDED_IDS, connect
 SERIES = os.environ.get("DIRTIQ_SERIES", "WoO Late Models")
 MODEL_STAGE = os.environ.get("DIRTIQ_MODEL_STAGE", "early").lower()
 if MODEL_STAGE not in ("early", "race-night"):
@@ -65,7 +65,7 @@ CROWN_PATTERNS = [
 
 # ── 1. Load raw data ──────────────────────────────────────────────────────────
 print("Loading data from DB…")
-con = sqlite3.connect(DB)
+con = connect()
 
 race_filter = "r.division = ?"
 race_params = [SERIES]
@@ -740,11 +740,18 @@ else:
 # ── 8. Export model ───────────────────────────────────────────────────────────
 import pickle
 import re
+from datetime import datetime, timezone
+
+# Evaluation above uses an untouched chronological holdout. The production fit
+# now incorporates recent eligible results; its metrics are not in-sample claims.
+print("Refitting production model on all eligible history…")
+model.fit(X[FEATURES], y)
+MODEL_DIR.mkdir(parents=True, exist_ok=True)
 
 series_slug = re.sub(r"[^a-z0-9]+", "_", SERIES.lower()).strip("_")
 artifact_slug = f"{series_slug}_race_night" if MODEL_STAGE == "race-night" else series_slug
-model_path  = ROOT / "data" / f"dirtiq_model_{artifact_slug}.pkl"
-params_path = ROOT / "data" / f"feature_params_{artifact_slug}.json"
+model_path  = MODEL_DIR / f"dirtiq_model_{artifact_slug}.pkl"
+params_path = MODEL_DIR / f"feature_params_{artifact_slug}.json"
 
 with open(model_path, "wb") as f:
     pickle.dump(model, f)
@@ -752,11 +759,18 @@ with open(model_path, "wb") as f:
 with open(params_path, "w") as f:
     json.dump({
         "features": FEATURES,
-        "version":  "1.0",
+        "version": "2.0",
+        "trained_at": datetime.now(timezone.utc).isoformat(),
+        "data_through": str(df_model["race_date"].max().date()),
+        "n_production": len(X),
+        "evaluation_train_through": "2024-12-31",
+        "evaluation_test_from": "2025-01-01",
+        "excluded_race_count": len(EXCLUDED_IDS),
+        "evaluation_note": "Chronological holdout before production refit; source coverage is incomplete.",
         "model_engine": model_engine,
         "model_algorithm": model_algorithm,
         "requested_engine": requested_engine,
-        "trained_on": f"{SERIES} 2021-2024",
+        "trained_on": f"{SERIES} through {df_model['race_date'].max().date()}",
         "test_auc":   round(roc_auc_score(y_test, y_pred_test), 4),
         "train_auc":  round(roc_auc_score(y_train, y_pred_train), 4),
         "test_logloss": round(log_loss(y_test, y_pred_test), 4),

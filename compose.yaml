@@ -1,0 +1,10 @@
+services:
+  dirtiq:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - dirtiq-data:/var/lib/dirtiq
+    restart: unless-stopped
+volumes:
+  dirtiq-data:

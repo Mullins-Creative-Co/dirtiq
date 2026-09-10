@@ -17,8 +17,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "dirtIQ | Dirt Late Model Sportsbook",
-  description: "Live model-priced dirt late model markets. Build your slip, track your wallet, and beat the board.",
+  title: "dirtIQ | Dirt Late Model Stats & Race Previews",
+  description: "Explore dirt late model statistics, evidence-backed trends, driver form, and race previews.",
 };
 
 export const viewport: Viewport = {

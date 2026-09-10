@@ -19,7 +19,7 @@ import pandas as pd
 
 
 ROOT = Path(__file__).parent.parent
-DB = ROOT / "data" / "dirtiq.db"
+from model_runtime import DB, DATA_DIR, MODEL_DIR, EXCLUDED_IDS, connect
 
 CROWN_PATTERNS = [
     "show-me",
@@ -633,7 +633,7 @@ def calibrated_market_probabilities(predictions, power=0.65, max_probability=0.4
 
 
 def score_race(race_id, model_override=None):
-    con = sqlite3.connect(DB)
+    con = connect()
     con.row_factory = sqlite3.Row
 
     race = con.execute(
@@ -677,8 +677,8 @@ def score_race(race_id, model_override=None):
     qt_coverage = sum(entry.get("qualifying_time") is not None for entry in entries) / max(field_size, 1)
     has_race_night_inputs = start_coverage >= 0.70 and (heat_coverage >= 0.50 or qt_coverage >= 0.50)
     race_night_slug = f"{series_slug}_race_night"
-    race_night_model = ROOT / "data" / f"dirtiq_model_{race_night_slug}.pkl"
-    race_night_params = ROOT / "data" / f"feature_params_{race_night_slug}.json"
+    race_night_model = MODEL_DIR / f"dirtiq_model_{race_night_slug}.pkl"
+    race_night_params = MODEL_DIR / f"feature_params_{race_night_slug}.json"
     race_night_metadata = json.loads(race_night_params.read_text()) if race_night_params.exists() else {}
     race_night_enabled = race_night_metadata.get("auto_select", True)
     use_race_night = (
@@ -689,8 +689,8 @@ def score_race(race_id, model_override=None):
     )
     artifact_slug = race_night_slug if use_race_night else series_slug
     model_stage = "race-night" if use_race_night else "early"
-    model_path = ROOT / "data" / f"dirtiq_model_{artifact_slug}.pkl"
-    params_path = ROOT / "data" / f"feature_params_{artifact_slug}.json"
+    model_path = MODEL_DIR / f"dirtiq_model_{artifact_slug}.pkl"
+    params_path = MODEL_DIR / f"feature_params_{artifact_slug}.json"
 
     if not model_path.exists() or not params_path.exists():
         con.close()
@@ -709,8 +709,8 @@ def score_race(race_id, model_override=None):
         model_cache[series_slug] = pickle.load(handle)
 
     for entry in entries:
-        model_path = ROOT / "data" / f"dirtiq_model_{series_slug}.pkl"
-        params_path = ROOT / "data" / f"feature_params_{series_slug}.json"
+        model_path = MODEL_DIR / f"dirtiq_model_{series_slug}.pkl"
+        params_path = MODEL_DIR / f"feature_params_{series_slug}.json"
         features = params_cache[series_slug]["features"]
         vector, metric_series = build_row(con, race, entry, ranks, features, race_model_series)
         frame = pd.DataFrame([vector], columns=features).astype(float)
@@ -772,9 +772,11 @@ if __name__ == "__main__":
         payload["modelOverride"] = model_override
     text = json.dumps(payload, separators=(",", ":"))
     if cache:
-        out_dir = ROOT / "data" / "ml-predictions"
+        out_dir = DATA_DIR / "ml-predictions"
         out_dir.mkdir(parents=True, exist_ok=True)
         suffix = f"_{slug(model_override)}" if model_override else ""
         out_path = out_dir / f"race_{race_id}{suffix}.json"
-        out_path.write_text(text)
+        temp_path = out_path.with_suffix(".tmp")
+        temp_path.write_text(text)
+        temp_path.replace(out_path)
     print(text)

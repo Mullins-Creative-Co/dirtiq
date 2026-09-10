@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const adminItems = [
+  { href: "/", label: "Stats" },
   { href: "/admin/live", label: "Control" },
   { href: "/admin/today", label: "Today Odds" },
   { href: "/admin/testing", label: "Model Lab" },
@@ -50,7 +51,7 @@ export function Nav() {
   const isAdmin = pathname.startsWith("/admin");
 
   function adminLinkClass(href: string) {
-    const active = pathname.startsWith(href);
+    const active = href === "/" ? pathname === "/" : pathname.startsWith(href);
     return `relative px-3 py-2.5 text-[11px] font-bold uppercase tracking-[0.14em] transition-colors ${
       active
         ? "text-[var(--accent)] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-[var(--accent)] after:content-['']"
@@ -68,7 +69,7 @@ export function Nav() {
 
         {/* Logo */}
         <Link
-          href="/admin/live"
+          href="/"
           className="flex items-center gap-2.5 py-3 mr-6"
           onClick={() => setOpen(false)}
         >
