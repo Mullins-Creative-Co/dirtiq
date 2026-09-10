@@ -6,7 +6,6 @@ import { DatabaseSync } from "node:sqlite";
 const seedDatabasePath = join(process.cwd(), "public/data/dirtiq.seed.db");
 const databaseDirectory =
   process.env.DIRTIQ_DATABASE_DIR ??
-  process.env.RAILWAY_VOLUME_MOUNT_PATH ??
   (process.env.VERCEL ? "/tmp/dirtiq" : join(process.cwd(), "data"));
 const databasePath = join(
   isAbsolute(databaseDirectory) ? databaseDirectory : join(/* turbopackIgnore: true */ process.cwd(), databaseDirectory),

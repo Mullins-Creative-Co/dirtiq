@@ -5,7 +5,7 @@ import sqlite3
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-DATA_DIR = Path(os.environ.get('DIRTIQ_DATABASE_DIR') or os.environ.get('RAILWAY_VOLUME_MOUNT_PATH') or ROOT / 'data')
+DATA_DIR = Path(os.environ.get('DIRTIQ_DATABASE_DIR') or ROOT / 'data')
 if not DATA_DIR.is_absolute():
     DATA_DIR = ROOT / DATA_DIR
 DB = DATA_DIR / 'dirtiq.db'

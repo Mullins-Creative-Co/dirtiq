@@ -28,7 +28,7 @@ export function getModelHealth() {
   }));
 }
 export function getRefreshHealth() {
-  const dir=process.env.DIRTIQ_DATABASE_DIR??process.env.RAILWAY_VOLUME_MOUNT_PATH??path.join(process.cwd(),'data');
+  const dir=process.env.DIRTIQ_DATABASE_DIR??path.join(process.cwd(),'data');
   const p=path.join(dir,'automation-status.json');
   if(!existsSync(p)) return null;
   try{return JSON.parse(readFileSync(p,'utf8')) as {lastRun:string;ok:boolean;message:string;nextRun?:string};}catch{return null;}

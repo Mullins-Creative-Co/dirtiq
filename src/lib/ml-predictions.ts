@@ -42,7 +42,7 @@ function readPredictionFile(filePath: string, raceId: number) {
 }
 
 export function getCachedMlPredictions(raceId: number, preferCrown = false) {
-  const dir = path.join(process.env.DIRTIQ_DATABASE_DIR ?? process.env.RAILWAY_VOLUME_MOUNT_PATH ?? path.join(process.cwd(), "data"), "ml-predictions");
+  const dir = path.join(process.env.DIRTIQ_DATABASE_DIR ?? path.join(process.cwd(), "data"), "ml-predictions");
   const publicDir = path.join(process.cwd(), "public", "data", "ml-predictions");
   const exactRaceFile = new RegExp(`^race_${raceId}(?:_.+)?\\.json$`);
   const activeDir = existsSync(dir) ? dir : publicDir;
