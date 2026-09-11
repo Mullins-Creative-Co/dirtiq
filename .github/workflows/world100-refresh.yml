@@ -1,0 +1,51 @@
+name: Refresh World 100 data
+
+on:
+  schedule:
+    - cron: '*/15 * 10-13 9 *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: world100-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - run: npm ci
+      - run: pip install -r requirements.txt
+      - name: Refresh verified results and predictions
+        run: python scripts/auto_refresh.py
+      - name: Publish refreshed database and prediction caches
+        run: |
+          python - <<'PY'
+          import shutil, sqlite3
+          from pathlib import Path
+          source=sqlite3.connect('data/dirtiq.db')
+          target=sqlite3.connect('public/data/dirtiq.seed.next.db')
+          source.backup(target); source.close(); target.close()
+          Path('public/data/dirtiq.seed.next.db').replace('public/data/dirtiq.seed.db')
+          public=Path('public/data/ml-predictions'); public.mkdir(parents=True,exist_ok=True)
+          for cache in Path('data/ml-predictions').glob('*.json'):
+              shutil.copy2(cache,public/cache.name)
+          PY
+      - name: Commit published data changes
+        run: |
+          git config user.name "DirtIQ data bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add public/data data/feature_params_*.json data/dirtiq_model_*.pkl reports
+          git diff --cached --quiet || git commit -m "Refresh verified race data"
+          git push
