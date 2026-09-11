@@ -10,6 +10,12 @@ from model_runtime import ROOT,DB
 import sqlite3
 
 URL='https://www.eldoraspeedway.com/event/56th-world-100/'
+CANONICAL_NAMES={
+    'rickythornton':'Ricky Thornton Jr.',
+    'rickythorntonjr':'Ricky Thornton Jr.',
+    'denniserb':'Dennis Erb Jr.',
+    'michaelbenedum':'Mike Benedum',
+}
 
 def main():
     page=subprocess.check_output(['curl','-fsSL','--max-time','30',URL],text=True)
@@ -25,15 +31,20 @@ def main():
         name='56th World 100 | Prelim registration pool'
         race=con.execute('SELECT id FROM races WHERE name=? AND race_date=?',(name,'2026-09-10')).fetchone()
         race_id=race['id'] if race else con.execute("INSERT INTO races(name,track_id,race_date,division,series_mode,distance,status,betting_status) VALUES(?,?,'2026-09-10','Crown Jewel / Combined','Crown Jewel / Combined',25,'upcoming','closed')",(name,track)).lastrowid
+        selected=[]
         for entry in entries:
-            drivers=[d for d in con.execute('SELECT id,name,notes FROM drivers') if norm(d['name'])==norm(entry['name'])]
+            wanted=CANONICAL_NAMES.get(norm(entry['name']),entry['name'])
+            drivers=[d for d in con.execute('SELECT id,name,notes FROM drivers') if norm(d['name'])==norm(wanted)]
             if len(drivers)>1:
                 preferred=[d for d in drivers if not (d['notes'] or '').startswith('Created from ')]
                 if len(preferred)==1: drivers=preferred
                 else: raise ValueError('Ambiguous registration: '+entry['name'])
             driver=drivers[0]['id'] if drivers else con.execute("INSERT INTO drivers(name,car_number,division,notes) VALUES(?,?,'Independent','Created from official World 100 registration')",(entry['name'],entry['car'])).lastrowid
             entry['driverId']=driver
+            selected.append(driver)
             con.execute("INSERT OR IGNORE INTO race_entries(race_id,driver_id,car_number,entry_status,entry_series) VALUES(?,?,?,'unconfirmed','Independent')",(race_id,driver,entry['car']))
+        placeholders=','.join('?' for _ in selected)
+        con.execute(f"DELETE FROM race_entries WHERE race_id=? AND entry_status='unconfirmed' AND driver_id NOT IN ({placeholders})",[race_id,*selected])
     con.close()
     match=re.search(r'As of\s+(\d+/\d+/\d+)',html.unescape(re.sub('<[^>]+>',' ',page)))
     snapshot={'source':URL,'checkedAt':datetime.now(timezone.utc).isoformat(),'entryListAsOf':match[1] if match else None,'poolRaceId':race_id,'entries':entries,'dates':['2026-09-10','2026-09-11','2026-09-12'],'registrationOnly':True}
