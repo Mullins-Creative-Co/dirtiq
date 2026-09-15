@@ -37,6 +37,8 @@ def refresh(skip_training=False):
         if not DB.exists() or DB.stat().st_size==0:
             source=sqlite3.connect(f'file:{ROOT / "public/data/dirtiq.seed.db"}?immutable=1',uri=True)
             target=sqlite3.connect(DB);source.backup(target);source.close();target.close()
+        # Preserve the previous run's forecast before any result import can change race state.
+        run([sys.executable,'scripts/lock_prediction_snapshots.py'],timeout=60)
         today=datetime.now(ZoneInfo('America/New_York')).date()
         if today<=datetime(2026,9,12).date():
             run([sys.executable,'scripts/sync_world100.py'],timeout=60)
@@ -80,7 +82,10 @@ def refresh(skip_training=False):
             con.close()
             for (race_id,) in upcoming:
                 run([sys.executable,'scripts/predict_model.py',str(race_id),'--cache'],timeout=120)
+            # Lock the first forecast for each model stage. Existing locks are never overwritten.
+            locks=json.loads(run([sys.executable,'scripts/lock_prediction_snapshots.py'],timeout=60))
             status.update(ok=True,message=f'Checked {len(candidates)} scheduled result gaps; refreshed {len(upcoming)} prediction caches. {status.get("unresolved",0)} sources need review. Registered events only; missing schedule events still require discovery.')
+            status['predictionLocksCreated']=len(locks.get('created',[]))
     except Exception as error:
         status['message']=str(error)
     finally:
