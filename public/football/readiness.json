@@ -1,0 +1,43 @@
+{
+  "checkedAt": "2026-11-06T17:00:25.048694Z",
+  "injuries": [
+    {
+      "season": 2024,
+      "rows": 6215,
+      "timestamped": 6215,
+      "status": "Not enabled: source modification times still require point-in-time validation.",
+      "source": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/injuries/injuries_2024.parquet",
+        "sha256": "7ebabbba930a70bc7e4d257c7c41ca8708f147a4cdd4100956abcfbaf70f7fc1",
+        "bytes": 139253
+      }
+    },
+    {
+      "season": 2025,
+      "rows": 6068,
+      "timestamped": 0,
+      "status": "Blocked: no publication/modification timestamps.",
+      "source": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/injuries/injuries_2025.parquet",
+        "sha256": "c7637c2f6347194426a8582a984aac82a6bf8ab06af72cdd96666a2e0733ab24",
+        "bytes": 97472
+      }
+    }
+  ],
+  "enabled": [
+    "Lagged offensive/defensive EPA",
+    "Opponent-adjusted ratings",
+    "Previous-game QB proxy",
+    "Home/neutral site",
+    "Rest/bye differential",
+    "Sack-or-QB-hit protection proxies",
+    "Turnover rates",
+    "Pass/run matchup tendencies"
+  ],
+  "excluded": [
+    "Untimestamped injury and confirmed-starter inputs",
+    "Realized weather (not a pregame forecast)",
+    "Untimestamped odds movement"
+  ],
+  "nextRequirement": "Timestamped injury/announced-starter and forecast snapshots linked to each prediction. Absence of verified data is never treated as a healthy roster."
+}

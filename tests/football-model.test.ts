@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { columns, csv, defaults, demoGames, matchup, netProfit, parseCsv, readGames, runBacktest } from '../src/lib/football/model.ts';
+import { columns, csv, defaults, demoGames, finalCheck, matchup, netProfit, parseCsv, readGames, runBacktest } from '../src/lib/football/model.ts';
 
 test('same QB does not get a second penalty; a replacement adds only the change', () => {
   const same = matchup(3, 0, 1.5, -2, -2, 3.5);
@@ -110,4 +110,30 @@ test('evaluation seasons are separate from training seasons and preserved in CSV
   assert(result.predictions.every(p => p.season === 2024));
   assert.equal(result.predictions[0].trainCount, 160);
   assert(result.bySeason.every(s => s.season === 2024));
+});
+
+test('midseason final check freezes fitting and excludes second-half outcomes', () => {
+  const games = demoGames().map((g, i) => ({ ...g, season: i < 160 ? 2024 : 2025, week: Math.floor((i < 160 ? i : i-160)/8)+1 }));
+  const evaluation = finalCheck(games);
+  const before = runBacktest(games, defaults, evaluation);
+  assert(before.predictions.every(p => games.find(g => g.game_id === p.gameId)!.week >= 10));
+  assert.equal(new Set(before.predictions.map(p => p.trainCount)).size, 1);
+  assert.equal(new Set(before.predictions.map(p => p.cutoff)).size, 1);
+  const changed = games.map(g => g.season === 2025 && g.week >= 10 ? { ...g, home_margin: 999 } : g);
+  const after = runBacktest(changed, defaults, evaluation);
+  assert.deepEqual(before.predictions.map(p => p.predicted), after.predictions.map(p => p.predicted));
+  const development = runBacktest(games, defaults, { fromSeason: 2025, throughSeason: 2025, throughWeek: 9 });
+  assert(development.predictions.every(p => games.find(g => g.game_id === p.gameId)!.week <= 9));
+});
+
+test('context variants require complete numeric context; residual fitting anchors to the quoted margin', () => {
+  const plain = demoGames();
+  assert.equal(runBacktest(plain, defaults).summary.length, 3);
+  const games = plain.map(g => ({ ...g, adj_off_epa_diff: g.off_epa_diff, adj_def_epa_allowed_diff: 0,
+    rest_diff: 0, pressure_allowed_diff: 0, pressure_forced_diff: 0, turnover_margin_diff: 0,
+    pass_matchup: 0, rush_matchup: 0, home_margin: g.market_home_margin+5*g.off_epa_diff+1 }));
+  const result = runBacktest(games, { ...defaults, alpha: .00001 });
+  assert.equal(result.summary.length, 10);
+  assert(result.summary.find(s => s.model === 'Market anchored')!.mae < .001);
+  assert.throws(() => readGames(csv([{ ...games[0], pressure_allowed_diff: Infinity }])), /invalid pressure_allowed_diff/);
 });

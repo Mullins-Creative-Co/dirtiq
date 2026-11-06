@@ -1,6 +1,7 @@
 # Football Lab
 
 Route: `/football`. Linked from the public Stats navigation and the control navigation.
+The default Research results tab shows the completed incremental-information study.
 
 This is a separate research workspace inside Dirt IQ. The football page imports only
 `src/lib/football/model.ts`, its own workbench, and the shared navigation. It does not
@@ -31,7 +32,7 @@ Current sportsbook prices and injury/announced-starter feeds are not connected.
 Synthetic results prove only that the workflow runs; the generator is deliberately
 simple and is not evidence of a real market weakness.
 
-Three variants predict final home score minus away score:
+The original three variants predict final home score minus away score:
 
 1. **Team EPA:** ridge regression on home-minus-away offensive EPA/play,
    defensive EPA/play allowed, and a home-field indicator.
@@ -50,11 +51,16 @@ Centering, scaling, and ridge regression all use those training weights only.
 The archive can be longer than the model's training window. Training dates/counts are
 included in every exported prediction. The same test games are used for all models.
 
-The real archive contains 2021–2025. Default evaluation is 2023–2024; 2021–2022 supply
-earlier history. The UI excludes 2025 from predictions unless the user explicitly selects
-the final check or combined retrospective review. Once inspected, 2025 is no longer an
-untouched holdout. Hyperparameters are not selected automatically, and repeated tuning
-against evaluation results will overfit them. Per-season metrics expose instability.
+The real archive contains 2021–2025. Development uses 2023–2024 and 2025 weeks 1–9;
+2021–2022 supply earlier history. The final check uses 2025 week 10 onward (including
+playoffs), with training cutoff fixed to the earliest week-10 feature snapshot. This
+freezes coefficients, centering/scaling, sample weights, and the two-year training set.
+Later pregame features may update using games already completed; no second-half outcomes
+enter parameter fitting. This is frozen-model sequential prediction, not a simultaneous
+week-9 forecast of every later matchup. The final check is explicit in the UI and has
+not been run by the development report. Once inspected, it is no longer untouched.
+Development periods have been examined and must not be advertised as an untouched test.
+Hyperparameters are fixed, not selected automatically. Per-period metrics expose instability.
 
 All required columns:
 
@@ -77,7 +83,8 @@ Missing values, nonfinite numbers, duplicate IDs/headers, inconsistent CSV rows,
 invalid timestamps are rejected. Upstream feature construction must exclude the game
 being predicted and all future games. A timestamp cannot prove the underlying data
 was actually available then; audit its provenance. See the reconstructed archive's
-assumptions below. Opponent adjustment, weather, and injury feeds are not implemented.
+assumptions below. Opponent adjustment is implemented. Verified injury/announced-starter,
+weather-forecast, and odds-movement inputs are not enabled.
 
 Errors are mean absolute prediction errors in points. A side is selected only when the
 absolute prediction-minus-market gap strictly exceeds the chosen threshold. All bets
@@ -99,6 +106,7 @@ closing-line-value measurement.
 python -m pip install -r scripts/football/requirements.txt
 python scripts/football/build_history.py --start-season 2021 --end-season 2025
 node --experimental-strip-types scripts/football/evaluate.mts
+python scripts/football/audit_inputs.py
 ```
 
 The ingestion script downloads schedules and season parquet files into the ignored
@@ -125,9 +133,63 @@ aggregation. Likewise, archived spread/price timestamps and sportsbook identitie
 not supplied. This is a retrospective research benchmark, not an executable historical
 betting ledger. Do not describe its returns as a proven betting edge.
 
-Default 2023–2024 results, before any parameter tuning, evaluated 570 games. All three
+The original 2023–2024 baseline evaluated 570 games; the expanded development study evaluates 705. All three
 models had higher margin MAE than the market and negative benchmark returns. Avoid
 selecting a strategy based on whichever isolated season happens to look favorable.
+
+## Additional predictors and research protocol
+
+`src/lib/football/model.ts` defines ten fixed variants: the original three, opponent-adjusted
+EPA, four separate additions (rest, protection, turnovers, and pass/run matchups), full
+context, and a market-anchored residual model. The new columns are optional in imported
+CSVs; a variant is enabled only when all its features are present and numeric for every row.
+No missing context is silently filled with a zero. The bundled archive has full context.
+
+Opponent adjustment fits historical team-game EPA to jointly estimated offense and opposing
+defense coefficients, weighted by plays and 365-day recency, with a 400-play ridge prior.
+Only eligible previous observations within 730 days are used. These opponent ratings are
+rebuilt at each pregame feature cutoff and never use target/future results. Negative defense
+coefficients indicate lower EPA allowed. Rest is capped at 14 days per team. Protection uses
+the union of sack or QB-hit events per dropback, not a direct line rating. Turnovers use the
+union of interceptions or lost fumbles per eligible play and a forced-minus-committed rate.
+An event tagged as both a sack and a hit is counted once. Pass/rush matchup features combine
+past offensive and opposing defensive efficiencies with past dropback tendencies.
+
+These signals overlap by construction; joint regularized weights and incremental tests
+measure whether added information helps, rather than assuming every addition is independent.
+The residual model learns `actual home margin - quoted market margin` on earlier rows and
+adds its prediction to the target quoted line. It is research only because the exact line
+snapshot time is unavailable. No sportsbook model is reverse engineered or assumed here.
+
+The reproducible report, `public/football/research.json`, is generated by `evaluate.mts`.
+It evaluates 705 development games across ten models. All use the same game set and settings
+(minimum 80 training games, ridge alpha 20, two-year lookback, 365-day sample-weight half-life;
+manual-QB diagnostic weight 35; selection threshold 2 points). There is no parameter grid
+search or betting-filter mining. No added predictor has established an improvement here.
+Market MAE is 9.852 points; the best model, Market anchored, is 9.903. Do not tune the final
+holdout to reverse this result.
+
+Each model is compared against its parent: QB additions versus raw team EPA; opponent
+adjustment versus the joint fit; further context against opponent adjustment; market residual
+against the quoted market. Confidence intervals use 4,000 fixed-seed paired weekly-block
+bootstrap draws and a Bonferroni-style family adjustment for nine comparisons (about 99.4%
+individual intervals). This is an approximate conservative diagnostic, not a guarantee against
+all temporal dependence or feature-selection bias. A candidate increment must have a fully
+negative interval and lower error in both 2024 and first-half 2025. It still is not a betting edge.
+
+The QB/supporting-team table tests a fixed descriptive hypothesis. Stronger teams have positive
+pregame opponent-adjusted net EPA. QB values are split at the median of earlier pregame QB
+ratings in the prior two years. Both team sides can contribute to the four exhaustive buckets;
+counts are team sides, not independent games. Mean actual-minus-market margin and cover records
+are shown by period. No bucket is chosen because it happened to win, and there is no second-half
+2025 result in this table. The currently observed stronger-team/lower-QB group covers 47.4%
+(63–70 with 5 pushes), which does not support an automatic betting rule.
+
+The input audit downloads injury archive metadata into `public/football/readiness.json`.
+The checked 2024 archive has 6,215 modification-timestamped reports, but their prediction-time
+availability still needs validation. The 2025 archive has 6,068 reports with no modification
+or publication timestamp. Neither enters the model. Do not infer healthy rosters from missing
+data or substitute realized game weather for a pregame forecast.
 
 ## Data sources
 
@@ -141,7 +203,7 @@ assuming they match this app. Do not mix football files into the existing racing
 
 ## Verification
 
-`node --experimental-strip-types --test tests/football-model.test.ts`
+`node --experimental-strip-types --test tests/football-model.test.ts tests/football-research.test.ts`
 
 Also run `python -m unittest discover -s tests -p test_football_history.py`.
 

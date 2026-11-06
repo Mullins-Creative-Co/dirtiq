@@ -1,0 +1,11 @@
+import type { Segment } from '@/lib/football/research';
+
+const signed = (n: number | null) => n === null ? '—' : `${n > 0 ? '+' : ''}${n.toFixed(2)}`;
+
+export function QbSegments({ segments }: { segments: Segment[] }) {
+  return <section className="panel overflow-hidden">
+    <div className="p-5"><p className="text-xs font-bold uppercase tracking-widest text-accent">Hari’s hypothesis</p><h2 className="mt-3 text-xl font-bold">Does the market underrate strong teams with weaker QB ratings?</h2><p className="mt-3 text-sm leading-relaxed text-muted-strong">These groups are defined from pregame ratings, not the game’s result. “Stronger” means opponent-adjusted net EPA above zero. QB groups use a median calculated from earlier ratings in the preceding two years.</p></div>
+    <div className="overflow-x-auto"><table className="w-full whitespace-nowrap text-left text-xs"><caption className="sr-only">Pregame team/QB groups and market prediction errors</caption><thead className="bg-surface-raised text-muted"><tr>{['Pregame group', 'Team sides', 'Cover W–L–P', 'Cover rate', 'Mean line error', '2023 error', '2024 error', '2025 weeks 1–9 error'].map(label => <th key={label} className="px-4 py-3">{label}</th>)}</tr></thead><tbody>{segments.map(row => <tr key={row.label} className="border-t border-border"><th className="px-4 py-4">{row.label}</th><td className="px-4 py-4">{row.sides}</td><td className="px-4 py-4">{row.wins}–{row.losses}–{row.pushes}</td><td className="px-4 py-4">{row.coverRate === null ? '—' : `${(row.coverRate*100).toFixed(1)}%`}</td><td className="px-4 py-4">{signed(row.meanMarketError)}</td>{row.periods.map(period => <td key={period.label} className="px-4 py-4">{signed(period.meanMarketError)} <span className="text-muted">(n={period.sides})</span></td>)}</tr>)}</tbody></table></div>
+    <p className="p-5 text-xs leading-relaxed text-muted">Positive line error means the team outperformed its quoted spread, in points. These are descriptive team-side counts; both sides of a game can appear, so observations are not independent. A favorable subgroup is not proof of double counting or a profitable rule. No second-half 2025 results are included.</p>
+  </section>;
+}

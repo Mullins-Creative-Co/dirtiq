@@ -1,5 +1,8 @@
 import { Nav } from '@/components/nav';
 import { FootballWorkbench } from '@/components/football/workbench';
+import research from '../../../public/football/research.json';
+import readiness from '../../../public/football/readiness.json';
+import type { InputReadiness, ResearchReport } from '@/lib/football/research';
 
 export const metadata = {
   title: 'Football Lab | dirtIQ',
@@ -7,5 +10,5 @@ export const metadata = {
 };
 
 export default function FootballPage() {
-  return <><Nav /><main className="mx-auto max-w-6xl px-4 pb-28 pt-8 sm:px-6"><FootballWorkbench /></main></>;
+  return <><Nav /><main className="mx-auto max-w-6xl px-4 pb-28 pt-8 sm:px-6"><FootballWorkbench research={research as ResearchReport} readiness={readiness as InputReadiness} /></main></>;
 }

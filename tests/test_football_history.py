@@ -2,6 +2,8 @@ import importlib.util
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import unittest
+import tempfile
+import pandas as pd
 
 spec = importlib.util.spec_from_file_location('football_history', Path(__file__).resolve().parents[1] / 'scripts/football/build_history.py')
 history = importlib.util.module_from_spec(spec)
@@ -57,6 +59,36 @@ class HistoryTests(unittest.TestCase):
         rows, excluded = history.build_rows(games, offense, defense, qbs)
         self.assertEqual(excluded['missing_market'], 1)
         self.assertNotIn(games[3]['game_id'], [r['game_id'] for r in rows])
+
+    def test_opponent_adjustments_exclude_future_games_and_preserve_defense_direction(self):
+        cutoff = datetime(2024, 10, 2, 18, tzinfo=timezone.utc)
+        rows = []
+        for i in range(10):
+            rows.extend([dict(team='H', opponent='A', available_at=cutoff-timedelta(days=7+i*7), plays=50, epa_sum=10),
+                         dict(team='A', opponent='H', available_at=cutoff-timedelta(days=7+i*7), plays=50, epa_sum=-5)])
+        original = history.opponent_ratings(rows, cutoff)
+        future = dict(team='H', opponent='A', available_at=cutoff+timedelta(days=1), plays=50, epa_sum=999999)
+        self.assertEqual(original, history.opponent_ratings(rows+[future], cutoff))
+        self.assertGreater(original['H'][0], original['A'][0])
+        self.assertLess(original['H'][1], original['A'][1])
+
+    def test_hits_sacks_and_turnovers_do_not_duplicate_the_same_event(self):
+        rows = []
+        for i in range(2):
+            r = {c: 0 for c in history.PBP_COLUMNS}
+            r.update(game_id='TEST', posteam='H', defteam='A', epa=-1., pass_attempt=1,
+                     qb_dropback=1, passer_player_id='QB', rusher_player_id=None)
+            if i == 0:
+                r.update(sack=1, qb_hit=1)
+            else:
+                r.update(interception=1, fumble_lost=1)
+            rows.append(r)
+        with tempfile.TemporaryDirectory() as directory:
+            cache = Path(directory)
+            pd.DataFrame(rows).to_parquet(cache/'play_by_play_2024.parquet')
+            offense, _, _, _ = history.aggregate_season(2024, cache, False)
+            self.assertEqual(offense.iloc[0].pressure_events, 1)
+            self.assertEqual(offense.iloc[0].turnovers, 1)
 
 
 if __name__ == '__main__':

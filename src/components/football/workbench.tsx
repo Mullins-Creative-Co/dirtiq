@@ -1,7 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { columns, csv, defaults, demoGames, matchup, readGames, runBacktest, type Backtest, type Evaluation, type Game, type HistoryMetadata, type Settings } from '@/lib/football/model';
+import { columns, csv, defaults, demoGames, finalCheck, matchup, readGames, runBacktest, type Backtest, type Evaluation, type Game, type HistoryMetadata, type Settings } from '@/lib/football/model';
+import type { InputReadiness, ResearchReport } from '@/lib/football/research';
+import { ResearchPanel } from './research-panel';
 
 const STORAGE = 'dirtiq.football.scenarios.v1';
 const inputClass = 'mt-2 w-full rounded border border-border-strong bg-background px-3 py-2.5 text-sm text-foreground focus:outline-2 focus:outline-accent';
@@ -12,9 +14,9 @@ type Saved = { id: string; name: string; createdAt: string; scenario: Scenario }
 const hypotheses = [
   ['Quarterback overlap', 'Team EPA already reflects the quarterback. Compare a separate manual QB adjustment with a model that estimates their weights jointly.', 'EPA-only vs manual QB vs joint fit'],
   ['Injuries already reflected', 'Recent team performance may already include an absent player. Compare the expected lineup with the lineup represented in the baseline.', 'Unchanged lineup vs actual lineup change'],
-  ['Protection and QB efficiency', 'Sacks and disrupted throws can appear in both line ratings and QB efficiency. Test whether the extra line input adds predictive information.', 'Team/QB baseline vs added protection input'],
+  ['Protection and QB efficiency', 'Historical sacks and QB hits reflect protection, quarterback, and scheme together. Test whether they add information beyond opponent-adjusted EPA and QB ratings.', 'Opponent-adjusted baseline vs protection proxies'],
   ['Opponent strength', 'Efficiency against weak opponents may not transfer to a stronger matchup. Estimate opponent adjustments using earlier games only.', 'Raw efficiency vs schedule-adjusted efficiency'],
-  ['Turnovers and scoring', 'Scoring margin already includes turnover effects. Test incremental turnover information without applying the same full penalty twice.', 'Scoring baseline vs incremental turnover input'],
+  ['Turnovers already reflected in EPA', 'EPA already reflects turnover outcomes. Test whether earlier turnover rates add predictive information without a second manual penalty.', 'Opponent-adjusted baseline vs turnover rates'],
   ['Home field and conditions', 'Home splits or a weather-adjusted forecast may already contain the adjustment. Record what each baseline includes before adding more.', 'Documented baseline vs incremental conditions'],
 ] as const;
 
@@ -31,8 +33,8 @@ function NumberField({ label, value, onChange, help, step = .5 }: { label: strin
   return <label className="block text-sm font-semibold">{label}<input type="number" step={step} value={value} className={inputClass} onChange={e => { if (e.target.value !== '' && Number.isFinite(e.target.valueAsNumber)) onChange(e.target.valueAsNumber); }} />{help && <span className="mt-1.5 block text-xs font-normal leading-relaxed text-muted">{help}</span>}</label>;
 }
 
-export function FootballWorkbench() {
-  const [tab, setTab] = useState<'matchup' | 'backtest' | 'experiments'>('backtest');
+export function FootballWorkbench({ research, readiness }: { research: ResearchReport; readiness: InputReadiness }) {
+  const [tab, setTab] = useState<'research' | 'matchup' | 'backtest' | 'experiments'>('research');
   const [scenario, setScenario] = useState<Scenario>(initial);
   const [saved, setSaved] = useState<Saved[]>([]);
   const [saveName, setSaveName] = useState('');
@@ -81,7 +83,7 @@ export function FootballWorkbench() {
       if (!Array.isArray(data.games) || !data.metadata?.provider) throw new Error('The NFL history file is invalid.');
       const next = readGames(csv(data.games));
       setGames(next); setHistory(data.metadata); setSource(`${data.metadata.provider} · ${data.metadata.seasons[0]}–${data.metadata.seasons.at(-1)}`);
-      setEvaluation({ fromSeason: 2023, throughSeason: 2024 });
+      setEvaluation({ fromSeason: 2023, throughSeason: 2025, throughWeek: 9 });
     } catch (e) { setError(e instanceof Error ? e.message : 'Could not load NFL history.'); }
     finally { setBusy(false); }
   }
@@ -102,8 +104,10 @@ export function FootballWorkbench() {
       <p className="mt-3 text-xs text-muted">Real NFL history is ready to load. Default training: the preceding two years, weighted toward recent games. Racing models stay separate.</p>
     </header>
     <nav aria-label="Football workspace" className="flex gap-2 overflow-x-auto pb-1">
-      {([['matchup', 'Matchup sandbox'], ['backtest', 'Historical backtest'], ['experiments', 'Experiment notebook']] as const).map(([key, label]) => <button key={key} aria-pressed={tab === key} onClick={() => { setTab(key); setNotice(''); }} className={`${buttonClass} shrink-0 ${tab === key ? 'border-accent text-accent' : 'text-muted-strong'}`}>{label}</button>)}
+      {([['research', 'Research results'], ['matchup', 'Matchup sandbox'], ['backtest', 'Historical backtest'], ['experiments', 'Experiment notebook']] as const).map(([key, label]) => <button key={key} aria-pressed={tab === key} onClick={() => { setTab(key); setNotice(''); }} className={`${buttonClass} shrink-0 ${tab === key ? 'border-accent text-accent' : 'text-muted-strong'}`}>{label}</button>)}
     </nav>
+
+    {tab === 'research' && <ResearchPanel report={research} readiness={readiness} />}
 
     {tab === 'matchup' && <>
       <div className="rounded border border-amber-400/25 bg-amber-400/5 p-4 text-sm leading-relaxed text-amber-100">Illustrative inputs, not a trained prediction. Enter team ratings that already include the expected lineup, then adjust only for what changed.</div>
@@ -138,7 +142,7 @@ export function FootballWorkbench() {
     </>}
 
     {tab === 'backtest' && <>
-      <section className="panel p-5 sm:p-6"><h2 className="text-xl font-bold">Does the QB adjustment help?</h2><p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-strong">Fit three models on earlier completed games, then predict the next weekly block. Compare team EPA alone, an extra manual QB adjustment, and a joint fit that estimates the weights together.</p>
+      <section className="panel p-5 sm:p-6"><h2 className="text-xl font-bold">Which information improves the forecast?</h2><p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-strong">Fit models on earlier completed games, then predict the next weekly block. The real dataset includes opponent-adjusted ratings, rest, protection proxies, turnovers, passing/rushing matchups, and a market-anchored error model. CSVs without these columns run only the original comparisons.</p>
         <div className="mt-5 flex flex-wrap items-center gap-3">
           <button className="btn-accent rounded px-5 py-2.5 text-sm font-bold disabled:opacity-40" disabled={busy} onClick={() => { void loadHistory(); }}>{busy && !result ? 'Working…' : 'Load real NFL history'}</button>
           <label className={`${buttonClass} cursor-pointer`}>Import game CSV<input aria-label="Import historical game CSV" type="file" accept=".csv,text/csv" className="sr-only" disabled={busy} onChange={e => { void importFile(e.target.files?.[0]); e.target.value = ''; }} /></label>
@@ -147,7 +151,7 @@ export function FootballWorkbench() {
         </div>
         <p className="mt-4 text-sm text-muted-strong">{source}{games.length > 0 ? ` · ${games.length} games` : ''}</p>
         {history && <div className="mt-5 rounded border border-amber-400/25 bg-amber-400/5 p-4 text-sm leading-relaxed text-amber-100"><b>Historical research benchmark.</b> Features use earlier games, with a previous-game passer proxy. Archived line timing and historical EPA model vintages are not verified as contemporaneous. These are not live betting recommendations.</div>}
-        {history && <label className="mt-5 block max-w-lg text-sm font-semibold">Evaluation period<select className={inputClass} disabled={busy} value={`${evaluation.fromSeason}-${evaluation.throughSeason}`} onChange={e => { const [fromSeason, throughSeason] = e.target.value.split('-').map(Number); setEvaluation({ fromSeason, throughSeason }); setResult(null); }}><option value="2023-2024">2023–2024 · development comparison</option><option value="2025-2025">2025 · reveal final check</option><option value="2023-2025">2023–2025 · combined retrospective review</option></select><span className="mt-2 block text-xs font-normal text-muted">2021–2022 supply earlier history. Leave 2025 unseen until your settings are fixed. Once inspected, it is no longer an untouched holdout.</span></label>}
+        {history && <label className="mt-5 block max-w-lg text-sm font-semibold">Evaluation period<select className={inputClass} disabled={busy} value={evaluation.fromWeek === 10 ? 'final' : evaluation.throughWeek === 9 ? 'development' : 'earlier'} onChange={e => { try { setEvaluation(e.target.value === 'final' ? finalCheck(games) : e.target.value === 'development' ? { fromSeason: 2023, throughSeason: 2025, throughWeek: 9 } : { fromSeason: 2023, throughSeason: 2024 }); setResult(null); setError(''); } catch (err) { setError(err instanceof Error ? err.message : 'Cannot select final check.'); } }}><option value="development">2023–2025 week 9 · development</option><option value="earlier">2023–2024 · earlier comparison</option><option value="final">2025 week 10 onward · reveal frozen final check</option></select><span className="mt-2 block text-xs font-normal text-muted">The final check freezes model fitting before week 10. Earlier holdout results may update later pregame features but never the fitted weights. Once inspected, this period is no longer untouched.</span></label>}
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           <NumberField label="Rolling training window (years)" step={1} value={settings.trainingYears} onChange={n => changeSetting('trainingYears', n)} help="Default 2. Older games remain in the archive but cannot enter this fit. Range: 1–5." />
           <NumberField label="Training weight half-life (days)" step={1} value={settings.halfLifeDays} onChange={n => changeSetting('halfLifeDays', n)} help="Default 365. A game one year older gets half the weight. Minimum: 30." />
@@ -171,12 +175,12 @@ export function FootballWorkbench() {
         </div>
       </section>}
       {history && <details className="panel p-5"><summary className="cursor-pointer font-bold">NFL data coverage and provenance</summary><div className="mt-4 space-y-3 text-sm leading-relaxed text-muted-strong"><p>Built {history.builtAt.slice(0, 10)}. {Object.entries(history.seasonCounts).map(([year, count]) => `${year}: ${count} games`).join(' · ')}.</p><p>{history.featurePolicy}</p><p>{history.qbPolicy}</p><p>{history.availabilityPolicy}</p><p>{history.marketPolicy}</p><p>{history.vintagePolicy}</p><p>{history.attribution}</p><p>Excluded: {Object.entries(history.excluded).map(([reason, count]) => `${reason.replaceAll('_', ' ')}: ${count}`).join(' · ')}.</p><p>Source files and SHA-256 checksums are included when you export the full experiment. <a className="text-accent underline" href="https://github.com/nflverse/nflverse-data">nflverse data</a> · <a className="text-accent underline" href="https://github.com/nflverse/nfldata/blob/master/DATASETS.md">schedule field definitions</a></p></div></details>}
-      <details className="panel p-5"><summary className="cursor-pointer font-bold">CSV fields and sign conventions</summary><div className="mt-4 space-y-3 text-sm leading-relaxed text-muted-strong"><p><code>game_id, kickoff, feature_asof, completed_at, home_team, away_team</code>: unique game and ISO timestamps with timezones. Features must be frozen before kickoff. Training excludes games not completed before the test block’s earliest feature timestamp.</p><p><code>home_margin</code>: final home score minus away score. <code>market_home_margin</code>: market-implied home winning margin; home −3.5 becomes +3.5 here. <code>home_odds, away_odds</code>: American odds for each side of that same spread.</p><p><code>off_epa_diff, def_epa_allowed_diff, qb_epa_diff</code>: home minus away in pregame EPA/play ratings. Lower defensive EPA allowed is better. <code>home_field</code>: 1 for a home game, 0 for neutral; the model learns its point value.</p><p>One row per game. Only prior games may contribute to pregame features; exclude the current game and future season totals. All three models share a training-only scaler, ridge settings, and Wednesday–Tuesday test blocks.</p><p>Record the sportsbook, line timestamp, and source version upstream. A closing-line comparison is a benchmark; it does not prove that price was available at your prediction time. Keep a final season untouched rather than repeatedly tuning against its results.</p></div></details>
+      <details className="panel p-5"><summary className="cursor-pointer font-bold">CSV fields and sign conventions</summary><div className="mt-4 space-y-3 text-sm leading-relaxed text-muted-strong"><p><code>game_id, kickoff, feature_asof, completed_at, home_team, away_team</code>: unique game and ISO timestamps with timezones. Features must be frozen before kickoff. Training excludes games not completed before the test block’s earliest feature timestamp.</p><p><code>home_margin</code>: final home score minus away score. <code>market_home_margin</code>: market-implied home winning margin; home −3.5 becomes +3.5 here. <code>home_odds, away_odds</code>: American odds for each side of that same spread.</p><p><code>off_epa_diff, def_epa_allowed_diff, qb_epa_diff</code>: home minus away in pregame EPA/play ratings. Lower defensive EPA allowed is better. <code>home_field</code>: 1 for a home game, 0 for neutral; the model learns its point value.</p><p>One row per game. Only prior games may contribute to pregame features; exclude the current game and future season totals. All enabled models use training-only scaling, the same ridge settings, and Wednesday–Tuesday test blocks.</p><p>Record the sportsbook, line timestamp, and source version upstream. A closing-line comparison is a benchmark; it does not prove that price was available at your prediction time. Keep 2025 week 10 onward untouched until the model and rules are fixed.</p></div></details>
     </>}
 
     {tab === 'experiments' && <>
-      <section className="panel p-6"><h2 className="text-2xl font-bold">Test the explanation</h2><p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-strong">Correlated statistics are not automatically double counted. The question is whether an extra input or manual adjustment improves predictions on unseen games. Start with quarterback overlap; the other hypotheses below are research ideas, not implemented models.</p><button className={`${buttonClass} mt-5`} onClick={() => setTab('backtest')}>Open QB comparison →</button></section>
-      <div className="grid gap-4 md:grid-cols-2">{hypotheses.map(([title, description, comparison], i) => <article key={title} className="panel p-5"><p className="text-[10px] font-bold uppercase tracking-widest text-accent">{i === 0 ? 'Implemented comparison' : 'Research hypothesis'}</p><h2 className="mt-3 text-xl font-bold">{title}</h2><p className="mt-3 text-sm leading-relaxed text-muted-strong">{description}</p><p className="mt-5 border-t border-border pt-4 text-xs text-muted">{comparison}</p></article>)}</div>
+      <section className="panel p-6"><h2 className="text-2xl font-bold">Test the explanation</h2><p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-strong">Correlated statistics are not automatically double counted. The question is whether an extra input or manual adjustment improves predictions on unseen games. The research results now include opponent strength, rest, protection proxies, turnovers, and passing/rushing matchups. Injuries, confirmed starters, weather forecasts, and timestamped line movement are not enabled.</p><button className={`${buttonClass} mt-5`} onClick={() => setTab('backtest')}>Open QB comparison →</button></section>
+      <div className="grid gap-4 md:grid-cols-2">{hypotheses.map(([title, description, comparison], i) => <article key={title} className="panel p-5"><p className="text-[10px] font-bold uppercase tracking-widest text-accent">{[0, 2, 3, 4].includes(i) ? 'Implemented comparison · see research results' : 'Not fully implemented'}</p><h2 className="mt-3 text-xl font-bold">{title}</h2><p className="mt-3 text-sm leading-relaxed text-muted-strong">{description}</p><p className="mt-5 border-t border-border pt-4 text-xs text-muted">{comparison}</p></article>)}</div>
       <section className="panel p-5"><h2 className="font-bold">Define success before running</h2><p className="mt-3 text-sm leading-relaxed text-muted-strong">Choose the seasons, feature definitions, and line timestamp first. Compare prediction error and returns after the sportsbook’s price. Inspect sample size, season stability, and the strongest counterexamples. A winning demo or one good season is not proof the market has a repeatable weakness.</p></section>
     </>}
   </div>;

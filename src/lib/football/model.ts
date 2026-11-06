@@ -6,15 +6,41 @@ export type Game = {
   home_odds: number; away_odds: number; off_epa_diff: number; def_epa_allowed_diff: number;
   home_field: number; qb_epa_diff: number;
   season?: number; week?: number;
+  adj_off_epa_diff?: number; adj_def_epa_allowed_diff?: number; rest_diff?: number;
+  pressure_allowed_diff?: number; pressure_forced_diff?: number; turnover_margin_diff?: number;
+  pass_matchup?: number; rush_matchup?: number;
+  home_qb_epa?: number; away_qb_epa?: number; home_adj_net?: number; away_adj_net?: number;
 };
 export type Settings = { minTrain: number; alpha: number; threshold: number; qbWeight: number; trainingYears: number; halfLifeDays: number };
-export type Evaluation = { fromSeason?: number; throughSeason?: number };
+export type Evaluation = { fromSeason?: number; throughSeason?: number; fromWeek?: number; throughWeek?: number; trainingCutoff?: string };
 export const defaults: Settings = { minTrain: 80, alpha: 20, threshold: 2, qbWeight: 35, trainingYears: 2, halfLifeDays: 365 };
-export type ModelName = 'Team EPA' | 'Team EPA + manual QB' | 'Joint fit';
+export type ModelName = 'Team EPA' | 'Team EPA + manual QB' | 'Joint fit' | 'Opponent adjusted' | 'Adjusted + rest' | 'Adjusted + protection' | 'Adjusted + turnovers' | 'Adjusted + matchups' | 'Full context' | 'Market anchored' | 'Market baseline';
 export type Prediction = { gameId: string; kickoff: string; season: number; model: ModelName; predicted: number; market: number; actual: number; edge: number; side: 'home' | 'away' | 'pass'; profit: number; cover: number; trainCount: number; cutoff: string; trainingFrom: string; trainingThrough: string };
 export type Summary = { model: ModelName; games: number; mae: number; marketMae: number; bets: number; wins: number; losses: number; pushes: number; units: number; roi: number | null; winRate: number | null; winLow: number | null; winHigh: number | null };
 export type Backtest = { predictions: Prediction[]; summary: Summary[]; bySeason: (Summary & { season: number })[]; synthetic: boolean };
-export type HistoryMetadata = { provider: string; builtAt: string; seasons: number[]; games: number; seasonCounts: Record<string, number>; excluded: Record<string, number>; featurePolicy: string; qbPolicy: string; availabilityPolicy: string; marketPolicy: string; vintagePolicy: string; attribution: string; evaluationPolicy: string; sources: { url: string; sha256: string; bytes: number }[] };
+export type HistoryMetadata = { provider: string; builtAt: string; seasons: number[]; games: number; seasonCounts: Record<string, number>; excluded: Record<string, number>; featurePolicy: string; qbPolicy: string; availabilityPolicy: string; marketPolicy: string; vintagePolicy: string; attribution: string; evaluationPolicy: string; contextPolicy?: string; sources: { url: string; sha256: string; bytes: number }[] };
+export const contextFeatures = ['adj_off_epa_diff', 'adj_def_epa_allowed_diff', 'rest_diff', 'pressure_allowed_diff', 'pressure_forced_diff', 'turnover_margin_diff', 'pass_matchup', 'rush_matchup'] as const;
+type Feature = 'off_epa_diff' | 'def_epa_allowed_diff' | 'home_field' | 'qb_epa_diff' | typeof contextFeatures[number];
+const teamFeatures: Feature[] = ['off_epa_diff', 'def_epa_allowed_diff', 'home_field'];
+const adjustedFeatures: Feature[] = ['adj_off_epa_diff', 'adj_def_epa_allowed_diff', 'home_field', 'qb_epa_diff'];
+export const modelSpecs: { name: ModelName; features: Feature[]; description: string; manual?: boolean; residual?: boolean }[] = [
+  { name: 'Team EPA', features: teamFeatures, description: 'Baseline: offensive/defensive EPA and home field.' },
+  { name: 'Team EPA + manual QB', features: teamFeatures, manual: true, description: 'Diagnostic: adds the full assumed QB value on top of team EPA.' },
+  { name: 'Joint fit', features: [...teamFeatures, 'qb_epa_diff'], description: 'Learns team and QB weights together.' },
+  { name: 'Opponent adjusted', features: adjustedFeatures, description: 'Replaces raw team EPA with jointly estimated offense/opposing-defense effects.' },
+  { name: 'Adjusted + rest', features: [...adjustedFeatures, 'rest_diff'], description: 'Adds rest/bye-day differences, capped at 14 days per team.' },
+  { name: 'Adjusted + protection', features: [...adjustedFeatures, 'pressure_allowed_diff', 'pressure_forced_diff'], description: 'Adds sack-or-QB-hit rates on offense/defense. These are proxies, not line grades.' },
+  { name: 'Adjusted + turnovers', features: [...adjustedFeatures, 'turnover_margin_diff'], description: 'Tests whether recent forced-minus-committed turnover rates add information already reflected in EPA.' },
+  { name: 'Adjusted + matchups', features: [...adjustedFeatures, 'pass_matchup', 'rush_matchup'], description: 'Adds passing/rushing efficiency matchups weighted by prior dropback tendencies.' },
+  { name: 'Full context', features: [...adjustedFeatures, 'rest_diff', 'pressure_allowed_diff', 'pressure_forced_diff', 'turnover_margin_diff', 'pass_matchup', 'rush_matchup'], description: 'Fits all implemented context variables jointly with regularization.' },
+  { name: 'Market anchored', residual: true, features: [...adjustedFeatures, 'rest_diff', 'pressure_allowed_diff', 'pressure_forced_diff', 'turnover_margin_diff', 'pass_matchup', 'rush_matchup'], description: 'Starts from the quoted line and learns past market errors from context. Research only: historical line timestamps are unknown.' },
+];
+
+export function finalCheck(games: Game[]): Evaluation {
+  const rows = games.filter(g => g.season === 2025 && g.week >= 10);
+  if (!rows.length) throw new Error('The final check requires season/week metadata for 2025 week 10 onward.');
+  return { fromSeason: 2025, fromWeek: 10, throughSeason: 2025, trainingCutoff: new Date(Math.min(...rows.map(g => Date.parse(g.feature_asof)))).toISOString() };
+}
 
 export function netProfit(cover: number, odds: number) {
   return cover === 0 ? 0 : cover < 0 ? -1 : odds > 0 ? odds / 100 : 100 / Math.abs(odds);
@@ -77,6 +103,11 @@ export function readGames(text: string): Game[] {
       if (!Number.isFinite(n)) throw new Error(`Row ${i + 2}: invalid ${key}.`);
       result[key] = n;
     }
+    for (const key of [...contextFeatures, 'home_qb_epa', 'away_qb_epa', 'home_adj_net', 'away_adj_net']) if (raw[key] !== undefined) {
+      const n = Number(raw[key]);
+      if (!raw[key] || !Number.isFinite(n)) throw new Error(`Row ${i + 2}: invalid ${key}.`);
+      result[key] = n;
+    }
     for (const key of ['season', 'week']) if (raw[key] !== undefined) {
       const n = Number(raw[key]);
       if (!raw[key] || !Number.isInteger(n) || n < 1) throw new Error(`Row ${i + 2}: invalid ${key}.`);
@@ -98,8 +129,6 @@ export function csv(rows: Record<string, unknown>[], header = Object.keys(rows[0
   return [header, ...rows.map(row => header.map(c => row[c]))].map(row => row.map(escape).join(',')).join('\r\n');
 }
 
-type Feature = 'off_epa_diff' | 'def_epa_allowed_diff' | 'home_field' | 'qb_epa_diff';
-const teamFeatures: Feature[] = ['off_epa_diff', 'def_epa_allowed_diff', 'home_field'];
 function mean(values: number[]) { return values.reduce((a, b) => a + b, 0) / values.length; }
 
 // Small positive-definite ridge system with unpenalized intercept. All scaling is training-only.
@@ -138,25 +167,27 @@ function weekStart(iso: string) {
 
 export function runBacktest(input: Game[], settings: Settings, evaluation: Evaluation = {}): Backtest {
   if (!Object.values(settings).every(Number.isFinite) || settings.alpha <= 0 || settings.threshold < 0 || !Number.isInteger(settings.minTrain) || settings.minTrain < 20 || !Number.isInteger(settings.trainingYears) || settings.trainingYears < 1 || settings.trainingYears > 5 || settings.halfLifeDays < 30) throw new Error('Use at least 20 training games, positive alpha, a nonnegative threshold, 1–5 training years, and a half-life of at least 30 days.');
-  if (Object.values(evaluation).some(v => !Number.isInteger(v)) || (evaluation.fromSeason !== undefined && evaluation.throughSeason !== undefined && evaluation.fromSeason > evaluation.throughSeason)) throw new Error('Choose a valid evaluation season range.');
+  if (Object.entries(evaluation).some(([k, v]) => k === 'trainingCutoff' ? typeof v !== 'string' || !Number.isFinite(Date.parse(v)) : !Number.isInteger(v)) || (evaluation.fromSeason !== undefined && evaluation.throughSeason !== undefined && evaluation.fromSeason > evaluation.throughSeason) || (evaluation.fromWeek !== undefined && (evaluation.fromWeek < 1 || evaluation.fromSeason === undefined)) || (evaluation.throughWeek !== undefined && (evaluation.throughWeek < 1 || evaluation.throughSeason === undefined))) throw new Error('Choose a valid evaluation season/week range and training cutoff.');
   // Revalidate even programmatically supplied data.
   const games = readGames(csv(input));
+  const specs = modelSpecs.filter(spec => [...spec.features, ...(spec.manual ? ['qb_epa_diff' as Feature] : [])].every(f => games.every(g => Number.isFinite(g[f]))));
   const blocks = new Map<string, Game[]>();
   for (const row of games) { const key = weekStart(row.kickoff); blocks.set(key, [...(blocks.get(key) ?? []), row]); }
   const predictions: Prediction[] = [];
   const seasonOf = (r: Game) => r.season ?? Number(r.game_id.match(/^\d{4}/)?.[0] ?? new Date(r.kickoff).getUTCFullYear());
+  const lower = (evaluation.fromSeason ?? 0)*100 + (evaluation.fromWeek ?? 0);
+  const upper = (evaluation.throughSeason ?? 9999)*100 + (evaluation.throughWeek ?? 99);
+  if ((evaluation.fromWeek !== undefined || evaluation.throughWeek !== undefined) && games.some(g => !Number.isFinite(g.week))) throw new Error('Week-based evaluation requires a week on every game.');
   for (const block of blocks.values()) {
-    const test = block.filter(r => (evaluation.fromSeason === undefined || seasonOf(r) >= evaluation.fromSeason) && (evaluation.throughSeason === undefined || seasonOf(r) <= evaluation.throughSeason));
+    const test = block.filter(r => { const order = seasonOf(r)*100+(r.week ?? 0); return order >= lower && order <= upper; });
     if (!test.length) continue;
-    const cutoffMs = Math.min(...block.map(r => Date.parse(r.feature_asof)));
+    const cutoffMs = Math.min(...block.map(r => Date.parse(r.feature_asof)), evaluation.trainingCutoff ? Date.parse(evaluation.trainingCutoff) : Infinity);
     const oldest = new Date(cutoffMs); oldest.setUTCFullYear(oldest.getUTCFullYear() - settings.trainingYears);
     const train = games.filter(r => Date.parse(r.completed_at) < cutoffMs && Date.parse(r.kickoff) >= oldest.getTime());
     if (train.length < settings.minTrain) continue;
-    const team = fit(train, teamFeatures, settings.alpha, cutoffMs, settings.halfLifeDays);
-    const joint = fit(train, [...teamFeatures, 'qb_epa_diff'], settings.alpha, cutoffMs, settings.halfLifeDays);
+    const fitted = specs.map(spec => ({ ...spec, predict: fit(spec.residual ? train.map(r => ({ ...r, home_margin: r.home_margin-r.market_home_margin })) : train, spec.features, settings.alpha, cutoffMs, settings.halfLifeDays) }));
     for (const row of test) {
-      const base = team(row);
-      const models: [ModelName, number][] = [['Team EPA', base], ['Team EPA + manual QB', base + settings.qbWeight * row.qb_epa_diff], ['Joint fit', joint(row)]];
+      const models: [ModelName, number][] = fitted.map(spec => [spec.name, spec.predict(row) + (spec.manual ? settings.qbWeight * row.qb_epa_diff : 0) + (spec.residual ? row.market_home_margin : 0)]);
       for (const [model, predicted] of models) {
         const edge = predicted - row.market_home_margin;
         const side = edge > settings.threshold ? 'home' : edge < -settings.threshold ? 'away' : 'pass';
@@ -173,7 +204,7 @@ export function runBacktest(input: Game[], settings: Settings, evaluation: Evalu
 }
 
 function summarize(predictions: Prediction[]): Summary[] {
-  const names: ModelName[] = ['Team EPA', 'Team EPA + manual QB', 'Joint fit'];
+  const names = modelSpecs.map(s => s.name).filter(name => predictions.some(p => p.model === name));
   const summary = names.map(model => {
     const rows = predictions.filter(r => r.model === model);
     const bets = rows.filter(r => r.side !== 'pass');

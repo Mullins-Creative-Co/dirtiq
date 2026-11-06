@@ -1,8 +1,11 @@
 import fs from 'node:fs';
-import { defaults, runBacktest, type Game } from '../../src/lib/football/model.ts';
+import crypto from 'node:crypto';
+import { type Game, type HistoryMetadata } from '../../src/lib/football/model.ts';
+import { buildResearch } from '../../src/lib/football/research.ts';
 
-// Deliberately do not inspect 2025. Fix settings before an explicit final check.
-const dataset = JSON.parse(fs.readFileSync('public/football/history.json', 'utf8')) as { games: Game[]; metadata: unknown };
-const evaluation = { fromSeason: 2023, throughSeason: 2024 };
-const result = runBacktest(dataset.games, defaults, evaluation);
-console.log(JSON.stringify({ settings: defaults, evaluation, summary: result.summary, bySeason: result.bySeason }, null, 2));
+// Never evaluates 2025 week 10 onward. Includes first-half 2025 for development.
+const source = fs.readFileSync('public/football/history.json', 'utf8');
+const dataset = JSON.parse(source) as { games: Game[]; metadata: HistoryMetadata };
+const report = buildResearch(dataset.games, dataset.metadata, crypto.createHash('sha256').update(source).digest('hex'));
+fs.writeFileSync('public/football/research.json', JSON.stringify(report, null, 2)+'\n');
+console.log(JSON.stringify({ games: report.games, models: report.rows.map(r => ({ model: r.model, mae: r.mae, marketMae: r.marketMae, delta: r.delta, interval: [r.low, r.high], status: r.status })), holdout: report.holdout }, null, 2));
