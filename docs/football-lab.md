@@ -1,7 +1,8 @@
 # Football Lab
 
 Route: `/football`. Linked from the public Stats navigation and the control navigation.
-The default Research results tab shows the completed incremental-information study.
+The default Overlap audit tab tests specific repeated-adjustment mechanisms. Research
+results retains the broader incremental-information study.
 
 This is a separate research workspace inside Dirt IQ. The football page imports only
 `src/lib/football/model.ts`, its own workbench, and the shared navigation. It does not
@@ -138,6 +139,62 @@ models had higher margin MAE than the market and negative benchmark returns. Avo
 selecting a strategy based on whichever isolated season happens to look favorable.
 
 ## Additional predictors and research protocol
+
+### Controlled overlap audit
+
+Run `OPENBLAS_NUM_THREADS=1 python scripts/football/overlap_audit.py` to rebuild
+`public/football/overlap.json`. It uses existing pregame features and seven fixed cases:
+team EPA/QB, EPA/protection, EPA/turnovers, adjusted EPA/another schedule correction,
+home-aware baseline/another home indicator, total EPA/pass-run efficiency, and current
+rest as a comparison input that is not explicitly duplicated in the baseline.
+
+For each two-year training window, fit the baseline with weighted ridge (alpha 20,
+365-day recency). Independently fit the signal's standalone centered points effect.
+The **full-add stress test** adds that effect to the baseline, without another intercept.
+This is deliberately constructed and is not a reconstruction of a sportsbook model.
+
+To form the **new-only** alternative, standardize inputs using training-only weighted
+moments, then project the signal onto baseline inputs with weighted SVD/OLS. Learn the
+baseline outcome residual using only the unprojected signal, with the baseline fit
+held fixed. Residual columns with weighted variance <=1e-10 are dropped, so exact
+duplicates are not amplified by rescaling numerical noise. The new-only stage does
+not rescale a tiny residual variance to one. No target/future outcomes enter fitting.
+
+Held-out signal R-squared measures statistical predictability from baseline inputs;
+it is not a percentage of causal player value already charged. Statistical correlation
+does not establish double counting. In unregularized linear regression, partialling
+out variables produces the same joint-model predictions (tested explicitly); mere
+reparameterization cannot create an edge. This pipeline changes the constrained
+additive estimation procedure and must earn its improvement on later games.
+
+The audit uses 705 development games and fits by the actual common feature-snapshot
+cutoff. This differs slightly from the broader workbench's earliest-cutoff weekly
+grouping for unusual schedules; compare forecasts within the same audit. Baseline,
+full-add, and new-only always share identical test games and training windows.
+The half-2025 holdout is removed before even validating or fitting audit rows.
+
+There are three fixed checks per case: new-only MAE against full-add, new-only MAE
+against baseline, and market-error alignment. The directional diagnostic selects
+only corrections of at least one point, using the sign of new-only minus full-add,
+and then measures actual-minus-market margin in that direction. It is not a full
+bet-selection/expected-value rule. Approximate weekly-snapshot block bootstrap
+intervals use 4,000 draws and a 21-comparison adjustment. Earlier research/feature
+selection is not covered by this family adjustment, so the final holdout remains
+necessary. Candidate status additionally requires repetition in 2024 and 2025 weeks
+1–9 and at least 50 selected sides. No current case qualifies.
+
+Prediction examples are the five largest forecast differences chosen without using
+their game outcomes. They expose baseline, standalone extra adjustment, projected
+standalone component, and newly learned remainder adjustment. These are statistical
+components, not causal QB/line/schedule point values. The exact-home-column control
+returns to baseline; rest is not forced to appear redundant. The audit finds ways
+our constructed full additions can damage forecasts, but no repeatable directional
+market edge. Do not infer that a bookmaker makes those same additions.
+
+The queue includes injury/absence, weather-baseline/extra-weather, and fatigue/rest
+overlap. These remain blocked by point-in-time data or an explicit baseline definition,
+and are not silently modeled as zero adjustments. Test with
+`OPENBLAS_NUM_THREADS=1 python -m unittest discover -s tests -p test_football_overlap.py`.
 
 `src/lib/football/model.ts` defines ten fixed variants: the original three, opponent-adjusted
 EPA, four separate additions (rest, protection, turnovers, and pass/run matchups), full

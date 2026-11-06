@@ -1,0 +1,1844 @@
+{
+  "version": 1,
+  "generatedAt": "2026-11-06T17:38:27.256701+00:00",
+  "sourceSha256": "bad2fe0019fb332c3e68456ab4c7b022d680ec751694e1fa1f1c5ba6c3c5853d",
+  "games": 705,
+  "settings": {
+    "trainingYears": 2,
+    "halfLifeDays": 365,
+    "alpha": 20,
+    "minimumTraining": 80,
+    "minimumDirectionalCorrectionPoints": 1,
+    "bootstrapSamples": 4000,
+    "familyComparisons": 21,
+    "individualIntervalConfidence": 0.9976190476190476
+  },
+  "experiments": [
+    {
+      "id": "qb",
+      "name": "Team EPA + individual QB",
+      "baseline": [
+        "off_epa_diff",
+        "def_epa_allowed_diff",
+        "home_field"
+      ],
+      "signal": [
+        "qb_epa_diff"
+      ],
+      "mechanism": "Team EPA already reflects QB play. An extra full QB effect can repeat information embedded in team efficiency.",
+      "games": 705,
+      "baselineMae": 10.286714059870572,
+      "fullMae": 10.853736411058264,
+      "newMae": 10.318430928269821,
+      "marketMae": 9.85177304964539,
+      "directional": {
+        "sides": 565,
+        "wins": 272,
+        "losses": 280,
+        "pushes": 13,
+        "coverRate": 0.4927536231884058,
+        "meanMarketError": -0.45309734513274336
+      },
+      "comparisons": {
+        "full": {
+          "delta": -0.5353054827884426,
+          "interval": [
+            -1.1263000789747586,
+            0.05448309832619686
+          ]
+        },
+        "baseline": {
+          "delta": 0.03171686839924798,
+          "interval": [
+            -0.027562945935269423,
+            0.09309024620228465
+          ]
+        }
+      },
+      "marketErrorInterval": [
+        -2.035912305376174,
+        1.379732620130764
+      ],
+      "signalExplainedOutOfSample": 0.6918913150796919,
+      "repeated": false,
+      "status": "No repeatable market edge established",
+      "examples": [
+        {
+          "gameId": "2024_18_CLE_BAL",
+          "season": 2024,
+          "week": 18,
+          "cutoff": "2025-01-01T18:00:00Z",
+          "actual": 25,
+          "market": 19.5,
+          "trainCount": 584,
+          "trainOverlap": 0.6886492307836073,
+          "activeSignals": 1,
+          "baseline": 21.705419457484886,
+          "full": 42.9245944045865,
+          "new": 23.760654784783032,
+          "full_add": 21.21917494710161,
+          "new_add": 2.0552353272981443,
+          "projected_add": 14.577637938072495,
+          "test_total": 15.40203176316677,
+          "test_remainder": 1.508892228795685
+        },
+        {
+          "gameId": "2023_04_KC_NYJ",
+          "season": 2023,
+          "week": 4,
+          "cutoff": "2023-09-27T18:00:00Z",
+          "actual": -3,
+          "market": -9.5,
+          "trainCount": 569,
+          "trainOverlap": 0.7393054620019887,
+          "activeSignals": 1,
+          "baseline": -12.899082610728122,
+          "full": -26.894442916503092,
+          "new": -12.770770191954492,
+          "full_add": -13.99536030577497,
+          "new_add": 0.12831241877362976,
+          "projected_add": -11.114738465983532,
+          "test_total": 10.258581206584555,
+          "test_remainder": 0.4346019106524942
+        },
+        {
+          "gameId": "2023_06_SF_CLE",
+          "season": 2023,
+          "week": 6,
+          "cutoff": "2023-10-11T18:00:00Z",
+          "actual": 2,
+          "market": -9.5,
+          "trainCount": 568,
+          "trainOverlap": 0.7237275021367161,
+          "activeSignals": 1,
+          "baseline": -8.067522153368527,
+          "full": -22.838438319917664,
+          "new": -9.332568640541348,
+          "full_add": -14.770916166549139,
+          "new_add": -1.2650464871728206,
+          "projected_add": -7.899950944599106,
+          "test_total": 10.33043513678062,
+          "test_remainder": 2.2353176601278855
+        },
+        {
+          "gameId": "2025_01_CIN_CLE",
+          "season": 2025,
+          "week": 1,
+          "cutoff": "2025-09-03T18:00:00Z",
+          "actual": -1,
+          "market": -5.5,
+          "trainCount": 570,
+          "trainOverlap": 0.6909363603205985,
+          "activeSignals": 1,
+          "baseline": -10.02897837479063,
+          "full": -23.409741164438756,
+          "new": -10.821896886347947,
+          "full_add": -13.380762789648129,
+          "new_add": -0.7929185115573182,
+          "projected_add": -9.679153612918197,
+          "test_total": 7.33453705484102,
+          "test_remainder": 0.5612961843135614
+        },
+        {
+          "gameId": "2024_08_BAL_CLE",
+          "season": 2024,
+          "week": 8,
+          "cutoff": "2024-10-23T18:00:00Z",
+          "actual": 5,
+          "market": -7.5,
+          "trainCount": 574,
+          "trainOverlap": 0.6912911434141815,
+          "activeSignals": 1,
+          "baseline": -9.85544335814852,
+          "full": -22.556206285301382,
+          "new": -10.326495042076191,
+          "full_add": -12.700762927152862,
+          "new_add": -0.47105168392767166,
+          "projected_add": -9.215285501147239,
+          "test_total": 9.415884558331728,
+          "test_remainder": 0.7091303202216066
+        }
+      ],
+      "periods": [
+        {
+          "label": "2023",
+          "games": 285,
+          "baselineMae": 10.439192915586656,
+          "fullMae": 11.05930373449822,
+          "newMae": 10.466893618789136,
+          "marketMae": 9.98421052631579,
+          "directional": {
+            "sides": 228,
+            "wins": 112,
+            "losses": 107,
+            "pushes": 9,
+            "coverRate": 0.5114155251141552,
+            "meanMarketError": 0.1162280701754386
+          }
+        },
+        {
+          "label": "2024",
+          "games": 285,
+          "baselineMae": 10.092093976942865,
+          "fullMae": 10.486212310863827,
+          "newMae": 10.11693189117056,
+          "marketMae": 9.703508771929824,
+          "directional": {
+            "sides": 226,
+            "wins": 107,
+            "losses": 115,
+            "pushes": 4,
+            "coverRate": 0.481981981981982,
+            "meanMarketError": -1.1172566371681416
+          }
+        },
+        {
+          "label": "2025 weeks 1\u20139",
+          "games": 135,
+          "baselineMae": 10.375678872872898,
+          "fullMae": 11.195645161984393,
+          "newMae": 10.430396548827488,
+          "marketMae": 9.885185185185184,
+          "directional": {
+            "sides": 111,
+            "wins": 53,
+            "losses": 58,
+            "pushes": 0,
+            "coverRate": 0.4774774774774775,
+            "meanMarketError": -0.2702702702702703
+          }
+        }
+      ],
+      "firstPredictions": [
+        {
+          "gameId": "2023_01_DET_KC",
+          "season": 2023,
+          "week": 1,
+          "cutoff": "2023-09-06T18:00:00Z",
+          "actual": -1,
+          "market": 4.0,
+          "trainCount": 521,
+          "trainOverlap": 0.7546953997725971,
+          "activeSignals": 1,
+          "baseline": 7.451605892370082,
+          "full": 10.719566784259907,
+          "new": 7.480939896289456,
+          "full_add": 3.2679608918898264,
+          "new_add": 0.029334003919374525,
+          "projected_add": 3.5192848221804884,
+          "test_total": 0.6533777588525298,
+          "test_remainder": 0.0038643667005669726
+        },
+        {
+          "gameId": "2023_01_CAR_ATL",
+          "season": 2023,
+          "week": 1,
+          "cutoff": "2023-09-06T18:00:00Z",
+          "actual": 14,
+          "market": 3.5,
+          "trainCount": 521,
+          "trainOverlap": 0.7546953997725971,
+          "activeSignals": 1,
+          "baseline": 2.23359910691948,
+          "full": 2.630199642311818,
+          "new": 2.2212496616108512,
+          "full_add": 0.3966005353923381,
+          "new_add": -0.012349445308628504,
+          "projected_add": 0.290794620168329,
+          "test_total": 0.009623149613311718,
+          "test_remainder": 0.0006849053238333334
+        },
+        {
+          "gameId": "2023_01_HOU_BAL",
+          "season": 2023,
+          "week": 1,
+          "cutoff": "2023-09-06T18:00:00Z",
+          "actual": 16,
+          "market": 9.5,
+          "trainCount": 521,
+          "trainOverlap": 0.7546953997725971,
+          "activeSignals": 1,
+          "baseline": 8.95455604818126,
+          "full": 10.518005400553491,
+          "new": 9.350721986491758,
+          "full_add": 1.5634493523722317,
+          "new_add": 0.39616593831049723,
+          "projected_add": 4.957666552899728,
+          "test_total": 0.14954719773063369,
+          "test_remainder": 0.7048389662251334
+        }
+      ]
+    },
+    {
+      "id": "protection",
+      "name": "EPA/QB + protection",
+      "baseline": [
+        "adj_off_epa_diff",
+        "adj_def_epa_allowed_diff",
+        "home_field",
+        "qb_epa_diff"
+      ],
+      "signal": [
+        "pressure_allowed_diff",
+        "pressure_forced_diff"
+      ],
+      "mechanism": "Sacks and QB hits affect team EPA and QB results. Adding their standalone effect again can repeat protection-related information.",
+      "games": 705,
+      "baselineMae": 10.31347474650406,
+      "fullMae": 10.511591385434093,
+      "newMae": 10.325820982642469,
+      "marketMae": 9.85177304964539,
+      "directional": {
+        "sides": 461,
+        "wins": 218,
+        "losses": 231,
+        "pushes": 12,
+        "coverRate": 0.48552338530066813,
+        "meanMarketError": -0.48698481561822127
+      },
+      "comparisons": {
+        "full": {
+          "delta": -0.18577040279162335,
+          "interval": [
+            -0.40403634489647805,
+            0.05720567689072549
+          ]
+        },
+        "baseline": {
+          "delta": 0.012346236138409974,
+          "interval": [
+            -0.05319765056339943,
+            0.06869492548214405
+          ]
+        }
+      },
+      "marketErrorInterval": [
+        -2.3609430501930504,
+        1.33617562838053
+      ],
+      "signalExplainedOutOfSample": 0.19113245814105106,
+      "repeated": false,
+      "status": "No repeatable market edge established",
+      "examples": [
+        {
+          "gameId": "2025_01_TEN_DEN",
+          "season": 2025,
+          "week": 1,
+          "cutoff": "2025-09-03T18:00:00Z",
+          "actual": 8,
+          "market": 8.5,
+          "trainCount": 570,
+          "trainOverlap": 0.22351122165203074,
+          "activeSignals": 2,
+          "baseline": 8.513783551062833,
+          "full": 16.55149340592856,
+          "new": 8.681473923573881,
+          "full_add": 8.037709854865726,
+          "new_add": 0.1676903725110486,
+          "projected_add": 1.3848020631784483,
+          "test_total": 9.151857482632241,
+          "test_remainder": 5.96021937433181
+        },
+        {
+          "gameId": "2025_04_CIN_DEN",
+          "season": 2025,
+          "week": 4,
+          "cutoff": "2025-09-24T18:00:00Z",
+          "actual": 25,
+          "market": 7.5,
+          "trainCount": 576,
+          "trainOverlap": 0.22209642632901894,
+          "activeSignals": 2,
+          "baseline": 4.036269579616901,
+          "full": 12.083218913696813,
+          "new": 4.51001742031423,
+          "full_add": 8.046949334079912,
+          "new_add": 0.47374784069732867,
+          "projected_add": -0.13509999995950306,
+          "test_total": 8.80705046037723,
+          "test_remainder": 7.653109809481753
+        },
+        {
+          "gameId": "2023_14_TEN_MIA",
+          "season": 2023,
+          "week": 14,
+          "cutoff": "2023-12-06T18:00:00Z",
+          "actual": -1,
+          "market": 14.0,
+          "trainCount": 569,
+          "trainOverlap": 0.19900140662726307,
+          "activeSignals": 2,
+          "baseline": 9.636947621859075,
+          "full": 18.788808581599785,
+          "new": 11.465789780792687,
+          "full_add": 9.15186095974071,
+          "new_add": 1.8288421589336106,
+          "projected_add": 1.928176201834307,
+          "test_total": 12.62151514370877,
+          "test_remainder": 7.856593231117061
+        },
+        {
+          "gameId": "2024_18_BUF_NE",
+          "season": 2024,
+          "week": 18,
+          "cutoff": "2025-01-01T18:00:00Z",
+          "actual": 7,
+          "market": -3.0,
+          "trainCount": 584,
+          "trainOverlap": 0.2161872245331261,
+          "activeSignals": 2,
+          "baseline": -13.56505879643221,
+          "full": -20.56162494813383,
+          "new": -13.656798818314234,
+          "full_add": -6.99656615170162,
+          "new_add": -0.09174002188202564,
+          "projected_add": -5.275951623963878,
+          "test_total": 5.507762935468469,
+          "test_remainder": 0.6471895465775195
+        },
+        {
+          "gameId": "2024_03_GB_TEN",
+          "season": 2024,
+          "week": 3,
+          "cutoff": "2024-09-18T18:00:00Z",
+          "actual": -16,
+          "market": 3.0,
+          "trainCount": 577,
+          "trainOverlap": 0.17085214291853335,
+          "activeSignals": 2,
+          "baseline": -0.3589530583865854,
+          "full": -9.007824272726891,
+          "new": -2.3191575512689764,
+          "full_add": -8.648871214340305,
+          "new_add": -1.960204492882391,
+          "projected_add": -1.6206587137171131,
+          "test_total": 11.268069510176524,
+          "test_remainder": 7.445888007919928
+        }
+      ],
+      "periods": [
+        {
+          "label": "2023",
+          "games": 285,
+          "baselineMae": 10.542051361810863,
+          "fullMae": 10.786543574404494,
+          "newMae": 10.539981407150844,
+          "marketMae": 9.98421052631579,
+          "directional": {
+            "sides": 191,
+            "wins": 89,
+            "losses": 92,
+            "pushes": 10,
+            "coverRate": 0.49171270718232046,
+            "meanMarketError": -0.5026178010471204
+          }
+        },
+        {
+          "label": "2024",
+          "games": 285,
+          "baselineMae": 10.040431616894736,
+          "fullMae": 10.177065232764248,
+          "newMae": 10.079447780815032,
+          "marketMae": 9.703508771929824,
+          "directional": {
+            "sides": 175,
+            "wins": 83,
+            "losses": 90,
+            "pushes": 2,
+            "coverRate": 0.4797687861271676,
+            "meanMarketError": -0.8742857142857143
+          }
+        },
+        {
+          "label": "2025 weeks 1\u20139",
+          "games": 135,
+          "baselineMae": 10.407348498920493,
+          "fullMae": 10.637358642132915,
+          "newMae": 10.393825734760496,
+          "marketMae": 9.885185185185184,
+          "directional": {
+            "sides": 95,
+            "wins": 46,
+            "losses": 49,
+            "pushes": 0,
+            "coverRate": 0.4842105263157895,
+            "meanMarketError": 0.2578947368421053
+          }
+        }
+      ],
+      "firstPredictions": [
+        {
+          "gameId": "2023_01_DET_KC",
+          "season": 2023,
+          "week": 1,
+          "cutoff": "2023-09-06T18:00:00Z",
+          "actual": -1,
+          "market": 4.0,
+          "trainCount": 521,
+          "trainOverlap": 0.19530014905292759,
+          "activeSignals": 2,
+          "baseline": 9.403691681951646,
+          "full": 9.92047305574542,
+          "new": 9.189744082607508,
+          "full_add": 0.5167813737937749,
+          "new_add": -0.21394759934413882,
+          "projected_add": 1.6829854867080434,
+          "test_total": 0.07624683349172583,
+          "test_remainder": 0.3048409271096751
+        },
+        {
+          "gameId": "2023_01_CAR_ATL",
+          "season": 2023,
+          "week": 1,
+          "cutoff": "2023-09-06T18:00:00Z",
+          "actual": 14,
+          "market": 3.5,
+          "trainCount": 521,
+          "trainOverlap": 0.19530014905292759,
+          "activeSignals": 2,
+          "baseline": 3.3709219921117426,
+          "full": 0.4248807891513473,
+          "new": 2.608840774843696,
+          "full_add": -2.9460412029603953,
+          "new_add": -0.7620812172680465,
+          "projected_add": -0.23591380413432225,
+          "test_total": 2.3373478974590958,
+          "test_remainder": 1.62135107595327
+        },
+        {
+          "gameId": "2023_01_HOU_BAL",
+          "season": 2023,
+          "week": 1,
+          "cutoff": "2023-09-06T18:00:00Z",
+          "actual": 16,
+          "market": 9.5,
+          "trainCount": 521,
+          "trainOverlap": 0.19530014905292759,
+          "activeSignals": 2,
+          "baseline": 8.759812155170959,
+          "full": 11.523129489089875,
+          "new": 9.46805192670126,
+          "full_add": 2.7633173339189163,
+          "new_add": 0.7082397715303017,
+          "projected_add": 1.3891821356114231,
+          "test_total": 1.7196748310925103,
+          "test_remainder": 0.6557050906710401
+        }
+      ]
+    },
+    {
+      "id": "turnovers",
+      "name": "EPA + turnovers",
+      "baseline": [
+        "adj_off_epa_diff",
+        "adj_def_epa_allowed_diff",
+        "home_field",
+        "qb_epa_diff"
+      ],
+      "signal": [
+        "turnover_margin_diff"
+      ],
+      "mechanism": "Interceptions and lost fumbles already affect EPA. A separate full turnover effect may duplicate their impact.",
+      "games": 705,
+      "baselineMae": 10.31347474650406,
+      "fullMae": 10.42918165401021,
+      "newMae": 10.330998718079716,
+      "marketMae": 9.85177304964539,
+      "directional": {
+        "sides": 496,
+        "wins": 229,
+        "losses": 256,
+        "pushes": 11,
+        "coverRate": 0.47216494845360824,
+        "meanMarketError": -0.8467741935483871
+      },
+      "comparisons": {
+        "full": {
+          "delta": -0.09818293593049598,
+          "interval": [
+            -0.3766636955721081,
+            0.1931378199758442
+          ]
+        },
+        "baseline": {
+          "delta": 0.017523971575654843,
+          "interval": [
+            -0.05673005602717187,
+            0.08972865819373642
+          ]
+        }
+      },
+      "marketErrorInterval": [
+        -2.4844047304439747,
+        0.6757728167234224
+      ],
+      "signalExplainedOutOfSample": 0.2650491615254087,
+      "repeated": false,
+      "status": "No repeatable market edge established",
+      "examples": [
+        {
+          "gameId": "2024_18_BUF_NE",
+          "season": 2024,
+          "week": 18,
+          "cutoff": "2025-01-01T18:00:00Z",
+          "actual": 7,
+          "market": -3.0,
+          "trainCount": 584,
+          "trainOverlap": 0.25339265090758667,
+          "activeSignals": 1,
+          "baseline": -13.56505879643221,
+          "full": -23.721240700440635,
+          "new": -14.897789532054333,
+          "full_add": -10.156181904008426,
+          "new_add": -1.3327307356221232,
+          "projected_add": -4.282544034872234,
+          "test_total": 10.266809247680767,
+          "test_remainder": 3.433909822046183
+        },
+        {
+          "gameId": "2025_05_NE_BUF",
+          "season": 2025,
+          "week": 5,
+          "cutoff": "2025-10-01T18:00:00Z",
+          "actual": -3,
+          "market": 7.5,
+          "trainCount": 575,
+          "trainOverlap": 0.2890451841606677,
+          "activeSignals": 1,
+          "baseline": 13.652452349747215,
+          "full": 23.189680676284148,
+          "new": 14.920434947591765,
+          "full_add": 9.537228326536932,
+          "new_add": 1.2679825978445505,
+          "projected_add": 3.8011986162356393,
+          "test_total": 8.797440438730971,
+          "test_remainder": 3.182253402160636
+        },
+        {
+          "gameId": "2023_04_LV_LAC",
+          "season": 2023,
+          "week": 4,
+          "cutoff": "2023-09-27T18:00:00Z",
+          "actual": 7,
+          "market": 7.0,
+          "trainCount": 569,
+          "trainOverlap": 0.4010438803022387,
+          "activeSignals": 1,
+          "baseline": 5.174560608039512,
+          "full": 12.705410440766975,
+          "new": 4.605390800231832,
+          "full_add": 7.530849832727465,
+          "new_add": -0.5691698078076797,
+          "projected_add": 1.1219417423688585,
+          "test_total": 7.388298651102019,
+          "test_remainder": 5.350871895049004
+        },
+        {
+          "gameId": "2023_05_GB_LV",
+          "season": 2023,
+          "week": 5,
+          "cutoff": "2023-10-04T18:00:00Z",
+          "actual": 4,
+          "market": 1.0,
+          "trainCount": 570,
+          "trainOverlap": 0.41544641420203543,
+          "activeSignals": 1,
+          "baseline": -1.7043637337611521,
+          "full": -8.545026086081023,
+          "new": -1.2178049465600034,
+          "full_add": -6.84066235231987,
+          "new_add": 0.48655878720114865,
+          "projected_add": -1.4210017205820165,
+          "test_total": 5.8099480224690865,
+          "test_remainder": 3.646868664625936
+        },
+        {
+          "gameId": "2023_08_LV_DET",
+          "season": 2023,
+          "week": 8,
+          "cutoff": "2023-10-25T18:00:00Z",
+          "actual": 12,
+          "market": 7.0,
+          "trainCount": 569,
+          "trainOverlap": 0.41546027373067596,
+          "activeSignals": 1,
+          "baseline": 6.702346713347421,
+          "full": 12.505063023382153,
+          "new": 5.227171107066425,
+          "full_add": 5.802716310034731,
+          "new_add": -1.4751756062809958,
+          "projected_add": 1.180501456384142,
+          "test_total": 6.4557173830665935,
+          "test_remainder": 4.096208833644564
+        }
+      ],
+      "periods": [
+        {
+          "label": "2023",
+          "games": 285,
+          "baselineMae": 10.542051361810863,
+          "fullMae": 10.62563166325502,
+          "newMae": 10.594649359376561,
+          "marketMae": 9.98421052631579,
+          "directional": {
+            "sides": 199,
+            "wins": 91,
+            "losses": 100,
+            "pushes": 8,
+            "coverRate": 0.47643979057591623,
+            "meanMarketError": -0.7839195979899497
+          }
+        },
+        {
+          "label": "2024",
+          "games": 285,
+          "baselineMae": 10.040431616894736,
+          "fullMae": 10.128115484808854,
+          "newMae": 10.025549926439982,
+          "marketMae": 9.703508771929824,
+          "directional": {
+            "sides": 207,
+            "wins": 90,
+            "losses": 114,
+            "pushes": 3,
+            "coverRate": 0.4411764705882353,
+            "meanMarketError": -1.7053140096618358
+          }
+        },
+        {
+          "label": "2025 weeks 1\u20139",
+          "games": 135,
+          "baselineMae": 10.407348498920493,
+          "fullMae": 10.650037991696252,
+          "newMae": 10.419239257692475,
+          "marketMae": 9.885185185185184,
+          "directional": {
+            "sides": 90,
+            "wins": 48,
+            "losses": 42,
+            "pushes": 0,
+            "coverRate": 0.5333333333333333,
+            "meanMarketError": 0.9888888888888889
+          }
+        }
+      ],
+      "firstPredictions": [
+        {
+          "gameId": "2023_01_DET_KC",
+          "season": 2023,
+          "week": 1,
+          "cutoff": "2023-09-06T18:00:00Z",
+          "actual": -1,
+          "market": 4.0,
+          "trainCount": 521,
+          "trainOverlap": 0.40286548084779605,
+          "activeSignals": 1,
+          "baseline": 9.403691681951646,
+          "full": 8.948032522814962,
+          "new": 9.338520568483531,
+          "full_add": -0.4556591591366835,
+          "new_add": -0.06517111346811387,
+          "projected_add": 2.4146614370771093,
+          "test_total": 0.032891403994970106,
+          "test_remainder": 1.305157784251074
+        },
+        {
+          "gameId": "2023_01_CAR_ATL",
+          "season": 2023,
+          "week": 1,
+          "cutoff": "2023-09-06T18:00:00Z",
+          "actual": 14,
+          "market": 3.5,
+          "trainCount": 521,
+          "trainOverlap": 0.40286548084779605,
+          "activeSignals": 1,
+          "baseline": 3.3709219921117426,
+          "full": 3.653626069402659,
+          "new": 3.3947247268462872,
+          "full_add": 0.28270407729091646,
+          "new_add": 0.02380273473454475,
+          "projected_add": -0.7656358407957179,
+          "test_total": 0.012660951570530968,
+          "test_remainder": 0.17410307800050487
+        },
+        {
+          "gameId": "2023_01_HOU_BAL",
+          "season": 2023,
+          "week": 1,
+          "cutoff": "2023-09-06T18:00:00Z",
+          "actual": 16,
+          "market": 9.5,
+          "trainCount": 521,
+          "trainOverlap": 0.40286548084779605,
+          "activeSignals": 1,
+          "baseline": 8.759812155170959,
+          "full": 8.720575700836266,
+          "new": 8.720848798744706,
+          "full_add": -0.03923645433469308,
+          "new_add": -0.03896335642625292,
+          "projected_add": 1.6768202231779783,
+          "test_total": 0.00024388310343663873,
+          "test_remainder": 0.4665148346182086
+        }
+      ]
+    },
+    {
+      "id": "opponents",
+      "name": "Adjusted EPA + schedule correction",
+      "baseline": [
+        "adj_off_epa_diff",
+        "adj_def_epa_allowed_diff",
+        "home_field",
+        "qb_epa_diff"
+      ],
+      "signal": [
+        "schedule_off_gap",
+        "schedule_def_gap"
+      ],
+      "mechanism": "Opponent-adjusted ratings already account for opponents. An additional standalone schedule adjustment can reapply related information.",
+      "games": 705,
+      "baselineMae": 10.31347474650406,
+      "fullMae": 10.532907733967146,
+      "newMae": 10.300913176128443,
+      "marketMae": 9.85177304964539,
+      "directional": {
+        "sides": 431,
+        "wins": 205,
+        "losses": 217,
+        "pushes": 9,
+        "coverRate": 0.48578199052132703,
+        "meanMarketError": -0.462877030162413
+      },
+      "comparisons": {
+        "full": {
+          "delta": -0.23199455783870288,
+          "interval": [
+            -0.4444831889093943,
+            -0.02445400531961174
+          ]
+        },
+        "baseline": {
+          "delta": -0.01256157037561607,
+          "interval": [
+            -0.1670721597453307,
+            0.14876625410485042
+          ]
+        }
+      },
+      "marketErrorInterval": [
+        -2.2861761083743843,
+        1.456445304048045
+      ],
+      "signalExplainedOutOfSample": 0.1842712222471048,
+      "repeated": false,
+      "status": "No repeatable market edge established",
+      "examples": [
+        {
+          "gameId": "2023_06_SF_CLE",
+          "season": 2023,
+          "week": 6,
+          "cutoff": "2023-10-11T18:00:00Z",
+          "actual": 2,
+          "market": -9.5,
+          "trainCount": 568,
+          "trainOverlap": 0.22599557439753892,
+          "activeSignals": 2,
+          "baseline": -9.44133912331027,
+          "full": -14.652393647209358,
+          "new": -8.068765177041238,
+          "full_add": -5.2110545238990875,
+          "new_add": 1.3725739462690314,
+          "projected_add": -5.514952968955195,
+          "test_total": 7.622233250636008,
+          "test_remainder": 2.5315842003311255
+        },
+        {
+          "gameId": "2023_14_HOU_NYJ",
+          "season": 2023,
+          "week": 14,
+          "cutoff": "2023-12-06T18:00:00Z",
+          "actual": 24,
+          "market": -3.5,
+          "trainCount": 569,
+          "trainOverlap": 0.22026765370508694,
+          "activeSignals": 2,
+          "baseline": -3.2585751594673162,
+          "full": -11.483965977168722,
+          "new": -4.962278751002245,
+          "full_add": -8.225390817701406,
+          "new_add": -1.703703591534929,
+          "projected_add": -2.7150948238618766,
+          "test_total": 9.361526054055537,
+          "test_remainder": 4.505374556238133
+        },
+        {
+          "gameId": "2024_08_ARI_MIA",
+          "season": 2024,
+          "week": 8,
+          "cutoff": "2024-10-23T18:00:00Z",
+          "actual": -1,
+          "market": 4.0,
+          "trainCount": 574,
+          "trainOverlap": 0.2043631994630224,
+          "activeSignals": 2,
+          "baseline": 2.228295872271694,
+          "full": -3.775396267335302,
+          "new": 2.4423611938753065,
+          "full_add": -6.003692139606996,
+          "new_add": 0.21406532160361216,
+          "projected_add": -1.6771640218400992,
+          "test_total": 11.459214662944106,
+          "test_remainder": 7.247830969029324
+        },
+        {
+          "gameId": "2023_04_KC_NYJ",
+          "season": 2023,
+          "week": 4,
+          "cutoff": "2023-09-27T18:00:00Z",
+          "actual": -3,
+          "market": -9.5,
+          "trainCount": 569,
+          "trainOverlap": 0.22735259286917353,
+          "activeSignals": 2,
+          "baseline": -12.15918640586137,
+          "full": -19.35548051252198,
+          "new": -13.336657259765452,
+          "full_add": -7.19629410666061,
+          "new_add": -1.1774708539040828,
+          "projected_add": -4.872709813780522,
+          "test_total": 6.122471454305514,
+          "test_remainder": 0.8370409660774024
+        },
+        {
+          "gameId": "2024_01_NYJ_SF",
+          "season": 2024,
+          "week": 1,
+          "cutoff": "2024-09-04T18:00:00Z",
+          "actual": 13,
+          "market": 3.5,
+          "trainCount": 569,
+          "trainOverlap": 0.2011197242258882,
+          "activeSignals": 2,
+          "baseline": 15.391469956445759,
+          "full": 18.904984505025478,
+          "new": 13.007273762553492,
+          "full_add": 3.5135145485797197,
+          "new_add": -2.384196193892267,
+          "projected_add": 3.4753139611662403,
+          "test_total": 16.902020660888944,
+          "test_remainder": 8.066137341413361
+        }
+      ],
+      "periods": [
+        {
+          "label": "2023",
+          "games": 285,
+          "baselineMae": 10.542051361810863,
+          "fullMae": 10.700506648195327,
+          "newMae": 10.487014947801336,
+          "marketMae": 9.98421052631579,
+          "directional": {
+            "sides": 176,
+            "wins": 82,
+            "losses": 87,
+            "pushes": 7,
+            "coverRate": 0.48520710059171596,
+            "meanMarketError": -0.2471590909090909
+          }
+        },
+        {
+          "label": "2024",
+          "games": 285,
+          "baselineMae": 10.040431616894736,
+          "fullMae": 10.305836708123293,
+          "newMae": 10.03266535212032,
+          "marketMae": 9.703508771929824,
+          "directional": {
+            "sides": 164,
+            "wins": 80,
+            "losses": 82,
+            "pushes": 2,
+            "coverRate": 0.49382716049382713,
+            "meanMarketError": -0.9542682926829268
+          }
+        },
+        {
+          "label": "2025 weeks 1\u20139",
+          "games": 135,
+          "baselineMae": 10.407348498920493,
+          "fullMae": 10.658459969600234,
+          "newMae": 10.474332619947264,
+          "marketMae": 9.885185185185184,
+          "directional": {
+            "sides": 91,
+            "wins": 43,
+            "losses": 48,
+            "pushes": 0,
+            "coverRate": 0.4725274725274725,
+            "meanMarketError": 0.005494505494505495
+          }
+        }
+      ],
+      "firstPredictions": [
+        {
+          "gameId": "2023_01_DET_KC",
+          "season": 2023,
+          "week": 1,
+          "cutoff": "2023-09-06T18:00:00Z",
+          "actual": -1,
+          "market": 4.0,
+          "trainCount": 521,
+          "trainOverlap": 0.23492885054551293,
+          "activeSignals": 2,
+          "baseline": 9.403691681951646,
+          "full": 4.7479288474960795,
+          "new": 6.1578737182149155,
+          "full_add": -4.655762834455566,
+          "new_add": -3.2458179637367297,
+          "projected_add": 1.0869487545267897,
+          "test_total": 2.002728012760595,
+          "test_remainder": 3.1020369425386534
+        },
+        {
+          "gameId": "2023_01_CAR_ATL",
+          "season": 2023,
+          "week": 1,
+          "cutoff": "2023-09-06T18:00:00Z",
+          "actual": 14,
+          "market": 3.5,
+          "trainCount": 521,
+          "trainOverlap": 0.23492885054551293,
+          "activeSignals": 2,
+          "baseline": 3.3709219921117426,
+          "full": 0.16185310837188682,
+          "new": 1.076576208652487,
+          "full_add": -3.2090688837398558,
+          "new_add": -2.2943457834592555,
+          "projected_add": 0.7142135534508889,
+          "test_total": 1.601653194389986,
+          "test_remainder": 2.976014476284222
+        },
+        {
+          "gameId": "2023_01_HOU_BAL",
+          "season": 2023,
+          "week": 1,
+          "cutoff": "2023-09-06T18:00:00Z",
+          "actual": 16,
+          "market": 9.5,
+          "trainCount": 521,
+          "trainOverlap": 0.23492885054551293,
+          "activeSignals": 2,
+          "baseline": 8.759812155170959,
+          "full": 9.029589670978238,
+          "new": 8.629703576829248,
+          "full_add": 0.2697775158072799,
+          "new_add": -0.13010857834171105,
+          "projected_add": 0.5357299410028059,
+          "test_total": 0.2865774069353957,
+          "test_remainder": 0.20522779339270855
+        }
+      ]
+    },
+    {
+      "id": "home",
+      "name": "Home-aware baseline + home bonus",
+      "baseline": [
+        "adj_off_epa_diff",
+        "adj_def_epa_allowed_diff",
+        "home_field",
+        "qb_epa_diff"
+      ],
+      "signal": [
+        "home_field"
+      ],
+      "mechanism": "The exact home/neutral indicator is already a baseline feature. Adding it again is a deliberately constructed duplicate-column control.",
+      "games": 705,
+      "baselineMae": 10.31347474650406,
+      "fullMae": 10.34819595601351,
+      "newMae": 10.31347474650406,
+      "marketMae": 9.85177304964539,
+      "directional": {
+        "sides": 18,
+        "wins": 8,
+        "losses": 10,
+        "pushes": 0,
+        "coverRate": 0.4444444444444444,
+        "meanMarketError": -1.0833333333333333
+      },
+      "comparisons": {
+        "full": {
+          "delta": -0.03472120950944969,
+          "interval": [
+            -0.09720605747854372,
+            0.028585360836864606
+          ]
+        },
+        "baseline": {
+          "delta": 0.0,
+          "interval": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "marketErrorInterval": [
+        -8.490972222222222,
+        7.623214285714312
+      ],
+      "signalExplainedOutOfSample": 1.0,
+      "repeated": false,
+      "status": "Exact duplicate control removed",
+      "examples": [
+        {
+          "gameId": "2025_01_KC_LAC",
+          "season": 2025,
+          "week": 1,
+          "cutoff": "2025-09-03T18:00:00Z",
+          "actual": 6,
+          "market": -3.0,
+          "trainCount": 570,
+          "trainOverlap": 1.0,
+          "activeSignals": 0,
+          "baseline": 4.954668566544255,
+          "full": 11.357196438653716,
+          "new": 4.954668566544255,
+          "full_add": 6.402527872109462,
+          "new_add": 0.0,
+          "projected_add": 6.402527872109472,
+          "test_total": 41.68177263142232,
+          "test_remainder": 9.545216953174243e-29
+        },
+        {
+          "gameId": "2025_04_MIN_PIT",
+          "season": 2025,
+          "week": 4,
+          "cutoff": "2025-09-24T18:00:00Z",
+          "actual": 3,
+          "market": -2.5,
+          "trainCount": 576,
+          "trainOverlap": 1.0,
+          "activeSignals": 0,
+          "baseline": 7.448008735249999,
+          "full": 13.13305745799001,
+          "new": 7.448008735249999,
+          "full_add": 5.68504872274001,
+          "new_add": 0.0,
+          "projected_add": 5.685048722740027,
+          "test_total": 40.99751077354576,
+          "test_remainder": 3.478876592024662e-28
+        },
+        {
+          "gameId": "2023_04_ATL_JAX",
+          "season": 2023,
+          "week": 4,
+          "cutoff": "2023-09-27T18:00:00Z",
+          "actual": 16,
+          "market": 3.5,
+          "trainCount": 569,
+          "trainOverlap": 1.0,
+          "activeSignals": 0,
+          "baseline": -3.3574178380808233,
+          "full": -8.332937333680409,
+          "new": -3.3574178380808233,
+          "full_add": -4.9755194955995865,
+          "new_add": 0.0,
+          "projected_add": -4.975519495599588,
+          "test_total": 56.29065869317096,
+          "test_remainder": 7.099748146989106e-30
+        },
+        {
+          "gameId": "2024_22_KC_PHI",
+          "season": 2024,
+          "week": 22,
+          "cutoff": "2025-02-05T18:00:00Z",
+          "actual": 18,
+          "market": -1.5,
+          "trainCount": 570,
+          "trainOverlap": 1.0,
+          "activeSignals": 0,
+          "baseline": 7.103872626729681,
+          "full": 12.065038327456463,
+          "new": 7.103872626729681,
+          "full_add": 4.9611657007267835,
+          "new_add": 0.0,
+          "projected_add": 4.961165700726791,
+          "test_total": 45.738263857902986,
+          "test_remainder": 1.135959703518257e-28
+        },
+        {
+          "gameId": "2025_05_MIN_CLE",
+          "season": 2025,
+          "week": 5,
+          "cutoff": "2025-10-01T18:00:00Z",
+          "actual": -4,
+          "market": -3.5,
+          "trainCount": 575,
+          "trainOverlap": 1.0,
+          "activeSignals": 0,
+          "baseline": 0.06521634694245915,
+          "full": 4.399135976951138,
+          "new": 0.06521634694245915,
+          "full_add": 4.333919630008679,
+          "new_add": 0.0,
+          "projected_add": 4.333919630008683,
+          "test_total": 38.24530306864942,
+          "test_remainder": 3.865418435582958e-29
+        }
+      ],
+      "periods": [
+        {
+          "label": "2023",
+          "games": 285,
+          "baselineMae": 10.542051361810863,
+          "fullMae": 10.571340559005135,
+          "newMae": 10.542051361810863,
+          "marketMae": 9.98421052631579,
+          "directional": {
+            "sides": 6,
+            "wins": 3,
+            "losses": 3,
+            "pushes": 0,
+            "coverRate": 0.5,
+            "meanMarketError": 1.1666666666666667
+          }
+        },
+        {
+          "label": "2024",
+          "games": 285,
+          "baselineMae": 10.040431616894736,
+          "fullMae": 10.02446155916217,
+          "newMae": 10.040431616894736,
+          "marketMae": 9.703508771929824,
+          "directional": {
+            "sides": 7,
+            "wins": 3,
+            "losses": 4,
+            "pushes": 0,
+            "coverRate": 0.42857142857142855,
+            "meanMarketError": -4.571428571428571
+          }
+        },
+        {
+          "label": "2025 weeks 1\u20139",
+          "games": 135,
+          "baselineMae": 10.407348498920493,
+          "fullMae": 10.560552187495128,
+          "newMae": 10.407348498920493,
+          "marketMae": 9.885185185185184,
+          "directional": {
+            "sides": 5,
+            "wins": 2,
+            "losses": 3,
+            "pushes": 0,
+            "coverRate": 0.4,
+            "meanMarketError": 1.1
+          }
+        }
+      ],
+      "firstPredictions": [
+        {
+          "gameId": "2023_01_DET_KC",
+          "season": 2023,
+          "week": 1,
+          "cutoff": "2023-09-06T18:00:00Z",
+          "actual": -1,
+          "market": 4.0,
+          "trainCount": 521,
+          "trainOverlap": 1.0,
+          "activeSignals": 0,
+          "baseline": 9.403691681951646,
+          "full": 9.515591159649272,
+          "new": 9.403691681951646,
+          "full_add": 0.11189947769762565,
+          "new_add": 0.0,
+          "projected_add": 0.11189947769762566,
+          "test_total": 0.021616877506550745,
+          "test_remainder": 7.703719777548943e-34
+        },
+        {
+          "gameId": "2023_01_CAR_ATL",
+          "season": 2023,
+          "week": 1,
+          "cutoff": "2023-09-06T18:00:00Z",
+          "actual": 14,
+          "market": 3.5,
+          "trainCount": 521,
+          "trainOverlap": 1.0,
+          "activeSignals": 0,
+          "baseline": 3.3709219921117426,
+          "full": 3.4828214698093682,
+          "new": 3.3709219921117426,
+          "full_add": 0.11189947769762565,
+          "new_add": 0.0,
+          "projected_add": 0.11189947769762544,
+          "test_total": 0.021616877506550745,
+          "test_remainder": 7.703719777548943e-32
+        },
+        {
+          "gameId": "2023_01_HOU_BAL",
+          "season": 2023,
+          "week": 1,
+          "cutoff": "2023-09-06T18:00:00Z",
+          "actual": 16,
+          "market": 9.5,
+          "trainCount": 521,
+          "trainOverlap": 1.0,
+          "activeSignals": 0,
+          "baseline": 8.759812155170959,
+          "full": 8.871711632868585,
+          "new": 8.759812155170959,
+          "full_add": 0.11189947769762565,
+          "new_add": 0.0,
+          "projected_add": 0.11189947769762557,
+          "test_total": 0.021616877506550745,
+          "test_remainder": 1.232595164407831e-32
+        }
+      ]
+    },
+    {
+      "id": "passrush",
+      "name": "Total EPA + pass/run efficiency",
+      "baseline": [
+        "off_epa_diff",
+        "def_epa_allowed_diff",
+        "home_field"
+      ],
+      "signal": [
+        "pass_matchup",
+        "rush_matchup"
+      ],
+      "mechanism": "Total efficiency and its pass/run matchup components share information. Only incremental matchup information should earn an extra effect.",
+      "games": 705,
+      "baselineMae": 10.286714059870572,
+      "fullMae": 10.976405371263304,
+      "newMae": 10.311614282214714,
+      "marketMae": 9.85177304964539,
+      "directional": {
+        "sides": 595,
+        "wins": 288,
+        "losses": 294,
+        "pushes": 13,
+        "coverRate": 0.4948453608247423,
+        "meanMarketError": -0.5630252100840336
+      },
+      "comparisons": {
+        "full": {
+          "delta": -0.6647910890485896,
+          "interval": [
+            -1.3113229722510378,
+            -0.04442332500542768
+          ]
+        },
+        "baseline": {
+          "delta": 0.02490022234414028,
+          "interval": [
+            -0.02237751219341957,
+            0.07941468794261289
+          ]
+        }
+      },
+      "marketErrorInterval": [
+        -2.1085882702878447,
+        1.1932175791417639
+      ],
+      "signalExplainedOutOfSample": 0.654450874999633,
+      "repeated": false,
+      "status": "No repeatable market edge established",
+      "examples": [
+        {
+          "gameId": "2024_18_CLE_BAL",
+          "season": 2024,
+          "week": 18,
+          "cutoff": "2025-01-01T18:00:00Z",
+          "actual": 25,
+          "market": 19.5,
+          "trainCount": 584,
+          "trainOverlap": 0.6634883979616539,
+          "activeSignals": 2,
+          "baseline": 21.705419457484886,
+          "full": 38.17705593465121,
+          "new": 20.815098905409027,
+          "full_add": 16.471636477166317,
+          "new_add": -0.8903205520758611,
+          "projected_add": 18.037575043734364,
+          "test_total": 11.45718245249674,
+          "test_remainder": 1.0155657975625665
+        },
+        {
+          "gameId": "2025_02_CLE_BAL",
+          "season": 2025,
+          "week": 2,
+          "cutoff": "2025-09-10T18:00:00Z",
+          "actual": 24,
+          "market": 12.5,
+          "trainCount": 577,
+          "trainOverlap": 0.6809162668813414,
+          "activeSignals": 2,
+          "baseline": 20.86975929473987,
+          "full": 36.12780749199743,
+          "new": 20.393293014275642,
+          "full_add": 15.258048197257565,
+          "new_add": -0.4764662804642246,
+          "projected_add": 16.211517240118177,
+          "test_total": 11.480085630294983,
+          "test_remainder": 0.13342770698465198
+        },
+        {
+          "gameId": "2024_18_BUF_NE",
+          "season": 2024,
+          "week": 18,
+          "cutoff": "2025-01-01T18:00:00Z",
+          "actual": 7,
+          "market": -3.0,
+          "trainCount": 584,
+          "trainOverlap": 0.6634883979616539,
+          "activeSignals": 2,
+          "baseline": -14.168714619868215,
+          "full": -30.48422660802529,
+          "new": -14.953397266137632,
+          "full_add": -16.315511988157073,
+          "new_add": -0.7846826462694162,
+          "projected_add": -15.4344079928264,
+          "test_total": 11.590691171853909,
+          "test_remainder": 0.8410520773860432
+        },
+        {
+          "gameId": "2024_18_NYG_PHI",
+          "season": 2024,
+          "week": 18,
+          "cutoff": "2025-01-01T18:00:00Z",
+          "actual": 7,
+          "market": 3.0,
+          "trainCount": 584,
+          "trainOverlap": 0.6634883979616539,
+          "activeSignals": 2,
+          "baseline": 16.08396250922753,
+          "full": 32.2296434665367,
+          "new": 17.453898940154076,
+          "full_add": 16.145680957309175,
+          "new_add": 1.3699364309265474,
+          "projected_add": 14.932262603741684,
+          "test_total": 13.133627534790671,
+          "test_remainder": 2.643095152105233
+        },
+        {
+          "gameId": "2024_19_PIT_BAL",
+          "season": 2024,
+          "week": 19,
+          "cutoff": "2025-01-08T18:00:00Z",
+          "actual": 14,
+          "market": 9.5,
+          "trainCount": 584,
+          "trainOverlap": 0.6773635223960918,
+          "activeSignals": 2,
+          "baseline": 15.704569438080785,
+          "full": 30.535607720293967,
+          "new": 16.5879591774759,
+          "full_add": 14.831038282213184,
+          "new_add": 0.8833897393951118,
+          "projected_add": 13.996086528222005,
+          "test_total": 10.32404505881896,
+          "test_remainder": 0.7374062089991076
+        }
+      ],
+      "periods": [
+        {
+          "label": "2023",
+          "games": 285,
+          "baselineMae": 10.439192915586656,
+          "fullMae": 10.916915112587494,
+          "newMae": 10.461637201558961,
+          "marketMae": 9.98421052631579,
+          "directional": {
+            "sides": 226,
+            "wins": 107,
+            "losses": 109,
+            "pushes": 10,
+            "coverRate": 0.49537037037037035,
+            "meanMarketError": 0.022123893805309734
+          }
+        },
+        {
+          "label": "2024",
+          "games": 285,
+          "baselineMae": 10.092093976942865,
+          "fullMae": 10.826149674885786,
+          "newMae": 10.109037555899684,
+          "marketMae": 9.703508771929824,
+          "directional": {
+            "sides": 251,
+            "wins": 122,
+            "losses": 126,
+            "pushes": 3,
+            "coverRate": 0.49193548387096775,
+            "meanMarketError": -1.3984063745019921
+          }
+        },
+        {
+          "label": "2025 weeks 1\u20139",
+          "games": 135,
+          "baselineMae": 10.375678872872898,
+          "fullMae": 11.419202387486994,
+          "newMae": 10.42256120804192,
+          "marketMae": 9.885185185185184,
+          "directional": {
+            "sides": 118,
+            "wins": 59,
+            "losses": 59,
+            "pushes": 0,
+            "coverRate": 0.5,
+            "meanMarketError": 0.09322033898305085
+          }
+        }
+      ],
+      "firstPredictions": [
+        {
+          "gameId": "2023_01_DET_KC",
+          "season": 2023,
+          "week": 1,
+          "cutoff": "2023-09-06T18:00:00Z",
+          "actual": -1,
+          "market": 4.0,
+          "trainCount": 521,
+          "trainOverlap": 0.5806986082962495,
+          "activeSignals": 2,
+          "baseline": 7.451605892370082,
+          "full": 12.745851673455618,
+          "new": 7.7008976797570945,
+          "full_add": 5.294245781085536,
+          "new_add": 0.24929178738701266,
+          "projected_add": 4.775481340544888,
+          "test_total": 2.207588387334844,
+          "test_remainder": 0.5249575246981543
+        },
+        {
+          "gameId": "2023_01_CAR_ATL",
+          "season": 2023,
+          "week": 1,
+          "cutoff": "2023-09-06T18:00:00Z",
+          "actual": 14,
+          "market": 3.5,
+          "trainCount": 521,
+          "trainOverlap": 0.5806986082962495,
+          "activeSignals": 2,
+          "baseline": 2.23359910691948,
+          "full": 0.25418838274923394,
+          "new": 2.0174013883528734,
+          "full_add": -1.9794107241702459,
+          "new_add": -0.21619771856660625,
+          "projected_add": -1.4422843547254258,
+          "test_total": 0.5703861884624772,
+          "test_remainder": 0.41007829407155877
+        },
+        {
+          "gameId": "2023_01_HOU_BAL",
+          "season": 2023,
+          "week": 1,
+          "cutoff": "2023-09-06T18:00:00Z",
+          "actual": 16,
+          "market": 9.5,
+          "trainCount": 521,
+          "trainOverlap": 0.5806986082962495,
+          "activeSignals": 2,
+          "baseline": 8.95455604818126,
+          "full": 14.681673739874087,
+          "new": 9.711280386802478,
+          "full_add": 5.727117691692827,
+          "new_add": 0.7567243386212179,
+          "projected_add": 4.643761988482342,
+          "test_total": 6.864181774505968,
+          "test_remainder": 4.562953355498979
+        }
+      ]
+    },
+    {
+      "id": "rest",
+      "name": "EPA + current rest (comparison)",
+      "baseline": [
+        "adj_off_epa_diff",
+        "adj_def_epa_allowed_diff",
+        "home_field",
+        "qb_epa_diff"
+      ],
+      "signal": [
+        "rest_diff"
+      ],
+      "mechanism": "Current rest is not explicitly in this baseline. This comparison checks that the procedure does not automatically call every extra input a duplicate.",
+      "games": 705,
+      "baselineMae": 10.31347474650406,
+      "fullMae": 10.332441124657754,
+      "newMae": 10.34958879238952,
+      "marketMae": 9.85177304964539,
+      "directional": {
+        "sides": 18,
+        "wins": 7,
+        "losses": 10,
+        "pushes": 1,
+        "coverRate": 0.4117647058823529,
+        "meanMarketError": -1.8055555555555556
+      },
+      "comparisons": {
+        "full": {
+          "delta": 0.017147667731765744,
+          "interval": [
+            -0.017399010953240115,
+            0.06018391057409956
+          ]
+        },
+        "baseline": {
+          "delta": 0.03611404588546043,
+          "interval": [
+            -0.06771468224974715,
+            0.1569196704291592
+          ]
+        }
+      },
+      "marketErrorInterval": [
+        -8.785714285714286,
+        0.8623376623376813
+      ],
+      "signalExplainedOutOfSample": -0.01934317152739151,
+      "repeated": false,
+      "status": "No repeatable market edge established",
+      "examples": [
+        {
+          "gameId": "2023_06_SF_CLE",
+          "season": 2023,
+          "week": 6,
+          "cutoff": "2023-10-11T18:00:00Z",
+          "actual": 2,
+          "market": -9.5,
+          "trainCount": 568,
+          "trainOverlap": 0.028520910406996336,
+          "activeSignals": 1,
+          "baseline": -9.44133912331027,
+          "full": -7.4576095155462285,
+          "new": -9.653437980026073,
+          "full_add": 1.983729607764041,
+          "new_add": -0.2120988567158036,
+          "projected_add": -0.36527521817513037,
+          "test_total": 10.174585490331266,
+          "test_remainder": 14.266570687663132
+        },
+        {
+          "gameId": "2023_06_DET_TB",
+          "season": 2023,
+          "week": 6,
+          "cutoff": "2023-10-11T18:00:00Z",
+          "actual": -14,
+          "market": -3.0,
+          "trainCount": 568,
+          "trainOverlap": 0.028520910406996336,
+          "activeSignals": 1,
+          "baseline": -0.585306758624005,
+          "full": 1.2724554647316721,
+          "new": -0.7638810675217154,
+          "full_add": 1.8577622233556772,
+          "new_add": -0.1785743088977103,
+          "projected_add": -0.11995665681506511,
+          "test_total": 8.923434280289124,
+          "test_remainder": 10.113020639193104
+        },
+        {
+          "gameId": "2023_06_SEA_CIN",
+          "season": 2023,
+          "week": 6,
+          "cutoff": "2023-10-11T18:00:00Z",
+          "actual": 4,
+          "market": 3.0,
+          "trainCount": 568,
+          "trainOverlap": 0.028520910406996336,
+          "activeSignals": 1,
+          "baseline": 3.533767016124931,
+          "full": 1.8244063565353825,
+          "new": 3.691945813831269,
+          "full_add": -1.7093606595895483,
+          "new_add": 0.1581787977063383,
+          "projected_add": 0.04247697370477224,
+          "test_total": 7.554734106723189,
+          "test_remainder": 7.934863824323753
+        },
+        {
+          "gameId": "2023_06_DAL_LAC",
+          "season": 2023,
+          "week": 6,
+          "cutoff": "2023-10-11T18:00:00Z",
+          "actual": -3,
+          "market": -1.5,
+          "trainCount": 568,
+          "trainOverlap": 0.028520910406996336,
+          "activeSignals": 1,
+          "baseline": 1.516574613669742,
+          "full": 3.134119965282954,
+          "new": 1.3682347999814226,
+          "full_add": 1.6175453516132121,
+          "new_add": -0.14833981368831942,
+          "projected_add": -0.02532507036024385,
+          "test_total": 6.764951797360994,
+          "test_remainder": 6.978440756926774
+        },
+        {
+          "gameId": "2024_15_BAL_NYG",
+          "season": 2024,
+          "week": 15,
+          "cutoff": "2024-12-11T18:00:00Z",
+          "actual": -21,
+          "market": -16.5,
+          "trainCount": 581,
+          "trainOverlap": 0.008837390247458554,
+          "activeSignals": 1,
+          "baseline": -11.433818696121316,
+          "full": -12.19597771320636,
+          "new": -13.607784618376979,
+          "full_add": -0.7621590170850454,
+          "new_add": -2.173965922255663,
+          "projected_add": 0.0581755274670045,
+          "test_total": 7.748877833587582,
+          "test_remainder": 8.9769670308457
+        }
+      ],
+      "periods": [
+        {
+          "label": "2023",
+          "games": 285,
+          "baselineMae": 10.542051361810863,
+          "fullMae": 10.516146109743532,
+          "newMae": 10.537349807466722,
+          "marketMae": 9.98421052631579,
+          "directional": {
+            "sides": 9,
+            "wins": 3,
+            "losses": 5,
+            "pushes": 1,
+            "coverRate": 0.375,
+            "meanMarketError": -3.8333333333333335
+          }
+        },
+        {
+          "label": "2024",
+          "games": 285,
+          "baselineMae": 10.040431616894736,
+          "fullMae": 10.142428734187567,
+          "newMae": 10.163651810265064,
+          "marketMae": 9.703508771929824,
+          "directional": {
+            "sides": 9,
+            "wins": 4,
+            "losses": 5,
+            "pushes": 0,
+            "coverRate": 0.4444444444444444,
+            "meanMarketError": 0.2222222222222222
+          }
+        },
+        {
+          "label": "2025 weeks 1\u20139",
+          "games": 135,
+          "baselineMae": 10.407348498920493,
+          "fullMae": 10.34575675824706,
+          "newMae": 10.345738056155945,
+          "marketMae": 9.885185185185184,
+          "directional": {
+            "sides": 0,
+            "wins": 0,
+            "losses": 0,
+            "pushes": 0,
+            "coverRate": null,
+            "meanMarketError": null
+          }
+        }
+      ],
+      "firstPredictions": [
+        {
+          "gameId": "2023_01_DET_KC",
+          "season": 2023,
+          "week": 1,
+          "cutoff": "2023-09-06T18:00:00Z",
+          "actual": -1,
+          "market": 4.0,
+          "trainCount": 521,
+          "trainOverlap": 0.021220731433229778,
+          "activeSignals": 1,
+          "baseline": 9.403691681951646,
+          "full": 9.341140043632006,
+          "new": 9.396052127095455,
+          "full_add": -0.06255163831963931,
+          "new_add": -0.007639554856190964,
+          "projected_add": 0.05915396030268839,
+          "test_total": 0.011500497685271626,
+          "test_remainder": 0.043537187535581924
+        },
+        {
+          "gameId": "2023_01_CAR_ATL",
+          "season": 2023,
+          "week": 1,
+          "cutoff": "2023-09-06T18:00:00Z",
+          "actual": 14,
+          "market": 3.5,
+          "trainCount": 521,
+          "trainOverlap": 0.021220731433229778,
+          "activeSignals": 1,
+          "baseline": 3.3709219921117426,
+          "full": 3.308370353792103,
+          "new": 3.368932660272005,
+          "full_add": -0.06255163831963931,
+          "new_add": -0.0019893318397374055,
+          "projected_add": -0.03085963178636685,
+          "test_total": 0.011500497685271626,
+          "test_remainder": 0.0029521521078374044
+        },
+        {
+          "gameId": "2023_01_HOU_BAL",
+          "season": 2023,
+          "week": 1,
+          "cutoff": "2023-09-06T18:00:00Z",
+          "actual": 16,
+          "market": 9.5,
+          "trainCount": 521,
+          "trainOverlap": 0.021220731433229778,
+          "activeSignals": 1,
+          "baseline": 8.759812155170959,
+          "full": 8.697260516851319,
+          "new": 8.75605565252178,
+          "full_add": -0.06255163831963931,
+          "new_add": -0.0037565026491784975,
+          "projected_add": -0.0027068682707493425,
+          "test_total": 0.011500497685271626,
+          "test_remainder": 0.010526685841417837
+        }
+      ]
+    }
+  ],
+  "holdout": {
+    "season": 2025,
+    "fromWeek": 10,
+    "evaluated": false
+  },
+  "method": [
+    "Fit a baseline on earlier games. Learn the added signal\u2019s standalone points effect separately, with no second intercept.",
+    "Project the signal onto baseline inputs with training-only weighted least squares. This measures linear predictability, not causal attribution.",
+    "Compare baseline + full standalone effect with baseline + a newly learned effect of only the unprojected signal. Baseline coefficients stay fixed.",
+    "Correlated inputs are not automatically double counted; reparameterizing an unregularized joint linear model alone cannot create an edge.",
+    "Full-add is an intentionally constructed overlap stress test, not a reconstruction of any sportsbook\u2019s model.",
+    "Market alignment uses only games where new-only minus full-add is at least one point in magnitude, chosen without target outcomes. It is a directional diagnostic, not an executable betting rule.",
+    "Approximate intervals resample weekly blocks and adjust for 21 current-audit checks. Earlier inspected research and all future selection choices still require an untouched final test."
+  ],
+  "deferred": [
+    {
+      "name": "New injury penalty versus absence already in recent results",
+      "needed": "Timestamped lineup/availability snapshots and role/usage history. The 2025 injury archive lacks publication/modification times."
+    },
+    {
+      "name": "Weather-adjusted baseline plus another weather penalty",
+      "needed": "Archived pregame forecast timestamps and an explicit record of what the baseline already includes; realized weather is insufficient."
+    },
+    {
+      "name": "Travel/fatigue rating plus separate rest penalty",
+      "needed": "A documented fatigue baseline, travel itinerary/venue history, and timestamped inputs. Current rest-only comparison is not that model."
+    }
+  ],
+  "limits": [
+    "QB identity remains a previous-game proxy, not a verified announced starter.",
+    "Historical EPA is from current source vintages; source revision effects remain.",
+    "Archived line times and bookmaker inputs are unknown. This audit cannot prove that Vegas duplicates an adjustment."
+  ]
+}
