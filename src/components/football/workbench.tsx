@@ -9,6 +9,8 @@ import type { OverlapAudit } from '@/lib/football/overlap-types';
 import { DecompositionPanel } from './decomposition-panel';
 import type { CastReport } from '@/lib/football/decomposition-types';
 import { QbMovementPanel } from './qb-movement-panel';
+import { CollegePanel } from './college-panel';
+import type { CollegeReport } from '@/lib/football/college-types';
 
 const STORAGE = 'dirtiq.football.scenarios.v1';
 const inputClass = 'mt-2 w-full rounded border border-border-strong bg-background px-3 py-2.5 text-sm text-foreground focus:outline-2 focus:outline-accent';
@@ -38,8 +40,8 @@ function NumberField({ label, value, onChange, help, step = .5 }: { label: strin
   return <label className="block text-sm font-semibold">{label}<input type="number" step={step} value={value} className={inputClass} onChange={e => { if (e.target.value !== '' && Number.isFinite(e.target.valueAsNumber)) onChange(e.target.valueAsNumber); }} />{help && <span className="mt-1.5 block text-xs font-normal leading-relaxed text-muted">{help}</span>}</label>;
 }
 
-export function FootballWorkbench({ research, readiness, overlap, decomposition }: { research: ResearchReport; readiness: InputReadiness; overlap: OverlapAudit; decomposition: CastReport }) {
-  const [tab, setTab] = useState<'movement' | 'decomposition' | 'overlap' | 'research' | 'matchup' | 'backtest' | 'experiments'>('decomposition');
+export function FootballWorkbench({ research, readiness, overlap, decomposition, college }: { research: ResearchReport; readiness: InputReadiness; overlap: OverlapAudit; decomposition: CastReport; college: CollegeReport }) {
+  const [tab, setTab] = useState<'college' | 'movement' | 'decomposition' | 'overlap' | 'research' | 'matchup' | 'backtest' | 'experiments'>('college');
   const [scenario, setScenario] = useState<Scenario>(initial);
   const [saved, setSaved] = useState<Saved[]>([]);
   const [saveName, setSaveName] = useState('');
@@ -103,18 +105,19 @@ export function FootballWorkbench({ research, readiness, overlap, decomposition 
 
   return <div className="space-y-7">
     <header className="border-b border-border pb-7">
-      <div className="flex flex-wrap items-center gap-3"><span className="text-xs font-black uppercase tracking-[.2em] text-accent">NFL research workspace</span><span className="rounded-full border border-border-strong px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-muted-strong">Independent football models</span></div>
+      <div className="flex flex-wrap items-center gap-3"><span className="text-xs font-black uppercase tracking-[.2em] text-accent">NFL & college research workspace</span><span className="rounded-full border border-border-strong px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-muted-strong">Independent football models</span></div>
       <h1 className="mt-4 font-display text-4xl font-black sm:text-5xl">Football Lab</h1>
       <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-strong">Find out whether an adjustment improves the prediction—or counts the same information twice.</p>
       <p className="mt-3 text-xs text-muted">Real NFL history is ready to load. Default training: the preceding two years, weighted toward recent games. Racing models stay separate.</p>
     </header>
     <nav aria-label="Football workspace" className="flex gap-2 overflow-x-auto pb-1">
-      {([['decomposition', 'QB & supporting team'], ['movement', 'QB news & line movement'], ['overlap', 'Overlap audit'], ['research', 'Research results'], ['matchup', 'Matchup sandbox'], ['backtest', 'Historical backtest'], ['experiments', 'Experiment notebook']] as const).map(([key, label]) => <button key={key} aria-pressed={tab === key} onClick={() => { setTab(key); setNotice(''); }} className={`${buttonClass} shrink-0 ${tab === key ? 'border-accent text-accent' : 'text-muted-strong'}`}>{label}</button>)}
+      {([['college', 'College turnover test'], ['decomposition', 'QB & supporting team'], ['movement', 'QB news & line movement'], ['overlap', 'Overlap audit'], ['research', 'Research results'], ['matchup', 'Matchup sandbox'], ['backtest', 'Historical backtest'], ['experiments', 'Experiment notebook']] as const).map(([key, label]) => <button key={key} aria-pressed={tab === key} onClick={() => { setTab(key); setNotice(''); }} className={`${buttonClass} shrink-0 ${tab === key ? 'border-accent text-accent' : 'text-muted-strong'}`}>{label}</button>)}
     </nav>
 
     {tab === 'research' && <ResearchPanel report={research} readiness={readiness} />}
     {tab === 'decomposition' && <DecompositionPanel report={decomposition} />}
     {tab === 'movement' && <QbMovementPanel />}
+    {tab === 'college' && <CollegePanel report={college} />}
     {tab === 'overlap' && <OverlapPanel audit={overlap} />}
 
     {tab === 'matchup' && <>

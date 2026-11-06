@@ -1,9 +1,10 @@
 # Football Lab
 
 Route: `/football`. Linked from the public Stats navigation and the control navigation.
-The default QB & supporting team tab tests the team-versus-quarterback attribution
-hypothesis. Overlap audit tests repeated-adjustment mechanisms; Research results
-retains the broader incremental-information study.
+The default College turnover test tab evaluates a fixed turnover-inflated-blowout
+hypothesis; see [college-turnover-test.md](college-turnover-test.md). QB & supporting
+team tests quarterback attribution. Overlap audit tests repeated adjustments;
+Research results retains the broader NFL incremental-information study.
 
 This is a separate research workspace inside Dirt IQ. The football page imports only
 its own football modules and reports, its workbench, and the shared navigation. It does not
