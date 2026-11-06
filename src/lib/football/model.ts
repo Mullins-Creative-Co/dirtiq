@@ -5,13 +5,16 @@ export type Game = {
   home_team: string; away_team: string; home_margin: number; market_home_margin: number;
   home_odds: number; away_odds: number; off_epa_diff: number; def_epa_allowed_diff: number;
   home_field: number; qb_epa_diff: number;
+  season?: number; week?: number;
 };
-export type Settings = { minTrain: number; alpha: number; threshold: number; qbWeight: number };
-export const defaults: Settings = { minTrain: 80, alpha: 20, threshold: 2, qbWeight: 35 };
+export type Settings = { minTrain: number; alpha: number; threshold: number; qbWeight: number; trainingYears: number; halfLifeDays: number };
+export type Evaluation = { fromSeason?: number; throughSeason?: number };
+export const defaults: Settings = { minTrain: 80, alpha: 20, threshold: 2, qbWeight: 35, trainingYears: 2, halfLifeDays: 365 };
 export type ModelName = 'Team EPA' | 'Team EPA + manual QB' | 'Joint fit';
-export type Prediction = { gameId: string; kickoff: string; model: ModelName; predicted: number; market: number; actual: number; edge: number; side: 'home' | 'away' | 'pass'; profit: number; cover: number; trainCount: number; cutoff: string };
+export type Prediction = { gameId: string; kickoff: string; season: number; model: ModelName; predicted: number; market: number; actual: number; edge: number; side: 'home' | 'away' | 'pass'; profit: number; cover: number; trainCount: number; cutoff: string; trainingFrom: string; trainingThrough: string };
 export type Summary = { model: ModelName; games: number; mae: number; marketMae: number; bets: number; wins: number; losses: number; pushes: number; units: number; roi: number | null; winRate: number | null; winLow: number | null; winHigh: number | null };
-export type Backtest = { predictions: Prediction[]; summary: Summary[]; synthetic: boolean };
+export type Backtest = { predictions: Prediction[]; summary: Summary[]; bySeason: (Summary & { season: number })[]; synthetic: boolean };
+export type HistoryMetadata = { provider: string; builtAt: string; seasons: number[]; games: number; seasonCounts: Record<string, number>; excluded: Record<string, number>; featurePolicy: string; qbPolicy: string; availabilityPolicy: string; marketPolicy: string; vintagePolicy: string; attribution: string; evaluationPolicy: string; sources: { url: string; sha256: string; bytes: number }[] };
 
 export function netProfit(cover: number, odds: number) {
   return cover === 0 ? 0 : cover < 0 ? -1 : odds > 0 ? odds / 100 : 100 / Math.abs(odds);
@@ -74,6 +77,11 @@ export function readGames(text: string): Game[] {
       if (!Number.isFinite(n)) throw new Error(`Row ${i + 2}: invalid ${key}.`);
       result[key] = n;
     }
+    for (const key of ['season', 'week']) if (raw[key] !== undefined) {
+      const n = Number(raw[key]);
+      if (!raw[key] || !Number.isInteger(n) || n < 1) throw new Error(`Row ${i + 2}: invalid ${key}.`);
+      result[key] = n;
+    }
     for (const key of ['kickoff', 'feature_asof', 'completed_at']) {
       if (!/T.*(?:Z|[+-]\d{2}:\d{2})$/.test(raw[key]) || !Number.isFinite(Date.parse(raw[key]))) throw new Error(`Row ${i + 2}: ${key} needs an ISO timestamp with timezone.`);
       result[key] = new Date(raw[key]).toISOString();
@@ -95,15 +103,20 @@ const teamFeatures: Feature[] = ['off_epa_diff', 'def_epa_allowed_diff', 'home_f
 function mean(values: number[]) { return values.reduce((a, b) => a + b, 0) / values.length; }
 
 // Small positive-definite ridge system with unpenalized intercept. All scaling is training-only.
-function fit(train: Game[], features: Feature[], alpha: number) {
-  const means = features.map(f => mean(train.map(r => r[f])));
-  const scales = features.map((f, j) => Math.sqrt(mean(train.map(r => (r[f] - means[j]) ** 2))) || 1);
-  const yMean = mean(train.map(r => r.home_margin));
+function fit(train: Game[], features: Feature[], alpha: number, cutoffMs: number, halfLifeDays: number) {
+  const rawWeights = train.map(r => 2 ** (-(cutoffMs - Date.parse(r.kickoff)) / 86400000 / halfLifeDays));
+  // Normalize to mean one so alpha has a comparable scale across windows.
+  const weightMean = mean(rawWeights);
+  const weights = rawWeights.map(w => w / weightMean);
+  const weightedMean = (values: number[]) => values.reduce((s, v, i) => s + v * weights[i], 0) / train.length;
+  const means = features.map(f => weightedMean(train.map(r => r[f])));
+  const scales = features.map((f, j) => Math.sqrt(weightedMean(train.map(r => (r[f] - means[j]) ** 2))) || 1);
+  const yMean = weightedMean(train.map(r => r.home_margin));
   const x = train.map(r => features.map((f, j) => (r[f] - means[j]) / scales[j]));
   const n = features.length;
   const matrix = Array.from({ length: n }, (_, j) => [
-    ...Array.from({ length: n }, (_, k) => x.reduce((s, v) => s + v[j] * v[k], 0) + (j === k ? alpha : 0)),
-    x.reduce((s, v, i) => s + v[j] * (train[i].home_margin - yMean), 0),
+    ...Array.from({ length: n }, (_, k) => x.reduce((s, v, i) => s + weights[i] * v[j] * v[k], 0) + (j === k ? alpha : 0)),
+    x.reduce((s, v, i) => s + weights[i] * v[j] * (train[i].home_margin - yMean), 0),
   ]);
   for (let j = 0; j < n; j++) {
     const pivot = matrix[j][j];
@@ -123,19 +136,24 @@ function weekStart(iso: string) {
   return d.toISOString();
 }
 
-export function runBacktest(input: Game[], settings: Settings): Backtest {
-  if (!Object.values(settings).every(Number.isFinite) || settings.alpha <= 0 || settings.threshold < 0 || !Number.isInteger(settings.minTrain) || settings.minTrain < 20) throw new Error('Use at least 20 training games, positive regularization, and a nonnegative threshold.');
+export function runBacktest(input: Game[], settings: Settings, evaluation: Evaluation = {}): Backtest {
+  if (!Object.values(settings).every(Number.isFinite) || settings.alpha <= 0 || settings.threshold < 0 || !Number.isInteger(settings.minTrain) || settings.minTrain < 20 || !Number.isInteger(settings.trainingYears) || settings.trainingYears < 1 || settings.trainingYears > 5 || settings.halfLifeDays < 30) throw new Error('Use at least 20 training games, positive alpha, a nonnegative threshold, 1–5 training years, and a half-life of at least 30 days.');
+  if (Object.values(evaluation).some(v => !Number.isInteger(v)) || (evaluation.fromSeason !== undefined && evaluation.throughSeason !== undefined && evaluation.fromSeason > evaluation.throughSeason)) throw new Error('Choose a valid evaluation season range.');
   // Revalidate even programmatically supplied data.
-  const games = readGames(csv(input, [...columns]));
+  const games = readGames(csv(input));
   const blocks = new Map<string, Game[]>();
   for (const row of games) { const key = weekStart(row.kickoff); blocks.set(key, [...(blocks.get(key) ?? []), row]); }
   const predictions: Prediction[] = [];
-  for (const test of blocks.values()) {
-    const cutoffMs = Math.min(...test.map(r => Date.parse(r.feature_asof)));
-    const train = games.filter(r => Date.parse(r.completed_at) < cutoffMs);
+  const seasonOf = (r: Game) => r.season ?? Number(r.game_id.match(/^\d{4}/)?.[0] ?? new Date(r.kickoff).getUTCFullYear());
+  for (const block of blocks.values()) {
+    const test = block.filter(r => (evaluation.fromSeason === undefined || seasonOf(r) >= evaluation.fromSeason) && (evaluation.throughSeason === undefined || seasonOf(r) <= evaluation.throughSeason));
+    if (!test.length) continue;
+    const cutoffMs = Math.min(...block.map(r => Date.parse(r.feature_asof)));
+    const oldest = new Date(cutoffMs); oldest.setUTCFullYear(oldest.getUTCFullYear() - settings.trainingYears);
+    const train = games.filter(r => Date.parse(r.completed_at) < cutoffMs && Date.parse(r.kickoff) >= oldest.getTime());
     if (train.length < settings.minTrain) continue;
-    const team = fit(train, teamFeatures, settings.alpha);
-    const joint = fit(train, [...teamFeatures, 'qb_epa_diff'], settings.alpha);
+    const team = fit(train, teamFeatures, settings.alpha, cutoffMs, settings.halfLifeDays);
+    const joint = fit(train, [...teamFeatures, 'qb_epa_diff'], settings.alpha, cutoffMs, settings.halfLifeDays);
     for (const row of test) {
       const base = team(row);
       const models: [ModelName, number][] = [['Team EPA', base], ['Team EPA + manual QB', base + settings.qbWeight * row.qb_epa_diff], ['Joint fit', joint(row)]];
@@ -143,13 +161,18 @@ export function runBacktest(input: Game[], settings: Settings): Backtest {
         const edge = predicted - row.market_home_margin;
         const side = edge > settings.threshold ? 'home' : edge < -settings.threshold ? 'away' : 'pass';
         const cover = (row.home_margin - row.market_home_margin) * (side === 'away' ? -1 : 1);
-        predictions.push({ gameId: row.game_id, kickoff: row.kickoff, model, predicted, market: row.market_home_margin,
+        predictions.push({ gameId: row.game_id, kickoff: row.kickoff, season: seasonOf(row), model, predicted, market: row.market_home_margin,
           actual: row.home_margin, edge, side, cover, profit: side === 'pass' ? 0 : netProfit(cover, side === 'home' ? row.home_odds : row.away_odds),
-          trainCount: train.length, cutoff: new Date(cutoffMs).toISOString() });
+          trainCount: train.length, cutoff: new Date(cutoffMs).toISOString(), trainingFrom: train[0].kickoff, trainingThrough: train[train.length - 1].kickoff });
       }
     }
   }
   if (!predictions.length) throw new Error('Not enough earlier completed games. Add history or lower the training minimum.');
+  const seasons = [...new Set(predictions.map(r => r.season))].sort();
+  return { predictions, summary: summarize(predictions), bySeason: seasons.flatMap(season => summarize(predictions.filter(r => r.season === season)).map(s => ({ ...s, season }))), synthetic: games.some(r => r.game_id.startsWith('SYNTHETIC-')) };
+}
+
+function summarize(predictions: Prediction[]): Summary[] {
   const names: ModelName[] = ['Team EPA', 'Team EPA + manual QB', 'Joint fit'];
   const summary = names.map(model => {
     const rows = predictions.filter(r => r.model === model);
@@ -164,7 +187,7 @@ export function runBacktest(input: Game[], settings: Settings): Backtest {
       bets: bets.length, wins, losses, pushes: bets.length - n, units, roi: bets.length ? units / bets.length : null,
       winRate: n ? p : null, winLow: n ? center - radius : null, winHigh: n ? center + radius : null };
   });
-  return { predictions, summary, synthetic: games.some(r => r.game_id.startsWith('SYNTHETIC-')) };
+  return summary;
 }
 
 export function demoGames(): Game[] {

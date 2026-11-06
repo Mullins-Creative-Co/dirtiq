@@ -77,3 +77,37 @@ test('manual QB comparison adds exactly the stated assumption on identical held-
   assert(Math.abs(extra.predicted - base.predicted - defaults.qbWeight * games[80].qb_epa_diff) < 1e-10);
   assert(result.summary.every(s => s.games === result.summary[0].games));
 });
+
+test('two-year window excludes old outcomes even when a longer archive is loaded', () => {
+  const games = demoGames();
+  const old = games.map(g => ({ ...g, game_id: `OLD-${g.game_id}`,
+    kickoff: g.kickoff.replace('2020', '2015').replace('2021', '2016'),
+    feature_asof: g.feature_asof.replace('2020', '2015').replace('2021', '2016'),
+    completed_at: g.completed_at.replace('2020', '2015').replace('2021', '2016'), home_margin: 1000 }));
+  const plain = runBacktest(games, defaults);
+  const archive = runBacktest([...old, ...games], defaults, { fromSeason: 2020 });
+  assert.deepEqual(archive.predictions, plain.predictions);
+  for (const row of archive.predictions) {
+    const oldest = new Date(row.cutoff); oldest.setUTCFullYear(oldest.getUTCFullYear() - 2);
+    assert(Date.parse(row.trainingFrom) >= oldest.getTime());
+  }
+});
+
+test('recency weights learn the weighted training mean without leaking the target', () => {
+  const games = demoGames().slice(0, 81).map((g, i) => ({ ...g, off_epa_diff: 0, def_epa_allowed_diff: 0, qb_epa_diff: 0, home_margin: i < 40 ? 0 : 10 }));
+  const result = runBacktest(games, defaults);
+  const row = result.predictions.find(p => p.model === 'Team EPA')!;
+  const train = games.filter(g => Date.parse(g.completed_at) < Date.parse(row.cutoff));
+  const weights = train.map(g => 2 ** (-(Date.parse(row.cutoff) - Date.parse(g.kickoff)) / 86400000 / defaults.halfLifeDays));
+  const expected = train.reduce((sum, g, i) => sum + weights[i] * g.home_margin, 0) / weights.reduce((a, b) => a + b, 0);
+  assert(Math.abs(row.predicted - expected) < 1e-10);
+  assert(row.predicted > 5);
+});
+
+test('evaluation seasons are separate from training seasons and preserved in CSV', () => {
+  const games = demoGames().map((g, i) => ({ ...g, season: i < 160 ? 2023 : 2024 }));
+  const result = runBacktest(games, defaults, { fromSeason: 2024, throughSeason: 2024 });
+  assert(result.predictions.every(p => p.season === 2024));
+  assert.equal(result.predictions[0].trainCount, 160);
+  assert(result.bySeason.every(s => s.season === 2024));
+});
