@@ -8,6 +8,7 @@ const adminItems = [
   { href: "/admin/live", label: "Control" },
   { href: "/admin/today", label: "Today Odds" },
   { href: "/admin/testing", label: "Model Lab" },
+  { href: "/football", label: "Football" },
   { href: "/admin/races", label: "Races" },
   { href: "/admin/maintenance", label: "Refresh" },
 ];
@@ -49,6 +50,7 @@ export function Nav() {
   const [open, setOpen] = useState(false);
 
   const isAdmin = pathname.startsWith("/admin");
+  const isWorkspace = isAdmin || pathname === "/" || pathname.startsWith("/football");
 
   function adminLinkClass(href: string) {
     const active = href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -114,7 +116,7 @@ export function Nav() {
       </div>
 
       {/* Single-tool nav (desktop) */}
-      {(isAdmin || pathname === "/") && (
+      {isWorkspace && (
         <div className="border-t border-[var(--border)] bg-[var(--surface)]">
           <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
             <div className="hidden md:flex items-stretch gap-0">
@@ -122,6 +124,7 @@ export function Nav() {
               <Link href="/admin/today" className={adminLinkClass("/admin/today")}>Today Odds</Link>
               <Link href="/admin/testing" className={adminLinkClass("/admin/testing")}>Model Lab</Link>
               <Link href="/admin/races" className={adminLinkClass("/admin/races")}>Races</Link>
+              <Link href="/football" className={adminLinkClass("/football")}>Football</Link>
             </div>
             <div className="hidden items-center gap-2 py-2 text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--muted)] md:flex">
               <Link href="/admin/maintenance" className="hover:text-white">Refresh</Link>
@@ -135,7 +138,7 @@ export function Nav() {
       {/* Mobile menu drawer */}
       {open && (
         <div className="md:hidden border-t border-[var(--border)] bg-[var(--surface)]">
-          {(isAdmin || pathname === "/") && (
+          {isWorkspace && (
             <div className="border-t border-[var(--border)] px-4 py-2 space-y-0.5">
               {adminItems.map((item) => (
                 <Link
