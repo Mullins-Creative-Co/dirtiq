@@ -1,0 +1,2151 @@
+{
+  "version": 1,
+  "title": "QB versus supporting team",
+  "holdoutEvaluated": false,
+  "holdout": "2025 week 10 onward",
+  "sources": [
+    {
+      "season": 2021,
+      "sha256": "333ad34378e5339d5172717cc83378e908daf02c8699416ab3e17c2ec10f78d8"
+    },
+    {
+      "season": 2022,
+      "sha256": "931121d8897779d7944e2a293e92ed8799c8e5cceef84096ac42339003fedc09"
+    },
+    {
+      "season": 2023,
+      "sha256": "bd3484731408def6b0ec93225bba2bd7b2c65769ca707a2b9444d891abdc6776"
+    },
+    {
+      "season": 2024,
+      "sha256": "3fd2896bc0b911b615142d2f1fabae54a4bbba5ab7b73b28187b118ef8af6a3b"
+    },
+    {
+      "season": 2025,
+      "sha256": "c6ecedd6d678cc37ed316b23ef84ee1ec6abb69c514bb11868a7ebd5a367df29"
+    }
+  ],
+  "settings": {
+    "trainingDays": 730,
+    "weightHalfLifeDays": 365,
+    "primaryQbPrior": 400,
+    "sensitivityQbPriors": [
+      100.0,
+      400.0,
+      1600.0
+    ],
+    "marginRidge": 20,
+    "familyComparisons": 9,
+    "bootstrapSamples": 4000
+  },
+  "reports": [
+    {
+      "qbPrior": 100.0,
+      "games": 705,
+      "baselineMae": 10.294558567407053,
+      "splitMae": 10.338990203219197,
+      "marketMae": 9.85177304964539,
+      "maeDelta": 0.044431635812145195,
+      "maeDeltaInterval": [
+        -0.1111781171314322,
+        0.19920831890074803
+      ],
+      "groups": [
+        {
+          "label": "Average QB / strong support",
+          "games": 123,
+          "wins": 65,
+          "losses": 53,
+          "pushes": 5,
+          "coverRate": 0.5508474576271186,
+          "meanMarketError": 1.7398373983739837,
+          "marketErrorInterval": [
+            -1.3582993730407522,
+            4.873963081917415
+          ],
+          "roi": 0.04912906303414876,
+          "roiInterval": [
+            -0.17798924898147542,
+            0.27827463968335897
+          ],
+          "positiveModelEdge": 37,
+          "periods": [
+            {
+              "label": "2023",
+              "games": 48,
+              "wins": 23,
+              "losses": 21,
+              "pushes": 4,
+              "coverRate": 0.5227272727272727,
+              "meanMarketError": 0.375,
+              "marketErrorInterval": [
+                -4.58567053513862,
+                5.474138215404945
+              ],
+              "roi": -0.008110393937739796,
+              "roiInterval": [
+                -0.34253440171826316,
+                0.3181988783050192
+              ],
+              "positiveModelEdge": 12
+            },
+            {
+              "label": "2024",
+              "games": 49,
+              "wins": 28,
+              "losses": 20,
+              "pushes": 1,
+              "coverRate": 0.5833333333333334,
+              "meanMarketError": 3.5510204081632653,
+              "marketErrorInterval": [
+                -1.3454871794871797,
+                8.115719207579675
+              ],
+              "roi": 0.11369186568035451,
+              "roiInterval": [
+                -0.25713482197146487,
+                0.4550243697728596
+              ],
+              "positiveModelEdge": 19
+            },
+            {
+              "label": "2025 weeks 1\u20139",
+              "games": 26,
+              "wins": 14,
+              "losses": 12,
+              "pushes": 0,
+              "coverRate": 0.5384615384615384,
+              "meanMarketError": 0.8461538461538461,
+              "marketErrorInterval": [
+                -5.724228896103896,
+                7.830250000000019
+              ],
+              "roi": 0.0331258555336322,
+              "roiInterval": [
+                -0.5081128416700106,
+                0.5599967773447335
+              ],
+              "positiveModelEdge": 6
+            }
+          ],
+          "examples": [
+            {
+              "gameId": "2023_01_PHI_NE",
+              "picked": "NE",
+              "modelEdge": 1.7705090577371028,
+              "marketError": -1.5,
+              "home": {
+                "qb": -0.03165915646826349,
+                "passSupport": 0.008915487245435233,
+                "rush": 0.005100543583999857,
+                "defense": 0.040956806072420596,
+                "specialTeams": 0.22992068426099743,
+                "support": 0.051883557149604714,
+                "qbId": "00-0036972",
+                "qbName": "M.Jones",
+                "priorGame": "2022_18_NE_BUF",
+                "qbDropbacks": 1105,
+                "alternateQbDropbacks": 120,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.25806451612903225,
+                "supportPercentile": 0.8709677419354839
+              },
+              "away": {
+                "qb": 0.05547210754643654,
+                "passSupport": 0.02543037965475365,
+                "rush": 0.07232913190993642,
+                "defense": 0.024988875753532067,
+                "specialTeams": -0.1694204791651581,
+                "support": 0.06657228740012563,
+                "qbId": "00-0036389",
+                "qbName": "J.Hurts",
+                "priorGame": "2022_22_KC_PHI",
+                "qbDropbacks": 1193,
+                "alternateQbDropbacks": 155,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.8387096774193549,
+                "supportPercentile": 0.9032258064516129
+              }
+            },
+            {
+              "gameId": "2023_01_TEN_NO",
+              "picked": "NO",
+              "modelEdge": -0.12187985378315602,
+              "marketError": -2.0,
+              "home": {
+                "qb": -0.01955015426227673,
+                "passSupport": -0.006877933776529035,
+                "rush": -0.034504648964787124,
+                "defense": 0.04984600489566996,
+                "specialTeams": -0.5592428225180636,
+                "support": 0.023313649312790556,
+                "qbId": "00-0027973",
+                "qbName": "A.Dalton",
+                "priorGame": "2022_18_CAR_NO",
+                "qbDropbacks": 683,
+                "alternateQbDropbacks": 730,
+                "multiQbTeam": true,
+                "multiTeamQb": true,
+                "qbPercentile": 0.41935483870967744,
+                "supportPercentile": 0.7741935483870968
+              },
+              "away": {
+                "qb": -0.02295192887710725,
+                "passSupport": -0.026361471018029995,
+                "rush": -0.010614924440008111,
+                "defense": 0.01579930551369601,
+                "specialTeams": 0.10529528345313018,
+                "support": -0.0026436194353847676,
+                "qbId": "00-0033949",
+                "qbName": "J.Dobbs",
+                "priorGame": "2022_18_TEN_JAX",
+                "qbDropbacks": 77,
+                "alternateQbDropbacks": 1080,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.3870967741935484,
+                "supportPercentile": 0.5806451612903226
+              }
+            },
+            {
+              "gameId": "2023_02_BAL_CIN",
+              "picked": "BAL",
+              "modelEdge": 0.0964666514497603,
+              "marketError": 6.5,
+              "home": {
+                "qb": 0.08168206124064624,
+                "passSupport": 0.010980169807986362,
+                "rush": -0.00456574229585862,
+                "defense": 0.030094100700409018,
+                "specialTeams": -0.28387074754260616,
+                "support": 0.03048866339697114,
+                "qbId": "00-0036442",
+                "qbName": "J.Burrow",
+                "priorGame": "2023_01_CIN_CLE",
+                "qbDropbacks": 1564,
+                "alternateQbDropbacks": 48,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.7741935483870968,
+                "supportPercentile": 0.8064516129032258
+              },
+              "away": {
+                "qb": 0.03743804596161541,
+                "passSupport": -0.019360136091115344,
+                "rush": 0.027604702158520785,
+                "defense": 0.001952380322897445,
+                "specialTeams": 1.5077489944688003,
+                "support": 0.02457431790807963,
+                "qbId": "00-0034796",
+                "qbName": "L.Jackson",
+                "priorGame": "2023_01_HOU_BAL",
+                "qbDropbacks": 879,
+                "alternateQbDropbacks": 491,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.5483870967741935,
+                "supportPercentile": 0.7741935483870968
+              }
+            },
+            {
+              "gameId": "2023_02_MIA_NE",
+              "picked": "NE",
+              "modelEdge": 5.2452196524565995,
+              "marketError": -5.0,
+              "home": {
+                "qb": -0.04091590608352827,
+                "passSupport": 0.008021948643886872,
+                "rush": 0.0032928784541886302,
+                "defense": 0.0444366345622342,
+                "specialTeams": 0.042720439598980316,
+                "support": 0.05122419266253378,
+                "qbId": "00-0036972",
+                "qbName": "M.Jones",
+                "priorGame": "2023_01_PHI_NE",
+                "qbDropbacks": 1164,
+                "alternateQbDropbacks": 120,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.2903225806451613,
+                "supportPercentile": 0.8709677419354839
+              },
+              "away": {
+                "qb": 0.17255958128105142,
+                "passSupport": -0.014439017781272009,
+                "rush": -0.02646164681994875,
+                "defense": 0.005255892505940183,
+                "specialTeams": -0.5734325936573802,
+                "support": -0.022814216793223756,
+                "qbId": "00-0036212",
+                "qbName": "T.Tagovailoa",
+                "priorGame": "2023_01_MIA_LAC",
+                "qbDropbacks": 904,
+                "alternateQbDropbacks": 520,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.967741935483871,
+                "supportPercentile": 0.3225806451612903
+              }
+            },
+            {
+              "gameId": "2023_02_MIN_PHI",
+              "picked": "PHI",
+              "modelEdge": 1.9780190886064535,
+              "marketError": 0.0,
+              "home": {
+                "qb": 0.047208430419825594,
+                "passSupport": 0.029754980448124267,
+                "rush": 0.07024873094733598,
+                "defense": 0.0247747933360205,
+                "specialTeams": -0.018962685868371437,
+                "support": 0.07043554035508527,
+                "qbId": "00-0036389",
+                "qbName": "J.Hurts",
+                "priorGame": "2023_01_PHI_NE",
+                "qbDropbacks": 1193,
+                "alternateQbDropbacks": 155,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.6774193548387096,
+                "supportPercentile": 0.9354838709677419
+              },
+              "away": {
+                "qb": 0.04321897107706048,
+                "passSupport": 0.007373326749773089,
+                "rush": -0.04026473070034267,
+                "defense": -0.00804428457623155,
+                "specialTeams": -0.7810894100826912,
+                "support": -0.0317429409616231,
+                "qbId": "00-0029604",
+                "qbName": "K.Cousins",
+                "priorGame": "2023_01_TB_MIN",
+                "qbDropbacks": 1339,
+                "alternateQbDropbacks": 78,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.6451612903225806,
+                "supportPercentile": 0.16129032258064516
+              }
+            }
+          ]
+        },
+        {
+          "label": "Fade strong QB / weaker support",
+          "games": 89,
+          "wins": 42,
+          "losses": 46,
+          "pushes": 1,
+          "coverRate": 0.4772727272727273,
+          "meanMarketError": -0.0898876404494382,
+          "marketErrorInterval": [
+            -3.763160333170414,
+            3.6341754575241847
+          ],
+          "roi": -0.08754510909767173,
+          "roiInterval": [
+            -0.3864102086121764,
+            0.21960163617567496
+          ],
+          "positiveModelEdge": 34,
+          "periods": [
+            {
+              "label": "2023",
+              "games": 33,
+              "wins": 14,
+              "losses": 19,
+              "pushes": 0,
+              "coverRate": 0.42424242424242425,
+              "meanMarketError": -1.5757575757575757,
+              "marketErrorInterval": [
+                -9.273265288978495,
+                5.346102150537651
+              ],
+              "roi": -0.19205780467541955,
+              "roiInterval": [
+                -0.6287228715415986,
+                0.312901543859422
+              ],
+              "positiveModelEdge": 9
+            },
+            {
+              "label": "2024",
+              "games": 37,
+              "wins": 18,
+              "losses": 18,
+              "pushes": 1,
+              "coverRate": 0.5,
+              "meanMarketError": 0.44594594594594594,
+              "marketErrorInterval": [
+                -4.530747126436782,
+                6.176760851760862
+              ],
+              "roi": -0.035684428906935274,
+              "roiInterval": [
+                -0.5235376537995442,
+                0.4870699193175177
+              ],
+              "positiveModelEdge": 21
+            },
+            {
+              "label": "2025 weeks 1\u20139",
+              "games": 19,
+              "wins": 10,
+              "losses": 9,
+              "pushes": 0,
+              "coverRate": 0.5263157894736842,
+              "meanMarketError": 1.4473684210526316,
+              "marketErrorInterval": [
+                -2.7472916666666665,
+                6.255833333333355
+              ],
+              "roi": -0.007014909781438571,
+              "roiInterval": [
+                -0.5608325688799422,
+                0.6270886888017789
+              ],
+              "positiveModelEdge": 4
+            }
+          ],
+          "examples": [
+            {
+              "gameId": "2023_01_DET_KC",
+              "picked": "KC",
+              "modelEdge": 2.7290683727837672,
+              "marketError": -5.0,
+              "home": {
+                "qb": 0.18674706331753743,
+                "passSupport": 0.04525333737147473,
+                "rush": 0.01808681401519953,
+                "defense": 0.004798375996924175,
+                "specialTeams": -0.8694091271228358,
+                "support": 0.02580957899322981,
+                "qbId": "00-0033873",
+                "qbName": "P.Mahomes",
+                "priorGame": "2022_22_KC_PHI",
+                "qbDropbacks": 1711,
+                "alternateQbDropbacks": 29,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 1.0,
+                "supportPercentile": 0.8064516129032258
+              },
+              "away": {
+                "qb": 0.05348122485179824,
+                "passSupport": 0.019181285095536137,
+                "rush": -0.015960696704278084,
+                "defense": -0.037524964143986386,
+                "specialTeams": 0.7379042126998817,
+                "support": -0.021048099265300838,
+                "qbId": "00-0033106",
+                "qbName": "J.Goff",
+                "priorGame": "2022_18_DET_GB",
+                "qbDropbacks": 1165,
+                "alternateQbDropbacks": 105,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.8064516129032258,
+                "supportPercentile": 0.2903225806451613
+              }
+            },
+            {
+              "gameId": "2023_02_MIA_NE",
+              "picked": "NE",
+              "modelEdge": 5.2452196524565995,
+              "marketError": -5.0,
+              "home": {
+                "qb": -0.04091590608352827,
+                "passSupport": 0.008021948643886872,
+                "rush": 0.0032928784541886302,
+                "defense": 0.0444366345622342,
+                "specialTeams": 0.042720439598980316,
+                "support": 0.05122419266253378,
+                "qbId": "00-0036972",
+                "qbName": "M.Jones",
+                "priorGame": "2023_01_PHI_NE",
+                "qbDropbacks": 1164,
+                "alternateQbDropbacks": 120,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.2903225806451613,
+                "supportPercentile": 0.8709677419354839
+              },
+              "away": {
+                "qb": 0.17255958128105142,
+                "passSupport": -0.014439017781272009,
+                "rush": -0.02646164681994875,
+                "defense": 0.005255892505940183,
+                "specialTeams": -0.5734325936573802,
+                "support": -0.022814216793223756,
+                "qbId": "00-0036212",
+                "qbName": "T.Tagovailoa",
+                "priorGame": "2023_01_MIA_LAC",
+                "qbDropbacks": 904,
+                "alternateQbDropbacks": 520,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.967741935483871,
+                "supportPercentile": 0.3225806451612903
+              }
+            },
+            {
+              "gameId": "2023_02_SF_LA",
+              "picked": "SF",
+              "modelEdge": -4.05405090123635,
+              "marketError": -0.5,
+              "home": {
+                "qb": 0.10957299222894028,
+                "passSupport": -0.014240241707383215,
+                "rush": -0.017008928050716694,
+                "defense": 0.014792138798274432,
+                "specialTeams": -0.3287961312319435,
+                "support": -0.00561397946539515,
+                "qbId": "00-0026498",
+                "qbName": "M.Stafford",
+                "priorGame": "2023_01_LA_SEA",
+                "qbDropbacks": 1170,
+                "alternateQbDropbacks": 284,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.8387096774193549,
+                "supportPercentile": 0.4838709677419355
+              },
+              "away": {
+                "qb": 0.12563127167879135,
+                "passSupport": 0.023966336771734934,
+                "rush": 0.01196045927656069,
+                "defense": 0.057291364934454955,
+                "specialTeams": 0.33678813385070827,
+                "support": 0.0816367066135157,
+                "qbId": "00-0037834",
+                "qbName": "B.Purdy",
+                "priorGame": "2023_01_SF_PIT",
+                "qbDropbacks": 292,
+                "alternateQbDropbacks": 1001,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.9032258064516129,
+                "supportPercentile": 0.967741935483871
+              }
+            },
+            {
+              "gameId": "2023_03_DEN_MIA",
+              "picked": "DEN",
+              "modelEdge": -0.4717826912548668,
+              "marketError": -44.0,
+              "home": {
+                "qb": 0.1815205441579786,
+                "passSupport": -0.006110184980897963,
+                "rush": -0.02201388898015412,
+                "defense": 0.009028931435300367,
+                "specialTeams": -0.8960327839615048,
+                "support": -0.017227854898553975,
+                "qbId": "00-0036212",
+                "qbName": "T.Tagovailoa",
+                "priorGame": "2023_02_MIA_NE",
+                "qbDropbacks": 901,
+                "alternateQbDropbacks": 473,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 1.0,
+                "supportPercentile": 0.3870967741935484
+              },
+              "away": {
+                "qb": -0.030683350883221258,
+                "passSupport": -0.028282071396382606,
+                "rush": -0.015122982055564954,
+                "defense": 0.003372736841285229,
+                "specialTeams": -1.4390051569561637,
+                "support": -0.04178423969501899,
+                "qbId": "00-0029263",
+                "qbName": "R.Wilson",
+                "priorGame": "2023_02_WAS_DEN",
+                "qbDropbacks": 1074,
+                "alternateQbDropbacks": 623,
+                "multiQbTeam": true,
+                "multiTeamQb": true,
+                "qbPercentile": 0.22580645161290322,
+                "supportPercentile": 0.0967741935483871
+              }
+            },
+            {
+              "gameId": "2023_03_PIT_LV",
+              "picked": "PIT",
+              "modelEdge": -2.419044215707917,
+              "marketError": 8.0,
+              "home": {
+                "qb": 0.09731788738769302,
+                "passSupport": 0.012688150928600385,
+                "rush": -0.018105519237174947,
+                "defense": -0.03808772425577736,
+                "specialTeams": 1.3413644953514752,
+                "support": -0.017080664541925954,
+                "qbId": "00-0031345",
+                "qbName": "J.Garoppolo",
+                "priorGame": "2023_02_LV_BUF",
+                "qbDropbacks": 878,
+                "alternateQbDropbacks": 1293,
+                "multiQbTeam": true,
+                "multiTeamQb": true,
+                "qbPercentile": 0.8709677419354839,
+                "supportPercentile": 0.41935483870967744
+              },
+              "away": {
+                "qb": -0.049296778419890684,
+                "passSupport": -0.023721858042500665,
+                "rush": 0.015750307897699562,
+                "defense": -0.0028739934082450923,
+                "specialTeams": -0.754842952403122,
+                "support": -0.022419953573175236,
+                "qbId": "00-0038102",
+                "qbName": "K.Pickett",
+                "priorGame": "2023_02_CLE_PIT",
+                "qbDropbacks": 528,
+                "alternateQbDropbacks": 876,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.12903225806451613,
+                "supportPercentile": 0.25806451612903225
+              }
+            }
+          ]
+        }
+      ],
+      "firstPredictions": [
+        {
+          "gameId": "2023_01_DET_KC",
+          "split": 6.729068372783767,
+          "baseline": 9.564158359961606,
+          "home": {
+            "qb": 0.18674706331753743,
+            "passSupport": 0.04525333737147473,
+            "rush": 0.01808681401519953,
+            "defense": 0.004798375996924175,
+            "specialTeams": -0.8694091271228358,
+            "support": 0.02580957899322981,
+            "qbId": "00-0033873",
+            "qbName": "P.Mahomes",
+            "priorGame": "2022_22_KC_PHI",
+            "qbDropbacks": 1711,
+            "alternateQbDropbacks": 29,
+            "multiQbTeam": true,
+            "multiTeamQb": false,
+            "qbPercentile": 1.0,
+            "supportPercentile": 0.8064516129032258
+          },
+          "away": {
+            "qb": 0.05348122485179824,
+            "passSupport": 0.019181285095536137,
+            "rush": -0.015960696704278084,
+            "defense": -0.037524964143986386,
+            "specialTeams": 0.7379042126998817,
+            "support": -0.021048099265300838,
+            "qbId": "00-0033106",
+            "qbName": "J.Goff",
+            "priorGame": "2022_18_DET_GB",
+            "qbDropbacks": 1165,
+            "alternateQbDropbacks": 105,
+            "multiQbTeam": true,
+            "multiTeamQb": false,
+            "qbPercentile": 0.8064516129032258,
+            "supportPercentile": 0.2903225806451613
+          }
+        },
+        {
+          "gameId": "2023_01_CAR_ATL",
+          "split": 2.7716980804982487,
+          "baseline": 3.4866528617344494,
+          "home": {
+            "qb": -0.025440531747110137,
+            "passSupport": -0.015725992668087815,
+            "rush": 0.01737598259957781,
+            "defense": -0.045202370318643416,
+            "specialTeams": 0.48866647233113925,
+            "support": -0.0401696271514936,
+            "qbId": "00-0038122",
+            "qbName": "D.Ridder",
+            "priorGame": "2022_18_TB_ATL",
+            "qbDropbacks": 135,
+            "alternateQbDropbacks": 984,
+            "multiQbTeam": true,
+            "multiTeamQb": false,
+            "qbPercentile": 0.3548387096774194,
+            "supportPercentile": 0.0967741935483871
+          },
+          "away": {
+            "qb": 0.02092500946087065,
+            "passSupport": -0.05480875922098956,
+            "rush": 0.013341783610282284,
+            "defense": 0.008352180801831314,
+            "specialTeams": 0.5857671540149637,
+            "support": -0.010184558917188528,
+            "qbId": "00-0034869",
+            "qbName": "S.Darnold",
+            "priorGame": "2022_18_CAR_NO",
+            "qbDropbacks": 621,
+            "alternateQbDropbacks": 572,
+            "multiQbTeam": true,
+            "multiTeamQb": false,
+            "qbPercentile": 0.5806451612903226,
+            "supportPercentile": 0.4838709677419355
+          }
+        },
+        {
+          "gameId": "2023_01_HOU_BAL",
+          "split": 8.754331220540408,
+          "baseline": 9.33806723959372,
+          "home": {
+            "qb": -0.03891652110088395,
+            "passSupport": -0.0196979628899699,
+            "rush": 0.024660540706617738,
+            "defense": -0.00019863772921747264,
+            "specialTeams": 1.57793662660293,
+            "support": 0.02212274892103122,
+            "qbId": "00-0035993",
+            "qbName": "T.Huntley",
+            "priorGame": "2022_19_BAL_CIN",
+            "qbDropbacks": 395,
+            "alternateQbDropbacks": 944,
+            "multiQbTeam": true,
+            "multiTeamQb": false,
+            "qbPercentile": 0.22580645161290322,
+            "supportPercentile": 0.7419354838709677
+          },
+          "away": {
+            "qb": -0.07119044141185199,
+            "passSupport": -0.060511191446912055,
+            "rush": -0.07184851457087299,
+            "defense": -0.016543514550255163,
+            "specialTeams": 0.9663600763263763,
+            "support": -0.06672255714942271,
+            "qbId": "00-0036898",
+            "qbName": "D.Mills",
+            "priorGame": "2022_18_HOU_IND",
+            "qbDropbacks": 962,
+            "alternateQbDropbacks": 292,
+            "multiQbTeam": true,
+            "multiTeamQb": false,
+            "qbPercentile": 0.06451612903225806,
+            "supportPercentile": 0.0
+          }
+        }
+      ],
+      "proxyCheck": {
+        "checkedSides": 1410,
+        "matchingDominantPasser": 1209,
+        "matchRate": 0.8574468085106383,
+        "sidesWith50AlternateDropbacks": 1268,
+        "explanation": "Compared after predictions with the target game\u2019s dominant dropback QB, not its announced starter. Does not filter results or replace the pregame proxy."
+      }
+    },
+    {
+      "qbPrior": 400.0,
+      "games": 705,
+      "baselineMae": 10.294558567407053,
+      "splitMae": 10.314276963135729,
+      "marketMae": 9.85177304964539,
+      "maeDelta": 0.019718395728675876,
+      "maeDeltaInterval": [
+        -0.1046902711958544,
+        0.14840734953388562
+      ],
+      "groups": [
+        {
+          "label": "Average QB / strong support",
+          "games": 109,
+          "wins": 59,
+          "losses": 46,
+          "pushes": 4,
+          "coverRate": 0.5619047619047619,
+          "meanMarketError": 3.114678899082569,
+          "marketErrorInterval": [
+            -0.20097015780278943,
+            6.364074407440749
+          ],
+          "roi": 0.07232985321038672,
+          "roiInterval": [
+            -0.16608891541576293,
+            0.2977177628661393
+          ],
+          "positiveModelEdge": 34,
+          "periods": [
+            {
+              "label": "2023",
+              "games": 39,
+              "wins": 22,
+              "losses": 14,
+              "pushes": 3,
+              "coverRate": 0.6111111111111112,
+              "meanMarketError": 3.269230769230769,
+              "marketErrorInterval": [
+                -2.6197925197925196,
+                9.786633504492952
+              ],
+              "roi": 0.15327716393360044,
+              "roiInterval": [
+                -0.20078013507794992,
+                0.4662454208117043
+              ],
+              "positiveModelEdge": 10
+            },
+            {
+              "label": "2024",
+              "games": 49,
+              "wins": 26,
+              "losses": 22,
+              "pushes": 1,
+              "coverRate": 0.5416666666666666,
+              "meanMarketError": 3.9285714285714284,
+              "marketErrorInterval": [
+                -0.7547735760971054,
+                8.368882978723411
+              ],
+              "roi": 0.03816555796043243,
+              "roiInterval": [
+                -0.3393415738035087,
+                0.4168059018782602
+              ],
+              "positiveModelEdge": 18
+            },
+            {
+              "label": "2025 weeks 1\u20139",
+              "games": 21,
+              "wins": 11,
+              "losses": 10,
+              "pushes": 0,
+              "coverRate": 0.5238095238095238,
+              "meanMarketError": 0.9285714285714286,
+              "marketErrorInterval": [
+                -5.879166666666667,
+                7.581527777777781
+              ],
+              "roi": 0.0017158222124069747,
+              "roiInterval": [
+                -0.47438289381974963,
+                0.5228594106184937
+              ],
+              "positiveModelEdge": 6
+            }
+          ],
+          "examples": [
+            {
+              "gameId": "2023_01_SF_PIT",
+              "picked": "SF",
+              "modelEdge": 1.6866989023457588,
+              "marketError": 21.5,
+              "home": {
+                "qb": 0.004310071208277068,
+                "passSupport": -0.021711180636484303,
+                "rush": 0.021559113093165536,
+                "defense": -0.00589698249862511,
+                "specialTeams": -0.8669470443847472,
+                "support": -0.023637692479937897,
+                "qbId": "00-0038102",
+                "qbName": "K.Pickett",
+                "priorGame": "2022_18_CLE_PIT",
+                "qbDropbacks": 445,
+                "alternateQbDropbacks": 953,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.5161290322580645,
+                "supportPercentile": 0.2903225806451613
+              },
+              "away": {
+                "qb": 0.016108946376737994,
+                "passSupport": 0.06300771332580506,
+                "rush": 0.004806800521176308,
+                "defense": 0.04872180316316705,
+                "specialTeams": 0.16214259963936872,
+                "support": 0.09094365290003396,
+                "qbId": "00-0026300",
+                "qbName": "J.Johnson",
+                "priorGame": "2022_21_SF_PHI",
+                "qbDropbacks": 109,
+                "alternateQbDropbacks": 1269,
+                "multiQbTeam": true,
+                "multiTeamQb": true,
+                "qbPercentile": 0.6129032258064516,
+                "supportPercentile": 0.967741935483871
+              }
+            },
+            {
+              "gameId": "2023_02_MIN_PHI",
+              "picked": "PHI",
+              "modelEdge": 1.9260041961752528,
+              "marketError": 0.0,
+              "home": {
+                "qb": 0.022870421307953477,
+                "passSupport": 0.04197543799778833,
+                "rush": 0.07024873094733598,
+                "defense": 0.02296446410600441,
+                "specialTeams": -0.018962685868371437,
+                "support": 0.07595748565486764,
+                "qbId": "00-0036389",
+                "qbName": "J.Hurts",
+                "priorGame": "2023_01_PHI_NE",
+                "qbDropbacks": 1193,
+                "alternateQbDropbacks": 155,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.6451612903225806,
+                "supportPercentile": 0.9032258064516129
+              },
+              "away": {
+                "qb": 0.021646541569252033,
+                "passSupport": 0.017887296335183975,
+                "rush": -0.04026473070034267,
+                "defense": -0.009370916900211915,
+                "specialTeams": -0.7810894100826912,
+                "support": -0.026761191534356927,
+                "qbId": "00-0029604",
+                "qbName": "K.Cousins",
+                "priorGame": "2023_01_TB_MIN",
+                "qbDropbacks": 1339,
+                "alternateQbDropbacks": 78,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.6129032258064516,
+                "supportPercentile": 0.3225806451612903
+              }
+            },
+            {
+              "gameId": "2023_03_IND_BAL",
+              "picked": "BAL",
+              "modelEdge": -0.19239090205354703,
+              "marketError": -10.5,
+              "home": {
+                "qb": 0.032584823262219745,
+                "passSupport": -0.01230948485851347,
+                "rush": 0.032949516991884524,
+                "defense": 0.0023558620518051646,
+                "specialTeams": 1.1436569225065185,
+                "support": 0.025744699818166565,
+                "qbId": "00-0034796",
+                "qbName": "L.Jackson",
+                "priorGame": "2023_02_BAL_CIN",
+                "qbDropbacks": 880,
+                "alternateQbDropbacks": 491,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.7419354838709677,
+                "supportPercentile": 0.7741935483870968
+              },
+              "away": {
+                "qb": 0.027291266175468128,
+                "passSupport": -0.07162854987756921,
+                "rush": -0.01954630555402537,
+                "defense": 0.007605001746565599,
+                "specialTeams": 0.4823780899556037,
+                "support": -0.03576944901765371,
+                "qbId": "00-0035289",
+                "qbName": "G.Minshew",
+                "priorGame": "2023_02_IND_HOU",
+                "qbDropbacks": 180,
+                "alternateQbDropbacks": 1238,
+                "multiQbTeam": true,
+                "multiTeamQb": true,
+                "qbPercentile": 0.6451612903225806,
+                "supportPercentile": 0.1935483870967742
+              }
+            },
+            {
+              "gameId": "2023_03_PHI_TB",
+              "picked": "PHI",
+              "modelEdge": -2.428441712390762,
+              "marketError": 8.0,
+              "home": {
+                "qb": -0.02720113587920813,
+                "passSupport": 0.031056117875221664,
+                "rush": -0.027666544290529692,
+                "defense": 0.024832117679140404,
+                "specialTeams": -1.301423384319552,
+                "support": 0.012377272467760724,
+                "qbId": "00-0034855",
+                "qbName": "B.Mayfield",
+                "priorGame": "2023_02_CHI_TB",
+                "qbDropbacks": 890,
+                "alternateQbDropbacks": 1661,
+                "multiQbTeam": true,
+                "multiTeamQb": true,
+                "qbPercentile": 0.12903225806451613,
+                "supportPercentile": 0.6451612903225806
+              },
+              "away": {
+                "qb": 0.01956818909001039,
+                "passSupport": 0.03845897301099456,
+                "rush": 0.07827819292356017,
+                "defense": 0.02224211846031205,
+                "specialTeams": 0.09181963164811802,
+                "support": 0.07804138915399622,
+                "qbId": "00-0036389",
+                "qbName": "J.Hurts",
+                "priorGame": "2023_02_MIN_PHI",
+                "qbDropbacks": 1194,
+                "alternateQbDropbacks": 154,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.4838709677419355,
+                "supportPercentile": 0.9032258064516129
+              }
+            },
+            {
+              "gameId": "2023_04_WAS_PHI",
+              "picked": "PHI",
+              "modelEdge": 3.6827725821375807,
+              "marketError": -6.5,
+              "home": {
+                "qb": 0.019539897980625644,
+                "passSupport": 0.0393680383323495,
+                "rush": 0.08214512664151384,
+                "defense": 0.02398952636564574,
+                "specialTeams": 0.15140183450603834,
+                "support": 0.08279765901406157,
+                "qbId": "00-0036389",
+                "qbName": "J.Hurts",
+                "priorGame": "2023_03_PHI_TB",
+                "qbDropbacks": 1234,
+                "alternateQbDropbacks": 154,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.4838709677419355,
+                "supportPercentile": 0.9032258064516129
+              },
+              "away": {
+                "qb": -0.04509696262925188,
+                "passSupport": -0.06771993372292716,
+                "rush": -0.01320327496428743,
+                "defense": 0.01664319739243657,
+                "specialTeams": -0.766064374369889,
+                "support": -0.04105567858657145,
+                "qbId": "00-0037077",
+                "qbName": "S.Howell",
+                "priorGame": "2023_03_BUF_WAS",
+                "qbDropbacks": 148,
+                "alternateQbDropbacks": 1140,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.03225806451612903,
+                "supportPercentile": 0.16129032258064516
+              }
+            }
+          ]
+        },
+        {
+          "label": "Fade strong QB / weaker support",
+          "games": 90,
+          "wins": 41,
+          "losses": 48,
+          "pushes": 1,
+          "coverRate": 0.4606741573033708,
+          "meanMarketError": -0.3333333333333333,
+          "marketErrorInterval": [
+            -3.5536140979689366,
+            2.9708635973133464
+          ],
+          "roi": -0.11640290258228712,
+          "roiInterval": [
+            -0.3833759319671419,
+            0.16240895692554064
+          ],
+          "positiveModelEdge": 30,
+          "periods": [
+            {
+              "label": "2023",
+              "games": 28,
+              "wins": 11,
+              "losses": 17,
+              "pushes": 0,
+              "coverRate": 0.39285714285714285,
+              "meanMarketError": -1.3571428571428572,
+              "marketErrorInterval": [
+                -8.380448717948719,
+                6.40788690476191
+              ],
+              "roi": -0.24020285540654557,
+              "roiInterval": [
+                -0.730495218231261,
+                0.33445044144676034
+              ],
+              "positiveModelEdge": 9
+            },
+            {
+              "label": "2024",
+              "games": 42,
+              "wins": 19,
+              "losses": 22,
+              "pushes": 1,
+              "coverRate": 0.4634146341463415,
+              "meanMarketError": -0.5,
+              "marketErrorInterval": [
+                -4.432312801932367,
+                4.509385888501794
+              ],
+              "roi": -0.1106056315074705,
+              "roiInterval": [
+                -0.5254840582905196,
+                0.3550347482945526
+              ],
+              "positiveModelEdge": 17
+            },
+            {
+              "label": "2025 weeks 1\u20139",
+              "games": 20,
+              "wins": 11,
+              "losses": 9,
+              "pushes": 0,
+              "coverRate": 0.55,
+              "meanMarketError": 1.45,
+              "marketErrorInterval": [
+                -3.20792297979798,
+                6.748406862745101
+              ],
+              "roi": 0.04474276211455977,
+              "roiInterval": [
+                -0.2791365711667307,
+                0.5812145016109224
+              ],
+              "positiveModelEdge": 4
+            }
+          ],
+          "examples": [
+            {
+              "gameId": "2023_01_DAL_NYG",
+              "picked": "DAL",
+              "modelEdge": -0.7499457254576631,
+              "marketError": 36.5,
+              "home": {
+                "qb": 0.030874505833399166,
+                "passSupport": -0.03691784273131468,
+                "rush": 0.01145332264308709,
+                "defense": -0.026534516553343646,
+                "specialTeams": -0.21866193766827957,
+                "support": -0.04746792294517884,
+                "qbId": "00-0035710",
+                "qbName": "D.Jones",
+                "priorGame": "2022_20_NYG_PHI",
+                "qbDropbacks": 1053,
+                "alternateQbDropbacks": 318,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.8387096774193549,
+                "supportPercentile": 0.06451612903225806
+              },
+              "away": {
+                "qb": 0.04314079472486076,
+                "passSupport": 0.027679844561713116,
+                "rush": 0.011366076707002409,
+                "defense": 0.055080551324752994,
+                "specialTeams": 0.2151819910104408,
+                "support": 0.07954538091397323,
+                "qbId": "00-0033077",
+                "qbName": "D.Prescott",
+                "priorGame": "2022_20_DAL_SF",
+                "qbDropbacks": 1207,
+                "alternateQbDropbacks": 227,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.9032258064516129,
+                "supportPercentile": 0.9354838709677419
+              }
+            },
+            {
+              "gameId": "2023_01_DET_KC",
+              "picked": "KC",
+              "modelEdge": 3.642400301253577,
+              "marketError": -5.0,
+              "home": {
+                "qb": 0.10106810985078594,
+                "passSupport": 0.09799992589279453,
+                "rush": 0.01808681401519953,
+                "defense": 0.0028554225170356815,
+                "specialTeams": -0.8694091271228358,
+                "support": 0.05551457862613321,
+                "qbId": "00-0033873",
+                "qbName": "P.Mahomes",
+                "priorGame": "2022_22_KC_PHI",
+                "qbDropbacks": 1711,
+                "alternateQbDropbacks": 29,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 1.0,
+                "supportPercentile": 0.8709677419354839
+              },
+              "away": {
+                "qb": 0.0275848577248495,
+                "passSupport": 0.030277912851192686,
+                "rush": -0.015960696704278084,
+                "defense": -0.0404206666178651,
+                "specialTeams": 0.7379042126998817,
+                "support": -0.01728582508578562,
+                "qbId": "00-0033106",
+                "qbName": "J.Goff",
+                "priorGame": "2022_18_DET_GB",
+                "qbDropbacks": 1165,
+                "alternateQbDropbacks": 105,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.8064516129032258,
+                "supportPercentile": 0.41935483870967744
+              }
+            },
+            {
+              "gameId": "2023_02_MIA_NE",
+              "picked": "NE",
+              "modelEdge": 4.225776010584113,
+              "marketError": -5.0,
+              "home": {
+                "qb": -0.023310460524003557,
+                "passSupport": -0.0021471973501891546,
+                "rush": 0.0032928784541886302,
+                "defense": 0.042208163506419955,
+                "specialTeams": 0.042720439598980316,
+                "support": 0.042894234010273924,
+                "qbId": "00-0036972",
+                "qbName": "M.Jones",
+                "priorGame": "2023_01_PHI_NE",
+                "qbDropbacks": 1164,
+                "alternateQbDropbacks": 120,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.16129032258064516,
+                "supportPercentile": 0.8387096774193549
+              },
+              "away": {
+                "qb": 0.09382762968601806,
+                "passSupport": 0.010726693458913942,
+                "rush": -0.02646164681994875,
+                "defense": 0.004161899287679292,
+                "specialTeams": -0.5734325936573802,
+                "support": -0.008808783267373076,
+                "qbId": "00-0036212",
+                "qbName": "T.Tagovailoa",
+                "priorGame": "2023_01_MIA_LAC",
+                "qbDropbacks": 904,
+                "alternateQbDropbacks": 520,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.967741935483871,
+                "supportPercentile": 0.45161290322580644
+              }
+            },
+            {
+              "gameId": "2023_03_PIT_LV",
+              "picked": "PIT",
+              "modelEdge": -1.860121845786332,
+              "marketError": 8.0,
+              "home": {
+                "qb": 0.04544837960285154,
+                "passSupport": 0.014309872580290602,
+                "rush": -0.018105519237174947,
+                "defense": -0.041460078989149156,
+                "specialTeams": 1.3413644953514752,
+                "support": -0.01947998628428362,
+                "qbId": "00-0031345",
+                "qbName": "J.Garoppolo",
+                "priorGame": "2023_02_LV_BUF",
+                "qbDropbacks": 878,
+                "alternateQbDropbacks": 1293,
+                "multiQbTeam": true,
+                "multiTeamQb": true,
+                "qbPercentile": 0.7741935483870968,
+                "supportPercentile": 0.3870967741935484
+              },
+              "away": {
+                "qb": -0.023989310064184855,
+                "passSupport": -0.03783138800528268,
+                "rush": 0.015750307897699562,
+                "defense": -0.003920713850312637,
+                "specialTeams": -0.754842952403122,
+                "support": -0.031932391992911986,
+                "qbId": "00-0038102",
+                "qbName": "K.Pickett",
+                "priorGame": "2023_02_CLE_PIT",
+                "qbDropbacks": 528,
+                "alternateQbDropbacks": 876,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.1935483870967742,
+                "supportPercentile": 0.22580645161290322
+              }
+            },
+            {
+              "gameId": "2023_04_LA_IND",
+              "picked": "IND",
+              "modelEdge": -0.8455691851597422,
+              "marketError": -5.0,
+              "home": {
+                "qb": 0.014413652128795747,
+                "passSupport": -0.07871019811111617,
+                "rush": -0.02331672062940793,
+                "defense": 0.014379753139858231,
+                "specialTeams": 0.8322862600282046,
+                "support": -0.029368649978140725,
+                "qbId": "00-0035289",
+                "qbName": "G.Minshew",
+                "priorGame": "2023_03_IND_BAL",
+                "qbDropbacks": 229,
+                "alternateQbDropbacks": 1199,
+                "multiQbTeam": true,
+                "multiTeamQb": true,
+                "qbPercentile": 0.45161290322580644,
+                "supportPercentile": 0.3870967741935484
+              },
+              "away": {
+                "qb": 0.04709344777684836,
+                "passSupport": -0.01473077271233156,
+                "rush": -0.012322873186674271,
+                "defense": 0.016038390227140407,
+                "specialTeams": -0.326370268409983,
+                "support": -0.002750303727389514,
+                "qbId": "00-0026498",
+                "qbName": "M.Stafford",
+                "priorGame": "2023_03_LA_CIN",
+                "qbDropbacks": 1210,
+                "alternateQbDropbacks": 284,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.8709677419354839,
+                "supportPercentile": 0.4838709677419355
+              }
+            }
+          ]
+        }
+      ],
+      "firstPredictions": [
+        {
+          "gameId": "2023_01_DET_KC",
+          "split": 7.642400301253577,
+          "baseline": 9.564158359961606,
+          "home": {
+            "qb": 0.10106810985078594,
+            "passSupport": 0.09799992589279453,
+            "rush": 0.01808681401519953,
+            "defense": 0.0028554225170356815,
+            "specialTeams": -0.8694091271228358,
+            "support": 0.05551457862613321,
+            "qbId": "00-0033873",
+            "qbName": "P.Mahomes",
+            "priorGame": "2022_22_KC_PHI",
+            "qbDropbacks": 1711,
+            "alternateQbDropbacks": 29,
+            "multiQbTeam": true,
+            "multiTeamQb": false,
+            "qbPercentile": 1.0,
+            "supportPercentile": 0.8709677419354839
+          },
+          "away": {
+            "qb": 0.0275848577248495,
+            "passSupport": 0.030277912851192686,
+            "rush": -0.015960696704278084,
+            "defense": -0.0404206666178651,
+            "specialTeams": 0.7379042126998817,
+            "support": -0.01728582508578562,
+            "qbId": "00-0033106",
+            "qbName": "J.Goff",
+            "priorGame": "2022_18_DET_GB",
+            "qbDropbacks": 1165,
+            "alternateQbDropbacks": 105,
+            "multiQbTeam": true,
+            "multiTeamQb": false,
+            "qbPercentile": 0.8064516129032258,
+            "supportPercentile": 0.41935483870967744
+          }
+        },
+        {
+          "gameId": "2023_01_CAR_ATL",
+          "split": 2.9319882732096216,
+          "baseline": 3.4866528617344494,
+          "home": {
+            "qb": -0.008926324894071348,
+            "passSupport": -0.02328163820683672,
+            "rush": 0.01737598259957781,
+            "defense": -0.04608609435466453,
+            "specialTeams": 0.48866647233113925,
+            "support": -0.045586738510764065,
+            "qbId": "00-0038122",
+            "qbName": "D.Ridder",
+            "priorGame": "2022_18_TB_ATL",
+            "qbDropbacks": 135,
+            "alternateQbDropbacks": 984,
+            "multiQbTeam": true,
+            "multiTeamQb": false,
+            "qbPercentile": 0.3548387096774194,
+            "supportPercentile": 0.0967741935483871
+          },
+          "away": {
+            "qb": 0.013498212444403173,
+            "passSupport": -0.0653952379936387,
+            "rush": 0.013341783610282284,
+            "defense": 0.00484571093842414,
+            "specialTeams": 0.5857671540149637,
+            "support": -0.020042916044185177,
+            "qbId": "00-0034869",
+            "qbName": "S.Darnold",
+            "priorGame": "2022_18_CAR_NO",
+            "qbDropbacks": 621,
+            "alternateQbDropbacks": 572,
+            "multiQbTeam": true,
+            "multiTeamQb": false,
+            "qbPercentile": 0.5806451612903226,
+            "supportPercentile": 0.3548387096774194
+          }
+        },
+        {
+          "gameId": "2023_01_HOU_BAL",
+          "split": 9.323108751428204,
+          "baseline": 9.33806723959372,
+          "home": {
+            "qb": -0.01922289126061355,
+            "passSupport": -0.02013725302655169,
+            "rush": 0.024660540706617738,
+            "defense": -0.00261155744594844,
+            "specialTeams": 1.57793662660293,
+            "support": 0.01944625512235118,
+            "qbId": "00-0035993",
+            "qbName": "T.Huntley",
+            "priorGame": "2022_19_BAL_CIN",
+            "qbDropbacks": 395,
+            "alternateQbDropbacks": 944,
+            "multiQbTeam": true,
+            "multiTeamQb": false,
+            "qbPercentile": 0.1935483870967742,
+            "supportPercentile": 0.7741935483870968
+          },
+          "away": {
+            "qb": -0.0355848365801496,
+            "passSupport": -0.08344754782945138,
+            "rush": -0.07184851457087299,
+            "defense": -0.016009892232088124,
+            "specialTeams": 0.9663600763263763,
+            "support": -0.07995074866077928,
+            "qbId": "00-0036898",
+            "qbName": "D.Mills",
+            "priorGame": "2022_18_HOU_IND",
+            "qbDropbacks": 962,
+            "alternateQbDropbacks": 292,
+            "multiQbTeam": true,
+            "multiTeamQb": false,
+            "qbPercentile": 0.06451612903225806,
+            "supportPercentile": 0.0
+          }
+        }
+      ],
+      "proxyCheck": {
+        "checkedSides": 1410,
+        "matchingDominantPasser": 1209,
+        "matchRate": 0.8574468085106383,
+        "sidesWith50AlternateDropbacks": 1268,
+        "explanation": "Compared after predictions with the target game\u2019s dominant dropback QB, not its announced starter. Does not filter results or replace the pregame proxy."
+      }
+    },
+    {
+      "qbPrior": 1600.0,
+      "games": 705,
+      "baselineMae": 10.294558567407053,
+      "splitMae": 10.3186410983344,
+      "marketMae": 9.85177304964539,
+      "maeDelta": 0.024082530927346687,
+      "maeDeltaInterval": [
+        -0.09686371502009218,
+        0.1482687636847925
+      ],
+      "groups": [
+        {
+          "label": "Average QB / strong support",
+          "games": 110,
+          "wins": 62,
+          "losses": 44,
+          "pushes": 4,
+          "coverRate": 0.5849056603773585,
+          "meanMarketError": 3.559090909090909,
+          "marketErrorInterval": [
+            0.5862663585540944,
+            6.433892663435472
+          ],
+          "roi": 0.11465709414314193,
+          "roiInterval": [
+            -0.11699239365363404,
+            0.34225472949214863
+          ],
+          "positiveModelEdge": 32,
+          "periods": [
+            {
+              "label": "2023",
+              "games": 36,
+              "wins": 20,
+              "losses": 13,
+              "pushes": 3,
+              "coverRate": 0.6060606060606061,
+              "meanMarketError": 2.5555555555555554,
+              "marketErrorInterval": [
+                -2.6171331435800127,
+                7.892615327380954
+              ],
+              "roi": 0.14269218706540798,
+              "roiInterval": [
+                -0.1613435950228827,
+                0.43426440315654397
+              ],
+              "positiveModelEdge": 11
+            },
+            {
+              "label": "2024",
+              "games": 52,
+              "wins": 29,
+              "losses": 22,
+              "pushes": 1,
+              "coverRate": 0.5686274509803921,
+              "meanMarketError": 4.913461538461538,
+              "marketErrorInterval": [
+                1.3188729399255714,
+                8.163022586980935
+              ],
+              "roi": 0.08803572102804841,
+              "roiInterval": [
+                -0.270394943637776,
+                0.4274669748237854
+              ],
+              "positiveModelEdge": 17
+            },
+            {
+              "label": "2025 weeks 1\u20139",
+              "games": 22,
+              "wins": 13,
+              "losses": 9,
+              "pushes": 0,
+              "coverRate": 0.5909090909090909,
+              "meanMarketError": 2.0,
+              "marketErrorInterval": [
+                -5.261698412698412,
+                10.50581018518523
+              ],
+              "roi": 0.13170473308783673,
+              "roiInterval": [
+                -0.47900427074960006,
+                0.7972181532652155
+              ],
+              "positiveModelEdge": 4
+            }
+          ],
+          "examples": [
+            {
+              "gameId": "2023_01_SF_PIT",
+              "picked": "SF",
+              "modelEdge": 1.594156289293597,
+              "marketError": 21.5,
+              "home": {
+                "qb": 0.0016934141923596424,
+                "passSupport": -0.02603691885328816,
+                "rush": 0.021559113093165536,
+                "defense": -0.00781977087591605,
+                "specialTeams": -0.8669470443847472,
+                "support": -0.028155923787311153,
+                "qbId": "00-0038102",
+                "qbName": "K.Pickett",
+                "priorGame": "2022_18_CLE_PIT",
+                "qbDropbacks": 445,
+                "alternateQbDropbacks": 953,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.5161290322580645,
+                "supportPercentile": 0.2903225806451613
+              },
+              "away": {
+                "qb": 0.004245795596855021,
+                "passSupport": 0.07470765346400565,
+                "rush": 0.004806800521176308,
+                "defense": 0.04671095347605022,
+                "specialTeams": 0.16214259963936872,
+                "support": 0.09595276729583749,
+                "qbId": "00-0026300",
+                "qbName": "J.Johnson",
+                "priorGame": "2022_21_SF_PHI",
+                "qbDropbacks": 109,
+                "alternateQbDropbacks": 1269,
+                "multiQbTeam": true,
+                "multiTeamQb": true,
+                "qbPercentile": 0.5806451612903226,
+                "supportPercentile": 0.967741935483871
+              }
+            },
+            {
+              "gameId": "2023_02_GB_ATL",
+              "picked": "GB",
+              "modelEdge": 4.444659164447233,
+              "marketError": 2.0,
+              "home": {
+                "qb": -0.00465178041703351,
+                "passSupport": -0.025314724146752423,
+                "rush": 0.021468082548542967,
+                "defense": -0.03879906353259841,
+                "specialTeams": 0.5235172709769602,
+                "support": -0.03734655314004867,
+                "qbId": "00-0038122",
+                "qbName": "D.Ridder",
+                "priorGame": "2023_01_CAR_ATL",
+                "qbDropbacks": 157,
+                "alternateQbDropbacks": 945,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.3225806451612903,
+                "supportPercentile": 0.22580645161290322
+              },
+              "away": {
+                "qb": 0.006498245933351362,
+                "passSupport": 0.038863044474817955,
+                "rush": 0.020539162276644082,
+                "defense": -0.003103501090472808,
+                "specialTeams": -0.3753144659823111,
+                "support": 0.022655921797655427,
+                "qbId": "00-0036264",
+                "qbName": "J.Love",
+                "priorGame": "2023_01_GB_CHI",
+                "qbDropbacks": 121,
+                "alternateQbDropbacks": 1197,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.5483870967741935,
+                "supportPercentile": 0.7741935483870968
+              }
+            },
+            {
+              "gameId": "2023_02_MIN_PHI",
+              "picked": "PHI",
+              "modelEdge": 1.9791670328481352,
+              "marketError": 0.0,
+              "home": {
+                "qb": 0.007524263646751266,
+                "passSupport": 0.048630910076459644,
+                "rush": 0.07024873094733598,
+                "defense": 0.021450691881412395,
+                "specialTeams": -0.018962685868371437,
+                "support": 0.0784369966774784,
+                "qbId": "00-0036389",
+                "qbName": "J.Hurts",
+                "priorGame": "2023_01_PHI_NE",
+                "qbDropbacks": 1193,
+                "alternateQbDropbacks": 155,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.6451612903225806,
+                "supportPercentile": 0.9032258064516129
+              },
+              "away": {
+                "qb": 0.0071636000581068275,
+                "passSupport": 0.024351011468856872,
+                "rush": -0.04026473070034267,
+                "defense": -0.010319693913127457,
+                "specialTeams": -0.7810894100826912,
+                "support": -0.02383173946706873,
+                "qbId": "00-0029604",
+                "qbName": "K.Cousins",
+                "priorGame": "2023_01_TB_MIN",
+                "qbDropbacks": 1339,
+                "alternateQbDropbacks": 78,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.6129032258064516,
+                "supportPercentile": 0.3548387096774194
+              }
+            },
+            {
+              "gameId": "2023_03_IND_BAL",
+              "picked": "BAL",
+              "modelEdge": 0.021043474142528495,
+              "marketError": -10.5,
+              "home": {
+                "qb": 0.011562609697307618,
+                "passSupport": -0.008329468930301075,
+                "rush": 0.032949516991884524,
+                "defense": -0.00046034968627433996,
+                "specialTeams": 1.1436569225065185,
+                "support": 0.025316497637014497,
+                "qbId": "00-0034796",
+                "qbName": "L.Jackson",
+                "priorGame": "2023_02_BAL_CIN",
+                "qbDropbacks": 880,
+                "alternateQbDropbacks": 491,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.7419354838709677,
+                "supportPercentile": 0.7741935483870968
+              },
+              "away": {
+                "qb": 0.00766626459735592,
+                "passSupport": -0.07877127121091233,
+                "rush": -0.01954630555402537,
+                "defense": 0.005715198784490524,
+                "specialTeams": 0.4823780899556037,
+                "support": -0.041944884779734654,
+                "qbId": "00-0035289",
+                "qbName": "G.Minshew",
+                "priorGame": "2023_02_IND_HOU",
+                "qbDropbacks": 180,
+                "alternateQbDropbacks": 1238,
+                "multiQbTeam": true,
+                "multiTeamQb": true,
+                "qbPercentile": 0.5161290322580645,
+                "supportPercentile": 0.16129032258064516
+              }
+            },
+            {
+              "gameId": "2023_03_PHI_TB",
+              "picked": "PHI",
+              "modelEdge": -2.5578185722975864,
+              "marketError": 8.0,
+              "home": {
+                "qb": -0.01150767008825202,
+                "passSupport": 0.03873942819660896,
+                "rush": -0.027666544290529692,
+                "defense": 0.0226882310411123,
+                "specialTeams": -1.301423384319552,
+                "support": 0.014843372022565002,
+                "qbId": "00-0034855",
+                "qbName": "B.Mayfield",
+                "priorGame": "2023_02_CHI_TB",
+                "qbDropbacks": 890,
+                "alternateQbDropbacks": 1661,
+                "multiQbTeam": true,
+                "multiTeamQb": true,
+                "qbPercentile": 0.06451612903225806,
+                "supportPercentile": 0.7096774193548387
+              },
+              "away": {
+                "qb": 0.0061549217152644985,
+                "passSupport": 0.04522697660456942,
+                "rush": 0.07827819292356017,
+                "defense": 0.02121175608596282,
+                "specialTeams": 0.09181963164811802,
+                "support": 0.0810718289357919,
+                "qbId": "00-0036389",
+                "qbName": "J.Hurts",
+                "priorGame": "2023_02_MIN_PHI",
+                "qbDropbacks": 1194,
+                "alternateQbDropbacks": 154,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.4838709677419355,
+                "supportPercentile": 0.9032258064516129
+              }
+            }
+          ]
+        },
+        {
+          "label": "Fade strong QB / weaker support",
+          "games": 81,
+          "wins": 38,
+          "losses": 42,
+          "pushes": 1,
+          "coverRate": 0.475,
+          "meanMarketError": 0.32098765432098764,
+          "marketErrorInterval": [
+            -3.4703890562249,
+            4.34984567901235
+          ],
+          "roi": -0.08889927657578008,
+          "roiInterval": [
+            -0.36031564269178645,
+            0.2067871021871936
+          ],
+          "positiveModelEdge": 28,
+          "periods": [
+            {
+              "label": "2023",
+              "games": 20,
+              "wins": 9,
+              "losses": 11,
+              "pushes": 0,
+              "coverRate": 0.45,
+              "meanMarketError": 1.0,
+              "marketErrorInterval": [
+                -7.930506822612085,
+                10.254605263157911
+              ],
+              "roi": -0.12605855473502534,
+              "roiInterval": [
+                -0.6603731749017729,
+                0.5043280808395194
+              ],
+              "positiveModelEdge": 5
+            },
+            {
+              "label": "2024",
+              "games": 42,
+              "wins": 20,
+              "losses": 21,
+              "pushes": 1,
+              "coverRate": 0.4878048780487805,
+              "meanMarketError": 0.21428571428571427,
+              "marketErrorInterval": [
+                -5.231349005729693,
+                6.050092902266843
+              ],
+              "roi": -0.06553760429658613,
+              "roiInterval": [
+                -0.47070788120638873,
+                0.3500552419510224
+              ],
+              "positiveModelEdge": 20
+            },
+            {
+              "label": "2025 weeks 1\u20139",
+              "games": 19,
+              "wins": 9,
+              "losses": 10,
+              "pushes": 0,
+              "coverRate": 0.47368421052631576,
+              "meanMarketError": -0.15789473684210525,
+              "marketErrorInterval": [
+                -5.102685185185185,
+                5.382352941176471
+              ],
+              "roi": -0.10142583828847697,
+              "roiInterval": [
+                -0.5582837564981287,
+                0.45478707642089616
+              ],
+              "positiveModelEdge": 3
+            }
+          ],
+          "examples": [
+            {
+              "gameId": "2023_01_DAL_NYG",
+              "picked": "DAL",
+              "modelEdge": -1.1104471180562072,
+              "marketError": 36.5,
+              "home": {
+                "qb": 0.011021707787267285,
+                "passSupport": -0.03135715692190321,
+                "rush": 0.01145332264308709,
+                "defense": -0.028404581341599122,
+                "specialTeams": -0.21866193766827957,
+                "support": -0.04600157624778743,
+                "qbId": "00-0035710",
+                "qbName": "D.Jones",
+                "priorGame": "2022_20_NYG_PHI",
+                "qbDropbacks": 1053,
+                "alternateQbDropbacks": 318,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.8387096774193549,
+                "supportPercentile": 0.12903225806451613
+              },
+              "away": {
+                "qb": 0.015233495055583425,
+                "passSupport": 0.03829497683710507,
+                "rush": 0.011366076707002409,
+                "defense": 0.05282856562608221,
+                "specialTeams": 0.2151819910104408,
+                "support": 0.08366247458053762,
+                "qbId": "00-0033077",
+                "qbName": "D.Prescott",
+                "priorGame": "2022_20_DAL_SF",
+                "qbDropbacks": 1207,
+                "alternateQbDropbacks": 227,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.9032258064516129,
+                "supportPercentile": 0.9354838709677419
+              }
+            },
+            {
+              "gameId": "2023_01_DET_KC",
+              "picked": "KC",
+              "modelEdge": 4.1170284561071036,
+              "marketError": -5.0,
+              "home": {
+                "qb": 0.03558155948909459,
+                "passSupport": 0.13797797198229603,
+                "rush": 0.01808681401519953,
+                "defense": 0.0010728167296729357,
+                "specialTeams": -0.8694091271228358,
+                "support": 0.07771880049247135,
+                "qbId": "00-0033873",
+                "qbName": "P.Mahomes",
+                "priorGame": "2022_22_KC_PHI",
+                "qbDropbacks": 1711,
+                "alternateQbDropbacks": 29,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 1.0,
+                "supportPercentile": 0.9032258064516129
+              },
+              "away": {
+                "qb": 0.009238265817677649,
+                "passSupport": 0.03808410202484325,
+                "rush": -0.015960696704278084,
+                "defense": -0.04276538288784955,
+                "specialTeams": 0.7379042126998817,
+                "support": -0.014946827851579731,
+                "qbId": "00-0033106",
+                "qbName": "J.Goff",
+                "priorGame": "2022_18_DET_GB",
+                "qbDropbacks": 1165,
+                "alternateQbDropbacks": 105,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.8064516129032258,
+                "supportPercentile": 0.41935483870967744
+              }
+            },
+            {
+              "gameId": "2023_02_LV_BUF",
+              "picked": "BUF",
+              "modelEdge": -0.7040527004788526,
+              "marketError": 20.5,
+              "home": {
+                "qb": 0.023208032380060487,
+                "passSupport": 0.08330484392106438,
+                "rush": 0.012591504904959883,
+                "defense": 0.030516720350116013,
+                "specialTeams": 0.9377068383529724,
+                "support": 0.09996248771632278,
+                "qbId": "00-0034857",
+                "qbName": "J.Allen",
+                "priorGame": "2023_01_BUF_NYJ",
+                "qbDropbacks": 1530,
+                "alternateQbDropbacks": 19,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.9354838709677419,
+                "supportPercentile": 0.9354838709677419
+              },
+              "away": {
+                "qb": 0.01731667281809168,
+                "passSupport": 0.022514841858786425,
+                "rush": -0.012501483565732717,
+                "defense": -0.03617324750060305,
+                "specialTeams": 1.3765325344965955,
+                "support": -0.006487512203984351,
+                "qbId": "00-0031345",
+                "qbName": "J.Garoppolo",
+                "priorGame": "2023_01_LV_DEN",
+                "qbDropbacks": 886,
+                "alternateQbDropbacks": 1392,
+                "multiQbTeam": true,
+                "multiTeamQb": true,
+                "qbPercentile": 0.8709677419354839,
+                "supportPercentile": 0.45161290322580644
+              }
+            },
+            {
+              "gameId": "2023_03_PIT_LV",
+              "picked": "PIT",
+              "modelEdge": -1.3181528234243336,
+              "marketError": 8.0,
+              "home": {
+                "qb": 0.01471463468869569,
+                "passSupport": 0.012840740754991514,
+                "rush": -0.018105519237174947,
+                "defense": -0.04359021359641594,
+                "specialTeams": 1.3413644953514752,
+                "support": -0.022491599986729855,
+                "qbId": "00-0031345",
+                "qbName": "J.Garoppolo",
+                "priorGame": "2023_02_LV_BUF",
+                "qbDropbacks": 878,
+                "alternateQbDropbacks": 1293,
+                "multiQbTeam": true,
+                "multiTeamQb": true,
+                "qbPercentile": 0.7741935483870968,
+                "supportPercentile": 0.41935483870967744
+              },
+              "away": {
+                "qb": -0.008089205035166788,
+                "passSupport": -0.04659222047165249,
+                "rush": 0.015750307897699562,
+                "defense": -0.0048194965810788234,
+                "specialTeams": -0.754842952403122,
+                "support": -0.03808767420350006,
+                "qbId": "00-0038102",
+                "qbName": "K.Pickett",
+                "priorGame": "2023_02_CLE_PIT",
+                "qbDropbacks": 528,
+                "alternateQbDropbacks": 876,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.16129032258064516,
+                "supportPercentile": 0.22580645161290322
+              }
+            },
+            {
+              "gameId": "2023_05_HOU_ATL",
+              "picked": "ATL",
+              "modelEdge": -1.6271535853854362,
+              "marketError": -0.5,
+              "home": {
+                "qb": -0.016839348089325842,
+                "passSupport": -0.054974066719424605,
+                "rush": 0.022598712950692885,
+                "defense": -0.035147590122729264,
+                "specialTeams": 0.3789322488991983,
+                "support": -0.05326281806796536,
+                "qbId": "00-0038122",
+                "qbName": "D.Ridder",
+                "priorGame": "2023_04_ATL_JAX",
+                "qbDropbacks": 277,
+                "alternateQbDropbacks": 812,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.0,
+                "supportPercentile": 0.16129032258064516
+              },
+              "away": {
+                "qb": 0.016172330817262263,
+                "passSupport": -0.05928491387533515,
+                "rush": -0.07347953573679124,
+                "defense": -0.011962668792111981,
+                "specialTeams": 1.442493619014677,
+                "support": -0.054733221888726855,
+                "qbId": "00-0039163",
+                "qbName": "C.Stroud",
+                "priorGame": "2023_04_PIT_HOU",
+                "qbDropbacks": 165,
+                "alternateQbDropbacks": 1131,
+                "multiQbTeam": true,
+                "multiTeamQb": false,
+                "qbPercentile": 0.8387096774193549,
+                "supportPercentile": 0.0967741935483871
+              }
+            }
+          ]
+        }
+      ],
+      "firstPredictions": [
+        {
+          "gameId": "2023_01_DET_KC",
+          "split": 8.117028456107104,
+          "baseline": 9.564158359961606,
+          "home": {
+            "qb": 0.03558155948909459,
+            "passSupport": 0.13797797198229603,
+            "rush": 0.01808681401519953,
+            "defense": 0.0010728167296729357,
+            "specialTeams": -0.8694091271228358,
+            "support": 0.07771880049247135,
+            "qbId": "00-0033873",
+            "qbName": "P.Mahomes",
+            "priorGame": "2022_22_KC_PHI",
+            "qbDropbacks": 1711,
+            "alternateQbDropbacks": 29,
+            "multiQbTeam": true,
+            "multiTeamQb": false,
+            "qbPercentile": 1.0,
+            "supportPercentile": 0.9032258064516129
+          },
+          "away": {
+            "qb": 0.009238265817677649,
+            "passSupport": 0.03808410202484325,
+            "rush": -0.015960696704278084,
+            "defense": -0.04276538288784955,
+            "specialTeams": 0.7379042126998817,
+            "support": -0.014946827851579731,
+            "qbId": "00-0033106",
+            "qbName": "J.Goff",
+            "priorGame": "2022_18_DET_GB",
+            "qbDropbacks": 1165,
+            "alternateQbDropbacks": 105,
+            "multiQbTeam": true,
+            "multiTeamQb": false,
+            "qbPercentile": 0.8064516129032258,
+            "supportPercentile": 0.41935483870967744
+          }
+        },
+        {
+          "gameId": "2023_01_CAR_ATL",
+          "split": 2.9442338601812543,
+          "baseline": 3.4866528617344494,
+          "home": {
+            "qb": -0.002491174032040512,
+            "passSupport": -0.02793138366592742,
+            "rush": 0.01737598259957781,
+            "defense": -0.047462011806332416,
+            "specialTeams": 0.48866647233113925,
+            "support": -0.049752503237886374,
+            "qbId": "00-0038122",
+            "qbName": "D.Ridder",
+            "priorGame": "2022_18_TB_ATL",
+            "qbDropbacks": 135,
+            "alternateQbDropbacks": 984,
+            "multiQbTeam": true,
+            "multiTeamQb": false,
+            "qbPercentile": 0.3870967741935484,
+            "supportPercentile": 0.06451612903225806
+          },
+          "away": {
+            "qb": 0.004917712436101957,
+            "passSupport": -0.07096457438998806,
+            "rush": 0.013341783610282284,
+            "defense": 0.0022289597711789653,
+            "specialTeams": 0.5857671540149637,
+            "support": -0.026001269049239974,
+            "qbId": "00-0034869",
+            "qbName": "S.Darnold",
+            "priorGame": "2022_18_CAR_NO",
+            "qbDropbacks": 621,
+            "alternateQbDropbacks": 572,
+            "multiQbTeam": true,
+            "multiTeamQb": false,
+            "qbPercentile": 0.6129032258064516,
+            "supportPercentile": 0.3225806451612903
+          }
+        },
+        {
+          "gameId": "2023_01_HOU_BAL",
+          "split": 9.6216492236093,
+          "baseline": 9.33806723959372,
+          "home": {
+            "qb": -0.006561432424199602,
+            "passSupport": -0.019238877743380563,
+            "rush": 0.024660540706617738,
+            "defense": -0.0046480858803129,
+            "specialTeams": 1.57793662660293,
+            "support": 0.017948751857889397,
+            "qbId": "00-0035993",
+            "qbName": "T.Huntley",
+            "priorGame": "2022_19_BAL_CIN",
+            "qbDropbacks": 395,
+            "alternateQbDropbacks": 944,
+            "multiQbTeam": true,
+            "multiTeamQb": false,
+            "qbPercentile": 0.22580645161290322,
+            "supportPercentile": 0.7741935483870968
+          },
+          "away": {
+            "qb": -0.012262753076631057,
+            "passSupport": -0.09738862308069045,
+            "rush": -0.07184851457087299,
+            "defense": -0.01678048264611589,
+            "specialTeams": 0.9663600763263763,
+            "support": -0.08908598422555047,
+            "qbId": "00-0036898",
+            "qbName": "D.Mills",
+            "priorGame": "2022_18_HOU_IND",
+            "qbDropbacks": 962,
+            "alternateQbDropbacks": 292,
+            "multiQbTeam": true,
+            "multiTeamQb": false,
+            "qbPercentile": 0.06451612903225806,
+            "supportPercentile": 0.0
+          }
+        }
+      ],
+      "proxyCheck": {
+        "checkedSides": 1410,
+        "matchingDominantPasser": 1209,
+        "matchRate": 0.8574468085106383,
+        "sidesWith50AlternateDropbacks": 1268,
+        "explanation": "Compared after predictions with the target game\u2019s dominant dropback QB, not its announced starter. Does not filter results or replace the pregame proxy."
+      }
+    }
+  ],
+  "limitations": [
+    "QB is the previous game\u2019s dominant passer, not a verified announced starter. This blocks live betting readiness.",
+    "QB and passing support remain partly confounded; ridge priors determine how shared signal is allocated. No separate receiver or offensive-line causal values are claimed.",
+    "Rushing is a team unit association; defense combines pass/run prevention. Special teams uses net possession-perspective EPA per game.",
+    "Supporting-cast ranks use a fixed 60/40 pass/run blend, defense, and special-teams EPA divided by 65. These are research definitions, not optimized thresholds.",
+    "Archived odds are not timestamp-aligned with Wednesday ratings. Returns are hypothetical one-unit stakes at archived prices, not executable historical results.",
+    "EPA source vintages are retrospective. Nine primary checks cover three priors \u00d7 (MAE improvement and two market-error groups); ROI intervals are descriptive, and prior project searches are not covered."
+  ]
+}

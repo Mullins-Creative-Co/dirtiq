@@ -258,7 +258,76 @@ Verify each provider's sign conventions and usage terms during ingestion rather 
 assuming they match this app. Do not mix football files into the existing racing
 `data/` model artifacts or maintenance scripts.
 
-## Verification
+## QB versus supporting team decomposition
+
+The default tab is now **QB & supporting team**; the overlap audit remains available.
+This directly tests the conversation's attribution hypothesis, rather than assuming
+bookmakers literally apply a duplicate penalty. Reproduce with:
+
+`OPENBLAS_NUM_THREADS=1 python scripts/football/decomposition.py --cache ../nfl-cache`
+
+The script filters the schedule to development games before selecting play rows.
+No 2025 week-10-or-later plays or scores enter fitting, rankings, or evaluation.
+At each pregame snapshot, the preceding 730 days of completed games fit joint
+dropback EPA/play associations for QB, offensive team passing support, and opposing
+pass defense. QB scrambles count with dropbacks. Non-QB rushing has separate team
+offense/defense associations. Net possession-perspective special-teams EPA counts
+for both sides, with opposite signs, and is shrunk toward zero using eight prior
+games. Defense combines 60% pass and 40% rush prevention. All fits weight observations
+with a 365-day half-life; normal play fits also weight by play count.
+
+Team/QB associations are partly confounded. Team and opposing-defense ridge priors
+are 400 play-equivalents. The primary QB prior is 400; fixed sensitivity priors are
+100 and 1600. When a team and QB always appear together, the priors determine the
+allocation; the model does not causally isolate receivers, protection, coaching,
+or individual player value. Substitutions and transfers provide comparison data,
+not random assignment. Example cards show QB history and alternate-QB dropbacks.
+
+For each team, the expected-QB proxy is the dominant dropback passer in its last
+available game, chosen without reading target-game participation. A separate
+post-prediction diagnostic compares this with the eventual dominant passer, not
+the announced starter. It never changes forecasts or filters the selected games.
+Live betting readiness still requires timestamped lineup confirmation.
+
+Supporting-team rank is a fixed blend: .6 passing support + .4 rushing strength +
+defense prevention + special-teams EPA/game divided by 65. This approximate scale
+is a hypothesis definition, not an optimized scoring formula. QB and support ranks
+are calculated across available league teams at that snapshot. Two rules are fixed:
+
+- Back middle-50%-QB / top-25%-support teams.
+- Fade top-25%-QB / below-median-support teams.
+
+Omit a game when both sides qualify for the same rule. Report all qualifying games,
+not just those with a positive fitted-model edge. Hypothetical ROI risks one unit
+per game at archived American odds, includes pushes, and is not executable historical
+performance because odds snapshots are not timestamp-aligned with Wednesday inputs.
+The separate margin regression learns six component weights from strictly earlier
+pregame rows; a three-input opponent-adjusted team-EPA baseline uses the identical
+game set. Neither forecast uses market lines as inputs. A 730-day window here is
+slightly different from the older audit's two-calendar-year window, so baseline
+MAEs across different reports should not be directly compared.
+
+There are 705 development games. Primary split-model MAE is 10.314 versus baseline
+10.295; the improvement interval crosses zero. Primary average-QB/strong-support
+results are 59–46–4 (56.2% non-push covers), with hypothetical 7.2% ROI and a mean
+signed market error of +3.11 points. Its adjusted market-error interval spans zero.
+The 100/1600 sensitivity cover rates are 55.1%/58.5%; the 1600 case has a positive
+market-error interval but is not substituted for the primary assumption. Reverse
+hypothesis results are not supportive. These are provisional development findings,
+not proof of bookmaker behavior or a validated betting rule.
+
+Intervals use 4,000 fixed-seed weekly-block bootstrap draws and nine primary
+comparisons (three priors × MAE improvement and two directional-market-error tests).
+ROI intervals are descriptive. Earlier project exploration is not covered by this
+adjustment. Neither the method nor a strategy is frozen for promotion, and the final
+2025 sample remains unrun.
+
+Run all Python football checks with
+`OPENBLAS_NUM_THREADS=1 python -m unittest discover -s tests -p 'test_football*.py'`.
+They include switch identification, explicit prior sensitivity without switches,
+snapshot timing, outer-model leakage, group selection and juice, and holdout exclusion.
+
+## Verification commands
 
 `node --experimental-strip-types --test tests/football-model.test.ts tests/football-research.test.ts`
 

@@ -6,6 +6,8 @@ import type { InputReadiness, ResearchReport } from '@/lib/football/research';
 import { ResearchPanel } from './research-panel';
 import { OverlapPanel } from './overlap-panel';
 import type { OverlapAudit } from '@/lib/football/overlap-types';
+import { DecompositionPanel } from './decomposition-panel';
+import type { CastReport } from '@/lib/football/decomposition-types';
 
 const STORAGE = 'dirtiq.football.scenarios.v1';
 const inputClass = 'mt-2 w-full rounded border border-border-strong bg-background px-3 py-2.5 text-sm text-foreground focus:outline-2 focus:outline-accent';
@@ -35,8 +37,8 @@ function NumberField({ label, value, onChange, help, step = .5 }: { label: strin
   return <label className="block text-sm font-semibold">{label}<input type="number" step={step} value={value} className={inputClass} onChange={e => { if (e.target.value !== '' && Number.isFinite(e.target.valueAsNumber)) onChange(e.target.valueAsNumber); }} />{help && <span className="mt-1.5 block text-xs font-normal leading-relaxed text-muted">{help}</span>}</label>;
 }
 
-export function FootballWorkbench({ research, readiness, overlap }: { research: ResearchReport; readiness: InputReadiness; overlap: OverlapAudit }) {
-  const [tab, setTab] = useState<'overlap' | 'research' | 'matchup' | 'backtest' | 'experiments'>('overlap');
+export function FootballWorkbench({ research, readiness, overlap, decomposition }: { research: ResearchReport; readiness: InputReadiness; overlap: OverlapAudit; decomposition: CastReport }) {
+  const [tab, setTab] = useState<'decomposition' | 'overlap' | 'research' | 'matchup' | 'backtest' | 'experiments'>('decomposition');
   const [scenario, setScenario] = useState<Scenario>(initial);
   const [saved, setSaved] = useState<Saved[]>([]);
   const [saveName, setSaveName] = useState('');
@@ -106,10 +108,11 @@ export function FootballWorkbench({ research, readiness, overlap }: { research: 
       <p className="mt-3 text-xs text-muted">Real NFL history is ready to load. Default training: the preceding two years, weighted toward recent games. Racing models stay separate.</p>
     </header>
     <nav aria-label="Football workspace" className="flex gap-2 overflow-x-auto pb-1">
-      {([['overlap', 'Overlap audit'], ['research', 'Research results'], ['matchup', 'Matchup sandbox'], ['backtest', 'Historical backtest'], ['experiments', 'Experiment notebook']] as const).map(([key, label]) => <button key={key} aria-pressed={tab === key} onClick={() => { setTab(key); setNotice(''); }} className={`${buttonClass} shrink-0 ${tab === key ? 'border-accent text-accent' : 'text-muted-strong'}`}>{label}</button>)}
+      {([['decomposition', 'QB & supporting team'], ['overlap', 'Overlap audit'], ['research', 'Research results'], ['matchup', 'Matchup sandbox'], ['backtest', 'Historical backtest'], ['experiments', 'Experiment notebook']] as const).map(([key, label]) => <button key={key} aria-pressed={tab === key} onClick={() => { setTab(key); setNotice(''); }} className={`${buttonClass} shrink-0 ${tab === key ? 'border-accent text-accent' : 'text-muted-strong'}`}>{label}</button>)}
     </nav>
 
     {tab === 'research' && <ResearchPanel report={research} readiness={readiness} />}
+    {tab === 'decomposition' && <DecompositionPanel report={decomposition} />}
     {tab === 'overlap' && <OverlapPanel audit={overlap} />}
 
     {tab === 'matchup' && <>
