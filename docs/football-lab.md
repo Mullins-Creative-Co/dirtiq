@@ -328,7 +328,60 @@ Run all Python football checks with
 They include switch identification, explicit prior sensitivity without switches,
 snapshot timing, outer-model leakage, group selection and juice, and holdout exclusion.
 
-## Verification commands
+## QB news versus line movement
+
+The **QB news & line movement** tab implements a separate event-study importer,
+not a completed historical backtest. The bundled nflverse archive does not contain
+linked announcement timestamps and same-book pre/post-news spread snapshots.
+No historical provider credential is configured. The Odds API documents five-minute
+historical snapshots from September 2022 on paid plans:
+https://the-odds-api.com/historical-odds-data/. No paid request or subscription was made.
+An independently sourced, point-in-time QB announcement/observation timeline is still
+needed even when odds history is available.
+
+The module `src/lib/football/qb-movement.ts` accepts a JSON array of sourced events.
+Each event records the old/new QB, changed side, kickoff, announcement/observation
+times, frozen model version, baseline and revised-estimate availability, signed
+home-margin QB/other changes, same-book spread/prices/update/snapshot timestamps,
+and provenance strings. Result and result-availability timestamp are optional.
+Input provenance is user-supplied and not independently authenticated by validation.
+The importer checks all records atomically, forbids duplicate games and fictional
+example identifiers, and excludes 2025 week 10 onward/later seasons before reading
+their quotes, model inputs, or results. Files are not uploaded or persisted.
+
+The decision is fixed at 30 minutes after observing the announcement. The pre-news
+snapshot must be strictly before publication and no older than 60 minutes; baseline
+model inputs must be available by that snapshot. The post-news snapshot must be in
+the final 10 minutes before the decision, with a quote update after news observation.
+Both quote updates must precede their snapshot by at most 10 minutes. Parameters must
+be frozen before news, the revised model estimate available by decision, and the
+decision strictly before kickoff. These windows are fixed research definitions.
+
+All quantities use positive home winning margin, not sportsbook home-handicap signs:
+
+- Market move = post-news home margin − pre-news home margin.
+- QB-only movement gap = modeled QB change − market move.
+- Final model edge = pre-news model edge + QB change + other changes − market move.
+
+The pre-news edge matters: a QB downgrade of four versus a six-point market downgrade
+creates a +2 movement gap, but an existing −5 home edge leaves a final −3 home edge.
+Thus the fixed research selection uses absolute **final** edge >=2 points and requires
+other news marked reviewed. It does not bet automatically or select on movement size.
+Unsettled selections do not enter cover rate/ROI. Settlement risks one unit at the
+selected side's actual post-news American odds; pushes return zero. The fictional
+example is explicitly labeled, unsettled, kept separate, and never historical evidence.
+
+Anticipation, simultaneous news, stale/limited availability, and selection bias still
+prevent causal interpretation. Timestamp validation does not establish executability,
+correct model estimates, an actual market overreaction, or repeatable betting value.
+The final 2025 holdout remains unrun; no inferred timestamps or fabricated outcomes
+fill the data gap.
+
+Run `node --experimental-strip-types --test tests/football-qb-movement.test.ts` for
+signs, prior-edge accounting, availability checks, frozen parameters, abstentions,
+odds settlement, duplicate exclusion, and final-test protection.
+
+## All verification commands
 
 `node --experimental-strip-types --test tests/football-model.test.ts tests/football-research.test.ts`
 
