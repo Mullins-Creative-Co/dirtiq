@@ -1,11 +1,12 @@
 # Football Lab
 
 Route: `/football`. Linked from the public Stats navigation and the control navigation.
-The default Overlap audit tab tests specific repeated-adjustment mechanisms. Research
-results retains the broader incremental-information study.
+The default QB & supporting team tab tests the team-versus-quarterback attribution
+hypothesis. Overlap audit tests repeated-adjustment mechanisms; Research results
+retains the broader incremental-information study.
 
 This is a separate research workspace inside Dirt IQ. The football page imports only
-`src/lib/football/model.ts`, its own workbench, and the shared navigation. It does not
+its own football modules and reports, its workbench, and the shared navigation. It does not
 import the racing database, load racing pickle files, modify racing model registries,
 place wagers, or trigger racing refresh/training jobs. No dependency changes are needed.
 
