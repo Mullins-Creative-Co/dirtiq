@@ -1,0 +1,362 @@
+{
+  "version": 1,
+  "generatedAt": "2026-11-07T00:22:17.321656+00:00",
+  "developmentSeason": "2023\u201324 (ending 2024)",
+  "holdout": "2024\u201325 and later",
+  "holdoutEvaluated": false,
+  "settings": {
+    "trainingDays": 730,
+    "weightHalfLifeDays": 120,
+    "minimumTrainingGames": 300,
+    "edgeThreshold": 2,
+    "minimumPriorTeamGames": 10
+  },
+  "sources": [
+    {
+      "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_2022.parquet",
+      "sha256": "e3a764147f108c6fb3883eaa5617234ab41aa95e668dd7eb9506616c8a953d2f"
+    },
+    {
+      "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_team_boxscores/team_box_2022.parquet",
+      "sha256": "f8185936836a81240d6f170ec7afeab47e3e736a718fe2c9f72999e681434b7f"
+    },
+    {
+      "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_player_boxscores/player_box_2022.parquet",
+      "sha256": "474d15255f2a908f2c0ac0f7104b504c3cf2815b02dd0b0097c69cb634fe4395"
+    },
+    {
+      "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_2023.parquet",
+      "sha256": "9532db81a254b2ea9982111fbea970bb61ea34b6aa3fc4607b2cad17ba55c60b"
+    },
+    {
+      "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_team_boxscores/team_box_2023.parquet",
+      "sha256": "b86bb087fe57eeeacead4e27965a20d1e67fdb39a3ee2ca36294a0b7d014e9b6"
+    },
+    {
+      "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_player_boxscores/player_box_2023.parquet",
+      "sha256": "968d835cd04b10533c5b5af8c0e41bf0154a73782e9446c76f765109223e8679"
+    },
+    {
+      "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_2024.parquet",
+      "sha256": "2069783562b531b91ee9ad6a85358761ad6a611ce3291a60ed124bb978969b63"
+    },
+    {
+      "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_team_boxscores/team_box_2024.parquet",
+      "sha256": "5e4d1b7a2ccc287f212f65888dcd674e370adec8a0e32d7ae0825eecacaaa8a9"
+    },
+    {
+      "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_player_boxscores/player_box_2024.parquet",
+      "sha256": "1e500a538ec45ddbcb58d9789b5494f8db4f25658eafd01d90f2d09600921665"
+    },
+    {
+      "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_pbp/play_by_play_2024.parquet",
+      "sha256": "bda57bcb4f8aae57428979ac4a0f766f67c52c770d85b0e7fcf7237a333704b0"
+    }
+  ],
+  "reports": [
+    {
+      "id": "strength",
+      "features": [],
+      "games": 1230,
+      "quotedGames": 1230,
+      "mae": 11.043973592399428,
+      "marketMae": 10.528455284552846,
+      "selected": 690,
+      "wins": 330,
+      "losses": 348,
+      "pushes": 12,
+      "coverRate": 0.48672566371681414,
+      "hypotheticalRoi110": -0.06956521739130435,
+      "calibratedGames": 1212,
+      "brier": 0.26640774460539013,
+      "maeDelta": 0.0,
+      "maeDeltaInterval": [
+        0.0,
+        0.0
+      ],
+      "examples": [
+        {
+          "gameId": "401584689",
+          "home": "Denver Nuggets",
+          "away": "Los Angeles Lakers",
+          "prediction": 4.224825072761809,
+          "market": 4.5,
+          "actual": 12.0,
+          "homeCoverProbability": 0.5
+        },
+        {
+          "gameId": "401584690",
+          "home": "Golden State Warriors",
+          "away": "Phoenix Suns",
+          "prediction": 2.179237120808966,
+          "market": 3.0,
+          "actual": -4.0,
+          "homeCoverProbability": 0.48133116883116883
+        },
+        {
+          "gameId": "401584691",
+          "home": "Charlotte Hornets",
+          "away": "Atlanta Hawks",
+          "prediction": -3.4494857507077943,
+          "market": -4.0,
+          "actual": 6.0,
+          "homeCoverProbability": 0.5283630470016207
+        },
+        {
+          "gameId": "401584692",
+          "home": "Indiana Pacers",
+          "away": "Washington Wizards",
+          "prediction": 0.5712005562959626,
+          "market": 4.5,
+          "actual": 23.0,
+          "homeCoverProbability": 0.38087520259319285
+        },
+        {
+          "gameId": "401584693",
+          "home": "New York Knicks",
+          "away": "Boston Celtics",
+          "prediction": -1.4660038513594222,
+          "market": -4.0,
+          "actual": -4.0,
+          "homeCoverProbability": 0.5826580226904376
+        }
+      ]
+    },
+    {
+      "id": "rest",
+      "features": [
+        "rest",
+        "b2b",
+        "threeInFour"
+      ],
+      "games": 1230,
+      "quotedGames": 1230,
+      "mae": 10.999303016522529,
+      "marketMae": 10.528455284552846,
+      "selected": 699,
+      "wins": 337,
+      "losses": 351,
+      "pushes": 11,
+      "coverRate": 0.4898255813953488,
+      "hypotheticalRoi110": -0.06385745870724412,
+      "calibratedGames": 1212,
+      "brier": 0.26491162939259066,
+      "maeDelta": -0.044670575876899814,
+      "maeDeltaInterval": [
+        -0.14989596262060229,
+        0.05595063605131267
+      ],
+      "examples": [
+        {
+          "gameId": "401584689",
+          "home": "Denver Nuggets",
+          "away": "Los Angeles Lakers",
+          "prediction": 4.187904177888776,
+          "market": 4.5,
+          "actual": 12.0,
+          "homeCoverProbability": 0.5
+        },
+        {
+          "gameId": "401584690",
+          "home": "Golden State Warriors",
+          "away": "Phoenix Suns",
+          "prediction": 2.29537355910957,
+          "market": 3.0,
+          "actual": -4.0,
+          "homeCoverProbability": 0.4878246753246753
+        },
+        {
+          "gameId": "401584691",
+          "home": "Charlotte Hornets",
+          "away": "Atlanta Hawks",
+          "prediction": -3.3777302699991,
+          "market": -4.0,
+          "actual": 6.0,
+          "homeCoverProbability": 0.5332252836304701
+        },
+        {
+          "gameId": "401584692",
+          "home": "Indiana Pacers",
+          "away": "Washington Wizards",
+          "prediction": 0.4744968582058775,
+          "market": 4.5,
+          "actual": 23.0,
+          "homeCoverProbability": 0.37925445705024313
+        },
+        {
+          "gameId": "401584693",
+          "home": "New York Knicks",
+          "away": "Boston Celtics",
+          "prediction": -1.6694295542864386,
+          "market": -4.0,
+          "actual": -4.0,
+          "homeCoverProbability": 0.5810372771474879
+        }
+      ]
+    },
+    {
+      "id": "efficiency",
+      "features": [
+        "rest",
+        "b2b",
+        "threeInFour",
+        "netEfficiency",
+        "efg",
+        "turnoverRate",
+        "offReboundRate",
+        "ftRate"
+      ],
+      "games": 1230,
+      "quotedGames": 1230,
+      "mae": 11.041340455194202,
+      "marketMae": 10.528455284552846,
+      "selected": 674,
+      "wins": 320,
+      "losses": 342,
+      "pushes": 12,
+      "coverRate": 0.48338368580060426,
+      "hypotheticalRoi110": -0.07580253574318856,
+      "calibratedGames": 1212,
+      "brier": 0.26587792105768904,
+      "maeDelta": 0.0420374386716748,
+      "maeDeltaInterval": [
+        -0.08323795030423672,
+        0.18475542864917743
+      ],
+      "examples": [
+        {
+          "gameId": "401584689",
+          "home": "Denver Nuggets",
+          "away": "Los Angeles Lakers",
+          "prediction": 2.274475986281721,
+          "market": 4.5,
+          "actual": 12.0,
+          "homeCoverProbability": 0.43344155844155846
+        },
+        {
+          "gameId": "401584690",
+          "home": "Golden State Warriors",
+          "away": "Phoenix Suns",
+          "prediction": 2.791375131347051,
+          "market": 3.0,
+          "actual": -4.0,
+          "homeCoverProbability": 0.510551948051948
+        },
+        {
+          "gameId": "401584691",
+          "home": "Charlotte Hornets",
+          "away": "Atlanta Hawks",
+          "prediction": -5.594271026518502,
+          "market": -4.0,
+          "actual": 6.0,
+          "homeCoverProbability": 0.4586709886547812
+        },
+        {
+          "gameId": "401584692",
+          "home": "Indiana Pacers",
+          "away": "Washington Wizards",
+          "prediction": 0.9930164183619963,
+          "market": 4.5,
+          "actual": 23.0,
+          "homeCoverProbability": 0.39627228525121555
+        },
+        {
+          "gameId": "401584693",
+          "home": "New York Knicks",
+          "away": "Boston Celtics",
+          "prediction": -1.3946751311037284,
+          "market": -4.0,
+          "actual": -4.0,
+          "homeCoverProbability": 0.5907617504051864
+        }
+      ]
+    },
+    {
+      "id": "rotation",
+      "features": [
+        "rest",
+        "b2b",
+        "threeInFour",
+        "netEfficiency",
+        "efg",
+        "turnoverRate",
+        "offReboundRate",
+        "ftRate",
+        "rotationChange",
+        "rotationUnknown"
+      ],
+      "games": 1230,
+      "quotedGames": 1230,
+      "mae": 11.033675865404604,
+      "marketMae": 10.528455284552846,
+      "selected": 645,
+      "wins": 304,
+      "losses": 332,
+      "pushes": 9,
+      "coverRate": 0.4779874213836478,
+      "hypotheticalRoi110": -0.08625792811839322,
+      "calibratedGames": 1212,
+      "brier": 0.26512577919179525,
+      "maeDelta": -0.007664589789597551,
+      "maeDeltaInterval": [
+        -0.04708778559326964,
+        0.035842838160275926
+      ],
+      "examples": [
+        {
+          "gameId": "401584689",
+          "home": "Denver Nuggets",
+          "away": "Los Angeles Lakers",
+          "prediction": 0.2173825692775906,
+          "market": 4.5,
+          "actual": 12.0,
+          "homeCoverProbability": 0.375
+        },
+        {
+          "gameId": "401584690",
+          "home": "Golden State Warriors",
+          "away": "Phoenix Suns",
+          "prediction": 4.856311417723652,
+          "market": 3.0,
+          "actual": -4.0,
+          "homeCoverProbability": 0.5665584415584416
+        },
+        {
+          "gameId": "401584691",
+          "home": "Charlotte Hornets",
+          "away": "Atlanta Hawks",
+          "prediction": -3.337721347658809,
+          "market": -4.0,
+          "actual": 6.0,
+          "homeCoverProbability": 0.5307941653160454
+        },
+        {
+          "gameId": "401584692",
+          "home": "Indiana Pacers",
+          "away": "Washington Wizards",
+          "prediction": 2.239989435123279,
+          "market": 4.5,
+          "actual": 23.0,
+          "homeCoverProbability": 0.43030794165316044
+        },
+        {
+          "gameId": "401584693",
+          "home": "New York Knicks",
+          "away": "Boston Celtics",
+          "prediction": 0.7813542331054335,
+          "market": -4.0,
+          "actual": -4.0,
+          "homeCoverProbability": 0.6507293354943274
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Historical spreads are processed ESPN/SportsDataverse values, not verified single-book executable quotes. No quote timestamps or side prices are provided; \u2212110 ROI is illustrative only.",
+    "Lineup continuity uses only previous-game minutes compared with earlier rotations. It is not today\u2019s injury report, expected minutes, or a causal player-impact estimate.",
+    "Current-season predictions are not enabled. A live model needs current data, timestamped injury reports, projected replacement minutes, and synchronized odds.",
+    "No full-season Win Shares is used: doing so during that season would leak future data. Win Shares is not directly convertible to a missing player\u2019s spread impact.",
+    "Probabilities use empirical errors from strictly earlier out-of-sample predictions. Brier scores measure development calibration; these probabilities are not validated live cover probabilities.",
+    "Three feature additions and a fixed two-point selection rule were defined before this run. Weekly-block intervals are approximate; neither prior project searches nor every reported statistic are covered."
+  ]
+}

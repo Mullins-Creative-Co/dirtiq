@@ -9,6 +9,7 @@ const adminItems = [
   { href: "/admin/today", label: "Today Odds" },
   { href: "/admin/testing", label: "Model Lab" },
   { href: "/football", label: "Football" },
+  { href: "/nba", label: "NBA" },
   { href: "/admin/races", label: "Races" },
   { href: "/admin/maintenance", label: "Refresh" },
 ];
@@ -50,7 +51,7 @@ export function Nav() {
   const [open, setOpen] = useState(false);
 
   const isAdmin = pathname.startsWith("/admin");
-  const isWorkspace = isAdmin || pathname === "/" || pathname.startsWith("/football");
+  const isWorkspace = isAdmin || pathname === "/" || pathname.startsWith("/football") || pathname.startsWith("/nba");
 
   function adminLinkClass(href: string) {
     const active = href === "/" ? pathname === "/" : pathname.startsWith(href);
