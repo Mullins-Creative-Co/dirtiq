@@ -69,7 +69,7 @@ def joint_fit(rows, penalty=400., include_qb=True):
     return dict(off={t: float(beta[i]) for t, i in ti.items()}, defense={t: float(beta[n+i]) for t, i in ti.items()}, qb={q: float(beta[2*n+i]) for q, i in qi.items()})
 
 
-def snapshot(observations, cutoff, penalty):
+def snapshot(observations, cutoff, penalty, expected_qbs=None):
     past = [dict(r, weight=2**(-(cutoff-r['available']).total_seconds()/86400/365)) for r in observations if 0 < (cutoff-r['available']).total_seconds() <= 730*86400]
     passing = [r for r in past if r['kind'] == 'pass']
     rushing = [r for r in past if r['kind'] == 'rush']
@@ -83,28 +83,35 @@ def snapshot(observations, cutoff, penalty):
         team_pass = [r for r in passing if r['posteam'] == t]
         last_game = max(team_pass, key=lambda r: r['available'])['game_id']
         proxy = max((r for r in team_pass if r['game_id'] == last_game), key=lambda r: r['plays'])
+        chosen = (expected_qbs or {}).get(t, proxy['qb'])
+        named = next((r['name'] for r in reversed(passing) if r['qb'] == chosen), chosen)
         st = [r for r in past if r['kind'] == 'st' and r['posteam'] == t]
         # Shrink ST net EPA per game toward zero with eight prior games.
         game_weights = {r['game_id']: r['weight'] for r in st}
         special = sum(r['total']*r['weight'] for r in st)/(8+sum(game_weights.values()))
         defense = -.6*fitted['defense'].get(t, 0.)-.4*rush['defense'].get(t, 0.)
         support = .6*fitted['off'][t]+.4*rush['off'].get(t, 0.)+defense+special/65
-        ratings[t] = dict(qb=fitted['qb'][proxy['qb']], passSupport=fitted['off'][t], rush=rush['off'].get(t, 0.), defense=defense, specialTeams=special, support=support,
-            qbId=proxy['qb'], qbName=proxy['name'], priorGame=last_game,
-            qbDropbacks=sum(r['plays'] for r in passing if r['qb'] == proxy['qb']),
-            alternateQbDropbacks=sum(r['plays'] for r in team_pass if r['qb'] != proxy['qb']),
-            multiQbTeam=len(team_qbs[t]) > 1, multiTeamQb=len(qb_teams[proxy['qb']]) > 1)
+        ratings[t] = dict(qb=fitted['qb'].get(chosen, 0.), passSupport=fitted['off'][t], rush=rush['off'].get(t, 0.), defense=defense, specialTeams=special, support=support,
+            qbId=chosen, qbName=named, priorGame=last_game,
+            qbDropbacks=sum(r['plays'] for r in passing if r['qb'] == chosen),
+            alternateQbDropbacks=sum(r['plays'] for r in team_pass if r['qb'] != chosen),
+            multiQbTeam=len(team_qbs[t]) > 1, multiTeamQb=len(qb_teams.get(chosen, set())) > 1)
     for t, r in ratings.items():
         r['qbPercentile'] = sum(v['qb'] < r['qb'] for v in ratings.values())/max(1, len(ratings)-1)
         r['supportPercentile'] = sum(v['support'] < r['support'] for v in ratings.values())/max(1, len(ratings)-1)
     return ratings
 
 
-def construct_features(history, observations, penalty):
+def construct_features(history, observations, penalty, expected_by_game=None):
     rows = []; last = None; ratings = {}
     for g in sorted((r for r in history if development(r)), key=lambda r: r['feature_asof']):
         if g['feature_asof'] != last:
-            last = g['feature_asof']; ratings = snapshot(observations, dt(last), penalty)
+            last = g['feature_asof']
+            expected = {}
+            for peer in history:
+                if development(peer) and peer['feature_asof'] == last:
+                    expected.update((expected_by_game or {}).get(peer['game_id'], {}))
+            ratings = snapshot(observations, dt(last), penalty, expected)
         h, a = ratings.get(g['home_team']), ratings.get(g['away_team'])
         if h is None or a is None:
             continue

@@ -9,6 +9,8 @@ import type { OverlapAudit } from '@/lib/football/overlap-types';
 import type { InputReadiness, ResearchReport } from '@/lib/football/research';
 import college from '../../../public/football/college-turnovers.json';
 import type { CollegeReport } from '@/lib/football/college-types';
+import pricing from '../../../public/football/pricing-error.json';
+import type { PricingReport } from '@/lib/football/pricing-types';
 
 export const metadata = {
   title: 'Football Lab | dirtIQ',
@@ -16,5 +18,5 @@ export const metadata = {
 };
 
 export default function FootballPage() {
-  return <><Nav /><main className="mx-auto max-w-6xl px-4 pb-28 pt-8 sm:px-6"><FootballWorkbench research={research as ResearchReport} readiness={readiness as InputReadiness} overlap={overlap as OverlapAudit} decomposition={decomposition as CastReport} college={college as CollegeReport} /></main></>;
+  return <><Nav /><main className="mx-auto max-w-6xl px-4 pb-28 pt-8 sm:px-6"><FootballWorkbench research={research as ResearchReport} readiness={readiness as InputReadiness} overlap={overlap as OverlapAudit} decomposition={decomposition as CastReport} college={college as CollegeReport} pricing={pricing as PricingReport} /></main></>;
 }

@@ -1,10 +1,12 @@
 # Football Lab
 
 Route: `/football`. Linked from the public Stats navigation and the control navigation.
-The default College turnover test tab evaluates a fixed turnover-inflated-blowout
-hypothesis; see [college-turnover-test.md](college-turnover-test.md). QB & supporting
-team tests quarterback attribution. Overlap audit tests repeated adjustments;
-Research results retains the broader NFL incremental-information study.
+The default NFL pricing errors tab compares the market, an independent QB/supporting
+team forecast, and a learned market correction; see [nfl-pricing-error-test.md](nfl-pricing-error-test.md).
+College turnover test evaluates the fixed college blowout hypothesis; see
+[college-turnover-test.md](college-turnover-test.md). QB & supporting team tests
+quarterback attribution; Overlap audit tests repeated adjustments; Research results
+retains the broader NFL incremental-information study.
 
 This is a separate research workspace inside Dirt IQ. The football page imports only
 its own football modules and reports, its workbench, and the shared navigation. It does not

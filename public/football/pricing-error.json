@@ -1,0 +1,1009 @@
+{
+  "version": 1,
+  "generatedAt": "2026-11-07T00:42:55.193330+00:00",
+  "holdoutEvaluated": false,
+  "starterCoverage": {
+    "records": 0,
+    "acceptedSides": 0,
+    "completeGames": 0,
+    "lateRecords": 0,
+    "status": "No source-referenced pregame starter records supplied. Confirmed-starter test not run."
+  },
+  "settings": {
+    "qbPrior": 400,
+    "marginRidge": 20,
+    "lookbackDays": 730,
+    "weightHalfLifeDays": 365,
+    "edgeThresholdPoints": 2,
+    "minimumPriorErrors": 100
+  },
+  "reports": [
+    {
+      "id": "market",
+      "games": 705,
+      "mae": 9.85177304964539,
+      "bets": 0,
+      "wins": 0,
+      "losses": 0,
+      "pushes": 0,
+      "coverRate": null,
+      "roi": null,
+      "roiInterval": null,
+      "probabilityGames": 687,
+      "brier": 0.2504987740302982,
+      "calibration": [
+        {
+          "low": 0,
+          "high": 0.4,
+          "games": 0,
+          "predicted": null,
+          "observed": null
+        },
+        {
+          "low": 0.4,
+          "high": 0.5,
+          "games": 229,
+          "predicted": 0.48823911458596986,
+          "observed": 0.5414847161572053
+        },
+        {
+          "low": 0.5,
+          "high": 0.6,
+          "games": 458,
+          "predicted": 0.5060907333269797,
+          "observed": 0.49344978165938863
+        },
+        {
+          "low": 0.6,
+          "high": 1.01,
+          "games": 0,
+          "predicted": null,
+          "observed": null
+        }
+      ],
+      "maeDelta": 0.0,
+      "maeDeltaInterval": [
+        0.0,
+        0.0
+      ],
+      "periods": [
+        {
+          "season": 2023,
+          "games": 285,
+          "mae": 9.98421052631579,
+          "bets": 0,
+          "wins": 0,
+          "losses": 0,
+          "pushes": 0,
+          "coverRate": null,
+          "roi": null,
+          "roiInterval": null,
+          "probabilityGames": 271,
+          "brier": 0.24994125226876493,
+          "calibration": [
+            {
+              "low": 0,
+              "high": 0.4,
+              "games": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "low": 0.4,
+              "high": 0.5,
+              "games": 80,
+              "predicted": 0.48789154232837506,
+              "observed": 0.4875
+            },
+            {
+              "low": 0.5,
+              "high": 0.6,
+              "games": 191,
+              "predicted": 0.5049516232699555,
+              "observed": 0.5026178010471204
+            },
+            {
+              "low": 0.6,
+              "high": 1.01,
+              "games": 0,
+              "predicted": null,
+              "observed": null
+            }
+          ]
+        },
+        {
+          "season": 2024,
+          "games": 285,
+          "mae": 9.703508771929824,
+          "bets": 0,
+          "wins": 0,
+          "losses": 0,
+          "pushes": 0,
+          "coverRate": null,
+          "roi": null,
+          "roiInterval": null,
+          "probabilityGames": 281,
+          "brier": 0.250912383014569,
+          "calibration": [
+            {
+              "low": 0,
+              "high": 0.4,
+              "games": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "low": 0.4,
+              "high": 0.5,
+              "games": 104,
+              "predicted": 0.4896764168853767,
+              "observed": 0.5576923076923077
+            },
+            {
+              "low": 0.5,
+              "high": 0.6,
+              "games": 177,
+              "predicted": 0.5058562701535638,
+              "observed": 0.4971751412429379
+            },
+            {
+              "low": 0.6,
+              "high": 1.01,
+              "games": 0,
+              "predicted": null,
+              "observed": null
+            }
+          ]
+        },
+        {
+          "season": 2025,
+          "games": 135,
+          "mae": 9.885185185185184,
+          "bets": 0,
+          "wins": 0,
+          "losses": 0,
+          "pushes": 0,
+          "coverRate": null,
+          "roi": null,
+          "roiInterval": null,
+          "probabilityGames": 135,
+          "brier": 0.25075702790285703,
+          "calibration": [
+            {
+              "low": 0,
+              "high": 0.4,
+              "games": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "low": 0.4,
+              "high": 0.5,
+              "games": 45,
+              "predicted": 0.4855352555075093,
+              "observed": 0.6
+            },
+            {
+              "low": 0.5,
+              "high": 0.6,
+              "games": 90,
+              "predicted": 0.5089692889112717,
+              "observed": 0.4666666666666667
+            },
+            {
+              "low": 0.6,
+              "high": 1.01,
+              "games": 0,
+              "predicted": null,
+              "observed": null
+            }
+          ]
+        }
+      ],
+      "supportingTeamGroup": {
+        "games": 109,
+        "mae": 9.876146788990825,
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "pushes": 0,
+        "coverRate": null,
+        "roi": null,
+        "roiInterval": null,
+        "probabilityGames": 105,
+        "brier": 0.25195434712126447,
+        "calibration": [
+          {
+            "low": 0,
+            "high": 0.4,
+            "games": 0,
+            "predicted": null,
+            "observed": null
+          },
+          {
+            "low": 0.4,
+            "high": 0.5,
+            "games": 45,
+            "predicted": 0.4893030753781708,
+            "observed": 0.6222222222222222
+          },
+          {
+            "low": 0.5,
+            "high": 0.6,
+            "games": 60,
+            "predicted": 0.5076650711019405,
+            "observed": 0.4666666666666667
+          },
+          {
+            "low": 0.6,
+            "high": 1.01,
+            "games": 0,
+            "predicted": null,
+            "observed": null
+          }
+        ]
+      },
+      "confirmed": {
+        "games": 0,
+        "mae": null,
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "pushes": 0,
+        "coverRate": null,
+        "roi": null,
+        "roiInterval": null,
+        "probabilityGames": 0,
+        "brier": null,
+        "calibration": [
+          {
+            "low": 0,
+            "high": 0.4,
+            "games": 0,
+            "predicted": null,
+            "observed": null
+          },
+          {
+            "low": 0.4,
+            "high": 0.5,
+            "games": 0,
+            "predicted": null,
+            "observed": null
+          },
+          {
+            "low": 0.5,
+            "high": 0.6,
+            "games": 0,
+            "predicted": null,
+            "observed": null
+          },
+          {
+            "low": 0.6,
+            "high": 1.01,
+            "games": 0,
+            "predicted": null,
+            "observed": null
+          }
+        ]
+      },
+      "firstPredictions": [
+        {
+          "gameId": "2023_01_DET_KC",
+          "season": 2023,
+          "week": 1,
+          "kickoff": "2023-09-08T00:20:00Z",
+          "available": "2023-09-09T00:20:00Z",
+          "block": "2023-09-06T18:00:00Z",
+          "actual": -1,
+          "market": 4.0,
+          "prediction": 4.0,
+          "homeCoverProbability": 0.5,
+          "homeOdds": -110.0,
+          "awayOdds": -110.0,
+          "supportGroup": false
+        },
+        {
+          "gameId": "2023_01_CAR_ATL",
+          "season": 2023,
+          "week": 1,
+          "kickoff": "2023-09-10T17:00:00Z",
+          "available": "2023-09-11T17:00:00Z",
+          "block": "2023-09-06T18:00:00Z",
+          "actual": 14,
+          "market": 3.5,
+          "prediction": 3.5,
+          "homeCoverProbability": 0.5043297540699688,
+          "homeOdds": -112.0,
+          "awayOdds": -108.0,
+          "supportGroup": false
+        },
+        {
+          "gameId": "2023_01_HOU_BAL",
+          "season": 2023,
+          "week": 1,
+          "kickoff": "2023-09-10T17:00:00Z",
+          "available": "2023-09-11T17:00:00Z",
+          "block": "2023-09-06T18:00:00Z",
+          "actual": 16,
+          "market": 9.5,
+          "prediction": 9.5,
+          "homeCoverProbability": 0.5,
+          "homeOdds": -110.0,
+          "awayOdds": -110.0,
+          "supportGroup": false
+        }
+      ]
+    },
+    {
+      "id": "independent",
+      "games": 705,
+      "mae": 10.314276963135729,
+      "bets": 369,
+      "wins": 176,
+      "losses": 183,
+      "pushes": 10,
+      "coverRate": 0.49025069637883006,
+      "roi": -0.05977056646641506,
+      "roiInterval": [
+        -0.16019914124886037,
+        0.03602373927734246
+      ],
+      "probabilityGames": 687,
+      "brier": 0.26468198004435267,
+      "calibration": [
+        {
+          "low": 0,
+          "high": 0.4,
+          "games": 119,
+          "predicted": 0.3467043649907711,
+          "observed": 0.48739495798319327
+        },
+        {
+          "low": 0.4,
+          "high": 0.5,
+          "games": 208,
+          "predicted": 0.4462124755548898,
+          "observed": 0.5576923076923077
+        },
+        {
+          "low": 0.5,
+          "high": 0.6,
+          "games": 221,
+          "predicted": 0.5457104107194017,
+          "observed": 0.45701357466063347
+        },
+        {
+          "low": 0.6,
+          "high": 1.01,
+          "games": 139,
+          "predicted": 0.6755738063865327,
+          "observed": 0.539568345323741
+        }
+      ],
+      "maeDelta": 0.46250391349033776,
+      "maeDeltaInterval": [
+        0.24342855012852435,
+        0.6950920146941052
+      ],
+      "periods": [
+        {
+          "season": 2023,
+          "games": 285,
+          "mae": 10.591757876221338,
+          "bets": 140,
+          "wins": 60,
+          "losses": 70,
+          "pushes": 10,
+          "coverRate": 0.46153846153846156,
+          "roi": -0.10782944579542364,
+          "roiInterval": [
+            -0.2369614554705707,
+            0.0390305110276682
+          ],
+          "probabilityGames": 271,
+          "brier": 0.2677931206001286,
+          "calibration": [
+            {
+              "low": 0,
+              "high": 0.4,
+              "games": 58,
+              "predicted": 0.3519732459487391,
+              "observed": 0.4827586206896552
+            },
+            {
+              "low": 0.4,
+              "high": 0.5,
+              "games": 83,
+              "predicted": 0.44944233168245723,
+              "observed": 0.5662650602409639
+            },
+            {
+              "low": 0.5,
+              "high": 0.6,
+              "games": 78,
+              "predicted": 0.545362371292426,
+              "observed": 0.4358974358974359
+            },
+            {
+              "low": 0.6,
+              "high": 1.01,
+              "games": 52,
+              "predicted": 0.6590412770880232,
+              "observed": 0.5
+            }
+          ]
+        },
+        {
+          "season": 2024,
+          "games": 285,
+          "mae": 10.069395315318737,
+          "bets": 147,
+          "wins": 73,
+          "losses": 74,
+          "pushes": 0,
+          "coverRate": 0.4965986394557823,
+          "roi": -0.0463930206906985,
+          "roiInterval": [
+            -0.24191828706066532,
+            0.13233045466412116
+          ],
+          "probabilityGames": 281,
+          "brier": 0.26033908102889164,
+          "calibration": [
+            {
+              "low": 0,
+              "high": 0.4,
+              "games": 45,
+              "predicted": 0.3420123543025962,
+              "observed": 0.5111111111111111
+            },
+            {
+              "low": 0.4,
+              "high": 0.5,
+              "games": 90,
+              "predicted": 0.44399026195481284,
+              "observed": 0.5333333333333333
+            },
+            {
+              "low": 0.5,
+              "high": 0.6,
+              "games": 95,
+              "predicted": 0.542697628942059,
+              "observed": 0.4842105263157895
+            },
+            {
+              "low": 0.6,
+              "high": 1.01,
+              "games": 51,
+              "predicted": 0.685548028344856,
+              "observed": 0.5686274509803921
+            }
+          ]
+        },
+        {
+          "season": 2025,
+          "games": 135,
+          "mae": 10.245456292013083,
+          "bets": 82,
+          "wins": 43,
+          "losses": 39,
+          "pushes": 0,
+          "coverRate": 0.524390243902439,
+          "roi": -0.0017005191855508233,
+          "roiInterval": [
+            -0.14129038477997138,
+            0.10891798740609689
+          ],
+          "probabilityGames": 135,
+          "brier": 0.2674763173238286,
+          "calibration": [
+            {
+              "low": 0,
+              "high": 0.4,
+              "games": 16,
+              "predicted": 0.34080095157862955,
+              "observed": 0.4375
+            },
+            {
+              "low": 0.4,
+              "high": 0.5,
+              "games": 35,
+              "predicted": 0.4442673659954274,
+              "observed": 0.6
+            },
+            {
+              "low": 0.5,
+              "high": 0.6,
+              "games": 48,
+              "predicted": 0.5522387720558948,
+              "observed": 0.4375
+            },
+            {
+              "low": 0.6,
+              "high": 1.01,
+              "games": 36,
+              "predicted": 0.6853239787100891,
+              "observed": 0.5555555555555556
+            }
+          ]
+        }
+      ],
+      "supportingTeamGroup": {
+        "games": 109,
+        "mae": 10.552573163560233,
+        "bets": 56,
+        "wins": 23,
+        "losses": 32,
+        "pushes": 1,
+        "coverRate": 0.41818181818181815,
+        "roi": -0.19378786576003157,
+        "roiInterval": [
+          -0.4583639187453921,
+          0.07075166530866711
+        ],
+        "probabilityGames": 105,
+        "brier": 0.27393479072300964,
+        "calibration": [
+          {
+            "low": 0,
+            "high": 0.4,
+            "games": 18,
+            "predicted": 0.35395906371923314,
+            "observed": 0.6111111111111112
+          },
+          {
+            "low": 0.4,
+            "high": 0.5,
+            "games": 36,
+            "predicted": 0.447772434966746,
+            "observed": 0.5833333333333334
+          },
+          {
+            "low": 0.5,
+            "high": 0.6,
+            "games": 30,
+            "predicted": 0.5443942401728382,
+            "observed": 0.4
+          },
+          {
+            "low": 0.6,
+            "high": 1.01,
+            "games": 21,
+            "predicted": 0.6867547933516777,
+            "observed": 0.5714285714285714
+          }
+        ]
+      },
+      "confirmed": {
+        "games": 0,
+        "mae": null,
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "pushes": 0,
+        "coverRate": null,
+        "roi": null,
+        "roiInterval": null,
+        "probabilityGames": 0,
+        "brier": null,
+        "calibration": [
+          {
+            "low": 0,
+            "high": 0.4,
+            "games": 0,
+            "predicted": null,
+            "observed": null
+          },
+          {
+            "low": 0.4,
+            "high": 0.5,
+            "games": 0,
+            "predicted": null,
+            "observed": null
+          },
+          {
+            "low": 0.5,
+            "high": 0.6,
+            "games": 0,
+            "predicted": null,
+            "observed": null
+          },
+          {
+            "low": 0.6,
+            "high": 1.01,
+            "games": 0,
+            "predicted": null,
+            "observed": null
+          }
+        ]
+      },
+      "firstPredictions": [
+        {
+          "gameId": "2023_01_DET_KC",
+          "season": 2023,
+          "week": 1,
+          "kickoff": "2023-09-08T00:20:00Z",
+          "available": "2023-09-09T00:20:00Z",
+          "block": "2023-09-06T18:00:00Z",
+          "actual": -1,
+          "market": 4.0,
+          "prediction": 7.642400301253577,
+          "homeCoverProbability": 0.6293706293706294,
+          "homeOdds": -110.0,
+          "awayOdds": -110.0,
+          "supportGroup": false
+        },
+        {
+          "gameId": "2023_01_CAR_ATL",
+          "season": 2023,
+          "week": 1,
+          "kickoff": "2023-09-10T17:00:00Z",
+          "available": "2023-09-11T17:00:00Z",
+          "block": "2023-09-06T18:00:00Z",
+          "actual": 14,
+          "market": 3.5,
+          "prediction": 2.9319882732096216,
+          "homeCoverProbability": 0.44405594405594406,
+          "homeOdds": -112.0,
+          "awayOdds": -108.0,
+          "supportGroup": false
+        },
+        {
+          "gameId": "2023_01_HOU_BAL",
+          "season": 2023,
+          "week": 1,
+          "kickoff": "2023-09-10T17:00:00Z",
+          "available": "2023-09-11T17:00:00Z",
+          "block": "2023-09-06T18:00:00Z",
+          "actual": 16,
+          "market": 9.5,
+          "prediction": 9.323108751428204,
+          "homeCoverProbability": 0.47202797202797203,
+          "homeOdds": -110.0,
+          "awayOdds": -110.0,
+          "supportGroup": false
+        }
+      ]
+    },
+    {
+      "id": "correction",
+      "games": 705,
+      "mae": 9.849505497315082,
+      "bets": 117,
+      "wins": 67,
+      "losses": 49,
+      "pushes": 1,
+      "coverRate": 0.5775862068965517,
+      "roi": 0.10210594382884275,
+      "roiInterval": [
+        -0.10241905148733901,
+        0.3163470931134437
+      ],
+      "probabilityGames": 687,
+      "brier": 0.2522007008277998,
+      "calibration": [
+        {
+          "low": 0,
+          "high": 0.4,
+          "games": 19,
+          "predicted": 0.37313743159133655,
+          "observed": 0.47368421052631576
+        },
+        {
+          "low": 0.4,
+          "high": 0.5,
+          "games": 277,
+          "predicted": 0.46449521322870746,
+          "observed": 0.5090252707581228
+        },
+        {
+          "low": 0.5,
+          "high": 0.6,
+          "games": 332,
+          "predicted": 0.535014502995937,
+          "observed": 0.4879518072289157
+        },
+        {
+          "low": 0.6,
+          "high": 1.01,
+          "games": 59,
+          "predicted": 0.654222575735933,
+          "observed": 0.6440677966101694
+        }
+      ],
+      "maeDelta": -0.0022675523303079957,
+      "maeDeltaInterval": [
+        -0.12788151288942423,
+        0.12131151485208279
+      ],
+      "periods": [
+        {
+          "season": 2023,
+          "games": 285,
+          "mae": 10.098270556649135,
+          "bets": 19,
+          "wins": 7,
+          "losses": 11,
+          "pushes": 1,
+          "coverRate": 0.3888888888888889,
+          "roi": -0.24405555856625985,
+          "roiInterval": [
+            -0.7555258467023173,
+            0.27724978248875354
+          ],
+          "probabilityGames": 271,
+          "brier": 0.2547390092205808,
+          "calibration": [
+            {
+              "low": 0,
+              "high": 0.4,
+              "games": 1,
+              "predicted": 0.31137724550898205,
+              "observed": 1.0
+            },
+            {
+              "low": 0.4,
+              "high": 0.5,
+              "games": 116,
+              "predicted": 0.47028999745289213,
+              "observed": 0.5258620689655172
+            },
+            {
+              "low": 0.5,
+              "high": 0.6,
+              "games": 153,
+              "predicted": 0.532720120975323,
+              "observed": 0.47058823529411764
+            },
+            {
+              "low": 0.6,
+              "high": 1.01,
+              "games": 1,
+              "predicted": 0.6071428571428571,
+              "observed": 1.0
+            }
+          ]
+        },
+        {
+          "season": 2024,
+          "games": 285,
+          "mae": 9.579191878869668,
+          "bets": 46,
+          "wins": 32,
+          "losses": 14,
+          "pushes": 0,
+          "coverRate": 0.6956521739130435,
+          "roi": 0.32978322030918494,
+          "roiInterval": [
+            0.054468423180225684,
+            0.5901975301231448
+          ],
+          "probabilityGames": 281,
+          "brier": 0.24749952766118283,
+          "calibration": [
+            {
+              "low": 0,
+              "high": 0.4,
+              "games": 14,
+              "predicted": 0.37763547915770135,
+              "observed": 0.35714285714285715
+            },
+            {
+              "low": 0.4,
+              "high": 0.5,
+              "games": 126,
+              "predicted": 0.4613567348117464,
+              "observed": 0.48412698412698413
+            },
+            {
+              "low": 0.5,
+              "high": 0.6,
+              "games": 120,
+              "predicted": 0.5325600450539161,
+              "observed": 0.5333333333333333
+            },
+            {
+              "low": 0.6,
+              "high": 1.01,
+              "games": 21,
+              "predicted": 0.6420121504780418,
+              "observed": 0.7619047619047619
+            }
+          ]
+        },
+        {
+          "season": 2025,
+          "games": 135,
+          "mae": 9.894996899883509,
+          "bets": 52,
+          "wins": 28,
+          "losses": 24,
+          "pushes": 0,
+          "coverRate": 0.5384615384615384,
+          "roi": 0.02718120974059679,
+          "roiInterval": [
+            -0.24609897148260368,
+            0.335237628483103
+          ],
+          "probabilityGames": 135,
+          "brier": 0.2568906866453975,
+          "calibration": [
+            {
+              "low": 0,
+              "high": 0.4,
+              "games": 4,
+              "predicted": 0.3728343116296484,
+              "observed": 0.75
+            },
+            {
+              "low": 0.4,
+              "high": 0.5,
+              "games": 35,
+              "predicted": 0.45658816495818394,
+              "observed": 0.5428571428571428
+            },
+            {
+              "low": 0.5,
+              "high": 0.6,
+              "games": 59,
+              "predicted": 0.5459564589653684,
+              "observed": 0.4406779661016949
+            },
+            {
+              "low": 0.6,
+              "high": 1.01,
+              "games": 37,
+              "predicted": 0.6624252419253597,
+              "observed": 0.5675675675675675
+            }
+          ]
+        }
+      ],
+      "supportingTeamGroup": {
+        "games": 109,
+        "mae": 9.955960361805028,
+        "bets": 16,
+        "wins": 9,
+        "losses": 7,
+        "pushes": 0,
+        "coverRate": 0.5625,
+        "roi": 0.08120903884171148,
+        "roiInterval": [
+          -0.40814283655655936,
+          0.6562073105609609
+        ],
+        "probabilityGames": 105,
+        "brier": 0.2553161417742014,
+        "calibration": [
+          {
+            "low": 0,
+            "high": 0.4,
+            "games": 3,
+            "predicted": 0.3635411230003871,
+            "observed": 0.6666666666666666
+          },
+          {
+            "low": 0.4,
+            "high": 0.5,
+            "games": 39,
+            "predicted": 0.4675354254964664,
+            "observed": 0.6410256410256411
+          },
+          {
+            "low": 0.5,
+            "high": 0.6,
+            "games": 53,
+            "predicted": 0.531533185448864,
+            "observed": 0.41509433962264153
+          },
+          {
+            "low": 0.6,
+            "high": 1.01,
+            "games": 10,
+            "predicted": 0.6678325096066083,
+            "observed": 0.7
+          }
+        ]
+      },
+      "confirmed": {
+        "games": 0,
+        "mae": null,
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "pushes": 0,
+        "coverRate": null,
+        "roi": null,
+        "roiInterval": null,
+        "probabilityGames": 0,
+        "brier": null,
+        "calibration": [
+          {
+            "low": 0,
+            "high": 0.4,
+            "games": 0,
+            "predicted": null,
+            "observed": null
+          },
+          {
+            "low": 0.4,
+            "high": 0.5,
+            "games": 0,
+            "predicted": null,
+            "observed": null
+          },
+          {
+            "low": 0.5,
+            "high": 0.6,
+            "games": 0,
+            "predicted": null,
+            "observed": null
+          },
+          {
+            "low": 0.6,
+            "high": 1.01,
+            "games": 0,
+            "predicted": null,
+            "observed": null
+          }
+        ]
+      },
+      "firstPredictions": [
+        {
+          "gameId": "2023_01_DET_KC",
+          "season": 2023,
+          "week": 1,
+          "kickoff": "2023-09-08T00:20:00Z",
+          "available": "2023-09-09T00:20:00Z",
+          "block": "2023-09-06T18:00:00Z",
+          "actual": -1,
+          "market": 4.0,
+          "prediction": 2.351292086599011,
+          "homeCoverProbability": 0.43356643356643354,
+          "homeOdds": -110.0,
+          "awayOdds": -110.0,
+          "supportGroup": false
+        },
+        {
+          "gameId": "2023_01_CAR_ATL",
+          "season": 2023,
+          "week": 1,
+          "kickoff": "2023-09-10T17:00:00Z",
+          "available": "2023-09-11T17:00:00Z",
+          "block": "2023-09-06T18:00:00Z",
+          "actual": 14,
+          "market": 3.5,
+          "prediction": 5.722594224949559,
+          "homeCoverProbability": 0.5699300699300699,
+          "homeOdds": -112.0,
+          "awayOdds": -108.0,
+          "supportGroup": false
+        },
+        {
+          "gameId": "2023_01_HOU_BAL",
+          "season": 2023,
+          "week": 1,
+          "kickoff": "2023-09-10T17:00:00Z",
+          "available": "2023-09-11T17:00:00Z",
+          "block": "2023-09-06T18:00:00Z",
+          "actual": 16,
+          "market": 9.5,
+          "prediction": 10.570828729574082,
+          "homeCoverProbability": 0.5314685314685315,
+          "homeOdds": -110.0,
+          "awayOdds": -110.0,
+          "supportGroup": false
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Primary report uses QB proxies wherever timely sourced designations are missing. It is not a confirmed-starter test.",
+    "Confirmed designations must be published and observed by the frozen feature timestamp. Later news is excluded, never backdated. Unknown QBs shrink to zero effect rather than borrowing future performance.",
+    "The pricing-error model learns actual margin minus archived market margin from earlier games, then adds only that learned correction to the target line. No manual full-QB penalty is added.",
+    "Market cover probabilities remove vig from paired archived prices. Model probabilities use empirical errors from strictly earlier out-of-sample forecasts; they are development estimates, not validated live probabilities.",
+    "The two-point selection rule is fixed. Archived lines and prices are not timestamp-synchronized with the feature snapshot; returns are hypothetical, not verified executable profit.",
+    "The supporting-team cohort was already inspected in development. Its new results are diagnostics, not another independent discovery or an untouched validation.",
+    "2025 week 10 onward is excluded before feature construction, fitting, calibration, and reporting. No final holdout has been evaluated."
+  ]
+}
