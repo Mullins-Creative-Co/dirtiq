@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { columns, csv, defaults, demoGames, finalCheck, matchup, readGames, runBacktest, type Backtest, type Evaluation, type Game, type HistoryMetadata, type Settings } from '@/lib/football/model';
 import type { InputReadiness, ResearchReport } from '@/lib/football/research';
 import { ResearchPanel } from './research-panel';
@@ -116,6 +117,7 @@ export function FootballWorkbench({ research, readiness, overlap, decomposition,
       {([['pricing', 'NFL pricing errors'], ['college', 'College turnover test'], ['decomposition', 'QB & supporting team'], ['movement', 'QB news & line movement'], ['overlap', 'Overlap audit'], ['research', 'Research results'], ['matchup', 'Matchup sandbox'], ['backtest', 'Historical backtest'], ['experiments', 'Experiment notebook']] as const).map(([key, label]) => <button key={key} aria-pressed={tab === key} onClick={() => { setTab(key); setNotice(''); }} className={`${buttonClass} shrink-0 ${tab === key ? 'border-accent text-accent' : 'text-muted-strong'}`}>{label}</button>)}
     </nav>
 
+    <p className="text-sm"><Link href="/football/line-check" className="font-semibold text-accent underline">Open Football Line Check</Link> <span className="text-muted">to combine matchup factors and compare the spread and price.</span></p>
     {tab === 'research' && <ResearchPanel report={research} readiness={readiness} />}
     {tab === 'decomposition' && <DecompositionPanel report={decomposition} />}
     {tab === 'movement' && <QbMovementPanel />}
