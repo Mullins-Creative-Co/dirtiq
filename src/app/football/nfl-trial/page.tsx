@@ -11,7 +11,7 @@ export const metadata = {
 type Side = 'home' | 'away';
 type Decision = Side | 'pass';
 type Quote = { book: string; homeSpread: number; homeOdds: number; awayOdds: number };
-type Estimate = { coverGivenNoPush: number; breakEven: number };
+type Estimate = { coverGivenNoPush: number; breakEven: number; expectedReturn: number };
 type Settlement = {
   side: Decision;
   profit?: number;
@@ -66,7 +66,7 @@ function line(quote: Quote, side: Side) {
 }
 
 function decisionText(forecast: Forecast, decision: Decision) {
-  return decision === 'pass' ? 'Pass' : `${forecast[decision]} ${line(forecast.request.target, decision)}`;
+  return decision === 'pass' ? 'Pass · Skip this price' : `${forecast[decision]} ${line(forecast.request.target, decision)}`;
 }
 
 function settlementText(settlement: Settlement) {
@@ -110,11 +110,22 @@ function ForecastCard({ forecast }: { forecast: Forecast }) {
       {([
         ['market', 'Market decision', prediction.marketDecision],
         ['model', 'DirtIQ decision', prediction.modelDecision],
-      ] as const).map(([strategy, label, decision]) => <div key={strategy}>
-        <dt className="text-xs text-muted">{label}</dt>
-        <dd className="mt-1 font-semibold">{decisionText(forecast, decision)}</dd>
-        {grade && <dd className="mt-1 text-xs text-muted">{settlementText(grade.strategies[strategy])}</dd>}
-      </div>)}
+      ] as const).map(([strategy, label, decision]) => {
+        const estimates = prediction[strategy];
+        const estimatedReturn = decision === 'pass'
+          ? Math.max(estimates.home.expectedReturn, estimates.away.expectedReturn)
+          : estimates[decision].expectedReturn;
+
+        return <div key={strategy}>
+          <dt className="text-xs text-muted">{label}</dt>
+          <dd className="mt-1 font-semibold">{decisionText(forecast, decision)}</dd>
+          <dd className="mt-1 text-xs text-muted">
+            {decision === 'pass' ? 'Best estimated return' : 'Estimated return'} {percent.format(estimatedReturn)}
+            {decision === 'pass' && ' · Below the 3% trial cutoff'}
+          </dd>
+          {grade && <dd className="mt-1 text-xs text-muted">{settlementText(grade.strategies[strategy])}</dd>}
+        </div>;
+      })}
     </dl>
     {grade ? <p className="text-sm text-muted">
       Final · {forecast.away} {grade.finalScores[1]} · {forecast.home} {grade.finalScores[0]}
@@ -131,8 +142,14 @@ export default async function NflTrialPage() {
     <header className="border-b border-border pb-5">
       <p className="text-xs font-bold uppercase tracking-wider text-accent">NFL research</p>
       <h1 className="mt-2 font-display text-4xl font-black sm:text-5xl">Pregame trial</h1>
-      <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-strong">Compare the no-vig market estimate with DirtIQ at the same sportsbook quote. Cover and break-even probabilities exclude pushes.</p>
+      <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-strong">Compare what the market and DirtIQ think each team’s chances are of beating the spread at the listed sportsbook.</p>
     </header>
+    <section className="panel space-y-2 p-4 text-sm leading-relaxed sm:p-5" aria-labelledby="trial-guide">
+      <h2 id="trial-guide" className="font-bold">How to read the trial</h2>
+      <p><strong>Pass means skip this price.</strong> Neither side reached the trial’s minimum estimated return of 3%. A different spread or price could change the decision.</p>
+      <p><strong>Break-even</strong> is how often the bet needs to win to cover its cost over time. At −110, that’s 52.4%. Compare that number with the Market or DirtIQ estimate for the same side.</p>
+      <p className="text-xs text-muted">The cover and break-even columns exclude pushes, when the spread lands exactly and the stake is returned. The trial includes pushes when estimating return.</p>
+    </section>
     {forecasts.length ? <>
       <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
         <p className="text-muted">{forecasts.length} logged {forecasts.length === 1 ? 'forecast' : 'forecasts'} · {graded} graded</p>
