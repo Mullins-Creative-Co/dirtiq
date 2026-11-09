@@ -8,6 +8,7 @@ const adminItems = [
   { href: "/admin/live", label: "Control" },
   { href: "/admin/today", label: "Today Odds" },
   { href: "/admin/testing", label: "Model Lab" },
+  { href: "/matchups", label: "Matchups" },
   { href: "/football", label: "Football" },
   { href: "/nba", label: "NBA" },
   { href: "/admin/races", label: "Races" },
@@ -51,7 +52,7 @@ export function Nav() {
   const [open, setOpen] = useState(false);
 
   const isAdmin = pathname.startsWith("/admin");
-  const isWorkspace = isAdmin || pathname === "/" || pathname.startsWith("/football") || pathname.startsWith("/nba");
+  const isWorkspace = isAdmin || pathname === "/" || pathname.startsWith("/football") || pathname.startsWith("/nba") || pathname.startsWith("/matchups");
 
   function adminLinkClass(href: string) {
     const active = href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -125,7 +126,7 @@ export function Nav() {
               <Link href="/admin/today" className={adminLinkClass("/admin/today")}>Today Odds</Link>
               <Link href="/admin/testing" className={adminLinkClass("/admin/testing")}>Model Lab</Link>
               <Link href="/admin/races" className={adminLinkClass("/admin/races")}>Races</Link>
-              <Link href="/football" className={adminLinkClass("/football")}>Football</Link>
+              <Link href="/matchups" className={adminLinkClass("/matchups")}>Matchups</Link>
             </div>
             <div className="hidden items-center gap-2 py-2 text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--muted)] md:flex">
               <Link href="/admin/maintenance" className="hover:text-white">Refresh</Link>
