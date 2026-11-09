@@ -20,7 +20,9 @@ export function getScoreboardUrl(sport: SportId, date: string): string {
   const url = new URL(`https://site.api.espn.com/apis/site/v2/sports/${paths[sport]}/scoreboard`);
   url.searchParams.set('dates', date.replaceAll('-', ''));
   url.searchParams.set('limit', '1000');
-  if (sport === 'ncaaf' || sport === 'ncaab') url.searchParams.set('groups', '80');
+  // ESPN group IDs are league-specific: football FBS is 80, men's Division I basketball is 50.
+  if (sport === 'ncaaf') url.searchParams.set('groups', '80');
+  if (sport === 'ncaab') url.searchParams.set('groups', '50');
   return url.toString();
 }
 

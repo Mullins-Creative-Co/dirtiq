@@ -65,7 +65,9 @@ forecast is written into a frozen trial.
 - `npx tsc --noEmit`, changed-file ESLint and `npm run build`.
 - React DOM interaction checks exercised archive loading, repeated run/save, sport/team
   changes, manual scenarios, probability invalidation, cancellation races, upstream errors
-  and empty results. These are component checks, not a visual browser signoff.
+  and empty results. Production browser checks also verified NFL forecast runs, NBA missing probabilities,
+  sport switching and current schedule selection. Local preview access was unavailable;
+  protected-preview access was not changed. Mobile viewport visual QA was not performed.
 
 Full repository lint currently has an unrelated existing unescaped apostrophe in
 `src/app/odds/world-100/page.tsx` and an unused-variable warning in the race scorecard.

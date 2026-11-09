@@ -22,7 +22,7 @@ test('scoreboard URLs use fixed allowlisted sport paths and college groups', () 
     assert.equal(url.origin, 'https://site.api.espn.com');
     assert.equal(url.pathname, `/apis/site/v2/sports/${path}/scoreboard`);
     assert.equal(url.searchParams.get('dates'), '20261109');
-    assert.equal(url.searchParams.get('groups'), sport.startsWith('ncaa') ? '80' : null);
+    assert.equal(url.searchParams.get('groups'), sport === 'ncaaf' ? '80' : sport === 'ncaab' ? '50' : null);
   }
 });
 
