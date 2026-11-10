@@ -41,7 +41,8 @@
     "sports:backtest": "OPENBLAS_NUM_THREADS=1 python3 -m dirtiq_model teams backtest",
     "sports:forecast": "OPENBLAS_NUM_THREADS=1 python3 -m dirtiq_model teams forecast",
     "sports:settle": "OPENBLAS_NUM_THREADS=1 python3 -m dirtiq_model teams settle",
-    "sports:all": "OPENBLAS_NUM_THREADS=1 python3 -m dirtiq_model teams forecast --sport nfl && OPENBLAS_NUM_THREADS=1 python3 -m dirtiq_model teams forecast --sport nba"
+    "sports:all": "OPENBLAS_NUM_THREADS=1 python3 -m dirtiq_model teams forecast --sport nfl && OPENBLAS_NUM_THREADS=1 python3 -m dirtiq_model teams forecast --sport nba",
+    "odds:snapshot": "python3 -m dirtiq_model odds snapshot"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.104.1",

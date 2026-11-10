@@ -34,11 +34,11 @@ const groups: Group[] = [
       { href: "/matchups", label: "Matchup workbench" },
     ],
   },
-  { key: "models", label: "Models", href: "/models", match: starts(["/models"]), items: [] },
   {
-    key: "lab", label: "Lab", href: "/admin/testing",
-    match: starts(["/admin/testing", "/football", "/nba"]),
+    key: "models", label: "Models", href: "/models",
+    match: starts(["/models", "/admin/testing", "/football", "/nba"]),
     items: [
+      { href: "/models", label: "Health", match: (path) => path === "/models" },
       { href: "/admin/testing", label: "Racing lab" },
       { href: "/football", label: "Football lab" },
       { href: "/nba", label: "NBA lab" },

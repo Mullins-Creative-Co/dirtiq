@@ -7,7 +7,7 @@ import { Card, Chip, EmptyState, Note, PageHeader, Section, StatTile, Table, typ
 import { ReliabilityChart } from "@/components/ui/reliability-chart";
 import { SeasonDumbbell } from "@/components/ui/season-dumbbell";
 import { american, dateTime, num, pct, relativeAge, signed, spread, units } from "@/lib/format";
-import { SPORT_LABELS, getModelHealth, getSportReport } from "@/lib/model-reports";
+import { SPORT_LABELS, getModelHealth, getOddsSnapshot, getOddsStatus, getSportReport, oddsByMatchup } from "@/lib/model-reports";
 
 export const dynamic = "force-dynamic";
 
@@ -36,6 +36,10 @@ export default async function SportPage({ params }: { params: Promise<{ sport: s
 
   const bt = report.backtest;
   const health = getModelHealth();
+  const oddsStatus = getOddsStatus();
+  const odds = getOddsSnapshot(sport);
+  const live = oddsByMatchup(odds);
+  const liveRun = oddsStatus?.sports?.[sport] ?? null;
   const ledger = health?.models.filter((m) => m.sport === sport) ?? [];
   const gap = bt?.mae !== null && bt?.mae !== undefined && bt.marketMae !== null && bt.marketMae !== undefined ? bt.mae - bt.marketMae : null;
   const sel = bt?.selections ?? null;
@@ -63,7 +67,7 @@ export default async function SportPage({ params }: { params: Promise<{ sport: s
             <EmptyState title="No upcoming games in the window" detail="The forecast command records the next ten days of scheduled games." command={`npm run sports:forecast -- --sport ${sport}`} />
           ) : (
             <Table caption={`Upcoming ${label} games`}>
-              <thead><tr><th>Game</th><th className="num">Proj. margin</th><th className="num">SD</th><th className="num">Home win</th><th className="num">Market spread</th><th className="num">Home cover</th><th className="num">Moneyline</th><th className="num">Lean</th></tr></thead>
+              <thead><tr><th>Game</th><th className="num">Proj. margin</th><th className="num">SD</th><th className="num">Home win</th><th className="num">Market spread</th>{odds ? <th className="num">Live consensus</th> : null}<th className="num">Home cover</th><th className="num">Moneyline</th><th className="num">Lean</th></tr></thead>
               <tbody>
                 {report.upcoming.map((g) => {
                   const leanTeam = g.lean === "home" ? g.home : g.lean === "away" ? g.away : null;
@@ -75,6 +79,7 @@ export default async function SportPage({ params }: { params: Promise<{ sport: s
                       <td className="num text-[var(--muted)]">{num(g.marginSd, 1)}</td>
                       <td className="num">{pct(g.homeWinProb)}</td>
                       <td className="num">{g.marketHomeSpread === null ? "—" : `${g.home} ${spread(g.marketHomeSpread)}`}<div className="text-xs text-[var(--muted)]">{g.marketHomePrice !== null ? `${american(g.marketHomePrice)} / ${american(g.marketAwayPrice)}` : ""}</div></td>
+                      {odds ? (() => { const l = live.get(`${g.home}|${g.away}`); return <td className="num">{l && l.homeSpread !== null ? `${g.home} ${spread(l.homeSpread)}` : "—"}<div className="text-xs text-[var(--muted)]">{l ? `${american(l.homeMl)} / ${american(l.awayMl)} · ${l.books} books` : ""}</div></td>; })() : null}
                       <td className="num">{pct(g.homeCoverProb)}{g.pushProb ? <div className="text-xs text-[var(--muted)]">push {pct(g.pushProb)}</div> : null}</td>
                       <td className="num">{g.marketHomeMl !== null ? `${american(g.marketHomeMl)} / ${american(g.marketAwayMl)}` : "—"}</td>
                       <td className="num">{leanTeam ? <Chip tone={tone} title="Model disagrees with the market by this many points toward this side">{leanTeam} {g.edgePts === null ? "" : `${Math.abs(g.edgePts).toFixed(1)} pts`}</Chip> : <span className="text-[var(--muted)]">—</span>}</td>
@@ -85,6 +90,19 @@ export default async function SportPage({ params }: { params: Promise<{ sport: s
             </Table>
           )}
           <Note tone="warn">Lines come from the public source file with its retrieval time, not from a live book. A lean is a research flag; expected value needs a current executable price.</Note>
+          <Card className="flex flex-wrap items-center justify-between gap-3 p-4">
+            <div className="text-sm">
+              <p className="font-semibold">Live odds feed{oddsStatus?.configured ? "" : ": not configured"}</p>
+              <p className="mt-1 text-xs leading-5 text-[var(--muted)]">
+                {oddsStatus?.configured
+                  ? liveRun
+                    ? `Last snapshot ${relativeAge(liveRun.snapshotAt)}: ${liveRun.events} events, ${liveRun.matchedEvents} matched to open forecasts, ${liveRun.closesUpdated} closing lines refreshed.`
+                    : `Configured, but no snapshot for ${label} yet.`
+                  : "Closing-line value needs a line at forecast time and a line at kickoff. Set ODDS_API_KEY and run the snapshot command on a schedule; the consensus median across books is stored and the last snapshot before start becomes the close."}
+              </p>
+            </div>
+            <code className="rounded border border-[var(--border)] bg-black/40 px-3 py-2 font-mono text-xs text-[var(--muted-strong)]">npm run odds:snapshot -- --sport {sport}</code>
+          </Card>
         </Section>
 
         <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr]">

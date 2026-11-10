@@ -192,6 +192,17 @@ class Ledger:
         self._commit()
         return cur.rowcount
 
+    def set_line(self, sport: str, event_id: str, market: str, selection: str,
+                 line: Optional[float], price: Optional[int], book: str, observed_at: str) -> int:
+        """Fill the forecast-time line on open rows that were recorded without one."""
+        cur = self.con.execute(
+            """UPDATE forecast_ledger SET line=?, price=?, book=?, line_observed_at=?
+               WHERE sport=? AND event_id=? AND market=? AND selection=? AND outcome IS NULL AND price IS NULL""",
+            (line, price, book, observed_at, sport, event_id, market, selection),
+        )
+        self._commit()
+        return cur.rowcount
+
     def set_close(self, sport: str, event_id: str, market: str, selection: str,
                   close_line: Optional[float], close_price: Optional[int]) -> int:
         cur = self.con.execute(

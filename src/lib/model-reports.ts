@@ -214,3 +214,32 @@ export function getRacingDataSummary() {
     .get() as { races: number; entries: number; drivers: number; tracks: number; latest: string | null };
   return row;
 }
+
+/* ── Live odds snapshots (The Odds API via dirtiq_model.odds) ───────────── */
+export type OddsStatus = {
+  configured: boolean; checkedAt: string; source: string; error: string | null; setup: string;
+  quota: Record<string, string> | null;
+  sports: Record<string, { snapshotAt: string; events: number; unresolved: number; openRows: number; matchedEvents: number; linesFilled: number; closesUpdated: number }>;
+};
+export type OddsEvent = {
+  eventId: string; home: string; away: string; startsAt: string; observedAt: string; books: number;
+  homeSpread: number | null; homeSpreadPrice: number | null; awaySpreadPrice: number | null; homeMl: number | null; awayMl: number | null;
+};
+export type OddsSnapshot = { sport: string; generatedAt: string; source: string; book: string; events: OddsEvent[]; unresolvedTeams: Record<string, number> };
+
+export function getOddsStatus(): OddsStatus | null {
+  return readJson<OddsStatus>("public/data/odds/status.json");
+}
+
+export function getOddsSnapshot(sport: string): OddsSnapshot | null {
+  if (!/^[a-z]+$/.test(sport)) return null;
+  return readJson<OddsSnapshot>(`public/data/odds/${sport}-latest.json`);
+}
+
+/** Index a snapshot by home/away so pages can show the live consensus beside a projection. */
+export function oddsByMatchup(snapshot: OddsSnapshot | null): Map<string, OddsEvent> {
+  const map = new Map<string, OddsEvent>();
+  for (const event of snapshot?.events ?? []) map.set(`${event.home}|${event.away}`, event);
+  return map;
+}
+

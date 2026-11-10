@@ -16,6 +16,7 @@ targets:
   racing   conditional-logit race model      (train | backtest | score | settle)
   teams    two-team margin model             (backtest | forecast | settle; --sport nfl|nba|...)
   ledger   forecast ledger                   (summary | export | settle)
+  odds     live odds snapshots               (snapshot --sport nfl; needs ODDS_API_KEY)
 """
 
 

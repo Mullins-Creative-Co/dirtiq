@@ -153,6 +153,19 @@ Selections: racing `driver:<driver_id>`; team sports the team abbreviation.
 `forecast` records `spread` and `moneyline` rows to the ledger for every upcoming
 game with a visible market; `settle` grades them from completed results.
 
+## Odds feed
+
+`dirtiq_model/odds/` pulls current spreads and moneylines from The Odds API
+(`ODDS_API_KEY` in the environment; a GitHub Actions secret of the same name for the
+workflow). `python3 -m dirtiq_model odds snapshot --sport nfl` writes the
+median-across-books consensus to `public/data/odds/<sport>-latest.json`, fills the
+forecast-time line on open ledger rows that had none (sports whose schedule source has no
+market), refreshes `close_line`/`close_price` on every open row until the event starts,
+and records run status in `public/data/odds/status.json`. Team names are mapped to report
+abbreviations by explicit NFL and NBA tables with a nickname fallback; unresolved names
+are listed, never guessed. Without a key the command writes `configured: false` and the
+UI says the feed is off.
+
 ## UI contract
 
 Routes (all read artifacts through `src/lib/model-reports.ts`; pages never parse JSON):
@@ -183,6 +196,7 @@ npm run racing:settle              # grade completed races, export model-health.
 npm run sports:backtest -- --sport nfl
 npm run sports:forecast -- --sport nfl   # ratings + upcoming + ledger rows
 npm run sports:settle   -- --sport nfl   # grade from fresh results, export model-health.json
+npm run odds:snapshot   -- --sport nfl   # needs ODDS_API_KEY
 npm run ledger:export              # public/data/model-health.json
 npm run ledger:summary
 npm run test:py                    # all Python unit tests

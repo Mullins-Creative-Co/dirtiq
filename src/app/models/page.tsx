@@ -5,7 +5,7 @@ import { Nav } from "@/components/nav";
 import { Card, Chip, EmptyState, Note, PageHeader, Section, StatTile, Table, type Tone } from "@/components/ui/primitives";
 import { ReliabilityChart } from "@/components/ui/reliability-chart";
 import { num, pct, relativeAge, signed, units } from "@/lib/format";
-import { SPORT_LABELS, getModelHealth, getRacingReport, listSportReports } from "@/lib/model-reports";
+import { SPORT_LABELS, getModelHealth, getOddsStatus, getRacingReport, listSportReports } from "@/lib/model-reports";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Model health | dirtIQ", description: "Ledger scores, calibration, and backtests for every dirtIQ model." };
@@ -22,12 +22,14 @@ export default async function ModelsPage() {
   const racing = getRacingReport();
   const sports = listSportReports();
   const models = health?.models ?? [];
+  const odds = getOddsStatus();
+  const oddsRuns = Object.entries(odds?.sports ?? {});
 
   return (
     <div className="min-h-screen">
       <Nav />
       <main className="mx-auto max-w-7xl space-y-12 px-4 py-8 sm:px-6">
-        <PageHeader kicker="Model health" title="The ledger decides." lede="Backtests tell you whether a method is sane. Only forecasts recorded before the event and graded afterward tell you whether the model is good. Both are here, kept separate." aside={<StatTile label="Ledger exported" value={health ? relativeAge(health.generatedAt) : "never"} detail="npm run ledger:export" />} />
+        <PageHeader kicker="Model health" title="The ledger decides." lede="Backtests tell you whether a method is sane. Only forecasts recorded before the event and graded afterward tell you whether the model is good. Both are here, kept separate." aside={<div className="grid grid-cols-2 gap-2"><StatTile label="Ledger exported" value={health ? relativeAge(health.generatedAt) : "never"} detail="npm run ledger:export" /><StatTile label="Odds feed" value={odds?.configured ? (oddsRuns.length ? relativeAge(oddsRuns[0][1].snapshotAt) : "idle") : "off"} detail={odds?.configured ? `${oddsRuns.length} sport${oddsRuns.length === 1 ? "" : "s"} snapshotted` : "set ODDS_API_KEY"} tone={odds?.configured ? "good" : "warn"} /></div>} />
 
         <Section kicker="Live" title="Ledger scorecard" description="One row per model and market. Brier below 0.25 beats a coin flip on two-way markets; for race winners compare against the uniform baseline in the backtest. CLV is the average no-vig closing probability minus the probability implied by the price taken.">
           {models.length === 0 ? (
@@ -143,6 +145,20 @@ export default async function ModelsPage() {
           <Note>An independent model that trails the market by a few tenths of a point is normal. The useful questions are whether its probabilities are calibrated and whether the games where it disagrees with the market show positive closing-line value in the live ledger.</Note>
         </Section>
 
+        <Section kicker="Closing-line value" title="Odds feed" description="CLV compares the price you forecast at with the no-vig closing price. The feed stores a consensus snapshot per run and refreshes closing lines on open ledger rows until the event starts.">
+          {odds?.configured ? (
+            oddsRuns.length ? (
+              <Table caption="Odds snapshots by sport">
+                <thead><tr><th>Sport</th><th>Last snapshot</th><th className="num">Events</th><th className="num">Matched</th><th className="num">Lines filled</th><th className="num">Closes refreshed</th><th className="num">Unresolved names</th></tr></thead>
+                <tbody>{oddsRuns.map(([sport, run]) => <tr key={sport}><td className="strong">{SPORT_LABELS[sport] ?? sport}</td><td>{relativeAge(run.snapshotAt)}</td><td className="num">{run.events}</td><td className="num">{run.matchedEvents}</td><td className="num">{run.linesFilled}</td><td className="num">{run.closesUpdated}</td><td className="num">{run.unresolved}</td></tr>)}</tbody>
+              </Table>
+            ) : <Note>Key configured; no snapshot has run yet.</Note>
+          ) : (
+            <EmptyState title="Odds feed not configured" detail={odds?.setup ?? "Set ODDS_API_KEY and run the snapshot command."} command={"export ODDS_API_KEY=...\nnpm run odds:snapshot -- --sport nfl\nnpm run odds:snapshot -- --sport nba"} />
+          )}
+          {odds?.error ? <Note tone="warn">Last error: {odds.error}</Note> : null}
+        </Section>
+
         <Section title="Commands">
           <pre className="overflow-x-auto rounded-lg border border-[var(--border)] bg-black/40 p-4 font-mono text-xs leading-6 text-[var(--muted-strong)]">{`npm run racing:backtest        # rolling backtest + public/data/racing-model-report.json
 npm run racing:train           # production artifacts per series and stage
@@ -151,6 +167,7 @@ npm run racing:settle          # grade completed races
 npm run sports:backtest -- --sport nfl
 npm run sports:forecast -- --sport nfl
 npm run sports:settle   -- --sport nfl
+npm run odds:snapshot   -- --sport nfl   # needs ODDS_API_KEY; fills lines and closing lines
 npm run ledger:export          # public/data/model-health.json`}</pre>
         </Section>
       </main>
