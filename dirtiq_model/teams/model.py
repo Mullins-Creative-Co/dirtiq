@@ -20,7 +20,7 @@ import numpy as np
 import pandas as pd
 
 from .. import scoring
-from .ratings import EmpiricalMargin, win_probability
+from .ratings import EmpiricalMargin, Hyper, default_hyper, win_probability
 
 MODEL_VERSION = "1.0"
 RIDGE_ALPHA = 1.0
@@ -30,11 +30,16 @@ RIDGE_ALPHA = 1.0
 class SportConfig:
     sport: str
     label: str
-    threshold: float
+    threshold: float          # selection rule: abs(model - market) >= threshold, in the sport's margin unit
     warm_start: int
     first_test: int
     min_test_games: int = 40
-    ties: bool = False  # can a game end level? (NFL yes; NBA/college no)
+    ties: bool = False        # can a game end level? (NFL yes; NBA/college/NHL no; MLB only when called early)
+    unit: str = "points"      # margin unit (points, runs, goals)
+    sigma_prior: Optional[float] = None   # starting observation-noise SD for the hyperparameter fit (None: 0.9 x margin SD)
+    hfa_prior: Optional[float] = None     # starting home advantage for the fit (None: mean home margin)
+    season_convention: str = "calendar year of the season"  # how the adapter labels ``season``
+    maxiter: Optional[int] = None         # optimizer budget per fold when the default is too slow (many teams)
 
     @property
     def model_id(self) -> str:
@@ -45,11 +50,22 @@ class SportConfig:
         return f"abs(model - market) >= {self.threshold:.1f}"
 
 
+ENDING_YEAR = "ESPN/league ending year (2026-27 is 2027)"
+
 SPORT_CONFIG: Dict[str, SportConfig] = {
-    "nfl": SportConfig("nfl", "NFL", threshold=2.0, warm_start=2009, first_test=2015, ties=True),
-    "nba": SportConfig("nba", "NBA", threshold=3.0, warm_start=2016, first_test=2019),
-    "ncaaf": SportConfig("ncaaf", "NCAAF", threshold=3.0, warm_start=2010, first_test=2015),
-    "ncaab": SportConfig("ncaab", "NCAAB", threshold=3.0, warm_start=2016, first_test=2019),
+    "nfl": SportConfig("nfl", "NFL", threshold=2.0, warm_start=2009, first_test=2015, ties=True,
+                       season_convention="calendar year the season starts (nflverse)"),
+    "nba": SportConfig("nba", "NBA", threshold=3.0, warm_start=2016, first_test=2019, season_convention=ENDING_YEAR),
+    "ncaaf": SportConfig("ncaaf", "NCAAF", threshold=3.0, warm_start=2010, first_test=2015,
+                         season_convention="calendar year the season starts (ESPN)"),
+    # ~365 Division I teams plus a pooled NON_D1 rating and ~6,000 games a season: a smaller
+    # Nelder-Mead budget keeps the rolling backtest near ten minutes (warm starts carry the fit across folds).
+    "ncaab": SportConfig("ncaab", "NCAAB", threshold=3.0, warm_start=2016, first_test=2019, sigma_prior=11.0,
+                         season_convention=ENDING_YEAR, maxiter=80),
+    "mlb": SportConfig("mlb", "MLB", threshold=1.0, warm_start=2015, first_test=2018, unit="runs", sigma_prior=4.3,
+                       hfa_prior=0.2, season_convention="calendar year (MLB Stats API season)"),
+    "nhl": SportConfig("nhl", "NHL", threshold=0.5, warm_start=2016, first_test=2019, unit="goals", sigma_prior=2.3,
+                       hfa_prior=0.2, season_convention=ENDING_YEAR),
 }
 
 
@@ -57,6 +73,16 @@ def config_for(sport: str) -> SportConfig:
     if sport not in SPORT_CONFIG:
         raise ValueError(f"unknown sport {sport!r}")
     return SPORT_CONFIG[sport]
+
+
+def initial_hyper(cfg: SportConfig, games: pd.DataFrame) -> Hyper:
+    """Starting point for the hyperparameter fit: the data-driven default with the
+    sport's observation-noise and home-advantage priors substituted when configured."""
+    base = default_hyper(games[games["completed"]] if "completed" in games.columns else games)
+    sigma = float(cfg.sigma_prior) if cfg.sigma_prior else base.sigma
+    hfa = float(cfg.hfa_prior) if cfg.hfa_prior is not None else base.hfa
+    return Hyper(process_sd_day=base.process_sd_day, season_reversion=base.season_reversion, season_sd=base.season_sd,
+                 hfa=hfa, sigma=sigma, init_sd=base.init_sd)
 
 
 # ── market helpers ──────────────────────────────────────────────────────

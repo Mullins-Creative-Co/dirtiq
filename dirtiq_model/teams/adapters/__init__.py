@@ -4,7 +4,7 @@ from __future__ import annotations
 import importlib
 from types import ModuleType
 
-SPORTS = ("nfl", "nba", "ncaaf", "ncaab")
+SPORTS = ("nfl", "nba", "ncaaf", "ncaab", "mlb", "nhl")
 
 
 def get_adapter(sport: str) -> ModuleType:

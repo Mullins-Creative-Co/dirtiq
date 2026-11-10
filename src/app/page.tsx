@@ -25,7 +25,7 @@ function GameRow({ game, sport }: { game: SportUpcoming; sport: string }) {
     <tr>
       <td>
         <Link href={`/sports/${sport}`} className="strong hover:text-[var(--accent-hi)]">{game.away} at {game.home}</Link>
-        <div className="text-xs text-[var(--muted)]">{dateTime(game.startsAt)}</div>
+        <div className="text-xs text-[var(--muted)]"><span className="uppercase tracking-wider">{SPORT_LABELS[sport] ?? sport}</span> · {dateTime(game.startsAt)}</div>
       </td>
       <td className="num">{signed(game.projectedHomeMargin)}</td>
       <td className="num">{game.marketHomeSpread === null ? "—" : `${game.home} ${spread(game.marketHomeSpread)}`}</td>
@@ -73,7 +73,14 @@ export default async function HomePage() {
 
   const racingWin = healthFor(health, "racing", "win");
   const pooled = racing?.series.find((s) => s.slug === "pooled" || s.series.toLowerCase() === "pooled") ?? racing?.series[0] ?? null;
-  const upcomingGames = sports.flatMap((s) => s.upcoming.map((g) => ({ sport: s.sport, game: g }))).sort((a, b) => a.game.startsAt.localeCompare(b.game.startsAt)).slice(0, 8);
+  // Balance the table across sports: up to three games each, market-quoted games first, soonest first.
+  const upcomingGames = sports
+    .flatMap((s) => [...s.upcoming]
+      .sort((a, b) => Number(b.marketHomeSpread !== null) - Number(a.marketHomeSpread !== null) || a.startsAt.localeCompare(b.startsAt))
+      .slice(0, 3)
+      .map((g) => ({ sport: s.sport, game: g })))
+    .sort((a, b) => a.game.startsAt.localeCompare(b.game.startsAt))
+    .slice(0, 12);
   const openForecasts = health?.models.reduce((sum, m) => sum + m.open, 0) ?? 0;
   const settledForecasts = health?.models.reduce((sum, m) => sum + m.settled, 0) ?? 0;
 

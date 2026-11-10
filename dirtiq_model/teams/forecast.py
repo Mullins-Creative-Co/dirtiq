@@ -14,7 +14,7 @@ import pandas as pd
 from ..ledger_core import Forecast, Ledger, now_iso
 from .adapters.common import now_iso as _now
 from .backtest import base_report, limitations, load_report, teams_in, training_artifacts, write_report
-from .model import MODEL_VERSION, Scorer, SportConfig, opt_int, round_or_none, settle_moneyline, settle_spread
+from .model import MODEL_VERSION, Scorer, SportConfig, initial_hyper, opt_int, round_or_none, settle_moneyline, settle_spread
 from .ratings import Hyper, KalmanRatings, fit_hyper, run_filter
 
 HORIZON_DAYS = 10
@@ -38,8 +38,9 @@ def choose_hyper(cfg: SportConfig, train: pd.DataFrame, teams: List[str], existi
     cached = existing.get("forecastFit") or {}
     if not refit and cached.get("trainSeasons") == train_seasons and cached.get("hyper"):
         return {"hyper": cached["hyper"], "trainSeasons": train_seasons, "fit": cached.get("fit"), "reused": True}
-    init = Hyper.from_dict(cached["hyper"]) if cached.get("hyper") else None
-    hyper, info = fit_hyper(train, teams, init=init, maxiter=maxiter)
+    init = Hyper.from_dict(cached["hyper"]) if cached.get("hyper") else initial_hyper(cfg, train)
+    budget = min(maxiter, cfg.maxiter) if cfg.maxiter else maxiter
+    hyper, info = fit_hyper(train, teams, init=init, maxiter=budget)
     return {"hyper": hyper.to_dict(), "trainSeasons": train_seasons,
             "fit": {k: info[k] for k in ("nllPerGame", "iterations", "converged")}, "reused": False}
 

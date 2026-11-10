@@ -44,7 +44,10 @@ export default async function SportPage({ params }: { params: Promise<{ sport: s
   const gap = bt?.mae !== null && bt?.mae !== undefined && bt.marketMae !== null && bt.marketMae !== undefined ? bt.mae - bt.marketMae : null;
   const sel = bt?.selections ?? null;
   const seasonRows = (bt?.bySeason ?? []).map((s) => ({ label: String(s.season).slice(-2), model: s.mae, market: s.marketMae, n: s.games }));
-  const topRatings = [...report.ratings].sort((a, b) => a.rank - b.rank);
+  const RATINGS_SHOWN = 40;
+  const GAMES_SHOWN = 60;
+  const topRatings = [...report.ratings].sort((a, b) => a.rank - b.rank).slice(0, RATINGS_SHOWN);
+  const shownGames = report.upcoming.slice(0, GAMES_SHOWN);
 
   return (
     <div className="min-h-screen">
@@ -69,7 +72,7 @@ export default async function SportPage({ params }: { params: Promise<{ sport: s
             <Table caption={`Upcoming ${label} games`}>
               <thead><tr><th>Game</th><th className="num">Proj. margin</th><th className="num">SD</th><th className="num">Home win</th><th className="num">Market spread</th>{odds ? <th className="num">Live consensus</th> : null}<th className="num">Home cover</th><th className="num">Moneyline</th><th className="num">Lean</th></tr></thead>
               <tbody>
-                {report.upcoming.map((g) => {
+                {shownGames.map((g) => {
                   const leanTeam = g.lean === "home" ? g.home : g.lean === "away" ? g.away : null;
                   const tone: Tone = g.edgePts === null ? "neutral" : Math.abs(g.edgePts) >= 3 ? "accent" : "warn";
                   return (
@@ -89,6 +92,7 @@ export default async function SportPage({ params }: { params: Promise<{ sport: s
               </tbody>
             </Table>
           )}
+          {report.upcoming.length > shownGames.length ? <p className="text-xs text-[var(--muted)]">Showing the first {shownGames.length} of {report.upcoming.length} scheduled games; the full list is in the <a className="underline" href={`/sports/${sport}.json`}>raw report</a>.</p> : null}
           <Note tone="warn">Lines come from the public source file with its retrieval time, not from a live book. A lean is a research flag; expected value needs a current executable price.</Note>
           <Card className="flex flex-wrap items-center justify-between gap-3 p-4">
             <div className="text-sm">
@@ -107,6 +111,7 @@ export default async function SportPage({ params }: { params: Promise<{ sport: s
 
         <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr]">
           <Section kicker="Power ratings" title="Current strength" description="Points above an average team on a neutral field. SD is the filter's uncertainty.">
+            {report.ratings.length > topRatings.length ? <p className="text-xs text-[var(--muted)]">Top {topRatings.length} of {report.ratings.length} rated teams.</p> : null}
             {topRatings.length === 0 ? <EmptyState title="No ratings" detail="Run the forecast command." /> : (
               <Table caption={`${label} power ratings`}>
                 <thead><tr><th className="num">#</th><th>Team</th><th className="num">Rating</th><th className="num">SD</th><th className="num">Games</th></tr></thead>

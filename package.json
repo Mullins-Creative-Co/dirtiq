@@ -41,7 +41,7 @@
     "sports:backtest": "OPENBLAS_NUM_THREADS=1 python3 -m dirtiq_model teams backtest",
     "sports:forecast": "OPENBLAS_NUM_THREADS=1 python3 -m dirtiq_model teams forecast",
     "sports:settle": "OPENBLAS_NUM_THREADS=1 python3 -m dirtiq_model teams settle",
-    "sports:all": "OPENBLAS_NUM_THREADS=1 python3 -m dirtiq_model teams forecast --sport nfl && OPENBLAS_NUM_THREADS=1 python3 -m dirtiq_model teams forecast --sport nba",
+    "sports:all": "OPENBLAS_NUM_THREADS=1 python3 -m dirtiq_model teams forecast --sport nfl && OPENBLAS_NUM_THREADS=1 python3 -m dirtiq_model teams forecast --sport nba && npm run sports:forecast -- --sport nhl && npm run sports:forecast -- --sport ncaab",
     "odds:snapshot": "python3 -m dirtiq_model odds snapshot"
   },
   "dependencies": {

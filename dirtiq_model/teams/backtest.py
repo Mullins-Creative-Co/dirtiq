@@ -18,7 +18,7 @@ import pandas as pd
 
 from .adapters.common import ROOT, now_iso
 from .model import (MODEL_VERSION, AnchorFit, Scorer, SportConfig, anchor_residuals_z, fit_anchor,
-                    grade_selections, market_metrics, round_or_none, variant_metrics)
+                    grade_selections, initial_hyper, market_metrics, round_or_none, variant_metrics)
 from .ratings import EmpiricalMargin, Hyper, KalmanRatings, fit_hyper, run_filter
 
 REPORT_DIR = ROOT / "public" / "sports"
@@ -96,9 +96,10 @@ def run_backtest(cfg: SportConfig, games: pd.DataFrame, maxiter: int = 300, verb
     prev: Optional[Hyper] = None
     folds: List[Dict[str, Any]] = []
     scored_parts: List[pd.DataFrame] = []
+    budget = min(maxiter, cfg.maxiter) if cfg.maxiter else maxiter
     for season in test_seasons:
         train = completed[completed["season"] < season]
-        hyper, info = fit_hyper(train, teams, init=prev, maxiter=maxiter)
+        hyper, info = fit_hyper(train, teams, init=prev or initial_hyper(cfg, train), maxiter=budget)
         prev = hyper
         kf = KalmanRatings(teams, hyper)
         _, emp, anchor, anchor_emp = training_artifacts(kf, train)
@@ -207,6 +208,12 @@ def limitations(cfg: SportConfig, games: pd.DataFrame, backtest: Optional[Dict[s
         out.append("NCAAF: FCS opponents are pooled into one rating; the betting archive is a multi-book median, carries spread prices only for 2010-2019 (selections after 2019 are graded but unpriced) and ends with the 2025 season; the schedule archive has no future games, so there is no upcoming list.")
     if cfg.sport == "nba":
         out.append("NBA includes regular season, play-in and playoff games; the 2020 bubble games are not flagged neutral by ESPN.")
+    if cfg.sport == "ncaab":
+        out.append("NCAAB: ESPN schedule files carry no betting lines, so market fields are null. Non-Division-I opponents (no ESPN conference) and teams with fewer than six games in a season are pooled into one NON_D1 rating; regular season and postseason (conference and national tournaments) are included; the optimizer budget per fold is reduced because of the ~365-team state.")
+    if cfg.sport == "mlb":
+        out.append("MLB: the Stats API schedule carries no betting lines, so market fields are null. Margins are runs; regular season and postseason are included, spring training and exhibitions excluded; the feed has no neutral-site flag, so only known international venues and the 2020 bubble postseason are neutral; no starting-pitcher information.")
+    if cfg.sport == "nhl":
+        out.append("NHL: the stats API carries no betting lines, so market fields are null. Margins are goals with every overtime or shootout decision recorded as a one-goal margin; regular season and playoffs are included, preseason and All-Star excluded; the feed has no neutral-site flag (Global Series games abroad count as home games).")
     return out
 
 

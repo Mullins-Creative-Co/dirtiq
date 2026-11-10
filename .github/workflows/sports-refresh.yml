@@ -18,7 +18,7 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -41,9 +41,12 @@ jobs:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: |
           set -e
-          for sport in nfl nba; do
+          for sport in nfl nba nhl ncaab mlb; do
             python -m dirtiq_model teams settle --sport "$sport" --refresh || echo "settle $sport failed"
             python -m dirtiq_model teams forecast --sport "$sport" || echo "forecast $sport failed"
+          done
+          # Odds snapshots are limited to three sports to stay inside the free API quota.
+          for sport in nfl nba nhl; do
             python -m dirtiq_model odds snapshot --sport "$sport" || echo "odds $sport failed"
           done
           python -m dirtiq_model ledger export

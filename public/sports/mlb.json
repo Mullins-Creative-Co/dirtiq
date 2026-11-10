@@ -1,0 +1,1051 @@
+{
+ "sport": "mlb",
+ "label": "MLB",
+ "generatedAt": "2026-11-10T19:00:49Z",
+ "modelId": "mlb-kalman",
+ "modelVersion": "1.0",
+ "dataThrough": "2026-10-28",
+ "sources": [
+  {
+   "url": "https://statsapi.mlb.com/api/v1/teams?sportId=1",
+   "sha256": "bb09edbe7653b80830433a0b0ab8a29cf82ec005cff2936bdc408c6e28a0b49e",
+   "retrievedAt": "2026-11-10T18:47:52Z"
+  },
+  {
+   "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2015&gameType=R,F,D,L,W",
+   "sha256": "73a2e30fe0c962a7c67bbb50091d2d4bc278409aed70c8ab3e5f2a02d10e84e6",
+   "retrievedAt": "2026-11-10T18:48:29Z"
+  },
+  {
+   "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2016&gameType=R,F,D,L,W",
+   "sha256": "cbc867043c0820385d5846c831d06d4f4a8e6b2ec5ccee12e7934de53d41f26e",
+   "retrievedAt": "2026-11-10T18:50:09Z"
+  },
+  {
+   "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2017&gameType=R,F,D,L,W",
+   "sha256": "8a714e90d7831758e152943bdd7e1d56306394a8b112287537d006f16a9b60a2",
+   "retrievedAt": "2026-11-10T18:50:22Z"
+  },
+  {
+   "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2018&gameType=R,F,D,L,W",
+   "sha256": "156d309d68df065c55cf5aebb6912dc2ebec8fbccf1bbb245adc94c5b84c3b46",
+   "retrievedAt": "2026-11-10T18:50:38Z"
+  },
+  {
+   "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2019&gameType=R,F,D,L,W",
+   "sha256": "43f5116af28f6fedf21e8b93b4f9d6ac3b18579306dfd26399cc57c462f4f7c5",
+   "retrievedAt": "2026-11-10T18:50:42Z"
+  },
+  {
+   "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2020&gameType=R,F,D,L,W",
+   "sha256": "0d2f4ba2a6a259f1624359c2c100aabd5f11940898a71a29957a0e1912075a4c",
+   "retrievedAt": "2026-11-10T18:50:43Z"
+  },
+  {
+   "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2021&gameType=R,F,D,L,W",
+   "sha256": "48e81e55efa61bdb898d3e4b815ca928a6a55bd439742400202db36f038037bd",
+   "retrievedAt": "2026-11-10T18:50:48Z"
+  },
+  {
+   "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2022&gameType=R,F,D,L,W",
+   "sha256": "4b72ff9f69273809166b43c759bd669fa6412364dc13dd4e98e245888e81a69a",
+   "retrievedAt": "2026-11-10T18:51:48Z"
+  },
+  {
+   "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2023&gameType=R,F,D,L,W",
+   "sha256": "a99e56abb5318b268aa4754b096509b373b9c4db705d423ffcf066020fe4bd2e",
+   "retrievedAt": "2026-11-10T18:51:51Z"
+  },
+  {
+   "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2024&gameType=R,F,D,L,W",
+   "sha256": "c50996cf37533e3210a9d17f0179f53e7e73d4a37c81736d251872c59555a73e",
+   "retrievedAt": "2026-11-10T18:52:14Z"
+  },
+  {
+   "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2025&gameType=R,F,D,L,W",
+   "sha256": "076826146f4357a7bb504b0f86cb70b1c0a8b8029d2f9792650278d158a8914d",
+   "retrievedAt": "2026-11-10T18:52:18Z"
+  },
+  {
+   "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2026&gameType=R,F,D,L,W",
+   "sha256": "c5542d74151d178998c8ba30060f3f0ed95c73da48784ccc52cd3d37d8928775",
+   "retrievedAt": "2026-11-10T18:52:28Z"
+  }
+ ],
+ "backtest": {
+  "seasons": [
+   2018,
+   2019,
+   2020,
+   2021,
+   2022,
+   2023,
+   2024,
+   2025,
+   2026
+  ],
+  "games": 20706,
+  "warmStartSeason": 2015,
+  "protocol": "rolling by season: hyperparameters fit on all prior seasons, filter updates only from completed games before each game day",
+  "mae": 3.4409,
+  "marketMae": null,
+  "brierSpread": null,
+  "marketBrierSpread": null,
+  "brierMoneyline": 0.2421,
+  "marketBrierMoneyline": null,
+  "logLossMoneyline": 0.6771,
+  "marketLogLossMoneyline": null,
+  "brierMoneylineOnPricedGames": null,
+  "brierSpreadOnPricedGames": null,
+  "ece": 0.0092,
+  "calibration": [
+   {
+    "lo": 0.0,
+    "hi": 0.05,
+    "n": 0,
+    "predicted": null,
+    "observed": null
+   },
+   {
+    "lo": 0.05,
+    "hi": 0.1,
+    "n": 0,
+    "predicted": null,
+    "observed": null
+   },
+   {
+    "lo": 0.1,
+    "hi": 0.2,
+    "n": 0,
+    "predicted": null,
+    "observed": null
+   },
+   {
+    "lo": 0.2,
+    "hi": 0.3,
+    "n": 194,
+    "predicted": 0.2758,
+    "observed": 0.2938
+   },
+   {
+    "lo": 0.3,
+    "hi": 0.4,
+    "n": 1577,
+    "predicted": 0.3632,
+    "observed": 0.3881
+   },
+   {
+    "lo": 0.4,
+    "hi": 0.5,
+    "n": 5858,
+    "predicted": 0.4598,
+    "observed": 0.4628
+   },
+   {
+    "lo": 0.5,
+    "hi": 0.6,
+    "n": 9570,
+    "predicted": 0.5468,
+    "observed": 0.5564
+   },
+   {
+    "lo": 0.6,
+    "hi": 0.7,
+    "n": 3231,
+    "predicted": 0.6352,
+    "observed": 0.6465
+   },
+   {
+    "lo": 0.7,
+    "hi": 0.8,
+    "n": 276,
+    "predicted": 0.7249,
+    "observed": 0.7319
+   },
+   {
+    "lo": 0.8,
+    "hi": 0.9,
+    "n": 0,
+    "predicted": null,
+    "observed": null
+   },
+   {
+    "lo": 0.9,
+    "hi": 1.0,
+    "n": 0,
+    "predicted": null,
+    "observed": null
+   }
+  ],
+  "eceSpread": null,
+  "calibrationSpread": [],
+  "homeWinRate": 0.5311,
+  "selections": {
+   "rule": "abs(model - market) >= 1.0",
+   "n": 0,
+   "wins": 0,
+   "losses": 0,
+   "pushes": 0,
+   "units": null,
+   "roi": null,
+   "limitation": "no market lines in source"
+  },
+  "selectionThreshold": 1.0,
+  "clv": null,
+  "clvNote": "archive holds one line per game, so closing-line value is only measurable live through the ledger",
+  "bySeason": [
+   {
+    "season": 2018,
+    "games": 2464,
+    "partial": false,
+    "mae": 3.4056,
+    "marketMae": null,
+    "brierSpread": null,
+    "marketBrierSpread": null,
+    "brierMoneyline": 0.2404,
+    "marketBrierMoneyline": null,
+    "logLossMoneyline": 0.6737,
+    "ece": 0.0168,
+    "anchoredMae": null,
+    "anchoredBrierSpread": null,
+    "selections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 0,
+     "wins": 0,
+     "losses": 0,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 0,
+     "units": null,
+     "roi": null,
+     "winRate": null,
+     "roiAt110Illustrative": null,
+     "avgPickProb": null,
+     "brierPicks": null
+    },
+    "anchoredSelections": null,
+    "hyper": {
+     "process_sd_day": 0.01529,
+     "season_reversion": 0.3674,
+     "season_sd": 0.41235,
+     "hfa": 0.16897,
+     "sigma": 4.3762,
+     "init_sd": 1.3171
+    },
+    "anchor": null,
+    "fit": {
+     "nllPerGame": 2.901973507695323,
+     "iterations": 300,
+     "converged": false
+    },
+    "trainGames": 7396
+   },
+   {
+    "season": 2019,
+    "games": 2466,
+    "partial": false,
+    "mae": 3.4923,
+    "marketMae": null,
+    "brierSpread": null,
+    "marketBrierSpread": null,
+    "brierMoneyline": 0.2371,
+    "marketBrierMoneyline": null,
+    "logLossMoneyline": 0.6668,
+    "ece": 0.0131,
+    "anchoredMae": null,
+    "anchoredBrierSpread": null,
+    "selections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 0,
+     "wins": 0,
+     "losses": 0,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 0,
+     "units": null,
+     "roi": null,
+     "winRate": null,
+     "roiAt110Illustrative": null,
+     "avgPickProb": null,
+     "brierPicks": null
+    },
+    "anchoredSelections": null,
+    "hyper": {
+     "process_sd_day": 0.02947,
+     "season_reversion": 0.2457,
+     "season_sd": 0.32275,
+     "hfa": 0.15931,
+     "sigma": 4.36148,
+     "init_sd": 1.3171
+    },
+    "anchor": null,
+    "fit": {
+     "nllPerGame": 2.8999046591682656,
+     "iterations": 152,
+     "converged": true
+    },
+    "trainGames": 9860
+   },
+   {
+    "season": 2020,
+    "games": 951,
+    "partial": false,
+    "mae": 3.5525,
+    "marketMae": null,
+    "brierSpread": null,
+    "marketBrierSpread": null,
+    "brierMoneyline": 0.2443,
+    "marketBrierMoneyline": null,
+    "logLossMoneyline": 0.6818,
+    "ece": 0.0317,
+    "anchoredMae": null,
+    "anchoredBrierSpread": null,
+    "selections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 0,
+     "wins": 0,
+     "losses": 0,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 0,
+     "units": null,
+     "roi": null,
+     "winRate": null,
+     "roiAt110Illustrative": null,
+     "avgPickProb": null,
+     "brierPicks": null
+    },
+    "anchoredSelections": null,
+    "hyper": {
+     "process_sd_day": 0.03284,
+     "season_reversion": 0.19351,
+     "season_sd": 0.2396,
+     "hfa": 0.1167,
+     "sigma": 4.38963,
+     "init_sd": 1.3171
+    },
+    "anchor": null,
+    "fit": {
+     "nllPerGame": 2.906415380068949,
+     "iterations": 162,
+     "converged": true
+    },
+    "trainGames": 12326
+   },
+   {
+    "season": 2021,
+    "games": 2466,
+    "partial": false,
+    "mae": 3.4208,
+    "marketMae": null,
+    "brierSpread": null,
+    "marketBrierSpread": null,
+    "brierMoneyline": 0.2416,
+    "marketBrierMoneyline": null,
+    "logLossMoneyline": 0.6761,
+    "ece": 0.021,
+    "anchoredMae": null,
+    "anchoredBrierSpread": null,
+    "selections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 0,
+     "wins": 0,
+     "losses": 0,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 0,
+     "units": null,
+     "roi": null,
+     "winRate": null,
+     "roiAt110Illustrative": null,
+     "avgPickProb": null,
+     "brierPicks": null
+    },
+    "anchoredSelections": null,
+    "hyper": {
+     "process_sd_day": 0.03289,
+     "season_reversion": 0.26115,
+     "season_sd": 0.28792,
+     "hfa": 0.12242,
+     "sigma": 4.40568,
+     "init_sd": 1.3171
+    },
+    "anchor": null,
+    "fit": {
+     "nllPerGame": 2.9102012250005287,
+     "iterations": 141,
+     "converged": true
+    },
+    "trainGames": 13277
+   },
+   {
+    "season": 2022,
+    "games": 2470,
+    "partial": false,
+    "mae": 3.3217,
+    "marketMae": null,
+    "brierSpread": null,
+    "marketBrierSpread": null,
+    "brierMoneyline": 0.2404,
+    "marketBrierMoneyline": null,
+    "logLossMoneyline": 0.6739,
+    "ece": 0.019,
+    "anchoredMae": null,
+    "anchoredBrierSpread": null,
+    "selections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 0,
+     "wins": 0,
+     "losses": 0,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 0,
+     "units": null,
+     "roi": null,
+     "winRate": null,
+     "roiAt110Illustrative": null,
+     "avgPickProb": null,
+     "brierPicks": null
+    },
+    "anchoredSelections": null,
+    "hyper": {
+     "process_sd_day": 0.03643,
+     "season_reversion": 0.27517,
+     "season_sd": 0.28126,
+     "hfa": 0.12791,
+     "sigma": 4.39404,
+     "init_sd": 1.3171
+    },
+    "anchor": null,
+    "fit": {
+     "nllPerGame": 2.908159674754317,
+     "iterations": 100,
+     "converged": true
+    },
+    "trainGames": 15743
+   },
+   {
+    "season": 2023,
+    "games": 2471,
+    "partial": false,
+    "mae": 3.4534,
+    "marketMae": null,
+    "brierSpread": null,
+    "marketBrierSpread": null,
+    "brierMoneyline": 0.2443,
+    "marketBrierMoneyline": null,
+    "logLossMoneyline": 0.6817,
+    "ece": 0.0145,
+    "anchoredMae": null,
+    "anchoredBrierSpread": null,
+    "selections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 0,
+     "wins": 0,
+     "losses": 0,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 0,
+     "units": null,
+     "roi": null,
+     "winRate": null,
+     "roiAt110Illustrative": null,
+     "avgPickProb": null,
+     "brierPicks": null
+    },
+    "anchoredSelections": null,
+    "hyper": {
+     "process_sd_day": 0.03195,
+     "season_reversion": 0.26913,
+     "season_sd": 0.33942,
+     "hfa": 0.11793,
+     "sigma": 4.37224,
+     "init_sd": 1.3171
+    },
+    "anchor": null,
+    "fit": {
+     "nllPerGame": 2.9029803205727056,
+     "iterations": 119,
+     "converged": true
+    },
+    "trainGames": 18213
+   },
+   {
+    "season": 2024,
+    "games": 2472,
+    "partial": false,
+    "mae": 3.419,
+    "marketMae": null,
+    "brierSpread": null,
+    "marketBrierSpread": null,
+    "brierMoneyline": 0.2437,
+    "marketBrierMoneyline": null,
+    "logLossMoneyline": 0.6803,
+    "ece": 0.0096,
+    "anchoredMae": null,
+    "anchoredBrierSpread": null,
+    "selections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 0,
+     "wins": 0,
+     "losses": 0,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 0,
+     "units": null,
+     "roi": null,
+     "winRate": null,
+     "roiAt110Illustrative": null,
+     "avgPickProb": null,
+     "brierPicks": null
+    },
+    "anchoredSelections": null,
+    "hyper": {
+     "process_sd_day": 0.03272,
+     "season_reversion": 0.28128,
+     "season_sd": 0.35265,
+     "hfa": 0.09338,
+     "sigma": 4.37415,
+     "init_sd": 1.3171
+    },
+    "anchor": null,
+    "fit": {
+     "nllPerGame": 2.9036517753471216,
+     "iterations": 100,
+     "converged": true
+    },
+    "trainGames": 20684
+   },
+   {
+    "season": 2025,
+    "games": 2477,
+    "partial": false,
+    "mae": 3.4888,
+    "marketMae": null,
+    "brierSpread": null,
+    "marketBrierSpread": null,
+    "brierMoneyline": 0.2431,
+    "marketBrierMoneyline": null,
+    "logLossMoneyline": 0.6791,
+    "ece": 0.0277,
+    "anchoredMae": null,
+    "anchoredBrierSpread": null,
+    "selections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 0,
+     "wins": 0,
+     "losses": 0,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 0,
+     "units": null,
+     "roi": null,
+     "winRate": null,
+     "roiAt110Illustrative": null,
+     "avgPickProb": null,
+     "brierPicks": null
+    },
+    "anchoredSelections": null,
+    "hyper": {
+     "process_sd_day": 0.03162,
+     "season_reversion": 0.28492,
+     "season_sd": 0.34955,
+     "hfa": 0.07958,
+     "sigma": 4.36798,
+     "init_sd": 1.3171
+    },
+    "anchor": null,
+    "fit": {
+     "nllPerGame": 2.902002692530827,
+     "iterations": 114,
+     "converged": true
+    },
+    "trainGames": 23156
+   },
+   {
+    "season": 2026,
+    "games": 2469,
+    "partial": false,
+    "mae": 3.4829,
+    "marketMae": null,
+    "brierSpread": null,
+    "marketBrierSpread": null,
+    "brierMoneyline": 0.2453,
+    "marketBrierMoneyline": null,
+    "logLossMoneyline": 0.6836,
+    "ece": 0.0121,
+    "anchoredMae": null,
+    "anchoredBrierSpread": null,
+    "selections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 0,
+     "wins": 0,
+     "losses": 0,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 0,
+     "units": null,
+     "roi": null,
+     "winRate": null,
+     "roiAt110Illustrative": null,
+     "avgPickProb": null,
+     "brierPicks": null
+    },
+    "anchoredSelections": null,
+    "hyper": {
+     "process_sd_day": 0.033,
+     "season_reversion": 0.27027,
+     "season_sd": 0.31028,
+     "hfa": 0.08119,
+     "sigma": 4.37914,
+     "init_sd": 1.3171
+    },
+    "anchor": null,
+    "fit": {
+     "nllPerGame": 2.904434305786943,
+     "iterations": 92,
+     "converged": true
+    },
+    "trainGames": 25633
+   }
+  ],
+  "variants": [
+   {
+    "id": "independent",
+    "description": "Kalman rating difference + home field",
+    "games": 20706,
+    "mae": 3.4409,
+    "bias": -0.0651,
+    "rmse": 4.4324,
+    "brierMoneyline": 0.2421,
+    "logLossMoneyline": 0.6771,
+    "ece": 0.0092,
+    "homeWinRate": 0.5311,
+    "selections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 0,
+     "wins": 0,
+     "losses": 0,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 0,
+     "units": null,
+     "roi": null,
+     "winRate": null,
+     "roiAt110Illustrative": null,
+     "avgPickProb": null,
+     "brierPicks": null
+    }
+   },
+   {
+    "id": "market-anchored",
+    "description": "market margin + ridge(rating - market) fit on earlier games",
+    "available": false,
+    "selections": null,
+    "fitsBySeason": null,
+    "limitation": "MLB source carries no betting lines; the anchored variant and selections cannot be evaluated"
+   }
+  ],
+  "hyperparameters": [
+   {
+    "season": 2018,
+    "process_sd_day": 0.01529,
+    "season_reversion": 0.3674,
+    "season_sd": 0.41235,
+    "hfa": 0.16897,
+    "sigma": 4.3762,
+    "init_sd": 1.3171
+   },
+   {
+    "season": 2019,
+    "process_sd_day": 0.02947,
+    "season_reversion": 0.2457,
+    "season_sd": 0.32275,
+    "hfa": 0.15931,
+    "sigma": 4.36148,
+    "init_sd": 1.3171
+   },
+   {
+    "season": 2020,
+    "process_sd_day": 0.03284,
+    "season_reversion": 0.19351,
+    "season_sd": 0.2396,
+    "hfa": 0.1167,
+    "sigma": 4.38963,
+    "init_sd": 1.3171
+   },
+   {
+    "season": 2021,
+    "process_sd_day": 0.03289,
+    "season_reversion": 0.26115,
+    "season_sd": 0.28792,
+    "hfa": 0.12242,
+    "sigma": 4.40568,
+    "init_sd": 1.3171
+   },
+   {
+    "season": 2022,
+    "process_sd_day": 0.03643,
+    "season_reversion": 0.27517,
+    "season_sd": 0.28126,
+    "hfa": 0.12791,
+    "sigma": 4.39404,
+    "init_sd": 1.3171
+   },
+   {
+    "season": 2023,
+    "process_sd_day": 0.03195,
+    "season_reversion": 0.26913,
+    "season_sd": 0.33942,
+    "hfa": 0.11793,
+    "sigma": 4.37224,
+    "init_sd": 1.3171
+   },
+   {
+    "season": 2024,
+    "process_sd_day": 0.03272,
+    "season_reversion": 0.28128,
+    "season_sd": 0.35265,
+    "hfa": 0.09338,
+    "sigma": 4.37415,
+    "init_sd": 1.3171
+   },
+   {
+    "season": 2025,
+    "process_sd_day": 0.03162,
+    "season_reversion": 0.28492,
+    "season_sd": 0.34955,
+    "hfa": 0.07958,
+    "sigma": 4.36798,
+    "init_sd": 1.3171
+   },
+   {
+    "season": 2026,
+    "process_sd_day": 0.033,
+    "season_reversion": 0.27027,
+    "season_sd": 0.31028,
+    "hfa": 0.08119,
+    "sigma": 4.37914,
+    "init_sd": 1.3171
+   }
+  ],
+  "latestFit": {
+   "season": 2026,
+   "hyper": {
+    "process_sd_day": 0.033,
+    "season_reversion": 0.27027,
+    "season_sd": 0.31028,
+    "hfa": 0.08119,
+    "sigma": 4.37914,
+    "init_sd": 1.3171
+   },
+   "anchor": null,
+   "fit": {
+    "nllPerGame": 2.904434305786943,
+    "iterations": 92,
+    "converged": true
+   },
+   "trainSeasons": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ]
+  },
+  "marketGames": 0,
+  "marketMoneylineGames": 0,
+  "marketSpreadGames": 0
+ },
+ "ratings": [
+  {
+   "team": "MIL",
+   "rating": 1.18,
+   "sd": 0.3,
+   "rank": 1,
+   "games": 175,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "LAD",
+   "rating": 0.98,
+   "sd": 0.3,
+   "rank": 2,
+   "games": 170,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "NYY",
+   "rating": 0.79,
+   "sd": 0.31,
+   "rank": 3,
+   "games": 166,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "CHC",
+   "rating": 0.76,
+   "sd": 0.31,
+   "rank": 4,
+   "games": 164,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "ATL",
+   "rating": 0.53,
+   "sd": 0.31,
+   "rank": 5,
+   "games": 169,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "TB",
+   "rating": 0.4,
+   "sd": 0.3,
+   "rank": 6,
+   "games": 176,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "BOS",
+   "rating": 0.38,
+   "sd": 0.31,
+   "rank": 7,
+   "games": 164,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "SD",
+   "rating": 0.32,
+   "sd": 0.31,
+   "rank": 8,
+   "games": 168,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "DET",
+   "rating": 0.31,
+   "sd": 0.31,
+   "rank": 9,
+   "games": 162,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "PHI",
+   "rating": 0.22,
+   "sd": 0.31,
+   "rank": 10,
+   "games": 165,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "PIT",
+   "rating": 0.11,
+   "sd": 0.31,
+   "rank": 11,
+   "games": 162,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "AZ",
+   "rating": 0.08,
+   "sd": 0.31,
+   "rank": 12,
+   "games": 162,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "CWS",
+   "rating": 0.04,
+   "sd": 0.31,
+   "rank": 13,
+   "games": 169,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "CLE",
+   "rating": 0.02,
+   "sd": 0.3,
+   "rank": 14,
+   "games": 173,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "NYM",
+   "rating": -0.02,
+   "sd": 0.31,
+   "rank": 15,
+   "games": 162,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "TOR",
+   "rating": -0.07,
+   "sd": 0.31,
+   "rank": 16,
+   "games": 162,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "MIA",
+   "rating": -0.08,
+   "sd": 0.31,
+   "rank": 17,
+   "games": 162,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "STL",
+   "rating": -0.12,
+   "sd": 0.31,
+   "rank": 18,
+   "games": 162,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "BAL",
+   "rating": -0.14,
+   "sd": 0.31,
+   "rank": 19,
+   "games": 161,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "WSH",
+   "rating": -0.17,
+   "sd": 0.31,
+   "rank": 20,
+   "games": 162,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "TEX",
+   "rating": -0.22,
+   "sd": 0.31,
+   "rank": 21,
+   "games": 162,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "HOU",
+   "rating": -0.24,
+   "sd": 0.31,
+   "rank": 22,
+   "games": 164,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "SEA",
+   "rating": -0.26,
+   "sd": 0.31,
+   "rank": 23,
+   "games": 162,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "MIN",
+   "rating": -0.34,
+   "sd": 0.31,
+   "rank": 24,
+   "games": 162,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "SF",
+   "rating": -0.35,
+   "sd": 0.31,
+   "rank": 25,
+   "games": 162,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "KC",
+   "rating": -0.51,
+   "sd": 0.31,
+   "rank": 26,
+   "games": 162,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "CIN",
+   "rating": -0.55,
+   "sd": 0.31,
+   "rank": 27,
+   "games": 162,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "LAA",
+   "rating": -0.66,
+   "sd": 0.31,
+   "rank": 28,
+   "games": 162,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "ATH",
+   "rating": -1.19,
+   "sd": 0.31,
+   "rank": 29,
+   "games": 162,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  },
+  {
+   "team": "COL",
+   "rating": -1.2,
+   "sd": 0.31,
+   "rank": 30,
+   "games": 162,
+   "updatedAt": "2026-10-29T00:00:00Z"
+  }
+ ],
+ "upcoming": [],
+ "limitations": [
+  "Backtest numbers are not a claim of a live edge; only settled ledger rows can make that claim.",
+  "Ratings use final margins only: no injuries, quarterbacks, rest, travel or weather.",
+  "Home advantage is a single learned constant per fit; it does not vary by team or drift inside a season.",
+  "The MLB source carries no betting lines, so market comparisons, selections and ledger rows are unavailable.",
+  "MLB: the Stats API schedule carries no betting lines, so market fields are null. Margins are runs; regular season and postseason are included, spring training and exhibitions excluded; the feed has no neutral-site flag, so only known international venues and the 2020 bubble postseason are neutral; no starting-pitcher information."
+ ],
+ "forecastFit": {
+  "hyper": {
+   "process_sd_day": 1e-05,
+   "season_reversion": 0.25012,
+   "season_sd": 0.47324,
+   "hfa": 0.08106,
+   "sigma": 4.38645,
+   "init_sd": 1.34325
+  },
+  "trainSeasons": [
+   2015,
+   2016,
+   2017,
+   2018,
+   2019,
+   2020,
+   2021,
+   2022,
+   2023,
+   2024,
+   2025
+  ],
+  "fit": {
+   "nllPerGame": 2.904740634326072,
+   "iterations": 300,
+   "converged": false
+  },
+  "reused": false,
+  "currentSeason": 2026,
+  "anchor": null,
+  "empiricalResiduals": 23168,
+  "empiricalMargin": true
+ },
+ "forecastGeneratedAt": "2026-11-10T19:00:49Z",
+ "ledgerRecorded": 0
+}
