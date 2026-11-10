@@ -1,7 +1,7 @@
 {
  "sport": "nhl",
  "label": "NHL",
- "generatedAt": "2026-11-10T19:00:50Z",
+ "generatedAt": "2026-11-10T19:17:27Z",
  "modelId": "nhl-kalman",
  "modelVersion": "1.0",
  "dataThrough": "2026-11-09",
@@ -770,7 +770,48 @@
    "sd": 0.31,
    "rank": 1,
    "games": 19,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 19,
+    "wins": 14,
+    "losses": 5,
+    "ties": 0,
+    "avgMargin": 1.74,
+    "last": [
+     {
+      "date": "2026-10-29T23:00:00Z",
+      "opponent": "CBJ",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-01T18:00:00Z",
+      "opponent": "WPG",
+      "home": true,
+      "margin": 7.0
+     },
+     {
+      "date": "2026-11-04T01:00:00Z",
+      "opponent": "NSH",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "NYI",
+      "home": false,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "CHI",
+      "home": true,
+      "margin": 7.0
+     }
+    ],
+    "lastRecord": "4-1"
+   }
   },
   {
    "team": "COL",
@@ -778,7 +819,48 @@
    "sd": 0.31,
    "rank": 2,
    "games": 18,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 18,
+    "wins": 10,
+    "losses": 8,
+    "ties": 0,
+    "avgMargin": 0.89,
+    "last": [
+     {
+      "date": "2026-11-01T02:00:00Z",
+      "opponent": "CGY",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-03T01:00:00Z",
+      "opponent": "CHI",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "CBJ",
+      "home": false,
+      "margin": -5.0
+     },
+     {
+      "date": "2026-11-06T02:30:00Z",
+      "opponent": "NSH",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T02:00:00Z",
+      "opponent": "DET",
+      "home": true,
+      "margin": 4.0
+     }
+    ],
+    "lastRecord": "3-2"
+   }
   },
   {
    "team": "MIN",
@@ -786,7 +868,48 @@
    "sd": 0.31,
    "rank": 3,
    "games": 19,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 19,
+    "wins": 12,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 1.05,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "NYI",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-01T20:30:00Z",
+      "opponent": "WSH",
+      "home": false,
+      "margin": 4.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "PHI",
+      "home": false,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-07T01:00:00Z",
+      "opponent": "SJS",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "TBL",
+      "home": true,
+      "margin": -1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   }
   },
   {
    "team": "TBL",
@@ -794,7 +917,48 @@
    "sd": 0.31,
    "rank": 4,
    "games": 17,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 17,
+    "wins": 11,
+    "losses": 6,
+    "ties": 0,
+    "avgMargin": 0.59,
+    "last": [
+     {
+      "date": "2026-10-31T18:00:00Z",
+      "opponent": "NSH",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "DET",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "CHI",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "MIN",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T23:00:00Z",
+      "opponent": "WPG",
+      "home": false,
+      "margin": -1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   }
   },
   {
    "team": "BOS",
@@ -802,7 +966,48 @@
    "sd": 0.31,
    "rank": 5,
    "games": 18,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 18,
+    "wins": 13,
+    "losses": 5,
+    "ties": 0,
+    "avgMargin": 1.5,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "STL",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-10-31T17:00:00Z",
+      "opponent": "CHI",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-03T00:00:00Z",
+      "opponent": "VGK",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "PIT",
+      "home": false,
+      "margin": 4.0
+     },
+     {
+      "date": "2026-11-08T18:00:00Z",
+      "opponent": "FLA",
+      "home": true,
+      "margin": 3.0
+     }
+    ],
+    "lastRecord": "4-1"
+   }
   },
   {
    "team": "VGK",
@@ -810,7 +1015,48 @@
    "sd": 0.31,
    "rank": 6,
    "games": 19,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 19,
+    "wins": 12,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 0.68,
+    "last": [
+     {
+      "date": "2026-10-30T22:00:00Z",
+      "opponent": "NJD",
+      "home": true,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-03T00:00:00Z",
+      "opponent": "BOS",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "PIT",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "DET",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T20:30:00Z",
+      "opponent": "BUF",
+      "home": false,
+      "margin": 3.0
+     }
+    ],
+    "lastRecord": "3-2"
+   }
   },
   {
    "team": "DAL",
@@ -818,7 +1064,48 @@
    "sd": 0.31,
    "rank": 7,
    "games": 17,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 17,
+    "wins": 10,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 0.47,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "MTL",
+      "home": true,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-01T00:00:00Z",
+      "opponent": "CBJ",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "WSH",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "CBJ",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "SJS",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   }
   },
   {
    "team": "EDM",
@@ -826,7 +1113,48 @@
    "sd": 0.31,
    "rank": 8,
    "games": 19,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 19,
+    "wins": 13,
+    "losses": 6,
+    "ties": 0,
+    "avgMargin": 1.16,
+    "last": [
+     {
+      "date": "2026-11-01T23:00:00Z",
+      "opponent": "NYR",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T00:30:00Z",
+      "opponent": "NJD",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-06T01:00:00Z",
+      "opponent": "ANA",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T03:00:00Z",
+      "opponent": "VAN",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-10T01:00:00Z",
+      "opponent": "NYR",
+      "home": true,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "3-2"
+   }
   },
   {
    "team": "MTL",
@@ -834,7 +1162,48 @@
    "sd": 0.31,
    "rank": 9,
    "games": 17,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 17,
+    "wins": 11,
+    "losses": 6,
+    "ties": 0,
+    "avgMargin": 0.47,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "DAL",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-10-31T23:00:00Z",
+      "opponent": "PIT",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "WPG",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "UTA",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "TOR",
+      "home": false,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "4-1"
+   }
   },
   {
    "team": "OTT",
@@ -842,7 +1211,48 @@
    "sd": 0.31,
    "rank": 10,
    "games": 18,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 18,
+    "wins": 11,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 0.22,
+    "last": [
+     {
+      "date": "2026-10-30T02:00:00Z",
+      "opponent": "LAK",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-10-31T20:00:00Z",
+      "opponent": "SJS",
+      "home": false,
+      "margin": 4.0
+     },
+     {
+      "date": "2026-11-02T01:00:00Z",
+      "opponent": "ANA",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-05T00:30:00Z",
+      "opponent": "BUF",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "UTA",
+      "home": true,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "3-2"
+   }
   },
   {
    "team": "WSH",
@@ -850,7 +1260,48 @@
    "sd": 0.32,
    "rank": 11,
    "games": 15,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 15,
+    "wins": 9,
+    "losses": 6,
+    "ties": 0,
+    "avgMargin": 0.13,
+    "last": [
+     {
+      "date": "2026-10-28T23:30:00Z",
+      "opponent": "PHI",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "NSH",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-01T20:30:00Z",
+      "opponent": "MIN",
+      "home": true,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "DAL",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-07T17:30:00Z",
+      "opponent": "FLA",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   }
   },
   {
    "team": "NJD",
@@ -858,7 +1309,48 @@
    "sd": 0.31,
    "rank": 12,
    "games": 18,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 18,
+    "wins": 13,
+    "losses": 5,
+    "ties": 0,
+    "avgMargin": 0.83,
+    "last": [
+     {
+      "date": "2026-10-30T22:00:00Z",
+      "opponent": "VGK",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T00:30:00Z",
+      "opponent": "EDM",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "STL",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "NYI",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-09T00:00:00Z",
+      "opponent": "TOR",
+      "home": false,
+      "margin": 4.0
+     }
+    ],
+    "lastRecord": "5-0"
+   }
   },
   {
    "team": "BUF",
@@ -866,7 +1358,48 @@
    "sd": 0.31,
    "rank": 13,
    "games": 17,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 17,
+    "wins": 8,
+    "losses": 9,
+    "ties": 0,
+    "avgMargin": -0.41,
+    "last": [
+     {
+      "date": "2026-10-30T02:00:00Z",
+      "opponent": "ANA",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-10-31T20:00:00Z",
+      "opponent": "LAK",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-05T00:30:00Z",
+      "opponent": "OTT",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-07T00:00:00Z",
+      "opponent": "CBJ",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-08T20:30:00Z",
+      "opponent": "VGK",
+      "home": true,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "3-2"
+   }
   },
   {
    "team": "UTA",
@@ -874,7 +1407,48 @@
    "sd": 0.31,
    "rank": 14,
    "games": 18,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 18,
+    "wins": 10,
+    "losses": 8,
+    "ties": 0,
+    "avgMargin": 0.0,
+    "last": [
+     {
+      "date": "2026-10-29T23:00:00Z",
+      "opponent": "PIT",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-01T21:00:00Z",
+      "opponent": "PHI",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "TOR",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "MTL",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "OTT",
+      "home": false,
+      "margin": -2.0
+     }
+    ],
+    "lastRecord": "2-3"
+   }
   },
   {
    "team": "NYR",
@@ -882,7 +1456,48 @@
    "sd": 0.31,
    "rank": 15,
    "games": 19,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 19,
+    "wins": 10,
+    "losses": 9,
+    "ties": 0,
+    "avgMargin": 0.05,
+    "last": [
+     {
+      "date": "2026-11-01T23:00:00Z",
+      "opponent": "EDM",
+      "home": true,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "STL",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "PHI",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-07T22:00:00Z",
+      "opponent": "SEA",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-10T01:00:00Z",
+      "opponent": "EDM",
+      "home": false,
+      "margin": -2.0
+     }
+    ],
+    "lastRecord": "3-2"
+   }
   },
   {
    "team": "FLA",
@@ -890,7 +1505,48 @@
    "sd": 0.31,
    "rank": 16,
    "games": 18,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 18,
+    "wins": 9,
+    "losses": 9,
+    "ties": 0,
+    "avgMargin": 0.06,
+    "last": [
+     {
+      "date": "2026-10-30T23:00:00Z",
+      "opponent": "WPG",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-03T00:00:00Z",
+      "opponent": "DET",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-05T00:30:00Z",
+      "opponent": "CHI",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-07T17:30:00Z",
+      "opponent": "WSH",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T18:00:00Z",
+      "opponent": "BOS",
+      "home": false,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "2-3"
+   }
   },
   {
    "team": "PIT",
@@ -898,7 +1554,48 @@
    "sd": 0.31,
    "rank": 17,
    "games": 18,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 18,
+    "wins": 6,
+    "losses": 12,
+    "ties": 0,
+    "avgMargin": -0.39,
+    "last": [
+     {
+      "date": "2026-10-31T23:00:00Z",
+      "opponent": "MTL",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "VGK",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "BOS",
+      "home": true,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-11-08T02:00:00Z",
+      "opponent": "LAK",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-09T01:00:00Z",
+      "opponent": "ANA",
+      "home": false,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "1-4"
+   }
   },
   {
    "team": "STL",
@@ -906,7 +1603,48 @@
    "sd": 0.32,
    "rank": 18,
    "games": 17,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 17,
+    "wins": 7,
+    "losses": 10,
+    "ties": 0,
+    "avgMargin": -0.18,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "BOS",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-10-31T17:00:00Z",
+      "opponent": "DET",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "NYR",
+      "home": false,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "NJD",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-07T18:00:00Z",
+      "opponent": "NSH",
+      "home": false,
+      "margin": -2.0
+     }
+    ],
+    "lastRecord": "2-3"
+   }
   },
   {
    "team": "CBJ",
@@ -914,7 +1652,48 @@
    "sd": 0.32,
    "rank": 19,
    "games": 15,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 15,
+    "wins": 7,
+    "losses": 8,
+    "ties": 0,
+    "avgMargin": -0.47,
+    "last": [
+     {
+      "date": "2026-10-29T23:00:00Z",
+      "opponent": "CAR",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-01T00:00:00Z",
+      "opponent": "DAL",
+      "home": false,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "COL",
+      "home": true,
+      "margin": 5.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "DAL",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-07T00:00:00Z",
+      "opponent": "BUF",
+      "home": false,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "2-3"
+   }
   },
   {
    "team": "NSH",
@@ -922,7 +1701,48 @@
    "sd": 0.32,
    "rank": 20,
    "games": 17,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 17,
+    "wins": 8,
+    "losses": 9,
+    "ties": 0,
+    "avgMargin": 0.06,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "WSH",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-10-31T18:00:00Z",
+      "opponent": "TBL",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-04T01:00:00Z",
+      "opponent": "CAR",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-06T02:30:00Z",
+      "opponent": "COL",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-07T18:00:00Z",
+      "opponent": "STL",
+      "home": true,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "4-1"
+   }
   },
   {
    "team": "ANA",
@@ -930,7 +1750,48 @@
    "sd": 0.31,
    "rank": 21,
    "games": 18,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 18,
+    "wins": 10,
+    "losses": 8,
+    "ties": 0,
+    "avgMargin": 0.17,
+    "last": [
+     {
+      "date": "2026-11-02T01:00:00Z",
+      "opponent": "OTT",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T02:00:00Z",
+      "opponent": "VAN",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T01:00:00Z",
+      "opponent": "EDM",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-07T01:00:00Z",
+      "opponent": "CGY",
+      "home": false,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-09T01:00:00Z",
+      "opponent": "PIT",
+      "home": true,
+      "margin": 3.0
+     }
+    ],
+    "lastRecord": "5-0"
+   }
   },
   {
    "team": "NYI",
@@ -938,7 +1799,48 @@
    "sd": 0.32,
    "rank": 22,
    "games": 17,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 17,
+    "wins": 7,
+    "losses": 10,
+    "ties": 0,
+    "avgMargin": -0.18,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "MIN",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-10-31T18:00:00Z",
+      "opponent": "EDM",
+      "home": true,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "CAR",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "NJD",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-10T03:00:00Z",
+      "opponent": "SJS",
+      "home": false,
+      "margin": -1.0
+     }
+    ],
+    "lastRecord": "1-4"
+   }
   },
   {
    "team": "LAK",
@@ -946,7 +1848,48 @@
    "sd": 0.32,
    "rank": 23,
    "games": 15,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 15,
+    "wins": 5,
+    "losses": 10,
+    "ties": 0,
+    "avgMargin": -0.47,
+    "last": [
+     {
+      "date": "2026-10-28T00:00:00Z",
+      "opponent": "CHI",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-10-30T02:00:00Z",
+      "opponent": "OTT",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-10-31T20:00:00Z",
+      "opponent": "BUF",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-05T03:00:00Z",
+      "opponent": "SJS",
+      "home": true,
+      "margin": 5.0
+     },
+     {
+      "date": "2026-11-08T02:00:00Z",
+      "opponent": "PIT",
+      "home": true,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "2-3"
+   }
   },
   {
    "team": "TOR",
@@ -954,7 +1897,48 @@
    "sd": 0.31,
    "rank": 24,
    "games": 19,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 19,
+    "wins": 8,
+    "losses": 11,
+    "ties": 0,
+    "avgMargin": 0.0,
+    "last": [
+     {
+      "date": "2026-10-29T02:00:00Z",
+      "opponent": "SEA",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-10-31T23:00:00Z",
+      "opponent": "VAN",
+      "home": false,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "UTA",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "MTL",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-09T00:00:00Z",
+      "opponent": "NJD",
+      "home": true,
+      "margin": -4.0
+     }
+    ],
+    "lastRecord": "1-4"
+   }
   },
   {
    "team": "DET",
@@ -962,7 +1946,48 @@
    "sd": 0.31,
    "rank": 25,
    "games": 18,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 18,
+    "wins": 7,
+    "losses": 11,
+    "ties": 0,
+    "avgMargin": -0.39,
+    "last": [
+     {
+      "date": "2026-10-31T17:00:00Z",
+      "opponent": "STL",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-03T00:00:00Z",
+      "opponent": "FLA",
+      "home": false,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "TBL",
+      "home": false,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "VGK",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T02:00:00Z",
+      "opponent": "COL",
+      "home": false,
+      "margin": -4.0
+     }
+    ],
+    "lastRecord": "1-4"
+   }
   },
   {
    "team": "SEA",
@@ -970,7 +1995,48 @@
    "sd": 0.32,
    "rank": 26,
    "games": 16,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 16,
+    "wins": 9,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 0.0,
+    "last": [
+     {
+      "date": "2026-10-25T02:00:00Z",
+      "opponent": "MIN",
+      "home": true,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-10-29T02:00:00Z",
+      "opponent": "TOR",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-10-31T00:00:00Z",
+      "opponent": "CGY",
+      "home": false,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-11-05T03:00:00Z",
+      "opponent": "CGY",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-07T22:00:00Z",
+      "opponent": "NYR",
+      "home": true,
+      "margin": -1.0
+     }
+    ],
+    "lastRecord": "2-3"
+   }
   },
   {
    "team": "WPG",
@@ -978,7 +2044,48 @@
    "sd": 0.31,
    "rank": 27,
    "games": 18,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 18,
+    "wins": 7,
+    "losses": 11,
+    "ties": 0,
+    "avgMargin": -0.78,
+    "last": [
+     {
+      "date": "2026-10-30T23:00:00Z",
+      "opponent": "FLA",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-01T18:00:00Z",
+      "opponent": "CAR",
+      "home": false,
+      "margin": -7.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "MTL",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "VAN",
+      "home": true,
+      "margin": 4.0
+     },
+     {
+      "date": "2026-11-08T23:00:00Z",
+      "opponent": "TBL",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   }
   },
   {
    "team": "PHI",
@@ -986,7 +2093,48 @@
    "sd": 0.31,
    "rank": 28,
    "games": 20,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 20,
+    "wins": 5,
+    "losses": 15,
+    "ties": 0,
+    "avgMargin": -1.05,
+    "last": [
+     {
+      "date": "2026-11-01T21:00:00Z",
+      "opponent": "UTA",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "MIN",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "NYR",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-09T00:00:00Z",
+      "opponent": "CGY",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-10T02:30:00Z",
+      "opponent": "VAN",
+      "home": false,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "2-3"
+   }
   },
   {
    "team": "CGY",
@@ -994,7 +2142,48 @@
    "sd": 0.31,
    "rank": 29,
    "games": 18,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 18,
+    "wins": 8,
+    "losses": 10,
+    "ties": 0,
+    "avgMargin": -0.94,
+    "last": [
+     {
+      "date": "2026-11-01T02:00:00Z",
+      "opponent": "COL",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-03T02:00:00Z",
+      "opponent": "SJS",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-05T03:00:00Z",
+      "opponent": "SEA",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-07T01:00:00Z",
+      "opponent": "ANA",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-09T00:00:00Z",
+      "opponent": "PHI",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "2-3"
+   }
   },
   {
    "team": "SJS",
@@ -1002,7 +2191,48 @@
    "sd": 0.31,
    "rank": 30,
    "games": 20,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 20,
+    "wins": 8,
+    "losses": 12,
+    "ties": 0,
+    "avgMargin": -1.0,
+    "last": [
+     {
+      "date": "2026-11-03T02:00:00Z",
+      "opponent": "CGY",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-05T03:00:00Z",
+      "opponent": "LAK",
+      "home": false,
+      "margin": -5.0
+     },
+     {
+      "date": "2026-11-07T01:00:00Z",
+      "opponent": "MIN",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "DAL",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-10T03:00:00Z",
+      "opponent": "NYI",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "1-4"
+   }
   },
   {
    "team": "CHI",
@@ -1010,7 +2240,48 @@
    "sd": 0.31,
    "rank": 31,
    "games": 18,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 18,
+    "wins": 4,
+    "losses": 14,
+    "ties": 0,
+    "avgMargin": -2.06,
+    "last": [
+     {
+      "date": "2026-10-31T17:00:00Z",
+      "opponent": "BOS",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-03T01:00:00Z",
+      "opponent": "COL",
+      "home": true,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-05T00:30:00Z",
+      "opponent": "FLA",
+      "home": false,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "TBL",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "CAR",
+      "home": false,
+      "margin": -7.0
+     }
+    ],
+    "lastRecord": "0-5"
+   }
   },
   {
    "team": "VAN",
@@ -1018,7 +2289,48 @@
    "sd": 0.31,
    "rank": 32,
    "games": 20,
-   "updatedAt": "2026-11-10T03:00:00Z"
+   "updatedAt": "2026-11-10T03:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 20,
+    "wins": 3,
+    "losses": 17,
+    "ties": 0,
+    "avgMargin": -1.7,
+    "last": [
+     {
+      "date": "2026-10-31T23:00:00Z",
+      "opponent": "TOR",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-04T02:00:00Z",
+      "opponent": "ANA",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "WPG",
+      "home": false,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-11-08T03:00:00Z",
+      "opponent": "EDM",
+      "home": false,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-10T02:30:00Z",
+      "opponent": "PHI",
+      "home": true,
+      "margin": -2.0
+     }
+    ],
+    "lastRecord": "0-5"
+   }
   }
  ],
  "upcoming": [
@@ -1049,7 +2361,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.19,
+    "sd": 0.31,
+    "rank": 24
+   },
+   "awayRating": {
+    "rating": 0.64,
+    "sd": 0.31,
+    "rank": 2
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 19,
+    "wins": 8,
+    "losses": 11,
+    "ties": 0,
+    "avgMargin": 0.0,
+    "last": [
+     {
+      "date": "2026-10-29T02:00:00Z",
+      "opponent": "SEA",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-10-31T23:00:00Z",
+      "opponent": "VAN",
+      "home": false,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "UTA",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "MTL",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-09T00:00:00Z",
+      "opponent": "NJD",
+      "home": true,
+      "margin": -4.0
+     }
+    ],
+    "lastRecord": "1-4"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 10,
+    "losses": 8,
+    "ties": 0,
+    "avgMargin": 0.89,
+    "last": [
+     {
+      "date": "2026-11-01T02:00:00Z",
+      "opponent": "CGY",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-03T01:00:00Z",
+      "opponent": "CHI",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "CBJ",
+      "home": false,
+      "margin": -5.0
+     },
+     {
+      "date": "2026-11-06T02:30:00Z",
+      "opponent": "NSH",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T02:00:00Z",
+      "opponent": "DET",
+      "home": true,
+      "margin": 4.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020287",
@@ -1078,7 +2483,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.25,
+    "sd": 0.31,
+    "rank": 9
+   },
+   "awayRating": {
+    "rating": 0.45,
+    "sd": 0.31,
+    "rank": 3
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 11,
+    "losses": 6,
+    "ties": 0,
+    "avgMargin": 0.47,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "DAL",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-10-31T23:00:00Z",
+      "opponent": "PIT",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "WPG",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "UTA",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "TOR",
+      "home": false,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "4-1"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 19,
+    "wins": 12,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 1.05,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "NYI",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-01T20:30:00Z",
+      "opponent": "WSH",
+      "home": false,
+      "margin": 4.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "PHI",
+      "home": false,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-07T01:00:00Z",
+      "opponent": "SJS",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "TBL",
+      "home": true,
+      "margin": -1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020288",
@@ -1107,7 +2605,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.2,
+    "sd": 0.31,
+    "rank": 10
+   },
+   "awayRating": {
+    "rating": 0.17,
+    "sd": 0.32,
+    "rank": 11
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 11,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 0.22,
+    "last": [
+     {
+      "date": "2026-10-30T02:00:00Z",
+      "opponent": "LAK",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-10-31T20:00:00Z",
+      "opponent": "SJS",
+      "home": false,
+      "margin": 4.0
+     },
+     {
+      "date": "2026-11-02T01:00:00Z",
+      "opponent": "ANA",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-05T00:30:00Z",
+      "opponent": "BUF",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "UTA",
+      "home": true,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 15,
+    "wins": 9,
+    "losses": 6,
+    "ties": 0,
+    "avgMargin": 0.13,
+    "last": [
+     {
+      "date": "2026-10-28T23:30:00Z",
+      "opponent": "PHI",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "NSH",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-01T20:30:00Z",
+      "opponent": "MIN",
+      "home": true,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "DAL",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-07T17:30:00Z",
+      "opponent": "FLA",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020291",
@@ -1136,7 +2727,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.25,
+    "sd": 0.31,
+    "rank": 27
+   },
+   "awayRating": {
+    "rating": 0.15,
+    "sd": 0.31,
+    "rank": 12
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 7,
+    "losses": 11,
+    "ties": 0,
+    "avgMargin": -0.78,
+    "last": [
+     {
+      "date": "2026-10-30T23:00:00Z",
+      "opponent": "FLA",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-01T18:00:00Z",
+      "opponent": "CAR",
+      "home": false,
+      "margin": -7.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "MTL",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "VAN",
+      "home": true,
+      "margin": 4.0
+     },
+     {
+      "date": "2026-11-08T23:00:00Z",
+      "opponent": "TBL",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 13,
+    "losses": 5,
+    "ties": 0,
+    "avgMargin": 0.83,
+    "last": [
+     {
+      "date": "2026-10-30T22:00:00Z",
+      "opponent": "VGK",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T00:30:00Z",
+      "opponent": "EDM",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "STL",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "NYI",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-09T00:00:00Z",
+      "opponent": "TOR",
+      "home": false,
+      "margin": 4.0
+     }
+    ],
+    "lastRecord": "5-0"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020289",
@@ -1165,7 +2849,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.06,
+    "sd": 0.32,
+    "rank": 19
+   },
+   "awayRating": {
+    "rating": -0.0,
+    "sd": 0.31,
+    "rank": 16
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 15,
+    "wins": 7,
+    "losses": 8,
+    "ties": 0,
+    "avgMargin": -0.47,
+    "last": [
+     {
+      "date": "2026-10-29T23:00:00Z",
+      "opponent": "CAR",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-01T00:00:00Z",
+      "opponent": "DAL",
+      "home": false,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "COL",
+      "home": true,
+      "margin": 5.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "DAL",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-07T00:00:00Z",
+      "opponent": "BUF",
+      "home": false,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 9,
+    "losses": 9,
+    "ties": 0,
+    "avgMargin": 0.06,
+    "last": [
+     {
+      "date": "2026-10-30T23:00:00Z",
+      "opponent": "WPG",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-03T00:00:00Z",
+      "opponent": "DET",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-05T00:30:00Z",
+      "opponent": "CHI",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-07T17:30:00Z",
+      "opponent": "WSH",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T18:00:00Z",
+      "opponent": "BOS",
+      "home": false,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020290",
@@ -1194,7 +2971,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.04,
+    "sd": 0.32,
+    "rank": 18
+   },
+   "awayRating": {
+    "rating": -0.22,
+    "sd": 0.31,
+    "rank": 25
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 7,
+    "losses": 10,
+    "ties": 0,
+    "avgMargin": -0.18,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "BOS",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-10-31T17:00:00Z",
+      "opponent": "DET",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "NYR",
+      "home": false,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "NJD",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-07T18:00:00Z",
+      "opponent": "NSH",
+      "home": false,
+      "margin": -2.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 7,
+    "losses": 11,
+    "ties": 0,
+    "avgMargin": -0.39,
+    "last": [
+     {
+      "date": "2026-10-31T17:00:00Z",
+      "opponent": "STL",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-03T00:00:00Z",
+      "opponent": "FLA",
+      "home": false,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "TBL",
+      "home": false,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "VGK",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T02:00:00Z",
+      "opponent": "COL",
+      "home": false,
+      "margin": -4.0
+     }
+    ],
+    "lastRecord": "1-4"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020292",
@@ -1223,7 +3093,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.19,
+    "sd": 0.32,
+    "rank": 23
+   },
+   "awayRating": {
+    "rating": -0.08,
+    "sd": 0.32,
+    "rank": 20
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 15,
+    "wins": 5,
+    "losses": 10,
+    "ties": 0,
+    "avgMargin": -0.47,
+    "last": [
+     {
+      "date": "2026-10-28T00:00:00Z",
+      "opponent": "CHI",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-10-30T02:00:00Z",
+      "opponent": "OTT",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-10-31T20:00:00Z",
+      "opponent": "BUF",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-05T03:00:00Z",
+      "opponent": "SJS",
+      "home": true,
+      "margin": 5.0
+     },
+     {
+      "date": "2026-11-08T02:00:00Z",
+      "opponent": "PIT",
+      "home": true,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 8,
+    "losses": 9,
+    "ties": 0,
+    "avgMargin": 0.06,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "WSH",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-10-31T18:00:00Z",
+      "opponent": "TBL",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-04T01:00:00Z",
+      "opponent": "CAR",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-06T02:30:00Z",
+      "opponent": "COL",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-07T18:00:00Z",
+      "opponent": "STL",
+      "home": true,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "4-1"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020293",
@@ -1252,7 +3215,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.13,
+    "sd": 0.31,
+    "rank": 13
+   },
+   "awayRating": {
+    "rating": 0.44,
+    "sd": 0.31,
+    "rank": 4
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 8,
+    "losses": 9,
+    "ties": 0,
+    "avgMargin": -0.41,
+    "last": [
+     {
+      "date": "2026-10-30T02:00:00Z",
+      "opponent": "ANA",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-10-31T20:00:00Z",
+      "opponent": "LAK",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-05T00:30:00Z",
+      "opponent": "OTT",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-07T00:00:00Z",
+      "opponent": "CBJ",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-08T20:30:00Z",
+      "opponent": "VGK",
+      "home": true,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 11,
+    "losses": 6,
+    "ties": 0,
+    "avgMargin": 0.59,
+    "last": [
+     {
+      "date": "2026-10-31T18:00:00Z",
+      "opponent": "NSH",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "DET",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "CHI",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "MIN",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T23:00:00Z",
+      "opponent": "WPG",
+      "home": false,
+      "margin": -1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020294",
@@ -1281,7 +3337,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.48,
+    "sd": 0.31,
+    "rank": 29
+   },
+   "awayRating": {
+    "rating": -0.0,
+    "sd": 0.31,
+    "rank": 15
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 8,
+    "losses": 10,
+    "ties": 0,
+    "avgMargin": -0.94,
+    "last": [
+     {
+      "date": "2026-11-01T02:00:00Z",
+      "opponent": "COL",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-03T02:00:00Z",
+      "opponent": "SJS",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-05T03:00:00Z",
+      "opponent": "SEA",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-07T01:00:00Z",
+      "opponent": "ANA",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-09T00:00:00Z",
+      "opponent": "PHI",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 19,
+    "wins": 10,
+    "losses": 9,
+    "ties": 0,
+    "avgMargin": 0.05,
+    "last": [
+     {
+      "date": "2026-11-01T23:00:00Z",
+      "opponent": "EDM",
+      "home": true,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "STL",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "PHI",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-07T22:00:00Z",
+      "opponent": "SEA",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-10T01:00:00Z",
+      "opponent": "EDM",
+      "home": false,
+      "margin": -2.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020295",
@@ -1310,7 +3459,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.32,
+    "sd": 0.31,
+    "rank": 8
+   },
+   "awayRating": {
+    "rating": -0.25,
+    "sd": 0.31,
+    "rank": 28
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 19,
+    "wins": 13,
+    "losses": 6,
+    "ties": 0,
+    "avgMargin": 1.16,
+    "last": [
+     {
+      "date": "2026-11-01T23:00:00Z",
+      "opponent": "NYR",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T00:30:00Z",
+      "opponent": "NJD",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-06T01:00:00Z",
+      "opponent": "ANA",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T03:00:00Z",
+      "opponent": "VAN",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-10T01:00:00Z",
+      "opponent": "NYR",
+      "home": true,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 20,
+    "wins": 5,
+    "losses": 15,
+    "ties": 0,
+    "avgMargin": -1.05,
+    "last": [
+     {
+      "date": "2026-11-01T21:00:00Z",
+      "opponent": "UTA",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "MIN",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "NYR",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-09T00:00:00Z",
+      "opponent": "CGY",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-10T02:30:00Z",
+      "opponent": "VAN",
+      "home": false,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020296",
@@ -1339,7 +3581,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.35,
+    "sd": 0.31,
+    "rank": 6
+   },
+   "awayRating": {
+    "rating": 0.09,
+    "sd": 0.31,
+    "rank": 14
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 19,
+    "wins": 12,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 0.68,
+    "last": [
+     {
+      "date": "2026-10-30T22:00:00Z",
+      "opponent": "NJD",
+      "home": true,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-03T00:00:00Z",
+      "opponent": "BOS",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "PIT",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "DET",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T20:30:00Z",
+      "opponent": "BUF",
+      "home": false,
+      "margin": 3.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 10,
+    "losses": 8,
+    "ties": 0,
+    "avgMargin": 0.0,
+    "last": [
+     {
+      "date": "2026-10-29T23:00:00Z",
+      "opponent": "PIT",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-01T21:00:00Z",
+      "opponent": "PHI",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "TOR",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "MTL",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "OTT",
+      "home": false,
+      "margin": -2.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020297",
@@ -1368,7 +3703,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.12,
+    "sd": 0.31,
+    "rank": 21
+   },
+   "awayRating": {
+    "rating": -0.08,
+    "sd": 0.32,
+    "rank": 20
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 10,
+    "losses": 8,
+    "ties": 0,
+    "avgMargin": 0.17,
+    "last": [
+     {
+      "date": "2026-11-02T01:00:00Z",
+      "opponent": "OTT",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T02:00:00Z",
+      "opponent": "VAN",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T01:00:00Z",
+      "opponent": "EDM",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-07T01:00:00Z",
+      "opponent": "CGY",
+      "home": false,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-09T01:00:00Z",
+      "opponent": "PIT",
+      "home": true,
+      "margin": 3.0
+     }
+    ],
+    "lastRecord": "5-0"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 8,
+    "losses": 9,
+    "ties": 0,
+    "avgMargin": 0.06,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "WSH",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-10-31T18:00:00Z",
+      "opponent": "TBL",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-04T01:00:00Z",
+      "opponent": "CAR",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-06T02:30:00Z",
+      "opponent": "COL",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-07T18:00:00Z",
+      "opponent": "STL",
+      "home": true,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "4-1"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020298",
@@ -1397,7 +3825,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.61,
+    "sd": 0.31,
+    "rank": 30
+   },
+   "awayRating": {
+    "rating": -0.04,
+    "sd": 0.31,
+    "rank": 17
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 20,
+    "wins": 8,
+    "losses": 12,
+    "ties": 0,
+    "avgMargin": -1.0,
+    "last": [
+     {
+      "date": "2026-11-03T02:00:00Z",
+      "opponent": "CGY",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-05T03:00:00Z",
+      "opponent": "LAK",
+      "home": false,
+      "margin": -5.0
+     },
+     {
+      "date": "2026-11-07T01:00:00Z",
+      "opponent": "MIN",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "DAL",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-10T03:00:00Z",
+      "opponent": "NYI",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "1-4"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 6,
+    "losses": 12,
+    "ties": 0,
+    "avgMargin": -0.39,
+    "last": [
+     {
+      "date": "2026-10-31T23:00:00Z",
+      "opponent": "MTL",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "VGK",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "BOS",
+      "home": true,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-11-08T02:00:00Z",
+      "opponent": "LAK",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-09T01:00:00Z",
+      "opponent": "ANA",
+      "home": false,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "1-4"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020309",
@@ -1426,7 +3947,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.24,
+    "sd": 0.32,
+    "rank": 26
+   },
+   "awayRating": {
+    "rating": 0.83,
+    "sd": 0.31,
+    "rank": 1
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 16,
+    "wins": 9,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 0.0,
+    "last": [
+     {
+      "date": "2026-10-25T02:00:00Z",
+      "opponent": "MIN",
+      "home": true,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-10-29T02:00:00Z",
+      "opponent": "TOR",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-10-31T00:00:00Z",
+      "opponent": "CGY",
+      "home": false,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-11-05T03:00:00Z",
+      "opponent": "CGY",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-07T22:00:00Z",
+      "opponent": "NYR",
+      "home": true,
+      "margin": -1.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 19,
+    "wins": 14,
+    "losses": 5,
+    "ties": 0,
+    "avgMargin": 1.74,
+    "last": [
+     {
+      "date": "2026-10-29T23:00:00Z",
+      "opponent": "CBJ",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-01T18:00:00Z",
+      "opponent": "WPG",
+      "home": true,
+      "margin": 7.0
+     },
+     {
+      "date": "2026-11-04T01:00:00Z",
+      "opponent": "NSH",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "NYI",
+      "home": false,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "CHI",
+      "home": true,
+      "margin": 7.0
+     }
+    ],
+    "lastRecord": "4-1"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020299",
@@ -1455,7 +4069,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.44,
+    "sd": 0.31,
+    "rank": 5
+   },
+   "awayRating": {
+    "rating": 0.25,
+    "sd": 0.31,
+    "rank": 9
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 13,
+    "losses": 5,
+    "ties": 0,
+    "avgMargin": 1.5,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "STL",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-10-31T17:00:00Z",
+      "opponent": "CHI",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-03T00:00:00Z",
+      "opponent": "VGK",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "PIT",
+      "home": false,
+      "margin": 4.0
+     },
+     {
+      "date": "2026-11-08T18:00:00Z",
+      "opponent": "FLA",
+      "home": true,
+      "margin": 3.0
+     }
+    ],
+    "lastRecord": "4-1"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 11,
+    "losses": 6,
+    "ties": 0,
+    "avgMargin": 0.47,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "DAL",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-10-31T23:00:00Z",
+      "opponent": "PIT",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "WPG",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "UTA",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "TOR",
+      "home": false,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "4-1"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020300",
@@ -1484,7 +4191,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.19,
+    "sd": 0.31,
+    "rank": 24
+   },
+   "awayRating": {
+    "rating": 0.45,
+    "sd": 0.31,
+    "rank": 3
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 19,
+    "wins": 8,
+    "losses": 11,
+    "ties": 0,
+    "avgMargin": 0.0,
+    "last": [
+     {
+      "date": "2026-10-29T02:00:00Z",
+      "opponent": "SEA",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-10-31T23:00:00Z",
+      "opponent": "VAN",
+      "home": false,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "UTA",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "MTL",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-09T00:00:00Z",
+      "opponent": "NJD",
+      "home": true,
+      "margin": -4.0
+     }
+    ],
+    "lastRecord": "1-4"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 19,
+    "wins": 12,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 1.05,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "NYI",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-01T20:30:00Z",
+      "opponent": "WSH",
+      "home": false,
+      "margin": 4.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "PHI",
+      "home": false,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-07T01:00:00Z",
+      "opponent": "SJS",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "TBL",
+      "home": true,
+      "margin": -1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020301",
@@ -1513,7 +4313,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.2,
+    "sd": 0.31,
+    "rank": 10
+   },
+   "awayRating": {
+    "rating": 0.64,
+    "sd": 0.31,
+    "rank": 2
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 11,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 0.22,
+    "last": [
+     {
+      "date": "2026-10-30T02:00:00Z",
+      "opponent": "LAK",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-10-31T20:00:00Z",
+      "opponent": "SJS",
+      "home": false,
+      "margin": 4.0
+     },
+     {
+      "date": "2026-11-02T01:00:00Z",
+      "opponent": "ANA",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-05T00:30:00Z",
+      "opponent": "BUF",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "UTA",
+      "home": true,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 10,
+    "losses": 8,
+    "ties": 0,
+    "avgMargin": 0.89,
+    "last": [
+     {
+      "date": "2026-11-01T02:00:00Z",
+      "opponent": "CGY",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-03T01:00:00Z",
+      "opponent": "CHI",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "CBJ",
+      "home": false,
+      "margin": -5.0
+     },
+     {
+      "date": "2026-11-06T02:30:00Z",
+      "opponent": "NSH",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T02:00:00Z",
+      "opponent": "DET",
+      "home": true,
+      "margin": 4.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020303",
@@ -1542,7 +4435,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.15,
+    "sd": 0.31,
+    "rank": 12
+   },
+   "awayRating": {
+    "rating": 0.17,
+    "sd": 0.32,
+    "rank": 11
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 13,
+    "losses": 5,
+    "ties": 0,
+    "avgMargin": 0.83,
+    "last": [
+     {
+      "date": "2026-10-30T22:00:00Z",
+      "opponent": "VGK",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T00:30:00Z",
+      "opponent": "EDM",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "STL",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "NYI",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-09T00:00:00Z",
+      "opponent": "TOR",
+      "home": false,
+      "margin": 4.0
+     }
+    ],
+    "lastRecord": "5-0"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 15,
+    "wins": 9,
+    "losses": 6,
+    "ties": 0,
+    "avgMargin": 0.13,
+    "last": [
+     {
+      "date": "2026-10-28T23:30:00Z",
+      "opponent": "PHI",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "NSH",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-01T20:30:00Z",
+      "opponent": "MIN",
+      "home": true,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "DAL",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-07T17:30:00Z",
+      "opponent": "FLA",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020304",
@@ -1571,7 +4557,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.06,
+    "sd": 0.32,
+    "rank": 19
+   },
+   "awayRating": {
+    "rating": 0.44,
+    "sd": 0.31,
+    "rank": 4
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 15,
+    "wins": 7,
+    "losses": 8,
+    "ties": 0,
+    "avgMargin": -0.47,
+    "last": [
+     {
+      "date": "2026-10-29T23:00:00Z",
+      "opponent": "CAR",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-01T00:00:00Z",
+      "opponent": "DAL",
+      "home": false,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "COL",
+      "home": true,
+      "margin": 5.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "DAL",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-07T00:00:00Z",
+      "opponent": "BUF",
+      "home": false,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 11,
+    "losses": 6,
+    "ties": 0,
+    "avgMargin": 0.59,
+    "last": [
+     {
+      "date": "2026-10-31T18:00:00Z",
+      "opponent": "NSH",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "DET",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "CHI",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "MIN",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T23:00:00Z",
+      "opponent": "WPG",
+      "home": false,
+      "margin": -1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020302",
@@ -1600,7 +4679,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.0,
+    "sd": 0.31,
+    "rank": 16
+   },
+   "awayRating": {
+    "rating": -0.22,
+    "sd": 0.31,
+    "rank": 25
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 9,
+    "losses": 9,
+    "ties": 0,
+    "avgMargin": 0.06,
+    "last": [
+     {
+      "date": "2026-10-30T23:00:00Z",
+      "opponent": "WPG",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-03T00:00:00Z",
+      "opponent": "DET",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-05T00:30:00Z",
+      "opponent": "CHI",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-07T17:30:00Z",
+      "opponent": "WSH",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T18:00:00Z",
+      "opponent": "BOS",
+      "home": false,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 7,
+    "losses": 11,
+    "ties": 0,
+    "avgMargin": -0.39,
+    "last": [
+     {
+      "date": "2026-10-31T17:00:00Z",
+      "opponent": "STL",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-03T00:00:00Z",
+      "opponent": "FLA",
+      "home": false,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "TBL",
+      "home": false,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "VGK",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T02:00:00Z",
+      "opponent": "COL",
+      "home": false,
+      "margin": -4.0
+     }
+    ],
+    "lastRecord": "1-4"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020305",
@@ -1629,7 +4801,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.9,
+    "sd": 0.31,
+    "rank": 31
+   },
+   "awayRating": {
+    "rating": 0.13,
+    "sd": 0.31,
+    "rank": 13
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 4,
+    "losses": 14,
+    "ties": 0,
+    "avgMargin": -2.06,
+    "last": [
+     {
+      "date": "2026-10-31T17:00:00Z",
+      "opponent": "BOS",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-03T01:00:00Z",
+      "opponent": "COL",
+      "home": true,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-05T00:30:00Z",
+      "opponent": "FLA",
+      "home": false,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "TBL",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "CAR",
+      "home": false,
+      "margin": -7.0
+     }
+    ],
+    "lastRecord": "0-5"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 8,
+    "losses": 9,
+    "ties": 0,
+    "avgMargin": -0.41,
+    "last": [
+     {
+      "date": "2026-10-30T02:00:00Z",
+      "opponent": "ANA",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-10-31T20:00:00Z",
+      "opponent": "LAK",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-05T00:30:00Z",
+      "opponent": "OTT",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-07T00:00:00Z",
+      "opponent": "CBJ",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-08T20:30:00Z",
+      "opponent": "VGK",
+      "home": true,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020306",
@@ -1658,7 +4923,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.32,
+    "sd": 0.31,
+    "rank": 7
+   },
+   "awayRating": {
+    "rating": -0.25,
+    "sd": 0.31,
+    "rank": 27
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 10,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 0.47,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "MTL",
+      "home": true,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-01T00:00:00Z",
+      "opponent": "CBJ",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "WSH",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "CBJ",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "SJS",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 7,
+    "losses": 11,
+    "ties": 0,
+    "avgMargin": -0.78,
+    "last": [
+     {
+      "date": "2026-10-30T23:00:00Z",
+      "opponent": "FLA",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-01T18:00:00Z",
+      "opponent": "CAR",
+      "home": false,
+      "margin": -7.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "MTL",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "VAN",
+      "home": true,
+      "margin": 4.0
+     },
+     {
+      "date": "2026-11-08T23:00:00Z",
+      "opponent": "TBL",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020307",
@@ -1687,7 +5045,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.09,
+    "sd": 0.31,
+    "rank": 14
+   },
+   "awayRating": {
+    "rating": -0.04,
+    "sd": 0.32,
+    "rank": 18
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 10,
+    "losses": 8,
+    "ties": 0,
+    "avgMargin": 0.0,
+    "last": [
+     {
+      "date": "2026-10-29T23:00:00Z",
+      "opponent": "PIT",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-01T21:00:00Z",
+      "opponent": "PHI",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "TOR",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "MTL",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "OTT",
+      "home": false,
+      "margin": -2.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 7,
+    "losses": 10,
+    "ties": 0,
+    "avgMargin": -0.18,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "BOS",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-10-31T17:00:00Z",
+      "opponent": "DET",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "NYR",
+      "home": false,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "NJD",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-07T18:00:00Z",
+      "opponent": "NSH",
+      "home": false,
+      "margin": -2.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020308",
@@ -1716,7 +5167,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.19,
+    "sd": 0.32,
+    "rank": 23
+   },
+   "awayRating": {
+    "rating": -0.15,
+    "sd": 0.32,
+    "rank": 22
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 15,
+    "wins": 5,
+    "losses": 10,
+    "ties": 0,
+    "avgMargin": -0.47,
+    "last": [
+     {
+      "date": "2026-10-28T00:00:00Z",
+      "opponent": "CHI",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-10-30T02:00:00Z",
+      "opponent": "OTT",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-10-31T20:00:00Z",
+      "opponent": "BUF",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-05T03:00:00Z",
+      "opponent": "SJS",
+      "home": true,
+      "margin": 5.0
+     },
+     {
+      "date": "2026-11-08T02:00:00Z",
+      "opponent": "PIT",
+      "home": true,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 7,
+    "losses": 10,
+    "ties": 0,
+    "avgMargin": -0.18,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "MIN",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-10-31T18:00:00Z",
+      "opponent": "EDM",
+      "home": true,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "CAR",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "NJD",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-10T03:00:00Z",
+      "opponent": "SJS",
+      "home": false,
+      "margin": -1.0
+     }
+    ],
+    "lastRecord": "1-4"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020310",
@@ -1745,7 +5289,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.93,
+    "sd": 0.31,
+    "rank": 32
+   },
+   "awayRating": {
+    "rating": -0.0,
+    "sd": 0.31,
+    "rank": 15
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 20,
+    "wins": 3,
+    "losses": 17,
+    "ties": 0,
+    "avgMargin": -1.7,
+    "last": [
+     {
+      "date": "2026-10-31T23:00:00Z",
+      "opponent": "TOR",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-04T02:00:00Z",
+      "opponent": "ANA",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "WPG",
+      "home": false,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-11-08T03:00:00Z",
+      "opponent": "EDM",
+      "home": false,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-10T02:30:00Z",
+      "opponent": "PHI",
+      "home": true,
+      "margin": -2.0
+     }
+    ],
+    "lastRecord": "0-5"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 19,
+    "wins": 10,
+    "losses": 9,
+    "ties": 0,
+    "avgMargin": 0.05,
+    "last": [
+     {
+      "date": "2026-11-01T23:00:00Z",
+      "opponent": "EDM",
+      "home": true,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "STL",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "PHI",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-07T22:00:00Z",
+      "opponent": "SEA",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-10T01:00:00Z",
+      "opponent": "EDM",
+      "home": false,
+      "margin": -2.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020311",
@@ -1774,7 +5411,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.35,
+    "sd": 0.31,
+    "rank": 6
+   },
+   "awayRating": {
+    "rating": -0.08,
+    "sd": 0.32,
+    "rank": 20
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 19,
+    "wins": 12,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 0.68,
+    "last": [
+     {
+      "date": "2026-10-30T22:00:00Z",
+      "opponent": "NJD",
+      "home": true,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-03T00:00:00Z",
+      "opponent": "BOS",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "PIT",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "DET",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T20:30:00Z",
+      "opponent": "BUF",
+      "home": false,
+      "margin": 3.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 8,
+    "losses": 9,
+    "ties": 0,
+    "avgMargin": 0.06,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "WSH",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-10-31T18:00:00Z",
+      "opponent": "TBL",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-04T01:00:00Z",
+      "opponent": "CAR",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-06T02:30:00Z",
+      "opponent": "COL",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-07T18:00:00Z",
+      "opponent": "STL",
+      "home": true,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "4-1"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020321",
@@ -1803,7 +5533,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.83,
+    "sd": 0.31,
+    "rank": 1
+   },
+   "awayRating": {
+    "rating": -0.24,
+    "sd": 0.32,
+    "rank": 26
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 19,
+    "wins": 14,
+    "losses": 5,
+    "ties": 0,
+    "avgMargin": 1.74,
+    "last": [
+     {
+      "date": "2026-10-29T23:00:00Z",
+      "opponent": "CBJ",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-01T18:00:00Z",
+      "opponent": "WPG",
+      "home": true,
+      "margin": 7.0
+     },
+     {
+      "date": "2026-11-04T01:00:00Z",
+      "opponent": "NSH",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "NYI",
+      "home": false,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "CHI",
+      "home": true,
+      "margin": 7.0
+     }
+    ],
+    "lastRecord": "4-1"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 16,
+    "wins": 9,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 0.0,
+    "last": [
+     {
+      "date": "2026-10-25T02:00:00Z",
+      "opponent": "MIN",
+      "home": true,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-10-29T02:00:00Z",
+      "opponent": "TOR",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-10-31T00:00:00Z",
+      "opponent": "CGY",
+      "home": false,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-11-05T03:00:00Z",
+      "opponent": "CGY",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-07T22:00:00Z",
+      "opponent": "NYR",
+      "home": true,
+      "margin": -1.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020312",
@@ -1832,7 +5655,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.9,
+    "sd": 0.31,
+    "rank": 31
+   },
+   "awayRating": {
+    "rating": -0.25,
+    "sd": 0.31,
+    "rank": 27
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 4,
+    "losses": 14,
+    "ties": 0,
+    "avgMargin": -2.06,
+    "last": [
+     {
+      "date": "2026-10-31T17:00:00Z",
+      "opponent": "BOS",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-03T01:00:00Z",
+      "opponent": "COL",
+      "home": true,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-05T00:30:00Z",
+      "opponent": "FLA",
+      "home": false,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "TBL",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "CAR",
+      "home": false,
+      "margin": -7.0
+     }
+    ],
+    "lastRecord": "0-5"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 7,
+    "losses": 11,
+    "ties": 0,
+    "avgMargin": -0.78,
+    "last": [
+     {
+      "date": "2026-10-30T23:00:00Z",
+      "opponent": "FLA",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-01T18:00:00Z",
+      "opponent": "CAR",
+      "home": false,
+      "margin": -7.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "MTL",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "VAN",
+      "home": true,
+      "margin": 4.0
+     },
+     {
+      "date": "2026-11-08T23:00:00Z",
+      "opponent": "TBL",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020313",
@@ -1861,7 +5777,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.44,
+    "sd": 0.31,
+    "rank": 5
+   },
+   "awayRating": {
+    "rating": 0.45,
+    "sd": 0.31,
+    "rank": 3
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 13,
+    "losses": 5,
+    "ties": 0,
+    "avgMargin": 1.5,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "STL",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-10-31T17:00:00Z",
+      "opponent": "CHI",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-03T00:00:00Z",
+      "opponent": "VGK",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "PIT",
+      "home": false,
+      "margin": 4.0
+     },
+     {
+      "date": "2026-11-08T18:00:00Z",
+      "opponent": "FLA",
+      "home": true,
+      "margin": 3.0
+     }
+    ],
+    "lastRecord": "4-1"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 19,
+    "wins": 12,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 1.05,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "NYI",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-01T20:30:00Z",
+      "opponent": "WSH",
+      "home": false,
+      "margin": 4.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "PHI",
+      "home": false,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-07T01:00:00Z",
+      "opponent": "SJS",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "TBL",
+      "home": true,
+      "margin": -1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020314",
@@ -1890,7 +5899,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.19,
+    "sd": 0.31,
+    "rank": 24
+   },
+   "awayRating": {
+    "rating": 0.32,
+    "sd": 0.31,
+    "rank": 8
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 19,
+    "wins": 8,
+    "losses": 11,
+    "ties": 0,
+    "avgMargin": 0.0,
+    "last": [
+     {
+      "date": "2026-10-29T02:00:00Z",
+      "opponent": "SEA",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-10-31T23:00:00Z",
+      "opponent": "VAN",
+      "home": false,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "UTA",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "MTL",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-09T00:00:00Z",
+      "opponent": "NJD",
+      "home": true,
+      "margin": -4.0
+     }
+    ],
+    "lastRecord": "1-4"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 19,
+    "wins": 13,
+    "losses": 6,
+    "ties": 0,
+    "avgMargin": 1.16,
+    "last": [
+     {
+      "date": "2026-11-01T23:00:00Z",
+      "opponent": "NYR",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T00:30:00Z",
+      "opponent": "NJD",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-06T01:00:00Z",
+      "opponent": "ANA",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T03:00:00Z",
+      "opponent": "VAN",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-10T01:00:00Z",
+      "opponent": "NYR",
+      "home": true,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020315",
@@ -1919,7 +6021,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.25,
+    "sd": 0.31,
+    "rank": 9
+   },
+   "awayRating": {
+    "rating": 0.64,
+    "sd": 0.31,
+    "rank": 2
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 11,
+    "losses": 6,
+    "ties": 0,
+    "avgMargin": 0.47,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "DAL",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-10-31T23:00:00Z",
+      "opponent": "PIT",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "WPG",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "UTA",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "TOR",
+      "home": false,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "4-1"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 10,
+    "losses": 8,
+    "ties": 0,
+    "avgMargin": 0.89,
+    "last": [
+     {
+      "date": "2026-11-01T02:00:00Z",
+      "opponent": "CGY",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-03T01:00:00Z",
+      "opponent": "CHI",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "CBJ",
+      "home": false,
+      "margin": -5.0
+     },
+     {
+      "date": "2026-11-06T02:30:00Z",
+      "opponent": "NSH",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T02:00:00Z",
+      "opponent": "DET",
+      "home": true,
+      "margin": 4.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020316",
@@ -1948,7 +6143,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.44,
+    "sd": 0.31,
+    "rank": 4
+   },
+   "awayRating": {
+    "rating": -0.22,
+    "sd": 0.31,
+    "rank": 25
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 11,
+    "losses": 6,
+    "ties": 0,
+    "avgMargin": 0.59,
+    "last": [
+     {
+      "date": "2026-10-31T18:00:00Z",
+      "opponent": "NSH",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "DET",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "CHI",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "MIN",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T23:00:00Z",
+      "opponent": "WPG",
+      "home": false,
+      "margin": -1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 7,
+    "losses": 11,
+    "ties": 0,
+    "avgMargin": -0.39,
+    "last": [
+     {
+      "date": "2026-10-31T17:00:00Z",
+      "opponent": "STL",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-03T00:00:00Z",
+      "opponent": "FLA",
+      "home": false,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "TBL",
+      "home": false,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "VGK",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T02:00:00Z",
+      "opponent": "COL",
+      "home": false,
+      "margin": -4.0
+     }
+    ],
+    "lastRecord": "1-4"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020317",
@@ -1977,7 +6265,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.04,
+    "sd": 0.31,
+    "rank": 17
+   },
+   "awayRating": {
+    "rating": 0.2,
+    "sd": 0.31,
+    "rank": 10
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 6,
+    "losses": 12,
+    "ties": 0,
+    "avgMargin": -0.39,
+    "last": [
+     {
+      "date": "2026-10-31T23:00:00Z",
+      "opponent": "MTL",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "VGK",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "BOS",
+      "home": true,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-11-08T02:00:00Z",
+      "opponent": "LAK",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-09T01:00:00Z",
+      "opponent": "ANA",
+      "home": false,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "1-4"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 11,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 0.22,
+    "last": [
+     {
+      "date": "2026-10-30T02:00:00Z",
+      "opponent": "LAK",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-10-31T20:00:00Z",
+      "opponent": "SJS",
+      "home": false,
+      "margin": 4.0
+     },
+     {
+      "date": "2026-11-02T01:00:00Z",
+      "opponent": "ANA",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-05T00:30:00Z",
+      "opponent": "BUF",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "UTA",
+      "home": true,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020318",
@@ -2006,7 +6387,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.17,
+    "sd": 0.32,
+    "rank": 11
+   },
+   "awayRating": {
+    "rating": 0.15,
+    "sd": 0.31,
+    "rank": 12
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 15,
+    "wins": 9,
+    "losses": 6,
+    "ties": 0,
+    "avgMargin": 0.13,
+    "last": [
+     {
+      "date": "2026-10-28T23:30:00Z",
+      "opponent": "PHI",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "NSH",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-01T20:30:00Z",
+      "opponent": "MIN",
+      "home": true,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "DAL",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-07T17:30:00Z",
+      "opponent": "FLA",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 13,
+    "losses": 5,
+    "ties": 0,
+    "avgMargin": 0.83,
+    "last": [
+     {
+      "date": "2026-10-30T22:00:00Z",
+      "opponent": "VGK",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T00:30:00Z",
+      "opponent": "EDM",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "STL",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "NYI",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-09T00:00:00Z",
+      "opponent": "TOR",
+      "home": false,
+      "margin": 4.0
+     }
+    ],
+    "lastRecord": "5-0"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020319",
@@ -2035,7 +6509,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.06,
+    "sd": 0.32,
+    "rank": 19
+   },
+   "awayRating": {
+    "rating": -0.25,
+    "sd": 0.31,
+    "rank": 28
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 15,
+    "wins": 7,
+    "losses": 8,
+    "ties": 0,
+    "avgMargin": -0.47,
+    "last": [
+     {
+      "date": "2026-10-29T23:00:00Z",
+      "opponent": "CAR",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-01T00:00:00Z",
+      "opponent": "DAL",
+      "home": false,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "COL",
+      "home": true,
+      "margin": 5.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "DAL",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-07T00:00:00Z",
+      "opponent": "BUF",
+      "home": false,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 20,
+    "wins": 5,
+    "losses": 15,
+    "ties": 0,
+    "avgMargin": -1.05,
+    "last": [
+     {
+      "date": "2026-11-01T21:00:00Z",
+      "opponent": "UTA",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "MIN",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "NYR",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-09T00:00:00Z",
+      "opponent": "CGY",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-10T02:30:00Z",
+      "opponent": "VAN",
+      "home": false,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020320",
@@ -2064,7 +6631,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.04,
+    "sd": 0.32,
+    "rank": 18
+   },
+   "awayRating": {
+    "rating": -0.0,
+    "sd": 0.31,
+    "rank": 16
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 7,
+    "losses": 10,
+    "ties": 0,
+    "avgMargin": -0.18,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "BOS",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-10-31T17:00:00Z",
+      "opponent": "DET",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "NYR",
+      "home": false,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "NJD",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-07T18:00:00Z",
+      "opponent": "NSH",
+      "home": false,
+      "margin": -2.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 9,
+    "losses": 9,
+    "ties": 0,
+    "avgMargin": 0.06,
+    "last": [
+     {
+      "date": "2026-10-30T23:00:00Z",
+      "opponent": "WPG",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-03T00:00:00Z",
+      "opponent": "DET",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-05T00:30:00Z",
+      "opponent": "CHI",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-07T17:30:00Z",
+      "opponent": "WSH",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T18:00:00Z",
+      "opponent": "BOS",
+      "home": false,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020322",
@@ -2093,7 +6753,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.32,
+    "sd": 0.31,
+    "rank": 7
+   },
+   "awayRating": {
+    "rating": 0.13,
+    "sd": 0.31,
+    "rank": 13
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 10,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 0.47,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "MTL",
+      "home": true,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-01T00:00:00Z",
+      "opponent": "CBJ",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "WSH",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "CBJ",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "SJS",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 8,
+    "losses": 9,
+    "ties": 0,
+    "avgMargin": -0.41,
+    "last": [
+     {
+      "date": "2026-10-30T02:00:00Z",
+      "opponent": "ANA",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-10-31T20:00:00Z",
+      "opponent": "LAK",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-05T00:30:00Z",
+      "opponent": "OTT",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-07T00:00:00Z",
+      "opponent": "CBJ",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-08T20:30:00Z",
+      "opponent": "VGK",
+      "home": true,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020323",
@@ -2122,7 +6875,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.09,
+    "sd": 0.31,
+    "rank": 14
+   },
+   "awayRating": {
+    "rating": -0.61,
+    "sd": 0.31,
+    "rank": 30
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 10,
+    "losses": 8,
+    "ties": 0,
+    "avgMargin": 0.0,
+    "last": [
+     {
+      "date": "2026-10-29T23:00:00Z",
+      "opponent": "PIT",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-01T21:00:00Z",
+      "opponent": "PHI",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "TOR",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "MTL",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "OTT",
+      "home": false,
+      "margin": -2.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 20,
+    "wins": 8,
+    "losses": 12,
+    "ties": 0,
+    "avgMargin": -1.0,
+    "last": [
+     {
+      "date": "2026-11-03T02:00:00Z",
+      "opponent": "CGY",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-05T03:00:00Z",
+      "opponent": "LAK",
+      "home": false,
+      "margin": -5.0
+     },
+     {
+      "date": "2026-11-07T01:00:00Z",
+      "opponent": "MIN",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "DAL",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-10T03:00:00Z",
+      "opponent": "NYI",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "1-4"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020324",
@@ -2151,7 +6997,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.12,
+    "sd": 0.31,
+    "rank": 21
+   },
+   "awayRating": {
+    "rating": -0.15,
+    "sd": 0.32,
+    "rank": 22
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 10,
+    "losses": 8,
+    "ties": 0,
+    "avgMargin": 0.17,
+    "last": [
+     {
+      "date": "2026-11-02T01:00:00Z",
+      "opponent": "OTT",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T02:00:00Z",
+      "opponent": "VAN",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T01:00:00Z",
+      "opponent": "EDM",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-07T01:00:00Z",
+      "opponent": "CGY",
+      "home": false,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-09T01:00:00Z",
+      "opponent": "PIT",
+      "home": true,
+      "margin": 3.0
+     }
+    ],
+    "lastRecord": "5-0"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 7,
+    "losses": 10,
+    "ties": 0,
+    "avgMargin": -0.18,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "MIN",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-10-31T18:00:00Z",
+      "opponent": "EDM",
+      "home": true,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "CAR",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "NJD",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-10T03:00:00Z",
+      "opponent": "SJS",
+      "home": false,
+      "margin": -1.0
+     }
+    ],
+    "lastRecord": "1-4"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020325",
@@ -2180,7 +7119,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.19,
+    "sd": 0.32,
+    "rank": 23
+   },
+   "awayRating": {
+    "rating": -0.48,
+    "sd": 0.31,
+    "rank": 29
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 15,
+    "wins": 5,
+    "losses": 10,
+    "ties": 0,
+    "avgMargin": -0.47,
+    "last": [
+     {
+      "date": "2026-10-28T00:00:00Z",
+      "opponent": "CHI",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-10-30T02:00:00Z",
+      "opponent": "OTT",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-10-31T20:00:00Z",
+      "opponent": "BUF",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-05T03:00:00Z",
+      "opponent": "SJS",
+      "home": true,
+      "margin": 5.0
+     },
+     {
+      "date": "2026-11-08T02:00:00Z",
+      "opponent": "PIT",
+      "home": true,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 8,
+    "losses": 10,
+    "ties": 0,
+    "avgMargin": -0.94,
+    "last": [
+     {
+      "date": "2026-11-01T02:00:00Z",
+      "opponent": "COL",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-03T02:00:00Z",
+      "opponent": "SJS",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-05T03:00:00Z",
+      "opponent": "SEA",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-07T01:00:00Z",
+      "opponent": "ANA",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-09T00:00:00Z",
+      "opponent": "PHI",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020326",
@@ -2209,7 +7241,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.25,
+    "sd": 0.31,
+    "rank": 28
+   },
+   "awayRating": {
+    "rating": 0.32,
+    "sd": 0.31,
+    "rank": 8
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 20,
+    "wins": 5,
+    "losses": 15,
+    "ties": 0,
+    "avgMargin": -1.05,
+    "last": [
+     {
+      "date": "2026-11-01T21:00:00Z",
+      "opponent": "UTA",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "MIN",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "NYR",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-09T00:00:00Z",
+      "opponent": "CGY",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-10T02:30:00Z",
+      "opponent": "VAN",
+      "home": false,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 19,
+    "wins": 13,
+    "losses": 6,
+    "ties": 0,
+    "avgMargin": 1.16,
+    "last": [
+     {
+      "date": "2026-11-01T23:00:00Z",
+      "opponent": "NYR",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T00:30:00Z",
+      "opponent": "NJD",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-06T01:00:00Z",
+      "opponent": "ANA",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T03:00:00Z",
+      "opponent": "VAN",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-10T01:00:00Z",
+      "opponent": "NYR",
+      "home": true,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020327",
@@ -2238,7 +7363,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.32,
+    "sd": 0.31,
+    "rank": 7
+   },
+   "awayRating": {
+    "rating": -0.0,
+    "sd": 0.31,
+    "rank": 16
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 10,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 0.47,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "MTL",
+      "home": true,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-01T00:00:00Z",
+      "opponent": "CBJ",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "WSH",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "CBJ",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "SJS",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 9,
+    "losses": 9,
+    "ties": 0,
+    "avgMargin": 0.06,
+    "last": [
+     {
+      "date": "2026-10-30T23:00:00Z",
+      "opponent": "WPG",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-03T00:00:00Z",
+      "opponent": "DET",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-05T00:30:00Z",
+      "opponent": "CHI",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-07T17:30:00Z",
+      "opponent": "WSH",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T18:00:00Z",
+      "opponent": "BOS",
+      "home": false,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020328",
@@ -2267,7 +7485,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.12,
+    "sd": 0.31,
+    "rank": 21
+   },
+   "awayRating": {
+    "rating": -0.48,
+    "sd": 0.31,
+    "rank": 29
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 10,
+    "losses": 8,
+    "ties": 0,
+    "avgMargin": 0.17,
+    "last": [
+     {
+      "date": "2026-11-02T01:00:00Z",
+      "opponent": "OTT",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T02:00:00Z",
+      "opponent": "VAN",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T01:00:00Z",
+      "opponent": "EDM",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-07T01:00:00Z",
+      "opponent": "CGY",
+      "home": false,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-09T01:00:00Z",
+      "opponent": "PIT",
+      "home": true,
+      "margin": 3.0
+     }
+    ],
+    "lastRecord": "5-0"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 8,
+    "losses": 10,
+    "ties": 0,
+    "avgMargin": -0.94,
+    "last": [
+     {
+      "date": "2026-11-01T02:00:00Z",
+      "opponent": "COL",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-03T02:00:00Z",
+      "opponent": "SJS",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-05T03:00:00Z",
+      "opponent": "SEA",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-07T01:00:00Z",
+      "opponent": "ANA",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-09T00:00:00Z",
+      "opponent": "PHI",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020329",
@@ -2296,7 +7607,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.35,
+    "sd": 0.31,
+    "rank": 6
+   },
+   "awayRating": {
+    "rating": -0.93,
+    "sd": 0.31,
+    "rank": 32
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 19,
+    "wins": 12,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 0.68,
+    "last": [
+     {
+      "date": "2026-10-30T22:00:00Z",
+      "opponent": "NJD",
+      "home": true,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-03T00:00:00Z",
+      "opponent": "BOS",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "PIT",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "DET",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T20:30:00Z",
+      "opponent": "BUF",
+      "home": false,
+      "margin": 3.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 20,
+    "wins": 3,
+    "losses": 17,
+    "ties": 0,
+    "avgMargin": -1.7,
+    "last": [
+     {
+      "date": "2026-10-31T23:00:00Z",
+      "opponent": "TOR",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-04T02:00:00Z",
+      "opponent": "ANA",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "WPG",
+      "home": false,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-11-08T03:00:00Z",
+      "opponent": "EDM",
+      "home": false,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-10T02:30:00Z",
+      "opponent": "PHI",
+      "home": true,
+      "margin": -2.0
+     }
+    ],
+    "lastRecord": "0-5"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020330",
@@ -2325,7 +7729,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.61,
+    "sd": 0.31,
+    "rank": 30
+   },
+   "awayRating": {
+    "rating": -0.08,
+    "sd": 0.32,
+    "rank": 20
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 20,
+    "wins": 8,
+    "losses": 12,
+    "ties": 0,
+    "avgMargin": -1.0,
+    "last": [
+     {
+      "date": "2026-11-03T02:00:00Z",
+      "opponent": "CGY",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-05T03:00:00Z",
+      "opponent": "LAK",
+      "home": false,
+      "margin": -5.0
+     },
+     {
+      "date": "2026-11-07T01:00:00Z",
+      "opponent": "MIN",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "DAL",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-10T03:00:00Z",
+      "opponent": "NYI",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "1-4"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 8,
+    "losses": 9,
+    "ties": 0,
+    "avgMargin": 0.06,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "WSH",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-10-31T18:00:00Z",
+      "opponent": "TBL",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-04T01:00:00Z",
+      "opponent": "CAR",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-06T02:30:00Z",
+      "opponent": "COL",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-07T18:00:00Z",
+      "opponent": "STL",
+      "home": true,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "4-1"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020331",
@@ -2354,7 +7851,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.0,
+    "sd": 0.31,
+    "rank": 15
+   },
+   "awayRating": {
+    "rating": 0.25,
+    "sd": 0.31,
+    "rank": 9
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 19,
+    "wins": 10,
+    "losses": 9,
+    "ties": 0,
+    "avgMargin": 0.05,
+    "last": [
+     {
+      "date": "2026-11-01T23:00:00Z",
+      "opponent": "EDM",
+      "home": true,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "STL",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "PHI",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-07T22:00:00Z",
+      "opponent": "SEA",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-10T01:00:00Z",
+      "opponent": "EDM",
+      "home": false,
+      "margin": -2.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 11,
+    "losses": 6,
+    "ties": 0,
+    "avgMargin": 0.47,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "DAL",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-10-31T23:00:00Z",
+      "opponent": "PIT",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "WPG",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "UTA",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "TOR",
+      "home": false,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "4-1"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020332",
@@ -2383,7 +7973,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.09,
+    "sd": 0.31,
+    "rank": 14
+   },
+   "awayRating": {
+    "rating": -0.93,
+    "sd": 0.31,
+    "rank": 32
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 10,
+    "losses": 8,
+    "ties": 0,
+    "avgMargin": 0.0,
+    "last": [
+     {
+      "date": "2026-10-29T23:00:00Z",
+      "opponent": "PIT",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-01T21:00:00Z",
+      "opponent": "PHI",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "TOR",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "MTL",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "OTT",
+      "home": false,
+      "margin": -2.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 20,
+    "wins": 3,
+    "losses": 17,
+    "ties": 0,
+    "avgMargin": -1.7,
+    "last": [
+     {
+      "date": "2026-10-31T23:00:00Z",
+      "opponent": "TOR",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-04T02:00:00Z",
+      "opponent": "ANA",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "WPG",
+      "home": false,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-11-08T03:00:00Z",
+      "opponent": "EDM",
+      "home": false,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-10T02:30:00Z",
+      "opponent": "PHI",
+      "home": true,
+      "margin": -2.0
+     }
+    ],
+    "lastRecord": "0-5"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020333",
@@ -2412,7 +8095,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.44,
+    "sd": 0.31,
+    "rank": 5
+   },
+   "awayRating": {
+    "rating": -0.19,
+    "sd": 0.32,
+    "rank": 23
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 13,
+    "losses": 5,
+    "ties": 0,
+    "avgMargin": 1.5,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "STL",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-10-31T17:00:00Z",
+      "opponent": "CHI",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-03T00:00:00Z",
+      "opponent": "VGK",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "PIT",
+      "home": false,
+      "margin": 4.0
+     },
+     {
+      "date": "2026-11-08T18:00:00Z",
+      "opponent": "FLA",
+      "home": true,
+      "margin": 3.0
+     }
+    ],
+    "lastRecord": "4-1"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 15,
+    "wins": 5,
+    "losses": 10,
+    "ties": 0,
+    "avgMargin": -0.47,
+    "last": [
+     {
+      "date": "2026-10-28T00:00:00Z",
+      "opponent": "CHI",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-10-30T02:00:00Z",
+      "opponent": "OTT",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-10-31T20:00:00Z",
+      "opponent": "BUF",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-05T03:00:00Z",
+      "opponent": "SJS",
+      "home": true,
+      "margin": 5.0
+     },
+     {
+      "date": "2026-11-08T02:00:00Z",
+      "opponent": "PIT",
+      "home": true,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020335",
@@ -2441,7 +8217,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.0,
+    "sd": 0.31,
+    "rank": 16
+   },
+   "awayRating": {
+    "rating": 0.32,
+    "sd": 0.31,
+    "rank": 8
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 9,
+    "losses": 9,
+    "ties": 0,
+    "avgMargin": 0.06,
+    "last": [
+     {
+      "date": "2026-10-30T23:00:00Z",
+      "opponent": "WPG",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-03T00:00:00Z",
+      "opponent": "DET",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-05T00:30:00Z",
+      "opponent": "CHI",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-07T17:30:00Z",
+      "opponent": "WSH",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T18:00:00Z",
+      "opponent": "BOS",
+      "home": false,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 19,
+    "wins": 13,
+    "losses": 6,
+    "ties": 0,
+    "avgMargin": 1.16,
+    "last": [
+     {
+      "date": "2026-11-01T23:00:00Z",
+      "opponent": "NYR",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T00:30:00Z",
+      "opponent": "NJD",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-06T01:00:00Z",
+      "opponent": "ANA",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T03:00:00Z",
+      "opponent": "VAN",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-10T01:00:00Z",
+      "opponent": "NYR",
+      "home": true,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020336",
@@ -2470,7 +8339,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.15,
+    "sd": 0.32,
+    "rank": 22
+   },
+   "awayRating": {
+    "rating": -0.06,
+    "sd": 0.32,
+    "rank": 19
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 7,
+    "losses": 10,
+    "ties": 0,
+    "avgMargin": -0.18,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "MIN",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-10-31T18:00:00Z",
+      "opponent": "EDM",
+      "home": true,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "CAR",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "NJD",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-10T03:00:00Z",
+      "opponent": "SJS",
+      "home": false,
+      "margin": -1.0
+     }
+    ],
+    "lastRecord": "1-4"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 15,
+    "wins": 7,
+    "losses": 8,
+    "ties": 0,
+    "avgMargin": -0.47,
+    "last": [
+     {
+      "date": "2026-10-29T23:00:00Z",
+      "opponent": "CAR",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-01T00:00:00Z",
+      "opponent": "DAL",
+      "home": false,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "COL",
+      "home": true,
+      "margin": 5.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "DAL",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-07T00:00:00Z",
+      "opponent": "BUF",
+      "home": false,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020337",
@@ -2499,7 +8461,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.25,
+    "sd": 0.31,
+    "rank": 28
+   },
+   "awayRating": {
+    "rating": 0.13,
+    "sd": 0.31,
+    "rank": 13
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 20,
+    "wins": 5,
+    "losses": 15,
+    "ties": 0,
+    "avgMargin": -1.05,
+    "last": [
+     {
+      "date": "2026-11-01T21:00:00Z",
+      "opponent": "UTA",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "MIN",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "NYR",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-09T00:00:00Z",
+      "opponent": "CGY",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-10T02:30:00Z",
+      "opponent": "VAN",
+      "home": false,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 8,
+    "losses": 9,
+    "ties": 0,
+    "avgMargin": -0.41,
+    "last": [
+     {
+      "date": "2026-10-30T02:00:00Z",
+      "opponent": "ANA",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-10-31T20:00:00Z",
+      "opponent": "LAK",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-05T00:30:00Z",
+      "opponent": "OTT",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-07T00:00:00Z",
+      "opponent": "CBJ",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-08T20:30:00Z",
+      "opponent": "VGK",
+      "home": true,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020341",
@@ -2528,7 +8583,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.25,
+    "sd": 0.31,
+    "rank": 27
+   },
+   "awayRating": {
+    "rating": 0.2,
+    "sd": 0.31,
+    "rank": 10
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 7,
+    "losses": 11,
+    "ties": 0,
+    "avgMargin": -0.78,
+    "last": [
+     {
+      "date": "2026-10-30T23:00:00Z",
+      "opponent": "FLA",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-01T18:00:00Z",
+      "opponent": "CAR",
+      "home": false,
+      "margin": -7.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "MTL",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "VAN",
+      "home": true,
+      "margin": 4.0
+     },
+     {
+      "date": "2026-11-08T23:00:00Z",
+      "opponent": "TBL",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 11,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 0.22,
+    "last": [
+     {
+      "date": "2026-10-30T02:00:00Z",
+      "opponent": "LAK",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-10-31T20:00:00Z",
+      "opponent": "SJS",
+      "home": false,
+      "margin": 4.0
+     },
+     {
+      "date": "2026-11-02T01:00:00Z",
+      "opponent": "ANA",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-05T00:30:00Z",
+      "opponent": "BUF",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "UTA",
+      "home": true,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020334",
@@ -2557,7 +8705,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.44,
+    "sd": 0.31,
+    "rank": 4
+   },
+   "awayRating": {
+    "rating": 0.17,
+    "sd": 0.32,
+    "rank": 11
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 11,
+    "losses": 6,
+    "ties": 0,
+    "avgMargin": 0.59,
+    "last": [
+     {
+      "date": "2026-10-31T18:00:00Z",
+      "opponent": "NSH",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "DET",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "CHI",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "MIN",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T23:00:00Z",
+      "opponent": "WPG",
+      "home": false,
+      "margin": -1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 15,
+    "wins": 9,
+    "losses": 6,
+    "ties": 0,
+    "avgMargin": 0.13,
+    "last": [
+     {
+      "date": "2026-10-28T23:30:00Z",
+      "opponent": "PHI",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "NSH",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-01T20:30:00Z",
+      "opponent": "MIN",
+      "home": true,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "DAL",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-07T17:30:00Z",
+      "opponent": "FLA",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020338",
@@ -2586,7 +8827,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.9,
+    "sd": 0.31,
+    "rank": 31
+   },
+   "awayRating": {
+    "rating": -0.19,
+    "sd": 0.31,
+    "rank": 24
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 4,
+    "losses": 14,
+    "ties": 0,
+    "avgMargin": -2.06,
+    "last": [
+     {
+      "date": "2026-10-31T17:00:00Z",
+      "opponent": "BOS",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-03T01:00:00Z",
+      "opponent": "COL",
+      "home": true,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-05T00:30:00Z",
+      "opponent": "FLA",
+      "home": false,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "TBL",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "CAR",
+      "home": false,
+      "margin": -7.0
+     }
+    ],
+    "lastRecord": "0-5"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 19,
+    "wins": 8,
+    "losses": 11,
+    "ties": 0,
+    "avgMargin": 0.0,
+    "last": [
+     {
+      "date": "2026-10-29T02:00:00Z",
+      "opponent": "SEA",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-10-31T23:00:00Z",
+      "opponent": "VAN",
+      "home": false,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "UTA",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "MTL",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-09T00:00:00Z",
+      "opponent": "NJD",
+      "home": true,
+      "margin": -4.0
+     }
+    ],
+    "lastRecord": "1-4"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020339",
@@ -2615,7 +8949,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.04,
+    "sd": 0.32,
+    "rank": 18
+   },
+   "awayRating": {
+    "rating": -0.12,
+    "sd": 0.31,
+    "rank": 21
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 7,
+    "losses": 10,
+    "ties": 0,
+    "avgMargin": -0.18,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "BOS",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-10-31T17:00:00Z",
+      "opponent": "DET",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "NYR",
+      "home": false,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "NJD",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-07T18:00:00Z",
+      "opponent": "NSH",
+      "home": false,
+      "margin": -2.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 10,
+    "losses": 8,
+    "ties": 0,
+    "avgMargin": 0.17,
+    "last": [
+     {
+      "date": "2026-11-02T01:00:00Z",
+      "opponent": "OTT",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T02:00:00Z",
+      "opponent": "VAN",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T01:00:00Z",
+      "opponent": "EDM",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-07T01:00:00Z",
+      "opponent": "CGY",
+      "home": false,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-09T01:00:00Z",
+      "opponent": "PIT",
+      "home": true,
+      "margin": 3.0
+     }
+    ],
+    "lastRecord": "5-0"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020340",
@@ -2644,7 +9071,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.45,
+    "sd": 0.31,
+    "rank": 3
+   },
+   "awayRating": {
+    "rating": -0.08,
+    "sd": 0.32,
+    "rank": 20
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 19,
+    "wins": 12,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 1.05,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "NYI",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-01T20:30:00Z",
+      "opponent": "WSH",
+      "home": false,
+      "margin": 4.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "PHI",
+      "home": false,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-07T01:00:00Z",
+      "opponent": "SJS",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "TBL",
+      "home": true,
+      "margin": -1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 8,
+    "losses": 9,
+    "ties": 0,
+    "avgMargin": 0.06,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "WSH",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-10-31T18:00:00Z",
+      "opponent": "TBL",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-04T01:00:00Z",
+      "opponent": "CAR",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-06T02:30:00Z",
+      "opponent": "COL",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-07T18:00:00Z",
+      "opponent": "STL",
+      "home": true,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "4-1"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020342",
@@ -2673,7 +9193,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.35,
+    "sd": 0.31,
+    "rank": 6
+   },
+   "awayRating": {
+    "rating": 0.32,
+    "sd": 0.31,
+    "rank": 7
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 19,
+    "wins": 12,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 0.68,
+    "last": [
+     {
+      "date": "2026-10-30T22:00:00Z",
+      "opponent": "NJD",
+      "home": true,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-03T00:00:00Z",
+      "opponent": "BOS",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "PIT",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "DET",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T20:30:00Z",
+      "opponent": "BUF",
+      "home": false,
+      "margin": 3.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 10,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 0.47,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "MTL",
+      "home": true,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-01T00:00:00Z",
+      "opponent": "CBJ",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "WSH",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "CBJ",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "SJS",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020343",
@@ -2702,7 +9315,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.61,
+    "sd": 0.31,
+    "rank": 30
+   },
+   "awayRating": {
+    "rating": -0.48,
+    "sd": 0.31,
+    "rank": 29
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 20,
+    "wins": 8,
+    "losses": 12,
+    "ties": 0,
+    "avgMargin": -1.0,
+    "last": [
+     {
+      "date": "2026-11-03T02:00:00Z",
+      "opponent": "CGY",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-05T03:00:00Z",
+      "opponent": "LAK",
+      "home": false,
+      "margin": -5.0
+     },
+     {
+      "date": "2026-11-07T01:00:00Z",
+      "opponent": "MIN",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "DAL",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-10T03:00:00Z",
+      "opponent": "NYI",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "1-4"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 8,
+    "losses": 10,
+    "ties": 0,
+    "avgMargin": -0.94,
+    "last": [
+     {
+      "date": "2026-11-01T02:00:00Z",
+      "opponent": "COL",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-03T02:00:00Z",
+      "opponent": "SJS",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-05T03:00:00Z",
+      "opponent": "SEA",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-07T01:00:00Z",
+      "opponent": "ANA",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-09T00:00:00Z",
+      "opponent": "PHI",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020344",
@@ -2731,7 +9437,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.22,
+    "sd": 0.31,
+    "rank": 25
+   },
+   "awayRating": {
+    "rating": 0.44,
+    "sd": 0.31,
+    "rank": 5
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 7,
+    "losses": 11,
+    "ties": 0,
+    "avgMargin": -0.39,
+    "last": [
+     {
+      "date": "2026-10-31T17:00:00Z",
+      "opponent": "STL",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-03T00:00:00Z",
+      "opponent": "FLA",
+      "home": false,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "TBL",
+      "home": false,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "VGK",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T02:00:00Z",
+      "opponent": "COL",
+      "home": false,
+      "margin": -4.0
+     }
+    ],
+    "lastRecord": "1-4"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 13,
+    "losses": 5,
+    "ties": 0,
+    "avgMargin": 1.5,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "STL",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-10-31T17:00:00Z",
+      "opponent": "CHI",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-03T00:00:00Z",
+      "opponent": "VGK",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "PIT",
+      "home": false,
+      "margin": 4.0
+     },
+     {
+      "date": "2026-11-08T18:00:00Z",
+      "opponent": "FLA",
+      "home": true,
+      "margin": 3.0
+     }
+    ],
+    "lastRecord": "4-1"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020345",
@@ -2760,7 +9559,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.15,
+    "sd": 0.31,
+    "rank": 12
+   },
+   "awayRating": {
+    "rating": 0.25,
+    "sd": 0.31,
+    "rank": 9
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 13,
+    "losses": 5,
+    "ties": 0,
+    "avgMargin": 0.83,
+    "last": [
+     {
+      "date": "2026-10-30T22:00:00Z",
+      "opponent": "VGK",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T00:30:00Z",
+      "opponent": "EDM",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "STL",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "NYI",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-09T00:00:00Z",
+      "opponent": "TOR",
+      "home": false,
+      "margin": 4.0
+     }
+    ],
+    "lastRecord": "5-0"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 11,
+    "losses": 6,
+    "ties": 0,
+    "avgMargin": 0.47,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "DAL",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-10-31T23:00:00Z",
+      "opponent": "PIT",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "WPG",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "UTA",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "TOR",
+      "home": false,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "4-1"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020346",
@@ -2789,7 +9681,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.09,
+    "sd": 0.31,
+    "rank": 14
+   },
+   "awayRating": {
+    "rating": 0.64,
+    "sd": 0.31,
+    "rank": 2
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 10,
+    "losses": 8,
+    "ties": 0,
+    "avgMargin": 0.0,
+    "last": [
+     {
+      "date": "2026-10-29T23:00:00Z",
+      "opponent": "PIT",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-01T21:00:00Z",
+      "opponent": "PHI",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "TOR",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "MTL",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "OTT",
+      "home": false,
+      "margin": -2.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 10,
+    "losses": 8,
+    "ties": 0,
+    "avgMargin": 0.89,
+    "last": [
+     {
+      "date": "2026-11-01T02:00:00Z",
+      "opponent": "CGY",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-03T01:00:00Z",
+      "opponent": "CHI",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "CBJ",
+      "home": false,
+      "margin": -5.0
+     },
+     {
+      "date": "2026-11-06T02:30:00Z",
+      "opponent": "NSH",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T02:00:00Z",
+      "opponent": "DET",
+      "home": true,
+      "margin": 4.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020347",
@@ -2818,7 +9803,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.19,
+    "sd": 0.31,
+    "rank": 24
+   },
+   "awayRating": {
+    "rating": -0.19,
+    "sd": 0.32,
+    "rank": 23
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 19,
+    "wins": 8,
+    "losses": 11,
+    "ties": 0,
+    "avgMargin": 0.0,
+    "last": [
+     {
+      "date": "2026-10-29T02:00:00Z",
+      "opponent": "SEA",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-10-31T23:00:00Z",
+      "opponent": "VAN",
+      "home": false,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "UTA",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "MTL",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-09T00:00:00Z",
+      "opponent": "NJD",
+      "home": true,
+      "margin": -4.0
+     }
+    ],
+    "lastRecord": "1-4"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 15,
+    "wins": 5,
+    "losses": 10,
+    "ties": 0,
+    "avgMargin": -0.47,
+    "last": [
+     {
+      "date": "2026-10-28T00:00:00Z",
+      "opponent": "CHI",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-10-30T02:00:00Z",
+      "opponent": "OTT",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-10-31T20:00:00Z",
+      "opponent": "BUF",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-05T03:00:00Z",
+      "opponent": "SJS",
+      "home": true,
+      "margin": 5.0
+     },
+     {
+      "date": "2026-11-08T02:00:00Z",
+      "opponent": "PIT",
+      "home": true,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020348",
@@ -2847,7 +9925,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.2,
+    "sd": 0.31,
+    "rank": 10
+   },
+   "awayRating": {
+    "rating": -0.25,
+    "sd": 0.31,
+    "rank": 28
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 11,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 0.22,
+    "last": [
+     {
+      "date": "2026-10-30T02:00:00Z",
+      "opponent": "LAK",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-10-31T20:00:00Z",
+      "opponent": "SJS",
+      "home": false,
+      "margin": 4.0
+     },
+     {
+      "date": "2026-11-02T01:00:00Z",
+      "opponent": "ANA",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-05T00:30:00Z",
+      "opponent": "BUF",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "UTA",
+      "home": true,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 20,
+    "wins": 5,
+    "losses": 15,
+    "ties": 0,
+    "avgMargin": -1.05,
+    "last": [
+     {
+      "date": "2026-11-01T21:00:00Z",
+      "opponent": "UTA",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "MIN",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "NYR",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-09T00:00:00Z",
+      "opponent": "CGY",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-10T02:30:00Z",
+      "opponent": "VAN",
+      "home": false,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020350",
@@ -2876,7 +10047,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.04,
+    "sd": 0.31,
+    "rank": 17
+   },
+   "awayRating": {
+    "rating": -0.04,
+    "sd": 0.32,
+    "rank": 18
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 6,
+    "losses": 12,
+    "ties": 0,
+    "avgMargin": -0.39,
+    "last": [
+     {
+      "date": "2026-10-31T23:00:00Z",
+      "opponent": "MTL",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "VGK",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "BOS",
+      "home": true,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-11-08T02:00:00Z",
+      "opponent": "LAK",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-09T01:00:00Z",
+      "opponent": "ANA",
+      "home": false,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "1-4"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 7,
+    "losses": 10,
+    "ties": 0,
+    "avgMargin": -0.18,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "BOS",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-10-31T17:00:00Z",
+      "opponent": "DET",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "NYR",
+      "home": false,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "NJD",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-07T18:00:00Z",
+      "opponent": "NSH",
+      "home": false,
+      "margin": -2.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020351",
@@ -2905,7 +10169,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.17,
+    "sd": 0.32,
+    "rank": 11
+   },
+   "awayRating": {
+    "rating": 0.13,
+    "sd": 0.31,
+    "rank": 13
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 15,
+    "wins": 9,
+    "losses": 6,
+    "ties": 0,
+    "avgMargin": 0.13,
+    "last": [
+     {
+      "date": "2026-10-28T23:30:00Z",
+      "opponent": "PHI",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "NSH",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-01T20:30:00Z",
+      "opponent": "MIN",
+      "home": true,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "DAL",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-07T17:30:00Z",
+      "opponent": "FLA",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 8,
+    "losses": 9,
+    "ties": 0,
+    "avgMargin": -0.41,
+    "last": [
+     {
+      "date": "2026-10-30T02:00:00Z",
+      "opponent": "ANA",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-10-31T20:00:00Z",
+      "opponent": "LAK",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-05T00:30:00Z",
+      "opponent": "OTT",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-07T00:00:00Z",
+      "opponent": "CBJ",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-08T20:30:00Z",
+      "opponent": "VGK",
+      "home": true,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020352",
@@ -2934,7 +10291,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.83,
+    "sd": 0.31,
+    "rank": 1
+   },
+   "awayRating": {
+    "rating": 0.25,
+    "sd": 0.31,
+    "rank": 9
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 19,
+    "wins": 14,
+    "losses": 5,
+    "ties": 0,
+    "avgMargin": 1.74,
+    "last": [
+     {
+      "date": "2026-10-29T23:00:00Z",
+      "opponent": "CBJ",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-01T18:00:00Z",
+      "opponent": "WPG",
+      "home": true,
+      "margin": 7.0
+     },
+     {
+      "date": "2026-11-04T01:00:00Z",
+      "opponent": "NSH",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "NYI",
+      "home": false,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "CHI",
+      "home": true,
+      "margin": 7.0
+     }
+    ],
+    "lastRecord": "4-1"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 11,
+    "losses": 6,
+    "ties": 0,
+    "avgMargin": 0.47,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "DAL",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-10-31T23:00:00Z",
+      "opponent": "PIT",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "WPG",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "UTA",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "TOR",
+      "home": false,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "4-1"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020354",
@@ -2963,7 +10413,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.25,
+    "sd": 0.31,
+    "rank": 27
+   },
+   "awayRating": {
+    "rating": -0.15,
+    "sd": 0.32,
+    "rank": 22
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 7,
+    "losses": 11,
+    "ties": 0,
+    "avgMargin": -0.78,
+    "last": [
+     {
+      "date": "2026-10-30T23:00:00Z",
+      "opponent": "FLA",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-01T18:00:00Z",
+      "opponent": "CAR",
+      "home": false,
+      "margin": -7.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "MTL",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "VAN",
+      "home": true,
+      "margin": 4.0
+     },
+     {
+      "date": "2026-11-08T23:00:00Z",
+      "opponent": "TBL",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 7,
+    "losses": 10,
+    "ties": 0,
+    "avgMargin": -0.18,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "MIN",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-10-31T18:00:00Z",
+      "opponent": "EDM",
+      "home": true,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "CAR",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "NJD",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-10T03:00:00Z",
+      "opponent": "SJS",
+      "home": false,
+      "margin": -1.0
+     }
+    ],
+    "lastRecord": "1-4"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020349",
@@ -2992,7 +10535,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.44,
+    "sd": 0.31,
+    "rank": 4
+   },
+   "awayRating": {
+    "rating": 0.32,
+    "sd": 0.31,
+    "rank": 8
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 11,
+    "losses": 6,
+    "ties": 0,
+    "avgMargin": 0.59,
+    "last": [
+     {
+      "date": "2026-10-31T18:00:00Z",
+      "opponent": "NSH",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "DET",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "CHI",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "MIN",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T23:00:00Z",
+      "opponent": "WPG",
+      "home": false,
+      "margin": -1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 19,
+    "wins": 13,
+    "losses": 6,
+    "ties": 0,
+    "avgMargin": 1.16,
+    "last": [
+     {
+      "date": "2026-11-01T23:00:00Z",
+      "opponent": "NYR",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T00:30:00Z",
+      "opponent": "NJD",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-06T01:00:00Z",
+      "opponent": "ANA",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T03:00:00Z",
+      "opponent": "VAN",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-10T01:00:00Z",
+      "opponent": "NYR",
+      "home": true,
+      "margin": 2.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020353",
@@ -3021,7 +10657,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.9,
+    "sd": 0.31,
+    "rank": 31
+   },
+   "awayRating": {
+    "rating": -0.06,
+    "sd": 0.32,
+    "rank": 19
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 4,
+    "losses": 14,
+    "ties": 0,
+    "avgMargin": -2.06,
+    "last": [
+     {
+      "date": "2026-10-31T17:00:00Z",
+      "opponent": "BOS",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-03T01:00:00Z",
+      "opponent": "COL",
+      "home": true,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-05T00:30:00Z",
+      "opponent": "FLA",
+      "home": false,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "TBL",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "CAR",
+      "home": false,
+      "margin": -7.0
+     }
+    ],
+    "lastRecord": "0-5"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 15,
+    "wins": 7,
+    "losses": 8,
+    "ties": 0,
+    "avgMargin": -0.47,
+    "last": [
+     {
+      "date": "2026-10-29T23:00:00Z",
+      "opponent": "CAR",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-01T00:00:00Z",
+      "opponent": "DAL",
+      "home": false,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "COL",
+      "home": true,
+      "margin": 5.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "DAL",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-07T00:00:00Z",
+      "opponent": "BUF",
+      "home": false,
+      "margin": -3.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020355",
@@ -3050,7 +10779,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.48,
+    "sd": 0.31,
+    "rank": 29
+   },
+   "awayRating": {
+    "rating": 0.45,
+    "sd": 0.31,
+    "rank": 3
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 8,
+    "losses": 10,
+    "ties": 0,
+    "avgMargin": -0.94,
+    "last": [
+     {
+      "date": "2026-11-01T02:00:00Z",
+      "opponent": "COL",
+      "home": false,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-03T02:00:00Z",
+      "opponent": "SJS",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-05T03:00:00Z",
+      "opponent": "SEA",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-07T01:00:00Z",
+      "opponent": "ANA",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-09T00:00:00Z",
+      "opponent": "PHI",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 19,
+    "wins": 12,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 1.05,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "NYI",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-01T20:30:00Z",
+      "opponent": "WSH",
+      "home": false,
+      "margin": 4.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "PHI",
+      "home": false,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-07T01:00:00Z",
+      "opponent": "SJS",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "TBL",
+      "home": true,
+      "margin": -1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020356",
@@ -3079,7 +10901,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.64,
+    "sd": 0.31,
+    "rank": 2
+   },
+   "awayRating": {
+    "rating": -0.12,
+    "sd": 0.31,
+    "rank": 21
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 10,
+    "losses": 8,
+    "ties": 0,
+    "avgMargin": 0.89,
+    "last": [
+     {
+      "date": "2026-11-01T02:00:00Z",
+      "opponent": "CGY",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-03T01:00:00Z",
+      "opponent": "CHI",
+      "home": false,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "CBJ",
+      "home": false,
+      "margin": -5.0
+     },
+     {
+      "date": "2026-11-06T02:30:00Z",
+      "opponent": "NSH",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T02:00:00Z",
+      "opponent": "DET",
+      "home": true,
+      "margin": 4.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 18,
+    "wins": 10,
+    "losses": 8,
+    "ties": 0,
+    "avgMargin": 0.17,
+    "last": [
+     {
+      "date": "2026-11-02T01:00:00Z",
+      "opponent": "OTT",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-04T02:00:00Z",
+      "opponent": "VAN",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T01:00:00Z",
+      "opponent": "EDM",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-07T01:00:00Z",
+      "opponent": "CGY",
+      "home": false,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-09T01:00:00Z",
+      "opponent": "PIT",
+      "home": true,
+      "margin": 3.0
+     }
+    ],
+    "lastRecord": "5-0"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020357",
@@ -3108,7 +11023,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -0.24,
+    "sd": 0.32,
+    "rank": 26
+   },
+   "awayRating": {
+    "rating": -0.93,
+    "sd": 0.31,
+    "rank": 32
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 16,
+    "wins": 9,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 0.0,
+    "last": [
+     {
+      "date": "2026-10-25T02:00:00Z",
+      "opponent": "MIN",
+      "home": true,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-10-29T02:00:00Z",
+      "opponent": "TOR",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-10-31T00:00:00Z",
+      "opponent": "CGY",
+      "home": false,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-11-05T03:00:00Z",
+      "opponent": "CGY",
+      "home": true,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-07T22:00:00Z",
+      "opponent": "NYR",
+      "home": true,
+      "margin": -1.0
+     }
+    ],
+    "lastRecord": "2-3"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 20,
+    "wins": 3,
+    "losses": 17,
+    "ties": 0,
+    "avgMargin": -1.7,
+    "last": [
+     {
+      "date": "2026-10-31T23:00:00Z",
+      "opponent": "TOR",
+      "home": true,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-04T02:00:00Z",
+      "opponent": "ANA",
+      "home": true,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "WPG",
+      "home": false,
+      "margin": -4.0
+     },
+     {
+      "date": "2026-11-08T03:00:00Z",
+      "opponent": "EDM",
+      "home": false,
+      "margin": -2.0
+     },
+     {
+      "date": "2026-11-10T02:30:00Z",
+      "opponent": "PHI",
+      "home": true,
+      "margin": -2.0
+     }
+    ],
+    "lastRecord": "0-5"
+   },
+   "homeAdvantage": 0.25
   },
   {
    "gameId": "2026020358",
@@ -3137,7 +11145,100 @@
    "note": "no market line in source; independent projection only",
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 0.35,
+    "sd": 0.31,
+    "rank": 6
+   },
+   "awayRating": {
+    "rating": 0.32,
+    "sd": 0.31,
+    "rank": 7
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 19,
+    "wins": 12,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 0.68,
+    "last": [
+     {
+      "date": "2026-10-30T22:00:00Z",
+      "opponent": "NJD",
+      "home": true,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-03T00:00:00Z",
+      "opponent": "BOS",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "PIT",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "DET",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-08T20:30:00Z",
+      "opponent": "BUF",
+      "home": false,
+      "margin": 3.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 17,
+    "wins": 10,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 0.47,
+    "last": [
+     {
+      "date": "2026-10-30T00:00:00Z",
+      "opponent": "MTL",
+      "home": true,
+      "margin": -3.0
+     },
+     {
+      "date": "2026-11-01T00:00:00Z",
+      "opponent": "CBJ",
+      "home": true,
+      "margin": 2.0
+     },
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "WSH",
+      "home": false,
+      "margin": 1.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "CBJ",
+      "home": false,
+      "margin": -1.0
+     },
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "SJS",
+      "home": true,
+      "margin": 1.0
+     }
+    ],
+    "lastRecord": "3-2"
+   },
+   "homeAdvantage": 0.25
   }
  ],
  "limitations": [
@@ -3180,6 +11281,6 @@
   "empiricalResiduals": 13187,
   "empiricalMargin": true
  },
- "forecastGeneratedAt": "2026-11-10T19:00:50Z",
+ "forecastGeneratedAt": "2026-11-10T19:17:27Z",
  "ledgerRecorded": 0
 }

@@ -172,7 +172,7 @@ Routes (all read artifacts through `src/lib/model-reports.ts`; pages never parse
 
 | Route | Shows |
 | --- | --- |
-| `/` | Model desk: next races with field probabilities, upcoming team-sport games with leans, model health per sport, recent results |
+| `/` | Tonight: every game and race in the next week ranked by model confidence, each opening into the statistical case, the matchup comparison, and the market and price; `?sport=nfl` scopes it. Built by `src/lib/tonight.ts` from the sport reports (which now carry per-team season form) and race files (which now carry per-driver score factors and recent finishes) |
 | `/sports` | One card per sport with a report; sports without an adapter listed |
 | `/sports/<sport>` | Upcoming games beside the market, power ratings, season-by-season backtest, reliability, ledger summary, limits and sources |
 | `/models` | Ledger scorecard for every model and market, racing backtest versus the legacy method with reliability diagrams, team-sport backtests |

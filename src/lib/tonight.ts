@@ -1,0 +1,239 @@
+import "server-only";
+
+import { american, fairAmerican, num, pct, signed, spread } from "@/lib/format";
+import {
+  SPORT_LABELS, getLedgerIndex, getUpcomingRaceBoards, listSportReports,
+  type LedgerEventSummary, type RaceBoard, type SportReport, type SportUpcoming, type TeamForm,
+} from "@/lib/model-reports";
+import { todayDateString } from "@/lib/races";
+
+/** One scannable item on the Tonight board: a game or a race, with a pick, a confidence,
+ *  the statistical rationale, the matchup comparison and the market. Built server-side
+ *  from the engines' reports so the page itself stays simple. */
+
+export type ConfidenceLabel = "High" | "Medium" | "Low";
+
+export type MatchupRow = { label: string; a: string; b: string; hint?: string };
+
+export type TonightMarket = {
+  spreadLabel: string | null; spreadPrices: string | null; moneyline: string | null;
+  marketWinProb: number | null; modelWinProb: number | null; fairPrice: string | null;
+  coverProb: number | null; edgePts: number | null; lean: string | null; book: string | null; note: string | null;
+};
+
+export type TonightItem = {
+  key: string; kind: "game" | "race"; sport: string; sportLabel: string;
+  startsAt: string; startsAtLabel: string; isToday: boolean; dayKey: string;
+  title: string; subtitle: string;
+  pick: string; pickDetail: string;
+  /** Probability the pick beats its main rival: win probability for a game, head-to-head versus the runner-up for a race. */
+  confidence: number; confidenceLabel: ConfidenceLabel;
+  rationale: string[];
+  matchupHeaders: [string, string]; matchup: MatchupRow[];
+  raceTable?: Array<{ rank: number; driver: string; car: string | null; win: number; top3: number | null; expectedFinish: number | null; last5: string; elo: number | null }>;
+  market: TonightMarket | null;
+  ledger: { open: number; graded: number; record: string | null; recordedAt: string | null } | null;
+  href: string;
+};
+
+const dayFmt = new Intl.DateTimeFormat("en-US", { weekday: "short", month: "short", day: "numeric", timeZone: "America/New_York" });
+const timeFmt = new Intl.DateTimeFormat("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/New_York" });
+
+function dayKeyOf(iso: string) {
+  const parts = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(new Date(iso));
+  const get = (type: string) => parts.find((p) => p.type === type)?.value ?? "";
+  return `${get("year")}-${get("month")}-${get("day")}`;
+}
+
+function label(confidence: number): ConfidenceLabel {
+  return confidence >= 0.72 ? "High" : confidence >= 0.6 ? "Medium" : "Low";
+}
+
+function ordinal(n: number) {
+  const s = ["th", "st", "nd", "rd"];
+  const v = n % 100;
+  return `${n}${s[(v - 20) % 10] ?? s[v] ?? s[0]}`;
+}
+
+function formLine(team: string, form: TeamForm | null | undefined) {
+  if (!form) return `${team}: no completed games this season yet.`;
+  const record = form.ties ? `${form.wins}-${form.losses}-${form.ties}` : `${form.wins}-${form.losses}`;
+  return `${team} is ${record} this season (last five ${form.lastRecord}, average margin ${signed(form.avgMargin)}).`;
+}
+
+function lastFive(form: TeamForm | null | undefined) {
+  if (!form || !form.last.length) return "—";
+  return form.last.map((r) => `${r.margin > 0 ? "W" : r.margin < 0 ? "L" : "T"}${Math.abs(r.margin)}`).join(" ");
+}
+
+function ledgerSummary(summary: LedgerEventSummary | undefined): TonightItem["ledger"] {
+  if (!summary) return null;
+  return {
+    open: summary.open, graded: summary.graded,
+    record: summary.graded ? `${summary.wins}-${summary.losses}-${summary.pushes}` : null,
+    recordedAt: summary.firstForecastAt,
+  };
+}
+
+function gameItem(report: SportReport, game: SportUpcoming, ledger: Map<string, LedgerEventSummary>, today: string): TonightItem {
+  const homeWin = game.homeWinProb ?? 0.5;
+  const pickHome = homeWin >= 0.5;
+  const pick = pickHome ? game.home : game.away;
+  const other = pickHome ? game.away : game.home;
+  const confidence = pickHome ? homeWin : 1 - homeWin;
+  const margin = game.projectedHomeMargin ?? 0;
+  const pickMargin = pickHome ? margin : -margin;
+  const hr = game.homeRating ?? null;
+  const ar = game.awayRating ?? null;
+  const pr = pickHome ? hr : ar;
+  const orr = pickHome ? ar : hr;
+  const teams = report.ratings.length;
+  const unit = report.sport === "mlb" ? "runs" : report.sport === "nhl" ? "goals" : "points";
+  const neutral = Boolean(game.neutral);
+  const hfa = game.homeAdvantage ?? null;
+
+  const rationale: string[] = [];
+  if (pr && orr) {
+    rationale.push(`${pick} rates ${signed(pr.rating)} (${ordinal(pr.rank)} of ${teams}) against ${other} at ${signed(orr.rating)} (${ordinal(orr.rank)}): a ${num(Math.abs(pr.rating - orr.rating), 1)}-${unit.slice(0, -1)} gap in team strength.`);
+  }
+  if (neutral) rationale.push("Neutral site, so no home advantage is applied.");
+  else if (hfa !== null) rationale.push(`${game.home} is at home, worth about ${signed(hfa)} ${unit} in this league right now.`);
+  rationale.push(`Projected margin: ${pick} by ${num(Math.abs(pickMargin), 1)} ${unit}, with a typical miss of ±${num(game.marginSd, 1)}. That makes ${pick} a ${pct(confidence, 0)} winner.`);
+  rationale.push(formLine(game.home, game.homeForm));
+  rationale.push(formLine(game.away, game.awayForm));
+  if (pr && pr.sd >= 3) rationale.push(`Rating uncertainty is still wide (SD ${num(pr.sd, 1)}); early-season ratings move fast.`);
+  if (game.marketHomeSpread !== null && game.marketHomeSpread !== undefined) {
+    const mktMargin = -game.marketHomeSpread;
+    const mktWin = game.marketHomeWinProb ?? null;
+    const diff = margin - mktMargin;
+    rationale.push(`The market has ${game.home} ${spread(game.marketHomeSpread)}${mktWin !== null ? ` and prices ${game.home} to win ${pct(mktWin, 0)} after removing the vig` : ""}; the model's margin differs by ${signed(diff, 1)} ${unit} (${game.lean && game.lean !== "none" ? `leans ${game.lean === "home" ? game.home : game.away}` : "inside the lean threshold"}).`);
+  } else {
+    rationale.push("No market line in the public source for this game, so the projection stands alone and nothing is recorded as a priced forecast.");
+  }
+
+  const matchup: MatchupRow[] = [
+    { label: "Rating", a: hr ? `${signed(hr.rating)} (${ordinal(hr.rank)})` : "—", b: ar ? `${signed(ar.rating)} (${ordinal(ar.rank)})` : "—", hint: `${unit} above average on a neutral field` },
+    { label: "Rating SD", a: hr ? num(hr.sd, 1) : "—", b: ar ? num(ar.sd, 1) : "—" },
+    { label: "Season", a: game.homeForm ? `${game.homeForm.wins}-${game.homeForm.losses}${game.homeForm.ties ? `-${game.homeForm.ties}` : ""}` : "—", b: game.awayForm ? `${game.awayForm.wins}-${game.awayForm.losses}${game.awayForm.ties ? `-${game.awayForm.ties}` : ""}` : "—" },
+    { label: "Avg margin", a: game.homeForm ? signed(game.homeForm.avgMargin) : "—", b: game.awayForm ? signed(game.awayForm.avgMargin) : "—" },
+    { label: "Last five", a: lastFive(game.homeForm), b: lastFive(game.awayForm), hint: "most recent last" },
+    { label: "Win prob", a: pct(homeWin, 0), b: pct(1 - homeWin, 0) },
+  ];
+
+  const spreadLabel = game.marketHomeSpread === null || game.marketHomeSpread === undefined ? null : `${game.home} ${spread(game.marketHomeSpread)}`;
+  const market: TonightMarket | null = spreadLabel || game.marketHomeMl !== null
+    ? {
+        spreadLabel,
+        spreadPrices: game.marketHomePrice !== null && game.marketHomePrice !== undefined ? `${american(game.marketHomePrice)} / ${american(game.marketAwayPrice)}` : null,
+        moneyline: game.marketHomeMl !== null && game.marketHomeMl !== undefined ? `${game.home} ${american(game.marketHomeMl)} · ${game.away} ${american(game.marketAwayMl)}` : null,
+        marketWinProb: pickHome ? (game.marketHomeWinProb ?? null) : game.marketHomeWinProb !== null && game.marketHomeWinProb !== undefined ? 1 - game.marketHomeWinProb : null,
+        modelWinProb: confidence, fairPrice: fairAmerican(confidence),
+        coverProb: pickHome ? (game.homeCoverProb ?? null) : (game.awayCoverProb ?? null),
+        edgePts: game.edgePts ?? null,
+        lean: game.lean && game.lean !== "none" ? (game.lean === "home" ? game.home : game.away) : null,
+        book: game.book ?? null, note: game.note ?? null,
+      }
+    : null;
+
+  const key = `${report.sport}:${game.gameId}`;
+  return {
+    key, kind: "game", sport: report.sport, sportLabel: report.label,
+    startsAt: game.startsAt, startsAtLabel: `${dayFmt.format(new Date(game.startsAt))} · ${timeFmt.format(new Date(game.startsAt))} ET`,
+    isToday: dayKeyOf(game.startsAt) === today, dayKey: dayKeyOf(game.startsAt),
+    title: `${game.away} at ${game.home}`, subtitle: `${report.label}${neutral ? " · neutral site" : ""}`,
+    pick, pickDetail: `${pick} to win · projected by ${num(Math.abs(pickMargin), 1)}`,
+    confidence, confidenceLabel: label(confidence), rationale,
+    matchupHeaders: [game.home, game.away], matchup, market,
+    ledger: ledgerSummary(ledger.get(key)), href: `/sports/${report.sport}`,
+  };
+}
+
+function raceItem(board: RaceBoard, ledger: Map<string, LedgerEventSummary>, today: string): TonightItem {
+  const top = board.rows[0];
+  const second = board.rows[1] ?? null;
+  let headToHead = second ? top.probability / (top.probability + second.probability) : top.probability;
+  if (board.pairwise && second) {
+    const i = board.pairwise.driverIds.indexOf(top.driverId);
+    const j = board.pairwise.driverIds.indexOf(second.driverId);
+    if (i >= 0 && j >= 0) headToHead = board.pairwise.probabilities[i][j];
+  }
+  const startsAt = `${board.race.race_date}T23:30:00Z`;
+  const rationale: string[] = [];
+  rationale.push(`${top.driverName} is ${pct(top.probability, 0)} to win a ${board.fieldSize}-car field, ${pct(top.top3Probability, 0)} to finish top three, with an expected finish of ${num(top.expectedFinish, 1)}.`);
+  if (second) rationale.push(`Runner-up in the model is ${second.driverName} at ${pct(second.probability, 0)}; head to head the model has ${top.driverName} ahead ${pct(headToHead, 0)} of the time.`);
+  for (const factor of top.factors.slice(0, 3)) {
+    const direction = factor.value > 0 ? "lifts" : "drags";
+    rationale.push(`${factor.meaning.charAt(0).toUpperCase()}${factor.meaning.slice(1)}${factor.raw !== null ? ` (${num(factor.raw, 2)})` : ""} ${direction} ${top.driverName} ${signed(factor.value, 2)} relative to the field.`);
+  }
+  if (top.recentFinishes.length) rationale.push(`Last ${top.recentFinishes.length} finishes: ${top.recentFinishes.map((r) => r.finish).join(", ")}${top.trackStarts ? `; ${top.trackStarts} prior starts here averaging ${num(top.trackAvgFinish, 1)}` : "; no prior starts at this track"}.`);
+  rationale.push(board.stage === "race-night"
+    ? `Race-night model: starting spots (${board.readiness.starts}/${board.fieldSize}), qualifying (${board.readiness.qualifying}/${board.fieldSize}) and heats (${board.readiness.heats}/${board.fieldSize}) are in.`
+    : `Early model: starting spots and heat results are not in yet, so this is form and history only. Probabilities tighten after qualifying.`);
+  if (board.calibrationTemperature && Math.abs(board.calibrationTemperature - 1) > 0.02) rationale.push(`Probabilities are tempered by ${num(board.calibrationTemperature, 2)} from the out-of-sample calibration fit.`);
+
+  const matchup: MatchupRow[] = second
+    ? [
+        { label: "Win", a: pct(top.probability, 1), b: pct(second.probability, 1) },
+        { label: "Top three", a: pct(top.top3Probability, 0), b: pct(second.top3Probability, 0) },
+        { label: "Expected finish", a: num(top.expectedFinish, 1), b: num(second.expectedFinish, 1) },
+        { label: "Elo", a: top.elo === null ? "—" : num(top.elo, 0), b: second.elo === null ? "—" : num(second.elo, 0) },
+        { label: "Last five", a: top.recentFinishes.map((r) => r.finish).join(" ") || "—", b: second.recentFinishes.map((r) => r.finish).join(" ") || "—", hint: "finishing positions, most recent last" },
+        { label: "Here", a: top.trackStarts ? `${top.trackStarts} starts, avg ${num(top.trackAvgFinish, 1)}` : "no starts", b: second.trackStarts ? `${second.trackStarts} starts, avg ${num(second.trackAvgFinish, 1)}` : "no starts" },
+        { label: "Starting spot", a: top.startingPosition === null ? "TBD" : String(top.startingPosition), b: second.startingPosition === null ? "TBD" : String(second.startingPosition) },
+      ]
+    : [];
+
+  const raceTable = board.rows.map((row, index) => ({
+    rank: index + 1, driver: row.driverName, car: row.carNumber, win: row.probability, top3: row.top3Probability,
+    expectedFinish: row.expectedFinish, last5: row.recentFinishes.map((r) => r.finish).join(" ") || "—", elo: row.elo,
+  }));
+
+  const key = `race:${board.race.id}`;
+  return {
+    key, kind: "race", sport: "racing", sportLabel: SPORT_LABELS.racing,
+    startsAt, startsAtLabel: `${dayFmt.format(new Date(startsAt))} · ${board.race.track_name}`,
+    isToday: board.race.race_date === today, dayKey: board.race.race_date,
+    title: board.race.name, subtitle: `${board.modelSeries ?? board.race.division} · ${board.race.track_name}`,
+    pick: top.driverName, pickDetail: `${top.driverName} to win · ${pct(top.probability, 0)} · fair ${fairAmerican(top.probability)}`,
+    confidence: headToHead, confidenceLabel: label(headToHead), rationale,
+    matchupHeaders: [top.driverName, second?.driverName ?? "Field"], matchup, raceTable,
+    market: null,
+    ledger: ledgerSummary(ledger.get(key)), href: `/admin/races/${board.race.id}/prediction`,
+  };
+}
+
+export type TonightBoard = {
+  today: string; generatedAt: string;
+  items: TonightItem[];
+  sports: Array<{ sport: string; label: string; count: number }>;
+};
+
+export function buildTonightBoard(horizonDays = 7): TonightBoard {
+  const today = todayDateString();
+  const ledger = getLedgerIndex();
+  const reports = listSportReports();
+  const limit = new Date(`${today}T05:00:00Z`);
+  limit.setUTCDate(limit.getUTCDate() + horizonDays + 1);
+  const items: TonightItem[] = [];
+  const placeholders = new Set(["NON_D1", "FCS"]);
+  for (const report of reports) {
+    for (const game of report.upcoming) {
+      if (!game.startsAt || new Date(game.startsAt) > limit) continue;
+      // Pooled placeholder opponents (non-Division-I, FCS) are rating sinks, not matchups worth showing.
+      if (placeholders.has(game.home) || placeholders.has(game.away)) continue;
+      items.push(gameItem(report, game, ledger, today));
+    }
+  }
+  for (const board of getUpcomingRaceBoards(12, 8)) {
+    if (!board.rows.length) continue;
+    items.push(raceItem(board, ledger, today));
+  }
+  items.sort((a, b) => Number(b.isToday) - Number(a.isToday) || a.dayKey.localeCompare(b.dayKey) || b.confidence - a.confidence || a.startsAt.localeCompare(b.startsAt));
+  const counts = new Map<string, { sport: string; label: string; count: number }>();
+  for (const item of items) {
+    const entry = counts.get(item.sport) ?? { sport: item.sport, label: item.sportLabel, count: 0 };
+    entry.count += 1;
+    counts.set(item.sport, entry);
+  }
+  return { today, generatedAt: new Date().toISOString(), items, sports: [...counts.values()] };
+}

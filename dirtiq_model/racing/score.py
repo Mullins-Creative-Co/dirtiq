@@ -29,7 +29,7 @@ from ..ledger_core import Forecast, Ledger
 from . import MODEL_ID, MODEL_VERSION
 from .data import (RacingData, STALE_UPCOMING_DAYS, connect, data_dir, load_dataset, market_prices,
                    resolve_series, slug, stale_upcoming_days)
-from .features import build_features, race_night_coverage
+from .features import FEATURES, build_features, race_night_coverage
 from .model import field_softmax, pairwise_ahead, plackett_luce_stats
 from .train import load_artifact
 
@@ -58,6 +58,52 @@ def split_stale(data: RacingData, race_ids: Sequence[int], today: Optional[date]
         else:
             stale.append((int(rid), int(days)))
     return fresh, stale
+
+
+FEATURE_MEANING = {f.name: f.meaning for f in FEATURES}
+
+
+def driver_factors(model: Any, rows: pd.DataFrame, top: int = 4) -> List[List[Dict[str, Any]]]:
+    """Top contributions to each entrant's score relative to the field average.
+
+    Only the conditional-logit model exposes a linear decomposition; other
+    variants return empty lists. Values are score points (log-odds units)."""
+    transform = getattr(model, "transform", None)
+    weights = getattr(model, "weights", None)
+    if transform is None or weights is None or len(weights) == 0:
+        return [[] for _ in range(len(rows))]
+    Z = transform.transform(rows)
+    names = transform.names
+    contrib = Z * weights[None, :]
+    rel = contrib - contrib.mean(axis=0, keepdims=True)
+    out: List[List[Dict[str, Any]]] = []
+    for i in range(len(rows)):
+        order = np.argsort(-np.abs(rel[i]))[:top]
+        items = []
+        for j in order:
+            if abs(rel[i, j]) < 0.02:
+                continue
+            base = names[j].replace("_missing", "")
+            items.append({"feature": names[j], "meaning": FEATURE_MEANING.get(base, names[j]),
+                          "value": round(float(rel[i, j]), 3),
+                          "raw": None if base not in rows.columns or pd.isna(rows.iloc[i][base]) else round(float(rows.iloc[i][base]), 3)})
+        out.append(items)
+    return out
+
+
+def recent_finishes(data: RacingData, race: pd.Series, driver_ids: Sequence[int], n: int = 5) -> Dict[int, List[Dict[str, Any]]]:
+    """Last ``n`` completed finishes per driver strictly before this race date."""
+    races = data.races[(data.races["status"] == "complete") & (data.races["race_date"] < race["race_date"])]
+    cols = ["race_id", "race_date", "name", "track_name"]
+    merged = data.entries[data.entries["driver_id"].isin(list(driver_ids)) & data.entries["finishing_position"].notna()]
+    merged = merged.merge(races[cols], on="race_id", how="inner").sort_values(["driver_id", "race_date", "race_id"])
+    out: Dict[int, List[Dict[str, Any]]] = {}
+    for driver_id, grp in merged.groupby("driver_id"):
+        tail = grp.tail(n)
+        out[int(driver_id)] = [{"date": str(r.race_date)[:10], "race": r.name, "track": r.track_name,
+                                "finish": int(r.finishing_position), "start": None if pd.isna(r.starting_position) else int(r.starting_position)}
+                               for r in tail.itertuples()]
+    return out
 
 
 def race_payload(race_id: int, data: RacingData, feat: pd.DataFrame, directory: Optional[Path] = None,
@@ -89,6 +135,8 @@ def race_payload(race_id: int, data: RacingData, feat: pd.DataFrame, directory: 
     prob = field_softmax(scores / temperature, race_ids)
     raw = model.raw(rows) if hasattr(model, "raw") else uncalibrated
     pl = plackett_luce_stats(scores, n_samples=n_samples, seed=int(race_id), temperature=temperature)
+    factors = driver_factors(model, rows)
+    recent = recent_finishes(data, race, rows["driver_id"].tolist())
     predictions = []
     for i, row in rows.iterrows():
         predictions.append({
@@ -113,6 +161,12 @@ def race_payload(race_id: int, data: RacingData, feat: pd.DataFrame, directory: 
             "expectedFinish": round(float(pl["expected_finish"][i]), 3),
             "backtestLogLoss": params.get("backtest_logloss"),
             "backtestTop1": params.get("backtest_top1"),
+            "factors": factors[i],
+            "recentFinishes": recent.get(int(row["driver_id"]), []),
+            "elo": None if pd.isna(row.get("elo")) else round(float(row["elo"]), 1),
+            "trackStarts": None if pd.isna(row.get("log_track_starts")) else int(round(float(np.expm1(row["log_track_starts"])))),
+            "trackAvgFinish": None if pd.isna(row.get("track_avg_finish")) else round(float(row["track_avg_finish"]), 2),
+            "last10AvgFinish": None if pd.isna(row.get("last10_avg_finish")) else round(float(row["last10_avg_finish"]), 2),
         })
     predictions.sort(key=lambda p: -p["probability"])
     index_of = {int(d): i for i, d in enumerate(rows["driver_id"].tolist())}

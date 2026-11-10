@@ -4,7 +4,7 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 import { getDb } from "@/lib/db";
-import { getCachedMlPredictions } from "@/lib/ml-predictions";
+import { getCachedMlRaceFile, type MlPrediction } from "@/lib/ml-predictions";
 import { isActiveModelTarget, todayDateString, type Race } from "@/lib/races";
 
 /** The only reader of the JSON artifacts the Python engines write.
@@ -46,14 +46,23 @@ export type SportBacktest = {
   bySeason: SportSeason[]; variants: Array<{ id: string; mae?: number | null; [key: string]: unknown }>;
   [key: string]: unknown;
 };
-export type SportRating = { team: string; rating: number; sd: number | null; rank: number; games: number; updatedAt?: string; [key: string]: unknown };
+export type TeamForm = {
+  season: number; games: number; wins: number; losses: number; ties: number; avgMargin: number; lastRecord: string;
+  last: Array<{ date: string; opponent: string; home: boolean; margin: number }>;
+};
+export type TeamRatingBrief = { rating: number; sd: number; rank: number };
+export type SportRating = { team: string; rating: number; sd: number | null; rank: number; games: number; updatedAt?: string; form?: TeamForm | null; [key: string]: unknown };
 export type SportUpcoming = {
   gameId: string; home: string; away: string; startsAt: string;
   projectedHomeMargin: number | null; marginSd: number | null; homeWinProb: number | null;
   marketHomeSpread: number | null; marketHomePrice: number | null; marketAwayPrice: number | null;
   marketHomeMl: number | null; marketAwayMl: number | null; book: string | null; lineObservedAt: string | null;
   homeCoverProb: number | null; awayCoverProb: number | null; pushProb: number | null;
-  edgePts: number | null; lean: "home" | "away" | "none" | null; note?: string | null; [key: string]: unknown;
+  edgePts: number | null; lean: "home" | "away" | "none" | null; note?: string | null;
+  homeRating?: TeamRatingBrief | null; awayRating?: TeamRatingBrief | null;
+  homeForm?: TeamForm | null; awayForm?: TeamForm | null; homeAdvantage?: number | null;
+  marketHomeWinProb?: number | null; neutral?: number;
+  [key: string]: unknown;
 };
 export type SportReport = {
   sport: string; label: string; generatedAt: string; modelId: string; modelVersion: string;
@@ -114,16 +123,23 @@ export function listSportReports(): SportReport[] {
 }
 
 /** Upcoming races the racing model can forecast, with the model's top entrants. */
+export type DriverFactor = { feature: string; meaning: string; value: number; raw: number | null };
+export type RecentFinish = { date: string; race: string; track: string; finish: number; start: number | null };
 export type RaceBoardRow = {
   driverId: number; driverName: string; carNumber: string | null;
-  probability: number; top3Probability: number | null; expectedFinish: number | null;
-  startingPosition: number | null; entryStatus: string;
+  probability: number; top3Probability: number | null; top5Probability: number | null; expectedFinish: number | null;
+  startingPosition: number | null; qualifyingTime: number | null; heatPosition: number | null; entryStatus: string;
+  factors: DriverFactor[]; recentFinishes: RecentFinish[]; elo: number | null;
+  trackStarts: number | null; trackAvgFinish: number | null; last10AvgFinish: number | null;
 };
 export type RaceBoard = {
   race: Pick<Race, "id" | "name" | "track_name" | "race_date" | "division" | "status" | "is_live" | "betting_status">;
   fieldSize: number; scored: number; stage: string | null; engine: string | null; modelSeries: string | null;
   readiness: { starts: number; qualifying: number; heats: number };
   rows: RaceBoardRow[];
+  /** P(row driver finishes ahead of column driver) for the top drivers, when the engine emitted it. */
+  pairwise: { driverIds: number[]; probabilities: number[][] } | null;
+  calibrationTemperature: number | null;
 };
 
 export function getUpcomingRaceBoards(limit = 6, topN = 5): RaceBoard[] {
@@ -154,22 +170,29 @@ export function getUpcomingRaceBoards(limit = 6, topN = 5): RaceBoard[] {
       )
       .all(race.id) as Array<{ driver_id: number; driver_name: string; car_number: string | null; starting_position: number | null; qualifying_time: number | null; heat_position: number | null; entry_status: string }>;
     if (entries.length === 0) continue;
-    const predictions = getCachedMlPredictions(race.id);
-    if (predictions.size === 0) continue;
+    const file = getCachedMlRaceFile(race.id);
+    if (!file || file.predictions.size === 0) continue;
+    const predictions = file.predictions;
     const first = predictions.values().next().value;
     const rows: RaceBoardRow[] = entries
       .map((entry) => {
-        const prediction = predictions.get(entry.driver_id) as (ReturnType<typeof predictions.get> & { top3Probability?: number; expectedFinish?: number; modelStage?: string }) | undefined;
+        const prediction = predictions.get(entry.driver_id) as (MlPrediction & { factors?: DriverFactor[]; recentFinishes?: RecentFinish[]; elo?: number | null; trackStarts?: number | null; trackAvgFinish?: number | null; last10AvgFinish?: number | null; modelStage?: string }) | undefined;
         if (!prediction) return null;
         return {
           driverId: entry.driver_id, driverName: entry.driver_name, carNumber: entry.car_number,
           probability: prediction.probability, top3Probability: prediction.top3Probability ?? null,
-          expectedFinish: prediction.expectedFinish ?? null,
-          startingPosition: entry.starting_position, entryStatus: entry.entry_status,
+          top5Probability: prediction.top5Probability ?? null, expectedFinish: prediction.expectedFinish ?? null,
+          startingPosition: entry.starting_position, qualifyingTime: entry.qualifying_time, heatPosition: entry.heat_position,
+          entryStatus: entry.entry_status,
+          factors: Array.isArray(prediction.factors) ? prediction.factors : [],
+          recentFinishes: Array.isArray(prediction.recentFinishes) ? prediction.recentFinishes : [],
+          elo: prediction.elo ?? null, trackStarts: prediction.trackStarts ?? null,
+          trackAvgFinish: prediction.trackAvgFinish ?? null, last10AvgFinish: prediction.last10AvgFinish ?? null,
         };
       })
       .filter((row): row is RaceBoardRow => row !== null)
       .sort((a, b) => b.probability - a.probability);
+    const raw = file.file as { pairwise?: { driverIds: number[]; probabilities: number[][] } | null; calibrationTemperature?: number | null };
     boards.push({
       race: { id: race.id, name: race.name, track_name: race.track_name, race_date: race.race_date, division: race.division, status: race.status, is_live: race.is_live, betting_status: race.betting_status },
       fieldSize: entries.length, scored: rows.length,
@@ -181,6 +204,8 @@ export function getUpcomingRaceBoards(limit = 6, topN = 5): RaceBoard[] {
         heats: entries.filter((e) => e.heat_position !== null).length,
       },
       rows: rows.slice(0, topN),
+      pairwise: raw.pairwise && Array.isArray(raw.pairwise.driverIds) ? raw.pairwise : null,
+      calibrationTemperature: raw.calibrationTemperature ?? null,
     });
     if (boards.length >= limit) break;
   }
@@ -245,6 +270,31 @@ export function getOddsSnapshot(sport: string): OddsSnapshot | null {
 export function oddsByMatchup(snapshot: OddsSnapshot | null): Map<string, OddsEvent> {
   const map = new Map<string, OddsEvent>();
   for (const event of snapshot?.events ?? []) map.set(`${event.home}|${event.away}`, event);
+  return map;
+}
+
+/* ── Forecast ledger (JSON) ───────────────────────────────────────────── */
+export type LedgerRow = {
+  id: number; sport: string; event_id: string; event_label: string; event_start: string | null; market: string;
+  selection: string; selection_label: string; model_id: string; model_version: string; forecast_at: string;
+  prob: number; value: number | null; line: number | null; price: number | null; book: string | null;
+  close_line: number | null; close_price: number | null; outcome: string | null; result_value: number | null; settled_at: string | null;
+};
+export type LedgerEventSummary = { rows: LedgerRow[]; open: number; graded: number; wins: number; losses: number; pushes: number; firstForecastAt: string | null };
+
+export function getLedgerIndex(): Map<string, LedgerEventSummary> {
+  const payload = readJson<{ rows: LedgerRow[] }>("public/data/forecast-ledger.json");
+  const map = new Map<string, LedgerEventSummary>();
+  for (const row of payload?.rows ?? []) {
+    const summary = map.get(row.event_id) ?? { rows: [], open: 0, graded: 0, wins: 0, losses: 0, pushes: 0, firstForecastAt: null };
+    summary.rows.push(row);
+    if (row.outcome === null) summary.open += 1;
+    else if (row.outcome === "win") { summary.graded += 1; summary.wins += 1; }
+    else if (row.outcome === "loss") { summary.graded += 1; summary.losses += 1; }
+    else if (row.outcome === "push") { summary.graded += 1; summary.pushes += 1; }
+    if (!summary.firstForecastAt || row.forecast_at < summary.firstForecastAt) summary.firstForecastAt = row.forecast_at;
+    map.set(row.event_id, summary);
+  }
   return map;
 }
 

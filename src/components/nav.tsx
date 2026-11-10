@@ -9,7 +9,7 @@ type Group = { key: string; label: string; href: string; items: Item[]; match: (
 const starts = (prefixes: string[]) => (path: string) => prefixes.some((p) => (p === "/" ? path === "/" : path === p || path.startsWith(`${p}/`)));
 
 const groups: Group[] = [
-  { key: "home", label: "Home", href: "/", match: (path) => path === "/", items: [] },
+  { key: "home", label: "Tonight", href: "/", match: (path) => path === "/", items: [] },
   {
     key: "racing", label: "Racing", href: "/admin/today",
     match: starts(["/admin/today", "/admin/live", "/admin/races", "/admin/risk", "/admin/accuracy", "/admin/backtest", "/admin/model", "/admin/upcoming", "/admin/featured-lines", "/bet", "/bettor", "/bettors", "/race", "/preview", "/odds"]),
@@ -61,7 +61,7 @@ const groups: Group[] = [
 ];
 
 const mobileDock = [
-  { href: "/", label: "Home" },
+  { href: "/", label: "Tonight" },
   { href: "/admin/today", label: "Racing" },
   { href: "/sports", label: "Sports" },
   { href: "/models", label: "Models" },

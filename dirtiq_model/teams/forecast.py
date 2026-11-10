@@ -45,6 +45,29 @@ def choose_hyper(cfg: SportConfig, train: pd.DataFrame, teams: List[str], existi
             "fit": {k: info[k] for k in ("nllPerGame", "iterations", "converged")}, "reused": False}
 
 
+def team_form(completed: pd.DataFrame, season: int, n: int = 5) -> Dict[str, Dict[str, Any]]:
+    """Season record, average margin and the last ``n`` results per team from completed games."""
+    games = completed[completed["season"] == season].sort_values(["start", "game_id"])
+    rows: Dict[str, List[Dict[str, Any]]] = {}
+    for g in games.itertuples():
+        margin = float(g.home_score) - float(g.away_score)
+        rows.setdefault(str(g.home), []).append({"date": iso(g.start), "opponent": str(g.away), "home": True, "margin": margin})
+        rows.setdefault(str(g.away), []).append({"date": iso(g.start), "opponent": str(g.home), "home": False, "margin": -margin})
+    out: Dict[str, Dict[str, Any]] = {}
+    for team, results in rows.items():
+        wins = sum(1 for r in results if r["margin"] > 0)
+        losses = sum(1 for r in results if r["margin"] < 0)
+        ties = len(results) - wins - losses
+        last = results[-n:]
+        out[team] = {
+            "season": int(season), "games": len(results), "wins": wins, "losses": losses, "ties": ties,
+            "avgMargin": round(sum(r["margin"] for r in results) / len(results), 2),
+            "last": [{"date": r["date"], "opponent": r["opponent"], "home": r["home"], "margin": round(r["margin"], 1)} for r in last],
+            "lastRecord": f"{sum(1 for r in last if r['margin'] > 0)}-{sum(1 for r in last if r['margin'] < 0)}",
+        }
+    return out
+
+
 def upcoming_entry(row: pd.Series, book: Optional[str], observed_at: Optional[str], threshold: float) -> Dict[str, Any]:
     edge = row.get("ind_edge")
     pick = row.get("ind_pick") if isinstance(row.get("ind_pick"), str) else None
@@ -123,8 +146,10 @@ def forecast_command(cfg: SportConfig, games: pd.DataFrame, refit: bool = False,
         run_filter(kf, this_season)
     snapshot = kf.snapshot()
     updated_at = iso(kf.updated_at) if kf.updated_at is not None else None
+    form = team_form(completed, current)
+    rating_of = {str(r.team): {"rating": round(float(r.rating), 2), "sd": round(float(r.sd), 2), "rank": int(r.rank)} for r in snapshot.itertuples()}
     ratings = [{"team": r.team, "rating": round(float(r.rating), 2), "sd": round(float(r.sd), 2), "rank": int(r.rank),
-                "games": int(r.games), "updatedAt": updated_at} for r in snapshot.itertuples()]
+                "games": int(r.games), "updatedAt": updated_at, "form": form.get(str(r.team))} for r in snapshot.itertuples()]
 
     horizon = now + pd.Timedelta(days=horizon_days)
     upcoming = games[(~games["completed"]) & (games["start"] >= now) & (games["start"] <= horizon)].sort_values(["start", "game_id"])
@@ -138,7 +163,13 @@ def forecast_command(cfg: SportConfig, games: pd.DataFrame, refit: bool = False,
         pred = run_filter(copy.deepcopy(kf), upcoming, update=False)
         scored = scorer.score_frame(upcoming, pred)
         for _, row in scored.iterrows():
-            entries.append(upcoming_entry(row, book, observed_at, cfg.threshold))
+            entry = upcoming_entry(row, book, observed_at, cfg.threshold)
+            entry["homeRating"] = rating_of.get(str(row["home"]))
+            entry["awayRating"] = rating_of.get(str(row["away"]))
+            entry["homeForm"] = form.get(str(row["home"]))
+            entry["awayForm"] = form.get(str(row["away"]))
+            entry["homeAdvantage"] = round(float(hyper.hfa), 2) if hasattr(hyper, "hfa") else None
+            entries.append(entry)
             if book:
                 forecasts.extend(ledger_rows(cfg, row, book, observed_at, forecast_at))
     recorded = 0
