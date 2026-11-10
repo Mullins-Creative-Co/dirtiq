@@ -1,7 +1,7 @@
 {
  "sport": "ncaab",
  "label": "NCAAB",
- "generatedAt": "2026-11-10T19:17:29Z",
+ "generatedAt": "2026-11-10T20:30:29Z",
  "modelId": "ncaab-kalman",
  "modelVersion": "1.0",
  "dataThrough": "2026-11-09",
@@ -9,62 +9,62 @@
   {
    "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_mens_college_basketball_schedules/mbb_schedule_2016.parquet",
    "sha256": "9b401f9905bd97e032b99ba5899cd65ff3b4e6b44edab1f36618908a3b0152ff",
-   "retrievedAt": "2026-11-10T18:08:29Z"
+   "retrievedAt": "2026-11-10T20:30:23Z"
   },
   {
    "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_mens_college_basketball_schedules/mbb_schedule_2017.parquet",
    "sha256": "ce90db03f344f6a12c44155f2f70534a7df9e9f56f5c5bb38e6c292149388802",
-   "retrievedAt": "2026-11-10T18:37:06Z"
+   "retrievedAt": "2026-11-10T20:30:23Z"
   },
   {
    "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_mens_college_basketball_schedules/mbb_schedule_2018.parquet",
    "sha256": "2ec927051e55807a7d02d5f176576cf7a29a5ee2b7471817e2ced43a38aa0aa5",
-   "retrievedAt": "2026-11-10T18:37:11Z"
+   "retrievedAt": "2026-11-10T20:30:23Z"
   },
   {
    "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_mens_college_basketball_schedules/mbb_schedule_2019.parquet",
    "sha256": "c285df779882719857048b1478c15d21868f4fdbe7d7d75d2ecb4f4ab970fb71",
-   "retrievedAt": "2026-11-10T18:37:13Z"
+   "retrievedAt": "2026-11-10T20:30:23Z"
   },
   {
    "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_mens_college_basketball_schedules/mbb_schedule_2020.parquet",
    "sha256": "f87d7a04d905c95221b1201a4fd43bdf9bad3bfae7b3f880800e9eb8ae1cfa3a",
-   "retrievedAt": "2026-11-10T18:37:44Z"
+   "retrievedAt": "2026-11-10T20:30:23Z"
   },
   {
    "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_mens_college_basketball_schedules/mbb_schedule_2021.parquet",
    "sha256": "26b26e9fd035a567ca66e65fadd8a3df9482e25e4a1c63ff40466e0d99c9cc76",
-   "retrievedAt": "2026-11-10T18:37:47Z"
+   "retrievedAt": "2026-11-10T20:30:23Z"
   },
   {
    "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_mens_college_basketball_schedules/mbb_schedule_2022.parquet",
    "sha256": "75a702d5c8db85bfd7ad30bc046a801742b88ac3f7a900d7e05450a6a4c10276",
-   "retrievedAt": "2026-11-10T18:37:52Z"
+   "retrievedAt": "2026-11-10T20:30:24Z"
   },
   {
    "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_mens_college_basketball_schedules/mbb_schedule_2023.parquet",
    "sha256": "1a75500bd669a2e0f01b39623a1aa28d8d4cc1b8658f8adbabfc5319c73c496c",
-   "retrievedAt": "2026-11-10T18:37:57Z"
+   "retrievedAt": "2026-11-10T20:30:24Z"
   },
   {
    "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_mens_college_basketball_schedules/mbb_schedule_2024.parquet",
    "sha256": "27889ecf392a9a6281e7898dc39d51a2f4a4576f689533dda0d67c4d57d52602",
-   "retrievedAt": "2026-11-10T18:38:06Z"
+   "retrievedAt": "2026-11-10T20:30:24Z"
   },
   {
    "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_mens_college_basketball_schedules/mbb_schedule_2025.parquet",
    "sha256": "e01bf54b51c8d71b00cd8144e9a022ed170af2c2e57787b1cef672340891c45b",
-   "retrievedAt": "2026-11-10T18:38:20Z"
+   "retrievedAt": "2026-11-10T20:30:24Z"
   },
   {
    "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_mens_college_basketball_schedules/mbb_schedule_2026.parquet",
    "sha256": "480896940f9502e537513386efa1ece6ed9cac0bcd8bd30f3493aa6254912aec",
-   "retrievedAt": "2026-11-10T18:13:07Z"
+   "retrievedAt": "2026-11-10T20:30:24Z"
   },
   {
    "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_mens_college_basketball_schedules/mbb_schedule_2027.parquet",
    "sha256": "b1c2ea452faa4b298188b22990b5e360e1bca20bbb8c04786dba67a0e23aba1f",
-   "retrievedAt": "2026-11-10T18:13:24Z"
+   "retrievedAt": "2026-11-10T20:30:24Z"
   }
  ],
  "backtest": {
@@ -64197,6 +64197,282 @@
     "lastRecord": "2-0"
    },
    "homeAdvantage": 3.22
+  },
+  {
+   "gameId": "401916123",
+   "home": "SFA",
+   "away": "INST",
+   "startsAt": "2026-11-20T20:00:00Z",
+   "neutral": 1,
+   "week": 3,
+   "projectedHomeMargin": 8.48,
+   "marginSd": 13.04,
+   "homeWinProb": 0.7723,
+   "tieProb": 0.0,
+   "marketHomeSpread": null,
+   "marketHomePrice": null,
+   "marketAwayPrice": null,
+   "marketHomeMl": null,
+   "marketAwayMl": null,
+   "marketTotal": null,
+   "book": null,
+   "lineObservedAt": null,
+   "homeCoverProb": null,
+   "awayCoverProb": null,
+   "pushProb": null,
+   "edgePts": null,
+   "lean": "none",
+   "note": "no market line in source; independent projection only",
+   "anchoredHomeMargin": null,
+   "anchoredHomeCoverProb": null,
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 5.78,
+    "sd": 4.36,
+    "rank": 91
+   },
+   "awayRating": {
+    "rating": -2.7,
+    "sd": 4.44,
+    "rank": 239
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 2,
+    "wins": 2,
+    "losses": 0,
+    "ties": 0,
+    "avgMargin": 58.0,
+    "last": [
+     {
+      "date": "2026-11-03T00:30:00Z",
+      "opponent": "NON_D1",
+      "home": true,
+      "margin": 59.0
+     },
+     {
+      "date": "2026-11-07T00:30:00Z",
+      "opponent": "NON_D1",
+      "home": true,
+      "margin": 57.0
+     }
+    ],
+    "lastRecord": "2-0"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 2,
+    "wins": 1,
+    "losses": 1,
+    "ties": 0,
+    "avgMargin": -2.5,
+    "last": [
+     {
+      "date": "2026-11-03T00:00:00Z",
+      "opponent": "CLT",
+      "home": true,
+      "margin": -8.0
+     },
+     {
+      "date": "2026-11-07T00:00:00Z",
+      "opponent": "BALL",
+      "home": false,
+      "margin": 3.0
+     }
+    ],
+    "lastRecord": "1-1"
+   },
+   "homeAdvantage": 3.22
+  },
+  {
+   "gameId": "401919826",
+   "home": "UALB",
+   "away": "WIU",
+   "startsAt": "2026-11-20T20:00:00Z",
+   "neutral": 1,
+   "week": 3,
+   "projectedHomeMargin": 0.85,
+   "marginSd": 12.87,
+   "homeWinProb": 0.5428,
+   "tieProb": 0.0,
+   "marketHomeSpread": null,
+   "marketHomePrice": null,
+   "marketAwayPrice": null,
+   "marketHomeMl": null,
+   "marketAwayMl": null,
+   "marketTotal": null,
+   "book": null,
+   "lineObservedAt": null,
+   "homeCoverProb": null,
+   "awayCoverProb": null,
+   "pushProb": null,
+   "edgePts": null,
+   "lean": "none",
+   "note": "no market line in source; independent projection only",
+   "anchoredHomeMargin": null,
+   "anchoredHomeCoverProb": null,
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": -10.15,
+    "sd": 4.15,
+    "rank": 361
+   },
+   "awayRating": {
+    "rating": -11.0,
+    "sd": 4.16,
+    "rank": 366
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 3,
+    "wins": 2,
+    "losses": 1,
+    "ties": 0,
+    "avgMargin": -0.67,
+    "last": [
+     {
+      "date": "2026-11-02T23:30:00Z",
+      "opponent": "NON_D1",
+      "home": true,
+      "margin": 7.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "MAN",
+      "home": false,
+      "margin": 4.0
+     },
+     {
+      "date": "2026-11-08T19:00:00Z",
+      "opponent": "MRMK",
+      "home": true,
+      "margin": -13.0
+     }
+    ],
+    "lastRecord": "2-1"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 3,
+    "wins": 1,
+    "losses": 2,
+    "ties": 0,
+    "avgMargin": 4.33,
+    "last": [
+     {
+      "date": "2026-11-03T01:00:00Z",
+      "opponent": "VAL",
+      "home": false,
+      "margin": -22.0
+     },
+     {
+      "date": "2026-11-08T00:00:00Z",
+      "opponent": "HCU",
+      "home": true,
+      "margin": -7.0
+     },
+     {
+      "date": "2026-11-10T00:00:00Z",
+      "opponent": "NON_D1",
+      "home": true,
+      "margin": 42.0
+     }
+    ],
+    "lastRecord": "1-2"
+   },
+   "homeAdvantage": 3.22
+  },
+  {
+   "gameId": "401920380",
+   "home": "VT",
+   "away": "NU",
+   "startsAt": "2026-11-20T20:00:00Z",
+   "neutral": 1,
+   "week": 3,
+   "projectedHomeMargin": 2.01,
+   "marginSd": 12.97,
+   "homeWinProb": 0.5811,
+   "tieProb": 0.0,
+   "marketHomeSpread": null,
+   "marketHomePrice": null,
+   "marketAwayPrice": null,
+   "marketHomeMl": null,
+   "marketAwayMl": null,
+   "marketTotal": null,
+   "book": null,
+   "lineObservedAt": null,
+   "homeCoverProb": null,
+   "awayCoverProb": null,
+   "pushProb": null,
+   "edgePts": null,
+   "lean": "none",
+   "note": "no market line in source; independent projection only",
+   "anchoredHomeMargin": null,
+   "anchoredHomeCoverProb": null,
+   "marketHomeWinProb": null,
+   "homeRating": {
+    "rating": 10.31,
+    "sd": 4.43,
+    "rank": 47
+   },
+   "awayRating": {
+    "rating": 8.3,
+    "sd": 4.17,
+    "rank": 61
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 2,
+    "wins": 2,
+    "losses": 0,
+    "ties": 0,
+    "avgMargin": 31.5,
+    "last": [
+     {
+      "date": "2026-11-04T00:00:00Z",
+      "opponent": "COPP",
+      "home": true,
+      "margin": 34.0
+     },
+     {
+      "date": "2026-11-06T00:00:00Z",
+      "opponent": "MER",
+      "home": true,
+      "margin": 29.0
+     }
+    ],
+    "lastRecord": "2-0"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 3,
+    "wins": 3,
+    "losses": 0,
+    "ties": 0,
+    "avgMargin": 18.67,
+    "last": [
+     {
+      "date": "2026-11-03T01:00:00Z",
+      "opponent": "BING",
+      "home": true,
+      "margin": 26.0
+     },
+     {
+      "date": "2026-11-07T01:00:00Z",
+      "opponent": "STBK",
+      "home": true,
+      "margin": 13.0
+     },
+     {
+      "date": "2026-11-10T01:00:00Z",
+      "opponent": "BU",
+      "home": true,
+      "margin": 17.0
+     }
+    ],
+    "lastRecord": "3-0"
+   },
+   "homeAdvantage": 3.22
   }
  ],
  "limitations": [
@@ -64239,6 +64515,6 @@
   "empiricalResiduals": 59086,
   "empiricalMargin": true
  },
- "forecastGeneratedAt": "2026-11-10T19:17:29Z",
+ "forecastGeneratedAt": "2026-11-10T20:30:29Z",
  "ledgerRecorded": 0
 }
