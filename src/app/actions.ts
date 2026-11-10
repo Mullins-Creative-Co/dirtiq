@@ -38,7 +38,7 @@ function rowCount(value: unknown): number {
 }
 
 function unsupportedDivisionMessage(division: string) {
-  return `${division} support is not enabled yet. Dirt IQ is currently focused on late models, Lucas Oil LMDS, WoO Late Models, DIRTcar Summer Nationals, crown jewels, and independent/open late model entries.`;
+  return `${division} support is not enabled yet. SportIQ is currently focused on late models, Lucas Oil LMDS, WoO Late Models, DIRTcar Summer Nationals, crown jewels, and independent/open late model entries.`;
 }
 
 export async function createDriverAction(fd: FormData): Promise<{ error?: string; id?: number }> {

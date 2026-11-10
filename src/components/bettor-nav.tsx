@@ -3,29 +3,7 @@
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
-function CheckeredFlag({ size = 18 }: { size?: number }) {
-  const sq = size / 4;
-  return (
-    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="shrink-0" aria-hidden="true">
-      {[0, 1, 2, 3].flatMap((row) =>
-        [0, 1, 2, 3].map((col) => {
-          const on = (row + col) % 2 === 0;
-          return (
-            <rect
-              key={`${row}-${col}`}
-              x={col * sq}
-              y={row * sq}
-              width={sq}
-              height={sq}
-              fill={on ? "#0b0d10" : "transparent"}
-              fillOpacity={on ? 0.92 : 0}
-            />
-          );
-        })
-      )}
-    </svg>
-  );
-}
+import { BrandLink } from "@/components/brand";
 
 export function BettorNav() {
   const pathname = usePathname();
@@ -38,26 +16,10 @@ export function BettorNav() {
     <header className="sticky top-0 z-40 border-b border-[var(--border)] bg-[color-mix(in_srgb,var(--surface)_86%,transparent)] backdrop-blur-md">
       <div className="brand-rule" />
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <Link href="/" className="group flex items-center gap-2.5">
-          <span className="flex h-9 w-9 items-center justify-center rounded-md bg-gradient-to-b from-[var(--accent-hi)] to-[var(--accent-lo)] shadow-[0_6px_18px_-8px_var(--accent)]">
-            <CheckeredFlag size={18} />
-          </span>
-          <span className="flex flex-col leading-none">
-            <span
-              style={{ fontFamily: "var(--font-display)" }}
-              className="text-xl font-extrabold tracking-tight"
-            >
-              <span className="text-[var(--accent)]">dirt</span>
-              <span className="text-white">IQ</span>
-            </span>
-            <span className="mt-0.5 hidden text-[9px] font-semibold uppercase tracking-[0.22em] text-[var(--muted)] sm:block">
-              Late Model Sportsbook
-            </span>
-          </span>
-        </Link>
+        <BrandLink href="/sports/racing" tagline="Dirt racing book" />
 
         <nav className="flex items-center gap-2">
-          <Link href="/" className="px-3 py-2 text-xs font-bold">Stats</Link>
+          <Link href="/" className="px-3 py-2 text-xs font-bold">Tonight</Link>
           <Link
             href={betHref}
             aria-current={onBoard ? "page" : undefined}

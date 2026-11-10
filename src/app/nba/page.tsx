@@ -3,7 +3,7 @@ import { Nav } from '@/components/nav';
 import data from '../../../public/nba/research.json';
 import type { NbaReport } from '@/lib/nba/types';
 
-export const metadata = { title: 'NBA Lab | dirtIQ', description: 'Independent NBA team-strength, rest, efficiency, and rotation research.' };
+export const metadata = { title: 'NBA Lab', description: 'Independent NBA team-strength, rest, efficiency, and rotation research.' };
 const names: Record<string, string> = { strength: 'Team strength', rest: '+ Rest & schedule', efficiency: '+ Efficiency · primary', rotation: '+ Previous rotation change' };
 const details: Record<string, string> = {
   strength: 'Joint team ratings and home court, with more weight on recent games.',

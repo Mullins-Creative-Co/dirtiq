@@ -3,7 +3,7 @@ import { Nav } from '@/components/nav';
 import { LineCheck } from '@/components/football/line-check';
 
 export const metadata = {
-  title: 'Football Line Check | dirtIQ',
+  title: 'Football Line Check',
   description: 'Combine matchup adjustments and compare the projected margin with a sportsbook spread and price.',
 };
 

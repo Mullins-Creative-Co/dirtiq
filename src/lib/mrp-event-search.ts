@@ -133,7 +133,7 @@ export function scoreMrpCandidate(race: MrpEventSearchRace, candidate: MrpEventC
 
 export async function fetchMrpEventsByDate(date: string): Promise<MrpEventCandidate[]> {
   const response = await fetch(`https://www.myracepass.com/events/find/?date=${encodeURIComponent(date)}`, {
-    headers: { "user-agent": "DirtIQ/1.0 (+https://dirtiq.vercel.app)" },
+    headers: { "user-agent": "sportIQ/1.0 (+https://dirtiq-9h.vercel.app)" },
     cache: "no-store",
   });
 

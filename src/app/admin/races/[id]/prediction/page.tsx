@@ -454,7 +454,7 @@ export default async function PredictionPage({
         />
 
         <p className="text-[11px] leading-5 text-[var(--muted)]">
-          Data cutoff: {card.dataCutoff}. Market odds save to the Dirt IQ database
+          Data cutoff: {card.dataCutoff}. Market odds save to the SportIQ database
           when each field loses focus. Refresh the model cache before writing rational
           odds when entries, starts, heat, qualifying, track condition, or similar-track
           data changes.

@@ -13,7 +13,7 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Promise<{ sport: string }> }) {
   const { sport } = await params;
-  return { title: `${SPORT_LABELS[sport] ?? sport.toUpperCase()} model | dirtIQ` };
+  return { title: `${SPORT_LABELS[sport] ?? sport.toUpperCase()} model` };
 }
 
 export default async function SportPage({ params }: { params: Promise<{ sport: string }> }) {

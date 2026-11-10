@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Nav } from '@/components/nav';
 
 export const metadata = {
-  title: 'NFL Pregame Trial | dirtIQ',
+  title: 'NFL Pregame Trial',
   description: 'Compare logged NFL forecasts with the market and check their results.',
 };
 
@@ -94,7 +94,7 @@ function ForecastCard({ forecast }: { forecast: Forecast }) {
       <table className="w-full text-left text-sm">
         <caption className="sr-only">Cover probabilities and price requirements for {forecast.away} at {forecast.home}</caption>
         <thead className="border-b border-border text-xs text-muted">
-          <tr><th scope="col" className="py-2 pr-3">Quote</th><th scope="col" className="py-2 pr-3">Market</th><th scope="col" className="py-2 pr-3">DirtIQ</th><th scope="col" className="py-2">Break-even</th></tr>
+          <tr><th scope="col" className="py-2 pr-3">Quote</th><th scope="col" className="py-2 pr-3">Market</th><th scope="col" className="py-2 pr-3">SportIQ</th><th scope="col" className="py-2">Break-even</th></tr>
         </thead>
         <tbody>
           {sides.map(side => <tr key={side} className="border-b border-border">
@@ -109,7 +109,7 @@ function ForecastCard({ forecast }: { forecast: Forecast }) {
     <dl className="grid grid-cols-2 gap-3 text-sm">
       {([
         ['market', 'Market decision', prediction.marketDecision],
-        ['model', 'DirtIQ decision', prediction.modelDecision],
+        ['model', 'SportIQ decision', prediction.modelDecision],
       ] as const).map(([strategy, label, decision]) => {
         const estimates = prediction[strategy];
         const estimatedReturn = decision === 'pass'
@@ -142,12 +142,12 @@ export default async function NflTrialPage() {
     <header className="border-b border-border pb-5">
       <p className="text-xs font-bold uppercase tracking-wider text-accent">NFL research</p>
       <h1 className="mt-2 font-display text-4xl font-black sm:text-5xl">Pregame trial</h1>
-      <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-strong">Compare what the market and DirtIQ think each team’s chances are of beating the spread at the listed sportsbook.</p>
+      <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-strong">Compare what the market and SportIQ think each team’s chances are of beating the spread at the listed sportsbook.</p>
     </header>
     <section className="panel space-y-2 p-4 text-sm leading-relaxed sm:p-5" aria-labelledby="trial-guide">
       <h2 id="trial-guide" className="font-bold">How to read the trial</h2>
       <p><strong>Pass means skip this price.</strong> Neither side reached the trial’s minimum estimated return of 3%. A different spread or price could change the decision.</p>
-      <p><strong>Break-even</strong> is how often the bet needs to win to cover its cost over time. At −110, that’s 52.4%. Compare that number with the Market or DirtIQ estimate for the same side.</p>
+      <p><strong>Break-even</strong> is how often the bet needs to win to cover its cost over time. At −110, that’s 52.4%. Compare that number with the Market or SportIQ estimate for the same side.</p>
       <p className="text-xs text-muted">The cover and break-even columns exclude pushes, when the spread lands exactly and the stake is returned. The trial includes pushes when estimating return.</p>
     </section>
     {forecasts.length ? <>

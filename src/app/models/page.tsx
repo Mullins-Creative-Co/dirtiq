@@ -8,7 +8,7 @@ import { num, pct, relativeAge, signed, units } from "@/lib/format";
 import { SPORT_LABELS, getModelHealth, getOddsStatus, getRacingReport, listSportReports } from "@/lib/model-reports";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Model health | dirtIQ", description: "Ledger scores, calibration, and backtests for every dirtIQ model." };
+export const metadata = { title: "Model health", description: "Ledger scores, calibration, and backtests for every sportIQ model." };
 
 function brierTone(value: number | null, baseline: number | null): Tone {
   if (value === null) return "neutral";

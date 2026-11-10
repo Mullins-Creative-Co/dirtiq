@@ -112,7 +112,7 @@ export function QuickFeedbackPanel({
           </p>
           <h2 className="mt-1 text-base font-bold text-white">Teach the next model pass</h2>
           <p className="mt-1 text-xs leading-5 text-[var(--muted)]">
-            Save observations here so they are visible in DirtIQ and not trapped in chat.
+            Save observations here so they are visible in SportIQ and not trapped in chat.
           </p>
         </div>
         <div className="grid grid-cols-2 gap-1 rounded-xl border border-[var(--border)] bg-[var(--surface-raised)] p-1">

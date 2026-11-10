@@ -128,7 +128,7 @@ export function AgentConsensusPanel({ card }: { card: PredictionCard }) {
           </p>
           <h2 className="mt-1 text-base font-bold text-white">Model + Research + Underwriter</h2>
           <p className="mt-1 text-xs leading-5 text-[var(--muted)]">
-            Three accountable views from the same Dirt IQ data. High disagreement means review before publishing.
+            Three accountable views from the same SportIQ data. High disagreement means review before publishing.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">

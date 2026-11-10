@@ -14,7 +14,7 @@ import pricing from '../../../public/football/pricing-error.json';
 import type { PricingReport } from '@/lib/football/pricing-types';
 
 export const metadata = {
-  title: 'Football Lab | dirtIQ',
+  title: 'Football Lab',
   description: 'Independent NFL modeling experiments, quarterback overlap checks, and historical line comparisons.',
 };
 

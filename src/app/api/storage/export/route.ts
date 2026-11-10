@@ -53,7 +53,7 @@ export async function GET() {
   }
 
   const payload = {
-    app: "DirtIQ",
+    app: "SportIQ",
     kind: "race-admin-snapshot",
     version: 1,
     generatedAt,

@@ -4,15 +4,19 @@ import { connection } from "next/server";
 import { Nav } from "@/components/nav";
 import { Card, Chip, EmptyState, Kicker, PageHeader, Section } from "@/components/ui/primitives";
 import { num, pct, relativeAge, signed } from "@/lib/format";
-import { SPORT_LABELS, SPORT_ORDER, getModelHealth, listSportReports } from "@/lib/model-reports";
+import { SPORT_LABELS, SPORT_ORDER, getModelHealth, getRacingReport, getUpcomingRaceBoards, listSportReports } from "@/lib/model-reports";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Sports | dirtIQ", description: "Team-sport rating models, upcoming projections, and backtests against the market." };
+export const metadata = { title: "Sports", description: "Every sport we model: ratings, projections, backtests against the market, and the dirt-racing house book." };
 
 export default async function SportsIndexPage() {
   await connection();
   const reports = listSportReports();
   const health = getModelHealth();
+  const racing = getRacingReport();
+  const raceBoards = getUpcomingRaceBoards(6, 1);
+  const racingNight = racing?.series.find((s) => s.slug === "pooled" && s.stage === "race-night") ?? racing?.series.find((s) => s.slug === "pooled") ?? null;
+  const racingLedger = health?.models.filter((m) => m.sport === "racing").reduce((sum, m) => sum + m.settled, 0) ?? 0;
   const covered = new Set(reports.map((r) => r.sport));
   const missing = SPORT_ORDER.filter((s) => !covered.has(s));
 
@@ -20,13 +24,29 @@ export default async function SportsIndexPage() {
     <div className="min-h-screen">
       <Nav />
       <main className="mx-auto max-w-7xl space-y-10 px-4 py-8 sm:px-6">
-        <PageHeader kicker="Team sports" title="Ratings, projections, and the market." lede="One state-space rating engine with a data adapter per sport. Each sport is backtested season by season against the archived market and records every live forecast to the shared ledger." />
+        <PageHeader kicker="Sports" title="Every sport, one method." lede="Team sports share one state-space rating engine with a data adapter per league, backtested season by season against the archived market. Dirt racing uses a field model that prices the house book. Every live forecast lands in the same ledger." />
 
         <Section title="Sports with a model">
-          {reports.length === 0 ? (
+          {reports.length === 0 && !racing ? (
             <EmptyState title="No sport reports yet" detail="Backtest and forecast a sport to generate its report." command={"npm run sports:backtest -- --sport nfl\nnpm run sports:forecast -- --sport nfl"} />
           ) : (
             <div className="grid gap-4 md:grid-cols-2">
+              <Card className="p-5">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <Kicker>{SPORT_LABELS.racing}</Kicker>
+                    <h2 className="mt-1 font-display text-2xl font-black"><Link href="/sports/racing" className="hover:text-[var(--accent-hi)]">{raceBoards.length} upcoming · house book</Link></h2>
+                  </div>
+                  <Chip tone="accent">field model</Chip>
+                </div>
+                <dl className="mt-4 grid grid-cols-3 gap-3 text-sm">
+                  <div><dt className="text-xs uppercase tracking-wider text-[var(--muted)]">Top pick wins</dt><dd className="tnum font-semibold">{pct(racingNight?.top1 ?? null, 0)}</dd></div>
+                  <div><dt className="text-xs uppercase tracking-wider text-[var(--muted)]">Log loss</dt><dd className="tnum font-semibold">{num(racingNight?.logLoss ?? null, 2)} <span className="text-xs text-[var(--muted)]">legacy {num(racingNight?.legacyLogLoss ?? null, 2)}</span></dd></div>
+                  <div><dt className="text-xs uppercase tracking-wider text-[var(--muted)]">Calibration</dt><dd className="tnum font-semibold">{pct(racingNight?.ece ?? null)}</dd></div>
+                </dl>
+                <p className="mt-4 text-xs text-[var(--muted)]">{racingNight ? `${racingNight.races} backtest races, race-night stage` : "No backtest"} · {racingLedger} live graded · updated {racing ? relativeAge(racing.generatedAt) : "—"}</p>
+                <Link href="/sports/racing" className="mt-3 inline-block text-xs font-bold uppercase tracking-[0.14em] text-[var(--accent)]">Open dirt racing →</Link>
+              </Card>
               {reports.map((report) => {
                 const bt = report.backtest;
                 const ledger = health?.models.filter((m) => m.sport === report.sport) ?? [];

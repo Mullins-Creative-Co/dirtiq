@@ -3,7 +3,7 @@ import { MatchupWorkbench } from '@/components/matchups/workbench';
 import { getBundledMatchups } from '@/lib/matchups/catalog';
 
 export const metadata = {
-  title: 'Matchups | dirtIQ',
+  title: 'Matchups',
   description: 'Find and run NFL, NBA, college football and college basketball matchups in one workspace.',
 };
 

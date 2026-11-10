@@ -91,7 +91,7 @@ export function ModelRaceReviewForm({
         name="notes"
         defaultValue={review?.notes ?? ""}
         rows={2}
-        placeholder="What should Dirt IQ remember next time?"
+        placeholder="What should SportIQ remember next time?"
         className="w-full border border-[var(--border)] bg-[var(--surface-raised)] px-2 py-2 text-xs leading-5 text-white outline-none placeholder:text-slate-600 focus:border-[var(--accent)]"
       />
 

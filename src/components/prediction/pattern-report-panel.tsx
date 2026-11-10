@@ -272,7 +272,7 @@ function buildPatternTemplate(
 ) {
   const entryList = entries.map((entry) => entry.driverName).join(", ");
 
-  return `DirtIQ pattern analysis for ${raceName} at ${trackName}.
+  return `SportIQ pattern analysis for ${raceName} at ${trackName}.
 
 Pull the last ${lookback || "[N]"} runnings. For each winner, fill:
 - Season wins at race time:

@@ -353,7 +353,7 @@ export function TestingWorkbench({
         <div className="grid gap-0 lg:grid-cols-[1fr_360px]">
           <div className="px-4 py-5 sm:px-6 sm:py-6">
             <p className="text-[10px] font-black uppercase tracking-[0.26em] text-[var(--accent)]">
-              Dirt IQ Race Lab
+              SportIQ Race Lab
             </p>
             <h1 className="mt-3 text-2xl font-black uppercase leading-tight text-white sm:text-5xl">
               Race-night model control

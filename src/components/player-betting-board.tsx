@@ -301,7 +301,7 @@ export function PlayerBettingBoard({
     return (
       <div className="mx-auto max-w-md pt-4">
         <div className="panel-raised p-8">
-          <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--accent)]">dirtIQ Sportsbook</p>
+          <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--accent)]">sportIQ Sportsbook</p>
           <h2 style={{ fontFamily: "var(--font-display)" }} className="mb-1 text-2xl font-extrabold text-white">Open a play-money wallet</h2>
           <p className="mb-6 text-sm text-[var(--muted-strong)]">
             Returning players keep their balance. New wallets start with $1,000.

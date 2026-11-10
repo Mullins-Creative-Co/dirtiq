@@ -6,10 +6,11 @@ import { TonightBoardView } from "@/components/tonight/board";
 import { EmptyState, PageHeader, StatTile } from "@/components/ui/primitives";
 import { relativeAge, units } from "@/lib/format";
 import { getModelHealth } from "@/lib/model-reports";
+import { SITE_NAME } from "@/lib/site";
 import { buildTonightBoard } from "@/lib/tonight";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "dirtIQ | Tonight", description: "Tonight's games and races ranked by model confidence, with the statistical case, the matchup, and the market for each." };
+export const metadata = { title: `Tonight | ${SITE_NAME}`, description: "Tonight's games and races ranked by model confidence, with the statistical case, the matchup, and the market for each." };
 
 const longDay = new Intl.DateTimeFormat("en-US", { weekday: "long", month: "long", day: "numeric", timeZone: "America/New_York" });
 
@@ -32,7 +33,7 @@ export default async function TonightPage({ searchParams }: { searchParams: Prom
         <PageHeader
           kicker={longDay.format(new Date(`${board.today}T17:00:00Z`))}
           title="Tonight"
-          lede="Every game and race the models cover, ranked by how confident the model is in its pick. Open a row for the statistical case, the matchup, and the market."
+          lede="Every game and race across the sports we model, ranked by how confident the model is in its pick. Open a row for the statistical case, the matchup, and the market."
           aside={
             <div className="grid grid-cols-3 gap-2">
               <StatTile label="Tonight" value={tonight.length} detail={`${high} high confidence`} />

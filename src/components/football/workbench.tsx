@@ -118,7 +118,7 @@ export function FootballWorkbench({ research, readiness, overlap, decomposition,
     </nav>
 
     <p className="text-sm"><Link href="/football/line-check" className="font-semibold text-accent underline">Open Football Line Check</Link> <span className="text-muted">to combine matchup factors and compare the spread and price.</span></p>
-    <p className="text-sm"><Link href="/football/nfl-trial" className="font-semibold text-accent underline">View the NFL pregame trial</Link> <span className="text-muted">to compare logged DirtIQ and market forecasts.</span></p>
+    <p className="text-sm"><Link href="/football/nfl-trial" className="font-semibold text-accent underline">View the NFL pregame trial</Link> <span className="text-muted">to compare logged SportIQ and market forecasts.</span></p>
     {tab === 'research' && <ResearchPanel report={research} readiness={readiness} />}
     {tab === 'decomposition' && <DecompositionPanel report={decomposition} />}
     {tab === 'movement' && <QbMovementPanel />}
