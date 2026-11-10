@@ -1,0 +1,2716 @@
+{
+ "sport": "ncaaf",
+ "label": "NCAAF",
+ "generatedAt": "2026-11-10T17:40:02Z",
+ "modelId": "ncaaf-kalman",
+ "modelVersion": "1.0",
+ "dataThrough": "2026-11-07",
+ "sources": [
+  {
+   "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_cfb_schedules/cfb_schedule_2010.parquet",
+   "sha256": "0238aa9029bb7fe3441e6486f42efedc0b2833cffedd920285659d1576d76c27",
+   "retrievedAt": "2026-11-10T17:31:16Z"
+  },
+  {
+   "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_cfb_schedules/cfb_schedule_2011.parquet",
+   "sha256": "e03254281914305382c278d353b976527e29e0000c4494e350f3d865ee411679",
+   "retrievedAt": "2026-11-10T17:31:17Z"
+  },
+  {
+   "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_cfb_schedules/cfb_schedule_2012.parquet",
+   "sha256": "bfabab40588d13b3292c7d611f25d4422a7cb72674af2b7e6174aab067ef95e3",
+   "retrievedAt": "2026-11-10T17:31:17Z"
+  },
+  {
+   "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_cfb_schedules/cfb_schedule_2013.parquet",
+   "sha256": "8c57dd2b56dce802de783843a6a7de1247e6b38608509f082b45ea6a794f6476",
+   "retrievedAt": "2026-11-10T17:31:18Z"
+  },
+  {
+   "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_cfb_schedules/cfb_schedule_2014.parquet",
+   "sha256": "ed5deaf28ddee43503b0c6a5061a792c9541d15f17f9976620e5eee4bf709370",
+   "retrievedAt": "2026-11-10T17:30:01Z"
+  },
+  {
+   "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_cfb_schedules/cfb_schedule_2015.parquet",
+   "sha256": "4855a5e399e463291ae35ae4cf4d6dca5133989d92cfb4d8851fba464c568b06",
+   "retrievedAt": "2026-11-10T17:31:18Z"
+  },
+  {
+   "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_cfb_schedules/cfb_schedule_2016.parquet",
+   "sha256": "ab0269cba11561c18bc3e7b9d0a352a83db933b9b0bd69e3569fca5cfdf72cc3",
+   "retrievedAt": "2026-11-10T17:31:19Z"
+  },
+  {
+   "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_cfb_schedules/cfb_schedule_2017.parquet",
+   "sha256": "2fb52daab3ef642baa2f46805bfd7b9f44344f97f1f4f8e65768f40abf789565",
+   "retrievedAt": "2026-11-10T17:31:19Z"
+  },
+  {
+   "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_cfb_schedules/cfb_schedule_2018.parquet",
+   "sha256": "66d73e739b6eb90719d397801785fa8b057358148e3cce165f5ce9bfa62eb76b",
+   "retrievedAt": "2026-11-10T17:31:20Z"
+  },
+  {
+   "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_cfb_schedules/cfb_schedule_2019.parquet",
+   "sha256": "2978523c67018dfa1d5fff553bb6f4c0baf0452243ecb58fad9c26e870d864ea",
+   "retrievedAt": "2026-11-10T17:30:02Z"
+  },
+  {
+   "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_cfb_schedules/cfb_schedule_2020.parquet",
+   "sha256": "8a44d5943d0a103d83225f45fcb8852e4aa3d4ecb33753fc0f538ae097e32b28",
+   "retrievedAt": "2026-11-10T17:31:20Z"
+  },
+  {
+   "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_cfb_schedules/cfb_schedule_2021.parquet",
+   "sha256": "96fbdd743d710f409941e70b5db460c11916277e13afe3b5c26c12022143f3a4",
+   "retrievedAt": "2026-11-10T17:31:21Z"
+  },
+  {
+   "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_cfb_schedules/cfb_schedule_2022.parquet",
+   "sha256": "07be0c5f437d7617987fb8ebeac25ac16f25deeb37f305d67040a613d8e61bfd",
+   "retrievedAt": "2026-11-10T17:31:21Z"
+  },
+  {
+   "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_cfb_schedules/cfb_schedule_2023.parquet",
+   "sha256": "c52c50b0af2434d69864a1d9f277b4ab3432c974157a627ac97b46cb19165f0e",
+   "retrievedAt": "2026-11-10T17:31:22Z"
+  },
+  {
+   "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_cfb_schedules/cfb_schedule_2024.parquet",
+   "sha256": "a967f1f058f64b0d35f327a951949dd405b2a0b771c1cf9415ff1d77a71cd8dc",
+   "retrievedAt": "2026-11-10T17:30:02Z"
+  },
+  {
+   "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_cfb_schedules/cfb_schedule_2025.parquet",
+   "sha256": "f937e853dad06fb986c40149996bbf088d46bea62b38a746c3296b9b5c5003a3",
+   "retrievedAt": "2026-11-10T17:12:12Z"
+  },
+  {
+   "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_cfb_schedules/cfb_schedule_2026.parquet",
+   "sha256": "9114af20b995d57ff685b3e7d611c05f6b60ad8f5ce69e42319e4ddd58618fad",
+   "retrievedAt": "2026-11-10T17:30:02Z"
+  },
+  {
+   "url": "https://github.com/sportsdataverse/cfbfastR-data/raw/main/betting/parquet/cfb_line_odds.parquet",
+   "sha256": "0c876488f11feccc10a0ec7e9665ee5700354ee23e72a4abaf876577b3a54262",
+   "retrievedAt": "2026-11-10T17:12:12Z"
+  }
+ ],
+ "backtest": {
+  "seasons": [
+   2015,
+   2016,
+   2017,
+   2018,
+   2019,
+   2020,
+   2021,
+   2022,
+   2023,
+   2024,
+   2025,
+   2026
+  ],
+  "games": 10251,
+  "warmStartSeason": 2010,
+  "protocol": "rolling by season: hyperparameters fit on all prior seasons, filter updates only from completed games before each game day",
+  "mae": 13.2187,
+  "marketMae": 12.3191,
+  "brierSpread": 0.269,
+  "marketBrierSpread": 0.25,
+  "brierMoneyline": 0.1647,
+  "marketBrierMoneyline": 0.166,
+  "logLossMoneyline": 0.4937,
+  "marketLogLossMoneyline": 0.4974,
+  "brierMoneylineOnPricedGames": 0.174,
+  "brierSpreadOnPricedGames": 0.2694,
+  "ece": 0.0054,
+  "calibration": [
+   {
+    "lo": 0.0,
+    "hi": 0.05,
+    "n": 59,
+    "predicted": 0.0334,
+    "observed": 0.0847
+   },
+   {
+    "lo": 0.05,
+    "hi": 0.1,
+    "n": 171,
+    "predicted": 0.0776,
+    "observed": 0.1053
+   },
+   {
+    "lo": 0.1,
+    "hi": 0.2,
+    "n": 471,
+    "predicted": 0.1518,
+    "observed": 0.121
+   },
+   {
+    "lo": 0.2,
+    "hi": 0.3,
+    "n": 719,
+    "predicted": 0.2516,
+    "observed": 0.2406
+   },
+   {
+    "lo": 0.3,
+    "hi": 0.4,
+    "n": 916,
+    "predicted": 0.3522,
+    "observed": 0.3559
+   },
+   {
+    "lo": 0.4,
+    "hi": 0.5,
+    "n": 949,
+    "predicted": 0.4524,
+    "observed": 0.4531
+   },
+   {
+    "lo": 0.5,
+    "hi": 0.6,
+    "n": 1126,
+    "predicted": 0.5508,
+    "observed": 0.5444
+   },
+   {
+    "lo": 0.6,
+    "hi": 0.7,
+    "n": 1198,
+    "predicted": 0.6486,
+    "observed": 0.6427
+   },
+   {
+    "lo": 0.7,
+    "hi": 0.8,
+    "n": 1239,
+    "predicted": 0.7521,
+    "observed": 0.753
+   },
+   {
+    "lo": 0.8,
+    "hi": 0.9,
+    "n": 1475,
+    "predicted": 0.8509,
+    "observed": 0.8529
+   },
+   {
+    "lo": 0.9,
+    "hi": 1.0,
+    "n": 1928,
+    "predicted": 0.9573,
+    "observed": 0.9585
+   }
+  ],
+  "eceSpread": 0.1065,
+  "calibrationSpread": [
+   {
+    "lo": 0.0,
+    "hi": 0.05,
+    "n": 6,
+    "predicted": 0.0363,
+    "observed": 0.3333
+   },
+   {
+    "lo": 0.05,
+    "hi": 0.1,
+    "n": 31,
+    "predicted": 0.0793,
+    "observed": 0.4516
+   },
+   {
+    "lo": 0.1,
+    "hi": 0.2,
+    "n": 137,
+    "predicted": 0.1518,
+    "observed": 0.4745
+   },
+   {
+    "lo": 0.2,
+    "hi": 0.3,
+    "n": 367,
+    "predicted": 0.2579,
+    "observed": 0.4796
+   },
+   {
+    "lo": 0.3,
+    "hi": 0.4,
+    "n": 958,
+    "predicted": 0.3589,
+    "observed": 0.5282
+   },
+   {
+    "lo": 0.4,
+    "hi": 0.5,
+    "n": 2500,
+    "predicted": 0.456,
+    "observed": 0.5008
+   },
+   {
+    "lo": 0.5,
+    "hi": 0.6,
+    "n": 3139,
+    "predicted": 0.5472,
+    "observed": 0.4982
+   },
+   {
+    "lo": 0.6,
+    "hi": 0.7,
+    "n": 1483,
+    "predicted": 0.6404,
+    "observed": 0.472
+   },
+   {
+    "lo": 0.7,
+    "hi": 0.8,
+    "n": 374,
+    "predicted": 0.7362,
+    "observed": 0.4679
+   },
+   {
+    "lo": 0.8,
+    "hi": 0.9,
+    "n": 135,
+    "predicted": 0.8423,
+    "observed": 0.4815
+   },
+   {
+    "lo": 0.9,
+    "hi": 1.0,
+    "n": 35,
+    "predicted": 0.9423,
+    "observed": 0.6571
+   }
+  ],
+  "homeWinRate": 0.6274,
+  "selections": {
+   "rule": "abs(model - market) >= 3.0",
+   "n": 4743,
+   "wins": 2252,
+   "losses": 2411,
+   "pushes": 80,
+   "priced": 2081,
+   "unpriced": 2662,
+   "units": -173.857,
+   "roi": -0.0835,
+   "winRate": 0.483,
+   "roiAt110Illustrative": -0.0767,
+   "avgPickProb": 0.6578,
+   "brierPicks": 0.2854
+  },
+  "selectionThreshold": 3.0,
+  "clv": null,
+  "clvNote": "archive holds one line per game, so closing-line value is only measurable live through the ledger",
+  "bySeason": [
+   {
+    "season": 2015,
+    "games": 870,
+    "partial": false,
+    "mae": 13.5734,
+    "marketMae": 12.6128,
+    "brierSpread": 0.2699,
+    "marketBrierSpread": 0.2501,
+    "brierMoneyline": 0.1544,
+    "marketBrierMoneyline": 0.1444,
+    "logLossMoneyline": 0.4713,
+    "ece": 0.042,
+    "anchoredMae": 12.6065,
+    "anchoredBrierSpread": 0.2491,
+    "selections": {
+     "rule": "abs(model - market) >= 3.0",
+     "n": 423,
+     "wins": 195,
+     "losses": 222,
+     "pushes": 6,
+     "priced": 422,
+     "unpriced": 1,
+     "units": -45.178,
+     "roi": -0.1071,
+     "winRate": 0.4676,
+     "roiAt110Illustrative": -0.1057,
+     "avgPickProb": 0.6549,
+     "brierPicks": 0.285
+    },
+    "anchoredSelections": {
+     "rule": "abs(model - market) >= 3.0",
+     "n": 0,
+     "wins": 0,
+     "losses": 0,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 0,
+     "units": null,
+     "roi": null,
+     "winRate": null,
+     "roiAt110Illustrative": null,
+     "avgPickProb": null,
+     "brierPicks": null
+    },
+    "hyper": {
+     "process_sd_day": 0.03134,
+     "season_reversion": 0.12275,
+     "season_sd": 7.20817,
+     "hfa": 3.3303,
+     "sigma": 14.83945,
+     "init_sd": 6.8191
+    },
+    "anchor": {
+     "beta": -0.06899,
+     "intercept": -0.09525,
+     "sd": 15.5367,
+     "n": 3205,
+     "alpha": 1.0
+    },
+    "fit": {
+     "nllPerGame": 4.234055696054748,
+     "iterations": 260,
+     "converged": true
+    },
+    "trainGames": 4191
+   },
+   {
+    "season": 2016,
+    "games": 873,
+    "partial": false,
+    "mae": 13.8519,
+    "marketMae": 12.6915,
+    "brierSpread": 0.2749,
+    "marketBrierSpread": 0.25,
+    "brierMoneyline": 0.1758,
+    "marketBrierMoneyline": 0.1656,
+    "logLossMoneyline": 0.526,
+    "ece": 0.0324,
+    "anchoredMae": 12.6705,
+    "anchoredBrierSpread": 0.2499,
+    "selections": {
+     "rule": "abs(model - market) >= 3.0",
+     "n": 411,
+     "wins": 178,
+     "losses": 226,
+     "pushes": 7,
+     "priced": 409,
+     "unpriced": 2,
+     "units": -63.813,
+     "roi": -0.156,
+     "winRate": 0.4406,
+     "roiAt110Illustrative": -0.1562,
+     "avgPickProb": 0.65,
+     "brierPicks": 0.295
+    },
+    "anchoredSelections": {
+     "rule": "abs(model - market) >= 3.0",
+     "n": 0,
+     "wins": 0,
+     "losses": 0,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 0,
+     "units": null,
+     "roi": null,
+     "winRate": null,
+     "roiAt110Illustrative": null,
+     "avgPickProb": null,
+     "brierPicks": null
+    },
+    "hyper": {
+     "process_sd_day": 0.37754,
+     "season_reversion": 0.14207,
+     "season_sd": 6.37285,
+     "hfa": 3.15379,
+     "sigma": 14.80111,
+     "init_sd": 6.8191
+    },
+    "anchor": {
+     "beta": -0.07718,
+     "intercept": -0.14001,
+     "sd": 15.64798,
+     "n": 4038,
+     "alpha": 1.0
+    },
+    "fit": {
+     "nllPerGame": 4.240794661479362,
+     "iterations": 300,
+     "converged": false
+    },
+    "trainGames": 5061
+   },
+   {
+    "season": 2017,
+    "games": 874,
+    "partial": false,
+    "mae": 13.1966,
+    "marketMae": 12.5481,
+    "brierSpread": 0.2644,
+    "marketBrierSpread": 0.25,
+    "brierMoneyline": 0.1638,
+    "marketBrierMoneyline": 0.1528,
+    "logLossMoneyline": 0.4911,
+    "ece": 0.0345,
+    "anchoredMae": 12.562,
+    "anchoredBrierSpread": 0.2503,
+    "selections": {
+     "rule": "abs(model - market) >= 3.0",
+     "n": 415,
+     "wins": 206,
+     "losses": 201,
+     "pushes": 8,
+     "priced": 410,
+     "unpriced": 5,
+     "units": -15.784,
+     "roi": -0.0385,
+     "winRate": 0.5061,
+     "roiAt110Illustrative": -0.0331,
+     "avgPickProb": 0.6524,
+     "brierPicks": 0.2748
+    },
+    "anchoredSelections": {
+     "rule": "abs(model - market) >= 3.0",
+     "n": 0,
+     "wins": 0,
+     "losses": 0,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 0,
+     "units": null,
+     "roi": null,
+     "winRate": null,
+     "roiAt110Illustrative": null,
+     "avgPickProb": null,
+     "brierPicks": null
+    },
+    "hyper": {
+     "process_sd_day": 0.45357,
+     "season_reversion": 0.15526,
+     "season_sd": 5.88435,
+     "hfa": 3.08289,
+     "sigma": 14.92489,
+     "init_sd": 6.8191
+    },
+    "anchor": {
+     "beta": -0.0918,
+     "intercept": -0.18699,
+     "sd": 15.75721,
+     "n": 4858,
+     "alpha": 1.0
+    },
+    "fit": {
+     "nllPerGame": 4.249740701288764,
+     "iterations": 158,
+     "converged": true
+    },
+    "trainGames": 5934
+   },
+   {
+    "season": 2018,
+    "games": 884,
+    "partial": false,
+    "mae": 13.3501,
+    "marketMae": 12.3569,
+    "brierSpread": 0.2684,
+    "marketBrierSpread": 0.2501,
+    "brierMoneyline": 0.1563,
+    "marketBrierMoneyline": 0.1507,
+    "logLossMoneyline": 0.4693,
+    "ece": 0.0199,
+    "anchoredMae": 12.3699,
+    "anchoredBrierSpread": 0.2506,
+    "selections": {
+     "rule": "abs(model - market) >= 3.0",
+     "n": 411,
+     "wins": 206,
+     "losses": 197,
+     "pushes": 8,
+     "priced": 406,
+     "unpriced": 5,
+     "units": -8.431,
+     "roi": -0.0208,
+     "winRate": 0.5112,
+     "roiAt110Illustrative": -0.0237,
+     "avgPickProb": 0.6576,
+     "brierPicks": 0.284
+    },
+    "anchoredSelections": {
+     "rule": "abs(model - market) >= 3.0",
+     "n": 1,
+     "wins": 0,
+     "losses": 1,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 1,
+     "units": null,
+     "roi": null,
+     "winRate": 0.0,
+     "roiAt110Illustrative": -1.0,
+     "avgPickProb": 0.5877,
+     "brierPicks": 0.3454
+    },
+    "hyper": {
+     "process_sd_day": 0.43392,
+     "season_reversion": 0.15583,
+     "season_sd": 6.12702,
+     "hfa": 3.0207,
+     "sigma": 14.89963,
+     "init_sd": 6.8191
+    },
+    "anchor": {
+     "beta": -0.06752,
+     "intercept": -0.23885,
+     "sd": 15.79685,
+     "n": 5690,
+     "alpha": 1.0
+    },
+    "fit": {
+     "nllPerGame": 4.248517533972276,
+     "iterations": 101,
+     "converged": true
+    },
+    "trainGames": 6808
+   },
+   {
+    "season": 2019,
+    "games": 888,
+    "partial": false,
+    "mae": 12.8299,
+    "marketMae": 12.0413,
+    "brierSpread": 0.2671,
+    "marketBrierSpread": 0.2499,
+    "brierMoneyline": 0.1527,
+    "marketBrierMoneyline": 0.1462,
+    "logLossMoneyline": 0.4618,
+    "ece": 0.0339,
+    "anchoredMae": 12.05,
+    "anchoredBrierSpread": 0.2501,
+    "selections": {
+     "rule": "abs(model - market) >= 3.0",
+     "n": 444,
+     "wins": 203,
+     "losses": 230,
+     "pushes": 11,
+     "priced": 434,
+     "unpriced": 10,
+     "units": -40.65,
+     "roi": -0.0937,
+     "winRate": 0.4688,
+     "roiAt110Illustrative": -0.1024,
+     "avgPickProb": 0.6491,
+     "brierPicks": 0.2814
+    },
+    "anchoredSelections": {
+     "rule": "abs(model - market) >= 3.0",
+     "n": 0,
+     "wins": 0,
+     "losses": 0,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 0,
+     "units": null,
+     "roi": null,
+     "winRate": null,
+     "roiAt110Illustrative": null,
+     "avgPickProb": null,
+     "brierPicks": null
+    },
+    "hyper": {
+     "process_sd_day": 0.43178,
+     "season_reversion": 0.15931,
+     "season_sd": 6.08036,
+     "hfa": 2.94464,
+     "sigma": 14.92262,
+     "init_sd": 6.8191
+    },
+    "anchor": {
+     "beta": -0.05524,
+     "intercept": -0.21355,
+     "sd": 15.7953,
+     "n": 6539,
+     "alpha": 1.0
+    },
+    "fit": {
+     "nllPerGame": 4.248911753887956,
+     "iterations": 86,
+     "converged": true
+    },
+    "trainGames": 7692
+   },
+   {
+    "season": 2020,
+    "games": 561,
+    "partial": false,
+    "mae": 13.4263,
+    "marketMae": 12.6871,
+    "brierSpread": 0.2666,
+    "marketBrierSpread": null,
+    "brierMoneyline": 0.1779,
+    "marketBrierMoneyline": null,
+    "logLossMoneyline": 0.5344,
+    "ece": 0.0319,
+    "anchoredMae": 12.7111,
+    "anchoredBrierSpread": 0.2506,
+    "selections": {
+     "rule": "abs(model - market) >= 3.0",
+     "n": 339,
+     "wins": 169,
+     "losses": 163,
+     "pushes": 7,
+     "priced": 0,
+     "unpriced": 339,
+     "units": null,
+     "roi": null,
+     "winRate": 0.509,
+     "roiAt110Illustrative": -0.0276,
+     "avgPickProb": 0.6777,
+     "brierPicks": 0.2772
+    },
+    "anchoredSelections": {
+     "rule": "abs(model - market) >= 3.0",
+     "n": 0,
+     "wins": 0,
+     "losses": 0,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 0,
+     "units": null,
+     "roi": null,
+     "winRate": null,
+     "roiAt110Illustrative": null,
+     "avgPickProb": null,
+     "brierPicks": null
+    },
+    "hyper": {
+     "process_sd_day": 0.43577,
+     "season_reversion": 0.14579,
+     "season_sd": 5.95698,
+     "hfa": 2.93136,
+     "sigma": 14.84574,
+     "init_sd": 6.8191
+    },
+    "anchor": {
+     "beta": -0.04945,
+     "intercept": -0.06722,
+     "sd": 15.74442,
+     "n": 7387,
+     "alpha": 1.0
+    },
+    "fit": {
+     "nllPerGame": 4.244279764165336,
+     "iterations": 97,
+     "converged": true
+    },
+    "trainGames": 8580
+   },
+   {
+    "season": 2021,
+    "games": 887,
+    "partial": false,
+    "mae": 13.6322,
+    "marketMae": 12.5955,
+    "brierSpread": 0.2754,
+    "marketBrierSpread": null,
+    "brierMoneyline": 0.1706,
+    "marketBrierMoneyline": 0.1861,
+    "logLossMoneyline": 0.512,
+    "ece": 0.0371,
+    "anchoredMae": 12.5875,
+    "anchoredBrierSpread": 0.2499,
+    "selections": {
+     "rule": "abs(model - market) >= 3.0",
+     "n": 433,
+     "wins": 190,
+     "losses": 237,
+     "pushes": 6,
+     "priced": 0,
+     "unpriced": 433,
+     "units": null,
+     "roi": null,
+     "winRate": 0.445,
+     "roiAt110Illustrative": -0.1484,
+     "avgPickProb": 0.6572,
+     "brierPicks": 0.3019
+    },
+    "anchoredSelections": {
+     "rule": "abs(model - market) >= 3.0",
+     "n": 0,
+     "wins": 0,
+     "losses": 0,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 0,
+     "units": null,
+     "roi": null,
+     "winRate": null,
+     "roiAt110Illustrative": null,
+     "avgPickProb": null,
+     "brierPicks": null
+    },
+    "hyper": {
+     "process_sd_day": 0.43984,
+     "season_reversion": 0.15657,
+     "season_sd": 5.99967,
+     "hfa": 2.85131,
+     "sigma": 14.82096,
+     "init_sd": 6.8191
+    },
+    "anchor": {
+     "beta": -0.02992,
+     "intercept": -0.10214,
+     "sd": 15.75069,
+     "n": 7947,
+     "alpha": 1.0
+    },
+    "fit": {
+     "nllPerGame": 4.24441228103683,
+     "iterations": 90,
+     "converged": true
+    },
+    "trainGames": 9141
+   },
+   {
+    "season": 2022,
+    "games": 896,
+    "partial": false,
+    "mae": 13.1667,
+    "marketMae": 12.2178,
+    "brierSpread": 0.274,
+    "marketBrierSpread": null,
+    "brierMoneyline": 0.1783,
+    "marketBrierMoneyline": 0.2001,
+    "logLossMoneyline": 0.5255,
+    "ece": 0.033,
+    "anchoredMae": 12.2105,
+    "anchoredBrierSpread": 0.2501,
+    "selections": {
+     "rule": "abs(model - market) >= 3.0",
+     "n": 450,
+     "wins": 210,
+     "losses": 233,
+     "pushes": 7,
+     "priced": 0,
+     "unpriced": 450,
+     "units": null,
+     "roi": null,
+     "winRate": 0.474,
+     "roiAt110Illustrative": -0.0935,
+     "avgPickProb": 0.659,
+     "brierPicks": 0.293
+    },
+    "anchoredSelections": {
+     "rule": "abs(model - market) >= 3.0",
+     "n": 0,
+     "wins": 0,
+     "losses": 0,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 0,
+     "units": null,
+     "roi": null,
+     "winRate": null,
+     "roiAt110Illustrative": null,
+     "avgPickProb": null,
+     "brierPicks": null
+    },
+    "hyper": {
+     "process_sd_day": 0.43383,
+     "season_reversion": 0.1539,
+     "season_sd": 5.85787,
+     "hfa": 2.77971,
+     "sigma": 14.85118,
+     "init_sd": 6.8191
+    },
+    "anchor": {
+     "beta": -0.03471,
+     "intercept": -0.16443,
+     "sd": 15.74035,
+     "n": 8834,
+     "alpha": 1.0
+    },
+    "fit": {
+     "nllPerGame": 4.244125465920882,
+     "iterations": 83,
+     "converged": true
+    },
+    "trainGames": 10028
+   },
+   {
+    "season": 2023,
+    "games": 910,
+    "partial": false,
+    "mae": 12.929,
+    "marketMae": 12.075,
+    "brierSpread": 0.2699,
+    "marketBrierSpread": null,
+    "brierMoneyline": 0.1614,
+    "marketBrierMoneyline": 0.1722,
+    "logLossMoneyline": 0.4857,
+    "ece": 0.0173,
+    "anchoredMae": 12.0718,
+    "anchoredBrierSpread": 0.2501,
+    "selections": {
+     "rule": "abs(model - market) >= 3.0",
+     "n": 463,
+     "wins": 221,
+     "losses": 237,
+     "pushes": 5,
+     "priced": 0,
+     "unpriced": 463,
+     "units": null,
+     "roi": null,
+     "winRate": 0.4825,
+     "roiAt110Illustrative": -0.078,
+     "avgPickProb": 0.6594,
+     "brierPicks": 0.2887
+    },
+    "anchoredSelections": {
+     "rule": "abs(model - market) >= 3.0",
+     "n": 0,
+     "wins": 0,
+     "losses": 0,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 0,
+     "units": null,
+     "roi": null,
+     "winRate": null,
+     "roiAt110Illustrative": null,
+     "avgPickProb": null,
+     "brierPicks": null
+    },
+    "hyper": {
+     "process_sd_day": 0.43102,
+     "season_reversion": 0.15503,
+     "season_sd": 5.78115,
+     "hfa": 2.71997,
+     "sigma": 14.85788,
+     "init_sd": 6.8191
+    },
+    "anchor": {
+     "beta": -0.03495,
+     "intercept": -0.19148,
+     "sd": 15.71462,
+     "n": 9726,
+     "alpha": 1.0
+    },
+    "fit": {
+     "nllPerGame": 4.242957585362252,
+     "iterations": 90,
+     "converged": true
+    },
+    "trainGames": 10924
+   },
+   {
+    "season": 2024,
+    "games": 965,
+    "partial": false,
+    "mae": 13.2019,
+    "marketMae": 11.9958,
+    "brierSpread": 0.2694,
+    "marketBrierSpread": null,
+    "brierMoneyline": 0.1708,
+    "marketBrierMoneyline": 0.1788,
+    "logLossMoneyline": 0.5043,
+    "ece": 0.0444,
+    "anchoredMae": 12.0054,
+    "anchoredBrierSpread": 0.2506,
+    "selections": {
+     "rule": "abs(model - market) >= 3.0",
+     "n": 477,
+     "wins": 228,
+     "losses": 240,
+     "pushes": 9,
+     "priced": 0,
+     "unpriced": 477,
+     "units": null,
+     "roi": null,
+     "winRate": 0.4872,
+     "roiAt110Illustrative": -0.0686,
+     "avgPickProb": 0.6683,
+     "brierPicks": 0.2901
+    },
+    "anchoredSelections": {
+     "rule": "abs(model - market) >= 3.0",
+     "n": 0,
+     "wins": 0,
+     "losses": 0,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 0,
+     "units": null,
+     "roi": null,
+     "winRate": null,
+     "roiAt110Illustrative": null,
+     "avgPickProb": null,
+     "brierPicks": null
+    },
+    "hyper": {
+     "process_sd_day": 0.43424,
+     "season_reversion": 0.15307,
+     "season_sd": 5.63038,
+     "hfa": 2.71367,
+     "sigma": 14.83663,
+     "init_sd": 6.8191
+    },
+    "anchor": {
+     "beta": -0.03358,
+     "intercept": -0.17495,
+     "sd": 15.66748,
+     "n": 10633,
+     "alpha": 1.0
+    },
+    "fit": {
+     "nllPerGame": 4.240316136431438,
+     "iterations": 76,
+     "converged": true
+    },
+    "trainGames": 11834
+   },
+   {
+    "season": 2025,
+    "games": 958,
+    "partial": false,
+    "mae": 12.4558,
+    "marketMae": 11.9325,
+    "brierSpread": 0.259,
+    "marketBrierSpread": null,
+    "brierMoneyline": 0.1579,
+    "marketBrierMoneyline": 0.1693,
+    "logLossMoneyline": 0.4737,
+    "ece": 0.0239,
+    "anchoredMae": 11.9429,
+    "anchoredBrierSpread": 0.2504,
+    "selections": {
+     "rule": "abs(model - market) >= 3.0",
+     "n": 477,
+     "wins": 246,
+     "losses": 225,
+     "pushes": 6,
+     "priced": 0,
+     "unpriced": 477,
+     "units": null,
+     "roi": null,
+     "winRate": 0.5223,
+     "roiAt110Illustrative": -0.0029,
+     "avgPickProb": 0.6532,
+     "brierPicks": 0.2677
+    },
+    "anchoredSelections": {
+     "rule": "abs(model - market) >= 3.0",
+     "n": 0,
+     "wins": 0,
+     "losses": 0,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 0,
+     "units": null,
+     "roi": null,
+     "winRate": null,
+     "roiAt110Illustrative": null,
+     "avgPickProb": null,
+     "brierPicks": null
+    },
+    "hyper": {
+     "process_sd_day": 0.41872,
+     "season_reversion": 0.1494,
+     "season_sd": 5.75208,
+     "hfa": 2.73917,
+     "sigma": 14.82625,
+     "init_sd": 6.8191
+    },
+    "anchor": {
+     "beta": -0.02109,
+     "intercept": -0.07476,
+     "sd": 15.64573,
+     "n": 11582,
+     "alpha": 1.0
+    },
+    "fit": {
+     "nllPerGame": 4.239128683435848,
+     "iterations": 78,
+     "converged": true
+    },
+    "trainGames": 12799
+   },
+   {
+    "season": 2026,
+    "games": 685,
+    "partial": false,
+    "mae": 13.1626,
+    "marketMae": null,
+    "brierSpread": null,
+    "marketBrierSpread": null,
+    "brierMoneyline": 0.1599,
+    "marketBrierMoneyline": null,
+    "logLossMoneyline": 0.4824,
+    "ece": 0.0334,
+    "anchoredMae": null,
+    "anchoredBrierSpread": null,
+    "selections": {
+     "rule": "abs(model - market) >= 3.0",
+     "n": 0,
+     "wins": 0,
+     "losses": 0,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 0,
+     "units": null,
+     "roi": null,
+     "winRate": null,
+     "roiAt110Illustrative": null,
+     "avgPickProb": null,
+     "brierPicks": null
+    },
+    "anchoredSelections": null,
+    "hyper": {
+     "process_sd_day": 0.40065,
+     "season_reversion": 0.14329,
+     "season_sd": 5.81358,
+     "hfa": 2.76191,
+     "sigma": 14.77154,
+     "init_sd": 6.8191
+    },
+    "anchor": {
+     "beta": -0.0049,
+     "intercept": 0.01807,
+     "sd": 15.60512,
+     "n": 12537,
+     "alpha": 1.0
+    },
+    "fit": {
+     "nllPerGame": 4.234484824699333,
+     "iterations": 100,
+     "converged": true
+    },
+    "trainGames": 13757
+   }
+  ],
+  "variants": [
+   {
+    "id": "independent",
+    "description": "Kalman rating difference + home field",
+    "games": 10251,
+    "mae": 13.2187,
+    "bias": 0.2121,
+    "rmse": 16.6935,
+    "maeOnMarketGames": 13.237,
+    "brierMoneyline": 0.1647,
+    "logLossMoneyline": 0.4937,
+    "ece": 0.0054,
+    "homeWinRate": 0.6274,
+    "brierMoneylineOnPricedGames": 0.174,
+    "logLossMoneylineOnPricedGames": 0.5178,
+    "brierSpread": 0.269,
+    "logLossSpread": 0.7378,
+    "eceSpread": 0.1065,
+    "brierSpreadOnPricedGames": 0.2694,
+    "selections": {
+     "rule": "abs(model - market) >= 3.0",
+     "n": 4743,
+     "wins": 2252,
+     "losses": 2411,
+     "pushes": 80,
+     "priced": 2081,
+     "unpriced": 2662,
+     "units": -173.857,
+     "roi": -0.0835,
+     "winRate": 0.483,
+     "roiAt110Illustrative": -0.0767,
+     "avgPickProb": 0.6578,
+     "brierPicks": 0.2854
+    }
+   },
+   {
+    "id": "market-anchored",
+    "description": "market margin + ridge(rating - market) fit on earlier games",
+    "available": true,
+    "games": 9332,
+    "mae": 12.3217,
+    "bias": 0.1908,
+    "rmse": 15.6315,
+    "maeOnMarketGames": 12.3217,
+    "brierMoneyline": 0.1574,
+    "logLossMoneyline": 0.4728,
+    "ece": 0.0149,
+    "homeWinRate": 0.6222,
+    "brierMoneylineOnPricedGames": 0.1656,
+    "logLossMoneylineOnPricedGames": 0.4957,
+    "brierSpread": 0.2502,
+    "logLossSpread": 0.6935,
+    "eceSpread": 0.0058,
+    "brierSpreadOnPricedGames": 0.2499,
+    "selections": {
+     "rule": "abs(model - market) >= 3.0",
+     "n": 1,
+     "wins": 0,
+     "losses": 1,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 1,
+     "units": null,
+     "roi": null,
+     "winRate": 0.0,
+     "roiAt110Illustrative": -1.0,
+     "avgPickProb": 0.5877,
+     "brierPicks": 0.3454
+    },
+    "fitsBySeason": [
+     {
+      "season": 2015,
+      "beta": -0.06899,
+      "intercept": -0.09525,
+      "sd": 15.5367,
+      "n": 3205,
+      "alpha": 1.0
+     },
+     {
+      "season": 2016,
+      "beta": -0.07718,
+      "intercept": -0.14001,
+      "sd": 15.64798,
+      "n": 4038,
+      "alpha": 1.0
+     },
+     {
+      "season": 2017,
+      "beta": -0.0918,
+      "intercept": -0.18699,
+      "sd": 15.75721,
+      "n": 4858,
+      "alpha": 1.0
+     },
+     {
+      "season": 2018,
+      "beta": -0.06752,
+      "intercept": -0.23885,
+      "sd": 15.79685,
+      "n": 5690,
+      "alpha": 1.0
+     },
+     {
+      "season": 2019,
+      "beta": -0.05524,
+      "intercept": -0.21355,
+      "sd": 15.7953,
+      "n": 6539,
+      "alpha": 1.0
+     },
+     {
+      "season": 2020,
+      "beta": -0.04945,
+      "intercept": -0.06722,
+      "sd": 15.74442,
+      "n": 7387,
+      "alpha": 1.0
+     },
+     {
+      "season": 2021,
+      "beta": -0.02992,
+      "intercept": -0.10214,
+      "sd": 15.75069,
+      "n": 7947,
+      "alpha": 1.0
+     },
+     {
+      "season": 2022,
+      "beta": -0.03471,
+      "intercept": -0.16443,
+      "sd": 15.74035,
+      "n": 8834,
+      "alpha": 1.0
+     },
+     {
+      "season": 2023,
+      "beta": -0.03495,
+      "intercept": -0.19148,
+      "sd": 15.71462,
+      "n": 9726,
+      "alpha": 1.0
+     },
+     {
+      "season": 2024,
+      "beta": -0.03358,
+      "intercept": -0.17495,
+      "sd": 15.66748,
+      "n": 10633,
+      "alpha": 1.0
+     },
+     {
+      "season": 2025,
+      "beta": -0.02109,
+      "intercept": -0.07476,
+      "sd": 15.64573,
+      "n": 11582,
+      "alpha": 1.0
+     },
+     {
+      "season": 2026,
+      "beta": -0.0049,
+      "intercept": 0.01807,
+      "sd": 15.60512,
+      "n": 12537,
+      "alpha": 1.0
+     }
+    ]
+   }
+  ],
+  "hyperparameters": [
+   {
+    "season": 2015,
+    "process_sd_day": 0.03134,
+    "season_reversion": 0.12275,
+    "season_sd": 7.20817,
+    "hfa": 3.3303,
+    "sigma": 14.83945,
+    "init_sd": 6.8191
+   },
+   {
+    "season": 2016,
+    "process_sd_day": 0.37754,
+    "season_reversion": 0.14207,
+    "season_sd": 6.37285,
+    "hfa": 3.15379,
+    "sigma": 14.80111,
+    "init_sd": 6.8191
+   },
+   {
+    "season": 2017,
+    "process_sd_day": 0.45357,
+    "season_reversion": 0.15526,
+    "season_sd": 5.88435,
+    "hfa": 3.08289,
+    "sigma": 14.92489,
+    "init_sd": 6.8191
+   },
+   {
+    "season": 2018,
+    "process_sd_day": 0.43392,
+    "season_reversion": 0.15583,
+    "season_sd": 6.12702,
+    "hfa": 3.0207,
+    "sigma": 14.89963,
+    "init_sd": 6.8191
+   },
+   {
+    "season": 2019,
+    "process_sd_day": 0.43178,
+    "season_reversion": 0.15931,
+    "season_sd": 6.08036,
+    "hfa": 2.94464,
+    "sigma": 14.92262,
+    "init_sd": 6.8191
+   },
+   {
+    "season": 2020,
+    "process_sd_day": 0.43577,
+    "season_reversion": 0.14579,
+    "season_sd": 5.95698,
+    "hfa": 2.93136,
+    "sigma": 14.84574,
+    "init_sd": 6.8191
+   },
+   {
+    "season": 2021,
+    "process_sd_day": 0.43984,
+    "season_reversion": 0.15657,
+    "season_sd": 5.99967,
+    "hfa": 2.85131,
+    "sigma": 14.82096,
+    "init_sd": 6.8191
+   },
+   {
+    "season": 2022,
+    "process_sd_day": 0.43383,
+    "season_reversion": 0.1539,
+    "season_sd": 5.85787,
+    "hfa": 2.77971,
+    "sigma": 14.85118,
+    "init_sd": 6.8191
+   },
+   {
+    "season": 2023,
+    "process_sd_day": 0.43102,
+    "season_reversion": 0.15503,
+    "season_sd": 5.78115,
+    "hfa": 2.71997,
+    "sigma": 14.85788,
+    "init_sd": 6.8191
+   },
+   {
+    "season": 2024,
+    "process_sd_day": 0.43424,
+    "season_reversion": 0.15307,
+    "season_sd": 5.63038,
+    "hfa": 2.71367,
+    "sigma": 14.83663,
+    "init_sd": 6.8191
+   },
+   {
+    "season": 2025,
+    "process_sd_day": 0.41872,
+    "season_reversion": 0.1494,
+    "season_sd": 5.75208,
+    "hfa": 2.73917,
+    "sigma": 14.82625,
+    "init_sd": 6.8191
+   },
+   {
+    "season": 2026,
+    "process_sd_day": 0.40065,
+    "season_reversion": 0.14329,
+    "season_sd": 5.81358,
+    "hfa": 2.76191,
+    "sigma": 14.77154,
+    "init_sd": 6.8191
+   }
+  ],
+  "latestFit": {
+   "season": 2026,
+   "hyper": {
+    "process_sd_day": 0.40065,
+    "season_reversion": 0.14329,
+    "season_sd": 5.81358,
+    "hfa": 2.76191,
+    "sigma": 14.77154,
+    "init_sd": 6.8191
+   },
+   "anchor": {
+    "beta": -0.0049,
+    "intercept": 0.01807,
+    "sd": 15.60512,
+    "n": 12537,
+    "alpha": 1.0
+   },
+   "fit": {
+    "nllPerGame": 4.234484824699333,
+    "iterations": 100,
+    "converged": true
+   },
+   "trainSeasons": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ]
+  },
+  "marketGames": 9332,
+  "marketMoneylineGames": 8000,
+  "marketSpreadGames": 3996
+ },
+ "ratings": [
+  {
+   "team": "ND",
+   "rating": 26.51,
+   "sd": 4.89,
+   "rank": 1,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "UGA",
+   "rating": 26.28,
+   "sd": 4.91,
+   "rank": 2,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "MIA",
+   "rating": 25.19,
+   "sd": 4.83,
+   "rank": 3,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "ALA",
+   "rating": 24.4,
+   "sd": 4.92,
+   "rank": 4,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "OSU",
+   "rating": 23.13,
+   "sd": 4.89,
+   "rank": 5,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "IU",
+   "rating": 22.97,
+   "sd": 4.89,
+   "rank": 6,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "TEX",
+   "rating": 20.96,
+   "sd": 4.87,
+   "rank": 7,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "WAKE",
+   "rating": 19.39,
+   "sd": 4.89,
+   "rank": 8,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "ORE",
+   "rating": 19.26,
+   "sd": 4.83,
+   "rank": 9,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "UTAH",
+   "rating": 19.25,
+   "sd": 4.86,
+   "rank": 10,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "LSU",
+   "rating": 18.77,
+   "sd": 4.91,
+   "rank": 11,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "TENN",
+   "rating": 17.52,
+   "sd": 4.91,
+   "rank": 12,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "MISS",
+   "rating": 17.4,
+   "sd": 4.86,
+   "rank": 13,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "IOWA",
+   "rating": 16.42,
+   "sd": 4.87,
+   "rank": 14,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "UCLA",
+   "rating": 13.76,
+   "sd": 4.87,
+   "rank": 15,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "BYU",
+   "rating": 13.53,
+   "sd": 4.84,
+   "rank": 16,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "LOU",
+   "rating": 13.46,
+   "sd": 4.9,
+   "rank": 17,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "USC",
+   "rating": 13.4,
+   "sd": 5.0,
+   "rank": 18,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "DUKE",
+   "rating": 13.17,
+   "sd": 4.85,
+   "rank": 19,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "TTU",
+   "rating": 13.03,
+   "sd": 4.87,
+   "rank": 20,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "SC",
+   "rating": 12.63,
+   "sd": 4.91,
+   "rank": 21,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "MIZ",
+   "rating": 12.33,
+   "sd": 4.9,
+   "rank": 22,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "HOU",
+   "rating": 12.31,
+   "sd": 4.92,
+   "rank": 23,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "OU",
+   "rating": 11.87,
+   "sd": 4.88,
+   "rank": 24,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "ARIZ",
+   "rating": 11.65,
+   "sd": 4.89,
+   "rank": 25,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "TA&M",
+   "rating": 11.54,
+   "sd": 4.91,
+   "rank": 26,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "PSU",
+   "rating": 11.32,
+   "sd": 4.89,
+   "rank": 27,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "BAY",
+   "rating": 10.99,
+   "sd": 4.89,
+   "rank": 28,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "SMU",
+   "rating": 10.6,
+   "sd": 4.88,
+   "rank": 29,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "OKST",
+   "rating": 10.48,
+   "sd": 4.88,
+   "rank": 30,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "JMU",
+   "rating": 10.04,
+   "sd": 4.74,
+   "rank": 31,
+   "games": 10,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "NEB",
+   "rating": 9.95,
+   "sd": 4.89,
+   "rank": 32,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "FLA",
+   "rating": 9.81,
+   "sd": 4.93,
+   "rank": 33,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "NU",
+   "rating": 9.68,
+   "sd": 4.83,
+   "rank": 34,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "WIS",
+   "rating": 8.63,
+   "sd": 4.88,
+   "rank": 35,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "PITT",
+   "rating": 8.61,
+   "sd": 4.93,
+   "rank": 36,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "TCU",
+   "rating": 8.28,
+   "sd": 4.88,
+   "rank": 37,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "BOIS",
+   "rating": 7.84,
+   "sd": 4.88,
+   "rank": 38,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "UK",
+   "rating": 7.77,
+   "sd": 4.94,
+   "rank": 39,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "ILL",
+   "rating": 7.7,
+   "sd": 4.89,
+   "rank": 40,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "UNM",
+   "rating": 7.64,
+   "sd": 4.88,
+   "rank": 41,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "WASH",
+   "rating": 7.56,
+   "sd": 4.9,
+   "rank": 42,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "MICH",
+   "rating": 7.5,
+   "sd": 4.87,
+   "rank": 43,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "AUB",
+   "rating": 7.1,
+   "sd": 4.91,
+   "rank": 44,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "UNT",
+   "rating": 7.06,
+   "sd": 4.87,
+   "rank": 45,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "OKLA",
+   "rating": 6.41,
+   "sd": 13.41,
+   "rank": 46,
+   "games": 0,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "UNC",
+   "rating": 6.33,
+   "sd": 4.86,
+   "rank": 47,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "FSU",
+   "rating": 5.82,
+   "sd": 4.91,
+   "rank": 48,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "CLEM",
+   "rating": 5.29,
+   "sd": 4.86,
+   "rank": 49,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "MSST",
+   "rating": 5.2,
+   "sd": 4.88,
+   "rank": 50,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "NW",
+   "rating": 4.94,
+   "sd": 13.14,
+   "rank": 51,
+   "games": 0,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "WISC",
+   "rating": 4.91,
+   "sd": 12.17,
+   "rank": 52,
+   "games": 0,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "UCF",
+   "rating": 4.84,
+   "sd": 4.91,
+   "rank": 53,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "KU",
+   "rating": 4.83,
+   "sd": 4.88,
+   "rank": 54,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "MIAMI",
+   "rating": 4.59,
+   "sd": 13.15,
+   "rank": 55,
+   "games": 0,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "ISU",
+   "rating": 4.24,
+   "sd": 4.9,
+   "rank": 56,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "MINN",
+   "rating": 3.98,
+   "sd": 4.88,
+   "rank": 57,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "MEM",
+   "rating": 3.86,
+   "sd": 4.96,
+   "rank": 58,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "CIN",
+   "rating": 3.79,
+   "sd": 4.88,
+   "rank": 59,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "TXST",
+   "rating": 3.69,
+   "sd": 4.87,
+   "rank": 60,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "NCST",
+   "rating": 3.66,
+   "sd": 12.17,
+   "rank": 61,
+   "games": 0,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "VT",
+   "rating": 3.65,
+   "sd": 4.93,
+   "rank": 62,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "UVA",
+   "rating": 3.63,
+   "sd": 4.93,
+   "rank": 63,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "LT",
+   "rating": 3.48,
+   "sd": 4.83,
+   "rank": 64,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "BSU",
+   "rating": 3.32,
+   "sd": 12.76,
+   "rank": 65,
+   "games": 0,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "LIB",
+   "rating": 3.3,
+   "sd": 4.91,
+   "rank": 66,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "IND",
+   "rating": 2.76,
+   "sd": 13.42,
+   "rank": 67,
+   "games": 0,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "ASU",
+   "rating": 2.54,
+   "sd": 4.85,
+   "rank": 68,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "MSU",
+   "rating": 2.38,
+   "sd": 4.94,
+   "rank": 69,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "KSU",
+   "rating": 1.87,
+   "sd": 4.89,
+   "rank": 70,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "WVU",
+   "rating": 1.78,
+   "sd": 4.94,
+   "rank": 71,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "VAN",
+   "rating": 1.43,
+   "sd": 4.91,
+   "rank": 72,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "USF",
+   "rating": 1.18,
+   "sd": 4.89,
+   "rank": 73,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "SYR",
+   "rating": 1.07,
+   "sd": 4.88,
+   "rank": 74,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "ARK",
+   "rating": 0.99,
+   "sd": 4.91,
+   "rank": 75,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "NCSU",
+   "rating": 0.73,
+   "sd": 4.89,
+   "rank": 76,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "FRES",
+   "rating": 0.18,
+   "sd": 4.91,
+   "rank": 77,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "TLSA",
+   "rating": 0.15,
+   "sd": 4.92,
+   "rank": 78,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "ARMY",
+   "rating": 0.09,
+   "sd": 4.84,
+   "rank": 79,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "JXST",
+   "rating": 0.0,
+   "sd": 5.57,
+   "rank": 80,
+   "games": 8,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "ORST",
+   "rating": -0.26,
+   "sd": 4.91,
+   "rank": 81,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "LAT",
+   "rating": -0.27,
+   "sd": 13.43,
+   "rank": 82,
+   "games": 0,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "PUR",
+   "rating": -0.43,
+   "sd": 4.92,
+   "rank": 83,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "ARKST",
+   "rating": -0.68,
+   "sd": 13.63,
+   "rank": 84,
+   "games": 0,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "GASO",
+   "rating": -1.0,
+   "sd": 4.92,
+   "rank": 85,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "AF",
+   "rating": -1.04,
+   "sd": 14.09,
+   "rank": 86,
+   "games": 0,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "NDSU",
+   "rating": -1.15,
+   "sd": 4.97,
+   "rank": 87,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "UTSA",
+   "rating": -1.38,
+   "sd": 4.91,
+   "rank": 88,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "TOL",
+   "rating": -1.77,
+   "sd": 4.91,
+   "rank": 89,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "MD",
+   "rating": -2.2,
+   "sd": 4.91,
+   "rank": 90,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "ULL",
+   "rating": -2.26,
+   "sd": 13.62,
+   "rank": 91,
+   "games": 0,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "NAVY",
+   "rating": -2.34,
+   "sd": 4.83,
+   "rank": 92,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "IDHO",
+   "rating": -2.96,
+   "sd": 13.78,
+   "rank": 93,
+   "games": 0,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "ECU",
+   "rating": -3.15,
+   "sd": 4.86,
+   "rank": 94,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "WMU",
+   "rating": -3.38,
+   "sd": 4.91,
+   "rank": 95,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "CONN",
+   "rating": -3.52,
+   "sd": 4.86,
+   "rank": 96,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "CHAR",
+   "rating": -3.54,
+   "sd": 13.63,
+   "rank": 97,
+   "games": 0,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "AKRON",
+   "rating": -3.7,
+   "sd": 13.64,
+   "rank": 98,
+   "games": 0,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "AFA",
+   "rating": -3.92,
+   "sd": 4.86,
+   "rank": 99,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "UMASS",
+   "rating": -4.08,
+   "sd": 13.64,
+   "rank": 100,
+   "games": 0,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "RUTG",
+   "rating": -4.08,
+   "sd": 4.88,
+   "rank": 101,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "FAU",
+   "rating": -4.21,
+   "sd": 4.89,
+   "rank": 102,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "COLO",
+   "rating": -4.25,
+   "sd": 4.9,
+   "rank": 103,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "BC",
+   "rating": -4.26,
+   "sd": 4.89,
+   "rank": 104,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "UL",
+   "rating": -4.53,
+   "sd": 4.92,
+   "rank": 105,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "GT",
+   "rating": -4.92,
+   "sd": 4.86,
+   "rank": 106,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "OHIO",
+   "rating": -4.99,
+   "sd": 4.92,
+   "rank": 107,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "USU",
+   "rating": -5.23,
+   "sd": 4.89,
+   "rank": 108,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "UNLV",
+   "rating": -5.51,
+   "sd": 4.92,
+   "rank": 109,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "GAST",
+   "rating": -5.84,
+   "sd": 4.89,
+   "rank": 110,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "WSU",
+   "rating": -6.83,
+   "sd": 4.94,
+   "rank": 111,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "JVST",
+   "rating": -6.89,
+   "sd": 8.03,
+   "rank": 112,
+   "games": 0,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "CAL",
+   "rating": -7.27,
+   "sd": 4.93,
+   "rank": 113,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "TULN",
+   "rating": -7.99,
+   "sd": 4.86,
+   "rank": 114,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "UCONN",
+   "rating": -8.25,
+   "sd": 13.64,
+   "rank": 115,
+   "games": 0,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "SDSU",
+   "rating": -8.41,
+   "sd": 4.93,
+   "rank": 116,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "USA",
+   "rating": -8.7,
+   "sd": 4.9,
+   "rank": 117,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "APP",
+   "rating": -8.77,
+   "sd": 4.88,
+   "rank": 118,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "DEL",
+   "rating": -8.8,
+   "sd": 4.9,
+   "rank": 119,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "ARST",
+   "rating": -9.32,
+   "sd": 4.92,
+   "rank": 120,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "TEM",
+   "rating": -9.35,
+   "sd": 4.9,
+   "rank": 121,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "STAN",
+   "rating": -9.58,
+   "sd": 4.97,
+   "rank": 122,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "ODU",
+   "rating": -9.62,
+   "sd": 4.76,
+   "rank": 123,
+   "games": 10,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "M-OH",
+   "rating": -9.62,
+   "sd": 4.91,
+   "rank": 124,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "KENN",
+   "rating": -9.65,
+   "sd": 4.88,
+   "rank": 125,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "HAW",
+   "rating": -9.68,
+   "sd": 4.95,
+   "rank": 126,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "CCU",
+   "rating": -10.41,
+   "sd": 4.91,
+   "rank": 127,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "TROY",
+   "rating": -10.71,
+   "sd": 4.86,
+   "rank": 128,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "WYO",
+   "rating": -10.88,
+   "sd": 4.95,
+   "rank": 129,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "CMU",
+   "rating": -10.91,
+   "sd": 4.92,
+   "rank": 130,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "UAB",
+   "rating": -11.44,
+   "sd": 4.91,
+   "rank": 131,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "FIU",
+   "rating": -11.56,
+   "sd": 4.88,
+   "rank": 132,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "NEV",
+   "rating": -12.26,
+   "sd": 4.88,
+   "rank": 133,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "SJSU",
+   "rating": -12.44,
+   "sd": 4.78,
+   "rank": 134,
+   "games": 10,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "WKU",
+   "rating": -13.03,
+   "sd": 4.92,
+   "rank": 135,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "BUFF",
+   "rating": -13.64,
+   "sd": 4.93,
+   "rank": 136,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "MRSH",
+   "rating": -13.65,
+   "sd": 4.91,
+   "rank": 137,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "USM",
+   "rating": -14.02,
+   "sd": 4.87,
+   "rank": 138,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "MOST",
+   "rating": -14.1,
+   "sd": 4.88,
+   "rank": 139,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "NMSU",
+   "rating": -14.15,
+   "sd": 4.95,
+   "rank": 140,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "CSU",
+   "rating": -14.33,
+   "sd": 4.89,
+   "rank": 141,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "RICE",
+   "rating": -14.43,
+   "sd": 4.9,
+   "rank": 142,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "MTSU",
+   "rating": -15.83,
+   "sd": 4.92,
+   "rank": 143,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "EMU",
+   "rating": -16.93,
+   "sd": 4.84,
+   "rank": 144,
+   "games": 10,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "BGSU",
+   "rating": -17.56,
+   "sd": 4.94,
+   "rank": 145,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "MASS",
+   "rating": -18.16,
+   "sd": 4.93,
+   "rank": 146,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "SHSU",
+   "rating": -19.27,
+   "sd": 4.9,
+   "rank": 147,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "BALL",
+   "rating": -19.39,
+   "sd": 4.93,
+   "rank": 148,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "AKR",
+   "rating": -20.49,
+   "sd": 4.94,
+   "rank": 149,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "ULM",
+   "rating": -21.14,
+   "sd": 4.88,
+   "rank": 150,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "CLT",
+   "rating": -21.89,
+   "sd": 4.91,
+   "rank": 151,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "NIU",
+   "rating": -22.02,
+   "sd": 4.86,
+   "rank": 152,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "KENT",
+   "rating": -22.38,
+   "sd": 4.94,
+   "rank": 153,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "UTEP",
+   "rating": -22.71,
+   "sd": 4.91,
+   "rank": 154,
+   "games": 9,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "SAC",
+   "rating": -24.66,
+   "sd": 4.79,
+   "rank": 155,
+   "games": 10,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  },
+  {
+   "team": "FCS",
+   "rating": -35.65,
+   "sd": 3.21,
+   "rank": 156,
+   "games": 124,
+   "updatedAt": "2026-11-08T03:30:00Z"
+  }
+ ],
+ "upcoming": [],
+ "limitations": [
+  "Backtest numbers are not a claim of a live edge; only settled ledger rows can make that claim.",
+  "Ratings use final margins only: no injuries, quarterbacks, rest, travel or weather.",
+  "Home advantage is a single learned constant per fit; it does not vary by team or drift inside a season.",
+  "Archived lines are one consensus number per game (effectively closing), so backtest selections are graded at the close and no closing-line value can be measured offline.",
+  "The independent model trails the market on margin MAE (13.2187 vs 12.3191); treat it as a sanity check on the market, not a replacement for it.",
+  "NCAAF: FCS opponents are pooled into one rating; the betting archive is a multi-book median, carries spread prices only for 2010-2019 (selections after 2019 are graded but unpriced) and ends with the 2025 season; the schedule archive has no future games, so there is no upcoming list."
+ ],
+ "forecastFit": {
+  "hyper": {
+   "process_sd_day": 0.40113,
+   "season_reversion": 0.14329,
+   "season_sd": 5.81326,
+   "hfa": 2.76182,
+   "sigma": 14.7708,
+   "init_sd": 6.75979
+  },
+  "trainSeasons": [
+   2010,
+   2011,
+   2012,
+   2013,
+   2014,
+   2015,
+   2016,
+   2017,
+   2018,
+   2019,
+   2020,
+   2021,
+   2022,
+   2023,
+   2024,
+   2025
+  ],
+  "fit": {
+   "nllPerGame": 4.234499061172562,
+   "iterations": 276,
+   "converged": true
+  },
+  "reused": true,
+  "currentSeason": 2026,
+  "anchor": {
+   "beta": -0.00492,
+   "intercept": 0.01806,
+   "sd": 15.60512,
+   "n": 12537,
+   "alpha": 1.0
+  },
+  "empiricalResiduals": 12949,
+  "empiricalMargin": true
+ },
+ "forecastGeneratedAt": "2026-11-10T17:40:02Z",
+ "ledgerRecorded": 0
+}

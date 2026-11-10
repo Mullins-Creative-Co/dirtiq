@@ -88,7 +88,15 @@ def audit_routing(limit=None, include_empty=True):
         )
 
 
+def racing_cli(*args):
+    """Route to the conditional-logit engine: python3 -m dirtiq_model racing <args>."""
+    subprocess.run([sys.executable, "-m", "dirtiq_model", "racing", *args], cwd=ROOT, check=True)
+
+
 def train(series_key, engine, stage="early"):
+    if engine == "cl":
+        racing_cli("train", "--series", series_key, "--stage", stage)
+        return
     series_names = SERIES.values() if series_key == "all" else [SERIES[series_key]]
     for series in series_names:
         env = os.environ.copy()
@@ -102,7 +110,10 @@ def train(series_key, engine, stage="early"):
         subprocess.run([sys.executable, str(TRAIN_PATH)], cwd=ROOT, env=env, check=True)
 
 
-def score_race(race_id, model=None):
+def score_race(race_id, model=None, engine=None):
+    if engine == "cl":
+        racing_cli("score", str(race_id), *(["--model", model] if model else []))
+        return None
     args = [sys.executable, str(PREDICT_PATH), str(race_id), "--cache"]
     if model:
         args.extend(["--model", model])
@@ -115,7 +126,10 @@ def score_race(race_id, model=None):
     return payload
 
 
-def score_upcoming(limit=None, include_empty=False):
+def score_upcoming(limit=None, include_empty=False, engine=None):
+    if engine == "cl":
+        racing_cli("score", "--upcoming", *(["--limit", str(limit)] if limit else []))
+        return
     rows = upcoming_races(limit=limit, include_empty=include_empty)
     if not rows:
         print("No upcoming races with entries found.")
@@ -128,7 +142,7 @@ def main():
     parser = argparse.ArgumentParser(description="Maintain Dirt IQ model artifacts and race caches.")
     parser.add_argument("--audit-routing", action="store_true", help="Show which model each upcoming race will use.")
     parser.add_argument("--train", choices=["all", "lucas", "woo", "crown", "summer"], help="Retrain model artifacts.")
-    parser.add_argument("--engine", choices=["auto", "xgboost", "sklearn"], default=None, help="Training engine preference.")
+    parser.add_argument("--engine", choices=["auto", "xgboost", "sklearn", "cl"], default=None, help="Training engine preference; 'cl' routes train/score to python3 -m dirtiq_model racing.")
     parser.add_argument("--stage", choices=["early", "race-night"], default="early", help="Train the entries-only or post-prelim artifact.")
     parser.add_argument("--score-upcoming", action="store_true", help="Cache predictions for upcoming races with entries.")
     parser.add_argument("--score-race", type=int, help="Cache predictions for one race.")
@@ -140,7 +154,7 @@ def main():
 
     if args.refresh:
         train("all", args.engine, args.stage)
-        score_upcoming(limit=args.limit, include_empty=args.include_empty)
+        score_upcoming(limit=args.limit, include_empty=args.include_empty, engine=args.engine)
         audit_routing(limit=args.limit, include_empty=True)
         return
 
@@ -149,10 +163,10 @@ def main():
         train(args.train, args.engine, args.stage)
         did_work = True
     if args.score_race is not None:
-        score_race(args.score_race, None if args.model == "auto" else args.model)
+        score_race(args.score_race, None if args.model == "auto" else args.model, engine=args.engine)
         did_work = True
     if args.score_upcoming:
-        score_upcoming(limit=args.limit, include_empty=args.include_empty)
+        score_upcoming(limit=args.limit, include_empty=args.include_empty, engine=args.engine)
         did_work = True
     if args.audit_routing:
         audit_routing(limit=args.limit, include_empty=True)

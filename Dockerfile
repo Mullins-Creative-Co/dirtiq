@@ -17,6 +17,7 @@ COPY --from=build /app/public ./public
 COPY --from=build /app/data/dirtiq_model_*.pkl /app/data/
 COPY --from=build /app/data/feature_params_*.json /app/data/
 COPY scripts ./scripts
+COPY dirtiq_model ./dirtiq_model
 COPY src/lib/mrp-lineup.ts ./src/lib/mrp-lineup.ts
 COPY scripts/start-production.sh ./start-production.sh
 EXPOSE 3000

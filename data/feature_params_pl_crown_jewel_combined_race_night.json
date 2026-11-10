@@ -1,0 +1,336 @@
+{
+  "features": [
+    "log_career_starts",
+    "career_win_rate",
+    "career_top3_rate",
+    "career_avg_finish",
+    "career_dnf_rate",
+    "last5_avg_finish",
+    "last10_avg_finish",
+    "last5_win_rate",
+    "last10_win_rate",
+    "ewm_finish",
+    "ewm_win",
+    "log_days_since_last_start",
+    "won_last_14d",
+    "podium_last_14d",
+    "log_track_starts",
+    "track_win_rate",
+    "track_top3_rate",
+    "track_avg_finish",
+    "log_similar_track_starts",
+    "similar_track_win_rate",
+    "similar_track_avg_finish",
+    "prev_same_track_3d",
+    "prev_same_track_win_3d",
+    "prev_same_track_top3_3d",
+    "prev_same_track_finish_3d",
+    "crown_prior_podium_365d",
+    "crown_prior_win_365d",
+    "eldora_prior_podium_365d",
+    "elo",
+    "elo_field_rel",
+    "field_size",
+    "start_pos_norm",
+    "heat_pos_norm",
+    "bmain_pos_norm",
+    "used_bmain_path",
+    "qt_rank_norm"
+  ],
+  "feature_meanings": {
+    "log_career_starts": "log1p(completed starts before this date, any series)",
+    "career_win_rate": "career win rate shrunk toward the as-of series mean (5 pseudo-starts)",
+    "career_top3_rate": "career top-3 rate, shrunk",
+    "career_avg_finish": "career average finishing position, shrunk toward the series mean",
+    "career_dnf_rate": "career DNF rate, shrunk",
+    "last5_avg_finish": "average finish over the previous 5 starts",
+    "last10_avg_finish": "average finish over the previous 10 starts",
+    "last5_win_rate": "win rate over the previous 5 starts",
+    "last10_win_rate": "win rate over the previous 10 starts",
+    "ewm_finish": "exponentially weighted average finish, half-life 10 starts",
+    "ewm_win": "exponentially weighted win indicator, half-life 10 starts",
+    "log_days_since_last_start": "log1p(days since the driver's previous completed start)",
+    "won_last_14d": "1 if the driver won a race in the previous 14 days",
+    "podium_last_14d": "1 if the driver finished top-3 in the previous 14 days",
+    "log_track_starts": "log1p(prior starts at this track)",
+    "track_win_rate": "win rate at this track, shrunk toward the career rate",
+    "track_top3_rate": "top-3 rate at this track, shrunk",
+    "track_avg_finish": "average finish at this track, shrunk toward the career average",
+    "log_similar_track_starts": "log1p(similarity-weighted prior starts at tracks listed in track_similars)",
+    "similar_track_win_rate": "similarity-weighted win rate at similar tracks, shrunk",
+    "similar_track_avg_finish": "similarity-weighted average finish at similar tracks, shrunk",
+    "prev_same_track_3d": "1 if the driver raced at this track in the previous 1-3 days (multi-night event)",
+    "prev_same_track_win_3d": "1 if the driver won at this track in the previous 1-3 days",
+    "prev_same_track_top3_3d": "1 if the driver finished top-3 at this track in the previous 1-3 days",
+    "prev_same_track_finish_3d": "finishing position at this track in the previous 1-3 days (NaN if none)",
+    "crown_prior_podium_365d": "1 if top-3 at a crown-jewel event in the previous 365 days",
+    "crown_prior_win_365d": "1 if won a crown-jewel event in the previous 365 days",
+    "eldora_prior_podium_365d": "1 if top-3 at Eldora in the previous 365 days",
+    "elo": "pairwise finishing-order Elo rating before this date (K=24, start 1500)",
+    "elo_field_rel": "Elo minus the mean Elo of tonight's field",
+    "field_size": "number of entrants scored in this race",
+    "start_pos_norm": "feature starting position scaled 0 (pole) to 1 (last)",
+    "heat_pos_norm": "heat finishing position scaled 0 to 1 across the field",
+    "bmain_pos_norm": "B-main finishing position scaled 0 to 1 among B-main transfers",
+    "used_bmain_path": "1 if the driver reached the feature through a B-main",
+    "qt_rank_norm": "qualifying-time rank scaled 0 (fastest) to 1 (slowest)"
+  },
+  "version": "1.0",
+  "model_id": "racing-cl",
+  "series": "Crown Jewel / Combined",
+  "model_stage": "race-night",
+  "variant": "cl",
+  "model_engine": "conditional_logit",
+  "model_algorithm": "Conditional logit (Plackett-Luce winner), L2, L-BFGS",
+  "trained_at": "2026-11-10T17:23:48Z",
+  "data_through": "2026-11-05",
+  "trained_on": "Crown Jewel / Combined through 2026-11-05 (93 races, 2293 entries)",
+  "n_production": 2293,
+  "eligible_races": 93,
+  "test_auc": null,
+  "backtest_logloss": 2.1334,
+  "backtest_top1": 0.2444,
+  "backtest_top3_overlap": 1.3778,
+  "backtest_ece": 0.0132,
+  "backtest_legacy_logloss": 2.5417,
+  "backtest_uniform_logloss": 3.1786,
+  "backtest_seasons": [
+    2025,
+    2026
+  ],
+  "backtest_variants": {
+    "cl": {
+      "logLoss": 2.1334,
+      "top1": 0.2444,
+      "top3Overlap": 1.3778,
+      "brier": 0.03612,
+      "ece": 0.0132
+    },
+    "boosted": {
+      "logLoss": 2.5703,
+      "top1": 0.1556,
+      "top3Overlap": 1.3333,
+      "brier": 0.04096,
+      "ece": 0.0287
+    },
+    "legacy-method": {
+      "logLoss": 2.5417,
+      "top1": 0.1778,
+      "top3Overlap": 1.2444,
+      "brier": 0.03826,
+      "ece": 0.0199
+    },
+    "form-only": {
+      "logLoss": 2.5663,
+      "top1": 0.2,
+      "top3Overlap": 1.0,
+      "brier": 0.03676,
+      "ece": 0.0105
+    },
+    "uniform": {
+      "logLoss": 3.1786,
+      "top1": 0.2222,
+      "top3Overlap": 0.9333,
+      "brier": 0.03947,
+      "ece": 0.0
+    }
+  },
+  "top1_acc": 0.2444,
+  "auto_select": true,
+  "race_night_coverage": {
+    "starting_position": 0.7,
+    "heat_or_qualifying": 0.5
+  },
+  "feature_weights": [
+    {
+      "name": "log_career_starts",
+      "weight": 0.092
+    },
+    {
+      "name": "career_win_rate",
+      "weight": 0.05
+    },
+    {
+      "name": "career_top3_rate",
+      "weight": 0.0477
+    },
+    {
+      "name": "career_avg_finish",
+      "weight": -0.0479
+    },
+    {
+      "name": "career_dnf_rate",
+      "weight": -0.0178
+    },
+    {
+      "name": "last5_avg_finish",
+      "weight": -0.0406
+    },
+    {
+      "name": "last10_avg_finish",
+      "weight": -0.0674
+    },
+    {
+      "name": "last5_win_rate",
+      "weight": 0.0664
+    },
+    {
+      "name": "last10_win_rate",
+      "weight": 0.0822
+    },
+    {
+      "name": "ewm_finish",
+      "weight": -0.0662
+    },
+    {
+      "name": "ewm_win",
+      "weight": 0.0974
+    },
+    {
+      "name": "log_days_since_last_start",
+      "weight": -0.0309
+    },
+    {
+      "name": "won_last_14d",
+      "weight": 0.01
+    },
+    {
+      "name": "podium_last_14d",
+      "weight": 0.0279
+    },
+    {
+      "name": "log_track_starts",
+      "weight": 0.0845
+    },
+    {
+      "name": "track_win_rate",
+      "weight": -0.0043
+    },
+    {
+      "name": "track_top3_rate",
+      "weight": 0.0046
+    },
+    {
+      "name": "track_avg_finish",
+      "weight": -0.0084
+    },
+    {
+      "name": "log_similar_track_starts",
+      "weight": 0.0046
+    },
+    {
+      "name": "similar_track_win_rate",
+      "weight": 0.0554
+    },
+    {
+      "name": "similar_track_avg_finish",
+      "weight": -0.0518
+    },
+    {
+      "name": "prev_same_track_3d",
+      "weight": 0.0174
+    },
+    {
+      "name": "prev_same_track_win_3d",
+      "weight": 0.0093
+    },
+    {
+      "name": "prev_same_track_top3_3d",
+      "weight": 0.046
+    },
+    {
+      "name": "prev_same_track_finish_3d",
+      "weight": -0.0275
+    },
+    {
+      "name": "crown_prior_podium_365d",
+      "weight": 0.0368
+    },
+    {
+      "name": "crown_prior_win_365d",
+      "weight": -0.0087
+    },
+    {
+      "name": "eldora_prior_podium_365d",
+      "weight": 0.0237
+    },
+    {
+      "name": "elo",
+      "weight": 0.1045
+    },
+    {
+      "name": "elo_field_rel",
+      "weight": 0.118
+    },
+    {
+      "name": "field_size",
+      "weight": 0.0
+    },
+    {
+      "name": "start_pos_norm",
+      "weight": -0.3298
+    },
+    {
+      "name": "heat_pos_norm",
+      "weight": -0.237
+    },
+    {
+      "name": "bmain_pos_norm",
+      "weight": 0.0
+    },
+    {
+      "name": "used_bmain_path",
+      "weight": 0.0
+    },
+    {
+      "name": "qt_rank_norm",
+      "weight": -0.1833
+    },
+    {
+      "name": "last5_avg_finish__missing",
+      "weight": -0.0162
+    },
+    {
+      "name": "last10_avg_finish__missing",
+      "weight": -0.0162
+    },
+    {
+      "name": "last5_win_rate__missing",
+      "weight": -0.0162
+    },
+    {
+      "name": "last10_win_rate__missing",
+      "weight": -0.0162
+    },
+    {
+      "name": "ewm_finish__missing",
+      "weight": -0.0162
+    },
+    {
+      "name": "ewm_win__missing",
+      "weight": -0.0162
+    },
+    {
+      "name": "log_days_since_last_start__missing",
+      "weight": -0.0162
+    },
+    {
+      "name": "prev_same_track_finish_3d__missing",
+      "weight": -0.0174
+    },
+    {
+      "name": "heat_pos_norm__missing",
+      "weight": 0.0086
+    },
+    {
+      "name": "bmain_pos_norm__missing",
+      "weight": 0.0
+    },
+    {
+      "name": "qt_rank_norm__missing",
+      "weight": -0.0004
+    }
+  ],
+  "l2": 100.0,
+  "converged": true
+}

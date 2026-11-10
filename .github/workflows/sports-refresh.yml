@@ -1,0 +1,55 @@
+name: Refresh team-sport forecasts and ledger
+on:
+  schedule:
+    - cron: '41 */6 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/sports-refresh.yml'
+      - 'dirtiq_model/teams/**'
+      - 'dirtiq_model/ledger_core.py'
+      - 'dirtiq_model/scoring.py'
+permissions:
+  contents: write
+concurrency:
+  group: sports-forecast-refresh
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - uses: actions/cache@v4
+        with:
+          path: sports-cache
+          key: sports-sources-v1-${{ github.run_id }}
+          restore-keys: sports-sources-v1-
+      - run: pip install -r requirements.txt
+      - run: OPENBLAS_NUM_THREADS=1 python -m unittest discover -s tests -p 'test_teams*.py'
+      - run: OPENBLAS_NUM_THREADS=1 python -m unittest discover -s tests -p 'test_ledger.py'
+      - name: Settle, forecast and export
+        env:
+          DIRTIQ_SPORTS_CACHE: ${{ github.workspace }}/sports-cache
+        run: |
+          set -e
+          for sport in nfl nba; do
+            python -m dirtiq_model teams settle --sport "$sport" --refresh || echo "settle $sport failed"
+            python -m dirtiq_model teams forecast --sport "$sport" || echo "forecast $sport failed"
+          done
+          python -m dirtiq_model ledger export
+      - name: Publish only sport reports and the ledger, preserving other writers
+        run: |
+          git config user.name 'DirtIQ data bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add public/sports public/data/forecast-ledger.json public/data/model-health.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Refresh team-sport forecasts and ledger'
+          git pull --rebase origin main
+          git push origin HEAD:main

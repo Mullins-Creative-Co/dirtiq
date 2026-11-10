@@ -1,0 +1,3921 @@
+{
+ "generatedAt": "2026-11-10T17:25:37Z",
+ "modelId": "racing-cl",
+ "modelVersion": "1.0",
+ "method": "rolling-origin by season: train through year t-1, test year t; every variant fitted per fold on identical races",
+ "raceNightRule": {
+  "starting_position": 0.7,
+  "heat_or_qualifying": 0.5
+ },
+ "variants": {
+  "cl": "conditional logit (Plackett-Luce winner), L2, standardized as-of features with missing indicators",
+  "boosted": "XGBoost binary score (depth 3, 300 trees, eta 0.03, min_child_weight 10, early stopping) -> per-race temperature softmax",
+  "legacy-method": "legacy XGBoost hyperparameters (700 trees, depth 4) + power 0.65 / cap 0.45 normalizer on the same leak-free features",
+  "form-only": "softmax of -scale * last-10 average finish, scale fitted on the training fold",
+  "uniform": "1 / field size"
+ },
+ "series": [
+  {
+   "series": "Lucas Oil LMDS",
+   "slug": "lucas_oil_lmds",
+   "stage": "early",
+   "variant": "cl",
+   "selectionRule": "min held-out multinomial log loss over cl and boosted",
+   "races": 158,
+   "entries": 3971,
+   "seasons": [
+    2023,
+    2024,
+    2025,
+    2026
+   ],
+   "folds": [
+    {
+     "season": 2023,
+     "trainYears": [
+      2020,
+      2021,
+      2022
+     ],
+     "trainRaces": 68,
+     "testRaces": 27
+    },
+    {
+     "season": 2024,
+     "trainYears": [
+      2020,
+      2021,
+      2022,
+      2023
+     ],
+     "trainRaces": 95,
+     "testRaces": 41
+    },
+    {
+     "season": 2025,
+     "trainYears": [
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+     ],
+     "trainRaces": 136,
+     "testRaces": 43
+    },
+    {
+     "season": 2026,
+     "trainYears": [
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "trainRaces": 179,
+     "testRaces": 47
+    }
+   ],
+   "logLoss": 2.3116,
+   "top1": 0.2152,
+   "top3Overlap": 1.3354,
+   "brier": 0.03458,
+   "ece": 0.0047,
+   "calibration": [
+    {
+     "lo": 0.0,
+     "hi": 0.05,
+     "n": 3160,
+     "predicted": 0.012,
+     "observed": 0.013
+    },
+    {
+     "lo": 0.05,
+     "hi": 0.1,
+     "n": 318,
+     "predicted": 0.0713,
+     "observed": 0.0912
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "n": 313,
+     "predicted": 0.1445,
+     "observed": 0.1438
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "n": 121,
+     "predicted": 0.242,
+     "observed": 0.2066
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "n": 37,
+     "predicted": 0.3354,
+     "observed": 0.2973
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "n": 15,
+     "predicted": 0.4455,
+     "observed": 0.3333
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "n": 7,
+     "predicted": 0.5302,
+     "observed": 0.2857
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "n": 0,
+     "predicted": null,
+     "observed": null
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "n": 0,
+     "predicted": null,
+     "observed": null
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "n": 0,
+     "predicted": null,
+     "observed": null
+    },
+    {
+     "lo": 0.9,
+     "hi": 1.0,
+     "n": 0,
+     "predicted": null,
+     "observed": null
+    }
+   ],
+   "bySeason": [
+    {
+     "season": 2023,
+     "races": 27,
+     "clLogLoss": 2.3401,
+     "clTop1": 0.2963,
+     "boostedLogLoss": 2.5086,
+     "boostedTop1": 0.1111,
+     "legacyLogLoss": 2.9983,
+     "legacyTop1": 0.1852,
+     "formOnlyLogLoss": 2.3639,
+     "formOnlyTop1": 0.3333,
+     "uniformLogLoss": 3.223,
+     "uniformTop1": 0.0741,
+     "logLoss": 2.3401,
+     "top1": 0.2963
+    },
+    {
+     "season": 2024,
+     "races": 41,
+     "clLogLoss": 2.3844,
+     "clTop1": 0.2927,
+     "boostedLogLoss": 2.5904,
+     "boostedTop1": 0.2195,
+     "legacyLogLoss": 2.685,
+     "legacyTop1": 0.2195,
+     "formOnlyLogLoss": 2.7413,
+     "formOnlyTop1": 0.1707,
+     "uniformLogLoss": 3.2377,
+     "uniformTop1": 0.1463,
+     "logLoss": 2.3844,
+     "top1": 0.2927
+    },
+    {
+     "season": 2025,
+     "races": 43,
+     "clLogLoss": 2.1475,
+     "clTop1": 0.2093,
+     "boostedLogLoss": 2.3106,
+     "boostedTop1": 0.1395,
+     "legacyLogLoss": 2.583,
+     "legacyTop1": 0.186,
+     "formOnlyLogLoss": 2.3407,
+     "formOnlyTop1": 0.186,
+     "uniformLogLoss": 3.2097,
+     "uniformTop1": 0.1395,
+     "logLoss": 2.1475,
+     "top1": 0.2093
+    },
+    {
+     "season": 2026,
+     "races": 47,
+     "clLogLoss": 2.3819,
+     "clTop1": 0.1064,
+     "boostedLogLoss": 2.4813,
+     "boostedTop1": 0.1489,
+     "legacyLogLoss": 2.6272,
+     "legacyTop1": 0.1489,
+     "formOnlyLogLoss": 2.6051,
+     "formOnlyTop1": 0.1702,
+     "uniformLogLoss": 3.2096,
+     "uniformTop1": 0.1489,
+     "logLoss": 2.3819,
+     "top1": 0.1064
+    }
+   ],
+   "features": [
+    {
+     "name": "elo_field_rel",
+     "weight": 0.2778
+    },
+    {
+     "name": "elo",
+     "weight": 0.2498
+    },
+    {
+     "name": "prev_same_track_finish_3d",
+     "weight": -0.2196
+    },
+    {
+     "name": "log_days_since_last_start",
+     "weight": -0.2102
+    },
+    {
+     "name": "log_career_starts",
+     "weight": 0.1939
+    },
+    {
+     "name": "log_track_starts",
+     "weight": 0.1935
+    },
+    {
+     "name": "track_win_rate",
+     "weight": -0.1774
+    },
+    {
+     "name": "ewm_win",
+     "weight": 0.1702
+    },
+    {
+     "name": "crown_prior_podium_365d",
+     "weight": 0.1428
+    },
+    {
+     "name": "prev_same_track_top3_3d",
+     "weight": 0.137
+    },
+    {
+     "name": "log_similar_track_starts",
+     "weight": 0.1286
+    },
+    {
+     "name": "similar_track_avg_finish",
+     "weight": -0.1277
+    },
+    {
+     "name": "last10_avg_finish",
+     "weight": -0.1266
+    },
+    {
+     "name": "crown_prior_win_365d",
+     "weight": 0.0944
+    },
+    {
+     "name": "last5_avg_finish",
+     "weight": -0.0828
+    },
+    {
+     "name": "podium_last_14d",
+     "weight": 0.0822
+    },
+    {
+     "name": "career_win_rate",
+     "weight": 0.0813
+    },
+    {
+     "name": "prev_same_track_3d",
+     "weight": 0.0809
+    },
+    {
+     "name": "prev_same_track_finish_3d__missing",
+     "weight": -0.0809
+    },
+    {
+     "name": "eldora_prior_podium_365d",
+     "weight": 0.0738
+    },
+    {
+     "name": "ewm_finish",
+     "weight": -0.071
+    },
+    {
+     "name": "last5_avg_finish__missing",
+     "weight": -0.0658
+    },
+    {
+     "name": "last10_avg_finish__missing",
+     "weight": -0.0658
+    },
+    {
+     "name": "last5_win_rate__missing",
+     "weight": -0.0658
+    },
+    {
+     "name": "last10_win_rate__missing",
+     "weight": -0.0658
+    },
+    {
+     "name": "ewm_finish__missing",
+     "weight": -0.0658
+    },
+    {
+     "name": "ewm_win__missing",
+     "weight": -0.0658
+    },
+    {
+     "name": "log_days_since_last_start__missing",
+     "weight": -0.0658
+    },
+    {
+     "name": "career_avg_finish",
+     "weight": -0.0657
+    },
+    {
+     "name": "won_last_14d",
+     "weight": 0.057
+    },
+    {
+     "name": "career_top3_rate",
+     "weight": 0.0461
+    },
+    {
+     "name": "track_avg_finish",
+     "weight": -0.0318
+    },
+    {
+     "name": "prev_same_track_win_3d",
+     "weight": 0.0318
+    },
+    {
+     "name": "track_top3_rate",
+     "weight": 0.031
+    },
+    {
+     "name": "last5_win_rate",
+     "weight": 0.0123
+    },
+    {
+     "name": "similar_track_win_rate",
+     "weight": 0.0096
+    },
+    {
+     "name": "career_dnf_rate",
+     "weight": -0.0055
+    },
+    {
+     "name": "last10_win_rate",
+     "weight": 0.0047
+    },
+    {
+     "name": "field_size",
+     "weight": -0.0
+    }
+   ],
+   "variants": {
+    "cl": {
+     "logLoss": 2.3116,
+     "top1": 0.2152,
+     "top3Overlap": 1.3354,
+     "brier": 0.03458,
+     "ece": 0.0047
+    },
+    "boosted": {
+     "logLoss": 2.4678,
+     "top1": 0.1582,
+     "top3Overlap": 1.2658,
+     "brier": 0.03547,
+     "ece": 0.006
+    },
+    "legacy-method": {
+     "logLoss": 2.6936,
+     "top1": 0.1835,
+     "top3Overlap": 1.1392,
+     "brier": 0.03614,
+     "ece": 0.0081
+    },
+    "form-only": {
+     "logLoss": 2.5273,
+     "top1": 0.2025,
+     "top3Overlap": 1.1835,
+     "brier": 0.03538,
+     "ece": 0.0049
+    },
+    "uniform": {
+     "logLoss": 3.2192,
+     "top1": 0.1329,
+     "top3Overlap": 0.6456,
+     "brier": 0.03819,
+     "ece": 0.0
+    }
+   },
+   "clLogLoss": 2.3116,
+   "clTop1": 0.2152,
+   "clTop3Overlap": 1.3354,
+   "boostedLogLoss": 2.4678,
+   "boostedTop1": 0.1582,
+   "boostedTop3Overlap": 1.2658,
+   "legacyLogLoss": 2.6936,
+   "legacyTop1": 0.1835,
+   "legacyTop3Overlap": 1.1392,
+   "formOnlyLogLoss": 2.5273,
+   "formOnlyTop1": 0.2025,
+   "formOnlyTop3Overlap": 1.1835,
+   "uniformLogLoss": 3.2192,
+   "uniformTop1": 0.1329,
+   "uniformTop3Overlap": 0.6456
+  },
+  {
+   "series": "WoO Late Models",
+   "slug": "woo_late_models",
+   "stage": "early",
+   "variant": "cl",
+   "selectionRule": "min held-out multinomial log loss over cl and boosted",
+   "races": 219,
+   "entries": 5404,
+   "seasons": [
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+   ],
+   "folds": [
+    {
+     "season": 2022,
+     "trainYears": [
+      2021
+     ],
+     "trainRaces": 36,
+     "testRaces": 40
+    },
+    {
+     "season": 2023,
+     "trainYears": [
+      2021,
+      2022
+     ],
+     "trainRaces": 76,
+     "testRaces": 35
+    },
+    {
+     "season": 2024,
+     "trainYears": [
+      2021,
+      2022,
+      2023
+     ],
+     "trainRaces": 111,
+     "testRaces": 41
+    },
+    {
+     "season": 2025,
+     "trainYears": [
+      2021,
+      2022,
+      2023,
+      2024
+     ],
+     "trainRaces": 152,
+     "testRaces": 46
+    },
+    {
+     "season": 2026,
+     "trainYears": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "trainRaces": 198,
+     "testRaces": 57
+    }
+   ],
+   "logLoss": 2.5248,
+   "top1": 0.274,
+   "top3Overlap": 1.274,
+   "brier": 0.03589,
+   "ece": 0.0057,
+   "calibration": [
+    {
+     "lo": 0.0,
+     "hi": 0.05,
+     "n": 4370,
+     "predicted": 0.0154,
+     "observed": 0.0176
+    },
+    {
+     "lo": 0.05,
+     "hi": 0.1,
+     "n": 526,
+     "predicted": 0.0707,
+     "observed": 0.0817
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "n": 295,
+     "predicted": 0.1352,
+     "observed": 0.1322
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "n": 91,
+     "predicted": 0.2476,
+     "observed": 0.2308
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "n": 48,
+     "predicted": 0.3422,
+     "observed": 0.2917
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "n": 50,
+     "predicted": 0.4435,
+     "observed": 0.38
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "n": 17,
+     "predicted": 0.532,
+     "observed": 0.2353
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "n": 7,
+     "predicted": 0.637,
+     "observed": 0.2857
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "n": 0,
+     "predicted": null,
+     "observed": null
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "n": 0,
+     "predicted": null,
+     "observed": null
+    },
+    {
+     "lo": 0.9,
+     "hi": 1.0,
+     "n": 0,
+     "predicted": null,
+     "observed": null
+    }
+   ],
+   "bySeason": [
+    {
+     "season": 2022,
+     "races": 40,
+     "clLogLoss": 3.385,
+     "clTop1": 0.05,
+     "boostedLogLoss": 2.9463,
+     "boostedTop1": 0.075,
+     "legacyLogLoss": 3.4958,
+     "legacyTop1": 0.1,
+     "formOnlyLogLoss": 2.866,
+     "formOnlyTop1": 0.125,
+     "uniformLogLoss": 3.2239,
+     "uniformTop1": 0.125,
+     "logLoss": 3.385,
+     "top1": 0.05
+    },
+    {
+     "season": 2023,
+     "races": 35,
+     "clLogLoss": 2.2374,
+     "clTop1": 0.4,
+     "boostedLogLoss": 2.3427,
+     "boostedTop1": 0.3714,
+     "legacyLogLoss": 2.8074,
+     "legacyTop1": 0.1143,
+     "formOnlyLogLoss": 2.4712,
+     "formOnlyTop1": 0.4,
+     "uniformLogLoss": 3.2096,
+     "uniformTop1": 0.4,
+     "logLoss": 2.2374,
+     "top1": 0.4
+    },
+    {
+     "season": 2024,
+     "races": 41,
+     "clLogLoss": 2.4614,
+     "clTop1": 0.2439,
+     "boostedLogLoss": 5.2599,
+     "boostedTop1": 0.2683,
+     "legacyLogLoss": 2.5852,
+     "legacyTop1": 0.2439,
+     "formOnlyLogLoss": 2.5623,
+     "formOnlyTop1": 0.1463,
+     "uniformLogLoss": 3.1421,
+     "uniformTop1": 0.2683,
+     "logLoss": 2.4614,
+     "top1": 0.2439
+    },
+    {
+     "season": 2025,
+     "races": 46,
+     "clLogLoss": 2.5417,
+     "clTop1": 0.2391,
+     "boostedLogLoss": 2.3548,
+     "boostedTop1": 0.2826,
+     "legacyLogLoss": 2.711,
+     "legacyTop1": 0.1522,
+     "formOnlyLogLoss": 2.6489,
+     "formOnlyTop1": 0.1957,
+     "uniformLogLoss": 3.1669,
+     "uniformTop1": 0.2609,
+     "logLoss": 2.5417,
+     "top1": 0.2391
+    },
+    {
+     "season": 2026,
+     "races": 57,
+     "clLogLoss": 2.1295,
+     "clTop1": 0.4035,
+     "boostedLogLoss": 2.2561,
+     "boostedTop1": 0.2982,
+     "legacyLogLoss": 2.6517,
+     "legacyTop1": 0.1228,
+     "formOnlyLogLoss": 2.256,
+     "formOnlyTop1": 0.2982,
+     "uniformLogLoss": 3.1879,
+     "uniformTop1": 0.3509,
+     "logLoss": 2.1295,
+     "top1": 0.4035
+    }
+   ],
+   "features": [
+    {
+     "name": "track_top3_rate",
+     "weight": 0.1938
+    },
+    {
+     "name": "log_career_starts",
+     "weight": 0.1495
+    },
+    {
+     "name": "elo_field_rel",
+     "weight": 0.142
+    },
+    {
+     "name": "last5_avg_finish",
+     "weight": -0.1357
+    },
+    {
+     "name": "elo",
+     "weight": 0.1275
+    },
+    {
+     "name": "track_avg_finish",
+     "weight": -0.1186
+    },
+    {
+     "name": "last10_avg_finish",
+     "weight": -0.1176
+    },
+    {
+     "name": "ewm_finish",
+     "weight": -0.0932
+    },
+    {
+     "name": "career_top3_rate",
+     "weight": 0.09
+    },
+    {
+     "name": "log_track_starts",
+     "weight": 0.0823
+    },
+    {
+     "name": "podium_last_14d",
+     "weight": 0.068
+    },
+    {
+     "name": "similar_track_avg_finish",
+     "weight": -0.0639
+    },
+    {
+     "name": "similar_track_win_rate",
+     "weight": -0.0637
+    },
+    {
+     "name": "career_avg_finish",
+     "weight": -0.0566
+    },
+    {
+     "name": "career_dnf_rate",
+     "weight": 0.0544
+    },
+    {
+     "name": "last10_win_rate",
+     "weight": 0.045
+    },
+    {
+     "name": "track_win_rate",
+     "weight": 0.0372
+    },
+    {
+     "name": "log_days_since_last_start",
+     "weight": -0.0371
+    },
+    {
+     "name": "eldora_prior_podium_365d",
+     "weight": 0.0364
+    },
+    {
+     "name": "last5_avg_finish__missing",
+     "weight": -0.0348
+    },
+    {
+     "name": "last10_avg_finish__missing",
+     "weight": -0.0348
+    },
+    {
+     "name": "last5_win_rate__missing",
+     "weight": -0.0348
+    },
+    {
+     "name": "last10_win_rate__missing",
+     "weight": -0.0348
+    },
+    {
+     "name": "ewm_finish__missing",
+     "weight": -0.0348
+    },
+    {
+     "name": "ewm_win__missing",
+     "weight": -0.0348
+    },
+    {
+     "name": "log_days_since_last_start__missing",
+     "weight": -0.0348
+    },
+    {
+     "name": "ewm_win",
+     "weight": 0.0274
+    },
+    {
+     "name": "log_similar_track_starts",
+     "weight": 0.0257
+    },
+    {
+     "name": "last5_win_rate",
+     "weight": 0.0245
+    },
+    {
+     "name": "prev_same_track_top3_3d",
+     "weight": 0.0207
+    },
+    {
+     "name": "crown_prior_podium_365d",
+     "weight": 0.0197
+    },
+    {
+     "name": "prev_same_track_3d",
+     "weight": 0.0149
+    },
+    {
+     "name": "prev_same_track_finish_3d__missing",
+     "weight": -0.0149
+    },
+    {
+     "name": "prev_same_track_win_3d",
+     "weight": -0.0145
+    },
+    {
+     "name": "crown_prior_win_365d",
+     "weight": 0.0103
+    },
+    {
+     "name": "won_last_14d",
+     "weight": 0.0094
+    },
+    {
+     "name": "career_win_rate",
+     "weight": 0.0052
+    },
+    {
+     "name": "prev_same_track_finish_3d",
+     "weight": 0.0043
+    },
+    {
+     "name": "field_size",
+     "weight": -0.0
+    }
+   ],
+   "variants": {
+    "cl": {
+     "logLoss": 2.5248,
+     "top1": 0.274,
+     "top3Overlap": 1.274,
+     "brier": 0.03589,
+     "ece": 0.0057
+    },
+    "boosted": {
+     "logLoss": 2.9791,
+     "top1": 0.2603,
+     "top3Overlap": 1.2603,
+     "brier": 0.03863,
+     "ece": 0.0105
+    },
+    "legacy-method": {
+     "logLoss": 2.8307,
+     "top1": 0.1461,
+     "top3Overlap": 1.0137,
+     "brier": 0.0376,
+     "ece": 0.0137
+    },
+    "form-only": {
+     "logLoss": 2.5417,
+     "top1": 0.2329,
+     "top3Overlap": 1.1142,
+     "brier": 0.03568,
+     "ece": 0.0051
+    },
+    "uniform": {
+     "logLoss": 3.185,
+     "top1": 0.2831,
+     "top3Overlap": 1.1461,
+     "brier": 0.03878,
+     "ece": 0.0
+    }
+   },
+   "clLogLoss": 2.5248,
+   "clTop1": 0.274,
+   "clTop3Overlap": 1.274,
+   "boostedLogLoss": 2.9791,
+   "boostedTop1": 0.2603,
+   "boostedTop3Overlap": 1.2603,
+   "legacyLogLoss": 2.8307,
+   "legacyTop1": 0.1461,
+   "legacyTop3Overlap": 1.0137,
+   "formOnlyLogLoss": 2.5417,
+   "formOnlyTop1": 0.2329,
+   "formOnlyTop3Overlap": 1.1142,
+   "uniformLogLoss": 3.185,
+   "uniformTop1": 0.2831,
+   "uniformTop3Overlap": 1.1461
+  },
+  {
+   "series": "DIRTcar Summer Nationals",
+   "slug": "dirtcar_summer_nationals",
+   "stage": "early",
+   "variant": "boosted",
+   "selectionRule": "min held-out multinomial log loss over cl and boosted",
+   "races": 50,
+   "entries": 1128,
+   "seasons": [
+    2024,
+    2025
+   ],
+   "folds": [
+    {
+     "season": 2024,
+     "trainYears": [
+      2022,
+      2023
+     ],
+     "trainRaces": 42,
+     "testRaces": 24
+    },
+    {
+     "season": 2025,
+     "trainYears": [
+      2022,
+      2023,
+      2024
+     ],
+     "trainRaces": 66,
+     "testRaces": 26
+    }
+   ],
+   "logLoss": 2.2703,
+   "top1": 0.34,
+   "top3Overlap": 1.38,
+   "brier": 0.03753,
+   "ece": 0.0078,
+   "calibration": [
+    {
+     "lo": 0.0,
+     "hi": 0.05,
+     "n": 921,
+     "predicted": 0.0128,
+     "observed": 0.0152
+    },
+    {
+     "lo": 0.05,
+     "hi": 0.1,
+     "n": 61,
+     "predicted": 0.069,
+     "observed": 0.0492
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "n": 56,
+     "predicted": 0.1511,
+     "observed": 0.1429
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "n": 56,
+     "predicted": 0.2464,
+     "observed": 0.2857
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "n": 30,
+     "predicted": 0.3326,
+     "observed": 0.3
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "n": 4,
+     "predicted": 0.4405,
+     "observed": 0.0
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "n": 0,
+     "predicted": null,
+     "observed": null
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "n": 0,
+     "predicted": null,
+     "observed": null
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "n": 0,
+     "predicted": null,
+     "observed": null
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "n": 0,
+     "predicted": null,
+     "observed": null
+    },
+    {
+     "lo": 0.9,
+     "hi": 1.0,
+     "n": 0,
+     "predicted": null,
+     "observed": null
+    }
+   ],
+   "bySeason": [
+    {
+     "season": 2024,
+     "races": 24,
+     "clLogLoss": 1.6624,
+     "clTop1": 0.4167,
+     "boostedLogLoss": 1.8347,
+     "boostedTop1": 0.5,
+     "legacyLogLoss": 2.0484,
+     "legacyTop1": 0.3333,
+     "formOnlyLogLoss": 1.9597,
+     "formOnlyTop1": 0.4583,
+     "uniformLogLoss": 3.1077,
+     "uniformTop1": 0.4583,
+     "logLoss": 1.8347,
+     "top1": 0.5
+    },
+    {
+     "season": 2025,
+     "races": 26,
+     "clLogLoss": 2.8861,
+     "clTop1": 0.0769,
+     "boostedLogLoss": 2.6725,
+     "boostedTop1": 0.1923,
+     "legacyLogLoss": 3.1347,
+     "legacyTop1": 0.1154,
+     "formOnlyLogLoss": 2.8238,
+     "formOnlyTop1": 0.1154,
+     "uniformLogLoss": 3.1203,
+     "uniformTop1": 0.3077,
+     "logLoss": 2.6725,
+     "top1": 0.1923
+    }
+   ],
+   "features": [
+    {
+     "name": "log_career_starts",
+     "weight": 0.2153
+    },
+    {
+     "name": "elo_field_rel",
+     "weight": 0.1917
+    },
+    {
+     "name": "elo",
+     "weight": 0.176
+    },
+    {
+     "name": "track_top3_rate",
+     "weight": 0.1409
+    },
+    {
+     "name": "last10_avg_finish",
+     "weight": -0.1249
+    },
+    {
+     "name": "career_dnf_rate",
+     "weight": -0.1141
+    },
+    {
+     "name": "ewm_finish",
+     "weight": -0.1008
+    },
+    {
+     "name": "last5_avg_finish",
+     "weight": -0.0914
+    },
+    {
+     "name": "last5_win_rate",
+     "weight": 0.0818
+    },
+    {
+     "name": "log_track_starts",
+     "weight": 0.0737
+    },
+    {
+     "name": "ewm_win",
+     "weight": 0.0551
+    },
+    {
+     "name": "log_days_since_last_start",
+     "weight": -0.0496
+    },
+    {
+     "name": "track_win_rate",
+     "weight": 0.0333
+    },
+    {
+     "name": "similar_track_avg_finish",
+     "weight": 0.0333
+    },
+    {
+     "name": "last5_avg_finish__missing",
+     "weight": -0.0309
+    },
+    {
+     "name": "last10_avg_finish__missing",
+     "weight": -0.0309
+    },
+    {
+     "name": "last5_win_rate__missing",
+     "weight": -0.0309
+    },
+    {
+     "name": "last10_win_rate__missing",
+     "weight": -0.0309
+    },
+    {
+     "name": "ewm_finish__missing",
+     "weight": -0.0309
+    },
+    {
+     "name": "ewm_win__missing",
+     "weight": -0.0309
+    },
+    {
+     "name": "log_days_since_last_start__missing",
+     "weight": -0.0309
+    },
+    {
+     "name": "career_avg_finish",
+     "weight": 0.0304
+    },
+    {
+     "name": "career_top3_rate",
+     "weight": 0.0294
+    },
+    {
+     "name": "last10_win_rate",
+     "weight": 0.0257
+    },
+    {
+     "name": "won_last_14d",
+     "weight": 0.0229
+    },
+    {
+     "name": "podium_last_14d",
+     "weight": 0.0192
+    },
+    {
+     "name": "prev_same_track_finish_3d",
+     "weight": -0.0163
+    },
+    {
+     "name": "eldora_prior_podium_365d",
+     "weight": 0.0123
+    },
+    {
+     "name": "prev_same_track_win_3d",
+     "weight": 0.0074
+    },
+    {
+     "name": "crown_prior_win_365d",
+     "weight": 0.0074
+    },
+    {
+     "name": "prev_same_track_top3_3d",
+     "weight": 0.0071
+    },
+    {
+     "name": "log_similar_track_starts",
+     "weight": -0.0069
+    },
+    {
+     "name": "crown_prior_podium_365d",
+     "weight": 0.0063
+    },
+    {
+     "name": "track_avg_finish",
+     "weight": -0.0062
+    },
+    {
+     "name": "similar_track_win_rate",
+     "weight": 0.0056
+    },
+    {
+     "name": "career_win_rate",
+     "weight": -0.0018
+    },
+    {
+     "name": "prev_same_track_3d",
+     "weight": 0.0001
+    },
+    {
+     "name": "prev_same_track_finish_3d__missing",
+     "weight": -0.0001
+    },
+    {
+     "name": "field_size",
+     "weight": -0.0
+    }
+   ],
+   "variants": {
+    "cl": {
+     "logLoss": 2.2987,
+     "top1": 0.24,
+     "top3Overlap": 1.4,
+     "brier": 0.03929,
+     "ece": 0.0185
+    },
+    "boosted": {
+     "logLoss": 2.2703,
+     "top1": 0.34,
+     "top3Overlap": 1.38,
+     "brier": 0.03753,
+     "ece": 0.0078
+    },
+    "legacy-method": {
+     "logLoss": 2.6132,
+     "top1": 0.22,
+     "top3Overlap": 1.14,
+     "brier": 0.03953,
+     "ece": 0.017
+    },
+    "form-only": {
+     "logLoss": 2.409,
+     "top1": 0.28,
+     "top3Overlap": 1.3,
+     "brier": 0.03808,
+     "ece": 0.0081
+    },
+    "uniform": {
+     "logLoss": 3.1143,
+     "top1": 0.38,
+     "top3Overlap": 1.24,
+     "brier": 0.04235,
+     "ece": 0.0
+    }
+   },
+   "clLogLoss": 2.2987,
+   "clTop1": 0.24,
+   "clTop3Overlap": 1.4,
+   "boostedLogLoss": 2.2703,
+   "boostedTop1": 0.34,
+   "boostedTop3Overlap": 1.38,
+   "legacyLogLoss": 2.6132,
+   "legacyTop1": 0.22,
+   "legacyTop3Overlap": 1.14,
+   "formOnlyLogLoss": 2.409,
+   "formOnlyTop1": 0.28,
+   "formOnlyTop3Overlap": 1.3,
+   "uniformLogLoss": 3.1143,
+   "uniformTop1": 0.38,
+   "uniformTop3Overlap": 1.24
+  },
+  {
+   "series": "Crown Jewel / Combined",
+   "slug": "crown_jewel_combined",
+   "stage": "early",
+   "variant": "cl",
+   "selectionRule": "min held-out multinomial log loss over cl and boosted",
+   "races": 91,
+   "entries": 2240,
+   "seasons": [
+    2023,
+    2024,
+    2025,
+    2026
+   ],
+   "folds": [
+    {
+     "season": 2023,
+     "trainYears": [
+      2020,
+      2021,
+      2022
+     ],
+     "trainRaces": 32,
+     "testRaces": 15
+    },
+    {
+     "season": 2024,
+     "trainYears": [
+      2020,
+      2021,
+      2022,
+      2023
+     ],
+     "trainRaces": 47,
+     "testRaces": 20
+    },
+    {
+     "season": 2025,
+     "trainYears": [
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+     ],
+     "trainRaces": 67,
+     "testRaces": 27
+    },
+    {
+     "season": 2026,
+     "trainYears": [
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "trainRaces": 94,
+     "testRaces": 29
+    }
+   ],
+   "logLoss": 2.4633,
+   "top1": 0.2418,
+   "top3Overlap": 1.1978,
+   "brier": 0.03654,
+   "ece": 0.0101,
+   "calibration": [
+    {
+     "lo": 0.0,
+     "hi": 0.05,
+     "n": 1819,
+     "predicted": 0.0163,
+     "observed": 0.0176
+    },
+    {
+     "lo": 0.05,
+     "hi": 0.1,
+     "n": 210,
+     "predicted": 0.0715,
+     "observed": 0.0619
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "n": 123,
+     "predicted": 0.1434,
+     "observed": 0.1789
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "n": 43,
+     "predicted": 0.2401,
+     "observed": 0.3488
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "n": 29,
+     "predicted": 0.3442,
+     "observed": 0.2414
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "n": 7,
+     "predicted": 0.4486,
+     "observed": 0.1429
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "n": 6,
+     "predicted": 0.5386,
+     "observed": 0.1667
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "n": 2,
+     "predicted": 0.6111,
+     "observed": 0.0
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "n": 1,
+     "predicted": 0.7172,
+     "observed": 0.0
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "n": 0,
+     "predicted": null,
+     "observed": null
+    },
+    {
+     "lo": 0.9,
+     "hi": 1.0,
+     "n": 0,
+     "predicted": null,
+     "observed": null
+    }
+   ],
+   "bySeason": [
+    {
+     "season": 2023,
+     "races": 15,
+     "clLogLoss": 2.3564,
+     "clTop1": 0.3333,
+     "boostedLogLoss": 2.3514,
+     "boostedTop1": 0.3333,
+     "legacyLogLoss": 3.2229,
+     "legacyTop1": 0.0667,
+     "formOnlyLogLoss": 2.6015,
+     "formOnlyTop1": 0.3333,
+     "uniformLogLoss": 3.2672,
+     "uniformTop1": 0.1333,
+     "logLoss": 2.3564,
+     "top1": 0.3333
+    },
+    {
+     "season": 2024,
+     "races": 20,
+     "clLogLoss": 2.6254,
+     "clTop1": 0.15,
+     "boostedLogLoss": 2.5641,
+     "boostedTop1": 0.2,
+     "legacyLogLoss": 2.9112,
+     "legacyTop1": 0.15,
+     "formOnlyLogLoss": 2.6517,
+     "formOnlyTop1": 0.2,
+     "uniformLogLoss": 3.1448,
+     "uniformTop1": 0.3,
+     "logLoss": 2.6254,
+     "top1": 0.15
+    },
+    {
+     "season": 2025,
+     "races": 27,
+     "clLogLoss": 2.4389,
+     "clTop1": 0.2963,
+     "boostedLogLoss": 2.5294,
+     "boostedTop1": 0.2963,
+     "legacyLogLoss": 2.7849,
+     "legacyTop1": 0.037,
+     "formOnlyLogLoss": 2.5874,
+     "formOnlyTop1": 0.1852,
+     "uniformLogLoss": 3.1455,
+     "uniformTop1": 0.2593,
+     "logLoss": 2.4389,
+     "top1": 0.2963
+    },
+    {
+     "season": 2026,
+     "races": 29,
+     "clLogLoss": 2.4295,
+     "clTop1": 0.2069,
+     "boostedLogLoss": 2.4161,
+     "boostedTop1": 0.1724,
+     "legacyLogLoss": 2.7388,
+     "legacyTop1": 0.1724,
+     "formOnlyLogLoss": 2.6954,
+     "formOnlyTop1": 0.1379,
+     "uniformLogLoss": 3.1902,
+     "uniformTop1": 0.2069,
+     "logLoss": 2.4295,
+     "top1": 0.2069
+    }
+   ],
+   "features": [
+    {
+     "name": "log_career_starts",
+     "weight": 0.2444
+    },
+    {
+     "name": "elo_field_rel",
+     "weight": 0.1787
+    },
+    {
+     "name": "career_top3_rate",
+     "weight": 0.1679
+    },
+    {
+     "name": "log_track_starts",
+     "weight": 0.159
+    },
+    {
+     "name": "elo",
+     "weight": 0.1562
+    },
+    {
+     "name": "prev_same_track_top3_3d",
+     "weight": 0.1493
+    },
+    {
+     "name": "last5_win_rate",
+     "weight": 0.1125
+    },
+    {
+     "name": "ewm_finish",
+     "weight": -0.1105
+    },
+    {
+     "name": "ewm_win",
+     "weight": 0.11
+    },
+    {
+     "name": "similar_track_avg_finish",
+     "weight": -0.0963
+    },
+    {
+     "name": "log_days_since_last_start",
+     "weight": -0.0909
+    },
+    {
+     "name": "crown_prior_podium_365d",
+     "weight": 0.087
+    },
+    {
+     "name": "last10_win_rate",
+     "weight": 0.0789
+    },
+    {
+     "name": "career_avg_finish",
+     "weight": -0.0768
+    },
+    {
+     "name": "track_win_rate",
+     "weight": -0.0696
+    },
+    {
+     "name": "prev_same_track_win_3d",
+     "weight": 0.0678
+    },
+    {
+     "name": "eldora_prior_podium_365d",
+     "weight": 0.0678
+    },
+    {
+     "name": "prev_same_track_3d",
+     "weight": 0.0673
+    },
+    {
+     "name": "prev_same_track_finish_3d__missing",
+     "weight": -0.0673
+    },
+    {
+     "name": "last5_avg_finish",
+     "weight": 0.06
+    },
+    {
+     "name": "last5_avg_finish__missing",
+     "weight": -0.0551
+    },
+    {
+     "name": "last10_avg_finish__missing",
+     "weight": -0.0551
+    },
+    {
+     "name": "last5_win_rate__missing",
+     "weight": -0.0551
+    },
+    {
+     "name": "last10_win_rate__missing",
+     "weight": -0.0551
+    },
+    {
+     "name": "ewm_finish__missing",
+     "weight": -0.0551
+    },
+    {
+     "name": "ewm_win__missing",
+     "weight": -0.0551
+    },
+    {
+     "name": "log_days_since_last_start__missing",
+     "weight": -0.0551
+    },
+    {
+     "name": "career_dnf_rate",
+     "weight": 0.0518
+    },
+    {
+     "name": "podium_last_14d",
+     "weight": 0.0403
+    },
+    {
+     "name": "prev_same_track_finish_3d",
+     "weight": -0.0394
+    },
+    {
+     "name": "similar_track_win_rate",
+     "weight": 0.0382
+    },
+    {
+     "name": "log_similar_track_starts",
+     "weight": 0.0343
+    },
+    {
+     "name": "career_win_rate",
+     "weight": 0.034
+    },
+    {
+     "name": "track_top3_rate",
+     "weight": 0.0287
+    },
+    {
+     "name": "track_avg_finish",
+     "weight": -0.0272
+    },
+    {
+     "name": "last10_avg_finish",
+     "weight": -0.0266
+    },
+    {
+     "name": "crown_prior_win_365d",
+     "weight": 0.007
+    },
+    {
+     "name": "won_last_14d",
+     "weight": -0.0017
+    },
+    {
+     "name": "field_size",
+     "weight": -0.0
+    }
+   ],
+   "variants": {
+    "cl": {
+     "logLoss": 2.4633,
+     "top1": 0.2418,
+     "top3Overlap": 1.1978,
+     "brier": 0.03654,
+     "ece": 0.0101
+    },
+    "boosted": {
+     "logLoss": 2.4716,
+     "top1": 0.2418,
+     "top3Overlap": 1.2967,
+     "brier": 0.03582,
+     "ece": 0.0048
+    },
+    "legacy-method": {
+     "logLoss": 2.8702,
+     "top1": 0.1099,
+     "top3Overlap": 0.967,
+     "brier": 0.03831,
+     "ece": 0.0169
+    },
+    "form-only": {
+     "logLoss": 2.6382,
+     "top1": 0.1978,
+     "top3Overlap": 0.989,
+     "brier": 0.03662,
+     "ece": 0.0079
+    },
+    "uniform": {
+     "logLoss": 3.1797,
+     "top1": 0.2308,
+     "top3Overlap": 0.8571,
+     "brier": 0.03887,
+     "ece": 0.0
+    }
+   },
+   "clLogLoss": 2.4633,
+   "clTop1": 0.2418,
+   "clTop3Overlap": 1.1978,
+   "boostedLogLoss": 2.4716,
+   "boostedTop1": 0.2418,
+   "boostedTop3Overlap": 1.2967,
+   "legacyLogLoss": 2.8702,
+   "legacyTop1": 0.1099,
+   "legacyTop3Overlap": 0.967,
+   "formOnlyLogLoss": 2.6382,
+   "formOnlyTop1": 0.1978,
+   "formOnlyTop3Overlap": 0.989,
+   "uniformLogLoss": 3.1797,
+   "uniformTop1": 0.2308,
+   "uniformTop3Overlap": 0.8571
+  },
+  {
+   "series": "Pooled (routed)",
+   "slug": "pooled",
+   "stage": "early",
+   "variant": "cl",
+   "selectionRule": "min held-out multinomial log loss over cl and boosted",
+   "races": 431,
+   "entries": 10595,
+   "seasons": [
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+   ],
+   "folds": [
+    {
+     "season": 2022,
+     "trainYears": [],
+     "trainRaces": 0,
+     "testRaces": 35
+    },
+    {
+     "season": 2023,
+     "trainYears": [
+      2022
+     ],
+     "trainRaces": 35,
+     "testRaces": 64
+    },
+    {
+     "season": 2024,
+     "trainYears": [
+      2022,
+      2023
+     ],
+     "trainRaces": 99,
+     "testRaces": 107
+    },
+    {
+     "season": 2025,
+     "trainYears": [
+      2022,
+      2023,
+      2024
+     ],
+     "trainRaces": 206,
+     "testRaces": 118
+    },
+    {
+     "season": 2026,
+     "trainYears": [
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "trainRaces": 324,
+     "testRaces": 107
+    }
+   ],
+   "logLoss": 2.422,
+   "top1": 0.2506,
+   "top3Overlap": 1.3086,
+   "brier": 0.03587,
+   "ece": 0.0061,
+   "calibration": [
+    {
+     "lo": 0.0,
+     "hi": 0.05,
+     "n": 8597,
+     "predicted": 0.014,
+     "observed": 0.0158
+    },
+    {
+     "lo": 0.05,
+     "hi": 0.1,
+     "n": 901,
+     "predicted": 0.0709,
+     "observed": 0.0832
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "n": 621,
+     "predicted": 0.1405,
+     "observed": 0.1498
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "n": 229,
+     "predicted": 0.2432,
+     "observed": 0.2402
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "n": 124,
+     "predicted": 0.3417,
+     "observed": 0.2823
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "n": 73,
+     "predicted": 0.4456,
+     "observed": 0.3151
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "n": 33,
+     "predicted": 0.5371,
+     "observed": 0.2727
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "n": 13,
+     "predicted": 0.6338,
+     "observed": 0.3846
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "n": 4,
+     "predicted": 0.721,
+     "observed": 0.0
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "n": 0,
+     "predicted": null,
+     "observed": null
+    },
+    {
+     "lo": 0.9,
+     "hi": 1.0,
+     "n": 0,
+     "predicted": null,
+     "observed": null
+    }
+   ],
+   "bySeason": [
+    {
+     "season": 2022,
+     "races": 35,
+     "clLogLoss": 3.4558,
+     "clTop1": 0.0286,
+     "boostedLogLoss": 2.9985,
+     "boostedTop1": 0.0571,
+     "legacyLogLoss": 3.548,
+     "legacyTop1": 0.1143,
+     "formOnlyLogLoss": 2.908,
+     "formOnlyTop1": 0.1143,
+     "uniformLogLoss": 3.216,
+     "uniformTop1": 0.1429,
+     "logLoss": 3.4558,
+     "top1": 0.0286
+    },
+    {
+     "season": 2023,
+     "races": 64,
+     "clLogLoss": 2.2967,
+     "clTop1": 0.3594,
+     "boostedLogLoss": 2.3969,
+     "boostedTop1": 0.3125,
+     "legacyLogLoss": 2.9527,
+     "legacyTop1": 0.125,
+     "formOnlyLogLoss": 2.4605,
+     "formOnlyTop1": 0.3594,
+     "uniformLogLoss": 3.2155,
+     "uniformTop1": 0.25,
+     "logLoss": 2.2967,
+     "top1": 0.3594
+    },
+    {
+     "season": 2024,
+     "races": 107,
+     "clLogLoss": 2.292,
+     "clTop1": 0.2897,
+     "boostedLogLoss": 3.2089,
+     "boostedTop1": 0.2897,
+     "legacyLogLoss": 2.5642,
+     "legacyTop1": 0.243,
+     "formOnlyLogLoss": 2.4957,
+     "formOnlyTop1": 0.2243,
+     "uniformLogLoss": 3.1717,
+     "uniformTop1": 0.2617,
+     "logLoss": 2.292,
+     "top1": 0.2897
+    },
+    {
+     "season": 2025,
+     "races": 118,
+     "clLogLoss": 2.4733,
+     "clTop1": 0.2119,
+     "boostedLogLoss": 2.426,
+     "boostedTop1": 0.2119,
+     "legacyLogLoss": 2.7462,
+     "legacyTop1": 0.1271,
+     "formOnlyLogLoss": 2.5679,
+     "formOnlyTop1": 0.178,
+     "uniformLogLoss": 3.1732,
+     "uniformTop1": 0.2203,
+     "logLoss": 2.4733,
+     "top1": 0.2119
+    },
+    {
+     "season": 2026,
+     "races": 107,
+     "clLogLoss": 2.2323,
+     "clTop1": 0.2617,
+     "boostedLogLoss": 2.3343,
+     "boostedTop1": 0.215,
+     "legacyLogLoss": 2.611,
+     "legacyTop1": 0.1495,
+     "formOnlyLogLoss": 2.4264,
+     "formOnlyTop1": 0.2243,
+     "uniformLogLoss": 3.1987,
+     "uniformTop1": 0.271,
+     "logLoss": 2.2323,
+     "top1": 0.2617
+    }
+   ],
+   "features": [],
+   "variants": {
+    "cl": {
+     "logLoss": 2.422,
+     "top1": 0.2506,
+     "top3Overlap": 1.3086,
+     "brier": 0.03587,
+     "ece": 0.0061
+    },
+    "boosted": {
+     "logLoss": 2.6398,
+     "top1": 0.2343,
+     "top3Overlap": 1.3063,
+     "brier": 0.0369,
+     "ece": 0.0069
+    },
+    "legacy-method": {
+     "logLoss": 2.7632,
+     "top1": 0.1601,
+     "top3Overlap": 1.0626,
+     "brier": 0.03744,
+     "ece": 0.0133
+    },
+    "form-only": {
+     "logLoss": 2.5265,
+     "top1": 0.2227,
+     "top3Overlap": 1.1671,
+     "brier": 0.0359,
+     "ece": 0.0043
+    },
+    "uniform": {
+     "logLoss": 3.1889,
+     "top1": 0.2413,
+     "top3Overlap": 0.9884,
+     "brier": 0.03897,
+     "ece": 0.0
+    }
+   },
+   "clLogLoss": 2.422,
+   "clTop1": 0.2506,
+   "clTop3Overlap": 1.3086,
+   "boostedLogLoss": 2.6398,
+   "boostedTop1": 0.2343,
+   "boostedTop3Overlap": 1.3063,
+   "legacyLogLoss": 2.7632,
+   "legacyTop1": 0.1601,
+   "legacyTop3Overlap": 1.0626,
+   "formOnlyLogLoss": 2.5265,
+   "formOnlyTop1": 0.2227,
+   "formOnlyTop3Overlap": 1.1671,
+   "uniformLogLoss": 3.1889,
+   "uniformTop1": 0.2413,
+   "uniformTop3Overlap": 0.9884
+  },
+  {
+   "series": "Lucas Oil LMDS",
+   "slug": "lucas_oil_lmds",
+   "stage": "race-night",
+   "variant": "cl",
+   "selectionRule": "min held-out multinomial log loss over cl and boosted",
+   "races": 147,
+   "entries": 3665,
+   "seasons": [
+    2023,
+    2024,
+    2025,
+    2026
+   ],
+   "folds": [
+    {
+     "season": 2023,
+     "trainYears": [
+      2020,
+      2021,
+      2022
+     ],
+     "trainRaces": 61,
+     "testRaces": 24
+    },
+    {
+     "season": 2024,
+     "trainYears": [
+      2020,
+      2021,
+      2022,
+      2023
+     ],
+     "trainRaces": 85,
+     "testRaces": 38
+    },
+    {
+     "season": 2025,
+     "trainYears": [
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+     ],
+     "trainRaces": 123,
+     "testRaces": 41
+    },
+    {
+     "season": 2026,
+     "trainYears": [
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "trainRaces": 164,
+     "testRaces": 44
+    }
+   ],
+   "logLoss": 1.8891,
+   "top1": 0.3129,
+   "top3Overlap": 1.6054,
+   "brier": 0.03211,
+   "ece": 0.0086,
+   "calibration": [
+    {
+     "lo": 0.0,
+     "hi": 0.05,
+     "n": 2976,
+     "predicted": 0.0068,
+     "observed": 0.0071
+    },
+    {
+     "lo": 0.05,
+     "hi": 0.1,
+     "n": 246,
+     "predicted": 0.0706,
+     "observed": 0.065
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "n": 216,
+     "predicted": 0.1457,
+     "observed": 0.213
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "n": 109,
+     "predicted": 0.2399,
+     "observed": 0.1927
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "n": 57,
+     "predicted": 0.3485,
+     "observed": 0.2982
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "n": 28,
+     "predicted": 0.4443,
+     "observed": 0.4286
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "n": 22,
+     "predicted": 0.5424,
+     "observed": 0.3636
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "n": 6,
+     "predicted": 0.6489,
+     "observed": 0.6667
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "n": 4,
+     "predicted": 0.7236,
+     "observed": 0.25
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "n": 1,
+     "predicted": 0.8494,
+     "observed": 1.0
+    },
+    {
+     "lo": 0.9,
+     "hi": 1.0,
+     "n": 0,
+     "predicted": null,
+     "observed": null
+    }
+   ],
+   "bySeason": [
+    {
+     "season": 2023,
+     "races": 24,
+     "clLogLoss": 1.9627,
+     "clTop1": 0.4167,
+     "boostedLogLoss": 2.2311,
+     "boostedTop1": 0.25,
+     "legacyLogLoss": 2.3013,
+     "legacyTop1": 0.1667,
+     "formOnlyLogLoss": 2.3141,
+     "formOnlyTop1": 0.3333,
+     "uniformLogLoss": 3.2021,
+     "uniformTop1": 0.0417,
+     "logLoss": 1.9627,
+     "top1": 0.4167
+    },
+    {
+     "season": 2024,
+     "races": 38,
+     "clLogLoss": 1.7657,
+     "clTop1": 0.3684,
+     "boostedLogLoss": 1.6882,
+     "boostedTop1": 0.3684,
+     "legacyLogLoss": 1.9211,
+     "legacyTop1": 0.4211,
+     "formOnlyLogLoss": 2.8074,
+     "formOnlyTop1": 0.1579,
+     "uniformLogLoss": 3.2259,
+     "uniformTop1": 0.1053,
+     "logLoss": 1.7657,
+     "top1": 0.3684
+    },
+    {
+     "season": 2025,
+     "races": 41,
+     "clLogLoss": 1.7547,
+     "clTop1": 0.2195,
+     "boostedLogLoss": 2.0668,
+     "boostedTop1": 0.2195,
+     "legacyLogLoss": 2.2102,
+     "legacyTop1": 0.2195,
+     "formOnlyLogLoss": 2.3291,
+     "formOnlyTop1": 0.1951,
+     "uniformLogLoss": 3.2084,
+     "uniformTop1": 0.122,
+     "logLoss": 1.7547,
+     "top1": 0.2195
+    },
+    {
+     "season": 2026,
+     "races": 44,
+     "clLogLoss": 2.0809,
+     "clTop1": 0.2955,
+     "boostedLogLoss": 2.2057,
+     "boostedTop1": 0.2727,
+     "legacyLogLoss": 2.2328,
+     "legacyTop1": 0.2273,
+     "formOnlyLogLoss": 2.5242,
+     "formOnlyTop1": 0.1818,
+     "uniformLogLoss": 3.2073,
+     "uniformTop1": 0.1364,
+     "logLoss": 2.0809,
+     "top1": 0.2955
+    }
+   ],
+   "features": [
+    {
+     "name": "start_pos_norm",
+     "weight": -0.7165
+    },
+    {
+     "name": "qt_rank_norm",
+     "weight": -0.4099
+    },
+    {
+     "name": "heat_pos_norm",
+     "weight": -0.3811
+    },
+    {
+     "name": "elo_field_rel",
+     "weight": 0.2335
+    },
+    {
+     "name": "prev_same_track_finish_3d",
+     "weight": -0.2163
+    },
+    {
+     "name": "elo",
+     "weight": 0.2098
+    },
+    {
+     "name": "log_track_starts",
+     "weight": 0.188
+    },
+    {
+     "name": "ewm_win",
+     "weight": 0.1777
+    },
+    {
+     "name": "track_win_rate",
+     "weight": -0.1425
+    },
+    {
+     "name": "log_days_since_last_start",
+     "weight": -0.1366
+    },
+    {
+     "name": "similar_track_avg_finish",
+     "weight": -0.1337
+    },
+    {
+     "name": "prev_same_track_top3_3d",
+     "weight": 0.1252
+    },
+    {
+     "name": "crown_prior_podium_365d",
+     "weight": 0.1231
+    },
+    {
+     "name": "last5_avg_finish",
+     "weight": -0.1043
+    },
+    {
+     "name": "log_career_starts",
+     "weight": 0.0994
+    },
+    {
+     "name": "log_similar_track_starts",
+     "weight": 0.0974
+    },
+    {
+     "name": "eldora_prior_podium_365d",
+     "weight": 0.0878
+    },
+    {
+     "name": "last10_avg_finish",
+     "weight": -0.087
+    },
+    {
+     "name": "podium_last_14d",
+     "weight": 0.0813
+    },
+    {
+     "name": "career_top3_rate",
+     "weight": -0.0803
+    },
+    {
+     "name": "career_dnf_rate",
+     "weight": -0.0646
+    },
+    {
+     "name": "career_avg_finish",
+     "weight": -0.0598
+    },
+    {
+     "name": "prev_same_track_3d",
+     "weight": 0.0557
+    },
+    {
+     "name": "prev_same_track_finish_3d__missing",
+     "weight": -0.0557
+    },
+    {
+     "name": "heat_pos_norm__missing",
+     "weight": 0.0514
+    },
+    {
+     "name": "won_last_14d",
+     "weight": 0.0462
+    },
+    {
+     "name": "ewm_finish",
+     "weight": -0.0394
+    },
+    {
+     "name": "qt_rank_norm__missing",
+     "weight": 0.0363
+    },
+    {
+     "name": "last10_win_rate",
+     "weight": 0.0351
+    },
+    {
+     "name": "track_avg_finish",
+     "weight": -0.0339
+    },
+    {
+     "name": "career_win_rate",
+     "weight": 0.0296
+    },
+    {
+     "name": "last5_avg_finish__missing",
+     "weight": -0.0274
+    },
+    {
+     "name": "last10_avg_finish__missing",
+     "weight": -0.0274
+    },
+    {
+     "name": "last5_win_rate__missing",
+     "weight": -0.0274
+    },
+    {
+     "name": "last10_win_rate__missing",
+     "weight": -0.0274
+    },
+    {
+     "name": "ewm_finish__missing",
+     "weight": -0.0274
+    },
+    {
+     "name": "ewm_win__missing",
+     "weight": -0.0274
+    },
+    {
+     "name": "log_days_since_last_start__missing",
+     "weight": -0.0274
+    },
+    {
+     "name": "crown_prior_win_365d",
+     "weight": 0.0254
+    },
+    {
+     "name": "track_top3_rate",
+     "weight": 0.0205
+    },
+    {
+     "name": "last5_win_rate",
+     "weight": -0.0162
+    },
+    {
+     "name": "prev_same_track_win_3d",
+     "weight": 0.0134
+    },
+    {
+     "name": "similar_track_win_rate",
+     "weight": 0.0002
+    },
+    {
+     "name": "field_size",
+     "weight": -0.0
+    },
+    {
+     "name": "bmain_pos_norm",
+     "weight": 0.0
+    },
+    {
+     "name": "used_bmain_path",
+     "weight": 0.0
+    },
+    {
+     "name": "bmain_pos_norm__missing",
+     "weight": 0.0
+    }
+   ],
+   "variants": {
+    "cl": {
+     "logLoss": 1.8891,
+     "top1": 0.3129,
+     "top3Overlap": 1.6054,
+     "brier": 0.03211,
+     "ece": 0.0086
+    },
+    "boosted": {
+     "logLoss": 2.0373,
+     "top1": 0.2789,
+     "top3Overlap": 1.5578,
+     "brier": 0.03357,
+     "ece": 0.0124
+    },
+    "legacy-method": {
+     "logLoss": 2.1571,
+     "top1": 0.2653,
+     "top3Overlap": 1.415,
+     "brier": 0.03424,
+     "ece": 0.0123
+    },
+    "form-only": {
+     "logLoss": 2.5087,
+     "top1": 0.2041,
+     "top3Overlap": 1.1837,
+     "brier": 0.0356,
+     "ece": 0.0043
+    },
+    "uniform": {
+     "logLoss": 3.2116,
+     "top1": 0.1088,
+     "top3Overlap": 0.6327,
+     "brier": 0.03848,
+     "ece": 0.0
+    }
+   },
+   "clLogLoss": 1.8891,
+   "clTop1": 0.3129,
+   "clTop3Overlap": 1.6054,
+   "boostedLogLoss": 2.0373,
+   "boostedTop1": 0.2789,
+   "boostedTop3Overlap": 1.5578,
+   "legacyLogLoss": 2.1571,
+   "legacyTop1": 0.2653,
+   "legacyTop3Overlap": 1.415,
+   "formOnlyLogLoss": 2.5087,
+   "formOnlyTop1": 0.2041,
+   "formOnlyTop3Overlap": 1.1837,
+   "uniformLogLoss": 3.2116,
+   "uniformTop1": 0.1088,
+   "uniformTop3Overlap": 0.6327
+  },
+  {
+   "series": "WoO Late Models",
+   "slug": "woo_late_models",
+   "stage": "race-night",
+   "variant": "cl",
+   "selectionRule": "min held-out multinomial log loss over cl and boosted",
+   "races": 164,
+   "entries": 4122,
+   "seasons": [
+    2023,
+    2024,
+    2025,
+    2026
+   ],
+   "folds": [
+    {
+     "season": 2023,
+     "trainYears": [
+      2021,
+      2022
+     ],
+     "trainRaces": 49,
+     "testRaces": 34
+    },
+    {
+     "season": 2024,
+     "trainYears": [
+      2021,
+      2022,
+      2023
+     ],
+     "trainRaces": 83,
+     "testRaces": 36
+    },
+    {
+     "season": 2025,
+     "trainYears": [
+      2021,
+      2022,
+      2023,
+      2024
+     ],
+     "trainRaces": 119,
+     "testRaces": 40
+    },
+    {
+     "season": 2026,
+     "trainYears": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "trainRaces": 159,
+     "testRaces": 54
+    }
+   ],
+   "logLoss": 1.8338,
+   "top1": 0.3598,
+   "top3Overlap": 1.7073,
+   "brier": 0.03032,
+   "ece": 0.0068,
+   "calibration": [
+    {
+     "lo": 0.0,
+     "hi": 0.05,
+     "n": 3328,
+     "predicted": 0.0079,
+     "observed": 0.0054
+    },
+    {
+     "lo": 0.05,
+     "hi": 0.1,
+     "n": 336,
+     "predicted": 0.0715,
+     "observed": 0.0833
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "n": 237,
+     "predicted": 0.142,
+     "observed": 0.1646
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "n": 101,
+     "predicted": 0.2459,
+     "observed": 0.2673
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "n": 46,
+     "predicted": 0.3426,
+     "observed": 0.3478
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "n": 33,
+     "predicted": 0.4546,
+     "observed": 0.3636
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "n": 25,
+     "predicted": 0.5479,
+     "observed": 0.64
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "n": 11,
+     "predicted": 0.6343,
+     "observed": 0.6364
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "n": 5,
+     "predicted": 0.7337,
+     "observed": 0.2
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "n": 0,
+     "predicted": null,
+     "observed": null
+    },
+    {
+     "lo": 0.9,
+     "hi": 1.0,
+     "n": 0,
+     "predicted": null,
+     "observed": null
+    }
+   ],
+   "bySeason": [
+    {
+     "season": 2023,
+     "races": 34,
+     "clLogLoss": 1.8903,
+     "clTop1": 0.5294,
+     "boostedLogLoss": 1.9581,
+     "boostedTop1": 0.5,
+     "legacyLogLoss": 2.0636,
+     "legacyTop1": 0.2647,
+     "formOnlyLogLoss": 2.4373,
+     "formOnlyTop1": 0.4118,
+     "uniformLogLoss": 3.206,
+     "uniformTop1": 0.4118,
+     "logLoss": 1.8903,
+     "top1": 0.5294
+    },
+    {
+     "season": 2024,
+     "races": 36,
+     "clLogLoss": 1.8658,
+     "clTop1": 0.3333,
+     "boostedLogLoss": 1.8437,
+     "boostedTop1": 0.4167,
+     "legacyLogLoss": 1.9299,
+     "legacyTop1": 0.3333,
+     "formOnlyLogLoss": 2.6055,
+     "formOnlyTop1": 0.1389,
+     "uniformLogLoss": 3.2176,
+     "uniformTop1": 0.25,
+     "logLoss": 1.8658,
+     "top1": 0.3333
+    },
+    {
+     "season": 2025,
+     "races": 40,
+     "clLogLoss": 1.9941,
+     "clTop1": 0.325,
+     "boostedLogLoss": 1.8761,
+     "boostedTop1": 0.325,
+     "legacyLogLoss": 2.0726,
+     "legacyTop1": 0.3,
+     "formOnlyLogLoss": 2.6769,
+     "formOnlyTop1": 0.2,
+     "uniformLogLoss": 3.219,
+     "uniformTop1": 0.25,
+     "logLoss": 1.9941,
+     "top1": 0.325
+    },
+    {
+     "season": 2026,
+     "races": 54,
+     "clLogLoss": 1.6582,
+     "clTop1": 0.2963,
+     "boostedLogLoss": 1.7233,
+     "boostedTop1": 0.4259,
+     "legacyLogLoss": 2.0442,
+     "legacyTop1": 0.3889,
+     "formOnlyLogLoss": 2.2573,
+     "formOnlyTop1": 0.3148,
+     "uniformLogLoss": 3.2268,
+     "uniformTop1": 0.3704,
+     "logLoss": 1.6582,
+     "top1": 0.2963
+    }
+   ],
+   "features": [
+    {
+     "name": "start_pos_norm",
+     "weight": -1.3311
+    },
+    {
+     "name": "heat_pos_norm",
+     "weight": -0.5378
+    },
+    {
+     "name": "eldora_prior_podium_365d",
+     "weight": 0.3325
+    },
+    {
+     "name": "prev_same_track_win_3d",
+     "weight": -0.2832
+    },
+    {
+     "name": "track_top3_rate",
+     "weight": 0.2479
+    },
+    {
+     "name": "last10_avg_finish",
+     "weight": -0.2413
+    },
+    {
+     "name": "qt_rank_norm",
+     "weight": -0.2211
+    },
+    {
+     "name": "career_win_rate",
+     "weight": 0.1661
+    },
+    {
+     "name": "track_avg_finish",
+     "weight": -0.1477
+    },
+    {
+     "name": "elo_field_rel",
+     "weight": 0.1266
+    },
+    {
+     "name": "last5_avg_finish",
+     "weight": -0.123
+    },
+    {
+     "name": "log_career_starts",
+     "weight": 0.1219
+    },
+    {
+     "name": "similar_track_win_rate",
+     "weight": -0.1181
+    },
+    {
+     "name": "elo",
+     "weight": 0.1173
+    },
+    {
+     "name": "career_avg_finish",
+     "weight": 0.1146
+    },
+    {
+     "name": "prev_same_track_finish_3d",
+     "weight": 0.0996
+    },
+    {
+     "name": "log_track_starts",
+     "weight": 0.0918
+    },
+    {
+     "name": "podium_last_14d",
+     "weight": 0.076
+    },
+    {
+     "name": "career_dnf_rate",
+     "weight": 0.0704
+    },
+    {
+     "name": "crown_prior_win_365d",
+     "weight": -0.0539
+    },
+    {
+     "name": "log_days_since_last_start",
+     "weight": 0.0472
+    },
+    {
+     "name": "prev_same_track_top3_3d",
+     "weight": 0.0368
+    },
+    {
+     "name": "log_similar_track_starts",
+     "weight": 0.0366
+    },
+    {
+     "name": "last5_win_rate",
+     "weight": 0.0359
+    },
+    {
+     "name": "ewm_win",
+     "weight": -0.027
+    },
+    {
+     "name": "ewm_finish",
+     "weight": 0.0198
+    },
+    {
+     "name": "crown_prior_podium_365d",
+     "weight": 0.0158
+    },
+    {
+     "name": "similar_track_avg_finish",
+     "weight": -0.0145
+    },
+    {
+     "name": "last5_avg_finish__missing",
+     "weight": 0.0121
+    },
+    {
+     "name": "last10_avg_finish__missing",
+     "weight": 0.0121
+    },
+    {
+     "name": "last5_win_rate__missing",
+     "weight": 0.0121
+    },
+    {
+     "name": "last10_win_rate__missing",
+     "weight": 0.0121
+    },
+    {
+     "name": "ewm_finish__missing",
+     "weight": 0.0121
+    },
+    {
+     "name": "ewm_win__missing",
+     "weight": 0.0121
+    },
+    {
+     "name": "log_days_since_last_start__missing",
+     "weight": 0.0121
+    },
+    {
+     "name": "prev_same_track_3d",
+     "weight": 0.0117
+    },
+    {
+     "name": "prev_same_track_finish_3d__missing",
+     "weight": -0.0117
+    },
+    {
+     "name": "last10_win_rate",
+     "weight": 0.0094
+    },
+    {
+     "name": "track_win_rate",
+     "weight": 0.0076
+    },
+    {
+     "name": "won_last_14d",
+     "weight": -0.0014
+    },
+    {
+     "name": "career_top3_rate",
+     "weight": 0.0004
+    },
+    {
+     "name": "start_pos_norm__missing",
+     "weight": -0.0004
+    },
+    {
+     "name": "qt_rank_norm__missing",
+     "weight": -0.0001
+    },
+    {
+     "name": "field_size",
+     "weight": -0.0
+    },
+    {
+     "name": "bmain_pos_norm",
+     "weight": 0.0
+    },
+    {
+     "name": "used_bmain_path",
+     "weight": 0.0
+    },
+    {
+     "name": "heat_pos_norm__missing",
+     "weight": 0.0
+    },
+    {
+     "name": "bmain_pos_norm__missing",
+     "weight": -0.0
+    }
+   ],
+   "variants": {
+    "cl": {
+     "logLoss": 1.8338,
+     "top1": 0.3598,
+     "top3Overlap": 1.7073,
+     "brier": 0.03032,
+     "ece": 0.0068
+    },
+    "boosted": {
+     "logLoss": 1.8357,
+     "top1": 0.4146,
+     "top3Overlap": 1.6951,
+     "brier": 0.03041,
+     "ece": 0.0078
+    },
+    "legacy-method": {
+     "logLoss": 2.03,
+     "top1": 0.3293,
+     "top3Overlap": 1.628,
+     "brier": 0.03236,
+     "ece": 0.0066
+    },
+    "form-only": {
+     "logLoss": 2.4734,
+     "top1": 0.2683,
+     "top3Overlap": 1.2012,
+     "brier": 0.0345,
+     "ece": 0.0063
+    },
+    "uniform": {
+     "logLoss": 3.2186,
+     "top1": 0.3232,
+     "top3Overlap": 1.2317,
+     "brier": 0.03818,
+     "ece": 0.0
+    }
+   },
+   "clLogLoss": 1.8338,
+   "clTop1": 0.3598,
+   "clTop3Overlap": 1.7073,
+   "boostedLogLoss": 1.8357,
+   "boostedTop1": 0.4146,
+   "boostedTop3Overlap": 1.6951,
+   "legacyLogLoss": 2.03,
+   "legacyTop1": 0.3293,
+   "legacyTop3Overlap": 1.628,
+   "formOnlyLogLoss": 2.4734,
+   "formOnlyTop1": 0.2683,
+   "formOnlyTop3Overlap": 1.2012,
+   "uniformLogLoss": 3.2186,
+   "uniformTop1": 0.3232,
+   "uniformTop3Overlap": 1.2317
+  },
+  {
+   "series": "DIRTcar Summer Nationals",
+   "slug": "dirtcar_summer_nationals",
+   "stage": "race-night",
+   "variant": "cl",
+   "selectionRule": "min held-out multinomial log loss over cl and boosted",
+   "races": 50,
+   "entries": 1128,
+   "seasons": [
+    2024,
+    2025
+   ],
+   "folds": [
+    {
+     "season": 2024,
+     "trainYears": [
+      2022,
+      2023
+     ],
+     "trainRaces": 42,
+     "testRaces": 24
+    },
+    {
+     "season": 2025,
+     "trainYears": [
+      2022,
+      2023,
+      2024
+     ],
+     "trainRaces": 66,
+     "testRaces": 26
+    }
+   ],
+   "logLoss": 1.7396,
+   "top1": 0.36,
+   "top3Overlap": 1.56,
+   "brier": 0.03602,
+   "ece": 0.0159,
+   "calibration": [
+    {
+     "lo": 0.0,
+     "hi": 0.05,
+     "n": 942,
+     "predicted": 0.0066,
+     "observed": 0.0085
+    },
+    {
+     "lo": 0.05,
+     "hi": 0.1,
+     "n": 69,
+     "predicted": 0.0727,
+     "observed": 0.0725
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "n": 39,
+     "predicted": 0.1366,
+     "observed": 0.2051
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "n": 19,
+     "predicted": 0.2368,
+     "observed": 0.4737
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "n": 21,
+     "predicted": 0.353,
+     "observed": 0.2857
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "n": 14,
+     "predicted": 0.4509,
+     "observed": 0.4286
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "n": 8,
+     "predicted": 0.5495,
+     "observed": 0.5
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "n": 12,
+     "predicted": 0.6483,
+     "observed": 0.3333
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "n": 3,
+     "predicted": 0.7342,
+     "observed": 0.0
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "n": 1,
+     "predicted": 0.8357,
+     "observed": 0.0
+    },
+    {
+     "lo": 0.9,
+     "hi": 1.0,
+     "n": 0,
+     "predicted": null,
+     "observed": null
+    }
+   ],
+   "bySeason": [
+    {
+     "season": 2024,
+     "races": 24,
+     "clLogLoss": 1.323,
+     "clTop1": 0.5,
+     "boostedLogLoss": 1.4408,
+     "boostedTop1": 0.4167,
+     "legacyLogLoss": 1.6331,
+     "legacyTop1": 0.375,
+     "formOnlyLogLoss": 1.9597,
+     "formOnlyTop1": 0.4583,
+     "uniformLogLoss": 3.1077,
+     "uniformTop1": 0.4583,
+     "logLoss": 1.323,
+     "top1": 0.5
+    },
+    {
+     "season": 2025,
+     "races": 26,
+     "clLogLoss": 2.1242,
+     "clTop1": 0.2308,
+     "boostedLogLoss": 2.0349,
+     "boostedTop1": 0.2308,
+     "legacyLogLoss": 2.3944,
+     "legacyTop1": 0.1538,
+     "formOnlyLogLoss": 2.8238,
+     "formOnlyTop1": 0.1154,
+     "uniformLogLoss": 3.1203,
+     "uniformTop1": 0.3077,
+     "logLoss": 2.1242,
+     "top1": 0.2308
+    }
+   ],
+   "features": [
+    {
+     "name": "start_pos_norm",
+     "weight": -0.8669
+    },
+    {
+     "name": "heat_pos_norm",
+     "weight": -0.6301
+    },
+    {
+     "name": "ewm_finish",
+     "weight": -0.3364
+    },
+    {
+     "name": "elo_field_rel",
+     "weight": 0.2881
+    },
+    {
+     "name": "track_top3_rate",
+     "weight": 0.2411
+    },
+    {
+     "name": "qt_rank_norm",
+     "weight": -0.2401
+    },
+    {
+     "name": "elo",
+     "weight": 0.2074
+    },
+    {
+     "name": "log_career_starts",
+     "weight": 0.1986
+    },
+    {
+     "name": "similar_track_avg_finish",
+     "weight": 0.1683
+    },
+    {
+     "name": "career_avg_finish",
+     "weight": 0.1601
+    },
+    {
+     "name": "last10_avg_finish",
+     "weight": -0.1454
+    },
+    {
+     "name": "last5_win_rate",
+     "weight": 0.1344
+    },
+    {
+     "name": "log_days_since_last_start",
+     "weight": -0.132
+    },
+    {
+     "name": "qt_rank_norm__missing",
+     "weight": -0.1225
+    },
+    {
+     "name": "track_avg_finish",
+     "weight": 0.1152
+    },
+    {
+     "name": "career_dnf_rate",
+     "weight": -0.1117
+    },
+    {
+     "name": "last5_avg_finish",
+     "weight": 0.1094
+    },
+    {
+     "name": "log_track_starts",
+     "weight": 0.1002
+    },
+    {
+     "name": "eldora_prior_podium_365d",
+     "weight": 0.0948
+    },
+    {
+     "name": "podium_last_14d",
+     "weight": -0.0942
+    },
+    {
+     "name": "last5_avg_finish__missing",
+     "weight": -0.0791
+    },
+    {
+     "name": "last10_avg_finish__missing",
+     "weight": -0.0791
+    },
+    {
+     "name": "last5_win_rate__missing",
+     "weight": -0.0791
+    },
+    {
+     "name": "last10_win_rate__missing",
+     "weight": -0.0791
+    },
+    {
+     "name": "ewm_finish__missing",
+     "weight": -0.0791
+    },
+    {
+     "name": "ewm_win__missing",
+     "weight": -0.0791
+    },
+    {
+     "name": "log_days_since_last_start__missing",
+     "weight": -0.0791
+    },
+    {
+     "name": "log_similar_track_starts",
+     "weight": -0.0632
+    },
+    {
+     "name": "won_last_14d",
+     "weight": 0.0573
+    },
+    {
+     "name": "last10_win_rate",
+     "weight": -0.0558
+    },
+    {
+     "name": "prev_same_track_finish_3d",
+     "weight": -0.0486
+    },
+    {
+     "name": "track_win_rate",
+     "weight": -0.0435
+    },
+    {
+     "name": "prev_same_track_win_3d",
+     "weight": 0.0413
+    },
+    {
+     "name": "crown_prior_win_365d",
+     "weight": 0.0413
+    },
+    {
+     "name": "prev_same_track_top3_3d",
+     "weight": 0.038
+    },
+    {
+     "name": "similar_track_win_rate",
+     "weight": 0.036
+    },
+    {
+     "name": "crown_prior_podium_365d",
+     "weight": 0.0275
+    },
+    {
+     "name": "career_top3_rate",
+     "weight": 0.022
+    },
+    {
+     "name": "career_win_rate",
+     "weight": -0.0074
+    },
+    {
+     "name": "ewm_win",
+     "weight": -0.0072
+    },
+    {
+     "name": "bmain_pos_norm",
+     "weight": 0.0008
+    },
+    {
+     "name": "used_bmain_path",
+     "weight": -0.0003
+    },
+    {
+     "name": "bmain_pos_norm__missing",
+     "weight": 0.0003
+    },
+    {
+     "name": "prev_same_track_3d",
+     "weight": 0.0001
+    },
+    {
+     "name": "prev_same_track_finish_3d__missing",
+     "weight": -0.0001
+    },
+    {
+     "name": "heat_pos_norm__missing",
+     "weight": -0.0001
+    },
+    {
+     "name": "field_size",
+     "weight": -0.0
+    }
+   ],
+   "variants": {
+    "cl": {
+     "logLoss": 1.7396,
+     "top1": 0.36,
+     "top3Overlap": 1.56,
+     "brier": 0.03602,
+     "ece": 0.0159
+    },
+    "boosted": {
+     "logLoss": 1.7498,
+     "top1": 0.32,
+     "top3Overlap": 1.64,
+     "brier": 0.03435,
+     "ece": 0.0166
+    },
+    "legacy-method": {
+     "logLoss": 2.029,
+     "top1": 0.26,
+     "top3Overlap": 1.46,
+     "brier": 0.03683,
+     "ece": 0.0129
+    },
+    "form-only": {
+     "logLoss": 2.409,
+     "top1": 0.28,
+     "top3Overlap": 1.3,
+     "brier": 0.03808,
+     "ece": 0.0081
+    },
+    "uniform": {
+     "logLoss": 3.1143,
+     "top1": 0.38,
+     "top3Overlap": 1.24,
+     "brier": 0.04235,
+     "ece": 0.0
+    }
+   },
+   "clLogLoss": 1.7396,
+   "clTop1": 0.36,
+   "clTop3Overlap": 1.56,
+   "boostedLogLoss": 1.7498,
+   "boostedTop1": 0.32,
+   "boostedTop3Overlap": 1.64,
+   "legacyLogLoss": 2.029,
+   "legacyTop1": 0.26,
+   "legacyTop3Overlap": 1.46,
+   "formOnlyLogLoss": 2.409,
+   "formOnlyTop1": 0.28,
+   "formOnlyTop3Overlap": 1.3,
+   "uniformLogLoss": 3.1143,
+   "uniformTop1": 0.38,
+   "uniformTop3Overlap": 1.24
+  },
+  {
+   "series": "Crown Jewel / Combined",
+   "slug": "crown_jewel_combined",
+   "stage": "race-night",
+   "variant": "cl",
+   "selectionRule": "min held-out multinomial log loss over cl and boosted",
+   "races": 45,
+   "entries": 1092,
+   "seasons": [
+    2025,
+    2026
+   ],
+   "folds": [
+    {
+     "season": 2025,
+     "trainYears": [
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+     ],
+     "trainRaces": 48,
+     "testRaces": 20
+    },
+    {
+     "season": 2026,
+     "trainYears": [
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "trainRaces": 68,
+     "testRaces": 25
+    }
+   ],
+   "logLoss": 2.1334,
+   "top1": 0.2444,
+   "top3Overlap": 1.3778,
+   "brier": 0.03612,
+   "ece": 0.0132,
+   "calibration": [
+    {
+     "lo": 0.0,
+     "hi": 0.05,
+     "n": 878,
+     "predicted": 0.0101,
+     "observed": 0.008
+    },
+    {
+     "lo": 0.05,
+     "hi": 0.1,
+     "n": 89,
+     "predicted": 0.0695,
+     "observed": 0.1236
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "n": 66,
+     "predicted": 0.1362,
+     "observed": 0.1515
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "n": 26,
+     "predicted": 0.2553,
+     "observed": 0.3077
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "n": 19,
+     "predicted": 0.3427,
+     "observed": 0.3158
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "n": 7,
+     "predicted": 0.4568,
+     "observed": 0.2857
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "n": 3,
+     "predicted": 0.5623,
+     "observed": 0.0
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "n": 1,
+     "predicted": 0.6018,
+     "observed": 0.0
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "n": 1,
+     "predicted": 0.7139,
+     "observed": 0.0
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "n": 2,
+     "predicted": 0.8105,
+     "observed": 0.5
+    },
+    {
+     "lo": 0.9,
+     "hi": 1.0,
+     "n": 0,
+     "predicted": null,
+     "observed": null
+    }
+   ],
+   "bySeason": [
+    {
+     "season": 2025,
+     "races": 20,
+     "clLogLoss": 1.9821,
+     "clTop1": 0.3,
+     "boostedLogLoss": 2.243,
+     "boostedTop1": 0.15,
+     "legacyLogLoss": 2.68,
+     "legacyTop1": 0.15,
+     "formOnlyLogLoss": 2.5455,
+     "formOnlyTop1": 0.25,
+     "uniformLogLoss": 3.181,
+     "uniformTop1": 0.25,
+     "logLoss": 1.9821,
+     "top1": 0.3
+    },
+    {
+     "season": 2026,
+     "races": 25,
+     "clLogLoss": 2.2544,
+     "clTop1": 0.2,
+     "boostedLogLoss": 2.8321,
+     "boostedTop1": 0.16,
+     "legacyLogLoss": 2.4311,
+     "legacyTop1": 0.2,
+     "formOnlyLogLoss": 2.5829,
+     "formOnlyTop1": 0.16,
+     "uniformLogLoss": 3.1767,
+     "uniformTop1": 0.2,
+     "logLoss": 2.2544,
+     "top1": 0.2
+    }
+   ],
+   "features": [
+    {
+     "name": "start_pos_norm",
+     "weight": -0.3298
+    },
+    {
+     "name": "heat_pos_norm",
+     "weight": -0.237
+    },
+    {
+     "name": "qt_rank_norm",
+     "weight": -0.1833
+    },
+    {
+     "name": "elo_field_rel",
+     "weight": 0.118
+    },
+    {
+     "name": "elo",
+     "weight": 0.1045
+    },
+    {
+     "name": "ewm_win",
+     "weight": 0.0974
+    },
+    {
+     "name": "log_career_starts",
+     "weight": 0.092
+    },
+    {
+     "name": "log_track_starts",
+     "weight": 0.0845
+    },
+    {
+     "name": "last10_win_rate",
+     "weight": 0.0822
+    },
+    {
+     "name": "last10_avg_finish",
+     "weight": -0.0674
+    },
+    {
+     "name": "last5_win_rate",
+     "weight": 0.0664
+    },
+    {
+     "name": "ewm_finish",
+     "weight": -0.0662
+    },
+    {
+     "name": "similar_track_win_rate",
+     "weight": 0.0554
+    },
+    {
+     "name": "similar_track_avg_finish",
+     "weight": -0.0518
+    },
+    {
+     "name": "career_win_rate",
+     "weight": 0.05
+    },
+    {
+     "name": "career_avg_finish",
+     "weight": -0.0479
+    },
+    {
+     "name": "career_top3_rate",
+     "weight": 0.0477
+    },
+    {
+     "name": "prev_same_track_top3_3d",
+     "weight": 0.046
+    },
+    {
+     "name": "last5_avg_finish",
+     "weight": -0.0406
+    },
+    {
+     "name": "crown_prior_podium_365d",
+     "weight": 0.0368
+    },
+    {
+     "name": "log_days_since_last_start",
+     "weight": -0.0309
+    },
+    {
+     "name": "podium_last_14d",
+     "weight": 0.0279
+    },
+    {
+     "name": "prev_same_track_finish_3d",
+     "weight": -0.0275
+    },
+    {
+     "name": "eldora_prior_podium_365d",
+     "weight": 0.0237
+    },
+    {
+     "name": "career_dnf_rate",
+     "weight": -0.0178
+    },
+    {
+     "name": "prev_same_track_3d",
+     "weight": 0.0174
+    },
+    {
+     "name": "prev_same_track_finish_3d__missing",
+     "weight": -0.0174
+    },
+    {
+     "name": "last5_avg_finish__missing",
+     "weight": -0.0162
+    },
+    {
+     "name": "last10_avg_finish__missing",
+     "weight": -0.0162
+    },
+    {
+     "name": "last5_win_rate__missing",
+     "weight": -0.0162
+    },
+    {
+     "name": "last10_win_rate__missing",
+     "weight": -0.0162
+    },
+    {
+     "name": "ewm_finish__missing",
+     "weight": -0.0162
+    },
+    {
+     "name": "ewm_win__missing",
+     "weight": -0.0162
+    },
+    {
+     "name": "log_days_since_last_start__missing",
+     "weight": -0.0162
+    },
+    {
+     "name": "won_last_14d",
+     "weight": 0.01
+    },
+    {
+     "name": "prev_same_track_win_3d",
+     "weight": 0.0093
+    },
+    {
+     "name": "crown_prior_win_365d",
+     "weight": -0.0087
+    },
+    {
+     "name": "heat_pos_norm__missing",
+     "weight": 0.0086
+    },
+    {
+     "name": "track_avg_finish",
+     "weight": -0.0084
+    },
+    {
+     "name": "track_top3_rate",
+     "weight": 0.0046
+    },
+    {
+     "name": "log_similar_track_starts",
+     "weight": 0.0046
+    },
+    {
+     "name": "track_win_rate",
+     "weight": -0.0043
+    },
+    {
+     "name": "qt_rank_norm__missing",
+     "weight": -0.0004
+    },
+    {
+     "name": "field_size",
+     "weight": 0.0
+    },
+    {
+     "name": "bmain_pos_norm",
+     "weight": 0.0
+    },
+    {
+     "name": "used_bmain_path",
+     "weight": 0.0
+    },
+    {
+     "name": "bmain_pos_norm__missing",
+     "weight": 0.0
+    }
+   ],
+   "variants": {
+    "cl": {
+     "logLoss": 2.1334,
+     "top1": 0.2444,
+     "top3Overlap": 1.3778,
+     "brier": 0.03612,
+     "ece": 0.0132
+    },
+    "boosted": {
+     "logLoss": 2.5703,
+     "top1": 0.1556,
+     "top3Overlap": 1.3333,
+     "brier": 0.04096,
+     "ece": 0.0287
+    },
+    "legacy-method": {
+     "logLoss": 2.5417,
+     "top1": 0.1778,
+     "top3Overlap": 1.2444,
+     "brier": 0.03826,
+     "ece": 0.0199
+    },
+    "form-only": {
+     "logLoss": 2.5663,
+     "top1": 0.2,
+     "top3Overlap": 1.0,
+     "brier": 0.03676,
+     "ece": 0.0105
+    },
+    "uniform": {
+     "logLoss": 3.1786,
+     "top1": 0.2222,
+     "top3Overlap": 0.9333,
+     "brier": 0.03947,
+     "ece": 0.0
+    }
+   },
+   "clLogLoss": 2.1334,
+   "clTop1": 0.2444,
+   "clTop3Overlap": 1.3778,
+   "boostedLogLoss": 2.5703,
+   "boostedTop1": 0.1556,
+   "boostedTop3Overlap": 1.3333,
+   "legacyLogLoss": 2.5417,
+   "legacyTop1": 0.1778,
+   "legacyTop3Overlap": 1.2444,
+   "formOnlyLogLoss": 2.5663,
+   "formOnlyTop1": 0.2,
+   "formOnlyTop3Overlap": 1.0,
+   "uniformLogLoss": 3.1786,
+   "uniformTop1": 0.2222,
+   "uniformTop3Overlap": 0.9333
+  },
+  {
+   "series": "Pooled (routed)",
+   "slug": "pooled",
+   "stage": "race-night",
+   "variant": "cl",
+   "selectionRule": "min held-out multinomial log loss over cl and boosted",
+   "races": 344,
+   "entries": 8482,
+   "seasons": [
+    2023,
+    2024,
+    2025,
+    2026
+   ],
+   "folds": [
+    {
+     "season": 2023,
+     "trainYears": [],
+     "trainRaces": 0,
+     "testRaces": 48
+    },
+    {
+     "season": 2024,
+     "trainYears": [
+      2023
+     ],
+     "trainRaces": 48,
+     "testRaces": 85
+    },
+    {
+     "season": 2025,
+     "trainYears": [
+      2023,
+      2024
+     ],
+     "trainRaces": 133,
+     "testRaces": 110
+    },
+    {
+     "season": 2026,
+     "trainYears": [
+      2023,
+      2024,
+      2025
+     ],
+     "trainRaces": 243,
+     "testRaces": 101
+    }
+   ],
+   "logLoss": 1.8391,
+   "top1": 0.343,
+   "top3Overlap": 1.6424,
+   "brier": 0.03176,
+   "ece": 0.0068,
+   "calibration": [
+    {
+     "lo": 0.0,
+     "hi": 0.05,
+     "n": 6896,
+     "predicted": 0.0076,
+     "observed": 0.0064
+    },
+    {
+     "lo": 0.05,
+     "hi": 0.1,
+     "n": 627,
+     "predicted": 0.0709,
+     "observed": 0.0766
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "n": 464,
+     "predicted": 0.1421,
+     "observed": 0.1875
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "n": 208,
+     "predicted": 0.2444,
+     "observed": 0.2644
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "n": 123,
+     "predicted": 0.3465,
+     "observed": 0.3252
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "n": 71,
+     "predicted": 0.4498,
+     "observed": 0.3803
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "n": 54,
+     "predicted": 0.5481,
+     "observed": 0.4815
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "n": 28,
+     "predicted": 0.6407,
+     "observed": 0.5
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "n": 8,
+     "predicted": 0.7332,
+     "observed": 0.25
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "n": 3,
+     "predicted": 0.8189,
+     "observed": 0.3333
+    },
+    {
+     "lo": 0.9,
+     "hi": 1.0,
+     "n": 0,
+     "predicted": null,
+     "observed": null
+    }
+   ],
+   "bySeason": [
+    {
+     "season": 2023,
+     "races": 48,
+     "clLogLoss": 1.9136,
+     "clTop1": 0.5,
+     "boostedLogLoss": 2.0352,
+     "boostedTop1": 0.4167,
+     "legacyLogLoss": 2.1847,
+     "legacyTop1": 0.25,
+     "formOnlyLogLoss": 2.4055,
+     "formOnlyTop1": 0.3542,
+     "uniformLogLoss": 3.1962,
+     "uniformTop1": 0.2708,
+     "logLoss": 1.9136,
+     "top1": 0.5
+    },
+    {
+     "season": 2024,
+     "races": 85,
+     "clLogLoss": 1.6326,
+     "clTop1": 0.4118,
+     "boostedLogLoss": 1.6055,
+     "boostedTop1": 0.4118,
+     "legacyLogLoss": 1.8021,
+     "legacyTop1": 0.3882,
+     "formOnlyLogLoss": 2.477,
+     "formOnlyTop1": 0.2353,
+     "uniformLogLoss": 3.1902,
+     "uniformTop1": 0.2471,
+     "logLoss": 1.6326,
+     "top1": 0.4118
+    },
+    {
+     "season": 2025,
+     "races": 110,
+     "clLogLoss": 1.9579,
+     "clTop1": 0.2636,
+     "boostedLogLoss": 1.9992,
+     "boostedTop1": 0.2545,
+     "legacyLogLoss": 2.2667,
+     "legacyTop1": 0.2273,
+     "formOnlyLogLoss": 2.5738,
+     "formOnlyTop1": 0.1818,
+     "uniformLogLoss": 3.1913,
+     "uniformTop1": 0.2091,
+     "logLoss": 1.9579,
+     "top1": 0.2636
+    },
+    {
+     "season": 2026,
+     "races": 101,
+     "clLogLoss": 1.848,
+     "clTop1": 0.297,
+     "boostedLogLoss": 2.0402,
+     "boostedTop1": 0.3366,
+     "legacyLogLoss": 2.1087,
+     "legacyTop1": 0.3168,
+     "formOnlyLogLoss": 2.395,
+     "formOnlyTop1": 0.2376,
+     "uniformLogLoss": 3.2184,
+     "uniformTop1": 0.2772,
+     "logLoss": 1.848,
+     "top1": 0.297
+    }
+   ],
+   "features": [],
+   "variants": {
+    "cl": {
+     "logLoss": 1.8391,
+     "top1": 0.343,
+     "top3Overlap": 1.6424,
+     "brier": 0.03176,
+     "ece": 0.0068
+    },
+    "boosted": {
+     "logLoss": 1.919,
+     "top1": 0.3401,
+     "top3Overlap": 1.6308,
+     "brier": 0.03254,
+     "ece": 0.0091
+    },
+    "legacy-method": {
+     "logLoss": 2.0941,
+     "top1": 0.2965,
+     "top3Overlap": 1.5058,
+     "brier": 0.03383,
+     "ece": 0.0099
+    },
+    "form-only": {
+     "logLoss": 2.4739,
+     "top1": 0.2355,
+     "top3Overlap": 1.2238,
+     "brier": 0.03546,
+     "ece": 0.004
+    },
+    "uniform": {
+     "logLoss": 3.1997,
+     "top1": 0.2471,
+     "top3Overlap": 1.0174,
+     "brier": 0.03889,
+     "ece": 0.0
+    }
+   },
+   "clLogLoss": 1.8391,
+   "clTop1": 0.343,
+   "clTop3Overlap": 1.6424,
+   "boostedLogLoss": 1.919,
+   "boostedTop1": 0.3401,
+   "boostedTop3Overlap": 1.6308,
+   "legacyLogLoss": 2.0941,
+   "legacyTop1": 0.2965,
+   "legacyTop3Overlap": 1.5058,
+   "formOnlyLogLoss": 2.4739,
+   "formOnlyTop1": 0.2355,
+   "formOnlyTop3Overlap": 1.2238,
+   "uniformLogLoss": 3.1997,
+   "uniformTop1": 0.2471,
+   "uniformTop3Overlap": 1.0174
+  }
+ ],
+ "notes": [],
+ "limitations": [
+  "Backtest folds are rolling by season; seasons with fewer than 15 test races (and the first season of every series) are not scored.",
+  "Source coverage is incomplete: audited race exclusions from public/data/data-quality.json are applied before training and scoring.",
+  "Crown Jewel / Combined pools crown-named WoO and Lucas races, so those races are scored by two series models; the pooled rows use the router's choice only.",
+  "The legacy-method baseline is the legacy algorithm refitted on leak-free features per fold, not the shipped legacy artifacts, which carried snapshot tables with no as-of date.",
+  "B-main positions are nearly absent in history, so bmain features are effectively missing indicators.",
+  "Early-stage favorites priced above 50% are overconfident in the backtest (pooled bins >= 0.5: predicted ~0.57, observed ~0.29 over ~50 races); treat heavy early-stage favorites with caution until the ledger confirms them.",
+  "The first WoO fold (test 2022) trains on only 36 races and the conditional logit scores worse than uniform there; production artifacts train on 99-255 races per series.",
+  "No backtest number is a claim of a live edge; the forecast ledger is the only place a live claim can come from."
+ ],
+ "runtimeSeconds": 12.7
+}
