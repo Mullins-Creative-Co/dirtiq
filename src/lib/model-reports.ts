@@ -137,9 +137,14 @@ export function getUpcomingRaceBoards(limit = 6, topN = 5): RaceBoard[] {
     )
     .all(today, today) as Array<Race & { series_mode: string | null }>;
 
+  const staleBefore = new Date(`${today}T12:00:00Z`);
+  staleBefore.setUTCDate(staleBefore.getUTCDate() - 3);
+  const staleCutoff = staleBefore.toISOString().slice(0, 10);
   const boards: RaceBoard[] = [];
   for (const race of races) {
     if (!isActiveModelTarget(race)) continue;
+    // Matches the engine's stale rule: an "upcoming" race more than three days past is not forecast.
+    if (race.race_date < staleCutoff) continue;
     const entries = getDb()
       .prepare(
         `SELECT re.driver_id, d.name AS driver_name, re.car_number, re.starting_position, re.qualifying_time, re.heat_position,

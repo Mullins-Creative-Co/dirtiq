@@ -54,6 +54,11 @@ def train_one(feat: pd.DataFrame, data: RacingData, series: str, stage: str, var
     paths = artifact_paths(series, stage, directory)
     paths["model"].parent.mkdir(parents=True, exist_ok=True)
     bt = backtest_entry or {}
+    # Post-hoc temperature from the backtest: fitted on out-of-fold predictions of the
+    # chosen variant, so it only applies when this artifact is that variant.
+    cal = bt.get("calibrationTemperature") or {}
+    temperature = cal.get("temperature") if bt.get("variant") == variant else None
+    temperature = float(temperature) if temperature else 1.0
     params: Dict[str, Any] = {
         "features": features,
         "feature_meanings": {f.name: f.meaning for f in FEATURES if f.name in features},
@@ -74,6 +79,11 @@ def train_one(feat: pd.DataFrame, data: RacingData, series: str, stage: str, var
         "backtest_top1": bt.get("top1"),
         "backtest_top3_overlap": bt.get("top3Overlap"),
         "backtest_ece": bt.get("ece"),
+        "calibration_temperature": temperature,
+        "calibration_temperature_source": ("backtest out-of-fold predictions" if temperature != 1.0 else
+                                           "none (T = 1): no backtest temperature for this variant, or within the deadband"),
+        "backtest_logloss_calibrated": cal.get("logLossAfter") if bt.get("variant") == variant else None,
+        "backtest_ece_calibrated": cal.get("eceAfter") if bt.get("variant") == variant else None,
         "backtest_legacy_logloss": bt.get("legacyLogLoss"),
         "backtest_uniform_logloss": bt.get("uniformLogLoss"),
         "backtest_seasons": bt.get("seasons"),
@@ -116,7 +126,8 @@ def train_all(series_list: Optional[Sequence[str]] = None, stages: Sequence[str]
             out.append(params)
             if verbose:
                 print(f"trained {series} [{stage}] variant={use} races={params['eligible_races']} "
-                      f"data_through={params['data_through']} backtest_logloss={params['backtest_logloss']}")
+                      f"data_through={params['data_through']} backtest_logloss={params['backtest_logloss']} "
+                      f"T={params['calibration_temperature']}")
     return out
 
 

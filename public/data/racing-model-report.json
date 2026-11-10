@@ -1,8 +1,8 @@
 {
- "generatedAt": "2026-11-10T17:25:37Z",
+ "generatedAt": "2026-11-10T18:39:26Z",
  "modelId": "racing-cl",
  "modelVersion": "1.0",
- "method": "rolling-origin by season: train through year t-1, test year t; every variant fitted per fold on identical races",
+ "method": "rolling-origin by season: train through year t-1, test year t; every variant fitted per fold on identical races. calibrationTemperature: one temperature per (series, stage) chosen by minimizing the multinomial log loss of softmax(score / T) on the out-of-fold backtest predictions only (bounded [0.5, 3]; T within 0.02 of 1 is kept at 1); it is applied at scoring time and never fitted on the training fold",
  "raceNightRule": {
   "starting_position": 0.7,
   "heat_or_qualifying": 0.5
@@ -161,6 +161,111 @@
      "observed": null
     }
    ],
+   "calibrationTemperature": {
+    "temperature": 1.0367,
+    "bounds": [
+     0.5,
+     3.0
+    ],
+    "deadband": 0.02,
+    "fittedOn": "out-of-fold backtest predictions of the chosen variant only (never the training fold)",
+    "races": 158,
+    "logLossBefore": 2.3116,
+    "logLossAfter": 2.3109,
+    "eceBefore": 0.0047,
+    "eceAfter": 0.005,
+    "favoritesBefore": {
+     "threshold": 0.5,
+     "n": 7,
+     "predicted": 0.5302,
+     "observed": 0.2857
+    },
+    "favoritesAfter": {
+     "threshold": 0.5,
+     "n": 3,
+     "predicted": 0.5411,
+     "observed": 0.0
+    },
+    "calibrationAfter": [
+     {
+      "lo": 0.0,
+      "hi": 0.05,
+      "n": 3153,
+      "predicted": 0.0126,
+      "observed": 0.0127
+     },
+     {
+      "lo": 0.05,
+      "hi": 0.1,
+      "n": 323,
+      "predicted": 0.0712,
+      "observed": 0.0867
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 327,
+      "predicted": 0.1442,
+      "observed": 0.156
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 119,
+      "predicted": 0.2441,
+      "observed": 0.1849
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 30,
+      "predicted": 0.339,
+      "observed": 0.3667
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 16,
+      "predicted": 0.4517,
+      "observed": 0.375
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 3,
+      "predicted": 0.5411,
+      "observed": 0.0
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 0,
+      "predicted": null,
+      "observed": null
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 0,
+      "predicted": null,
+      "observed": null
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 0,
+      "predicted": null,
+      "observed": null
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 0,
+      "predicted": null,
+      "observed": null
+     }
+    ]
+   },
    "bySeason": [
     {
      "season": 2023,
@@ -589,6 +694,111 @@
      "observed": null
     }
    ],
+   "calibrationTemperature": {
+    "temperature": 1.1295,
+    "bounds": [
+     0.5,
+     3.0
+    ],
+    "deadband": 0.02,
+    "fittedOn": "out-of-fold backtest predictions of the chosen variant only (never the training fold)",
+    "races": 219,
+    "logLossBefore": 2.5248,
+    "logLossAfter": 2.5146,
+    "eceBefore": 0.0057,
+    "eceAfter": 0.0052,
+    "favoritesBefore": {
+     "threshold": 0.5,
+     "n": 24,
+     "predicted": 0.5626,
+     "observed": 0.25
+    },
+    "favoritesAfter": {
+     "threshold": 0.5,
+     "n": 9,
+     "predicted": 0.5522,
+     "observed": 0.2222
+    },
+    "calibrationAfter": [
+     {
+      "lo": 0.0,
+      "hi": 0.05,
+      "n": 4308,
+      "predicted": 0.0177,
+      "observed": 0.0162
+     },
+     {
+      "lo": 0.05,
+      "hi": 0.1,
+      "n": 614,
+      "predicted": 0.0706,
+      "observed": 0.0863
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 298,
+      "predicted": 0.1354,
+      "observed": 0.1409
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 87,
+      "predicted": 0.245,
+      "observed": 0.2759
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 61,
+      "predicted": 0.348,
+      "observed": 0.3115
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 27,
+      "predicted": 0.4321,
+      "observed": 0.3333
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 7,
+      "predicted": 0.5378,
+      "observed": 0.1429
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 2,
+      "predicted": 0.6029,
+      "observed": 0.5
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 0,
+      "predicted": null,
+      "observed": null
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 0,
+      "predicted": null,
+      "observed": null
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 0,
+      "predicted": null,
+      "observed": null
+     }
+    ]
+   },
    "bySeason": [
     {
      "season": 2022,
@@ -999,6 +1209,111 @@
      "observed": null
     }
    ],
+   "calibrationTemperature": {
+    "temperature": 1.0901,
+    "bounds": [
+     0.5,
+     3.0
+    ],
+    "deadband": 0.02,
+    "fittedOn": "out-of-fold backtest predictions of the chosen variant only (never the training fold)",
+    "races": 50,
+    "logLossBefore": 2.2703,
+    "logLossAfter": 2.2649,
+    "eceBefore": 0.0078,
+    "eceAfter": 0.0088,
+    "favoritesBefore": {
+     "threshold": 0.5,
+     "n": 0,
+     "predicted": null,
+     "observed": null
+    },
+    "favoritesAfter": {
+     "threshold": 0.5,
+     "n": 0,
+     "predicted": null,
+     "observed": null
+    },
+    "calibrationAfter": [
+     {
+      "lo": 0.0,
+      "hi": 0.05,
+      "n": 911,
+      "predicted": 0.0146,
+      "observed": 0.0154
+     },
+     {
+      "lo": 0.05,
+      "hi": 0.1,
+      "n": 71,
+      "predicted": 0.0684,
+      "observed": 0.0423
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 63,
+      "predicted": 0.1513,
+      "observed": 0.1429
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 67,
+      "predicted": 0.25,
+      "observed": 0.3134
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 15,
+      "predicted": 0.3424,
+      "observed": 0.2
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 1,
+      "predicted": 0.4312,
+      "observed": 0.0
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 0,
+      "predicted": null,
+      "observed": null
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 0,
+      "predicted": null,
+      "observed": null
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 0,
+      "predicted": null,
+      "observed": null
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 0,
+      "predicted": null,
+      "observed": null
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 0,
+      "predicted": null,
+      "observed": null
+     }
+    ]
+   },
    "bySeason": [
     {
      "season": 2024,
@@ -1390,6 +1705,111 @@
      "observed": null
     }
    ],
+   "calibrationTemperature": {
+    "temperature": 1.0418,
+    "bounds": [
+     0.5,
+     3.0
+    ],
+    "deadband": 0.02,
+    "fittedOn": "out-of-fold backtest predictions of the chosen variant only (never the training fold)",
+    "races": 91,
+    "logLossBefore": 2.4633,
+    "logLossAfter": 2.4622,
+    "eceBefore": 0.0101,
+    "eceAfter": 0.0104,
+    "favoritesBefore": {
+     "threshold": 0.5,
+     "n": 9,
+     "predicted": 0.5746,
+     "observed": 0.1111
+    },
+    "favoritesAfter": {
+     "threshold": 0.5,
+     "n": 6,
+     "predicted": 0.5767,
+     "observed": 0.0
+    },
+    "calibrationAfter": [
+     {
+      "lo": 0.0,
+      "hi": 0.05,
+      "n": 1812,
+      "predicted": 0.0171,
+      "observed": 0.0177
+     },
+     {
+      "lo": 0.05,
+      "hi": 0.1,
+      "n": 215,
+      "predicted": 0.0708,
+      "observed": 0.0558
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 128,
+      "predicted": 0.1406,
+      "observed": 0.1875
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 47,
+      "predicted": 0.2424,
+      "observed": 0.3404
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 24,
+      "predicted": 0.3434,
+      "observed": 0.25
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 8,
+      "predicted": 0.4598,
+      "observed": 0.125
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 5,
+      "predicted": 0.5548,
+      "observed": 0.0
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 1,
+      "predicted": 0.6863,
+      "observed": 0.0
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 0,
+      "predicted": null,
+      "observed": null
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 0,
+      "predicted": null,
+      "observed": null
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 0,
+      "predicted": null,
+      "observed": null
+     }
+    ]
+   },
    "bySeason": [
     {
      "season": 2023,
@@ -1812,6 +2232,111 @@
      "observed": null
     }
    ],
+   "calibrationTemperature": {
+    "temperature": null,
+    "bounds": [
+     0.5,
+     3.0
+    ],
+    "deadband": 0.02,
+    "fittedOn": "per-series temperatures applied to each routed race (fit on out-of-fold predictions only)",
+    "races": 431,
+    "logLossBefore": 2.4203,
+    "logLossAfter": 2.4141,
+    "eceBefore": 0.0048,
+    "eceAfter": 0.0042,
+    "favoritesBefore": {
+     "threshold": 0.5,
+     "n": 34,
+     "predicted": 0.5608,
+     "observed": 0.2647
+    },
+    "favoritesAfter": {
+     "threshold": 0.5,
+     "n": 14,
+     "predicted": 0.5635,
+     "observed": 0.1429
+    },
+    "calibrationAfter": [
+     {
+      "lo": 0.0,
+      "hi": 0.05,
+      "n": 8500,
+      "predicted": 0.0159,
+      "observed": 0.0154
+     },
+     {
+      "lo": 0.05,
+      "hi": 0.1,
+      "n": 994,
+      "predicted": 0.0702,
+      "observed": 0.0755
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 658,
+      "predicted": 0.1411,
+      "observed": 0.1565
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 270,
+      "predicted": 0.2448,
+      "observed": 0.2704
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 119,
+      "predicted": 0.3451,
+      "observed": 0.3025
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 40,
+      "predicted": 0.4424,
+      "observed": 0.275
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 11,
+      "predicted": 0.5452,
+      "observed": 0.0909
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 3,
+      "predicted": 0.6307,
+      "observed": 0.3333
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 0,
+      "predicted": null,
+      "observed": null
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 0,
+      "predicted": null,
+      "observed": null
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 0,
+      "predicted": null,
+      "observed": null
+     }
+    ]
+   },
    "bySeason": [
     {
      "season": 2022,
@@ -2094,6 +2619,111 @@
      "observed": null
     }
    ],
+   "calibrationTemperature": {
+    "temperature": 1.0724,
+    "bounds": [
+     0.5,
+     3.0
+    ],
+    "deadband": 0.02,
+    "fittedOn": "out-of-fold backtest predictions of the chosen variant only (never the training fold)",
+    "races": 147,
+    "logLossBefore": 1.8891,
+    "logLossAfter": 1.8861,
+    "eceBefore": 0.0086,
+    "eceAfter": 0.0083,
+    "favoritesBefore": {
+     "threshold": 0.5,
+     "n": 33,
+     "predicted": 0.5931,
+     "observed": 0.4242
+    },
+    "favoritesAfter": {
+     "threshold": 0.5,
+     "n": 24,
+     "predicted": 0.5839,
+     "observed": 0.4167
+    },
+    "calibrationAfter": [
+     {
+      "lo": 0.0,
+      "hi": 0.05,
+      "n": 2941,
+      "predicted": 0.0073,
+      "observed": 0.0065
+     },
+     {
+      "lo": 0.05,
+      "hi": 0.1,
+      "n": 268,
+      "predicted": 0.0697,
+      "observed": 0.0597
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 238,
+      "predicted": 0.1448,
+      "observed": 0.2059
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 111,
+      "predicted": 0.2406,
+      "observed": 0.2162
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 53,
+      "predicted": 0.3452,
+      "observed": 0.283
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 30,
+      "predicted": 0.4457,
+      "observed": 0.4667
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 14,
+      "predicted": 0.5271,
+      "observed": 0.3571
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 8,
+      "predicted": 0.6345,
+      "observed": 0.5
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 1,
+      "predicted": 0.7391,
+      "observed": 0.0
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 1,
+      "predicted": 0.8174,
+      "observed": 1.0
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 0,
+      "predicted": null,
+      "observed": null
+     }
+    ]
+   },
    "bySeason": [
     {
      "season": 2023,
@@ -2545,6 +3175,111 @@
      "observed": null
     }
    ],
+   "calibrationTemperature": {
+    "temperature": 0.9601,
+    "bounds": [
+     0.5,
+     3.0
+    ],
+    "deadband": 0.02,
+    "fittedOn": "out-of-fold backtest predictions of the chosen variant only (never the training fold)",
+    "races": 164,
+    "logLossBefore": 1.8338,
+    "logLossAfter": 1.8327,
+    "eceBefore": 0.0068,
+    "eceAfter": 0.0074,
+    "favoritesBefore": {
+     "threshold": 0.5,
+     "n": 41,
+     "predicted": 0.5938,
+     "observed": 0.5854
+    },
+    "favoritesAfter": {
+     "threshold": 0.5,
+     "n": 50,
+     "predicted": 0.597,
+     "observed": 0.56
+    },
+    "calibrationAfter": [
+     {
+      "lo": 0.0,
+      "hi": 0.05,
+      "n": 3350,
+      "predicted": 0.0076,
+      "observed": 0.0054
+     },
+     {
+      "lo": 0.05,
+      "hi": 0.1,
+      "n": 320,
+      "predicted": 0.0716,
+      "observed": 0.0906
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 225,
+      "predicted": 0.142,
+      "observed": 0.1644
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 101,
+      "predicted": 0.2458,
+      "observed": 0.2673
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 47,
+      "predicted": 0.3428,
+      "observed": 0.2979
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 29,
+      "predicted": 0.4493,
+      "observed": 0.3793
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 27,
+      "predicted": 0.5399,
+      "observed": 0.5926
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 17,
+      "predicted": 0.6336,
+      "observed": 0.6471
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 5,
+      "predicted": 0.7393,
+      "observed": 0.0
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 1,
+      "predicted": 0.8026,
+      "observed": 1.0
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 0,
+      "predicted": null,
+      "observed": null
+     }
+    ]
+   },
    "bySeason": [
     {
      "season": 2023,
@@ -2975,6 +3710,111 @@
      "observed": null
     }
    ],
+   "calibrationTemperature": {
+    "temperature": 1.1534,
+    "bounds": [
+     0.5,
+     3.0
+    ],
+    "deadband": 0.02,
+    "fittedOn": "out-of-fold backtest predictions of the chosen variant only (never the training fold)",
+    "races": 50,
+    "logLossBefore": 1.7396,
+    "logLossAfter": 1.7233,
+    "eceBefore": 0.0159,
+    "eceAfter": 0.0149,
+    "favoritesBefore": {
+     "threshold": 0.5,
+     "n": 24,
+     "predicted": 0.6339,
+     "observed": 0.3333
+    },
+    "favoritesAfter": {
+     "threshold": 0.5,
+     "n": 18,
+     "predicted": 0.5856,
+     "observed": 0.2778
+    },
+    "calibrationAfter": [
+     {
+      "lo": 0.0,
+      "hi": 0.05,
+      "n": 916,
+      "predicted": 0.008,
+      "observed": 0.0055
+     },
+     {
+      "lo": 0.05,
+      "hi": 0.1,
+      "n": 88,
+      "predicted": 0.0716,
+      "observed": 0.0682
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 48,
+      "predicted": 0.1382,
+      "observed": 0.2292
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 20,
+      "predicted": 0.2379,
+      "observed": 0.4
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 24,
+      "predicted": 0.3427,
+      "observed": 0.3333
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 14,
+      "predicted": 0.4419,
+      "observed": 0.5
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 13,
+      "predicted": 0.5542,
+      "observed": 0.3846
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 4,
+      "predicted": 0.6406,
+      "observed": 0.0
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 1,
+      "predicted": 0.7734,
+      "observed": 0.0
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 0,
+      "predicted": null,
+      "observed": null
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 0,
+      "predicted": null,
+      "observed": null
+     }
+    ]
+   },
    "bySeason": [
     {
      "season": 2024,
@@ -3375,6 +4215,111 @@
      "observed": null
     }
    ],
+   "calibrationTemperature": {
+    "temperature": 1.1052,
+    "bounds": [
+     0.5,
+     3.0
+    ],
+    "deadband": 0.02,
+    "fittedOn": "out-of-fold backtest predictions of the chosen variant only (never the training fold)",
+    "races": 45,
+    "logLossBefore": 2.1334,
+    "logLossAfter": 2.1266,
+    "eceBefore": 0.0132,
+    "eceAfter": 0.0138,
+    "favoritesBefore": {
+     "threshold": 0.5,
+     "n": 7,
+     "predicted": 0.6605,
+     "observed": 0.1429
+    },
+    "favoritesAfter": {
+     "threshold": 0.5,
+     "n": 6,
+     "predicted": 0.6245,
+     "observed": 0.1667
+    },
+    "calibrationAfter": [
+     {
+      "lo": 0.0,
+      "hi": 0.05,
+      "n": 870,
+      "predicted": 0.0117,
+      "observed": 0.008
+     },
+     {
+      "lo": 0.05,
+      "hi": 0.1,
+      "n": 97,
+      "predicted": 0.0705,
+      "observed": 0.1031
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 70,
+      "predicted": 0.1361,
+      "observed": 0.1857
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 29,
+      "predicted": 0.2552,
+      "observed": 0.2759
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 14,
+      "predicted": 0.3388,
+      "observed": 0.3571
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 6,
+      "predicted": 0.4338,
+      "observed": 0.1667
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 3,
+      "predicted": 0.5277,
+      "observed": 0.0
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 1,
+      "predicted": 0.6593,
+      "observed": 0.0
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 2,
+      "predicted": 0.7525,
+      "observed": 0.5
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 0,
+      "predicted": null,
+      "observed": null
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 0,
+      "predicted": null,
+      "observed": null
+     }
+    ]
+   },
    "bySeason": [
     {
      "season": 2025,
@@ -3785,6 +4730,111 @@
      "observed": null
     }
    ],
+   "calibrationTemperature": {
+    "temperature": null,
+    "bounds": [
+     0.5,
+     3.0
+    ],
+    "deadband": 0.02,
+    "fittedOn": "per-series temperatures applied to each routed race (fit on out-of-fold predictions only)",
+    "races": 344,
+    "logLossBefore": 1.8391,
+    "logLossAfter": 1.8359,
+    "eceBefore": 0.0068,
+    "eceAfter": 0.0074,
+    "favoritesBefore": {
+     "threshold": 0.5,
+     "n": 93,
+     "predicted": 0.6006,
+     "observed": 0.4624
+    },
+    "favoritesAfter": {
+     "threshold": 0.5,
+     "n": 85,
+     "predicted": 0.5871,
+     "observed": 0.4588
+    },
+    "calibrationAfter": [
+     {
+      "lo": 0.0,
+      "hi": 0.05,
+      "n": 6854,
+      "predicted": 0.008,
+      "observed": 0.0057
+     },
+     {
+      "lo": 0.05,
+      "hi": 0.1,
+      "n": 657,
+      "predicted": 0.0707,
+      "observed": 0.0761
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 483,
+      "predicted": 0.1419,
+      "observed": 0.1884
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 215,
+      "predicted": 0.2446,
+      "observed": 0.2698
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 117,
+      "predicted": 0.3426,
+      "observed": 0.3248
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 71,
+      "predicted": 0.4437,
+      "observed": 0.4085
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 52,
+      "predicted": 0.5406,
+      "observed": 0.4423
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 26,
+      "predicted": 0.6344,
+      "observed": 0.5385
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 6,
+      "predicted": 0.7493,
+      "observed": 0.1667
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 1,
+      "predicted": 0.8026,
+      "observed": 1.0
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 0,
+      "predicted": null,
+      "observed": null
+     }
+    ]
+   },
    "bySeason": [
     {
      "season": 2023,
@@ -3913,9 +4963,9 @@
   "Crown Jewel / Combined pools crown-named WoO and Lucas races, so those races are scored by two series models; the pooled rows use the router's choice only.",
   "The legacy-method baseline is the legacy algorithm refitted on leak-free features per fold, not the shipped legacy artifacts, which carried snapshot tables with no as-of date.",
   "B-main positions are nearly absent in history, so bmain features are effectively missing indicators.",
-  "Early-stage favorites priced above 50% are overconfident in the backtest (pooled bins >= 0.5: predicted ~0.57, observed ~0.29 over ~50 races); treat heavy early-stage favorites with caution until the ledger confirms them.",
+  "Early-stage favorites priced above 50% are overconfident in the raw backtest (pooled bins >= 0.5: predicted ~0.57, observed ~0.29 over ~50 races). A per-(series, stage) temperature fitted on the out-of-fold predictions (calibrationTemperature) is applied at scoring time; it rests on few favorite races, so treat heavy early-stage favorites with caution until the ledger confirms them.",
   "The first WoO fold (test 2022) trains on only 36 races and the conditional logit scores worse than uniform there; production artifacts train on 99-255 races per series.",
   "No backtest number is a claim of a live edge; the forecast ledger is the only place a live claim can come from."
  ],
- "runtimeSeconds": 12.7
+ "runtimeSeconds": 77.2
 }

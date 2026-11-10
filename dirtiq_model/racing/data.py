@@ -10,8 +10,10 @@ import importlib.util
 import sqlite3
 import sys
 from dataclasses import dataclass
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any, Dict, Mapping, Optional, Tuple
+from zoneinfo import ZoneInfo
 
 import pandas as pd
 
@@ -36,7 +38,39 @@ CROWN_PATTERNS = [
     "hillbilly", "national 100", "silver dollar", "florence", "eldora",
 ]
 
+# An 'upcoming' race dated more than this many days before today (America/New_York)
+# never received results; it is not scored and its open ledger rows are voided.
+STALE_UPCOMING_DAYS = 3
+RACE_DAY_TZ = "America/New_York"
+
 _modules: Dict[str, Any] = {}
+
+
+def today_race_day(today: Optional[date] = None) -> date:
+    """Today's date in the race-day time zone (America/New_York)."""
+    return today if today is not None else datetime.now(ZoneInfo(RACE_DAY_TZ)).date()
+
+
+def race_day(value: Any) -> Optional[date]:
+    """``race_date`` text or Timestamp -> date (first 10 characters), None if unparseable."""
+    if value is None:
+        return None
+    try:
+        return date.fromisoformat(str(value)[:10])
+    except ValueError:
+        return None
+
+
+def stale_upcoming_days(status: Any, race_date: Any, today: Optional[date] = None,
+                        max_days: int = STALE_UPCOMING_DAYS) -> Optional[int]:
+    """Days by which an 'upcoming' race is past the stale cutoff, or None if it is not stale."""
+    if str(status) != "upcoming":
+        return None
+    day = race_day(race_date)
+    if day is None:
+        return None
+    age = (today_race_day(today) - day).days
+    return age if age > max_days else None
 
 
 def _script_module(name: str) -> Any:

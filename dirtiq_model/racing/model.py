@@ -61,15 +61,21 @@ def _field_nll(scores: np.ndarray, race_ids: np.ndarray, won: np.ndarray) -> flo
     return float(-np.sum(np.log(np.clip(p[won.astype(bool)], 1e-12, None))))
 
 
-def plackett_luce_stats(scores: np.ndarray, n_samples: int = 2000, seed: int = 7) -> Dict[str, np.ndarray]:
+def plackett_luce_stats(scores: np.ndarray, n_samples: int = 2000, seed: int = 7,
+                        temperature: float = 1.0) -> Dict[str, np.ndarray]:
     """Sample finishing orders from a Plackett-Luce model (Gumbel trick).
 
-    Returns top3 / top5 probabilities and expected finishing position for one race.
+    ``scores`` are divided by ``temperature`` first, so the sampled winner
+    distribution equals ``field_softmax(scores / temperature)`` (the same
+    post-hoc calibration the win probability gets). Returns top3 / top5
+    probabilities, expected finishing position and the sampled ``ranks``
+    (``n_samples x n``, 0 = winner) for one race.
     """
-    s = np.asarray(scores, dtype=float)
+    s = np.asarray(scores, dtype=float) / float(temperature)
     n = len(s)
     if n == 0:
-        return {"top3": np.array([]), "top5": np.array([]), "expected_finish": np.array([])}
+        return {"top3": np.array([]), "top5": np.array([]), "expected_finish": np.array([]),
+                "ranks": np.zeros((0, 0), dtype=int)}
     rng = np.random.default_rng(seed)
     g = rng.gumbel(size=(n_samples, n))
     order = np.argsort(-(s[None, :] + g), axis=1)
@@ -80,7 +86,33 @@ def plackett_luce_stats(scores: np.ndarray, n_samples: int = 2000, seed: int = 7
         "top3": (ranks < 3).mean(axis=0),
         "top5": (ranks < 5).mean(axis=0),
         "expected_finish": ranks.mean(axis=0) + 1.0,
+        "ranks": ranks,
     }
+
+
+def pairwise_ahead(ranks: np.ndarray, idx: Sequence[int]) -> np.ndarray:
+    """``out[i][j]`` = P(entrant idx[i] finishes ahead of entrant idx[j]) from sampled ranks; diagonal 0.5."""
+    idx = list(idx)
+    k = len(idx)
+    out = np.full((k, k), 0.5)
+    if k == 0 or ranks.size == 0:
+        return out
+    sub = ranks[:, idx]
+    for i in range(k):
+        out[i] = (sub[:, i][:, None] < sub).mean(axis=0)
+        out[i, i] = 0.5
+    return out
+
+
+def apply_temperature(prob: np.ndarray, race_ids: np.ndarray, temperature: float) -> np.ndarray:
+    """Field probabilities rescaled by a score temperature: softmax(log p / T) within each race.
+
+    For a softmax model this equals dividing the underlying scores by ``T``, so a
+    temperature fitted on probabilities applies unchanged to the scores.
+    """
+    if float(temperature) == 1.0:
+        return np.asarray(prob, dtype=float)
+    return field_softmax(np.log(np.clip(np.asarray(prob, dtype=float), 1e-12, None)) / float(temperature), race_ids)
 
 
 # ── feature transform ────────────────────────────────────────────────────
