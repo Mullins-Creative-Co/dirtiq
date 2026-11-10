@@ -1,3 +1,5 @@
+import pregame from '../../../../public/matchups/pregame.json';
+import { attachAutomaticForecasts } from '@/lib/matchups/automatic';
 import { getScoreboardUrl, parseScoreboard, SCHEDULE_SOURCE, validateScheduleQuery } from '@/lib/matchups/schedule';
 
 export async function GET(request: Request) {
@@ -15,8 +17,8 @@ export async function GET(request: Request) {
       headers: { Accept: 'application/json' },
     });
     if (!response.ok) throw new Error(`ESPN scoreboard request failed (HTTP ${response.status}).`);
-    const games = parseScoreboard(await response.json(), query.sport);
-    return Response.json({ games, sourceLabel: SCHEDULE_SOURCE }, { headers: { 'Cache-Control': 'public, max-age=30, s-maxage=60' } });
+    const games = attachAutomaticForecasts(parseScoreboard(await response.json(), query.sport), pregame, new Date().toISOString());
+    return Response.json({ games, sourceLabel: SCHEDULE_SOURCE }, { headers: { 'Cache-Control': 'no-store' } });
   } catch {
     return Response.json({ games: [], sourceLabel: SCHEDULE_SOURCE, error: 'ESPN schedule lookup is unavailable or returned invalid data. Try again later; no replacement games were generated.' }, { status: 502, headers: { 'Cache-Control': 'no-store' } });
   }

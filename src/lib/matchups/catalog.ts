@@ -5,7 +5,7 @@ import type { SportId } from './model.ts';
 export type MatchupGame = {
   id: string; sport: SportId; home: string; away: string; startsAt: string | null;
   status: string; sourceLabel: string; sourceUrl: string;
-  baselineHomeMargin: number | null; baselineSource: string;
+  baselineHomeMargin: number | null; baselineSource: string; baselineKind?: 'automatic'; automaticExpiresAt?: string;
   homeSpread: number | null; homeOdds: number | null; awayOdds: number | null;
   book: string; quoteObservedAt: string; homeCoverProbability: number | null;
   probabilitySource: string; distribution?: Record<string, number>; warnings: string[];

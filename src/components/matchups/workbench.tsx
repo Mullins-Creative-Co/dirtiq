@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { automaticBaselineIsCurrent } from '@/lib/matchups/automatic';
 import { MatchupBreakdown } from './breakdown';
 import { TicketJournal } from './ticket-journal';
 import { useEffect, useRef, useState } from 'react';
@@ -89,7 +90,7 @@ export function MatchupWorkbench({ archivedGames, today }: { archivedGames: Matc
       home: game.home, away: game.away, baseline: string(game.baselineHomeMargin), baselineSource: game.baselineSource,
       spread: string(game.homeSpread), homeOdds: string(game.homeOdds), awayOdds: string(game.awayOdds), book: game.book,
       quoteTime: game.quoteObservedAt, probability: game.homeCoverProbability === null ? '' : String(game.homeCoverProbability * 100), probabilitySource: game.probabilitySource,
-    }, adjustments: factors(sport) }); setRun(null); setNotice('Game loaded. Review the inputs, then run the matchup.');
+    }, adjustments: factors(sport).map(factor => game.baselineKind === 'automatic' && factor.id === 'efficiency' ? { ...factor, label: 'Team offense/defense EPA (not opponent-adjusted)', status: 'included', reason: 'Already included in the automatic Team EPA baseline.' } : factor) }); setRun(null); setNotice('Game loaded. Review the inputs, then run the matchup.');
   }
   function edit(key: keyof Fields, value: string) {
     clearRun();
@@ -127,9 +128,12 @@ export function MatchupWorkbench({ archivedGames, today }: { archivedGames: Matc
     } finally { if (sequence === request.current) setLoading(false); }
   }
   function execute() {
+    if (!draft.modified && draft.game?.baselineKind === 'automatic' && !automaticBaselineIsCurrent(draft.game, new Date().toISOString())) {
+      setRun(null); setNotice('This automatic forecast expired or the game started. Find games again to refresh; no current projection was produced.'); return;
+    }
     const f = draft.fields;
     const input: MatchupInput = {
-      sport, home: f.home, away: f.away, baselineHomeMargin: number(f.baseline), baselineSource: f.baselineSource,
+      sport, home: f.home, away: f.away, baselineKind: !draft.modified ? draft.game?.baselineKind : undefined, baselineHomeMargin: number(f.baseline), baselineSource: f.baselineSource,
       adjustments: draft.adjustments, homeSpread: number(f.spread), homeOdds: number(f.homeOdds), awayOdds: number(f.awayOdds),
       book: f.book, quoteObservedAt: f.quoteTime, homeCoverProbability: f.probability.trim() ? Number(f.probability) / 100 : null,
       probabilitySource: f.probabilitySource, distribution: draft.game?.distribution,
@@ -164,8 +168,8 @@ export function MatchupWorkbench({ archivedGames, today }: { archivedGames: Matc
         <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-strong">Review a matchup before the game: a sourced projection, the exact line and price, what supports the lean, and what could change it.</p>
       </div><Link href="/bet" className={buttonClass}>Dirt racing ↗</Link></div>
       <div className="mt-5 flex flex-wrap gap-2" aria-label="Choose a sport">{(Object.entries(SPORT_LABELS) as [SportId, string][]).map(([id, label]) => <button type="button" key={id} aria-pressed={sport === id} onClick={() => changeSport(id)} className={`${buttonClass} ${sport === id ? 'border-accent bg-accent text-white' : 'text-muted-strong'}`}>{label}</button>)}</div>
-      <p className="mt-4 rounded-lg border border-amber-400/25 p-3 text-sm leading-relaxed text-muted-strong"><strong>Current capability: manual pregame scenarios, not automatic daily predictions.</strong> The upcoming-game lookup is a schedule feed. To run a new game you still need a sourced forecast and current quote; a model or outside-provider feed is not yet connected. Postgame grading will test forecasts saved before play, not create the pregame answer.</p>
-      <p className="mt-4 text-xs leading-relaxed text-muted">Shared workflow, sport-specific evidence. NFL frozen trial forecasts and NBA research examples are connected. Current-game model inputs, confirmed lineups and live sportsbook prices are not connected. Nothing here establishes a validated edge.</p>
+      <p className="mt-4 rounded-lg border border-amber-400/25 p-3 text-sm leading-relaxed text-muted-strong"><strong>Automatic NFL baseline when fresh inputs are available.</strong> Find games to load a pregame team-efficiency projection. This is experimental, not a validated edge: current book quotes, confirmed lineups and calibrated cover probabilities are not connected. NBA and college still need a sourced manual baseline. Outside models are manual comparisons, not an automated consensus.</p>
+      <p className="mt-4 text-xs leading-relaxed text-muted">Shared workflow, sport-specific evidence. NFL frozen trial forecasts and NBA research examples are connected. Fresh NFL Team EPA inputs can load automatically. Confirmed lineups, live sportsbook prices and other-sport current model inputs are not connected. Nothing here establishes a validated edge.</p>
     </header>
 
     <div className="grid items-start gap-5 lg:grid-cols-[320px_minmax(0,1fr)]">

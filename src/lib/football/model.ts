@@ -235,3 +235,15 @@ export function demoGames(): Game[] {
       home_margin: Math.round(strength + normal() * 13), market_home_margin: Math.round((strength + normal() * 2) * 2) / 2, home_odds: -110, away_odds: -110 };
   });
 }
+
+/** Frozen development-only Team EPA fit. No market/target result/assumed QB inputs.
+ * Point regression does NOT establish calibrated cover probabilities. */
+export function forecastPregameTeamEpa(history: Game[], target: Pick<Game, 'off_epa_diff' | 'def_epa_allowed_diff' | 'home_field'>) {
+  if (teamFeatures.some(f => !Number.isFinite(target[f as keyof typeof target]))) throw new Error('Missing finite team-EPA features.');
+  const cutoff = Date.parse('2025-11-05T18:00:00Z');
+  const train = history.filter(g => (g.season === 2023 || g.season === 2024 || (g.season === 2025 && (g.week ?? 99) <= 9)) && Date.parse(g.completed_at) < cutoff);
+  if (train.length < defaults.minTrain || train.some(g => !Number.isFinite(g.home_margin) || teamFeatures.some(f => !Number.isFinite(g[f])))) throw new Error('Insufficient or invalid development-only training history.');
+  const predicted = fit(train, teamFeatures, defaults.alpha, cutoff, defaults.halfLifeDays)(target as Game);
+  if (!Number.isFinite(predicted) || Math.abs(predicted) > 100) throw new Error('Invalid model projection.');
+  return { predicted, trainCount: train.length, trainingCutoff: new Date(cutoff).toISOString(), modelVersion: 'nfl-team-epa-development-v1' };
+}

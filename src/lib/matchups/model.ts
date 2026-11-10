@@ -13,7 +13,7 @@ export type Adjustment = {
 };
 export type MatchupInput = {
   sport: SportId; home: string; away: string;
-  baselineHomeMargin: number | null; baselineSource: string;
+  baselineHomeMargin: number | null; baselineSource: string; baselineKind?: 'automatic';
   adjustments: Adjustment[]; homeSpread: number | null;
   homeOdds: number | null; awayOdds: number | null;
   book: string; quoteObservedAt: string;
@@ -161,7 +161,7 @@ export function runMatchup(input: MatchupInput): RunResult {
   } else if (baseline !== null && !nonempty(input.baselineSource)) {
     errors.push('A manual baseline needs a baseline source.');
   } else if (baseline !== null) {
-    reasons.push(`Manual baseline source: ${input.baselineSource.trim()}.`);
+    reasons.push(`${input.baselineKind === 'automatic' ? 'Automatic experimental model' : 'Manual baseline'} source: ${input.baselineSource.trim()}.`);
   }
 
   if (input.homeSpread !== null || input.homeOdds !== null || input.awayOdds !== null) {
