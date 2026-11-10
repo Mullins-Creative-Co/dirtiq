@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { TicketJournal } from './ticket-journal';
 import { useEffect, useRef, useState } from 'react';
 import type { MatchupGame } from '@/lib/matchups/catalog';
 import { runMatchup, SPORT_LABELS, type Adjustment, type MatchupInput, type SportId } from '@/lib/matchups/model';
@@ -231,5 +232,6 @@ export function MatchupWorkbench({ archivedGames, today }: { archivedGames: Matc
         </section>
       </div>
     </div>
+    <TicketJournal run={run} sport={sport} />
   </div>;
 }

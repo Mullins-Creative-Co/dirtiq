@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { addTicket, readTickets, ticketErrors, ticketProfit, journalTotals, type Ticket } from '../src/lib/matchups/tickets.ts';
+const base: Ticket = { id: 'one', recordedAt: '2026-01-01T00:00:00Z', sport: 'nfl', matchup: 'A at B', selection: 'B', spread: -3.5, odds: -105, stake: 5, book: 'Example', placedAt: '', reasoning: 'Original hypothesis', review: '', status: 'won', returned: 9.76, entryTiming: 'retrospective', snapshot: null };
+test('actual payout is total return, not profit', () => { assert.equal(ticketProfit(base), 4.76); assert.deepEqual(ticketErrors(base), []); });
+test('open tickets do not contribute to settled stake or ROI', () => { const rows = [base, { ...base, id: 'two', status: 'open' as const, returned: null }]; assert.deepEqual(journalTotals(rows), { settled: 1, open: 1, stake: 5, profit: 4.76, roi: 4.76 / 5 }); });
+test('loss, push, void and cashout accounting', () => { assert.equal(ticketProfit({ ...base, status: 'lost', returned: 0 }), -5); assert.equal(ticketProfit({ ...base, status: 'push', returned: 5 }), 0); assert.equal(ticketProfit({ ...base, status: 'cashout', returned: 2 }), -3); assert.ok(ticketErrors({ ...base, status: 'void' }).length); });
+test('bad odds, spread, stake and result are rejected', () => { for (const patch of [{ odds: -99 }, { stake: NaN }, { spread: NaN }, { returned: -1 }, { status: 'open', returned: 1 }, { status: 'lost', returned: 5 }]) assert.throws(() => addTicket([], { ...base, ...patch } as Ticket)); });
+test('repeated record id is idempotent; separate tickets are retained', () => { const rows = addTicket([], base); assert.equal(addTicket(rows, base).length, 1); assert.equal(addTicket(rows, { ...base, id: 'two' }).length, 2); });
+test('saved evidence does not follow changes to original objects', () => { const source = { ...base }; const rows = addTicket([], source); source.reasoning = 'rewritten'; assert.equal(rows[0].reasoning, 'Original hypothesis'); });
+test('corrupt storage fails closed instead of silently replacing records', () => { assert.deepEqual(readTickets(null), []); assert.throws(() => readTickets('{')); assert.throws(() => readTickets('[null]')); assert.throws(() => readTickets(JSON.stringify([{ ...base, stake: '5' }]))); assert.deepEqual(readTickets(JSON.stringify([base])), [base]); });
+test('empty journal has no inferred ROI', () => { assert.equal(journalTotals([]).roi, null); });
