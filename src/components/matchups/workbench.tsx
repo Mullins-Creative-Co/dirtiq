@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { MatchupBreakdown } from './breakdown';
 import { TicketJournal } from './ticket-journal';
 import { useEffect, useRef, useState } from 'react';
 import type { MatchupGame } from '@/lib/matchups/catalog';
@@ -160,9 +161,10 @@ export function MatchupWorkbench({ archivedGames, today }: { archivedGames: Matc
       <div className="flex flex-wrap items-start justify-between gap-4"><div>
         <p className="text-xs font-black uppercase tracking-[.2em] text-accent">One workspace · every matchup</p>
         <h1 className="mt-3 font-display text-4xl font-black sm:text-5xl">Find a game. Run the matchup.</h1>
-        <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-strong">One forecast, the book’s line, cover probability when available, and the reasons behind the difference.</p>
+        <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-strong">Review a matchup before the game: a sourced projection, the exact line and price, what supports the lean, and what could change it.</p>
       </div><Link href="/bet" className={buttonClass}>Dirt racing ↗</Link></div>
       <div className="mt-5 flex flex-wrap gap-2" aria-label="Choose a sport">{(Object.entries(SPORT_LABELS) as [SportId, string][]).map(([id, label]) => <button type="button" key={id} aria-pressed={sport === id} onClick={() => changeSport(id)} className={`${buttonClass} ${sport === id ? 'border-accent bg-accent text-white' : 'text-muted-strong'}`}>{label}</button>)}</div>
+      <p className="mt-4 rounded-lg border border-amber-400/25 p-3 text-sm leading-relaxed text-muted-strong"><strong>Current capability: manual pregame scenarios, not automatic daily predictions.</strong> The upcoming-game lookup is a schedule feed. To run a new game you still need a sourced forecast and current quote; a model or outside-provider feed is not yet connected. Postgame grading will test forecasts saved before play, not create the pregame answer.</p>
       <p className="mt-4 text-xs leading-relaxed text-muted">Shared workflow, sport-specific evidence. NFL frozen trial forecasts and NBA research examples are connected. Current-game model inputs, confirmed lineups and live sportsbook prices are not connected. Nothing here establishes a validated edge.</p>
     </header>
 
@@ -225,6 +227,7 @@ export function MatchupWorkbench({ archivedGames, today }: { archivedGames: Matc
             <div className="mt-4 rounded-lg border border-border bg-background p-4"><p className="text-xs uppercase tracking-wider text-muted">Projected home spread</p><p className="mt-2 font-display text-3xl font-black">{result.projectedHomeSpread === null ? 'Model inputs needed' : `${home} ${signed(result.projectedHomeSpread)}`}</p><p className="mt-2 text-sm text-muted-strong">{result.gap === null ? 'A baseline and quoted spread are needed for a line comparison.' : result.lean === 'even' ? 'Model and book are on the same line.' : `${result.lean === 'home' ? home : away} lean by ${Math.abs(result.gap).toFixed(2)} points versus the quoted spread.`}</p><p className="mt-2 text-xs text-muted">A model lean is not a bet recommendation.</p></div>
             <div className="mt-3 grid gap-3 sm:grid-cols-2">{(['home', 'away'] as const).map(side => <div key={side} className="rounded-lg border border-border p-4"><h3 className="font-bold">{side === 'home' ? home : away}</h3><p className="mt-3 text-xs text-muted">Estimated cover · excluding pushes</p><p className="mt-1 text-2xl font-black">{pct(side === 'home' ? result.homeCoverProbability : result.awayCoverProbability)}</p><p className="mt-3 text-sm">Book {signed(run!.input.homeSpread === null ? null : (side === 'home' ? 1 : -1) * run!.input.homeSpread)} · {price(side === 'home' ? run!.input.homeOdds : run!.input.awayOdds)}</p><p className="mt-1 text-xs text-muted">Break-even: {pct(side === 'home' ? result.homeBreakEven : result.awayBreakEven)}</p></div>)}</div>
             <div className="mt-3 space-y-1 text-xs text-muted"><p>Push probability: {pct(result.pushProbability)}. No-vig home reference: {pct(result.marketHomeProbability)}.</p><p>Quote: {f.book || 'Book not supplied'} · {f.quoteTime ? dateLabel(f.quoteTime) : 'Timestamp not supplied'}. Manually entered quotes are not independently verified.</p></div>
+            <MatchupBreakdown key={run!.at} input={run!.input} result={result} at={run!.at} />
             <h3 className="mt-5 text-sm font-bold">Why this result</h3><ul className="mt-2 list-disc space-y-2 pl-5 text-sm text-muted-strong">{result.reasons.map(reason => <li key={reason}>{reason}</li>)}</ul>
             {!!result.warnings.length && <div className="mt-4 rounded-lg border border-amber-400/25 bg-amber-400/5 p-4"><h3 className="text-sm font-bold text-amber-100">Data and model limits</h3><ul className="mt-2 list-disc space-y-2 pl-5 text-xs leading-relaxed text-amber-100/90">{result.warnings.map(warning => <li key={warning}>{warning}</li>)}</ul></div>}
             <div className="mt-5 flex flex-wrap gap-2"><button type="button" className={buttonClass} onClick={saveRun}>Save run</button><button type="button" className={buttonClass} onClick={downloadRun}>Download result</button></div><p className="mt-2 text-xs text-muted">No wager is placed. Saved runs remain on this browser, separate from the frozen trial ledger.</p>
