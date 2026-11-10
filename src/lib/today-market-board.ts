@@ -86,12 +86,14 @@ function propLabel(type: PropType) {
 function propScore(prop: PropMarket, topRanks: Map<number, number>) {
   const primaryRank = prop.driver_id ? topRanks.get(prop.driver_id) ?? 99 : 99;
   const secondaryRank = prop.driver_b_id ? topRanks.get(prop.driver_b_id) ?? 99 : 99;
-  const typeBoost = prop.type === "top3" ? 12 : prop.type === "h2h" ? 9 : prop.type === "laps_led" ? 6 : 3;
+  const typeBoost =
+    prop.type === "top3" ? 12 : prop.type === "top5" ? 10 : prop.type === "h2h" ? 9 : prop.type === "laps_led" ? 6 : 3;
   return typeBoost + Math.max(0, 20 - primaryRank) + Math.max(0, 10 - secondaryRank);
 }
 
 function buildPropGroups(race: Race, topRanks: Map<number, number>): TodayRaceBoard["propsByType"] {
-  const wantedTypes: PropType[] = ["top3", "h2h", "laps_led", "dnf"];
+  // Top 5 only exists on the model-priced board; the group is dropped when empty.
+  const wantedTypes: PropType[] = ["top3", "top5", "h2h", "laps_led", "dnf"];
   const props = generateProps(race.id, race.track_id)
     .filter((prop) => wantedTypes.includes(prop.type))
     .sort((a, b) => propScore(b, topRanks) - propScore(a, topRanks));

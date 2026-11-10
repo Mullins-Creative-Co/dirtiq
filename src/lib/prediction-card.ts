@@ -4,7 +4,10 @@ import { calculateRaceOdds } from "@/lib/odds";
 import { evaluateCrownJewelTrends } from "@/lib/crown-jewel-trends";
 import { getDb } from "@/lib/db";
 import { getLineCaveatMap } from "@/lib/line-caveats";
-import { getCachedMlPredictions } from "@/lib/ml-predictions";
+import { resolveRowProbabilities } from "@/lib/book/card-probabilities";
+import type { MlPairwise } from "@/lib/book/pairwise";
+import { getBookSource, type BookSource } from "@/lib/book/source";
+import { getCachedMlRaceFile, type MlPrediction } from "@/lib/ml-predictions";
 import { getRaceContextAdjustmentMap } from "@/lib/race-context-adjustments";
 import { getRace, getRaceEntries } from "@/lib/races";
 import { isCombinedSeries, isCrownJewelRaceName } from "@/lib/series";
@@ -14,9 +17,17 @@ export type PredictionCardRow = {
   driverId: number;
   driverName: string;
   carNumber: string | null;
+  /** The probability the book prices from. Governed blend, or the raw ML probability in model mode. */
   modelProbability: number;
+  /**
+   * Blend mode: the Elo/composite implied probability before ML blending.
+   * Model mode: what the governed blend would have priced, kept for comparison.
+   */
   blendedProbability: number;
   mlProbability: number | null;
+  top3Probability: number | null;
+  top5Probability: number | null;
+  expectedFinish: number | null;
   mlModel: string | null;
   mlModelSeries: string | null;
   mlModelReason: string | null;
@@ -58,6 +69,10 @@ export type PredictionCard = {
     heats: number;
   };
   rows: PredictionCardRow[];
+  /** Which probability source priced `modelProbability` on this card. */
+  bookSource: BookSource;
+  /** Pairwise finish-order matrix from the ML file, when it carries one. */
+  mlPairwise: MlPairwise | null;
 };
 
 type DriverSeriesProfile = {
@@ -212,7 +227,9 @@ export function buildPredictionCard(raceId: number): PredictionCard | null {
   const preferCrown =
     isCombinedSeries(race.series_mode ?? race.division) ||
     isCrownJewelRaceName(race.name);
-  const mlPredictions = getCachedMlPredictions(raceId, preferCrown);
+  const mlFile = getCachedMlRaceFile(raceId, preferCrown);
+  const mlPredictions = mlFile?.predictions ?? new Map<number, MlPrediction>();
+  const bookSource = getBookSource();
   const caveatMap = getLineCaveatMap(raceId);
   const contextMap = getRaceContextAdjustmentMap(raceId);
   const fieldSize = odds.length;
@@ -266,7 +283,14 @@ export function buildPredictionCard(raceId: number): PredictionCard | null {
         row.reasoning.tonightHeatPos !== null ||
         row.reasoning.tonightQtRank !== null,
     });
-    const modelProbability = governed.probability;
+    const resolved = resolveRowProbabilities({
+      source: bookSource,
+      hasModelFile: mlFile !== null,
+      ml,
+      blendProbability: governed.probability,
+      impliedProbability: row.impliedProbability,
+    });
+    const modelProbability = resolved.modelProbability;
     const baselineEdge = modelProbability - baseline;
     const confidence = confidenceFor(row, baselineEdge);
     const recommendation = recommendationFor(modelProbability, baselineEdge, confidence);
@@ -293,8 +317,11 @@ export function buildPredictionCard(raceId: number): PredictionCard | null {
       driverName: row.driverName,
       carNumber: row.carNumber,
       modelProbability,
-      blendedProbability: row.impliedProbability,
+      blendedProbability: resolved.blendedProbability,
       mlProbability: ml?.probability ?? null,
+      top3Probability: resolved.top3Probability,
+      top5Probability: resolved.top5Probability,
+      expectedFinish: resolved.expectedFinish,
       mlModel: ml?.modelSlug ?? null,
       mlModelSeries: ml?.modelSeries ?? null,
       mlModelReason: ml?.modelReason ?? null,
@@ -332,5 +359,7 @@ export function buildPredictionCard(raceId: number): PredictionCard | null {
       heats: entries.filter((entry) => entry.heat_position !== null).length,
     },
     rows,
+    bookSource,
+    mlPairwise: mlFile?.pairwise ?? null,
   };
 }

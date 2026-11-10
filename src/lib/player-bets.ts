@@ -2,6 +2,13 @@ import "server-only";
 import { getDb } from "./db";
 import { calculateRaceOdds } from "./odds";
 import { oddsToMultiplier } from "./book";
+import {
+  priceHeadToHeadMarket,
+  priceTop3Market,
+  priceTop5Market,
+  propVig,
+  toAmericanOdds,
+} from "./book/prop-pricing";
 import { buildPredictionCard } from "./prediction-card";
 import { ensureLiveBetTables, getLiveBetSql, hasLiveBetDatabase, toIsoString } from "./live-bets-db";
 import { isRaceBettingOpen } from "./races";
@@ -47,17 +54,6 @@ export type PropMarket = {
   american_odds: string;
   implied_probability: number;
 };
-
-function toAmericanOdds(p: number): string {
-  if (p >= 1) return "-∞";
-  if (p <= 0) return "+∞";
-  const odds = p >= 0.5 ? -(p / (1 - p)) * 100 : ((1 - p) / p) * 100;
-  return odds < 0 ? Math.round(odds).toString() : `+${Math.round(odds)}`;
-}
-
-function propVig(p: number, vig: number): number {
-  return Math.min(0.95, p * (1 + vig));
-}
 
 function getActiveDriverIds(raceId: number): Set<number> {
   const rows = getDb()
@@ -528,6 +524,7 @@ export function generateProps(raceId: number, trackId: number): PropMarket[] {
   const cardRows = card.rows.filter((row) => activeDriverIds.has(row.driverId) && row.entryStatus !== "scratched");
   if (cardRows.length === 0) return [];
   const markets: PropMarket[] = [];
+  const source = card.bookSource;
 
   const sumImplied = cardRows.reduce((s, o) => s + o.modelProbability, 0);
   const withTrue = cardRows.map((o) => ({
@@ -538,6 +535,8 @@ export function generateProps(raceId: number, trackId: number): PropMarket[] {
     metricSeries: o.metricSeries,
     reasoning: oddsReasoning.get(o.driverId),
     trueProb: sumImplied > 0 ? o.modelProbability / sumImplied : 1 / cardRows.length,
+    top3Probability: o.top3Probability,
+    top5Probability: o.top5Probability,
   }));
 
   // Win market
@@ -556,11 +555,11 @@ export function generateProps(raceId: number, trackId: number): PropMarket[] {
     });
   }
 
-  // Top 3 finish (up to 12 drivers)
+  // Top 3 finish (up to 12 drivers). Model mode prices from the calibrated
+  // top-3 probability; otherwise the blend heuristic.
   const top12 = withTrue.slice(0, Math.min(12, withTrue.length));
   for (const o of top12) {
-    const pTrue = Math.min(0.92, 1 - Math.pow(1 - o.trueProb, 2.5));
-    const p = propVig(pTrue, 0.07);
+    const top3 = priceTop3Market({ source, trueProb: o.trueProb, top3Probability: o.top3Probability });
     markets.push({
       type: "top3",
       section: "Top 3 Finish",
@@ -570,8 +569,27 @@ export function generateProps(raceId: number, trackId: number): PropMarket[] {
       driver_name: o.driverName,
       driver_b_id: null,
       driver_b_name: null,
-      american_odds: toAmericanOdds(p),
-      implied_probability: p,
+      american_odds: top3.americanOdds,
+      implied_probability: top3.probability,
+    });
+  }
+
+  // Top 5 finish: only offered when the model supplies a probability, so the
+  // blend board is unchanged.
+  for (const o of top12) {
+    const top5 = priceTop5Market({ source, top5Probability: o.top5Probability });
+    if (!top5) continue;
+    markets.push({
+      type: "top5",
+      section: "Top 5 Finish",
+      description: `${o.driverName} Top 5`,
+      metric_series: o.metricSeries,
+      driver_id: o.driverId,
+      driver_name: o.driverName,
+      driver_b_id: null,
+      driver_b_name: null,
+      american_odds: top5.americanOdds,
+      implied_probability: top5.probability,
     });
   }
 
@@ -586,8 +604,9 @@ export function generateProps(raceId: number, trackId: number): PropMarket[] {
     const key = [a.driverId, b.driverId].sort().join("-");
     if (pairsDone.has(key)) return;
     pairsDone.add(key);
-    const pA = a.trueProb / (a.trueProb + b.trueProb);
-    const pB = 1 - pA;
+    // Model mode reads the pair from the pairwise matrix when covered;
+    // otherwise the blend ratio of the two win probabilities.
+    const h2h = priceHeadToHeadMarket({ source, a, b, pairwise: card.mlPairwise });
     markets.push({
       type: "h2h",
       section: "Head to Head",
@@ -597,8 +616,8 @@ export function generateProps(raceId: number, trackId: number): PropMarket[] {
       driver_name: a.driverName,
       driver_b_id: b.driverId,
       driver_b_name: b.driverName,
-      american_odds: toAmericanOdds(propVig(pA, 0.05)),
-      implied_probability: propVig(pA, 0.05),
+      american_odds: h2h.a.americanOdds,
+      implied_probability: h2h.a.probability,
     });
     markets.push({
       type: "h2h",
@@ -609,8 +628,8 @@ export function generateProps(raceId: number, trackId: number): PropMarket[] {
       driver_name: b.driverName,
       driver_b_id: a.driverId,
       driver_b_name: a.driverName,
-      american_odds: toAmericanOdds(propVig(pB, 0.05)),
-      implied_probability: propVig(pB, 0.05),
+      american_odds: h2h.b.americanOdds,
+      implied_probability: h2h.b.probability,
     });
   };
 

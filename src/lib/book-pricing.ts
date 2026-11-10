@@ -1,5 +1,6 @@
 import "server-only";
 
+import type { BookSource } from "@/lib/book/source";
 import type { PredictionCard, PredictionCardRow } from "@/lib/prediction-card";
 
 export type PricingStage = "opening" | "confirmed" | "race-night";
@@ -15,6 +16,8 @@ export type BookLinePrice = {
   confidenceWeight: number;
   shade: number;
   rationale: string;
+  /** Which probability source the card's `modelProbability` came from. */
+  bookSource: BookSource;
 };
 
 export type BookExposureInput = {
@@ -96,6 +99,10 @@ export function priceOutrightWinnerLines(
   const stage = pricingStage(card);
   const { hold, confidenceWeight } = stageSettings(stage);
   const baseline = 1 / rows.length;
+  // `modelProbability` is whatever the card's book source produced (governed
+  // blend, or raw calibrated ML in model mode). Normalising over the
+  // non-scratched field, then applying the stage corridor, hold and risk
+  // shade, is house margin policy and applies identically to both sources.
   const modelTotal = rows.reduce((sum, row) => sum + row.modelProbability, 0) || 1;
   const fairProbabilities = rows.map((row) => clamp(row.modelProbability / modelTotal, 0.001, 0.85));
   const shrunkProbabilities = fairProbabilities.map((probability) =>
@@ -126,6 +133,7 @@ export function priceOutrightWinnerLines(
       hold,
       confidenceWeight,
       shade,
+      bookSource: card.bookSource,
       rationale: `${stageLabel}; ${Math.round(hold * 100)}% target hold; ${Math.round(confidenceWeight * 100)}% model confidence corridor; ${Math.round(shade * 1000) / 10}% underwriting shade${exposure && exposure.totalStaked > 0 ? ` on ${Math.round((exposure.totalStaked / exposure.totalHandle) * 100)}% handle share` : ""}; fair ${probabilityToAmericanOdds(fairProbability)}`,
     };
   });

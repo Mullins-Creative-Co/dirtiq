@@ -19,7 +19,8 @@ function statusClass(status: RaceEntry["entry_status"]) {
 function marketPriority(type: PropMarket["type"]) {
   if (type === "win") return 0;
   if (type === "top3") return 1;
-  if (type === "h2h") return 2;
+  if (type === "top5") return 2;
+  if (type === "h2h") return 3;
   if (type === "laps_led") return 3;
   if (type === "dnf") return 4;
   return 5;
@@ -57,7 +58,6 @@ export default async function BetRacePage({
   const scratchedEntries = entries.filter((entry) => entry.entry_status === "scratched");
   const watchEntries = entries.filter((entry) => entry.entry_status === "unconfirmed");
   const sortedMarkets = [...markets]
-    .filter((market) => market.type !== "top5")
     .sort((a, b) => {
       const priority = marketPriority(a.type) - marketPriority(b.type);
       if (priority !== 0) return priority;
