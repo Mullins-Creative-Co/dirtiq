@@ -173,7 +173,11 @@ def apply_stack(fit: Optional[StackFit], frame: pd.DataFrame, prefix: str, thres
             rec.update({f"{prefix}_edge": edge, f"{prefix}_pick": pick_side(edge, threshold)})
         rows.append(rec)
     res = pd.DataFrame(rows, index=d.index)
-    out.loc[d.index, res.columns] = res
+    out = res.reindex(out.index)
+    for c in cols:
+        if c != "pick":
+            out[f"{prefix}_{c}"] = pd.to_numeric(out[f"{prefix}_{c}"], errors="coerce")
+    out[f"{prefix}_pick"] = out[f"{prefix}_pick"].astype(object).where(out[f"{prefix}_pick"].notna(), None)
     return out
 
 

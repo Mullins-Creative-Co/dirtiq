@@ -110,10 +110,15 @@ def promote_variant(scored: pd.DataFrame, prefix: str) -> pd.DataFrame:
     and the filter's own values move to ``base_*`` so the entry can still show them."""
     out = scored.copy()
     for k in VARIANT_KEYS:
-        out[f"base_{k}"] = out[f"ind_{k}"]
+        base = out[f"ind_{k}"]
+        out[f"base_{k}"] = base
         src = out[f"{prefix}_{k}"]
-        has = src.notna()
-        out.loc[has, f"ind_{k}"] = src[has]
+        if k != "pick":
+            src = pd.to_numeric(src, errors="coerce")
+            base = pd.to_numeric(base, errors="coerce")
+        # ``where`` keeps the column's dtype where it can and upcasts otherwise; a positional
+        # ``loc`` write of object-typed floats into a float column is rejected by newer pandas
+        out[f"ind_{k}"] = base.where(src.isna(), src)
     return out
 
 
