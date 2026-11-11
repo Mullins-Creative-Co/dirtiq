@@ -3,6 +3,16 @@
 export const pct = (value: number | null | undefined, digits = 1) =>
   value === null || value === undefined || !Number.isFinite(value) ? "—" : `${(value * 100).toFixed(digits)}%`;
 
+/** Forecast probabilities should never round into a claim of certainty. */
+export const probability = (value: number | null | undefined, digits = 0) => {
+  if (value === null || value === undefined || !Number.isFinite(value) || value < 0 || value > 1) return "—";
+  const rounded = (value * 100).toFixed(digits);
+  const step = 10 ** -digits;
+  if (Number(rounded) === 100) return `>${(100 - step).toFixed(digits)}%`;
+  if (Number(rounded) === 0) return `<${step.toFixed(digits)}%`;
+  return `${rounded}%`;
+};
+
 export const num = (value: number | null | undefined, digits = 2) =>
   value === null || value === undefined || !Number.isFinite(value) ? "—" : value.toFixed(digits);
 

@@ -10,7 +10,7 @@ import { SITE_NAME } from "@/lib/site";
 import { buildTonightBoard } from "@/lib/tonight";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: `Tonight | ${SITE_NAME}`, description: "Tonight's games and races ranked by model confidence, with the statistical case, the matchup, and the market for each." };
+export const metadata = { title: `Tonight | ${SITE_NAME}`, description: "Tonight's games and races ranked by model win likelihood, with the statistical case, the matchup, and the market for each." };
 
 const longDay = new Intl.DateTimeFormat("en-US", { weekday: "long", month: "long", day: "numeric", timeZone: "America/New_York" });
 
@@ -33,10 +33,10 @@ export default async function TonightPage({ searchParams }: { searchParams: Prom
         <PageHeader
           kicker={longDay.format(new Date(`${board.today}T17:00:00Z`))}
           title="Tonight"
-          lede="Every game and race across the sports we model, ranked by how confident the model is in its pick. Open a row for the statistical case, the matchup, and the market."
+          lede="Upcoming games and races, with outright win likelihood kept separate from the spread lean. Open a matchup to check the model, saved market, and missing inputs before making a decision."
           aside={
             <div className="grid grid-cols-3 gap-2">
-              <StatTile label="Tonight" value={tonight.length} detail={`${high} high confidence`} />
+              <StatTile label="Tonight · all sports" value={tonight.length} detail={`${high} at ≥72% model likelihood`} />
               <StatTile label="Open forecasts" value={open} detail="awaiting results" />
               <StatTile label="Graded" value={graded} detail={graded ? `${units(unitsTotal)} at archived prices` : "ledger is live"} tone={graded && (unitsTotal ?? 0) > 0 ? "good" : "neutral"} />
             </div>
@@ -50,7 +50,7 @@ export default async function TonightPage({ searchParams }: { searchParams: Prom
         )}
 
         <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-[var(--border)] pt-5 text-xs text-[var(--muted)]">
-          <span>Confidence is the model&apos;s probability that the pick beats its main rival: the win probability for a game, the head-to-head versus the runner-up for a race. Ledger updated {health ? relativeAge(health.generatedAt) : "never"}.</span>
+          <span>Likelihood is the model&apos;s probability that the pick beats its main rival: the win probability for a game, the head-to-head versus the runner-up for a race. It does not measure the quality of a bet. Ledger updated {health ? relativeAge(health.generatedAt) : "never"}.</span>
           <span className="flex gap-4">
             <Link href="/models" className="font-bold uppercase tracking-[0.14em] text-[var(--accent)]">Model health →</Link>
             <Link href="/sports" className="font-bold uppercase tracking-[0.14em] text-[var(--accent)]">Sports →</Link>

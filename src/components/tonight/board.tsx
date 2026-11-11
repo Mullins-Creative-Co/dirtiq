@@ -1,16 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useMemo, useState, useTransition } from "react";
 
 import { Chip, type Tone } from "@/components/ui/primitives";
-import { pct, signed } from "@/lib/format";
+import { dateTime, probability as pct, signed } from "@/lib/format";
 import type { TonightBoard, TonightItem } from "@/lib/tonight";
 
-const toneFor: Record<TonightItem["confidenceLabel"], Tone> = { High: "good", Medium: "warn", Low: "neutral" };
+const toneFor: Record<TonightItem["confidenceLabel"], Tone> = { High: "neutral", Medium: "neutral", Low: "neutral" };
 const dayFmt = new Intl.DateTimeFormat("en-US", { weekday: "long", month: "long", day: "numeric", timeZone: "America/New_York" });
 
 export function TonightBoardView({ board, initialSport = "all" }: { board: TonightBoard; initialSport?: string }) {
+  const router = useRouter();
+  const [refreshing, startRefresh] = useTransition();
   const [sport, setSport] = useState<string>(board.sports.some((s) => s.sport === initialSport) ? initialSport : "all");
   const [minConfidence, setMinConfidence] = useState<"all" | "medium" | "high">("all");
   const [withMarket, setWithMarket] = useState(false);
@@ -50,27 +53,38 @@ export function TonightBoardView({ board, initialSport = "all" }: { board: Tonig
 
   return (
     <div className="space-y-6">
+      <div className="note">
+        <strong>Win likelihood is not bet confidence.</strong> A favorite can be likely to win and still be a poor bet at the spread or price. Saved lines are reference snapshots. Injuries and lineups need a separate check.
+      </div>
+      <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-[var(--muted)]">
+        <p>League counts cover the next week. Filters below apply to this board, not the all-sport summary above.</p>
+        <button type="button" className="underline disabled:opacity-50" disabled={refreshing} onClick={() => startRefresh(() => router.refresh())}>{refreshing ? "Refreshing…" : "Refresh board"}</button>
+      </div>
+      <p className="text-xs text-[var(--muted)]">Board loaded {dateTime(board.generatedAt)}. Refreshing reloads saved forecasts; it does not fetch a new sportsbook quote.</p>
       <div className="flex flex-wrap items-center gap-2" role="toolbar" aria-label="Filters">
         <FilterButton active={sport === "all"} onClick={() => setSport("all")}>All ({board.items.length})</FilterButton>
         {board.sports.map((s) => (
           <FilterButton key={s.sport} active={sport === s.sport} onClick={() => setSport(s.sport)}>{s.label} ({s.count})</FilterButton>
         ))}
         <span className="mx-1 hidden h-5 w-px bg-[var(--border-strong)] sm:block" />
-        <FilterButton active={minConfidence === "high"} onClick={() => setMinConfidence(minConfidence === "high" ? "all" : "high")}>High confidence</FilterButton>
-        <FilterButton active={minConfidence === "medium"} onClick={() => setMinConfidence(minConfidence === "medium" ? "all" : "medium")}>Medium+</FilterButton>
-        <FilterButton active={withMarket} onClick={() => setWithMarket((v) => !v)}>Has a line</FilterButton>
+        <FilterButton active={minConfidence === "high"} onClick={() => setMinConfidence(minConfidence === "high" ? "all" : "high")}>Likelihood ≥72%</FilterButton>
+        <FilterButton active={minConfidence === "medium"} onClick={() => setMinConfidence(minConfidence === "medium" ? "all" : "medium")}>Likelihood ≥60%</FilterButton>
+        <FilterButton active={withMarket} onClick={() => setWithMarket((v) => !v)}>Saved market</FilterButton>
         <FilterButton active={showAll} onClick={() => setShowAll((v) => !v)}>{showAll ? "Featured only" : "Show all"}</FilterButton>
       </div>
 
       {items.length === 0 ? (
-        <p className="panel border-dashed p-6 text-sm text-[var(--muted)]">Nothing matches these filters.</p>
+        <div className="panel border-dashed p-6 text-sm text-[var(--muted)]">
+          <p>Nothing matches these filters.</p>
+          <button type="button" className="mt-2 underline" onClick={() => { setSport("all"); setMinConfidence("all"); setWithMarket(false); }}>Reset filters</button>
+        </div>
       ) : null}
 
       {groups.map(([key, group, hidden]) => (
         <section key={key} className="space-y-3">
           <div className="flex items-baseline justify-between">
             <h2 className="font-display text-xl font-black">{key === "today" ? "Tonight" : dayFmt.format(new Date(`${key}T17:00:00Z`))}</h2>
-            <span className="text-xs text-[var(--muted)]">{group.length} {group.length === 1 ? "event" : "events"} · sorted by confidence{hidden ? ` · ${hidden} more under Show all` : ""}</span>
+            <span className="text-xs text-[var(--muted)]">{group.length} {group.length === 1 ? "event" : "events"} · sorted by model likelihood{hidden ? ` · ${hidden} more under Show all` : ""}</span>
           </div>
           <ol className="space-y-2">
             {group.map((item, index) => (
@@ -105,18 +119,31 @@ function ItemCard({ item, index, open, onToggle }: { item: TonightItem; index: n
         </span>
         <span className="hidden min-w-0 sm:block">
           <span className="block truncate text-sm">{item.pickDetail}</span>
-          <span className="block truncate text-xs text-[var(--muted)]">{item.market?.spreadLabel ? `Market ${item.market.spreadLabel}` : item.kind === "game" ? "No market line" : `${item.raceTable?.length ?? 0} contenders shown`}{item.market?.lean ? ` · lean ${item.market.lean} ${item.market.edgePts !== null ? `${Math.abs(item.market.edgePts).toFixed(1)} pts` : ""}` : ""}</span>
+          <span className="block truncate text-xs text-[var(--muted)]">{item.readiness ? `Spread: ${item.readiness.spreadLean}` : `${item.raceTable?.length ?? 0} contenders shown`}</span>
         </span>
-        <span className="hidden sm:block"><Chip tone={toneFor[item.confidenceLabel]}>{item.confidenceLabel}</Chip></span>
+        <span className="hidden sm:block"><Chip tone={item.readiness ? "warn" : toneFor[item.confidenceLabel]}>{item.readiness?.label ?? `${item.confidenceLabel} likelihood`}</Chip></span>
         <span className="text-right">
-          <span className="tnum block font-display text-2xl font-black leading-none">{item.confidence >= 0.995 ? "99%+" : pct(item.confidence, 0)}</span>
-          <span className="block text-[10px] uppercase tracking-wider text-[var(--muted)]">{item.kind === "game" ? "to win" : "vs runner-up"}</span>
+          <span className="tnum block font-display text-2xl font-black leading-none">{pct(item.confidence, 0)}</span>
+          <span className="block text-[10px] uppercase tracking-wider text-[var(--muted)]">{item.kind === "game" ? "model win" : "vs runner-up"}</span>
         </span>
+        {item.readiness ? <span className="col-span-3 text-xs text-[var(--muted-strong)] sm:hidden"><strong>{item.readiness.label}</strong> · Spread: {item.readiness.spreadLean}</span> : null}
       </button>
 
       {open ? (
         <div id={panelId} className="grid gap-5 border-t border-[var(--border)] px-4 py-4 lg:grid-cols-[1.1fr_1fr]">
           <div className="space-y-5">
+            {item.readiness ? (
+              <div className="rounded-lg border border-[var(--border-strong)] bg-[var(--surface-raised)] p-4">
+                <p className="kicker">Decision check</p>
+                <div className="mt-3 grid grid-cols-2 gap-4">
+                  <dl><Stat label="Outright winner" value={item.pick} detail={`${pct(item.confidence)} model-only win`} /></dl>
+                  <dl><Stat label="Spread lean · saved line" value={item.readiness.spreadLean} detail={item.readiness.spreadCover ?? undefined} /></dl>
+                </div>
+                {item.readiness.marketInformedWin !== null ? <p className="mt-3 text-xs text-[var(--muted-strong)]">Market-informed win: {item.pick} {pct(item.pick === item.matchupHeaders[0] ? item.readiness.marketInformedWin : 1 - item.readiness.marketInformedWin)}. Uses the saved market line, so it is not an independent second opinion.</p> : null}
+                <p className="mt-3 text-sm font-semibold">{item.readiness.label}</p>
+                <ul className="mt-1 list-disc space-y-1 pl-4 text-xs leading-5 text-[var(--muted-strong)]">{item.readiness.reasons.map((reason) => <li key={reason}>{reason}</li>)}</ul>
+              </div>
+            ) : null}
             <div>
               <p className="kicker">Why</p>
               <p className="mt-1 text-base font-semibold">{item.pickDetail}</p>
@@ -126,13 +153,13 @@ function ItemCard({ item, index, open, onToggle }: { item: TonightItem; index: n
             </div>
             {item.market ? (
               <div>
-                <p className="kicker">Market and price</p>
+                <p className="kicker">Saved market and price</p>
                 <dl className="mt-2 grid grid-cols-2 gap-x-6 gap-y-2 text-sm sm:grid-cols-3">
                   <Stat label="Spread" value={item.market.spreadLabel ?? "—"} detail={item.market.spreadPrices ?? undefined} />
                   <Stat label="Moneyline" value={item.market.moneyline ?? "—"} />
-                  <Stat label="Model fair price" value={`${item.pick} ${item.market.fairPrice}`} detail={`${pct(item.market.modelWinProb, 0)} to win`} />
+                  <Stat label="Model-only fair price" value={`${item.pick} ${item.market.fairPrice}`} detail="Uses unrounded probability; not a quote" />
                   <Stat label="Market implies" value={item.market.marketWinProb === null ? "—" : pct(item.market.marketWinProb, 0)} detail="no-vig" />
-                  <Stat label="Cover prob" value={item.market.coverProb === null ? "—" : pct(item.market.coverProb, 0)} detail={`${item.pick} at the spread`} />
+                  <Stat label="Winner's cover prob" value={item.market.coverProb === null ? "—" : pct(item.market.coverProb, 0)} detail={`${item.pick} at the saved spread`} />
                   <Stat label="Lean" value={item.market.lean ? `${item.market.lean} ${item.market.edgePts !== null ? `${Math.abs(item.market.edgePts).toFixed(1)} pts` : ""}` : "none"} detail={item.market.edgePts !== null ? `model − market ${signed(item.market.edgePts, 1)}` : undefined} />
                 </dl>
                 <p className="mt-2 text-xs leading-5 text-[var(--muted)]">{item.market.book ? `Line from ${item.market.book}. ` : ""}A lean is a research flag at a fixed threshold, not a bet. Expected value needs a current executable price.</p>
@@ -143,6 +170,19 @@ function ItemCard({ item, index, open, onToggle }: { item: TonightItem; index: n
           </div>
 
           <div className="space-y-5">
+            {item.readiness ? (
+              <div className="space-y-3 text-xs leading-5 text-[var(--muted-strong)]">
+                <p className="kicker">Inputs and availability</p>
+                <p><strong>Forecast:</strong> {item.readiness.forecastDetail}</p>
+                <p><strong>Saved market:</strong> {item.market?.book ?? "Source unavailable"}. {item.readiness.quoteDetail}</p>
+                <p><strong>Player availability:</strong> {item.readiness.availabilityDetail}</p>
+                <div className="flex flex-wrap gap-4">
+                  {item.readiness.sourceUrl ? <a className="underline" href={item.readiness.sourceUrl}>Market source</a> : null}
+                  <a className="underline" href={`/sports/${item.sport}.json`}>Saved forecast data</a>
+                  <Link className="underline" href="/models">Calibration and track record</Link>
+                </div>
+              </div>
+            ) : null}
             <div>
               <p className="kicker">Matchup</p>
               <table className="data-table mt-2">

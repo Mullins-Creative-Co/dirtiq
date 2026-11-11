@@ -1,10 +1,11 @@
 import "server-only";
 
-import { american, fairAmerican, num, pct, signed, spread } from "@/lib/format";
+import { american, fairAmerican, num, probability as pct, signed, spread } from "@/lib/format";
 import {
   SPORT_LABELS, getLedgerIndex, getUpcomingRaceBoards, listSportReports,
   type LedgerEventSummary, type RaceBoard, type SportReport, type SportUpcoming, type TeamForm,
 } from "@/lib/model-reports";
+import { forecastReadiness, hasMarket, isUpcomingGame, validProbability, type ForecastReadiness } from "@/lib/forecast-readiness";
 import { todayDateString } from "@/lib/races";
 
 /** One scannable item on the Tonight board: a game or a race, with a pick, a confidence,
@@ -32,6 +33,7 @@ export type TonightItem = {
   matchupHeaders: [string, string]; matchup: MatchupRow[];
   raceTable?: Array<{ rank: number; driver: string; car: string | null; win: number; top3: number | null; expectedFinish: number | null; last5: string; elo: number | null }>;
   market: TonightMarket | null;
+  readiness?: ForecastReadiness;
   ledger: { open: number; graded: number; record: string | null; recordedAt: string | null } | null;
   href: string;
 };
@@ -75,7 +77,7 @@ function ledgerSummary(summary: LedgerEventSummary | undefined): TonightItem["le
   };
 }
 
-function gameItem(report: SportReport, game: SportUpcoming, ledger: Map<string, LedgerEventSummary>, today: string): TonightItem {
+function gameItem(report: SportReport, game: SportUpcoming, ledger: Map<string, LedgerEventSummary>, today: string, now: number): TonightItem {
   const homeWin = game.homeWinProb ?? 0.5;
   const pickHome = homeWin >= 0.5;
   const pick = pickHome ? game.home : game.away;
@@ -98,7 +100,7 @@ function gameItem(report: SportReport, game: SportUpcoming, ledger: Map<string, 
   }
   if (neutral) rationale.push("Neutral site, so no home advantage is applied.");
   else if (hfa !== null) rationale.push(`${game.home} is at home, worth about ${signed(hfa)} ${unit} in this league right now.`);
-  rationale.push(`Projected margin: ${pick} by ${num(Math.abs(pickMargin), 1)} ${unit}, with a typical miss of ±${num(game.marginSd, 1)}. That makes ${pick} a ${pct(confidence, 0)} winner.`);
+  rationale.push(`Projected margin: ${pick} by ${num(Math.abs(pickMargin), 1)} ${unit}, with a typical miss of ±${num(game.marginSd, 1)}. Model-only win probability: ${pct(confidence, 0)}. Winning outright and covering the spread are different outcomes.`);
   rationale.push(formLine(game.home, game.homeForm));
   rationale.push(formLine(game.away, game.awayForm));
   if (pr && pr.sd >= 3) rationale.push(`Rating uncertainty is still wide (SD ${num(pr.sd, 1)}); early-season ratings move fast.`);
@@ -112,14 +114,14 @@ function gameItem(report: SportReport, game: SportUpcoming, ledger: Map<string, 
     const diff = margin - mktMargin;
     rationale.push(`The market has ${game.home} ${spread(game.marketHomeSpread)}${mktWin !== null ? ` and prices ${game.home} to win ${pct(mktWin, 0)} after removing the vig` : ""}; the model's margin differs by ${signed(diff, 1)} ${unit} (${game.lean && game.lean !== "none" ? `leans ${game.lean === "home" ? game.home : game.away}` : "inside the lean threshold"}).`);
   } else {
-    rationale.push("No market line in the public source for this game, so the projection stands alone and nothing is recorded as a priced forecast.");
+    rationale.push("No spread in the public source for this game. Any saved moneyline is shown separately; there is no supported spread comparison.");
   }
   const blended = game.stackedMarketHomeWinProb ?? null;
   if (blended !== null) {
     const blendedPick = pickHome ? blended : 1 - blended;
-    rationale.push(`Blending the rating, rest and the market line into one calibrated number gives ${pick} ${pct(blendedPick, 0)} to win; that is the best estimate for grading, while the ${pct(confidence, 0)} above is the model on its own.`);
+    rationale.push(`The market-informed estimate gives ${pick} ${pct(blendedPick, 0)} to win, versus ${pct(confidence, 0)} without the line. This estimate uses the market as an input, so it is not independent confirmation of an edge.`);
   }
-  if (game.headline === "stacked") rationale.push("Headline numbers come from the stacked layer (rating plus rest, back-to-backs and starters), which beat the raw rating filter in this sport's backtest.");
+  if (game.headline === "stacked") rationale.push(`Headline numbers use the stacked layer: ratings, rest and back-to-backs${report.sport === "mlb" ? ", plus probable pitchers" : ""}. Game-day injuries and confirmed lineups are not included.`);
 
   const matchup: MatchupRow[] = [
     { label: "Rating", a: hr ? `${signed(hr.rating)} (${ordinal(hr.rank)})` : "—", b: ar ? `${signed(ar.rating)} (${ordinal(ar.rank)})` : "—", hint: `${unit} above average on a neutral field` },
@@ -131,7 +133,7 @@ function gameItem(report: SportReport, game: SportUpcoming, ledger: Map<string, 
   ];
 
   const spreadLabel = game.marketHomeSpread === null || game.marketHomeSpread === undefined ? null : `${game.home} ${spread(game.marketHomeSpread)}`;
-  const market: TonightMarket | null = spreadLabel || game.marketHomeMl !== null
+  const market: TonightMarket | null = hasMarket(game)
     ? {
         spreadLabel,
         spreadPrices: game.marketHomePrice !== null && game.marketHomePrice !== undefined ? `${american(game.marketHomePrice)} / ${american(game.marketAwayPrice)}` : null,
@@ -154,6 +156,7 @@ function gameItem(report: SportReport, game: SportUpcoming, ledger: Map<string, 
     pick, pickDetail: `${pick} to win · projected by ${num(Math.abs(pickMargin), 1)}`,
     confidence, confidenceLabel: label(confidence), rationale,
     matchupHeaders: [game.home, game.away], matchup, market,
+    readiness: forecastReadiness(report, game, now),
     ledger: ledgerSummary(ledger.get(key)), href: `/sports/${report.sport}`,
   };
 }
@@ -219,6 +222,7 @@ export type TonightBoard = {
 };
 
 export function buildTonightBoard(horizonDays = 7): TonightBoard {
+  const now = Date.now();
   const today = todayDateString();
   const ledger = getLedgerIndex();
   const reports = listSportReports();
@@ -228,10 +232,10 @@ export function buildTonightBoard(horizonDays = 7): TonightBoard {
   const placeholders = new Set(["NON_D1", "FCS"]);
   for (const report of reports) {
     for (const game of report.upcoming) {
-      if (!game.startsAt || new Date(game.startsAt) > limit) continue;
+      if (!isUpcomingGame(game, now, limit.getTime()) || !validProbability(game.homeWinProb)) continue;
       // Pooled placeholder opponents (non-Division-I, FCS) are rating sinks, not matchups worth showing.
       if (placeholders.has(game.home) || placeholders.has(game.away)) continue;
-      items.push(gameItem(report, game, ledger, today));
+      items.push(gameItem(report, game, ledger, today, now));
     }
   }
   for (const board of getUpcomingRaceBoards(12, 8)) {

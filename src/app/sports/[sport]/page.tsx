@@ -6,8 +6,9 @@ import { Nav } from "@/components/nav";
 import { Card, Chip, EmptyState, Note, PageHeader, Section, StatTile, Table, type Tone } from "@/components/ui/primitives";
 import { ReliabilityChart } from "@/components/ui/reliability-chart";
 import { SeasonDumbbell } from "@/components/ui/season-dumbbell";
-import { american, dateTime, num, pct, relativeAge, signed, spread, units } from "@/lib/format";
+import { american, dateTime, num, pct, probability, relativeAge, signed, spread, units } from "@/lib/format";
 import { SPORT_LABELS, getModelHealth, getOddsSnapshot, getOddsStatus, getSportReport, oddsByMatchup } from "@/lib/model-reports";
+import { forecastReadiness, isUpcomingGame } from "@/lib/forecast-readiness";
 
 export const dynamic = "force-dynamic";
 
@@ -47,7 +48,12 @@ export default async function SportPage({ params }: { params: Promise<{ sport: s
   const RATINGS_SHOWN = 40;
   const GAMES_SHOWN = 60;
   const topRatings = [...report.ratings].sort((a, b) => a.rank - b.rank).slice(0, RATINGS_SHOWN);
-  const shownGames = report.upcoming.slice(0, GAMES_SHOWN);
+  // Request-time server component: connection() above excludes prerendering.
+  // eslint-disable-next-line react-hooks/purity
+  const now = Date.now();
+  const upcoming = report.upcoming.filter((game) => isUpcomingGame(game, now));
+  const shownGames = upcoming.slice(0, GAMES_SHOWN);
+  const variant = upcoming.some((game) => game.headline === "stacked") ? "stacked ratings + rest" : "independent ratings";
 
   return (
     <div className="min-h-screen">
@@ -56,7 +62,7 @@ export default async function SportPage({ params }: { params: Promise<{ sport: s
         <PageHeader
           kicker={`${label} · ${report.modelId} v${report.modelVersion}`}
           title={`${label} ratings and projections`}
-          lede={<>Kalman-filtered team strength on game margin with home advantage and between-season reversion. Hyperparameters are fit on earlier seasons only. Data through {report.dataThrough ?? "—"}, generated {relativeAge(report.generatedAt)}.</>}
+          lede={<>Current forecasts: {variant}{sport === "mlb" && variant.startsWith("stacked") ? " + probable pitchers" : ""}. Training uses earlier games only. Results through {report.dataThrough ?? "—"}; forecast generated {relativeAge(typeof report.forecastGeneratedAt === "string" ? report.forecastGeneratedAt : report.generatedAt)}. Injuries and confirmed lineups are not included.</>}
           aside={
             <div className="grid grid-cols-2 gap-2">
               <StatTile label="Model MAE" value={num(bt?.mae ?? null, 2)} detail={`market ${num(bt?.marketMae ?? null, 2)}`} tone={gap !== null && gap <= 0 ? "good" : "neutral"} />
@@ -65,25 +71,27 @@ export default async function SportPage({ params }: { params: Promise<{ sport: s
           }
         />
 
-        <Section kicker="This week" title="Upcoming games" description="Projected home margin and win probability from ratings alone, beside the market in the source file. Lean marks a disagreement beyond the fixed threshold.">
-          {report.upcoming.length === 0 ? (
-            <EmptyState title="No upcoming games in the window" detail="The forecast command records the next ten days of scheduled games." command={`npm run sports:forecast -- --sport ${sport}`} />
+        <Section kicker="This week" title="Upcoming games" description="Model-only home margin and win probability beside saved market snapshots. A spread lean is a research flag, not bet confidence. Games that have started are excluded.">
+          <Note tone="warn">Verify the current book price and player availability before using a projection. The saved source-bundle retrieval time is not a per-game quote time. Consensus medians are not executable offers.</Note>
+          {upcoming.length === 0 ? (
+            <EmptyState title="No upcoming games in the saved window" detail="There are no future games in this report. Check back after the next forecast refresh." href="/sports" linkLabel="All sports" />
           ) : (
             <Table caption={`Upcoming ${label} games`}>
-              <thead><tr><th>Game</th><th className="num">Proj. margin</th><th className="num">SD</th><th className="num">Home win</th><th className="num">Market spread</th>{odds ? <th className="num">Live consensus</th> : null}<th className="num">Home cover</th><th className="num">Moneyline</th><th className="num">Lean</th></tr></thead>
+              <thead><tr><th>Game / input check</th><th className="num">Proj. margin</th><th className="num">SD</th><th className="num">Home win</th><th className="num">Saved spread</th>{odds ? <th className="num">Snapshot consensus</th> : null}<th className="num">Home cover</th><th className="num">Moneyline</th><th className="num">Spread lean</th></tr></thead>
               <tbody>
                 {shownGames.map((g) => {
                   const leanTeam = g.lean === "home" ? g.home : g.lean === "away" ? g.away : null;
-                  const tone: Tone = g.edgePts === null ? "neutral" : Math.abs(g.edgePts) >= 3 ? "accent" : "warn";
+                  const tone: Tone = "neutral";
+                  const readiness = forecastReadiness(report, g, now);
                   return (
                     <tr key={g.gameId}>
-                      <td><span className="strong">{g.away} at {g.home}</span><div className="text-xs text-[var(--muted)]">{dateTime(g.startsAt)}{g.book ? ` · ${g.book}` : ""}</div></td>
+                      <td><span className="strong">{g.away} at {g.home}</span><div className="text-xs text-[var(--muted)]">{dateTime(g.startsAt)}{g.book ? ` · ${g.book}` : ""}</div><div className="mt-1"><Chip tone="warn" title={readiness.reasons.join(" ")}>{readiness.label}</Chip></div><details className="mt-1 max-w-xs text-xs text-[var(--muted)]"><summary className="cursor-pointer">Source and availability</summary><p className="mt-1">{readiness.quoteDetail}</p><p className="mt-1">{readiness.availabilityDetail}</p>{readiness.sourceUrl ? <a className="mt-1 inline-block underline" href={readiness.sourceUrl}>Market source</a> : null}</details></td>
                       <td className="num">{signed(g.projectedHomeMargin)}</td>
                       <td className="num text-[var(--muted)]">{num(g.marginSd, 1)}</td>
-                      <td className="num">{pct(g.homeWinProb)}</td>
+                      <td className="num">{probability(g.homeWinProb, 1)}<div className="text-xs text-[var(--muted)]">model-only</div></td>
                       <td className="num">{g.marketHomeSpread === null ? "—" : `${g.home} ${spread(g.marketHomeSpread)}`}<div className="text-xs text-[var(--muted)]">{g.marketHomePrice !== null ? `${american(g.marketHomePrice)} / ${american(g.marketAwayPrice)}` : ""}</div></td>
-                      {odds ? (() => { const l = live.get(`${g.home}|${g.away}`); return <td className="num">{l && l.homeSpread !== null ? `${g.home} ${spread(l.homeSpread)}` : "—"}<div className="text-xs text-[var(--muted)]">{l ? `${american(l.homeMl)} / ${american(l.awayMl)} · ${l.books} books` : ""}</div></td>; })() : null}
-                      <td className="num">{pct(g.homeCoverProb)}{g.pushProb ? <div className="text-xs text-[var(--muted)]">push {pct(g.pushProb)}</div> : null}</td>
+                      {odds ? (() => { const candidate = live.get(`${g.home}|${g.away}`); const l = candidate?.startsAt === g.startsAt ? candidate : null; return <td className="num">{l && l.homeSpread !== null ? `${g.home} ${spread(l.homeSpread)}` : "—"}<div className="text-xs text-[var(--muted)]">{l ? `${american(l.homeMl)} / ${american(l.awayMl)} · ${l.books} books` : ""}</div>{l ? <div className="text-xs text-[var(--muted)]">Retrieved {dateTime(l.observedAt)}</div> : null}</td>; })() : null}
+                      <td className="num">{probability(g.homeCoverProb, 1)}{g.pushProb ? <div className="text-xs text-[var(--muted)]">push {probability(g.pushProb, 1)}</div> : null}</td>
                       <td className="num">{g.marketHomeMl !== null ? `${american(g.marketHomeMl)} / ${american(g.marketAwayMl)}` : "—"}</td>
                       <td className="num">{leanTeam ? <Chip tone={tone} title="Model disagrees with the market by this many points toward this side">{leanTeam} {g.edgePts === null ? "" : `${Math.abs(g.edgePts).toFixed(1)} pts`}</Chip> : <span className="text-[var(--muted)]">—</span>}</td>
                     </tr>
@@ -92,20 +100,20 @@ export default async function SportPage({ params }: { params: Promise<{ sport: s
               </tbody>
             </Table>
           )}
-          {report.upcoming.length > shownGames.length ? <p className="text-xs text-[var(--muted)]">Showing the first {shownGames.length} of {report.upcoming.length} scheduled games; the full list is in the <a className="underline" href={`/sports/${sport}.json`}>raw report</a>.</p> : null}
+          {upcoming.length > shownGames.length ? <p className="text-xs text-[var(--muted)]">Showing the first {shownGames.length} of {upcoming.length} upcoming games; the full list is in the <a className="underline" href={`/sports/${sport}.json`}>raw report</a>.</p> : null}
           <Note tone="warn">Lines come from the public source file with its retrieval time, not from a live book. A lean is a research flag; expected value needs a current executable price.</Note>
           <Card className="flex flex-wrap items-center justify-between gap-3 p-4">
             <div className="text-sm">
-              <p className="font-semibold">Live odds feed{oddsStatus?.configured ? "" : ": not configured"}</p>
+              <p className="font-semibold">Separate odds snapshots{oddsStatus?.configured ? "" : ": unavailable"}</p>
               <p className="mt-1 text-xs leading-5 text-[var(--muted)]">
                 {oddsStatus?.configured
                   ? liveRun
                     ? `Last snapshot ${relativeAge(liveRun.snapshotAt)}: ${liveRun.events} events, ${liveRun.matchedEvents} matched to open forecasts, ${liveRun.closesUpdated} closing lines refreshed.`
                     : `Configured, but no snapshot for ${label} yet.`
-                  : "Closing-line value needs a line at forecast time and a line at kickoff. Set ODDS_API_KEY and run the snapshot command on a schedule; the consensus median across books is stored and the last snapshot before start becomes the close."}
+                  : "The separate closing-line feed is not configured. Saved ESPN or source-file lines above may still be available, but they are not a continuously updating sportsbook feed."}
               </p>
             </div>
-            <code className="rounded border border-[var(--border)] bg-black/40 px-3 py-2 font-mono text-xs text-[var(--muted-strong)]">npm run odds:snapshot -- --sport {sport}</code>
+            <Link className="text-xs font-semibold underline" href="/models">View model and feed status</Link>
           </Card>
         </Section>
 
