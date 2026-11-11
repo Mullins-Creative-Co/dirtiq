@@ -325,6 +325,8 @@ def scoreboard_events(sport: str, cache: Path, dates: Sequence[str], refresh: bo
         path = sdir / f"scoreboard_{d}.json"
         if not path.exists() or (d >= today and refresh):
             todo.append(d)
+        elif d < today and refresh and _scoreboard_unfinished(path):
+            todo.append(d)
     if todo:
         if log:
             print(f"{sport}: fetching ESPN scoreboards for {len(todo)} days")
@@ -368,31 +370,47 @@ def scoreboard_events(sport: str, cache: Path, dates: Sequence[str], refresh: bo
 
 
 def upcoming_frame(sport: str, cache: Path, days: int = UPCOMING_HORIZON_DAYS, refresh: bool = False,
-                   now: Optional[datetime] = None, log: bool = True) -> pd.DataFrame:
-    """Scheduled ESPN events for the next ``days`` local days as contract-shaped rows
-    (``game_id`` = ESPN event id, teams = ESPN abbreviations, market columns null).
+                   now: Optional[datetime] = None, log: bool = True, lookback: int = 7) -> pd.DataFrame:
+    """ESPN events from ``lookback`` days ago through the next ``days`` local days as
+    contract-shaped rows (``game_id`` = ESPN event id, teams = ESPN abbreviations, market
+    columns null): scheduled games as upcoming rows, final games with their scores as
+    completed rows, so results the schedule archive has not published yet still settle.
 
-    Used where the schedule archive has no future games (NCAAF). Today's and future
-    scoreboards are refetched on ``refresh``."""
+    Used where the schedule archive has no future games (NCAAF). Scoreboards from the
+    last ``lookback`` days, today and the future are refetched on ``refresh``."""
     now = now or datetime.now(timezone.utc)
     local_now = now.astimezone(LOCAL_TZ)
-    dates = [(local_now + timedelta(days=i)).strftime("%Y%m%d") for i in range(days + 1)]
+    dates = [(local_now + timedelta(days=i)).strftime("%Y%m%d") for i in range(-lookback, days + 1)]
     ev = scoreboard_events(sport, cache, dates, refresh=refresh, today=dates[0], log=log)
     cols = ["game_id", "season", "week", "start", "home", "away", "neutral", "home_score", "away_score", "completed", "game_type"]
     if ev.empty:
         return pd.DataFrame(columns=cols)
-    ev = ev[ev["status"].astype(str).str.upper().eq("STATUS_SCHEDULED")].drop_duplicates("espn_id")
+    status = ev["status"].astype(str).str.upper()
+    ev = ev[status.isin(["STATUS_SCHEDULED", "STATUS_FINAL"])].drop_duplicates("espn_id", keep="last")
+    status = ev["status"].astype(str).str.upper()
     season_type = pd.to_numeric(ev["season_type"], errors="coerce")
+    home_score = pd.to_numeric(ev["home_score"], errors="coerce")
+    away_score = pd.to_numeric(ev["away_score"], errors="coerce")
+    final = status.eq("STATUS_FINAL") & home_score.notna() & away_score.notna() & ((home_score + away_score) > 0)
     out = pd.DataFrame({
         "game_id": ev["espn_id"].astype(str), "season": pd.to_numeric(ev["season"], errors="coerce"),
         "week": pd.to_numeric(ev["week"], errors="coerce"), "start": pd.to_datetime(ev["start"], utc=True, errors="coerce"),
         "home": ev["home_abbr"].astype(str), "away": ev["away_abbr"].astype(str), "neutral": ev["neutral"].fillna(0).astype(int),
-        "home_score": np.nan, "away_score": np.nan, "completed": False,
+        "home_score": home_score.where(final), "away_score": away_score.where(final), "completed": final,
         "game_type": np.where(season_type == 3, "postseason", "regular"),
     })
-    out = out[out["start"].notna() & out["season"].notna() & (out["start"] >= pd.Timestamp(now))]
+    out = out[out["start"].notna() & out["season"].notna() & (out["completed"] | (out["start"] >= pd.Timestamp(now)))]
     out["season"] = out["season"].astype(int)
     return out.reset_index(drop=True)
+
+
+def _scoreboard_unfinished(path: Path) -> bool:
+    """A cached past day whose events are not all final (cached before the games ended)."""
+    try:
+        events = json.loads(path.read_text()).get("events", [])
+    except ValueError:
+        return True
+    return any(str(e.get("status", "")).upper() not in ("STATUS_FINAL", "STATUS_CANCELED", "STATUS_POSTPONED") for e in events)
 
 
 def map_events(games: pd.DataFrame, events: pd.DataFrame, aliases: Dict[str, str]) -> Tuple[pd.Series, Dict[str, str]]:

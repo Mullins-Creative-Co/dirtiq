@@ -19,6 +19,29 @@ from .ratings import Hyper, KalmanRatings, fit_hyper, run_filter
 from . import stack
 
 HORIZON_DAYS = 10
+RESULTS_DIR = Path(__file__).resolve().parents[2] / "public" / "data" / "results"
+RESULTS_DAYS = 120
+
+
+def export_results(cfg: SportConfig, games: pd.DataFrame, days: int = RESULTS_DAYS, out_dir: Optional[Path] = None,
+                   now: Optional[pd.Timestamp] = None) -> Path:
+    """Write ``public/data/results/<sport>.json``: final scores of every completed game in the
+    last ``days`` days, keyed the way the ledger keys events, so the site can grade bets a
+    person logs against the same results the ledger settles on."""
+    now = now or pd.Timestamp.now(tz="UTC")
+    recent = games[games["completed"] & (games["start"] >= now - pd.Timedelta(days=days))].sort_values(["start", "game_id"])
+    rows = [{
+        "eventId": f"{cfg.sport}:{r.game_id}", "gameId": str(r.game_id), "home": str(r.home), "away": str(r.away),
+        "startsAt": iso(r.start), "homeScore": int(r.home_score), "awayScore": int(r.away_score), "neutral": int(r.neutral),
+    } for r in recent.itertuples()]
+    out_dir = out_dir or RESULTS_DIR
+    out_dir.mkdir(parents=True, exist_ok=True)
+    path = out_dir / f"{cfg.sport}.json"
+    payload = {"sport": cfg.sport, "generatedAt": now_iso(), "days": days, "unit": cfg.unit, "games": rows}
+    tmp = path.with_suffix(".tmp")
+    tmp.write_text(json.dumps(payload, separators=(",", ":")))
+    tmp.replace(path)
+    return path
 
 
 def _export_health(ledger: Ledger, health_path: Optional[Path]) -> None:
@@ -272,5 +295,7 @@ def settle_command(cfg: SportConfig, games: pd.DataFrame, db_path: Optional[Path
                 counts["settled"] += ledger.settle(cfg.sport, event_id, r["market"], r["selection"], outcome,
                                                    result_value=margin, close_line=close_line, close_price=close_price)
         _export_health(ledger, health_path)
+    if db_path is None:  # the real run, not a test with a scratch ledger
+        export_results(cfg, games)
     print(f"{cfg.sport}: settled {counts['settled']} rows across {counts['events']} open events ({counts['pending']} pending, {counts['missing']} not in source)")
     return counts

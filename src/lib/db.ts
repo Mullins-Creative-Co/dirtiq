@@ -370,6 +370,29 @@ function migrate(db: DatabaseSync) {
       balance REAL NOT NULL DEFAULT 1000,
       created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
     );
+    CREATE TABLE IF NOT EXISTS my_bets (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      sport TEXT NOT NULL,
+      event_id TEXT,
+      event_label TEXT NOT NULL,
+      event_start TEXT,
+      market TEXT NOT NULL,
+      selection TEXT NOT NULL,
+      selection_label TEXT NOT NULL,
+      line REAL,
+      price INTEGER NOT NULL,
+      stake REAL NOT NULL,
+      book TEXT,
+      note TEXT,
+      model_prob REAL,
+      market_prob REAL,
+      placed_at TEXT NOT NULL,
+      status TEXT NOT NULL DEFAULT 'open',
+      result_value REAL,
+      settled_at TEXT,
+      manual INTEGER NOT NULL DEFAULT 0,
+      created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+    );
     CREATE TABLE IF NOT EXISTS player_bets (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       account_id INTEGER NOT NULL REFERENCES player_accounts(id) ON DELETE CASCADE,

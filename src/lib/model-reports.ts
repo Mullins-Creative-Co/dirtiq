@@ -84,7 +84,7 @@ export const SPORT_LABELS: Record<string, string> = {
 };
 
 function readJson<T>(relative: string): T | null {
-  const file = join(process.cwd(), relative);
+  const file = join(/* turbopackIgnore: true */ process.cwd(), relative);
   if (!existsSync(file)) return null;
   try {
     return JSON.parse(readFileSync(file, "utf8")) as T;
@@ -288,6 +288,23 @@ export type LedgerRow = {
   close_line: number | null; close_price: number | null; outcome: string | null; result_value: number | null; settled_at: string | null;
 };
 export type LedgerEventSummary = { rows: LedgerRow[]; open: number; graded: number; wins: number; losses: number; pushes: number; firstForecastAt: string | null };
+
+export type SportResultGame = { eventId: string; gameId: string; home: string; away: string; startsAt: string | null; homeScore: number; awayScore: number; neutral: number };
+export type SportResults = { sport: string; generatedAt: string; days: number; unit: string; games: SportResultGame[] };
+
+/** Final scores of recent games, written by `teams settle` to public/data/results/<sport>.json. */
+export function getSportResults(sport: string): SportResults | null {
+  if (!/^[a-z]+$/.test(sport)) return null;
+  return readJson<SportResults>(`public/data/results/${sport}.json`);
+}
+
+export function getAllResultsIndex(): Map<string, SportResultGame> {
+  const map = new Map<string, SportResultGame>();
+  for (const sport of SPORT_ORDER) {
+    for (const g of getSportResults(sport)?.games ?? []) map.set(g.eventId, g);
+  }
+  return map;
+}
 
 export function getLedgerIndex(): Map<string, LedgerEventSummary> {
   const payload = readJson<{ rows: LedgerRow[] }>("public/data/forecast-ledger.json");

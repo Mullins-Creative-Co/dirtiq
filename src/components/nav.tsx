@@ -12,6 +12,7 @@ const starts = (prefixes: string[]) => (path: string) => prefixes.some((p) => (p
 
 const groups: Group[] = [
   { key: "tonight", label: "Tonight", href: "/", match: (path) => path === "/", items: [] },
+  { key: "bets", label: "My bets", href: "/bets", match: (path) => path.startsWith("/bets"), items: [] },
   {
     key: "sports", label: "Sports", href: "/sports",
     match: starts(["/sports", "/matchups", "/bet", "/bettor", "/bettors", "/race", "/preview", "/odds"]),

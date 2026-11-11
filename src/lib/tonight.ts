@@ -36,6 +36,8 @@ export type TonightItem = {
   readiness?: ForecastReadiness;
   ledger: { open: number; graded: number; record: string | null; recordedAt: string | null } | null;
   href: string;
+  /** Prefilled link to log this pick on the My bets page. */
+  logHref: string;
 };
 
 const dayFmt = new Intl.DateTimeFormat("en-US", { weekday: "short", month: "short", day: "numeric", timeZone: "America/New_York" });
@@ -158,6 +160,15 @@ function gameItem(report: SportReport, game: SportUpcoming, ledger: Map<string, 
     matchupHeaders: [game.home, game.away], matchup, market,
     readiness: forecastReadiness(report, game, now),
     ledger: ledgerSummary(ledger.get(key)), href: `/sports/${report.sport}`,
+    logHref: logBetHref({
+      sport: report.sport, eventId: key, eventLabel: `${game.away} at ${game.home}`, eventStart: game.startsAt,
+      market: game.marketHomeSpread !== null && game.marketHomeSpread !== undefined && report.sport !== "nhl" && report.sport !== "mlb" ? "spread" : "moneyline",
+      selection: pick,
+      line: game.marketHomeSpread !== null && game.marketHomeSpread !== undefined ? (pickHome ? game.marketHomeSpread : -game.marketHomeSpread) : null,
+      price: pickHome ? (game.marketHomeMl ?? game.marketHomePrice ?? null) : (game.marketAwayMl ?? game.marketAwayPrice ?? null),
+      modelProb: confidence,
+      marketProb: market?.marketWinProb ?? null,
+    }),
   };
 }
 
@@ -212,7 +223,25 @@ function raceItem(board: RaceBoard, ledger: Map<string, LedgerEventSummary>, tod
     matchupHeaders: [top.driverName, second?.driverName ?? "Field"], matchup, raceTable,
     market: null,
     ledger: ledgerSummary(ledger.get(key)), href: `/admin/races/${board.race.id}/prediction`,
+    logHref: logBetHref({
+      sport: "racing", eventId: key, eventLabel: board.race.name, eventStart: startsAt, market: "win",
+      selection: `driver:${top.driverId}`, selectionLabel: `${top.driverName} to win`, line: null, price: null,
+      modelProb: top.probability, marketProb: null,
+    }),
   };
+}
+
+function logBetHref(p: { sport: string; eventId: string; eventLabel: string; eventStart: string; market: string; selection: string; selectionLabel?: string;
+  line: number | null; price: number | null; modelProb: number | null; marketProb: number | null }): string {
+  const q = new URLSearchParams();
+  q.set("sport", p.sport); q.set("eventId", p.eventId); q.set("eventLabel", p.eventLabel); q.set("eventStart", p.eventStart);
+  q.set("market", p.market); q.set("selection", p.selection);
+  if (p.selectionLabel) q.set("selectionLabel", p.selectionLabel);
+  if (p.line !== null) q.set("line", String(p.line));
+  if (p.price !== null) q.set("price", String(p.price));
+  if (p.modelProb !== null) q.set("modelProb", p.modelProb.toFixed(4));
+  if (p.marketProb !== null) q.set("marketProb", p.marketProb.toFixed(4));
+  return `/bets?${q.toString()}#log`;
 }
 
 export type TonightBoard = {
