@@ -99,5 +99,15 @@ class ApplyTests(unittest.TestCase):
         tmp.cleanup()
 
 
+class HockeyAndBaseballNameTests(unittest.TestCase):
+    def test_nhl_and_mlb_names_resolve_to_report_codes(self):
+        from dirtiq_model.odds.teams import TeamMapper
+        nhl = TeamMapper("nhl", ["TBL", "NJD", "MTL", "VGK"])
+        self.assertEqual([nhl.resolve(n) for n in ("Tampa Bay Lightning", "New Jersey Devils", "Montréal Canadiens", "Vegas Golden Knights")], ["TBL", "NJD", "MTL", "VGK"])
+        self.assertEqual(nhl.unresolved, {})
+        mlb = TeamMapper("mlb", [])
+        self.assertEqual([mlb.resolve(n) for n in ("Arizona Diamondbacks", "Chicago White Sox", "Athletics")], ["AZ", "CWS", "ATH"])
+
+
 if __name__ == "__main__":
     unittest.main()
