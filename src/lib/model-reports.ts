@@ -78,7 +78,8 @@ export type SportReport = {
   [key: string]: unknown;
 };
 
-export const SPORT_ORDER = ["nfl", "nba", "ncaaf", "ncaab", "mlb", "nhl"] as const;
+// Focus sports first (NFL, college football, NBA, college basketball); NHL and MLB are maintained but secondary.
+export const SPORT_ORDER = ["nfl", "ncaaf", "nba", "ncaab", "nhl", "mlb"] as const;
 export const SPORT_LABELS: Record<string, string> = {
   racing: "Dirt racing", nfl: "NFL", nba: "NBA", ncaaf: "College football", ncaab: "College basketball", mlb: "MLB", nhl: "NHL",
 };

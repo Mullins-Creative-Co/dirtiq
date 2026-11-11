@@ -181,8 +181,12 @@ game with a visible market; `settle` grades them from completed results.
 
 ## Odds feed
 
-`dirtiq_model/odds/` pulls current spreads and moneylines from The Odds API
-(`ODDS_API_KEY` in the environment; a GitHub Actions secret of the same name for the
+`dirtiq_model/odds/` pulls current spreads and moneylines for the focus sports (NFL, NCAAF,
+NBA, NCAAB) from The Odds API at two runs a day, skipping a sport with no game in the next
+30 hours (`games_within`), to stay inside the free 500-request month. ESPN per-game lines
+(see the team engine section) are the primary line source; this feed exists for closing
+lines. It needs
+`ODDS_API_KEY` in the environment (a GitHub Actions secret of the same name for the
 workflow). `python3 -m dirtiq_model odds snapshot --sport nfl` writes the
 median-across-books consensus to `public/data/odds/<sport>-latest.json`, fills the
 forecast-time line on open ledger rows that had none (sports whose schedule source has no

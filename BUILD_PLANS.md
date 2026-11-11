@@ -6,6 +6,13 @@ with the commit; when priorities change, reorder and say why. Pair this with
 `docs/model-architecture.md` (the contract for how things work) and `AGENTS.md`
 (hard constraints). Last revised 2026-11-11.
 
+## Focus (set 2026-11-11)
+
+Jordan's priority order is **college football (NCAAF), college basketball (NCAAB), NBA and
+NFL**. NHL and MLB stay maintained (data, lines, forecasts, bots) but get no new model work
+until the four focus sports are ahead of the market or the list below is exhausted. The
+site orders sports the same way; the closing-line feed covers the four focus sports.
+
 ## Ground rules for any plan here
 
 - Python is 3.9 in production: `from __future__ import annotations`, no runtime `X | Y`,
@@ -39,77 +46,77 @@ with the commit; when priorities change, reorder and say why. Pair this with
 
 ## Plans, in priority order
 
-### 1. Real starter signal for MLB and NHL
-**Why**: the probable-pitcher adjustment learned from run margins alone shrinks to nothing
-(ridge weight ~0.1, no Brier gain). Starters are the biggest non-rating factor in both sports.
-**Build**:
-- MLB: per-game pitching lines from the Stats API boxscore (`/api/v1/game/{gamePk}/boxscore`,
-  one call per game, ~2,500 a season, cache like ESPN odds). Per starter, as-of
-  exponentially weighted innings, earned runs, strikeouts, walks → a FIP-style rate
-  shrunk to league. Feature: home minus away starter rate, plus bullpen usage last 3 days.
-- NHL: starting goalies from `api-web.nhle.com/v1/gamecenter/{id}/boxscore`
-  (`playerByGameStats.*.goalies[].starter`). Per goalie as-of save% and goals-saved-above-
-  expected proxy. Upcoming starters are not published by the league API; use the team's
-  most recent starter with a "known" flag so the model can discount it.
-**Done when**: `stackedBrierMoneyline` beats `brierMoneylineOnPricedGames` in MLB and the
-NHL gap to the market narrows; `features.py` tests cover the as-of rule.
+### 1. Closing lines for all four focus sports, and offline CLV
+**Why**: NCAAF and NCAAB carry the most leans and had no closing-line feed; ESPN's cached
+opening and closing lines allow CLV offline today.
+**Build**: (shipped 2026-11-11) The Odds API snapshots now cover NFL, NCAAF, NBA, NCAAB at
+two runs a day, skipping sports with no game in the next 30 hours. Remaining: in
+`backtest.py`, score every fixed-rule selection on open-to-close movement from
+`open_spread_line` / `open_home_ml` and report CLV rate per sport and variant; show it on
+`/models` beside the ledger's live CLV.
+**Done when**: `/models` shows CLV per focus sport from the backtest and the ledger.
 
-### 2. Offline closing-line value from ESPN open/close
-**Why**: the ledger needs weeks to accumulate; ESPN already stores opening and closing medians
-(`open_spread_line`, `open_home_ml`, `open_away_ml`) from 2022 on.
-**Build**: in `backtest.py`, for every fixed-rule selection compute line movement from open
-to close in the selection's favour; report CLV rate and average move per sport and per
-variant. Replace the current `clvNote`.
-**Done when**: `/models` shows CLV per sport from the backtest and the ledger side by side.
+### (old 2) Injuries and lineups for NBA and NFL
+**Why**: rest is in; absence of stars is the largest remaining rating error in NBA; the
+NFL quarterback is the single biggest line mover.
+**Build**: ESPN injuries endpoint per team snapshotted each refresh; NFL quarterback
+out/in flag first; NBA minutes-weighted available-strength adjustment learned in the stack.
+Snapshots start the day they begin, so the evaluation window is short; never leak a
+snapshot into earlier games.
+**Done when**: a stable positive weight across folds and a better headline variant in NBA
+and NFL on priced games.
 
-### 3. Totals model
+### 3. Near-live lines on the Tonight board
+**Why**: lines refresh every six hours; a bettor needs the price at tip.
+**Build**: fetch ESPN's current odds for today's focus-sport games at request time with a
+short server cache (minutes), show them beside the forecast-time line, and let "Log this
+bet" capture the live price. Optionally move the refresh workflow to hourly for open
+games only.
+**Done when**: the board's price is never older than a few minutes during game windows.
+
+### (old 4) Totals model for the focus sports
 **Why**: every priced game carries a total; the site forecasts only sides.
-**Build**: per-team offensive and defensive pace/efficiency Kalman states (two filters per
-sport, or one with a 2-dimensional state), total distribution, over/under probabilities,
-leans at a fixed threshold, ledger rows for `total`. The bet tracker already grades totals.
+**Build**: per-team pace/efficiency Kalman states, total distribution, over/under
+probabilities, fixed-threshold leans, ledger rows for `total` (the bet tracker already
+grades totals). NFL and NBA first, then the college sports.
 **Done when**: totals Brier vs the market on priced games is in the report and the Tonight
 board shows a total lean beside the side lean.
 
-### 4. Injuries and lineups for NBA and NFL
-**Why**: rest is in; absence of stars is the next largest rating error.
-**Build**: ESPN injuries endpoint per team (`site.api.espn.com/.../teams/{id}/injuries`)
-snapshotted each refresh; a minutes- or usage-weighted "available strength" adjustment
-learned in the stack. NFL quarterback out/in flag is worth building first.
-**Done when**: the adjustment has a stable positive weight across folds and the headline
-variant improves in NBA; never let an injury snapshot leak into past games.
+### 5. College-specific rating work (NCAAF, NCAAB)
+**Why**: the two biggest slates; conference structure and the pooled NON_D1/FCS buckets
+are crude.
+**Build**: conference-strength priors at season start (last season's rating carried with
+conference-level reversion), neutral-site tournament handling, a "games against pooled
+opponents" discount in the rating uncertainty, and per-team pages for the top 25.
+**Done when**: NCAAB and NCAAF priced-game Brier improves against the market and
+`/sports/ncaab` loads in under two seconds with 365 teams.
 
-### 5. Bet tracker: CLV and sizing
-**Build**: compare each logged price with the closing line from the odds snapshots
-(`public/data/odds/<sport>-latest.json` by event) and show CLV per bet and overall; a
-fractional-Kelly stake suggestion from model probability vs price; CSV export; a filter by
-sport and by "model-backed".
+### (old 6) Bet tracker: CLV and sizing
+**Build**: compare each logged price with the closing line from the odds snapshots and
+show CLV per bet and overall; fractional-Kelly stake suggestion; CSV export; filters by
+sport and "model-backed".
 **Done when**: a bet logged from the board shows its CLV after the game starts.
 
-### 6. Widen the odds feed inside quota
-**Why**: 500 requests a month covers three sports at four runs a day. NCAAB and NCAAF have
-the most leans and no closing lines.
-**Build**: snapshot only sports with games in the next 24 hours; rotate NCAAB and NCAAF in;
-or move to the paid tier. Add NCAAB/NCAAF/MLB name tables to `dirtiq_model/odds/teams.py`.
-**Done when**: `public/data/odds/status.json` shows every in-season sport with closes updated.
+### (old 7) Freshness and failure visibility
+**Build**: a `/models` banner when any report is older than 12 hours or the last bot run
+failed; per-sport data-through dates on the Tonight board.
 
-### 7. Racing: live-night features and more history
-**Build**: heat and qualifying results as same-night features (the `race_night` artifacts
-exist; the feed does not populate them reliably); pull additional seasons for Summer
-Nationals and Crown Jewel; track-type and surface condition encoding.
-**Done when**: held-out log loss improves in every series on the rolling backtest.
+### (old 8) Racing: live-night features and more history
+**Build**: heat and qualifying results as same-night features; more seasons for the thin
+series; track-type and surface encoding. Not a focus sport; pick up when the racing
+calendar restarts.
 
-### 8. Freshness and failure visibility
-**Build**: a `/models` banner when any report's `generatedAt` is older than 12 hours or the
-last workflow run failed; GitHub Action failure notification; per-sport data-through dates
-on the Tonight board.
-**Done when**: a stale or failed refresh is visible on the site without reading logs.
-
-### 9. Per-team pages
-**Build**: `/sports/<sport>/<team>`: rating history (dumbbell by season), schedule with
-model vs result, lean record. Low model value, high reader value.
+### Deferred (NHL, MLB): real starter signal
+**Build when picked up**: MLB per-game pitching lines from the Stats API boxscore into an
+as-of FIP-style starter rate; NHL starting goalies from the league boxscore with a
+"known" flag for upcoming games. The probable-pitcher adjustment learned from run margins
+alone shrinks to nothing, so this is the only route to starter value.
 
 ## Shipped (most recent first)
 
+- 2026-11-11: focus set to NCAAF/NCAAB/NBA/NFL; closing-line feed moved to the four focus
+  sports with a quota-safe schedule; racing seed merged with the WoO World Finals and both
+  racing engines retrained (`ed1bb4a`).
 - 2026-11-11: bet tracker with P&L (`e065646`); NHL/MLB odds name tables (`b1dc6f0`);
   workflow rebase fix (`c75fb54`).
 - 2026-11-10: ESPN lines for NBA, NHL, NCAAB, MLB, 2026 NCAAF; CFB upcoming list; stacked

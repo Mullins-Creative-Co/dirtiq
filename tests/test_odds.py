@@ -109,5 +109,22 @@ class HockeyAndBaseballNameTests(unittest.TestCase):
         self.assertEqual([mlb.resolve(n) for n in ("Arizona Diamondbacks", "Chicago White Sox", "Athletics")], ["AZ", "CWS", "ATH"])
 
 
+class GamesSoonTests(unittest.TestCase):
+    def test_counts_only_games_inside_the_window(self):
+        import tempfile
+        from datetime import datetime, timedelta, timezone
+        from pathlib import Path
+        from unittest import mock
+        from dirtiq_model.odds import snapshot as snap
+        now = datetime(2026, 11, 11, 12, 0, tzinfo=timezone.utc)
+        rows = [{"startsAt": (now + timedelta(hours=h)).strftime("%Y-%m-%dT%H:%M:%SZ")} for h in (-2, 5, 29, 40)]
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp); (root / "public" / "sports").mkdir(parents=True)
+            (root / "public" / "sports" / "nba.json").write_text(json.dumps({"upcoming": rows}))
+            with mock.patch.object(snap, "ROOT", root):
+                self.assertEqual(snap.games_within("nba", now=now), 2)
+                self.assertEqual(snap.games_within("nhl", now=now), 0)
+
+
 if __name__ == "__main__":
     unittest.main()

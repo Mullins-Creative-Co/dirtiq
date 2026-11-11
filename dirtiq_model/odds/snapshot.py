@@ -203,6 +203,29 @@ def write_status(configured: bool, runs: Optional[Dict[str, Any]] = None, error:
     return STATUS_PATH
 
 
+GAMES_SOON_HOURS = 30
+
+
+def games_within(sport: str, hours: int = GAMES_SOON_HOURS, now: Optional[datetime] = None) -> int:
+    """Upcoming games of ``sport`` in the published report that start within ``hours``.
+    Used to skip API calls on days a sport has nothing to price."""
+    path = ROOT / "public" / "sports" / f"{sport}.json"
+    if not path.exists():
+        return 0
+    try:
+        report = json.loads(path.read_text())
+    except ValueError:
+        return 0
+    now = now or datetime.now(timezone.utc)
+    horizon = now + timedelta(hours=hours)
+    count = 0
+    for g in report.get("upcoming", []):
+        start = _parse(g.get("startsAt"))
+        if start is not None and now <= start <= horizon:
+            count += 1
+    return count
+
+
 def known_teams(sport: str) -> List[str]:
     path = ROOT / "public" / "sports" / f"{sport}.json"
     if not path.exists():
@@ -222,6 +245,11 @@ def snapshot_command(sport: str, ledger: Optional[Ledger] = None, regions: str =
         write_status(False)
         print("ODDS_API_KEY is not set; wrote public/data/odds/status.json with configured=false and did nothing else.")
         return {"configured": False}
+    soon = games_within(sport)
+    if not soon:
+        write_status(True, runs={sport: {"snapshotAt": now_iso(), "skipped": f"no {sport} games in the next {GAMES_SOON_HOURS} hours"}})
+        print(f"{sport}: no games in the next {GAMES_SOON_HOURS} hours; skipped the API call to save quota")
+        return {"configured": True, "skipped": True}
     mapper = TeamMapper(sport, known_teams(sport))
     try:
         events, quota = fetch_odds(sport, key, regions=regions)

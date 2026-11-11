@@ -19,10 +19,10 @@ const groups: Group[] = [
     items: [
       { href: "/sports", label: "All", match: (path) => path === "/sports" },
       { href: "/sports/nfl", label: "NFL" },
-      { href: "/sports/nba", label: "NBA" },
-      { href: "/sports/nhl", label: "NHL" },
       { href: "/sports/ncaaf", label: "College football" },
+      { href: "/sports/nba", label: "NBA" },
       { href: "/sports/ncaab", label: "College basketball" },
+      { href: "/sports/nhl", label: "NHL" },
       { href: "/sports/mlb", label: "MLB" },
       { href: "/sports/racing", label: "Dirt racing", match: starts(["/sports/racing", "/bet", "/bettor", "/bettors", "/race", "/preview", "/odds"]) },
       { href: "/matchups", label: "Matchup workbench" },

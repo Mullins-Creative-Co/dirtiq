@@ -49,10 +49,17 @@ jobs:
             python -m dirtiq_model teams settle --sport "$sport" --refresh || echo "settle $sport failed"
             python -m dirtiq_model teams forecast --sport "$sport" || echo "forecast $sport failed"
           done
-          # Odds snapshots are limited to three sports to stay inside the free API quota.
-          for sport in nfl nba nhl; do
-            python -m dirtiq_model odds snapshot --sport "$sport" || echo "odds $sport failed"
-          done
+          # Closing-line snapshots for the focus sports. The free tier allows 500 requests a month and
+          # each sport call costs two, so snapshots run at two of the four daily runs (18:41 and 00:41 UTC,
+          # before the evening tips) and a sport with no game in the next 30 hours is skipped by the command.
+          HOUR=$(date -u +%H)
+          if [ "$HOUR" = "18" ] || [ "$HOUR" = "00" ] || [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ]; then
+            for sport in nfl ncaaf nba ncaab; do
+              python -m dirtiq_model odds snapshot --sport "$sport" || echo "odds $sport failed"
+            done
+          else
+            echo "odds snapshots run at 18:41 and 00:41 UTC; skipped this run"
+          fi
           python -m dirtiq_model ledger export
       - name: Publish only sport reports and the ledger, preserving other writers
         run: |
