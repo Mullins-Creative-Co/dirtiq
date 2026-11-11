@@ -66,14 +66,6 @@ snapshot into earlier games.
 **Done when**: a stable positive weight across folds and a better headline variant in NBA
 and NFL on priced games.
 
-### 3. Near-live lines on the Tonight board
-**Why**: lines refresh every six hours; a bettor needs the price at tip.
-**Build**: fetch ESPN's current odds for today's focus-sport games at request time with a
-short server cache (minutes), show them beside the forecast-time line, and let "Log this
-bet" capture the live price. Optionally move the refresh workflow to hourly for open
-games only.
-**Done when**: the board's price is never older than a few minutes during game windows.
-
 ### (old 4) Totals model for the focus sports
 **Why**: every priced game carries a total; the site forecasts only sides.
 **Build**: per-team pace/efficiency Kalman states, total distribution, over/under
@@ -113,6 +105,21 @@ as-of FIP-style starter rate; NHL starting goalies from the league boxscore with
 alone shrinks to nothing, so this is the only route to starter value.
 
 ## Shipped (most recent first)
+
+- 2026-11-11: plan 3, near-live lines on Tonight (`feat/live-lines`). Server-only ESPN
+  odds for six featured games per focus sport today (within 24 hours), a three-minute
+  per-event cache, 12 concurrent requests and five-second timeouts. Live/saved leans and
+  observation times stay separate; bet links use the displayed line and matching side
+  price, with no-vig live moneyline probability where available. The visible board
+  refreshes every minute; expired/unavailable quotes fall back to saved lines.
+  Measured locally: six NBA quotes fetched in 419 ms, repeat under 1 ms with unchanged
+  timestamps; Tonight rendered 15 live quotes among 549 upcoming items, HTTP 200;
+  warm board 84 ms; prefill form preserved -46.5/-105. Parser matched Python on an
+  actual ESPN payload. NFL id resolution plus odds took 661 ms. An injected ESPN
+  outage returned HTTP 200 with a visible saved-line fallback and saved prefill terms.
+  All 124 TypeScript and 132 Python tests, typecheck, lint (zero errors; two
+  existing racing warnings), and production build pass. Browser inspection was blocked
+  by a browser-tool error; rendering/prefill were checked over HTTP.
 
 - 2026-11-11: focus set to NCAAF/NCAAB/NBA/NFL; closing-line feed moved to the four focus
   sports with a quota-safe schedule; racing seed merged with the WoO World Finals and both
