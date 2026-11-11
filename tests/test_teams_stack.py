@@ -97,7 +97,7 @@ class StackTests(unittest.TestCase):
         self.assertEqual(len(cols), len(test))
         self.assertTrue(cols["stk_home_win"].notna().all())
         self.assertTrue(((cols["stk_home_win"].astype(float) > 0) & (cols["stk_home_win"].astype(float) < 1)).all())
-        self.assertTrue(cols["stk_pick"].isin(["home", "away", None]).all())
+        self.assertTrue(cols["stk_pick"].dropna().isin(["home", "away"]).all())
         # the stack sees starter quality the filter cannot: its margin error should beat the raw filter
         margin = (test["home_score"] - test["away_score"]).to_numpy(dtype=float)
         raw = np.mean(np.abs(margin - pred.loc[test.index, "pred_mean"].to_numpy()))
