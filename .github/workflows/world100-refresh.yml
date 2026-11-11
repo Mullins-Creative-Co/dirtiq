@@ -49,4 +49,6 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git add public/data data/feature_params_*.json data/dirtiq_model_*.pkl reports
           git diff --cached --quiet || git commit -m "Refresh verified race data"
-          git push
+          # Other bots publish to main too; replay this run's files on top of whatever landed meanwhile.
+          git pull --rebase -X theirs origin main
+          git push origin HEAD:main

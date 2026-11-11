@@ -35,7 +35,7 @@ with the commit; when priorities change, reorder and say why. Pair this with
 | Results | `public/data/results/<sport>.json`: recent final scores keyed like the ledger. |
 | Racing | Conditional-logit race model (`dirtiq_model/racing/`), beats the legacy XGBoost method in every series; data-starved; results arrive through the racing database refresh. |
 | Bet tracker | `/bets`: log bets, auto-grade from results and ledger, P&L, ROI, model-backed subset. Postgres (Neon, `DATABASE_URL`) in production, sqlite locally. |
-| Refresh | `.github/workflows/sports-refresh.yml` every six hours: settle, forecast, odds snapshot, ledger export, commit. Publish rebases with `-X theirs` so overlapping runs do not conflict. |
+| Refresh | Three bots commit to `main`: `sports-refresh.yml` (every six hours: settle, forecast, odds snapshot, ledger export), `world100-refresh.yml` (hourly: verified race data, legacy racing model retrains, `public/data/ml-predictions`), `matchups-refresh.yml` (every four hours: NFL pregame projections). Each publishes with `git pull --rebase -X theirs` so its own regenerated files win over an overlapping run; they touch disjoint files otherwise. Local pushes should rebase the same way. |
 
 ## Plans, in priority order
 
