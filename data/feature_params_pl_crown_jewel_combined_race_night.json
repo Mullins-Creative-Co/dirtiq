@@ -82,7 +82,7 @@
   "variant": "cl",
   "model_engine": "conditional_logit",
   "model_algorithm": "Conditional logit (Plackett-Luce winner), L2, L-BFGS",
-  "trained_at": "2026-11-10T18:39:38Z",
+  "trained_at": "2026-11-11T17:18:35Z",
   "data_through": "2026-11-05",
   "trained_on": "Crown Jewel / Combined through 2026-11-05 (93 races, 2293 entries)",
   "n_production": 2293,
@@ -152,11 +152,11 @@
     },
     {
       "name": "career_win_rate",
-      "weight": 0.05
+      "weight": 0.0501
     },
     {
       "name": "career_top3_rate",
-      "weight": 0.0477
+      "weight": 0.0478
     },
     {
       "name": "career_avg_finish",
@@ -168,39 +168,39 @@
     },
     {
       "name": "last5_avg_finish",
-      "weight": -0.0406
+      "weight": -0.0408
     },
     {
       "name": "last10_avg_finish",
-      "weight": -0.0674
+      "weight": -0.0672
     },
     {
       "name": "last5_win_rate",
-      "weight": 0.0664
+      "weight": 0.0659
     },
     {
       "name": "last10_win_rate",
-      "weight": 0.0822
+      "weight": 0.083
     },
     {
       "name": "ewm_finish",
-      "weight": -0.0662
+      "weight": -0.0661
     },
     {
       "name": "ewm_win",
-      "weight": 0.0974
+      "weight": 0.0976
     },
     {
       "name": "log_days_since_last_start",
-      "weight": -0.0309
+      "weight": -0.0307
     },
     {
       "name": "won_last_14d",
-      "weight": 0.01
+      "weight": 0.0099
     },
     {
       "name": "podium_last_14d",
-      "weight": 0.0279
+      "weight": 0.0278
     },
     {
       "name": "log_track_starts",
@@ -208,15 +208,15 @@
     },
     {
       "name": "track_win_rate",
-      "weight": -0.0043
+      "weight": -0.0044
     },
     {
       "name": "track_top3_rate",
-      "weight": 0.0046
+      "weight": 0.0044
     },
     {
       "name": "track_avg_finish",
-      "weight": -0.0084
+      "weight": -0.0081
     },
     {
       "name": "log_similar_track_starts",
@@ -224,11 +224,11 @@
     },
     {
       "name": "similar_track_win_rate",
-      "weight": 0.0554
+      "weight": 0.0555
     },
     {
       "name": "similar_track_avg_finish",
-      "weight": -0.0518
+      "weight": -0.0517
     },
     {
       "name": "prev_same_track_3d",
@@ -248,7 +248,7 @@
     },
     {
       "name": "crown_prior_podium_365d",
-      "weight": 0.0368
+      "weight": 0.037
     },
     {
       "name": "crown_prior_win_365d",
@@ -256,19 +256,19 @@
     },
     {
       "name": "eldora_prior_podium_365d",
-      "weight": 0.0237
+      "weight": 0.0239
     },
     {
       "name": "elo",
-      "weight": 0.1045
+      "weight": 0.1046
     },
     {
       "name": "elo_field_rel",
-      "weight": 0.118
+      "weight": 0.1181
     },
     {
       "name": "field_size",
-      "weight": 0.0
+      "weight": -0.0
     },
     {
       "name": "start_pos_norm",
@@ -276,7 +276,7 @@
     },
     {
       "name": "heat_pos_norm",
-      "weight": -0.237
+      "weight": -0.2371
     },
     {
       "name": "bmain_pos_norm",

@@ -82,11 +82,11 @@
   "variant": "cl",
   "model_engine": "conditional_logit",
   "model_algorithm": "Conditional logit (Plackett-Luce winner), L2, L-BFGS",
-  "trained_at": "2026-11-10T18:39:37Z",
+  "trained_at": "2026-11-11T17:18:34Z",
   "data_through": "2026-10-17",
-  "trained_on": "Lucas Oil LMDS through 2026-10-17 (208 races, 5073 entries)",
-  "n_production": 5073,
-  "eligible_races": 208,
+  "trained_on": "Lucas Oil LMDS through 2026-10-17 (209 races, 5097 entries)",
+  "n_production": 5097,
+  "eligible_races": 209,
   "test_auc": null,
   "backtest_logloss": 1.8891,
   "backtest_top1": 0.3129,
@@ -150,87 +150,87 @@
   "feature_weights": [
     {
       "name": "log_career_starts",
-      "weight": 0.0994
+      "weight": 0.0992
     },
     {
       "name": "career_win_rate",
-      "weight": 0.0296
+      "weight": 0.0437
     },
     {
       "name": "career_top3_rate",
-      "weight": -0.0803
+      "weight": -0.0808
     },
     {
       "name": "career_avg_finish",
-      "weight": -0.0598
+      "weight": -0.0638
     },
     {
       "name": "career_dnf_rate",
-      "weight": -0.0646
+      "weight": -0.0643
     },
     {
       "name": "last5_avg_finish",
-      "weight": -0.1043
+      "weight": -0.0952
     },
     {
       "name": "last10_avg_finish",
-      "weight": -0.087
+      "weight": -0.0873
     },
     {
       "name": "last5_win_rate",
-      "weight": -0.0162
+      "weight": -0.0121
     },
     {
       "name": "last10_win_rate",
-      "weight": 0.0351
+      "weight": 0.0471
     },
     {
       "name": "ewm_finish",
-      "weight": -0.0394
+      "weight": -0.043
     },
     {
       "name": "ewm_win",
-      "weight": 0.1777
+      "weight": 0.1698
     },
     {
       "name": "log_days_since_last_start",
-      "weight": -0.1366
+      "weight": -0.1374
     },
     {
       "name": "won_last_14d",
-      "weight": 0.0462
+      "weight": 0.0447
     },
     {
       "name": "podium_last_14d",
-      "weight": 0.0813
+      "weight": 0.0793
     },
     {
       "name": "log_track_starts",
-      "weight": 0.188
+      "weight": 0.1934
     },
     {
       "name": "track_win_rate",
-      "weight": -0.1425
+      "weight": -0.1495
     },
     {
       "name": "track_top3_rate",
-      "weight": 0.0205
+      "weight": 0.0325
     },
     {
       "name": "track_avg_finish",
-      "weight": -0.0339
+      "weight": -0.0256
     },
     {
       "name": "log_similar_track_starts",
-      "weight": 0.0974
+      "weight": 0.0966
     },
     {
       "name": "similar_track_win_rate",
-      "weight": 0.0002
+      "weight": -0.023
     },
     {
       "name": "similar_track_avg_finish",
-      "weight": -0.1337
+      "weight": -0.1311
     },
     {
       "name": "prev_same_track_3d",
@@ -238,47 +238,47 @@
     },
     {
       "name": "prev_same_track_win_3d",
-      "weight": 0.0134
+      "weight": 0.013
     },
     {
       "name": "prev_same_track_top3_3d",
-      "weight": 0.1252
+      "weight": 0.1244
     },
     {
       "name": "prev_same_track_finish_3d",
-      "weight": -0.2163
+      "weight": -0.217
     },
     {
       "name": "crown_prior_podium_365d",
-      "weight": 0.1231
+      "weight": 0.1221
     },
     {
       "name": "crown_prior_win_365d",
-      "weight": 0.0254
+      "weight": 0.026
     },
     {
       "name": "eldora_prior_podium_365d",
-      "weight": 0.0878
+      "weight": 0.0869
     },
     {
       "name": "elo",
-      "weight": 0.2098
+      "weight": 0.2142
     },
     {
       "name": "elo_field_rel",
-      "weight": 0.2335
+      "weight": 0.2381
     },
     {
       "name": "field_size",
-      "weight": -0.0
+      "weight": 0.0
     },
     {
       "name": "start_pos_norm",
-      "weight": -0.7165
+      "weight": -0.7236
     },
     {
       "name": "heat_pos_norm",
-      "weight": -0.3811
+      "weight": -0.3845
     },
     {
       "name": "bmain_pos_norm",
@@ -290,35 +290,35 @@
     },
     {
       "name": "qt_rank_norm",
-      "weight": -0.4099
+      "weight": -0.3956
     },
     {
       "name": "last5_avg_finish__missing",
-      "weight": -0.0274
+      "weight": -0.0273
     },
     {
       "name": "last10_avg_finish__missing",
-      "weight": -0.0274
+      "weight": -0.0273
     },
     {
       "name": "last5_win_rate__missing",
-      "weight": -0.0274
+      "weight": -0.0273
     },
     {
       "name": "last10_win_rate__missing",
-      "weight": -0.0274
+      "weight": -0.0273
     },
     {
       "name": "ewm_finish__missing",
-      "weight": -0.0274
+      "weight": -0.0273
     },
     {
       "name": "ewm_win__missing",
-      "weight": -0.0274
+      "weight": -0.0273
     },
     {
       "name": "log_days_since_last_start__missing",
-      "weight": -0.0274
+      "weight": -0.0273
     },
     {
       "name": "prev_same_track_finish_3d__missing",
@@ -326,11 +326,11 @@
     },
     {
       "name": "heat_pos_norm__missing",
-      "weight": 0.0514
+      "weight": 0.0499
     },
     {
       "name": "bmain_pos_norm__missing",
-      "weight": 0.0
+      "weight": -0.0
     },
     {
       "name": "qt_rank_norm__missing",

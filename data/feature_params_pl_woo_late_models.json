@@ -72,7 +72,7 @@
   "variant": "cl",
   "model_engine": "conditional_logit",
   "model_algorithm": "Conditional logit (Plackett-Luce winner), L2, L-BFGS",
-  "trained_at": "2026-11-10T18:39:37Z",
+  "trained_at": "2026-11-11T17:18:34Z",
   "data_through": "2026-11-05",
   "trained_on": "WoO Late Models through 2026-11-05 (255 races, 6287 entries)",
   "n_production": 6287,
@@ -138,7 +138,7 @@
   "feature_weights": [
     {
       "name": "log_career_starts",
-      "weight": 0.1495
+      "weight": 0.1496
     },
     {
       "name": "career_win_rate",
@@ -150,47 +150,47 @@
     },
     {
       "name": "career_avg_finish",
-      "weight": -0.0566
+      "weight": -0.0564
     },
     {
       "name": "career_dnf_rate",
-      "weight": 0.0544
+      "weight": 0.0545
     },
     {
       "name": "last5_avg_finish",
-      "weight": -0.1357
+      "weight": -0.1375
     },
     {
       "name": "last10_avg_finish",
-      "weight": -0.1176
+      "weight": -0.1166
     },
     {
       "name": "last5_win_rate",
-      "weight": 0.0245
+      "weight": 0.0244
     },
     {
       "name": "last10_win_rate",
-      "weight": 0.045
+      "weight": 0.0446
     },
     {
       "name": "ewm_finish",
-      "weight": -0.0932
+      "weight": -0.0936
     },
     {
       "name": "ewm_win",
-      "weight": 0.0274
+      "weight": 0.0275
     },
     {
       "name": "log_days_since_last_start",
-      "weight": -0.0371
+      "weight": -0.0352
     },
     {
       "name": "won_last_14d",
-      "weight": 0.0094
+      "weight": 0.0085
     },
     {
       "name": "podium_last_14d",
-      "weight": 0.068
+      "weight": 0.0662
     },
     {
       "name": "log_track_starts",
@@ -198,15 +198,15 @@
     },
     {
       "name": "track_win_rate",
-      "weight": 0.0372
+      "weight": 0.0371
     },
     {
       "name": "track_top3_rate",
-      "weight": 0.1938
+      "weight": 0.194
     },
     {
       "name": "track_avg_finish",
-      "weight": -0.1186
+      "weight": -0.1183
     },
     {
       "name": "log_similar_track_starts",
@@ -214,31 +214,31 @@
     },
     {
       "name": "similar_track_win_rate",
-      "weight": -0.0637
+      "weight": -0.0636
     },
     {
       "name": "similar_track_avg_finish",
-      "weight": -0.0639
+      "weight": -0.0636
     },
     {
       "name": "prev_same_track_3d",
-      "weight": 0.0149
+      "weight": 0.015
     },
     {
       "name": "prev_same_track_win_3d",
-      "weight": -0.0145
+      "weight": -0.0144
     },
     {
       "name": "prev_same_track_top3_3d",
-      "weight": 0.0207
+      "weight": 0.021
     },
     {
       "name": "prev_same_track_finish_3d",
-      "weight": 0.0043
+      "weight": 0.0041
     },
     {
       "name": "crown_prior_podium_365d",
-      "weight": 0.0197
+      "weight": 0.02
     },
     {
       "name": "crown_prior_win_365d",
@@ -246,15 +246,15 @@
     },
     {
       "name": "eldora_prior_podium_365d",
-      "weight": 0.0364
+      "weight": 0.0366
     },
     {
       "name": "elo",
-      "weight": 0.1275
+      "weight": 0.1279
     },
     {
       "name": "elo_field_rel",
-      "weight": 0.142
+      "weight": 0.1424
     },
     {
       "name": "field_size",
@@ -290,7 +290,7 @@
     },
     {
       "name": "prev_same_track_finish_3d__missing",
-      "weight": -0.0149
+      "weight": -0.015
     }
   ],
   "l2": 100.0,

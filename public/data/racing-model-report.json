@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-10T18:39:26Z",
+ "generatedAt": "2026-11-11T17:18:49Z",
  "modelId": "racing-cl",
  "modelVersion": "1.0",
  "method": "rolling-origin by season: train through year t-1, test year t; every variant fitted per fold on identical races. calibrationTemperature: one temperature per (series, stage) chosen by minimizing the multinomial log loss of softmax(score / T) on the out-of-fold backtest predictions only (bounded [0.5, 3]; T within 0.02 of 1 is kept at 1); it is applied at scoring time and never fitted on the training fold",
@@ -21,8 +21,8 @@
    "stage": "early",
    "variant": "cl",
    "selectionRule": "min held-out multinomial log loss over cl and boosted",
-   "races": 158,
-   "entries": 3971,
+   "races": 159,
+   "entries": 3995,
    "seasons": [
     2023,
     2024,
@@ -74,49 +74,49 @@
       2025
      ],
      "trainRaces": 179,
-     "testRaces": 47
+     "testRaces": 48
     }
    ],
-   "logLoss": 2.3116,
-   "top1": 0.2152,
-   "top3Overlap": 1.3354,
-   "brier": 0.03458,
-   "ece": 0.0047,
+   "logLoss": 2.308,
+   "top1": 0.2138,
+   "top3Overlap": 1.3396,
+   "brier": 0.03459,
+   "ece": 0.0048,
    "calibration": [
     {
      "lo": 0.0,
      "hi": 0.05,
-     "n": 3160,
+     "n": 3178,
      "predicted": 0.012,
-     "observed": 0.013
+     "observed": 0.0129
     },
     {
      "lo": 0.05,
      "hi": 0.1,
-     "n": 318,
-     "predicted": 0.0713,
-     "observed": 0.0912
+     "n": 321,
+     "predicted": 0.0712,
+     "observed": 0.0903
     },
     {
      "lo": 0.1,
      "hi": 0.2,
-     "n": 313,
-     "predicted": 0.1445,
-     "observed": 0.1438
+     "n": 314,
+     "predicted": 0.1446,
+     "observed": 0.1465
     },
     {
      "lo": 0.2,
      "hi": 0.3,
-     "n": 121,
-     "predicted": 0.242,
-     "observed": 0.2066
+     "n": 122,
+     "predicted": 0.2422,
+     "observed": 0.2049
     },
     {
      "lo": 0.3,
      "hi": 0.4,
-     "n": 37,
-     "predicted": 0.3354,
-     "observed": 0.2973
+     "n": 38,
+     "predicted": 0.3346,
+     "observed": 0.2895
     },
     {
      "lo": 0.4,
@@ -162,18 +162,18 @@
     }
    ],
    "calibrationTemperature": {
-    "temperature": 1.0367,
+    "temperature": 1.036,
     "bounds": [
      0.5,
      3.0
     ],
     "deadband": 0.02,
     "fittedOn": "out-of-fold backtest predictions of the chosen variant only (never the training fold)",
-    "races": 158,
-    "logLossBefore": 2.3116,
-    "logLossAfter": 2.3109,
-    "eceBefore": 0.0047,
-    "eceAfter": 0.005,
+    "races": 159,
+    "logLossBefore": 2.308,
+    "logLossAfter": 2.3073,
+    "eceBefore": 0.0048,
+    "eceAfter": 0.0051,
     "favoritesBefore": {
      "threshold": 0.5,
      "n": 7,
@@ -183,57 +183,57 @@
     "favoritesAfter": {
      "threshold": 0.5,
      "n": 3,
-     "predicted": 0.5411,
+     "predicted": 0.5414,
      "observed": 0.0
     },
     "calibrationAfter": [
      {
       "lo": 0.0,
       "hi": 0.05,
-      "n": 3153,
+      "n": 3171,
       "predicted": 0.0126,
-      "observed": 0.0127
+      "observed": 0.0126
      },
      {
       "lo": 0.05,
       "hi": 0.1,
-      "n": 323,
-      "predicted": 0.0712,
-      "observed": 0.0867
+      "n": 326,
+      "predicted": 0.0711,
+      "observed": 0.0859
      },
      {
       "lo": 0.1,
       "hi": 0.2,
-      "n": 327,
-      "predicted": 0.1442,
-      "observed": 0.156
+      "n": 328,
+      "predicted": 0.1443,
+      "observed": 0.1585
      },
      {
       "lo": 0.2,
       "hi": 0.3,
-      "n": 119,
-      "predicted": 0.2441,
-      "observed": 0.1849
+      "n": 120,
+      "predicted": 0.2444,
+      "observed": 0.1833
      },
      {
       "lo": 0.3,
       "hi": 0.4,
-      "n": 30,
-      "predicted": 0.339,
-      "observed": 0.3667
+      "n": 31,
+      "predicted": 0.3379,
+      "observed": 0.3548
      },
      {
       "lo": 0.4,
       "hi": 0.5,
       "n": 16,
-      "predicted": 0.4517,
+      "predicted": 0.452,
       "observed": 0.375
      },
      {
       "lo": 0.5,
       "hi": 0.6,
       "n": 3,
-      "predicted": 0.5411,
+      "predicted": 0.5414,
       "observed": 0.0
      },
      {
@@ -317,173 +317,173 @@
     },
     {
      "season": 2026,
-     "races": 47,
-     "clLogLoss": 2.3819,
-     "clTop1": 0.1064,
-     "boostedLogLoss": 2.4813,
-     "boostedTop1": 0.1489,
-     "legacyLogLoss": 2.6272,
-     "legacyTop1": 0.1489,
-     "formOnlyLogLoss": 2.6051,
-     "formOnlyTop1": 0.1702,
-     "uniformLogLoss": 3.2096,
-     "uniformTop1": 0.1489,
-     "logLoss": 2.3819,
-     "top1": 0.1064
+     "races": 48,
+     "clLogLoss": 2.3685,
+     "clTop1": 0.1042,
+     "boostedLogLoss": 2.464,
+     "boostedTop1": 0.1667,
+     "legacyLogLoss": 2.6018,
+     "legacyTop1": 0.1458,
+     "formOnlyLogLoss": 2.5992,
+     "formOnlyTop1": 0.1667,
+     "uniformLogLoss": 3.209,
+     "uniformTop1": 0.1458,
+     "logLoss": 2.3685,
+     "top1": 0.1042
     }
    ],
    "features": [
     {
      "name": "elo_field_rel",
-     "weight": 0.2778
+     "weight": 0.2821
     },
     {
      "name": "elo",
-     "weight": 0.2498
+     "weight": 0.2539
     },
     {
      "name": "prev_same_track_finish_3d",
-     "weight": -0.2196
+     "weight": -0.2199
     },
     {
      "name": "log_days_since_last_start",
-     "weight": -0.2102
-    },
-    {
-     "name": "log_career_starts",
-     "weight": 0.1939
+     "weight": -0.2112
     },
     {
      "name": "log_track_starts",
-     "weight": 0.1935
+     "weight": 0.1987
+    },
+    {
+     "name": "log_career_starts",
+     "weight": 0.1941
     },
     {
      "name": "track_win_rate",
-     "weight": -0.1774
+     "weight": -0.1834
     },
     {
      "name": "ewm_win",
-     "weight": 0.1702
+     "weight": 0.1604
     },
     {
      "name": "crown_prior_podium_365d",
-     "weight": 0.1428
+     "weight": 0.1423
     },
     {
      "name": "prev_same_track_top3_3d",
-     "weight": 0.137
-    },
-    {
-     "name": "log_similar_track_starts",
-     "weight": 0.1286
-    },
-    {
-     "name": "similar_track_avg_finish",
-     "weight": -0.1277
+     "weight": 0.136
     },
     {
      "name": "last10_avg_finish",
-     "weight": -0.1266
+     "weight": -0.129
+    },
+    {
+     "name": "log_similar_track_starts",
+     "weight": 0.1275
+    },
+    {
+     "name": "similar_track_avg_finish",
+     "weight": -0.1263
     },
     {
      "name": "crown_prior_win_365d",
-     "weight": 0.0944
-    },
-    {
-     "name": "last5_avg_finish",
-     "weight": -0.0828
-    },
-    {
-     "name": "podium_last_14d",
-     "weight": 0.0822
+     "weight": 0.0951
     },
     {
      "name": "career_win_rate",
-     "weight": 0.0813
+     "weight": 0.0919
     },
     {
      "name": "prev_same_track_3d",
-     "weight": 0.0809
+     "weight": 0.0806
     },
     {
      "name": "prev_same_track_finish_3d__missing",
-     "weight": -0.0809
+     "weight": -0.0806
     },
     {
-     "name": "eldora_prior_podium_365d",
-     "weight": 0.0738
+     "name": "podium_last_14d",
+     "weight": 0.0797
+    },
+    {
+     "name": "last5_avg_finish",
+     "weight": -0.0755
     },
     {
      "name": "ewm_finish",
-     "weight": -0.071
+     "weight": -0.0748
     },
     {
-     "name": "last5_avg_finish__missing",
-     "weight": -0.0658
-    },
-    {
-     "name": "last10_avg_finish__missing",
-     "weight": -0.0658
-    },
-    {
-     "name": "last5_win_rate__missing",
-     "weight": -0.0658
-    },
-    {
-     "name": "last10_win_rate__missing",
-     "weight": -0.0658
-    },
-    {
-     "name": "ewm_finish__missing",
-     "weight": -0.0658
-    },
-    {
-     "name": "ewm_win__missing",
-     "weight": -0.0658
-    },
-    {
-     "name": "log_days_since_last_start__missing",
-     "weight": -0.0658
+     "name": "eldora_prior_podium_365d",
+     "weight": 0.0731
     },
     {
      "name": "career_avg_finish",
-     "weight": -0.0657
+     "weight": -0.0707
+    },
+    {
+     "name": "last5_avg_finish__missing",
+     "weight": -0.0656
+    },
+    {
+     "name": "last10_avg_finish__missing",
+     "weight": -0.0656
+    },
+    {
+     "name": "last5_win_rate__missing",
+     "weight": -0.0656
+    },
+    {
+     "name": "last10_win_rate__missing",
+     "weight": -0.0656
+    },
+    {
+     "name": "ewm_finish__missing",
+     "weight": -0.0656
+    },
+    {
+     "name": "ewm_win__missing",
+     "weight": -0.0656
+    },
+    {
+     "name": "log_days_since_last_start__missing",
+     "weight": -0.0656
     },
     {
      "name": "won_last_14d",
-     "weight": 0.057
+     "weight": 0.0554
     },
     {
      "name": "career_top3_rate",
-     "weight": 0.0461
-    },
-    {
-     "name": "track_avg_finish",
-     "weight": -0.0318
-    },
-    {
-     "name": "prev_same_track_win_3d",
-     "weight": 0.0318
+     "weight": 0.0448
     },
     {
      "name": "track_top3_rate",
-     "weight": 0.031
+     "weight": 0.0421
+    },
+    {
+     "name": "prev_same_track_win_3d",
+     "weight": 0.0319
+    },
+    {
+     "name": "track_avg_finish",
+     "weight": -0.0207
     },
     {
      "name": "last5_win_rate",
-     "weight": 0.0123
-    },
-    {
-     "name": "similar_track_win_rate",
-     "weight": 0.0096
-    },
-    {
-     "name": "career_dnf_rate",
-     "weight": -0.0055
+     "weight": 0.0189
     },
     {
      "name": "last10_win_rate",
-     "weight": 0.0047
+     "weight": 0.0139
+    },
+    {
+     "name": "similar_track_win_rate",
+     "weight": -0.0098
+    },
+    {
+     "name": "career_dnf_rate",
+     "weight": -0.0054
     },
     {
      "name": "field_size",
@@ -492,56 +492,56 @@
    ],
    "variants": {
     "cl": {
-     "logLoss": 2.3116,
-     "top1": 0.2152,
-     "top3Overlap": 1.3354,
-     "brier": 0.03458,
-     "ece": 0.0047
+     "logLoss": 2.308,
+     "top1": 0.2138,
+     "top3Overlap": 1.3396,
+     "brier": 0.03459,
+     "ece": 0.0048
     },
     "boosted": {
-     "logLoss": 2.4678,
-     "top1": 0.1582,
-     "top3Overlap": 1.2658,
-     "brier": 0.03547,
+     "logLoss": 2.4627,
+     "top1": 0.1635,
+     "top3Overlap": 1.2704,
+     "brier": 0.03544,
      "ece": 0.006
     },
     "legacy-method": {
-     "logLoss": 2.6936,
-     "top1": 0.1835,
-     "top3Overlap": 1.1392,
-     "brier": 0.03614,
-     "ece": 0.0081
+     "logLoss": 2.6855,
+     "top1": 0.1824,
+     "top3Overlap": 1.1447,
+     "brier": 0.03609,
+     "ece": 0.0079
     },
     "form-only": {
-     "logLoss": 2.5273,
-     "top1": 0.2025,
-     "top3Overlap": 1.1835,
-     "brier": 0.03538,
-     "ece": 0.0049
+     "logLoss": 2.526,
+     "top1": 0.2013,
+     "top3Overlap": 1.1887,
+     "brier": 0.0354,
+     "ece": 0.005
     },
     "uniform": {
-     "logLoss": 3.2192,
-     "top1": 0.1329,
-     "top3Overlap": 0.6456,
-     "brier": 0.03819,
+     "logLoss": 3.219,
+     "top1": 0.1321,
+     "top3Overlap": 0.6541,
+     "brier": 0.0382,
      "ece": 0.0
     }
    },
-   "clLogLoss": 2.3116,
-   "clTop1": 0.2152,
-   "clTop3Overlap": 1.3354,
-   "boostedLogLoss": 2.4678,
-   "boostedTop1": 0.1582,
-   "boostedTop3Overlap": 1.2658,
-   "legacyLogLoss": 2.6936,
-   "legacyTop1": 0.1835,
-   "legacyTop3Overlap": 1.1392,
-   "formOnlyLogLoss": 2.5273,
-   "formOnlyTop1": 0.2025,
-   "formOnlyTop3Overlap": 1.1835,
-   "uniformLogLoss": 3.2192,
-   "uniformTop1": 0.1329,
-   "uniformTop3Overlap": 0.6456
+   "clLogLoss": 2.308,
+   "clTop1": 0.2138,
+   "clTop3Overlap": 1.3396,
+   "boostedLogLoss": 2.4627,
+   "boostedTop1": 0.1635,
+   "boostedTop3Overlap": 1.2704,
+   "legacyLogLoss": 2.6855,
+   "legacyTop1": 0.1824,
+   "legacyTop3Overlap": 1.1447,
+   "formOnlyLogLoss": 2.526,
+   "formOnlyTop1": 0.2013,
+   "formOnlyTop3Overlap": 1.1887,
+   "uniformLogLoss": 3.219,
+   "uniformTop1": 0.1321,
+   "uniformTop3Overlap": 0.6541
   },
   {
    "series": "WoO Late Models",
@@ -610,10 +610,10 @@
      "testRaces": 57
     }
    ],
-   "logLoss": 2.5248,
-   "top1": 0.274,
-   "top3Overlap": 1.274,
-   "brier": 0.03589,
+   "logLoss": 2.5246,
+   "top1": 0.2694,
+   "top3Overlap": 1.2694,
+   "brier": 0.03588,
    "ece": 0.0057,
    "calibration": [
     {
@@ -626,22 +626,22 @@
     {
      "lo": 0.05,
      "hi": 0.1,
-     "n": 526,
-     "predicted": 0.0707,
-     "observed": 0.0817
+     "n": 527,
+     "predicted": 0.0708,
+     "observed": 0.0816
     },
     {
      "lo": 0.1,
      "hi": 0.2,
-     "n": 295,
-     "predicted": 0.1352,
-     "observed": 0.1322
+     "n": 294,
+     "predicted": 0.1354,
+     "observed": 0.1327
     },
     {
      "lo": 0.2,
      "hi": 0.3,
      "n": 91,
-     "predicted": 0.2476,
+     "predicted": 0.2472,
      "observed": 0.2308
     },
     {
@@ -695,7 +695,7 @@
     }
    ],
    "calibrationTemperature": {
-    "temperature": 1.1295,
+    "temperature": 1.1293,
     "bounds": [
      0.5,
      3.0
@@ -703,8 +703,8 @@
     "deadband": 0.02,
     "fittedOn": "out-of-fold backtest predictions of the chosen variant only (never the training fold)",
     "races": 219,
-    "logLossBefore": 2.5248,
-    "logLossAfter": 2.5146,
+    "logLossBefore": 2.5246,
+    "logLossAfter": 2.5145,
     "eceBefore": 0.0057,
     "eceAfter": 0.0052,
     "favoritesBefore": {
@@ -716,64 +716,64 @@
     "favoritesAfter": {
      "threshold": 0.5,
      "n": 9,
-     "predicted": 0.5522,
+     "predicted": 0.5523,
      "observed": 0.2222
     },
     "calibrationAfter": [
      {
       "lo": 0.0,
       "hi": 0.05,
-      "n": 4308,
+      "n": 4309,
       "predicted": 0.0177,
       "observed": 0.0162
      },
      {
       "lo": 0.05,
       "hi": 0.1,
-      "n": 614,
+      "n": 613,
       "predicted": 0.0706,
-      "observed": 0.0863
+      "observed": 0.0848
      },
      {
       "lo": 0.1,
       "hi": 0.2,
       "n": 298,
-      "predicted": 0.1354,
-      "observed": 0.1409
+      "predicted": 0.1355,
+      "observed": 0.1443
      },
      {
       "lo": 0.2,
       "hi": 0.3,
       "n": 87,
-      "predicted": 0.245,
+      "predicted": 0.2448,
       "observed": 0.2759
      },
      {
       "lo": 0.3,
       "hi": 0.4,
       "n": 61,
-      "predicted": 0.348,
+      "predicted": 0.3481,
       "observed": 0.3115
      },
      {
       "lo": 0.4,
       "hi": 0.5,
       "n": 27,
-      "predicted": 0.4321,
+      "predicted": 0.4322,
       "observed": 0.3333
      },
      {
       "lo": 0.5,
       "hi": 0.6,
       "n": 7,
-      "predicted": 0.5378,
+      "predicted": 0.5379,
       "observed": 0.1429
      },
      {
       "lo": 0.6,
       "hi": 0.7,
       "n": 2,
-      "predicted": 0.6029,
+      "predicted": 0.603,
       "observed": 0.5
      },
      {
@@ -867,52 +867,52 @@
     {
      "season": 2026,
      "races": 57,
-     "clLogLoss": 2.1295,
-     "clTop1": 0.4035,
-     "boostedLogLoss": 2.2561,
+     "clLogLoss": 2.1289,
+     "clTop1": 0.386,
+     "boostedLogLoss": 2.2574,
      "boostedTop1": 0.2982,
-     "legacyLogLoss": 2.6517,
+     "legacyLogLoss": 2.6511,
      "legacyTop1": 0.1228,
-     "formOnlyLogLoss": 2.256,
+     "formOnlyLogLoss": 2.2561,
      "formOnlyTop1": 0.2982,
      "uniformLogLoss": 3.1879,
      "uniformTop1": 0.3509,
-     "logLoss": 2.1295,
-     "top1": 0.4035
+     "logLoss": 2.1289,
+     "top1": 0.386
     }
    ],
    "features": [
     {
      "name": "track_top3_rate",
-     "weight": 0.1938
+     "weight": 0.194
     },
     {
      "name": "log_career_starts",
-     "weight": 0.1495
+     "weight": 0.1496
     },
     {
      "name": "elo_field_rel",
-     "weight": 0.142
+     "weight": 0.1424
     },
     {
      "name": "last5_avg_finish",
-     "weight": -0.1357
+     "weight": -0.1375
     },
     {
      "name": "elo",
-     "weight": 0.1275
+     "weight": 0.1279
     },
     {
      "name": "track_avg_finish",
-     "weight": -0.1186
+     "weight": -0.1183
     },
     {
      "name": "last10_avg_finish",
-     "weight": -0.1176
+     "weight": -0.1166
     },
     {
      "name": "ewm_finish",
-     "weight": -0.0932
+     "weight": -0.0936
     },
     {
      "name": "career_top3_rate",
@@ -924,39 +924,39 @@
     },
     {
      "name": "podium_last_14d",
-     "weight": 0.068
-    },
-    {
-     "name": "similar_track_avg_finish",
-     "weight": -0.0639
+     "weight": 0.0662
     },
     {
      "name": "similar_track_win_rate",
-     "weight": -0.0637
+     "weight": -0.0636
+    },
+    {
+     "name": "similar_track_avg_finish",
+     "weight": -0.0636
     },
     {
      "name": "career_avg_finish",
-     "weight": -0.0566
+     "weight": -0.0564
     },
     {
      "name": "career_dnf_rate",
-     "weight": 0.0544
+     "weight": 0.0545
     },
     {
      "name": "last10_win_rate",
-     "weight": 0.045
+     "weight": 0.0446
     },
     {
      "name": "track_win_rate",
-     "weight": 0.0372
-    },
-    {
-     "name": "log_days_since_last_start",
-     "weight": -0.0371
+     "weight": 0.0371
     },
     {
      "name": "eldora_prior_podium_365d",
-     "weight": 0.0364
+     "weight": 0.0366
+    },
+    {
+     "name": "log_days_since_last_start",
+     "weight": -0.0352
     },
     {
      "name": "last5_avg_finish__missing",
@@ -988,7 +988,7 @@
     },
     {
      "name": "ewm_win",
-     "weight": 0.0274
+     "weight": 0.0275
     },
     {
      "name": "log_similar_track_starts",
@@ -996,27 +996,27 @@
     },
     {
      "name": "last5_win_rate",
-     "weight": 0.0245
+     "weight": 0.0244
     },
     {
      "name": "prev_same_track_top3_3d",
-     "weight": 0.0207
+     "weight": 0.021
     },
     {
      "name": "crown_prior_podium_365d",
-     "weight": 0.0197
+     "weight": 0.02
     },
     {
      "name": "prev_same_track_3d",
-     "weight": 0.0149
+     "weight": 0.015
     },
     {
      "name": "prev_same_track_finish_3d__missing",
-     "weight": -0.0149
+     "weight": -0.015
     },
     {
      "name": "prev_same_track_win_3d",
-     "weight": -0.0145
+     "weight": -0.0144
     },
     {
      "name": "crown_prior_win_365d",
@@ -1024,7 +1024,7 @@
     },
     {
      "name": "won_last_14d",
-     "weight": 0.0094
+     "weight": 0.0085
     },
     {
      "name": "career_win_rate",
@@ -1032,7 +1032,7 @@
     },
     {
      "name": "prev_same_track_finish_3d",
-     "weight": 0.0043
+     "weight": 0.0041
     },
     {
      "name": "field_size",
@@ -1041,21 +1041,21 @@
    ],
    "variants": {
     "cl": {
-     "logLoss": 2.5248,
-     "top1": 0.274,
-     "top3Overlap": 1.274,
-     "brier": 0.03589,
+     "logLoss": 2.5246,
+     "top1": 0.2694,
+     "top3Overlap": 1.2694,
+     "brier": 0.03588,
      "ece": 0.0057
     },
     "boosted": {
-     "logLoss": 2.9791,
+     "logLoss": 2.9794,
      "top1": 0.2603,
      "top3Overlap": 1.2603,
      "brier": 0.03863,
      "ece": 0.0105
     },
     "legacy-method": {
-     "logLoss": 2.8307,
+     "logLoss": 2.8306,
      "top1": 0.1461,
      "top3Overlap": 1.0137,
      "brier": 0.0376,
@@ -1064,7 +1064,7 @@
     "form-only": {
      "logLoss": 2.5417,
      "top1": 0.2329,
-     "top3Overlap": 1.1142,
+     "top3Overlap": 1.1187,
      "brier": 0.03568,
      "ece": 0.0051
     },
@@ -1076,18 +1076,18 @@
      "ece": 0.0
     }
    },
-   "clLogLoss": 2.5248,
-   "clTop1": 0.274,
-   "clTop3Overlap": 1.274,
-   "boostedLogLoss": 2.9791,
+   "clLogLoss": 2.5246,
+   "clTop1": 0.2694,
+   "clTop3Overlap": 1.2694,
+   "boostedLogLoss": 2.9794,
    "boostedTop1": 0.2603,
    "boostedTop3Overlap": 1.2603,
-   "legacyLogLoss": 2.8307,
+   "legacyLogLoss": 2.8306,
    "legacyTop1": 0.1461,
    "legacyTop3Overlap": 1.0137,
    "formOnlyLogLoss": 2.5417,
    "formOnlyTop1": 0.2329,
-   "formOnlyTop3Overlap": 1.1142,
+   "formOnlyTop3Overlap": 1.1187,
    "uniformLogLoss": 3.185,
    "uniformTop1": 0.2831,
    "uniformTop3Overlap": 1.1461
@@ -1621,17 +1621,17 @@
      "testRaces": 29
     }
    ],
-   "logLoss": 2.4633,
-   "top1": 0.2418,
+   "logLoss": 2.463,
+   "top1": 0.2527,
    "top3Overlap": 1.1978,
-   "brier": 0.03654,
+   "brier": 0.03653,
    "ece": 0.0101,
    "calibration": [
     {
      "lo": 0.0,
      "hi": 0.05,
      "n": 1819,
-     "predicted": 0.0163,
+     "predicted": 0.0164,
      "observed": 0.0176
     },
     {
@@ -1645,7 +1645,7 @@
      "lo": 0.1,
      "hi": 0.2,
      "n": 123,
-     "predicted": 0.1434,
+     "predicted": 0.1433,
      "observed": 0.1789
     },
     {
@@ -1706,7 +1706,7 @@
     }
    ],
    "calibrationTemperature": {
-    "temperature": 1.0418,
+    "temperature": 1.0415,
     "bounds": [
      0.5,
      3.0
@@ -1714,8 +1714,8 @@
     "deadband": 0.02,
     "fittedOn": "out-of-fold backtest predictions of the chosen variant only (never the training fold)",
     "races": 91,
-    "logLossBefore": 2.4633,
-    "logLossAfter": 2.4622,
+    "logLossBefore": 2.463,
+    "logLossAfter": 2.4619,
     "eceBefore": 0.0101,
     "eceAfter": 0.0104,
     "favoritesBefore": {
@@ -1727,7 +1727,7 @@
     "favoritesAfter": {
      "threshold": 0.5,
      "n": 6,
-     "predicted": 0.5767,
+     "predicted": 0.5769,
      "observed": 0.0
     },
     "calibrationAfter": [
@@ -1756,35 +1756,35 @@
       "lo": 0.2,
       "hi": 0.3,
       "n": 47,
-      "predicted": 0.2424,
+      "predicted": 0.2425,
       "observed": 0.3404
      },
      {
       "lo": 0.3,
       "hi": 0.4,
       "n": 24,
-      "predicted": 0.3434,
+      "predicted": 0.3435,
       "observed": 0.25
      },
      {
       "lo": 0.4,
       "hi": 0.5,
       "n": 8,
-      "predicted": 0.4598,
+      "predicted": 0.4599,
       "observed": 0.125
      },
      {
       "lo": 0.5,
       "hi": 0.6,
       "n": 5,
-      "predicted": 0.5548,
+      "predicted": 0.5549,
       "observed": 0.0
      },
      {
       "lo": 0.6,
       "hi": 0.7,
       "n": 1,
-      "predicted": 0.6863,
+      "predicted": 0.6866,
       "observed": 0.0
      },
      {
@@ -1862,18 +1862,18 @@
     {
      "season": 2026,
      "races": 29,
-     "clLogLoss": 2.4295,
-     "clTop1": 0.2069,
-     "boostedLogLoss": 2.4161,
+     "clLogLoss": 2.4286,
+     "clTop1": 0.2414,
+     "boostedLogLoss": 2.4131,
      "boostedTop1": 0.1724,
-     "legacyLogLoss": 2.7388,
+     "legacyLogLoss": 2.7377,
      "legacyTop1": 0.1724,
-     "formOnlyLogLoss": 2.6954,
+     "formOnlyLogLoss": 2.6966,
      "formOnlyTop1": 0.1379,
      "uniformLogLoss": 3.1902,
      "uniformTop1": 0.2069,
-     "logLoss": 2.4295,
-     "top1": 0.2069
+     "logLoss": 2.4286,
+     "top1": 0.2414
     }
    ],
    "features": [
@@ -1883,31 +1883,31 @@
     },
     {
      "name": "elo_field_rel",
-     "weight": 0.1787
+     "weight": 0.179
     },
     {
      "name": "career_top3_rate",
-     "weight": 0.1679
+     "weight": 0.168
     },
     {
      "name": "log_track_starts",
-     "weight": 0.159
+     "weight": 0.1591
     },
     {
      "name": "elo",
-     "weight": 0.1562
+     "weight": 0.1564
     },
     {
      "name": "prev_same_track_top3_3d",
-     "weight": 0.1493
+     "weight": 0.1494
     },
     {
      "name": "last5_win_rate",
-     "weight": 0.1125
+     "weight": 0.1112
     },
     {
      "name": "ewm_finish",
-     "weight": -0.1105
+     "weight": -0.1104
     },
     {
      "name": "ewm_win",
@@ -1919,30 +1919,30 @@
     },
     {
      "name": "log_days_since_last_start",
-     "weight": -0.0909
+     "weight": -0.0905
     },
     {
      "name": "crown_prior_podium_365d",
-     "weight": 0.087
+     "weight": 0.0875
     },
     {
      "name": "last10_win_rate",
-     "weight": 0.0789
+     "weight": 0.0809
     },
     {
      "name": "career_avg_finish",
-     "weight": -0.0768
+     "weight": -0.0769
     },
     {
      "name": "track_win_rate",
-     "weight": -0.0696
-    },
-    {
-     "name": "prev_same_track_win_3d",
-     "weight": 0.0678
+     "weight": -0.0697
     },
     {
      "name": "eldora_prior_podium_365d",
+     "weight": 0.0682
+    },
+    {
+     "name": "prev_same_track_win_3d",
      "weight": 0.0678
     },
     {
@@ -1955,35 +1955,35 @@
     },
     {
      "name": "last5_avg_finish",
-     "weight": 0.06
+     "weight": 0.0595
     },
     {
      "name": "last5_avg_finish__missing",
-     "weight": -0.0551
+     "weight": -0.055
     },
     {
      "name": "last10_avg_finish__missing",
-     "weight": -0.0551
+     "weight": -0.055
     },
     {
      "name": "last5_win_rate__missing",
-     "weight": -0.0551
+     "weight": -0.055
     },
     {
      "name": "last10_win_rate__missing",
-     "weight": -0.0551
+     "weight": -0.055
     },
     {
      "name": "ewm_finish__missing",
-     "weight": -0.0551
+     "weight": -0.055
     },
     {
      "name": "ewm_win__missing",
-     "weight": -0.0551
+     "weight": -0.055
     },
     {
      "name": "log_days_since_last_start__missing",
-     "weight": -0.0551
+     "weight": -0.055
     },
     {
      "name": "career_dnf_rate",
@@ -1991,7 +1991,7 @@
     },
     {
      "name": "podium_last_14d",
-     "weight": 0.0403
+     "weight": 0.0401
     },
     {
      "name": "prev_same_track_finish_3d",
@@ -2011,15 +2011,15 @@
     },
     {
      "name": "track_top3_rate",
-     "weight": 0.0287
+     "weight": 0.0284
     },
     {
      "name": "track_avg_finish",
-     "weight": -0.0272
+     "weight": -0.0268
     },
     {
      "name": "last10_avg_finish",
-     "weight": -0.0266
+     "weight": -0.0257
     },
     {
      "name": "crown_prior_win_365d",
@@ -2027,40 +2027,40 @@
     },
     {
      "name": "won_last_14d",
-     "weight": -0.0017
+     "weight": -0.0018
     },
     {
      "name": "field_size",
-     "weight": -0.0
+     "weight": 0.0
     }
    ],
    "variants": {
     "cl": {
-     "logLoss": 2.4633,
-     "top1": 0.2418,
+     "logLoss": 2.463,
+     "top1": 0.2527,
      "top3Overlap": 1.1978,
-     "brier": 0.03654,
+     "brier": 0.03653,
      "ece": 0.0101
     },
     "boosted": {
-     "logLoss": 2.4716,
+     "logLoss": 2.4706,
      "top1": 0.2418,
      "top3Overlap": 1.2967,
-     "brier": 0.03582,
-     "ece": 0.0048
+     "brier": 0.0358,
+     "ece": 0.0047
     },
     "legacy-method": {
-     "logLoss": 2.8702,
+     "logLoss": 2.8698,
      "top1": 0.1099,
-     "top3Overlap": 0.967,
-     "brier": 0.03831,
-     "ece": 0.0169
+     "top3Overlap": 0.978,
+     "brier": 0.03832,
+     "ece": 0.017
     },
     "form-only": {
-     "logLoss": 2.6382,
+     "logLoss": 2.6386,
      "top1": 0.1978,
      "top3Overlap": 0.989,
-     "brier": 0.03662,
+     "brier": 0.03663,
      "ece": 0.0079
     },
     "uniform": {
@@ -2071,16 +2071,16 @@
      "ece": 0.0
     }
    },
-   "clLogLoss": 2.4633,
-   "clTop1": 0.2418,
+   "clLogLoss": 2.463,
+   "clTop1": 0.2527,
    "clTop3Overlap": 1.1978,
-   "boostedLogLoss": 2.4716,
+   "boostedLogLoss": 2.4706,
    "boostedTop1": 0.2418,
    "boostedTop3Overlap": 1.2967,
-   "legacyLogLoss": 2.8702,
+   "legacyLogLoss": 2.8698,
    "legacyTop1": 0.1099,
-   "legacyTop3Overlap": 0.967,
-   "formOnlyLogLoss": 2.6382,
+   "legacyTop3Overlap": 0.978,
+   "formOnlyLogLoss": 2.6386,
    "formOnlyTop1": 0.1978,
    "formOnlyTop3Overlap": 0.989,
    "uniformLogLoss": 3.1797,
@@ -2148,10 +2148,10 @@
      "testRaces": 107
     }
    ],
-   "logLoss": 2.422,
-   "top1": 0.2506,
+   "logLoss": 2.4219,
+   "top1": 0.2529,
    "top3Overlap": 1.3086,
-   "brier": 0.03587,
+   "brier": 0.03586,
    "ece": 0.0061,
    "calibration": [
     {
@@ -2179,7 +2179,7 @@
      "lo": 0.2,
      "hi": 0.3,
      "n": 229,
-     "predicted": 0.2432,
+     "predicted": 0.2431,
      "observed": 0.2402
     },
     {
@@ -2241,8 +2241,8 @@
     "deadband": 0.02,
     "fittedOn": "per-series temperatures applied to each routed race (fit on out-of-fold predictions only)",
     "races": 431,
-    "logLossBefore": 2.4203,
-    "logLossAfter": 2.4141,
+    "logLossBefore": 2.4201,
+    "logLossAfter": 2.414,
     "eceBefore": 0.0048,
     "eceAfter": 0.0042,
     "favoritesBefore": {
@@ -2254,64 +2254,64 @@
     "favoritesAfter": {
      "threshold": 0.5,
      "n": 14,
-     "predicted": 0.5635,
+     "predicted": 0.5637,
      "observed": 0.1429
     },
     "calibrationAfter": [
      {
       "lo": 0.0,
       "hi": 0.05,
-      "n": 8500,
+      "n": 8501,
       "predicted": 0.0159,
       "observed": 0.0154
      },
      {
       "lo": 0.05,
       "hi": 0.1,
-      "n": 994,
+      "n": 992,
       "predicted": 0.0702,
-      "observed": 0.0755
+      "observed": 0.0746
      },
      {
       "lo": 0.1,
       "hi": 0.2,
-      "n": 658,
+      "n": 659,
       "predicted": 0.1411,
-      "observed": 0.1565
+      "observed": 0.1578
      },
      {
       "lo": 0.2,
       "hi": 0.3,
-      "n": 270,
-      "predicted": 0.2448,
-      "observed": 0.2704
+      "n": 269,
+      "predicted": 0.2446,
+      "observed": 0.2714
      },
      {
       "lo": 0.3,
       "hi": 0.4,
-      "n": 119,
-      "predicted": 0.3451,
-      "observed": 0.3025
+      "n": 120,
+      "predicted": 0.3449,
+      "observed": 0.3
      },
      {
       "lo": 0.4,
       "hi": 0.5,
       "n": 40,
-      "predicted": 0.4424,
+      "predicted": 0.4426,
       "observed": 0.275
      },
      {
       "lo": 0.5,
       "hi": 0.6,
       "n": 11,
-      "predicted": 0.5452,
+      "predicted": 0.5453,
       "observed": 0.0909
      },
      {
       "lo": 0.6,
       "hi": 0.7,
       "n": 3,
-      "predicted": 0.6307,
+      "predicted": 0.6309,
       "observed": 0.3333
      },
      {
@@ -2405,49 +2405,49 @@
     {
      "season": 2026,
      "races": 107,
-     "clLogLoss": 2.2323,
-     "clTop1": 0.2617,
-     "boostedLogLoss": 2.3343,
+     "clLogLoss": 2.2318,
+     "clTop1": 0.271,
+     "boostedLogLoss": 2.3344,
      "boostedTop1": 0.215,
-     "legacyLogLoss": 2.611,
+     "legacyLogLoss": 2.6106,
      "legacyTop1": 0.1495,
      "formOnlyLogLoss": 2.4264,
      "formOnlyTop1": 0.2243,
      "uniformLogLoss": 3.1987,
      "uniformTop1": 0.271,
-     "logLoss": 2.2323,
-     "top1": 0.2617
+     "logLoss": 2.2318,
+     "top1": 0.271
     }
    ],
    "features": [],
    "variants": {
     "cl": {
-     "logLoss": 2.422,
-     "top1": 0.2506,
+     "logLoss": 2.4219,
+     "top1": 0.2529,
      "top3Overlap": 1.3086,
-     "brier": 0.03587,
+     "brier": 0.03586,
      "ece": 0.0061
     },
     "boosted": {
      "logLoss": 2.6398,
      "top1": 0.2343,
      "top3Overlap": 1.3063,
-     "brier": 0.0369,
+     "brier": 0.03689,
      "ece": 0.0069
     },
     "legacy-method": {
-     "logLoss": 2.7632,
+     "logLoss": 2.7631,
      "top1": 0.1601,
-     "top3Overlap": 1.0626,
+     "top3Overlap": 1.065,
      "brier": 0.03744,
      "ece": 0.0133
     },
     "form-only": {
      "logLoss": 2.5265,
      "top1": 0.2227,
-     "top3Overlap": 1.1671,
+     "top3Overlap": 1.1694,
      "brier": 0.0359,
-     "ece": 0.0043
+     "ece": 0.0044
     },
     "uniform": {
      "logLoss": 3.1889,
@@ -2457,18 +2457,18 @@
      "ece": 0.0
     }
    },
-   "clLogLoss": 2.422,
-   "clTop1": 0.2506,
+   "clLogLoss": 2.4219,
+   "clTop1": 0.2529,
    "clTop3Overlap": 1.3086,
    "boostedLogLoss": 2.6398,
    "boostedTop1": 0.2343,
    "boostedTop3Overlap": 1.3063,
-   "legacyLogLoss": 2.7632,
+   "legacyLogLoss": 2.7631,
    "legacyTop1": 0.1601,
-   "legacyTop3Overlap": 1.0626,
+   "legacyTop3Overlap": 1.065,
    "formOnlyLogLoss": 2.5265,
    "formOnlyTop1": 0.2227,
-   "formOnlyTop3Overlap": 1.1671,
+   "formOnlyTop3Overlap": 1.1694,
    "uniformLogLoss": 3.1889,
    "uniformTop1": 0.2413,
    "uniformTop3Overlap": 0.9884
@@ -2479,8 +2479,8 @@
    "stage": "race-night",
    "variant": "cl",
    "selectionRule": "min held-out multinomial log loss over cl and boosted",
-   "races": 147,
-   "entries": 3665,
+   "races": 148,
+   "entries": 3689,
    "seasons": [
     2023,
     2024,
@@ -2532,35 +2532,35 @@
       2025
      ],
      "trainRaces": 164,
-     "testRaces": 44
+     "testRaces": 45
     }
    ],
-   "logLoss": 1.8891,
-   "top1": 0.3129,
-   "top3Overlap": 1.6054,
-   "brier": 0.03211,
-   "ece": 0.0086,
+   "logLoss": 1.8881,
+   "top1": 0.3108,
+   "top3Overlap": 1.6149,
+   "brier": 0.03216,
+   "ece": 0.0087,
    "calibration": [
     {
      "lo": 0.0,
      "hi": 0.05,
-     "n": 2976,
+     "n": 2996,
      "predicted": 0.0068,
-     "observed": 0.0071
+     "observed": 0.007
     },
     {
      "lo": 0.05,
      "hi": 0.1,
-     "n": 246,
-     "predicted": 0.0706,
-     "observed": 0.065
+     "n": 247,
+     "predicted": 0.0705,
+     "observed": 0.0648
     },
     {
      "lo": 0.1,
      "hi": 0.2,
-     "n": 216,
-     "predicted": 0.1457,
-     "observed": 0.213
+     "n": 218,
+     "predicted": 0.1458,
+     "observed": 0.2156
     },
     {
      "lo": 0.2,
@@ -2579,9 +2579,9 @@
     {
      "lo": 0.4,
      "hi": 0.5,
-     "n": 28,
-     "predicted": 0.4443,
-     "observed": 0.4286
+     "n": 29,
+     "predicted": 0.4462,
+     "observed": 0.4138
     },
     {
      "lo": 0.5,
@@ -2620,18 +2620,18 @@
     }
    ],
    "calibrationTemperature": {
-    "temperature": 1.0724,
+    "temperature": 1.0729,
     "bounds": [
      0.5,
      3.0
     ],
     "deadband": 0.02,
     "fittedOn": "out-of-fold backtest predictions of the chosen variant only (never the training fold)",
-    "races": 147,
-    "logLossBefore": 1.8891,
-    "logLossAfter": 1.8861,
-    "eceBefore": 0.0086,
-    "eceAfter": 0.0083,
+    "races": 148,
+    "logLossBefore": 1.8881,
+    "logLossAfter": 1.885,
+    "eceBefore": 0.0087,
+    "eceAfter": 0.0084,
     "favoritesBefore": {
      "threshold": 0.5,
      "n": 33,
@@ -2641,30 +2641,30 @@
     "favoritesAfter": {
      "threshold": 0.5,
      "n": 24,
-     "predicted": 0.5839,
+     "predicted": 0.5836,
      "observed": 0.4167
     },
     "calibrationAfter": [
      {
       "lo": 0.0,
       "hi": 0.05,
-      "n": 2941,
+      "n": 2961,
       "predicted": 0.0073,
-      "observed": 0.0065
+      "observed": 0.0064
      },
      {
       "lo": 0.05,
       "hi": 0.1,
-      "n": 268,
+      "n": 269,
       "predicted": 0.0697,
-      "observed": 0.0597
+      "observed": 0.0595
      },
      {
       "lo": 0.1,
       "hi": 0.2,
-      "n": 238,
-      "predicted": 0.1448,
-      "observed": 0.2059
+      "n": 240,
+      "predicted": 0.1449,
+      "observed": 0.2083
      },
      {
       "lo": 0.2,
@@ -2677,42 +2677,42 @@
       "lo": 0.3,
       "hi": 0.4,
       "n": 53,
-      "predicted": 0.3452,
+      "predicted": 0.3451,
       "observed": 0.283
      },
      {
       "lo": 0.4,
       "hi": 0.5,
-      "n": 30,
-      "predicted": 0.4457,
-      "observed": 0.4667
+      "n": 31,
+      "predicted": 0.4463,
+      "observed": 0.4516
      },
      {
       "lo": 0.5,
       "hi": 0.6,
       "n": 14,
-      "predicted": 0.5271,
+      "predicted": 0.5269,
       "observed": 0.3571
      },
      {
       "lo": 0.6,
       "hi": 0.7,
       "n": 8,
-      "predicted": 0.6345,
+      "predicted": 0.6342,
       "observed": 0.5
      },
      {
       "lo": 0.7,
       "hi": 0.8,
       "n": 1,
-      "predicted": 0.7391,
+      "predicted": 0.7389,
       "observed": 0.0
      },
      {
       "lo": 0.8,
       "hi": 0.9,
       "n": 1,
-      "predicted": 0.8174,
+      "predicted": 0.8172,
       "observed": 1.0
      },
      {
@@ -2775,109 +2775,109 @@
     },
     {
      "season": 2026,
-     "races": 44,
-     "clLogLoss": 2.0809,
-     "clTop1": 0.2955,
-     "boostedLogLoss": 2.2057,
-     "boostedTop1": 0.2727,
-     "legacyLogLoss": 2.2328,
-     "legacyTop1": 0.2273,
-     "formOnlyLogLoss": 2.5242,
-     "formOnlyTop1": 0.1818,
-     "uniformLogLoss": 3.2073,
-     "uniformTop1": 0.1364,
-     "logLoss": 2.0809,
-     "top1": 0.2955
+     "races": 45,
+     "clLogLoss": 2.0731,
+     "clTop1": 0.2889,
+     "boostedLogLoss": 2.1917,
+     "boostedTop1": 0.2667,
+     "legacyLogLoss": 2.218,
+     "legacyTop1": 0.2222,
+     "formOnlyLogLoss": 2.5196,
+     "formOnlyTop1": 0.1778,
+     "uniformLogLoss": 3.2066,
+     "uniformTop1": 0.1333,
+     "logLoss": 2.0731,
+     "top1": 0.2889
     }
    ],
    "features": [
     {
      "name": "start_pos_norm",
-     "weight": -0.7165
+     "weight": -0.7236
     },
     {
      "name": "qt_rank_norm",
-     "weight": -0.4099
+     "weight": -0.3956
     },
     {
      "name": "heat_pos_norm",
-     "weight": -0.3811
+     "weight": -0.3845
     },
     {
      "name": "elo_field_rel",
-     "weight": 0.2335
+     "weight": 0.2381
     },
     {
      "name": "prev_same_track_finish_3d",
-     "weight": -0.2163
+     "weight": -0.217
     },
     {
      "name": "elo",
-     "weight": 0.2098
+     "weight": 0.2142
     },
     {
      "name": "log_track_starts",
-     "weight": 0.188
+     "weight": 0.1934
     },
     {
      "name": "ewm_win",
-     "weight": 0.1777
+     "weight": 0.1698
     },
     {
      "name": "track_win_rate",
-     "weight": -0.1425
+     "weight": -0.1495
     },
     {
      "name": "log_days_since_last_start",
-     "weight": -0.1366
+     "weight": -0.1374
     },
     {
      "name": "similar_track_avg_finish",
-     "weight": -0.1337
+     "weight": -0.1311
     },
     {
      "name": "prev_same_track_top3_3d",
-     "weight": 0.1252
+     "weight": 0.1244
     },
     {
      "name": "crown_prior_podium_365d",
-     "weight": 0.1231
-    },
-    {
-     "name": "last5_avg_finish",
-     "weight": -0.1043
+     "weight": 0.1221
     },
     {
      "name": "log_career_starts",
-     "weight": 0.0994
+     "weight": 0.0992
     },
     {
      "name": "log_similar_track_starts",
-     "weight": 0.0974
+     "weight": 0.0966
     },
     {
-     "name": "eldora_prior_podium_365d",
-     "weight": 0.0878
+     "name": "last5_avg_finish",
+     "weight": -0.0952
     },
     {
      "name": "last10_avg_finish",
-     "weight": -0.087
+     "weight": -0.0873
     },
     {
-     "name": "podium_last_14d",
-     "weight": 0.0813
+     "name": "eldora_prior_podium_365d",
+     "weight": 0.0869
     },
     {
      "name": "career_top3_rate",
-     "weight": -0.0803
+     "weight": -0.0808
+    },
+    {
+     "name": "podium_last_14d",
+     "weight": 0.0793
     },
     {
      "name": "career_dnf_rate",
-     "weight": -0.0646
+     "weight": -0.0643
     },
     {
      "name": "career_avg_finish",
-     "weight": -0.0598
+     "weight": -0.0638
     },
     {
      "name": "prev_same_track_3d",
@@ -2889,83 +2889,83 @@
     },
     {
      "name": "heat_pos_norm__missing",
-     "weight": 0.0514
+     "weight": 0.0499
+    },
+    {
+     "name": "last10_win_rate",
+     "weight": 0.0471
     },
     {
      "name": "won_last_14d",
-     "weight": 0.0462
+     "weight": 0.0447
+    },
+    {
+     "name": "career_win_rate",
+     "weight": 0.0437
     },
     {
      "name": "ewm_finish",
-     "weight": -0.0394
+     "weight": -0.043
     },
     {
      "name": "qt_rank_norm__missing",
      "weight": 0.0363
     },
     {
-     "name": "last10_win_rate",
-     "weight": 0.0351
-    },
-    {
-     "name": "track_avg_finish",
-     "weight": -0.0339
-    },
-    {
-     "name": "career_win_rate",
-     "weight": 0.0296
+     "name": "track_top3_rate",
+     "weight": 0.0325
     },
     {
      "name": "last5_avg_finish__missing",
-     "weight": -0.0274
+     "weight": -0.0273
     },
     {
      "name": "last10_avg_finish__missing",
-     "weight": -0.0274
+     "weight": -0.0273
     },
     {
      "name": "last5_win_rate__missing",
-     "weight": -0.0274
+     "weight": -0.0273
     },
     {
      "name": "last10_win_rate__missing",
-     "weight": -0.0274
+     "weight": -0.0273
     },
     {
      "name": "ewm_finish__missing",
-     "weight": -0.0274
+     "weight": -0.0273
     },
     {
      "name": "ewm_win__missing",
-     "weight": -0.0274
+     "weight": -0.0273
     },
     {
      "name": "log_days_since_last_start__missing",
-     "weight": -0.0274
+     "weight": -0.0273
     },
     {
      "name": "crown_prior_win_365d",
-     "weight": 0.0254
+     "weight": 0.026
     },
     {
-     "name": "track_top3_rate",
-     "weight": 0.0205
-    },
-    {
-     "name": "last5_win_rate",
-     "weight": -0.0162
-    },
-    {
-     "name": "prev_same_track_win_3d",
-     "weight": 0.0134
+     "name": "track_avg_finish",
+     "weight": -0.0256
     },
     {
      "name": "similar_track_win_rate",
-     "weight": 0.0002
+     "weight": -0.023
+    },
+    {
+     "name": "prev_same_track_win_3d",
+     "weight": 0.013
+    },
+    {
+     "name": "last5_win_rate",
+     "weight": -0.0121
     },
     {
      "name": "field_size",
-     "weight": -0.0
+     "weight": 0.0
     },
     {
      "name": "bmain_pos_norm",
@@ -2977,61 +2977,61 @@
     },
     {
      "name": "bmain_pos_norm__missing",
-     "weight": 0.0
+     "weight": -0.0
     }
    ],
    "variants": {
     "cl": {
-     "logLoss": 1.8891,
-     "top1": 0.3129,
-     "top3Overlap": 1.6054,
-     "brier": 0.03211,
-     "ece": 0.0086
+     "logLoss": 1.8881,
+     "top1": 0.3108,
+     "top3Overlap": 1.6149,
+     "brier": 0.03216,
+     "ece": 0.0087
     },
     "boosted": {
-     "logLoss": 2.0373,
-     "top1": 0.2789,
-     "top3Overlap": 1.5578,
+     "logLoss": 2.0342,
+     "top1": 0.277,
+     "top3Overlap": 1.5676,
      "brier": 0.03357,
-     "ece": 0.0124
+     "ece": 0.0122
     },
     "legacy-method": {
-     "logLoss": 2.1571,
-     "top1": 0.2653,
-     "top3Overlap": 1.415,
+     "logLoss": 2.1531,
+     "top1": 0.2635,
+     "top3Overlap": 1.4257,
      "brier": 0.03424,
-     "ece": 0.0123
+     "ece": 0.012
     },
     "form-only": {
-     "logLoss": 2.5087,
-     "top1": 0.2041,
-     "top3Overlap": 1.1837,
-     "brier": 0.0356,
-     "ece": 0.0043
+     "logLoss": 2.5074,
+     "top1": 0.2027,
+     "top3Overlap": 1.1892,
+     "brier": 0.03562,
+     "ece": 0.0045
     },
     "uniform": {
-     "logLoss": 3.2116,
-     "top1": 0.1088,
-     "top3Overlap": 0.6327,
-     "brier": 0.03848,
+     "logLoss": 3.2114,
+     "top1": 0.1081,
+     "top3Overlap": 0.6419,
+     "brier": 0.03849,
      "ece": 0.0
     }
    },
-   "clLogLoss": 1.8891,
-   "clTop1": 0.3129,
-   "clTop3Overlap": 1.6054,
-   "boostedLogLoss": 2.0373,
-   "boostedTop1": 0.2789,
-   "boostedTop3Overlap": 1.5578,
-   "legacyLogLoss": 2.1571,
-   "legacyTop1": 0.2653,
-   "legacyTop3Overlap": 1.415,
-   "formOnlyLogLoss": 2.5087,
-   "formOnlyTop1": 0.2041,
-   "formOnlyTop3Overlap": 1.1837,
-   "uniformLogLoss": 3.2116,
-   "uniformTop1": 0.1088,
-   "uniformTop3Overlap": 0.6327
+   "clLogLoss": 1.8881,
+   "clTop1": 0.3108,
+   "clTop3Overlap": 1.6149,
+   "boostedLogLoss": 2.0342,
+   "boostedTop1": 0.277,
+   "boostedTop3Overlap": 1.5676,
+   "legacyLogLoss": 2.1531,
+   "legacyTop1": 0.2635,
+   "legacyTop3Overlap": 1.4257,
+   "formOnlyLogLoss": 2.5074,
+   "formOnlyTop1": 0.2027,
+   "formOnlyTop3Overlap": 1.1892,
+   "uniformLogLoss": 3.2114,
+   "uniformTop1": 0.1081,
+   "uniformTop3Overlap": 0.6419
   },
   {
    "series": "WoO Late Models",
@@ -3091,25 +3091,25 @@
      "testRaces": 54
     }
    ],
-   "logLoss": 1.8338,
+   "logLoss": 1.834,
    "top1": 0.3598,
    "top3Overlap": 1.7073,
-   "brier": 0.03032,
+   "brier": 0.03033,
    "ece": 0.0068,
    "calibration": [
     {
      "lo": 0.0,
      "hi": 0.05,
-     "n": 3328,
+     "n": 3329,
      "predicted": 0.0079,
      "observed": 0.0054
     },
     {
      "lo": 0.05,
      "hi": 0.1,
-     "n": 336,
+     "n": 335,
      "predicted": 0.0715,
-     "observed": 0.0833
+     "observed": 0.0836
     },
     {
      "lo": 0.1,
@@ -3122,7 +3122,7 @@
      "lo": 0.2,
      "hi": 0.3,
      "n": 101,
-     "predicted": 0.2459,
+     "predicted": 0.2461,
      "observed": 0.2673
     },
     {
@@ -3176,7 +3176,7 @@
     }
    ],
    "calibrationTemperature": {
-    "temperature": 0.9601,
+    "temperature": 0.9604,
     "bounds": [
      0.5,
      3.0
@@ -3184,8 +3184,8 @@
     "deadband": 0.02,
     "fittedOn": "out-of-fold backtest predictions of the chosen variant only (never the training fold)",
     "races": 164,
-    "logLossBefore": 1.8338,
-    "logLossAfter": 1.8327,
+    "logLossBefore": 1.834,
+    "logLossAfter": 1.8329,
     "eceBefore": 0.0068,
     "eceAfter": 0.0074,
     "favoritesBefore": {
@@ -3197,78 +3197,78 @@
     "favoritesAfter": {
      "threshold": 0.5,
      "n": 50,
-     "predicted": 0.597,
+     "predicted": 0.5968,
      "observed": 0.56
     },
     "calibrationAfter": [
      {
       "lo": 0.0,
       "hi": 0.05,
-      "n": 3350,
+      "n": 3351,
       "predicted": 0.0076,
       "observed": 0.0054
      },
      {
       "lo": 0.05,
       "hi": 0.1,
-      "n": 320,
-      "predicted": 0.0716,
-      "observed": 0.0906
+      "n": 319,
+      "predicted": 0.0717,
+      "observed": 0.0909
      },
      {
       "lo": 0.1,
       "hi": 0.2,
-      "n": 225,
-      "predicted": 0.142,
-      "observed": 0.1644
+      "n": 226,
+      "predicted": 0.1423,
+      "observed": 0.1637
      },
      {
       "lo": 0.2,
       "hi": 0.3,
-      "n": 101,
-      "predicted": 0.2458,
-      "observed": 0.2673
+      "n": 100,
+      "predicted": 0.2464,
+      "observed": 0.27
      },
      {
       "lo": 0.3,
       "hi": 0.4,
-      "n": 47,
-      "predicted": 0.3428,
-      "observed": 0.2979
+      "n": 48,
+      "predicted": 0.3439,
+      "observed": 0.3125
      },
      {
       "lo": 0.4,
       "hi": 0.5,
-      "n": 29,
-      "predicted": 0.4493,
-      "observed": 0.3793
+      "n": 28,
+      "predicted": 0.4509,
+      "observed": 0.3571
      },
      {
       "lo": 0.5,
       "hi": 0.6,
       "n": 27,
-      "predicted": 0.5399,
+      "predicted": 0.5398,
       "observed": 0.5926
      },
      {
       "lo": 0.6,
       "hi": 0.7,
       "n": 17,
-      "predicted": 0.6336,
+      "predicted": 0.6334,
       "observed": 0.6471
      },
      {
       "lo": 0.7,
       "hi": 0.8,
       "n": 5,
-      "predicted": 0.7393,
+      "predicted": 0.7391,
       "observed": 0.0
      },
      {
       "lo": 0.8,
       "hi": 0.9,
       "n": 1,
-      "predicted": 0.8026,
+      "predicted": 0.8024,
       "observed": 1.0
      },
      {
@@ -3332,24 +3332,24 @@
     {
      "season": 2026,
      "races": 54,
-     "clLogLoss": 1.6582,
+     "clLogLoss": 1.6588,
      "clTop1": 0.2963,
-     "boostedLogLoss": 1.7233,
+     "boostedLogLoss": 1.7247,
      "boostedTop1": 0.4259,
-     "legacyLogLoss": 2.0442,
+     "legacyLogLoss": 2.0429,
      "legacyTop1": 0.3889,
-     "formOnlyLogLoss": 2.2573,
+     "formOnlyLogLoss": 2.2574,
      "formOnlyTop1": 0.3148,
      "uniformLogLoss": 3.2268,
      "uniformTop1": 0.3704,
-     "logLoss": 1.6582,
+     "logLoss": 1.6588,
      "top1": 0.2963
     }
    ],
    "features": [
     {
      "name": "start_pos_norm",
-     "weight": -1.3311
+     "weight": -1.3314
     },
     {
      "name": "heat_pos_norm",
@@ -3357,107 +3357,115 @@
     },
     {
      "name": "eldora_prior_podium_365d",
-     "weight": 0.3325
+     "weight": 0.3338
     },
     {
      "name": "prev_same_track_win_3d",
-     "weight": -0.2832
+     "weight": -0.283
     },
     {
      "name": "track_top3_rate",
-     "weight": 0.2479
+     "weight": 0.249
     },
     {
      "name": "last10_avg_finish",
-     "weight": -0.2413
+     "weight": -0.2393
     },
     {
      "name": "qt_rank_norm",
-     "weight": -0.2211
+     "weight": -0.2212
     },
     {
      "name": "career_win_rate",
-     "weight": 0.1661
+     "weight": 0.1673
     },
     {
      "name": "track_avg_finish",
-     "weight": -0.1477
+     "weight": -0.1466
     },
     {
      "name": "elo_field_rel",
-     "weight": 0.1266
+     "weight": 0.128
     },
     {
      "name": "last5_avg_finish",
-     "weight": -0.123
+     "weight": -0.1267
     },
     {
      "name": "log_career_starts",
-     "weight": 0.1219
-    },
-    {
-     "name": "similar_track_win_rate",
-     "weight": -0.1181
+     "weight": 0.1227
     },
     {
      "name": "elo",
-     "weight": 0.1173
+     "weight": 0.1185
+    },
+    {
+     "name": "similar_track_win_rate",
+     "weight": -0.1178
     },
     {
      "name": "career_avg_finish",
-     "weight": 0.1146
+     "weight": 0.116
     },
     {
      "name": "prev_same_track_finish_3d",
-     "weight": 0.0996
+     "weight": 0.0994
     },
     {
      "name": "log_track_starts",
-     "weight": 0.0918
-    },
-    {
-     "name": "podium_last_14d",
-     "weight": 0.076
+     "weight": 0.0916
     },
     {
      "name": "career_dnf_rate",
-     "weight": 0.0704
+     "weight": 0.0705
+    },
+    {
+     "name": "podium_last_14d",
+     "weight": 0.064
     },
     {
      "name": "crown_prior_win_365d",
-     "weight": -0.0539
+     "weight": -0.0536
     },
     {
      "name": "log_days_since_last_start",
-     "weight": 0.0472
+     "weight": 0.0519
     },
     {
      "name": "prev_same_track_top3_3d",
-     "weight": 0.0368
-    },
-    {
-     "name": "log_similar_track_starts",
-     "weight": 0.0366
+     "weight": 0.0408
     },
     {
      "name": "last5_win_rate",
-     "weight": 0.0359
+     "weight": 0.0379
+    },
+    {
+     "name": "log_similar_track_starts",
+     "weight": 0.0368
     },
     {
      "name": "ewm_win",
-     "weight": -0.027
-    },
-    {
-     "name": "ewm_finish",
-     "weight": 0.0198
+     "weight": -0.0326
     },
     {
      "name": "crown_prior_podium_365d",
-     "weight": 0.0158
+     "weight": 0.0187
+    },
+    {
+     "name": "ewm_finish",
+     "weight": 0.0176
     },
     {
      "name": "similar_track_avg_finish",
-     "weight": -0.0145
+     "weight": -0.013
+    },
+    {
+     "name": "prev_same_track_3d",
+     "weight": 0.013
+    },
+    {
+     "name": "prev_same_track_finish_3d__missing",
+     "weight": -0.013
     },
     {
      "name": "last5_avg_finish__missing",
@@ -3488,32 +3496,24 @@
      "weight": 0.0121
     },
     {
-     "name": "prev_same_track_3d",
-     "weight": 0.0117
-    },
-    {
-     "name": "prev_same_track_finish_3d__missing",
-     "weight": -0.0117
-    },
-    {
      "name": "last10_win_rate",
-     "weight": 0.0094
+     "weight": 0.0105
     },
     {
      "name": "track_win_rate",
-     "weight": 0.0076
-    },
-    {
-     "name": "won_last_14d",
-     "weight": -0.0014
+     "weight": 0.0075
     },
     {
      "name": "career_top3_rate",
+     "weight": 0.0012
+    },
+    {
+     "name": "won_last_14d",
      "weight": 0.0004
     },
     {
      "name": "start_pos_norm__missing",
-     "weight": -0.0004
+     "weight": -0.0003
     },
     {
      "name": "qt_rank_norm__missing",
@@ -3533,7 +3533,7 @@
     },
     {
      "name": "heat_pos_norm__missing",
-     "weight": 0.0
+     "weight": -0.0
     },
     {
      "name": "bmain_pos_norm__missing",
@@ -3542,31 +3542,31 @@
    ],
    "variants": {
     "cl": {
-     "logLoss": 1.8338,
+     "logLoss": 1.834,
      "top1": 0.3598,
      "top3Overlap": 1.7073,
-     "brier": 0.03032,
+     "brier": 0.03033,
      "ece": 0.0068
     },
     "boosted": {
-     "logLoss": 1.8357,
+     "logLoss": 1.8362,
      "top1": 0.4146,
      "top3Overlap": 1.6951,
-     "brier": 0.03041,
+     "brier": 0.03042,
      "ece": 0.0078
     },
     "legacy-method": {
-     "logLoss": 2.03,
+     "logLoss": 2.0296,
      "top1": 0.3293,
      "top3Overlap": 1.628,
-     "brier": 0.03236,
+     "brier": 0.03237,
      "ece": 0.0066
     },
     "form-only": {
      "logLoss": 2.4734,
      "top1": 0.2683,
-     "top3Overlap": 1.2012,
-     "brier": 0.0345,
+     "top3Overlap": 1.2073,
+     "brier": 0.03451,
      "ece": 0.0063
     },
     "uniform": {
@@ -3577,18 +3577,18 @@
      "ece": 0.0
     }
    },
-   "clLogLoss": 1.8338,
+   "clLogLoss": 1.834,
    "clTop1": 0.3598,
    "clTop3Overlap": 1.7073,
-   "boostedLogLoss": 1.8357,
+   "boostedLogLoss": 1.8362,
    "boostedTop1": 0.4146,
    "boostedTop3Overlap": 1.6951,
-   "legacyLogLoss": 2.03,
+   "legacyLogLoss": 2.0296,
    "legacyTop1": 0.3293,
    "legacyTop3Overlap": 1.628,
    "formOnlyLogLoss": 2.4734,
    "formOnlyTop1": 0.2683,
-   "formOnlyTop3Overlap": 1.2012,
+   "formOnlyTop3Overlap": 1.2073,
    "uniformLogLoss": 3.2186,
    "uniformTop1": 0.3232,
    "uniformTop3Overlap": 1.2317
@@ -4131,38 +4131,38 @@
      "testRaces": 25
     }
    ],
-   "logLoss": 2.1334,
+   "logLoss": 2.1323,
    "top1": 0.2444,
    "top3Overlap": 1.3778,
-   "brier": 0.03612,
-   "ece": 0.0132,
+   "brier": 0.0361,
+   "ece": 0.0131,
    "calibration": [
     {
      "lo": 0.0,
      "hi": 0.05,
-     "n": 878,
+     "n": 877,
      "predicted": 0.0101,
      "observed": 0.008
     },
     {
      "lo": 0.05,
      "hi": 0.1,
-     "n": 89,
-     "predicted": 0.0695,
-     "observed": 0.1236
+     "n": 90,
+     "predicted": 0.0693,
+     "observed": 0.1222
     },
     {
      "lo": 0.1,
      "hi": 0.2,
      "n": 66,
-     "predicted": 0.1362,
+     "predicted": 0.1358,
      "observed": 0.1515
     },
     {
      "lo": 0.2,
      "hi": 0.3,
      "n": 26,
-     "predicted": 0.2553,
+     "predicted": 0.2557,
      "observed": 0.3077
     },
     {
@@ -4216,7 +4216,7 @@
     }
    ],
    "calibrationTemperature": {
-    "temperature": 1.1052,
+    "temperature": 1.104,
     "bounds": [
      0.5,
      3.0
@@ -4224,10 +4224,10 @@
     "deadband": 0.02,
     "fittedOn": "out-of-fold backtest predictions of the chosen variant only (never the training fold)",
     "races": 45,
-    "logLossBefore": 2.1334,
-    "logLossAfter": 2.1266,
-    "eceBefore": 0.0132,
-    "eceAfter": 0.0138,
+    "logLossBefore": 2.1323,
+    "logLossAfter": 2.1256,
+    "eceBefore": 0.0131,
+    "eceAfter": 0.0137,
     "favoritesBefore": {
      "threshold": 0.5,
      "n": 7,
@@ -4237,7 +4237,7 @@
     "favoritesAfter": {
      "threshold": 0.5,
      "n": 6,
-     "predicted": 0.6245,
+     "predicted": 0.6252,
      "observed": 0.1667
     },
     "calibrationAfter": [
@@ -4245,7 +4245,7 @@
       "lo": 0.0,
       "hi": 0.05,
       "n": 870,
-      "predicted": 0.0117,
+      "predicted": 0.0116,
       "observed": 0.008
      },
      {
@@ -4259,49 +4259,49 @@
       "lo": 0.1,
       "hi": 0.2,
       "n": 70,
-      "predicted": 0.1361,
+      "predicted": 0.1358,
       "observed": 0.1857
      },
      {
       "lo": 0.2,
       "hi": 0.3,
       "n": 29,
-      "predicted": 0.2552,
+      "predicted": 0.2557,
       "observed": 0.2759
      },
      {
       "lo": 0.3,
       "hi": 0.4,
       "n": 14,
-      "predicted": 0.3388,
+      "predicted": 0.3392,
       "observed": 0.3571
      },
      {
       "lo": 0.4,
       "hi": 0.5,
       "n": 6,
-      "predicted": 0.4338,
+      "predicted": 0.4343,
       "observed": 0.1667
      },
      {
       "lo": 0.5,
       "hi": 0.6,
       "n": 3,
-      "predicted": 0.5277,
+      "predicted": 0.5283,
       "observed": 0.0
      },
      {
       "lo": 0.6,
       "hi": 0.7,
       "n": 1,
-      "predicted": 0.6593,
+      "predicted": 0.6599,
       "observed": 0.0
      },
      {
       "lo": 0.7,
       "hi": 0.8,
       "n": 2,
-      "predicted": 0.7525,
+      "predicted": 0.7531,
       "observed": 0.5
      },
      {
@@ -4340,17 +4340,17 @@
     {
      "season": 2026,
      "races": 25,
-     "clLogLoss": 2.2544,
+     "clLogLoss": 2.2524,
      "clTop1": 0.2,
-     "boostedLogLoss": 2.8321,
-     "boostedTop1": 0.16,
-     "legacyLogLoss": 2.4311,
+     "boostedLogLoss": 2.8287,
+     "boostedTop1": 0.2,
+     "legacyLogLoss": 2.422,
      "legacyTop1": 0.2,
-     "formOnlyLogLoss": 2.5829,
+     "formOnlyLogLoss": 2.5844,
      "formOnlyTop1": 0.16,
      "uniformLogLoss": 3.1767,
      "uniformTop1": 0.2,
-     "logLoss": 2.2544,
+     "logLoss": 2.2524,
      "top1": 0.2
     }
    ],
@@ -4361,7 +4361,7 @@
     },
     {
      "name": "heat_pos_norm",
-     "weight": -0.237
+     "weight": -0.2371
     },
     {
      "name": "qt_rank_norm",
@@ -4369,15 +4369,15 @@
     },
     {
      "name": "elo_field_rel",
-     "weight": 0.118
+     "weight": 0.1181
     },
     {
      "name": "elo",
-     "weight": 0.1045
+     "weight": 0.1046
     },
     {
      "name": "ewm_win",
-     "weight": 0.0974
+     "weight": 0.0976
     },
     {
      "name": "log_career_starts",
@@ -4389,31 +4389,31 @@
     },
     {
      "name": "last10_win_rate",
-     "weight": 0.0822
+     "weight": 0.083
     },
     {
      "name": "last10_avg_finish",
-     "weight": -0.0674
-    },
-    {
-     "name": "last5_win_rate",
-     "weight": 0.0664
+     "weight": -0.0672
     },
     {
      "name": "ewm_finish",
-     "weight": -0.0662
+     "weight": -0.0661
+    },
+    {
+     "name": "last5_win_rate",
+     "weight": 0.0659
     },
     {
      "name": "similar_track_win_rate",
-     "weight": 0.0554
+     "weight": 0.0555
     },
     {
      "name": "similar_track_avg_finish",
-     "weight": -0.0518
+     "weight": -0.0517
     },
     {
      "name": "career_win_rate",
-     "weight": 0.05
+     "weight": 0.0501
     },
     {
      "name": "career_avg_finish",
@@ -4421,7 +4421,7 @@
     },
     {
      "name": "career_top3_rate",
-     "weight": 0.0477
+     "weight": 0.0478
     },
     {
      "name": "prev_same_track_top3_3d",
@@ -4429,19 +4429,19 @@
     },
     {
      "name": "last5_avg_finish",
-     "weight": -0.0406
+     "weight": -0.0408
     },
     {
      "name": "crown_prior_podium_365d",
-     "weight": 0.0368
+     "weight": 0.037
     },
     {
      "name": "log_days_since_last_start",
-     "weight": -0.0309
+     "weight": -0.0307
     },
     {
      "name": "podium_last_14d",
-     "weight": 0.0279
+     "weight": 0.0278
     },
     {
      "name": "prev_same_track_finish_3d",
@@ -4449,7 +4449,7 @@
     },
     {
      "name": "eldora_prior_podium_365d",
-     "weight": 0.0237
+     "weight": 0.0239
     },
     {
      "name": "career_dnf_rate",
@@ -4493,7 +4493,7 @@
     },
     {
      "name": "won_last_14d",
-     "weight": 0.01
+     "weight": 0.0099
     },
     {
      "name": "prev_same_track_win_3d",
@@ -4509,11 +4509,7 @@
     },
     {
      "name": "track_avg_finish",
-     "weight": -0.0084
-    },
-    {
-     "name": "track_top3_rate",
-     "weight": 0.0046
+     "weight": -0.0081
     },
     {
      "name": "log_similar_track_starts",
@@ -4521,7 +4517,11 @@
     },
     {
      "name": "track_win_rate",
-     "weight": -0.0043
+     "weight": -0.0044
+    },
+    {
+     "name": "track_top3_rate",
+     "weight": 0.0044
     },
     {
      "name": "qt_rank_norm__missing",
@@ -4529,7 +4529,7 @@
     },
     {
      "name": "field_size",
-     "weight": 0.0
+     "weight": -0.0
     },
     {
      "name": "bmain_pos_norm",
@@ -4546,31 +4546,31 @@
    ],
    "variants": {
     "cl": {
-     "logLoss": 2.1334,
+     "logLoss": 2.1323,
      "top1": 0.2444,
      "top3Overlap": 1.3778,
-     "brier": 0.03612,
-     "ece": 0.0132
+     "brier": 0.0361,
+     "ece": 0.0131
     },
     "boosted": {
-     "logLoss": 2.5703,
-     "top1": 0.1556,
+     "logLoss": 2.5684,
+     "top1": 0.1778,
      "top3Overlap": 1.3333,
-     "brier": 0.04096,
-     "ece": 0.0287
+     "brier": 0.04092,
+     "ece": 0.0284
     },
     "legacy-method": {
-     "logLoss": 2.5417,
+     "logLoss": 2.5367,
      "top1": 0.1778,
      "top3Overlap": 1.2444,
-     "brier": 0.03826,
-     "ece": 0.0199
+     "brier": 0.03814,
+     "ece": 0.0194
     },
     "form-only": {
-     "logLoss": 2.5663,
+     "logLoss": 2.5671,
      "top1": 0.2,
      "top3Overlap": 1.0,
-     "brier": 0.03676,
+     "brier": 0.03677,
      "ece": 0.0105
     },
     "uniform": {
@@ -4581,16 +4581,16 @@
      "ece": 0.0
     }
    },
-   "clLogLoss": 2.1334,
+   "clLogLoss": 2.1323,
    "clTop1": 0.2444,
    "clTop3Overlap": 1.3778,
-   "boostedLogLoss": 2.5703,
-   "boostedTop1": 0.1556,
+   "boostedLogLoss": 2.5684,
+   "boostedTop1": 0.1778,
    "boostedTop3Overlap": 1.3333,
-   "legacyLogLoss": 2.5417,
+   "legacyLogLoss": 2.5367,
    "legacyTop1": 0.1778,
    "legacyTop3Overlap": 1.2444,
-   "formOnlyLogLoss": 2.5663,
+   "formOnlyLogLoss": 2.5671,
    "formOnlyTop1": 0.2,
    "formOnlyTop3Overlap": 1.0,
    "uniformLogLoss": 3.1786,
@@ -4655,29 +4655,29 @@
     {
      "lo": 0.0,
      "hi": 0.05,
-     "n": 6896,
+     "n": 6895,
      "predicted": 0.0076,
      "observed": 0.0064
     },
     {
      "lo": 0.05,
      "hi": 0.1,
-     "n": 627,
-     "predicted": 0.0709,
-     "observed": 0.0766
+     "n": 628,
+     "predicted": 0.0708,
+     "observed": 0.0764
     },
     {
      "lo": 0.1,
      "hi": 0.2,
      "n": 464,
-     "predicted": 0.1421,
+     "predicted": 0.142,
      "observed": 0.1875
     },
     {
      "lo": 0.2,
      "hi": 0.3,
      "n": 208,
-     "predicted": 0.2444,
+     "predicted": 0.2446,
      "observed": 0.2644
     },
     {
@@ -4752,7 +4752,7 @@
     "favoritesAfter": {
      "threshold": 0.5,
      "n": 85,
-     "predicted": 0.5871,
+     "predicted": 0.587,
      "observed": 0.4588
     },
     "calibrationAfter": [
@@ -4773,57 +4773,57 @@
      {
       "lo": 0.1,
       "hi": 0.2,
-      "n": 483,
-      "predicted": 0.1419,
-      "observed": 0.1884
+      "n": 484,
+      "predicted": 0.142,
+      "observed": 0.188
      },
      {
       "lo": 0.2,
       "hi": 0.3,
-      "n": 215,
-      "predicted": 0.2446,
-      "observed": 0.2698
+      "n": 214,
+      "predicted": 0.245,
+      "observed": 0.271
      },
      {
       "lo": 0.3,
       "hi": 0.4,
-      "n": 117,
-      "predicted": 0.3426,
-      "observed": 0.3248
+      "n": 118,
+      "predicted": 0.3431,
+      "observed": 0.3305
      },
      {
       "lo": 0.4,
       "hi": 0.5,
-      "n": 71,
-      "predicted": 0.4437,
-      "observed": 0.4085
+      "n": 70,
+      "predicted": 0.4443,
+      "observed": 0.4
      },
      {
       "lo": 0.5,
       "hi": 0.6,
       "n": 52,
-      "predicted": 0.5406,
+      "predicted": 0.5405,
       "observed": 0.4423
      },
      {
       "lo": 0.6,
       "hi": 0.7,
       "n": 26,
-      "predicted": 0.6344,
+      "predicted": 0.6343,
       "observed": 0.5385
      },
      {
       "lo": 0.7,
       "hi": 0.8,
       "n": 6,
-      "predicted": 0.7493,
+      "predicted": 0.7495,
       "observed": 0.1667
      },
      {
       "lo": 0.8,
       "hi": 0.9,
       "n": 1,
-      "predicted": 0.8026,
+      "predicted": 0.8024,
       "observed": 1.0
      },
      {
@@ -4890,8 +4890,8 @@
      "clLogLoss": 1.848,
      "clTop1": 0.297,
      "boostedLogLoss": 2.0402,
-     "boostedTop1": 0.3366,
-     "legacyLogLoss": 2.1087,
+     "boostedTop1": 0.3465,
+     "legacyLogLoss": 2.106,
      "legacyTop1": 0.3168,
      "formOnlyLogLoss": 2.395,
      "formOnlyTop1": 0.2376,
@@ -4911,23 +4911,23 @@
      "ece": 0.0068
     },
     "boosted": {
-     "logLoss": 1.919,
-     "top1": 0.3401,
+     "logLoss": 1.9189,
+     "top1": 0.343,
      "top3Overlap": 1.6308,
      "brier": 0.03254,
      "ece": 0.0091
     },
     "legacy-method": {
-     "logLoss": 2.0941,
+     "logLoss": 2.0933,
      "top1": 0.2965,
      "top3Overlap": 1.5058,
-     "brier": 0.03383,
+     "brier": 0.03382,
      "ece": 0.0099
     },
     "form-only": {
      "logLoss": 2.4739,
      "top1": 0.2355,
-     "top3Overlap": 1.2238,
+     "top3Overlap": 1.2267,
      "brier": 0.03546,
      "ece": 0.004
     },
@@ -4942,15 +4942,15 @@
    "clLogLoss": 1.8391,
    "clTop1": 0.343,
    "clTop3Overlap": 1.6424,
-   "boostedLogLoss": 1.919,
-   "boostedTop1": 0.3401,
+   "boostedLogLoss": 1.9189,
+   "boostedTop1": 0.343,
    "boostedTop3Overlap": 1.6308,
-   "legacyLogLoss": 2.0941,
+   "legacyLogLoss": 2.0933,
    "legacyTop1": 0.2965,
    "legacyTop3Overlap": 1.5058,
    "formOnlyLogLoss": 2.4739,
    "formOnlyTop1": 0.2355,
-   "formOnlyTop3Overlap": 1.2238,
+   "formOnlyTop3Overlap": 1.2267,
    "uniformLogLoss": 3.1997,
    "uniformTop1": 0.2471,
    "uniformTop3Overlap": 1.0174
@@ -4967,5 +4967,5 @@
   "The first WoO fold (test 2022) trains on only 36 races and the conditional logit scores worse than uniform there; production artifacts train on 99-255 races per series.",
   "No backtest number is a claim of a live edge; the forecast ledger is the only place a live claim can come from."
  ],
- "runtimeSeconds": 77.2
+ "runtimeSeconds": 14.5
 }
