@@ -61,5 +61,6 @@ jobs:
           git add public/sports public/data/forecast-ledger.json public/data/model-health.json public/data/odds public/data/results
           if git diff --cached --quiet; then exit 0; fi
           git commit -m 'Refresh team-sport forecasts and ledger'
-          git pull --rebase origin main
+          # Generated files always conflict when two refreshes overlap; the newer run's files win.
+          git pull --rebase -X theirs origin main
           git push origin HEAD:main
