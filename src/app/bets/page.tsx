@@ -34,7 +34,7 @@ export default async function BetsPage({ searchParams }: { searchParams: Promise
   const graded = await settleOpenBets();
   const bets = await listBets();
   const summary = summarize(bets);
-  const board = buildTonightBoard(10);
+  const board = await buildTonightBoard(10, { live: false });
   const events: EventOption[] = board.items.map((it) => ({
     eventId: it.key, sport: it.sport, label: it.title, startsAt: it.startsAt,
     home: it.kind === "game" ? it.matchupHeaders[0] : null, away: it.kind === "game" ? it.matchupHeaders[1] : null,

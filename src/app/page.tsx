@@ -18,7 +18,7 @@ export default async function TonightPage({ searchParams }: { searchParams: Prom
   await connection();
   const { sport } = await searchParams;
   const initialSport = typeof sport === "string" && /^[a-z]{2,8}$/.test(sport) ? sport : "all";
-  const board = buildTonightBoard(7);
+  const board = await buildTonightBoard(7);
   const health = getModelHealth();
   const tonight = board.items.filter((item) => item.isToday);
   const high = tonight.filter((item) => item.confidenceLabel === "High").length;
@@ -33,7 +33,7 @@ export default async function TonightPage({ searchParams }: { searchParams: Prom
         <PageHeader
           kicker={longDay.format(new Date(`${board.today}T17:00:00Z`))}
           title="Tonight"
-          lede="Upcoming games and races, with outright win likelihood kept separate from the spread lean. Open a matchup to check the model, saved market, and missing inputs before making a decision."
+          lede="Upcoming games and races, with outright win likelihood kept separate from the spread lean. Open a matchup to check the model, live and saved markets, and missing inputs before making a decision."
           aside={
             <div className="grid grid-cols-3 gap-2">
               <StatTile label="Tonight · all sports" value={tonight.length} detail={`${high} at ≥72% model likelihood`} />

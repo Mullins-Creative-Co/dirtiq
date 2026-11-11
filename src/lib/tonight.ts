@@ -6,6 +6,8 @@ import {
   type LedgerEventSummary, type RaceBoard, type SportReport, type SportUpcoming, type TeamForm,
 } from "@/lib/model-reports";
 import { forecastReadiness, hasMarket, isUpcomingGame, validProbability, type ForecastReadiness } from "@/lib/forecast-readiness";
+import { getLiveLines, resolveNflEvent } from "@/lib/live-lines";
+import { featuredLiveKeys, gameBetTerms, isLiveSport, liveEdge, noVigHome, type LiveLine } from "@/lib/live-lines/core";
 import { todayDateString } from "@/lib/races";
 
 /** One scannable item on the Tonight board: a game or a race, with a pick, a confidence,
@@ -17,6 +19,7 @@ export type ConfidenceLabel = "High" | "Medium" | "Low";
 export type MatchupRow = { label: string; a: string; b: string; hint?: string };
 
 export type TonightMarket = {
+  observedAt: string | null;
   spreadLabel: string | null; spreadPrices: string | null; moneyline: string | null;
   marketWinProb: number | null; modelWinProb: number | null; fairPrice: string | null;
   coverProb: number | null; edgePts: number | null; lean: string | null; book: string | null; note: string | null;
@@ -33,6 +36,9 @@ export type TonightItem = {
   matchupHeaders: [string, string]; matchup: MatchupRow[];
   raceTable?: Array<{ rank: number; driver: string; car: string | null; win: number; top3: number | null; expectedFinish: number | null; last5: string; elo: number | null }>;
   market: TonightMarket | null;
+  liveMarket?: TonightMarket | null;
+  liveStatus?: "available" | "unavailable";
+  savedLogHref?: string;
   readiness?: ForecastReadiness;
   ledger: { open: number; graded: number; record: string | null; recordedAt: string | null } | null;
   href: string;
@@ -79,7 +85,7 @@ function ledgerSummary(summary: LedgerEventSummary | undefined): TonightItem["le
   };
 }
 
-function gameItem(report: SportReport, game: SportUpcoming, ledger: Map<string, LedgerEventSummary>, today: string, now: number): TonightItem {
+function gameItem(report: SportReport, game: SportUpcoming, ledger: Map<string, LedgerEventSummary>, today: string, now: number, live: LiveLine | null = null): TonightItem {
   const homeWin = game.homeWinProb ?? 0.5;
   const pickHome = homeWin >= 0.5;
   const pick = pickHome ? game.home : game.away;
@@ -137,6 +143,7 @@ function gameItem(report: SportReport, game: SportUpcoming, ledger: Map<string, 
   const spreadLabel = game.marketHomeSpread === null || game.marketHomeSpread === undefined ? null : `${game.home} ${spread(game.marketHomeSpread)}`;
   const market: TonightMarket | null = hasMarket(game)
     ? {
+        observedAt: game.lineObservedAt ?? null,
         spreadLabel,
         spreadPrices: game.marketHomePrice !== null && game.marketHomePrice !== undefined ? `${american(game.marketHomePrice)} / ${american(game.marketAwayPrice)}` : null,
         moneyline: game.marketHomeMl !== null && game.marketHomeMl !== undefined ? `${game.home} ${american(game.marketHomeMl)} · ${game.away} ${american(game.marketAwayMl)}` : null,
@@ -149,6 +156,20 @@ function gameItem(report: SportReport, game: SportUpcoming, ledger: Map<string, 
       }
     : null;
 
+  const liveHomeProb = live ? noVigHome(live.homeMl, live.awayMl) : null;
+  const liveComparison = live ? liveEdge(game.projectedHomeMargin, live.spread, report.backtest?.selectionThreshold) : null;
+  const liveMarket: TonightMarket | null = live ? {
+    observedAt: live.observedAt,
+    spreadLabel: live.spread === null ? null : `${game.home} ${spread(live.spread)}`,
+    spreadPrices: live.homeSpreadPrice !== null || live.awaySpreadPrice !== null ? `${american(live.homeSpreadPrice)} / ${american(live.awaySpreadPrice)}` : null,
+    moneyline: live.homeMl === null ? null : `${game.home} ${american(live.homeMl)} · ${game.away} ${american(live.awayMl)}`,
+    marketWinProb: liveHomeProb === null ? null : pickHome ? liveHomeProb : 1 - liveHomeProb,
+    modelWinProb: confidence, fairPrice: fairAmerican(confidence), coverProb: null,
+    edgePts: liveComparison?.edgePts ?? null,
+    lean: liveComparison?.lean === "home" ? game.home : liveComparison?.lean === "away" ? game.away : null,
+    book: `ESPN multi-book median (${live.books} books)`,
+    note: report.backtest?.selectionThreshold == null ? "Lean unavailable: report has no selection threshold." : `Lean threshold: ${report.backtest.selectionThreshold} points.`,
+  } : null;
   const key = `${report.sport}:${game.gameId}`;
   return {
     key, kind: "game", sport: report.sport, sportLabel: report.label,
@@ -157,17 +178,12 @@ function gameItem(report: SportReport, game: SportUpcoming, ledger: Map<string, 
     title: `${game.away} at ${game.home}`, subtitle: `${report.label}${neutral ? " · neutral site" : ""}`,
     pick, pickDetail: `${pick} to win · projected by ${num(Math.abs(pickMargin), 1)}`,
     confidence, confidenceLabel: label(confidence), rationale,
-    matchupHeaders: [game.home, game.away], matchup, market,
+    matchupHeaders: [game.home, game.away], matchup, market, liveMarket,
     readiness: forecastReadiness(report, game, now),
     ledger: ledgerSummary(ledger.get(key)), href: `/sports/${report.sport}`,
     logHref: logBetHref({
       sport: report.sport, eventId: key, eventLabel: `${game.away} at ${game.home}`, eventStart: game.startsAt,
-      market: game.marketHomeSpread !== null && game.marketHomeSpread !== undefined && report.sport !== "nhl" && report.sport !== "mlb" ? "spread" : "moneyline",
-      selection: pick,
-      line: game.marketHomeSpread !== null && game.marketHomeSpread !== undefined ? (pickHome ? game.marketHomeSpread : -game.marketHomeSpread) : null,
-      price: pickHome ? (game.marketHomeMl ?? game.marketHomePrice ?? null) : (game.marketAwayMl ?? game.marketAwayPrice ?? null),
-      modelProb: confidence,
-      marketProb: market?.marketWinProb ?? null,
+      ...gameBetTerms(fixedLine ? { ...game, marketHomeSpread: null } : game, live),
     }),
   };
 }
@@ -250,7 +266,7 @@ export type TonightBoard = {
   sports: Array<{ sport: string; label: string; count: number }>;
 };
 
-export function buildTonightBoard(horizonDays = 7): TonightBoard {
+export async function buildTonightBoard(horizonDays = 7, options: { live?: boolean } = {}): Promise<TonightBoard> {
   const now = Date.now();
   const today = todayDateString();
   const ledger = getLedgerIndex();
@@ -258,13 +274,16 @@ export function buildTonightBoard(horizonDays = 7): TonightBoard {
   const limit = new Date(`${today}T05:00:00Z`);
   limit.setUTCDate(limit.getUTCDate() + horizonDays + 1);
   const items: TonightItem[] = [];
+  const gamesByKey = new Map<string, { report: SportReport; game: SportUpcoming }>();
   const placeholders = new Set(["NON_D1", "FCS"]);
   for (const report of reports) {
     for (const game of report.upcoming) {
       if (!isUpcomingGame(game, now, limit.getTime()) || !validProbability(game.homeWinProb)) continue;
       // Pooled placeholder opponents (non-Division-I, FCS) are rating sinks, not matchups worth showing.
       if (placeholders.has(game.home) || placeholders.has(game.away)) continue;
-      items.push(gameItem(report, game, ledger, today, now));
+      const item = gameItem(report, game, ledger, today, now);
+      items.push(item);
+      gamesByKey.set(item.key, { report, game });
     }
   }
   for (const board of getUpcomingRaceBoards(12, 8)) {
@@ -272,6 +291,17 @@ export function buildTonightBoard(horizonDays = 7): TonightBoard {
     items.push(raceItem(board, ledger, today));
   }
   items.sort((a, b) => Number(b.isToday) - Number(a.isToday) || a.dayKey.localeCompare(b.dayKey) || b.confidence - a.confidence || a.startsAt.localeCompare(b.startsAt));
+  if (options.live !== false) {
+    const featured = featuredLiveKeys(items, now);
+    await Promise.all(items.map(async (item, index) => {
+      if (!featured.has(item.key) || !isLiveSport(item.sport)) return;
+      const { report, game } = gamesByKey.get(item.key)!;
+      const id = item.sport === "nfl" ? await resolveNflEvent(game) : game.gameId;
+      const live = id ? (await getLiveLines(item.sport, [id])).get(id) ?? null : null;
+      items[index] = { ...gameItem(report, game, ledger, today, now, live),
+        liveStatus: live ? "available" : "unavailable", savedLogHref: item.logHref };
+    }));
+  }
   const counts = new Map<string, { sport: string; label: string; count: number }>();
   for (const item of items) {
     const entry = counts.get(item.sport) ?? { sport: item.sport, label: item.sportLabel, count: 0 };

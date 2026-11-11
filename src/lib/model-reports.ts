@@ -44,6 +44,7 @@ export type SportBacktest = {
   brierMoneyline: number | null; marketBrierMoneyline: number | null; logLossMoneyline: number | null;
   ece: number | null; calibration: CalibrationBin[]; selections: SportSelections | null;
   bySeason: SportSeason[]; variants: Array<{ id: string; mae?: number | null; [key: string]: unknown }>;
+  selectionThreshold?: number | null;
   headline?: "independent" | "stacked" | null;
   brierMoneylineOnPricedGames?: number | null;
   stackedBrierMoneyline?: number | null; stackedMarketBrierMoneyline?: number | null; stackedMae?: number | null;

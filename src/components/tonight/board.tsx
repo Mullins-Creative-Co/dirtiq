@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useMemo, useState, useTransition } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 
 import { Chip, type Tone } from "@/components/ui/primitives";
-import { dateTime, probability as pct, signed } from "@/lib/format";
+import { dateTime, probability as pct, relativeAge, signed } from "@/lib/format";
+import { FEATURED_PER_SPORT, isFreshLiveLine, LIVE_LINE_TTL_MS } from "@/lib/live-lines/core";
 import type { TonightBoard, TonightItem } from "@/lib/tonight";
 
 const toneFor: Record<TonightItem["confidenceLabel"], Tone> = { High: "neutral", Medium: "neutral", Low: "neutral" };
@@ -22,12 +23,29 @@ export function TonightBoardView({ board, initialSport = "all" }: { board: Tonig
     const scoped = board.items.filter((item) => initialSport === "all" || item.sport === initialSport);
     return scoped.find((item) => item.isToday)?.key ?? scoped[0]?.key ?? null;
   });
-  const FEATURED_PER_SPORT = 6;
+  const [clock, setClock] = useState(() => Date.parse(board.generatedAt));
+  useEffect(() => {
+    const refresh = () => {
+      if (document.visibilityState !== "visible") return;
+      setClock(Date.now());
+      startRefresh(() => router.refresh());
+    };
+    const timer = window.setInterval(refresh, 60_000);
+    document.addEventListener("visibilitychange", refresh);
+    return () => { window.clearInterval(timer); document.removeEventListener("visibilitychange", refresh); };
+  }, [router]);
+  useEffect(() => {
+    const expiries = board.items.flatMap((item) => item.liveMarket?.observedAt ? [Date.parse(item.liveMarket.observedAt) + LIVE_LINE_TTL_MS] : []).filter((time) => time > Date.now());
+    if (!expiries.length) return;
+    const expiry = window.setTimeout(() => setClock(Date.now()), Math.min(...expiries) - Date.now() + 10);
+    return () => window.clearTimeout(expiry);
+  }, [board.items, clock]);
+  const now = Math.max(clock, Date.parse(board.generatedAt));
 
   const items = useMemo(() => board.items.filter((item) =>
     (sport === "all" || item.sport === sport)
     && (minConfidence === "all" || item.confidenceLabel === "High" || (minConfidence === "medium" && item.confidenceLabel === "Medium"))
-    && (!withMarket || item.market !== null),
+    && (!withMarket || (item.market !== null || item.liveMarket != null)),
   ), [board.items, sport, minConfidence, withMarket]);
 
   const groups = useMemo(() => {
@@ -54,13 +72,13 @@ export function TonightBoardView({ board, initialSport = "all" }: { board: Tonig
   return (
     <div className="space-y-6">
       <div className="note">
-        <strong>Win likelihood is not bet confidence.</strong> A favorite can be likely to win and still be a poor bet at the spread or price. Saved lines are reference snapshots. Injuries and lineups need a separate check.
+        <strong>Win likelihood is not bet confidence.</strong> A favorite can be likely to win and still be a poor bet at the spread or price. Live lines are ESPN reference quotes; confirm the executable price with your book. Saved lines preserve the forecast snapshot. Injuries and lineups need a separate check.
       </div>
       <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-[var(--muted)]">
         <p>League counts cover the next week. Filters below apply to this board, not the all-sport summary above.</p>
         <button type="button" className="underline disabled:opacity-50" disabled={refreshing} onClick={() => startRefresh(() => router.refresh())}>{refreshing ? "Refreshing…" : "Refresh board"}</button>
       </div>
-      <p className="text-xs text-[var(--muted)]">Board loaded {dateTime(board.generatedAt)}. Refreshing reloads saved forecasts; it does not fetch a new sportsbook quote.</p>
+      <p className="text-xs text-[var(--muted)]">Board loaded {dateTime(board.generatedAt)}. Featured focus-sport games today check ESPN on refresh, with a three-minute cache. This board refreshes each minute while visible; other games keep saved lines.</p>
       <div className="flex flex-wrap items-center gap-2" role="toolbar" aria-label="Filters">
         <FilterButton active={sport === "all"} onClick={() => setSport("all")}>All ({board.items.length})</FilterButton>
         {board.sports.map((s) => (
@@ -69,7 +87,7 @@ export function TonightBoardView({ board, initialSport = "all" }: { board: Tonig
         <span className="mx-1 hidden h-5 w-px bg-[var(--border-strong)] sm:block" />
         <FilterButton active={minConfidence === "high"} onClick={() => setMinConfidence(minConfidence === "high" ? "all" : "high")}>Likelihood ≥72%</FilterButton>
         <FilterButton active={minConfidence === "medium"} onClick={() => setMinConfidence(minConfidence === "medium" ? "all" : "medium")}>Likelihood ≥60%</FilterButton>
-        <FilterButton active={withMarket} onClick={() => setWithMarket((v) => !v)}>Saved market</FilterButton>
+        <FilterButton active={withMarket} onClick={() => setWithMarket((v) => !v)}>Has market</FilterButton>
         <FilterButton active={showAll} onClick={() => setShowAll((v) => !v)}>{showAll ? "Featured only" : "Show all"}</FilterButton>
       </div>
 
@@ -88,7 +106,7 @@ export function TonightBoardView({ board, initialSport = "all" }: { board: Tonig
           </div>
           <ol className="space-y-2">
             {group.map((item, index) => (
-              <ItemCard key={item.key} item={item} index={index + 1} open={openKey === item.key} onToggle={() => setOpenKey(openKey === item.key ? null : item.key)} />
+              <ItemCard key={item.key} item={item} now={now} index={index + 1} open={openKey === item.key} onToggle={() => setOpenKey(openKey === item.key ? null : item.key)} />
             ))}
           </ol>
         </section>
@@ -106,7 +124,11 @@ function FilterButton({ active, onClick, children }: { active: boolean; onClick:
   );
 }
 
-function ItemCard({ item, index, open, onToggle }: { item: TonightItem; index: number; open: boolean; onToggle: () => void }) {
+function ItemCard({ item, now, index, open, onToggle }: { item: TonightItem; now: number; index: number; open: boolean; onToggle: () => void }) {
+  const live = isFreshLiveLine(item.liveMarket?.observedAt, now) ? item.liveMarket : null;
+  const quoteTime = live?.observedAt ?? item.market?.observedAt;
+  const quoteStatus = live ? "ESPN" : item.liveStatus === "unavailable" ? "Live unavailable · saved" : item.liveMarket ? "Live expired · saved" : "Saved";
+  const logHref = live ? item.logHref : item.savedLogHref ?? item.logHref;
   const panelId = `tonight-${item.key.replace(/[^a-z0-9]/gi, "-")}`;
   return (
     <li className={`panel overflow-hidden ${open ? "ring-1 ring-[var(--accent)]/40" : ""}`}>
@@ -116,17 +138,18 @@ function ItemCard({ item, index, open, onToggle }: { item: TonightItem; index: n
         <span className="min-w-0">
           <span className="block truncate font-semibold">{item.title}</span>
           <span className="block truncate text-xs text-[var(--muted)]">{item.subtitle} · {item.startsAtLabel}</span>
+          {item.kind === "game" ? <span className="block text-xs text-[var(--muted)]" title={quoteTime ? dateTime(quoteTime) : undefined}>{quoteStatus} · {quoteTime ? `line ${relativeAge(quoteTime, now)}` : "line time unknown"}</span> : null}
         </span>
         <span className="hidden min-w-0 sm:block">
           <span className="block truncate text-sm">{item.pickDetail}</span>
-          <span className="block truncate text-xs text-[var(--muted)]">{item.readiness ? `Spread: ${item.readiness.spreadLean}` : `${item.raceTable?.length ?? 0} contenders shown`}</span>
+          <span className="block truncate text-xs text-[var(--muted)]">{item.readiness ? `${live ? `Live lean: ${live.lean ?? "none"} · ` : ""}Saved spread: ${item.readiness.spreadLean}` : `${item.raceTable?.length ?? 0} contenders shown`}</span>
         </span>
         <span className="hidden sm:block"><Chip tone={item.readiness ? "warn" : toneFor[item.confidenceLabel]}>{item.readiness?.label ?? `${item.confidenceLabel} likelihood`}</Chip></span>
         <span className="text-right">
           <span className="tnum block font-display text-2xl font-black leading-none">{pct(item.confidence, 0)}</span>
           <span className="block text-[10px] uppercase tracking-wider text-[var(--muted)]">{item.kind === "game" ? "model win" : "vs runner-up"}</span>
         </span>
-        {item.readiness ? <span className="col-span-3 text-xs text-[var(--muted-strong)] sm:hidden"><strong>{item.readiness.label}</strong> · Spread: {item.readiness.spreadLean}</span> : null}
+        {item.readiness ? <span className="col-span-3 text-xs text-[var(--muted-strong)] sm:hidden"><strong>{item.readiness.label}</strong> · {live ? `Live lean: ${live.lean ?? "none"} · ` : ""}Saved spread: {item.readiness.spreadLean}</span> : null}
       </button>
 
       {open ? (
@@ -151,9 +174,25 @@ function ItemCard({ item, index, open, onToggle }: { item: TonightItem; index: n
                 {item.rationale.map((line) => <li key={line}>{line}</li>)}
               </ol>
             </div>
+            {live ? (
+              <div>
+                <p className="kicker">Live market and lean</p>
+                <p className="mt-1 text-xs text-[var(--muted)]">Observed {dateTime(live.observedAt)} · line {relativeAge(live.observedAt, now)}</p>
+                <dl className="mt-2 grid grid-cols-2 gap-x-6 gap-y-2 text-sm sm:grid-cols-3">
+                  <Stat label="Spread" value={live.spreadLabel ?? "—"} detail={live.spreadPrices ?? undefined} />
+                  <Stat label="Moneyline" value={live.moneyline ?? "—"} />
+                  <Stat label="Live lean" value={live.lean ?? "none"} detail={live.edgePts !== null ? `model − market ${signed(live.edgePts, 1)} pts` : "No spread comparison"} />
+                  <Stat label="Market implies" value={live.marketWinProb === null ? "—" : pct(live.marketWinProb, 0)} detail="no-vig moneyline" />
+                </dl>
+                <p className="mt-2 text-xs text-[var(--muted)]">{live.book}. {live.note} The forecast is unchanged; the live lean compares it with this quote.</p>
+              </div>
+            ) : item.liveStatus === "unavailable" || item.liveMarket ? (
+              <p className="note">{item.liveStatus === "unavailable" ? "ESPN live line unavailable." : "Live quote expired."} Showing the saved line and price; the next board refresh retries.</p>
+            ) : null}
             {item.market ? (
               <div>
-                <p className="kicker">Saved market and price</p>
+                <p className="kicker">Refresh-time market and lean</p>
+                <p className="mt-1 text-xs text-[var(--muted)]">Observed {dateTime(item.market.observedAt)} · line {relativeAge(item.market.observedAt, now)}</p>
                 <dl className="mt-2 grid grid-cols-2 gap-x-6 gap-y-2 text-sm sm:grid-cols-3">
                   <Stat label="Spread" value={item.market.spreadLabel ?? "—"} detail={item.market.spreadPrices ?? undefined} />
                   <Stat label="Moneyline" value={item.market.moneyline ?? "—"} />
@@ -165,7 +204,7 @@ function ItemCard({ item, index, open, onToggle }: { item: TonightItem; index: n
                 <p className="mt-2 text-xs leading-5 text-[var(--muted)]">{item.market.book ? `Line from ${item.market.book}. ` : ""}A lean is a research flag at a fixed threshold, not a bet. Expected value needs a current executable price.</p>
               </div>
             ) : item.kind === "game" ? (
-              <p className="note">No line in the public source for this game. The projection stands alone and is not recorded as a priced forecast.</p>
+              <p className="note">No refresh-time line in the public source for this game. The projection stands alone and is not recorded as a priced forecast.</p>
             ) : null}
           </div>
 
@@ -212,7 +251,7 @@ function ItemCard({ item, index, open, onToggle }: { item: TonightItem; index: n
             <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-[var(--muted)]">
               <span>{item.ledger ? `Ledger: ${item.ledger.open} open${item.ledger.record ? `, graded ${item.ledger.record}` : ""}${item.ledger.recordedAt ? `, first recorded ${item.ledger.recordedAt.slice(0, 16).replace("T", " ")} UTC` : ""}` : "Not in the ledger (no priced market)."}</span>
               <span className="flex flex-wrap gap-4">
-                <Link href={item.logHref} className="font-bold uppercase tracking-[0.14em] text-[var(--accent)]">Log this bet →</Link>
+                <Link href={logHref} className="font-bold uppercase tracking-[0.14em] text-[var(--accent)]">Log this bet →</Link>
                 <Link href={item.href} className="font-bold uppercase tracking-[0.14em] text-[var(--accent)]">{item.kind === "game" ? `${item.sportLabel} page →` : "Race page →"}</Link>
               </span>
             </div>

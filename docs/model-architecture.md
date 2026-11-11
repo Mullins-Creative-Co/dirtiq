@@ -196,6 +196,54 @@ abbreviations by explicit NFL and NBA tables with a nickname fallback; unresolve
 are listed, never guessed. Without a key the command writes `configured: false` and the
 UI says the feed is off.
 
+## Near-live Tonight lines
+
+Forecasts and graded ledger lines remain the JSON artifacts read through
+`src/lib/model-reports.ts`. The Tonight board adds a display-only live layer;
+it never changes forecasts, artifacts, saved leans or ledger rows. Pages await
+`buildTonightBoard()` after `connection()` and never fetch external data themselves.
+`/bets` requests the board with `{ live: false }` because its event selector needs
+only the saved schedule; the Tonight link carries the selected quote.
+
+`src/lib/live-lines.ts` is server-only. It requests ESPN core per-event odds for NFL,
+NCAAF, NBA and NCAAB, with a shared limit of 12 active requests, a five-second timeout
+per request (including JSON reading), in-flight deduplication and a bounded in-memory
+three-minute cache per URL. HTTP/network/JSON failures return null and retry after
+30 seconds; completed responses retain their observation timestamp on cache hits.
+The cache is process-local, so a cold instance must fetch again. `observedAt` means
+when dirtIQ retrieved the ESPN reference quote, not a sportsbook-guaranteed quote time.
+NFL's nflverse ids are resolved through the ESPN scoreboard with unique exact
+home/away and scheduled-time matching (WSH/WAS and LAR/LA normalized); failed or
+ambiguous matches fall back. Other focus sports already use ESPN ids.
+
+Pure rules in `src/lib/live-lines/core.ts` mirror Python `adapters/espn_odds.py`:
+exclude unnamed/live/AccuScore/numberFire/TeamRankings/consensus/PickCenter feeds;
+home handicap sign; nested close fields override top-level fields when present;
+median spread/total/side prices across real books; paired moneylines only; legal
+American-price normalization and ties-to-even rounding. Upcoming top-level fields
+carry the current quote. Live response shape:
+`{ spread, homeSpreadPrice, awaySpreadPrice, homeMl, awayMl, total, books, observedAt }`
+or null. Fixtures test parity, exclusions, no-vig probabilities and lean boundaries.
+
+Only the first six featured games per focus sport on today's Eastern calendar,
+starting in the next 24 hours, fetch live odds (24 events maximum). Show all and
+client filters do not expand this network slate. Each item preserves `market` and
+adds `liveMarket`; the latter compares the unchanged projected home margin with
+`-liveSpread`, using the report's `backtest.selectionThreshold`. Missing spreads or
+thresholds produce no supported live lean. Saved cover probabilities are never
+reused at a moved live spread.
+
+Rows show line age and a visible saved-line fallback on failure. Expanded games
+show both markets, leans and observed times. The board refreshes every minute while
+visible and on returning to the tab; expiry timers stop presenting or logging a
+three-minute-old quote as live. “Log this bet” uses the live line and its matching
+side spread price (or live moneyline when there is no live spread); missing live
+prices stay empty rather than combining an old price with a moved line. A failed
+or expired live result uses saved terms. `marketProb` is the selected side's no-vig
+moneyline probability; a spread link leaves `modelProb` empty for a live line because
+the saved cover probability describes a different handicap. These quotes are
+reference medians, not executable offers.
+
 ## UI contract
 
 Routes (all read artifacts through `src/lib/model-reports.ts`; pages never parse JSON):
