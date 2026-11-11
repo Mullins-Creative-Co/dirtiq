@@ -2,12 +2,14 @@
 ``cfb_line_odds`` betting archive (many books per game, consolidated to a median).
 
 * Schedule files (one per season, FBS-centric, completed games only; the archive
-  carries no scheduled/future rows, so there is never an ``upcoming`` list).
+  carries no scheduled/future rows). Upcoming games for the next ``espn_odds``
+  horizon come from the ESPN scoreboard (FBS group), keyed by the same ESPN event id.
 * Betting rows are keyed by the same ESPN ``game_id``. Each row is one side of one
   market at one book. The home side is identified by resolving each betting
   abbreviation to the ESPN team id it co-occurs with most often. Per game we take
   the median home spread, the median price on each side, the median moneylines and
-  the median total across books. The archive ends with the 2025 season.
+  the median total across books. The archive ends with the 2025 season; from 2026
+  the games it does not price (and all upcoming games) take ESPN per-game odds.
 * Teams: ESPN abbreviation. Opponents that play fewer than ``MIN_GAMES_FOR_OWN_RATING``
   games in a season (FCS visitors) are pooled into one ``FCS`` rating.
 """
@@ -20,6 +22,7 @@ from typing import Dict, List, Optional
 import numpy as np
 import pandas as pd
 
+from . import espn_odds
 from .common import cache_dir_for, download, finalize
 
 SCHEDULE_URL = "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_cfb_schedules/cfb_schedule_{season}.parquet"
@@ -142,7 +145,8 @@ def convert_schedule(raw: pd.DataFrame) -> pd.DataFrame:
     return out[out["start"].notna()]
 
 
-def load_games(cache_dir: Optional[Path] = None, refresh: bool = False, last_season: Optional[int] = None) -> pd.DataFrame:
+def load_games(cache_dir: Optional[Path] = None, refresh: bool = False, last_season: Optional[int] = None,
+               lines: bool = True) -> pd.DataFrame:
     cache = cache_dir_for("ncaaf", cache_dir)
     last = last_season or current_season()
     frames: List[pd.DataFrame] = []
@@ -160,8 +164,21 @@ def load_games(cache_dir: Optional[Path] = None, refresh: bool = False, last_sea
         frames.append(convert_schedule(pd.read_parquet(dest)))
     lines_path = cache / "cfb_line_odds.parquet"
     sources.append(download(LINES_URL, lines_path, refresh=refresh))
-    lines = consolidate_lines(pd.read_parquet(lines_path))
+    archive = consolidate_lines(pd.read_parquet(lines_path))
     frame = pd.concat(frames, ignore_index=True).drop_duplicates("game_id", keep="last")
-    frame = frame.merge(lines, on="game_id", how="left")
+    frame = frame.merge(archive, on="game_id", how="left")
+    book = BOOK
+    if lines:
+        # the schedule archive has no future rows: upcoming games come from the ESPN scoreboard,
+        # and ESPN odds fill the games the cfbfastR archive does not price (2026 onward)
+        upcoming = espn_odds.upcoming_frame("ncaaf", cache, refresh=refresh)
+        upcoming = upcoming[~upcoming["game_id"].isin(set(frame["game_id"]))]
+        if not upcoming.empty:
+            frame = pd.concat([frame, upcoming], ignore_index=True)
+        frame, odds_meta = espn_odds.attach(frame, "ncaaf", cache, refresh=refresh, overwrite=False)
+        if odds_meta.get("priced"):
+            sources.append(odds_meta)
+            book = f"{BOOK}; {espn_odds.BOOK} from 2026"
     frame = pool_minor_teams(frame)
-    return finalize(frame, sources, BOOK, LABEL)
+    return finalize(frame, sources, book, LABEL)
+

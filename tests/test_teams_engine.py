@@ -278,7 +278,7 @@ class ReportTests(unittest.TestCase):
                 self.assertIn(key, report["backtest"])
             self.assertEqual(report["backtest"]["seasons"], [2018, 2019])
             self.assertEqual(report["backtest"]["selections"]["rule"], "abs(model - market) >= 2.0")
-            self.assertEqual([v["id"] for v in report["backtest"]["variants"]], ["independent", "market-anchored"])
+            self.assertEqual([v["id"] for v in report["backtest"]["variants"]], ["independent", "market-anchored", "stacked", "stacked-market"])
             self.assertGreater(report["backtest"]["mae"], 0)
             ledger_path = tmp_path / "ledger.json"
             health_path = tmp_path / "health.json"

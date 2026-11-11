@@ -1,7 +1,8 @@
 """NBA games from sportsdataverse ESPN schedule parquets (ending seasons 2016 to now).
 
-The schedule files carry no betting lines, so the NBA frame has null market
-columns and the NBA report is an independent model only.
+The schedule files carry no betting lines; market columns are filled from ESPN's
+per-game odds (``espn_odds``: multi-book median, closing block when present) for
+the 2015-16 season onward and for upcoming games inside the odds horizon.
 
 Included: regular season (season_type 2), playoffs (3) and play-in games (5).
 Excluded: preseason, All-Star/exhibition rows (non-NBA abbreviations such as
@@ -15,6 +16,7 @@ from typing import List, Optional
 
 import pandas as pd
 
+from . import espn_odds
 from .common import cache_dir_for, download, finalize
 
 RELEASE = "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_{season}.parquet"
@@ -81,7 +83,8 @@ def convert_frame(raw: pd.DataFrame) -> pd.DataFrame:
     return out[out["start"].notna()]
 
 
-def load_games(cache_dir: Optional[Path] = None, refresh: bool = False, last_season: Optional[int] = None) -> pd.DataFrame:
+def load_games(cache_dir: Optional[Path] = None, refresh: bool = False, last_season: Optional[int] = None,
+               lines: bool = True) -> pd.DataFrame:
     cache = cache_dir_for("nba", cache_dir)
     last = last_season or current_ending_season()
     frames: List[pd.DataFrame] = []
@@ -99,4 +102,10 @@ def load_games(cache_dir: Optional[Path] = None, refresh: bool = False, last_sea
         sources.append(meta)
         frames.append(convert_frame(pd.read_parquet(dest)))
     frame = pd.concat(frames, ignore_index=True).drop_duplicates("game_id", keep="last")
-    return finalize(frame, sources, BOOK, LABEL)
+    book = BOOK
+    if lines:
+        frame, odds_meta = espn_odds.attach(frame, "nba", cache, refresh=refresh)
+        if odds_meta.get("priced"):
+            sources.append(odds_meta)
+            book = espn_odds.BOOK
+    return finalize(frame, sources, book, LABEL)

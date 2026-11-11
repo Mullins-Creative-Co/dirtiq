@@ -1,75 +1,140 @@
 {
  "sport": "mlb",
  "label": "MLB",
- "generatedAt": "2026-11-10T20:30:39Z",
+ "generatedAt": "2026-11-11T03:23:46Z",
  "modelId": "mlb-kalman",
- "modelVersion": "1.0",
+ "modelVersion": "1.1",
  "dataThrough": "2026-10-28",
  "sources": [
   {
    "url": "https://statsapi.mlb.com/api/v1/teams?sportId=1",
    "sha256": "bb09edbe7653b80830433a0b0ab8a29cf82ec005cff2936bdc408c6e28a0b49e",
-   "retrievedAt": "2026-11-10T20:30:30Z"
+   "retrievedAt": "2026-11-10T18:47:52Z"
   },
   {
    "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2015&gameType=R,F,D,L,W",
    "sha256": "73a2e30fe0c962a7c67bbb50091d2d4bc278409aed70c8ab3e5f2a02d10e84e6",
-   "retrievedAt": "2026-11-10T20:30:31Z"
+   "retrievedAt": "2026-11-10T18:48:29Z"
+  },
+  {
+   "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2015&gameType=R,F,D,L,W&hydrate=probablePitcher&fields=dates,games,gamePk,teams,home,away,probablePitcher,id",
+   "sha256": "de1ec38ec86d9c77d6df5c2f5a64cf881c7d2ee4c6bad6fa324ef4cebecc550d",
+   "retrievedAt": "2026-11-11T02:00:20Z"
   },
   {
    "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2016&gameType=R,F,D,L,W",
    "sha256": "cbc867043c0820385d5846c831d06d4f4a8e6b2ec5ccee12e7934de53d41f26e",
-   "retrievedAt": "2026-11-10T20:30:31Z"
+   "retrievedAt": "2026-11-10T18:50:09Z"
+  },
+  {
+   "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2016&gameType=R,F,D,L,W&hydrate=probablePitcher&fields=dates,games,gamePk,teams,home,away,probablePitcher,id",
+   "sha256": "8c4ac1470f0698b7cba20d8e35f0813814d949e7bb3d34a2e542d4a1c31e247f",
+   "retrievedAt": "2026-11-11T02:00:45Z"
   },
   {
    "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2017&gameType=R,F,D,L,W",
    "sha256": "8a714e90d7831758e152943bdd7e1d56306394a8b112287537d006f16a9b60a2",
-   "retrievedAt": "2026-11-10T20:30:32Z"
+   "retrievedAt": "2026-11-10T18:50:22Z"
+  },
+  {
+   "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2017&gameType=R,F,D,L,W&hydrate=probablePitcher&fields=dates,games,gamePk,teams,home,away,probablePitcher,id",
+   "sha256": "ef82b45d9b9a633e8048010a53932b063ca5d69639f3a1470c0ea5b384b64c40",
+   "retrievedAt": "2026-11-11T02:00:55Z"
   },
   {
    "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2018&gameType=R,F,D,L,W",
    "sha256": "156d309d68df065c55cf5aebb6912dc2ebec8fbccf1bbb245adc94c5b84c3b46",
-   "retrievedAt": "2026-11-10T20:30:33Z"
+   "retrievedAt": "2026-11-10T18:50:38Z"
+  },
+  {
+   "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2018&gameType=R,F,D,L,W&hydrate=probablePitcher&fields=dates,games,gamePk,teams,home,away,probablePitcher,id",
+   "sha256": "8802e4be908a10cf608da41a350eefea7a4c47cd8c70df2613d0fc36702d3c3e",
+   "retrievedAt": "2026-11-11T02:01:17Z"
   },
   {
    "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2019&gameType=R,F,D,L,W",
    "sha256": "43f5116af28f6fedf21e8b93b4f9d6ac3b18579306dfd26399cc57c462f4f7c5",
-   "retrievedAt": "2026-11-10T20:30:34Z"
+   "retrievedAt": "2026-11-10T18:50:42Z"
+  },
+  {
+   "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2019&gameType=R,F,D,L,W&hydrate=probablePitcher&fields=dates,games,gamePk,teams,home,away,probablePitcher,id",
+   "sha256": "2707274cc5b07b4e69e74a3016f2f26b52b5cb46235766aa049f574a633e061d",
+   "retrievedAt": "2026-11-11T02:01:31Z"
   },
   {
    "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2020&gameType=R,F,D,L,W",
    "sha256": "0d2f4ba2a6a259f1624359c2c100aabd5f11940898a71a29957a0e1912075a4c",
-   "retrievedAt": "2026-11-10T20:30:34Z"
+   "retrievedAt": "2026-11-10T18:50:43Z"
+  },
+  {
+   "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2020&gameType=R,F,D,L,W&hydrate=probablePitcher&fields=dates,games,gamePk,teams,home,away,probablePitcher,id",
+   "sha256": "3d0db43febf1a0d57afd7be425418bdd44f3cd389e52131a028ed9e47e3e6672",
+   "retrievedAt": "2026-11-11T02:01:35Z"
   },
   {
    "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2021&gameType=R,F,D,L,W",
    "sha256": "48e81e55efa61bdb898d3e4b815ca928a6a55bd439742400202db36f038037bd",
-   "retrievedAt": "2026-11-10T20:30:35Z"
+   "retrievedAt": "2026-11-10T18:50:48Z"
+  },
+  {
+   "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2021&gameType=R,F,D,L,W&hydrate=probablePitcher&fields=dates,games,gamePk,teams,home,away,probablePitcher,id",
+   "sha256": "9a6abb49ffd4af7af959e47b9b05a0e7313e081d893af617745b1818a4682bdc",
+   "retrievedAt": "2026-11-11T02:01:45Z"
   },
   {
    "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2022&gameType=R,F,D,L,W",
    "sha256": "4b72ff9f69273809166b43c759bd669fa6412364dc13dd4e98e245888e81a69a",
-   "retrievedAt": "2026-11-10T20:30:35Z"
+   "retrievedAt": "2026-11-10T18:51:48Z"
+  },
+  {
+   "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2022&gameType=R,F,D,L,W&hydrate=probablePitcher&fields=dates,games,gamePk,teams,home,away,probablePitcher,id",
+   "sha256": "16b8e8ad81767aed423e4c2d9d8151a4b1b7a0e321da7d8cc2a2082b1c68f07c",
+   "retrievedAt": "2026-11-11T02:01:52Z"
   },
   {
    "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2023&gameType=R,F,D,L,W",
    "sha256": "a99e56abb5318b268aa4754b096509b373b9c4db705d423ffcf066020fe4bd2e",
-   "retrievedAt": "2026-11-10T20:30:36Z"
+   "retrievedAt": "2026-11-10T18:51:51Z"
+  },
+  {
+   "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2023&gameType=R,F,D,L,W&hydrate=probablePitcher&fields=dates,games,gamePk,teams,home,away,probablePitcher,id",
+   "sha256": "f242ee770165d220ba464bd644648e1fdc642402d955f1d5bc8602334ded91ae",
+   "retrievedAt": "2026-11-11T02:01:54Z"
   },
   {
    "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2024&gameType=R,F,D,L,W",
    "sha256": "c50996cf37533e3210a9d17f0179f53e7e73d4a37c81736d251872c59555a73e",
-   "retrievedAt": "2026-11-10T20:30:36Z"
+   "retrievedAt": "2026-11-10T18:52:14Z"
+  },
+  {
+   "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2024&gameType=R,F,D,L,W&hydrate=probablePitcher&fields=dates,games,gamePk,teams,home,away,probablePitcher,id",
+   "sha256": "c902b04c7bf852cad0d7e48d0364c2dc663b8805f055d855770d0b2b292434d6",
+   "retrievedAt": "2026-11-11T02:01:55Z"
   },
   {
    "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2025&gameType=R,F,D,L,W",
    "sha256": "076826146f4357a7bb504b0f86cb70b1c0a8b8029d2f9792650278d158a8914d",
-   "retrievedAt": "2026-11-10T20:30:37Z"
+   "retrievedAt": "2026-11-10T18:52:18Z"
+  },
+  {
+   "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2025&gameType=R,F,D,L,W&hydrate=probablePitcher&fields=dates,games,gamePk,teams,home,away,probablePitcher,id",
+   "sha256": "40b28d33f541a8fb9f9164714224640bd63b2906ea2a04b0ac02f204bd34d82e",
+   "retrievedAt": "2026-11-11T02:01:58Z"
   },
   {
    "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2026&gameType=R,F,D,L,W",
    "sha256": "c5542d74151d178998c8ba30060f3f0ed95c73da48784ccc52cd3d37d8928775",
-   "retrievedAt": "2026-11-10T20:30:37Z"
+   "retrievedAt": "2026-11-10T18:52:28Z"
+  },
+  {
+   "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2026&gameType=R,F,D,L,W&hydrate=probablePitcher&fields=dates,games,gamePk,teams,home,away,probablePitcher,id",
+   "sha256": "4a40830c6df4c181c2c4132d17d3aa612e23f2138943ef0ba4e37d1643c58f2c",
+   "retrievedAt": "2026-11-11T02:02:00Z"
+  },
+  {
+   "url": "https://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/events/{event}/competitions/{event}/odds?limit=50",
+   "sha256": "",
+   "retrievedAt": "2026-11-11T02:52:48Z"
   }
  ],
  "backtest": {
@@ -88,15 +153,15 @@
   "warmStartSeason": 2015,
   "protocol": "rolling by season: hyperparameters fit on all prior seasons, filter updates only from completed games before each game day",
   "mae": 3.4409,
-  "marketMae": null,
-  "brierSpread": null,
-  "marketBrierSpread": null,
+  "marketMae": 3.4048,
+  "brierSpread": 0.2445,
+  "marketBrierSpread": 0.2444,
   "brierMoneyline": 0.2421,
-  "marketBrierMoneyline": null,
+  "marketBrierMoneyline": 0.2393,
   "logLossMoneyline": 0.6771,
-  "marketLogLossMoneyline": null,
-  "brierMoneylineOnPricedGames": null,
-  "brierSpreadOnPricedGames": null,
+  "marketLogLossMoneyline": 0.6714,
+  "brierMoneylineOnPricedGames": 0.2421,
+  "brierSpreadOnPricedGames": 0.2442,
   "ece": 0.0092,
   "calibration": [
    {
@@ -177,18 +242,190 @@
     "observed": null
    }
   ],
-  "eceSpread": null,
-  "calibrationSpread": [],
+  "eceSpread": 0.0209,
+  "calibrationSpread": [
+   {
+    "lo": 0.0,
+    "hi": 0.05,
+    "n": 1,
+    "predicted": 0.0,
+    "observed": 0.0
+   },
+   {
+    "lo": 0.05,
+    "hi": 0.1,
+    "n": 0,
+    "predicted": null,
+    "observed": null
+   },
+   {
+    "lo": 0.1,
+    "hi": 0.2,
+    "n": 0,
+    "predicted": null,
+    "observed": null
+   },
+   {
+    "lo": 0.2,
+    "hi": 0.3,
+    "n": 117,
+    "predicted": 0.2797,
+    "observed": 0.3846
+   },
+   {
+    "lo": 0.3,
+    "hi": 0.4,
+    "n": 2438,
+    "predicted": 0.367,
+    "observed": 0.3687
+   },
+   {
+    "lo": 0.4,
+    "hi": 0.5,
+    "n": 7411,
+    "predicted": 0.4535,
+    "observed": 0.4337
+   },
+   {
+    "lo": 0.5,
+    "hi": 0.6,
+    "n": 7989,
+    "predicted": 0.5459,
+    "observed": 0.5208
+   },
+   {
+    "lo": 0.6,
+    "hi": 0.7,
+    "n": 2339,
+    "predicted": 0.6308,
+    "observed": 0.608
+   },
+   {
+    "lo": 0.7,
+    "hi": 0.8,
+    "n": 110,
+    "predicted": 0.7211,
+    "observed": 0.6636
+   },
+   {
+    "lo": 0.8,
+    "hi": 0.9,
+    "n": 1,
+    "predicted": 0.8668,
+    "observed": 0.0
+   },
+   {
+    "lo": 0.9,
+    "hi": 1.0,
+    "n": 3,
+    "predicted": 0.9252,
+    "observed": 0.3333
+   }
+  ],
   "homeWinRate": 0.5311,
+  "stackedMae": 3.4401,
+  "stackedBrierMoneyline": 0.2421,
+  "stackedLogLossMoneyline": 0.6775,
+  "stackedBrierSpread": 0.2447,
+  "stackedEce": 0.0033,
+  "stackedCalibration": [
+   {
+    "lo": 0.0,
+    "hi": 0.05,
+    "n": 5,
+    "predicted": 0.0071,
+    "observed": 0.6
+   },
+   {
+    "lo": 0.05,
+    "hi": 0.1,
+    "n": 0,
+    "predicted": null,
+    "observed": null
+   },
+   {
+    "lo": 0.1,
+    "hi": 0.2,
+    "n": 0,
+    "predicted": null,
+    "observed": null
+   },
+   {
+    "lo": 0.2,
+    "hi": 0.3,
+    "n": 58,
+    "predicted": 0.2824,
+    "observed": 0.3793
+   },
+   {
+    "lo": 0.3,
+    "hi": 0.4,
+    "n": 1288,
+    "predicted": 0.3675,
+    "observed": 0.3595
+   },
+   {
+    "lo": 0.4,
+    "hi": 0.5,
+    "n": 5953,
+    "predicted": 0.4584,
+    "observed": 0.4594
+   },
+   {
+    "lo": 0.5,
+    "hi": 0.6,
+    "n": 8777,
+    "predicted": 0.5487,
+    "observed": 0.5487
+   },
+   {
+    "lo": 0.6,
+    "hi": 0.7,
+    "n": 4103,
+    "predicted": 0.6388,
+    "observed": 0.63
+   },
+   {
+    "lo": 0.7,
+    "hi": 0.8,
+    "n": 520,
+    "predicted": 0.7263,
+    "observed": 0.7115
+   },
+   {
+    "lo": 0.8,
+    "hi": 0.9,
+    "n": 2,
+    "predicted": 0.8063,
+    "observed": 1.0
+   },
+   {
+    "lo": 0.9,
+    "hi": 1.0,
+    "n": 0,
+    "predicted": null,
+    "observed": null
+   }
+  ],
+  "stackedMarketMae": 3.4088,
+  "stackedMarketBrierMoneyline": 0.2398,
+  "stackedMarketLogLossMoneyline": 0.6723,
+  "stackedMarketBrierSpread": 0.2441,
+  "headline": "independent",
   "selections": {
    "rule": "abs(model - market) >= 1.0",
-   "n": 0,
-   "wins": 0,
-   "losses": 0,
+   "n": 2839,
+   "wins": 1440,
+   "losses": 1399,
    "pushes": 0,
-   "units": null,
-   "roi": null,
-   "limitation": "no market lines in source"
+   "priced": 1138,
+   "unpriced": 1701,
+   "units": -66.736,
+   "roi": -0.0586,
+   "winRate": 0.5072,
+   "roiAt110Illustrative": -0.0317,
+   "avgPickProb": 0.5593,
+   "brierPicks": 0.2454
   },
   "selectionThreshold": 1.0,
   "clv": null,
@@ -199,16 +436,37 @@
     "games": 2464,
     "partial": false,
     "mae": 3.4056,
-    "marketMae": null,
-    "brierSpread": null,
+    "marketMae": 3.3555,
+    "brierSpread": 0.2446,
     "marketBrierSpread": null,
     "brierMoneyline": 0.2404,
-    "marketBrierMoneyline": null,
+    "marketBrierMoneyline": 0.2369,
     "logLossMoneyline": 0.6737,
     "ece": 0.0168,
-    "anchoredMae": null,
-    "anchoredBrierSpread": null,
+    "anchoredMae": 3.3521,
+    "anchoredBrierSpread": 0.2453,
+    "stackedMae": 3.4091,
+    "stackedBrierMoneyline": 0.2413,
+    "stackedLogLossMoneyline": 0.6788,
+    "stackedBrierSpread": 0.2454,
+    "stackedMarketBrierMoneyline": 0.2377,
+    "stackedMarketMae": 3.3684,
     "selections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 345,
+     "wins": 168,
+     "losses": 177,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 345,
+     "units": null,
+     "roi": null,
+     "winRate": 0.487,
+     "roiAt110Illustrative": -0.0704,
+     "avgPickProb": 0.5518,
+     "brierPicks": 0.2541
+    },
+    "anchoredSelections": {
      "rule": "abs(model - market) >= 1.0",
      "n": 0,
      "wins": 0,
@@ -223,7 +481,21 @@
      "avgPickProb": null,
      "brierPicks": null
     },
-    "anchoredSelections": null,
+    "stackedSelections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 358,
+     "wins": 171,
+     "losses": 187,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 358,
+     "units": null,
+     "roi": null,
+     "winRate": 0.4777,
+     "roiAt110Illustrative": -0.0881,
+     "avgPickProb": 0.5605,
+     "brierPicks": 0.2561
+    },
     "hyper": {
      "process_sd_day": 0.01529,
      "season_reversion": 0.3674,
@@ -232,7 +504,13 @@
      "sigma": 4.3762,
      "init_sd": 1.3171
     },
-    "anchor": null,
+    "anchor": {
+     "beta": -0.05373,
+     "intercept": -0.18303,
+     "sd": 4.48647,
+     "n": 2425,
+     "alpha": 1.0
+    },
     "fit": {
      "nllPerGame": 2.901973507695323,
      "iterations": 300,
@@ -245,16 +523,37 @@
     "games": 2466,
     "partial": false,
     "mae": 3.4923,
-    "marketMae": null,
-    "brierSpread": null,
+    "marketMae": 3.4633,
+    "brierSpread": 0.2444,
     "marketBrierSpread": null,
     "brierMoneyline": 0.2371,
-    "marketBrierMoneyline": null,
+    "marketBrierMoneyline": 0.2348,
     "logLossMoneyline": 0.6668,
     "ece": 0.0131,
-    "anchoredMae": null,
-    "anchoredBrierSpread": null,
+    "anchoredMae": 3.4612,
+    "anchoredBrierSpread": 0.2441,
+    "stackedMae": 3.4924,
+    "stackedBrierMoneyline": 0.2375,
+    "stackedLogLossMoneyline": 0.6675,
+    "stackedBrierSpread": 0.2447,
+    "stackedMarketBrierMoneyline": 0.2357,
+    "stackedMarketMae": 3.462,
     "selections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 386,
+     "wins": 201,
+     "losses": 185,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 386,
+     "units": null,
+     "roi": null,
+     "winRate": 0.5207,
+     "roiAt110Illustrative": -0.0059,
+     "avgPickProb": 0.5671,
+     "brierPicks": 0.2426
+    },
+    "anchoredSelections": {
      "rule": "abs(model - market) >= 1.0",
      "n": 0,
      "wins": 0,
@@ -269,7 +568,21 @@
      "avgPickProb": null,
      "brierPicks": null
     },
-    "anchoredSelections": null,
+    "stackedSelections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 398,
+     "wins": 202,
+     "losses": 196,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 398,
+     "units": null,
+     "roi": null,
+     "winRate": 0.5075,
+     "roiAt110Illustrative": -0.0311,
+     "avgPickProb": 0.5703,
+     "brierPicks": 0.247
+    },
     "hyper": {
      "process_sd_day": 0.02947,
      "season_reversion": 0.2457,
@@ -278,7 +591,13 @@
      "sigma": 4.36148,
      "init_sd": 1.3171
     },
-    "anchor": null,
+    "anchor": {
+     "beta": -0.02623,
+     "intercept": -0.19366,
+     "sd": 4.39934,
+     "n": 4695,
+     "alpha": 1.0
+    },
     "fit": {
      "nllPerGame": 2.8999046591682656,
      "iterations": 152,
@@ -291,16 +610,37 @@
     "games": 951,
     "partial": false,
     "mae": 3.5525,
-    "marketMae": null,
-    "brierSpread": null,
+    "marketMae": 3.4993,
+    "brierSpread": 0.2509,
     "marketBrierSpread": null,
     "brierMoneyline": 0.2443,
-    "marketBrierMoneyline": null,
+    "marketBrierMoneyline": 0.239,
     "logLossMoneyline": 0.6818,
     "ece": 0.0317,
-    "anchoredMae": null,
-    "anchoredBrierSpread": null,
+    "anchoredMae": 3.5084,
+    "anchoredBrierSpread": 0.2513,
+    "stackedMae": 3.5507,
+    "stackedBrierMoneyline": 0.2442,
+    "stackedLogLossMoneyline": 0.6818,
+    "stackedBrierSpread": 0.2501,
+    "stackedMarketBrierMoneyline": 0.2411,
+    "stackedMarketMae": 3.5298,
     "selections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 200,
+     "wins": 107,
+     "losses": 93,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 200,
+     "units": null,
+     "roi": null,
+     "winRate": 0.535,
+     "roiAt110Illustrative": 0.0214,
+     "avgPickProb": 0.5958,
+     "brierPicks": 0.2455
+    },
+    "anchoredSelections": {
      "rule": "abs(model - market) >= 1.0",
      "n": 0,
      "wins": 0,
@@ -315,7 +655,21 @@
      "avgPickProb": null,
      "brierPicks": null
     },
-    "anchoredSelections": null,
+    "stackedSelections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 246,
+     "wins": 142,
+     "losses": 104,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 246,
+     "units": null,
+     "roi": null,
+     "winRate": 0.5772,
+     "roiAt110Illustrative": 0.102,
+     "avgPickProb": 0.6168,
+     "brierPicks": 0.2417
+    },
     "hyper": {
      "process_sd_day": 0.03284,
      "season_reversion": 0.19351,
@@ -324,7 +678,13 @@
      "sigma": 4.38963,
      "init_sd": 1.3171
     },
-    "anchor": null,
+    "anchor": {
+     "beta": 0.01317,
+     "intercept": -0.25868,
+     "sd": 4.42527,
+     "n": 7138,
+     "alpha": 1.0
+    },
     "fit": {
      "nllPerGame": 2.906415380068949,
      "iterations": 162,
@@ -337,16 +697,37 @@
     "games": 2466,
     "partial": false,
     "mae": 3.4208,
-    "marketMae": null,
-    "brierSpread": null,
+    "marketMae": 3.3827,
+    "brierSpread": 0.2432,
     "marketBrierSpread": null,
     "brierMoneyline": 0.2416,
-    "marketBrierMoneyline": null,
+    "marketBrierMoneyline": 0.2389,
     "logLossMoneyline": 0.6761,
     "ece": 0.021,
-    "anchoredMae": null,
-    "anchoredBrierSpread": null,
+    "anchoredMae": 3.3846,
+    "anchoredBrierSpread": 0.2444,
+    "stackedMae": 3.421,
+    "stackedBrierMoneyline": 0.2414,
+    "stackedLogLossMoneyline": 0.6755,
+    "stackedBrierSpread": 0.2441,
+    "stackedMarketBrierMoneyline": 0.2392,
+    "stackedMarketMae": 3.3887,
     "selections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 355,
+     "wins": 183,
+     "losses": 172,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 355,
+     "units": null,
+     "roi": null,
+     "winRate": 0.5155,
+     "roiAt110Illustrative": -0.0159,
+     "avgPickProb": 0.563,
+     "brierPicks": 0.2403
+    },
+    "anchoredSelections": {
      "rule": "abs(model - market) >= 1.0",
      "n": 0,
      "wins": 0,
@@ -361,7 +742,21 @@
      "avgPickProb": null,
      "brierPicks": null
     },
-    "anchoredSelections": null,
+    "stackedSelections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 344,
+     "wins": 181,
+     "losses": 163,
+     "pushes": 0,
+     "priced": 0,
+     "unpriced": 344,
+     "units": null,
+     "roi": null,
+     "winRate": 0.5262,
+     "roiAt110Illustrative": 0.0045,
+     "avgPickProb": 0.5677,
+     "brierPicks": 0.2434
+    },
     "hyper": {
      "process_sd_day": 0.03289,
      "season_reversion": 0.26115,
@@ -370,7 +765,13 @@
      "sigma": 4.40568,
      "init_sd": 1.3171
     },
-    "anchor": null,
+    "anchor": {
+     "beta": 0.02046,
+     "intercept": -0.24529,
+     "sd": 4.44028,
+     "n": 8078,
+     "alpha": 1.0
+    },
     "fit": {
      "nllPerGame": 2.9102012250005287,
      "iterations": 141,
@@ -383,16 +784,37 @@
     "games": 2470,
     "partial": false,
     "mae": 3.3217,
-    "marketMae": null,
-    "brierSpread": null,
-    "marketBrierSpread": null,
+    "marketMae": 3.2664,
+    "brierSpread": 0.2436,
+    "marketBrierSpread": 0.2626,
     "brierMoneyline": 0.2404,
-    "marketBrierMoneyline": null,
+    "marketBrierMoneyline": 0.2362,
     "logLossMoneyline": 0.6739,
     "ece": 0.019,
-    "anchoredMae": null,
-    "anchoredBrierSpread": null,
+    "anchoredMae": 3.2644,
+    "anchoredBrierSpread": 0.2409,
+    "stackedMae": 3.3192,
+    "stackedBrierMoneyline": 0.2405,
+    "stackedLogLossMoneyline": 0.674,
+    "stackedBrierSpread": 0.2434,
+    "stackedMarketBrierMoneyline": 0.2362,
+    "stackedMarketMae": 3.2617,
     "selections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 395,
+     "wins": 180,
+     "losses": 215,
+     "pushes": 0,
+     "priced": 98,
+     "unpriced": 297,
+     "units": -18.778,
+     "roi": -0.1916,
+     "winRate": 0.4557,
+     "roiAt110Illustrative": -0.13,
+     "avgPickProb": 0.5287,
+     "brierPicks": 0.2544
+    },
+    "anchoredSelections": {
      "rule": "abs(model - market) >= 1.0",
      "n": 0,
      "wins": 0,
@@ -407,7 +829,21 @@
      "avgPickProb": null,
      "brierPicks": null
     },
-    "anchoredSelections": null,
+    "stackedSelections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 377,
+     "wins": 179,
+     "losses": 198,
+     "pushes": 0,
+     "priced": 77,
+     "unpriced": 300,
+     "units": -8.517,
+     "roi": -0.1106,
+     "winRate": 0.4748,
+     "roiAt110Illustrative": -0.0936,
+     "avgPickProb": 0.5389,
+     "brierPicks": 0.2528
+    },
     "hyper": {
      "process_sd_day": 0.03643,
      "season_reversion": 0.27517,
@@ -416,7 +852,13 @@
      "sigma": 4.39404,
      "init_sd": 1.3171
     },
-    "anchor": null,
+    "anchor": {
+     "beta": 0.05885,
+     "intercept": -0.22957,
+     "sd": 4.42435,
+     "n": 10524,
+     "alpha": 1.0
+    },
     "fit": {
      "nllPerGame": 2.908159674754317,
      "iterations": 100,
@@ -429,16 +871,37 @@
     "games": 2471,
     "partial": false,
     "mae": 3.4534,
-    "marketMae": null,
-    "brierSpread": null,
-    "marketBrierSpread": null,
+    "marketMae": 3.4348,
+    "brierSpread": 0.2441,
+    "marketBrierSpread": 0.2592,
     "brierMoneyline": 0.2443,
-    "marketBrierMoneyline": null,
+    "marketBrierMoneyline": 0.2425,
     "logLossMoneyline": 0.6817,
     "ece": 0.0145,
-    "anchoredMae": null,
-    "anchoredBrierSpread": null,
+    "anchoredMae": 3.4329,
+    "anchoredBrierSpread": 0.2425,
+    "stackedMae": 3.4543,
+    "stackedBrierMoneyline": 0.2445,
+    "stackedLogLossMoneyline": 0.682,
+    "stackedBrierSpread": 0.2443,
+    "stackedMarketBrierMoneyline": 0.2426,
+    "stackedMarketMae": 3.4342,
     "selections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 257,
+     "wins": 97,
+     "losses": 160,
+     "pushes": 0,
+     "priced": 142,
+     "unpriced": 115,
+     "units": -52.479,
+     "roi": -0.3696,
+     "winRate": 0.3774,
+     "roiAt110Illustrative": -0.2794,
+     "avgPickProb": 0.4874,
+     "brierPicks": 0.238
+    },
+    "anchoredSelections": {
      "rule": "abs(model - market) >= 1.0",
      "n": 0,
      "wins": 0,
@@ -453,7 +916,21 @@
      "avgPickProb": null,
      "brierPicks": null
     },
-    "anchoredSelections": null,
+    "stackedSelections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 245,
+     "wins": 94,
+     "losses": 151,
+     "pushes": 0,
+     "priced": 130,
+     "unpriced": 115,
+     "units": -49.203,
+     "roi": -0.3785,
+     "winRate": 0.3837,
+     "roiAt110Illustrative": -0.2675,
+     "avgPickProb": 0.4943,
+     "brierPicks": 0.2427
+    },
     "hyper": {
      "process_sd_day": 0.03195,
      "season_reversion": 0.26913,
@@ -462,7 +939,13 @@
      "sigma": 4.37224,
      "init_sd": 1.3171
     },
-    "anchor": null,
+    "anchor": {
+     "beta": 0.03394,
+     "intercept": -0.24638,
+     "sd": 4.38795,
+     "n": 12985,
+     "alpha": 1.0
+    },
     "fit": {
      "nllPerGame": 2.9029803205727056,
      "iterations": 119,
@@ -475,16 +958,37 @@
     "games": 2472,
     "partial": false,
     "mae": 3.419,
-    "marketMae": null,
-    "brierSpread": null,
-    "marketBrierSpread": null,
+    "marketMae": 3.3774,
+    "brierSpread": 0.2463,
+    "marketBrierSpread": 0.2436,
     "brierMoneyline": 0.2437,
-    "marketBrierMoneyline": null,
+    "marketBrierMoneyline": 0.2406,
     "logLossMoneyline": 0.6803,
     "ece": 0.0096,
-    "anchoredMae": null,
-    "anchoredBrierSpread": null,
+    "anchoredMae": 3.3749,
+    "anchoredBrierSpread": 0.245,
+    "stackedMae": 3.4135,
+    "stackedBrierMoneyline": 0.243,
+    "stackedLogLossMoneyline": 0.679,
+    "stackedBrierSpread": 0.2459,
+    "stackedMarketBrierMoneyline": 0.2408,
+    "stackedMarketMae": 3.3758,
     "selections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 267,
+     "wins": 144,
+     "losses": 123,
+     "pushes": 0,
+     "priced": 265,
+     "unpriced": 2,
+     "units": -6.751,
+     "roi": -0.0255,
+     "winRate": 0.5393,
+     "roiAt110Illustrative": 0.0296,
+     "avgPickProb": 0.5883,
+     "brierPicks": 0.247
+    },
+    "anchoredSelections": {
      "rule": "abs(model - market) >= 1.0",
      "n": 0,
      "wins": 0,
@@ -499,7 +1003,21 @@
      "avgPickProb": null,
      "brierPicks": null
     },
-    "anchoredSelections": null,
+    "stackedSelections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 260,
+     "wins": 147,
+     "losses": 113,
+     "pushes": 0,
+     "priced": 258,
+     "unpriced": 2,
+     "units": 3.036,
+     "roi": 0.0118,
+     "winRate": 0.5654,
+     "roiAt110Illustrative": 0.0794,
+     "avgPickProb": 0.5877,
+     "brierPicks": 0.2393
+    },
     "hyper": {
      "process_sd_day": 0.03272,
      "season_reversion": 0.28128,
@@ -508,7 +1026,13 @@
      "sigma": 4.37415,
      "init_sd": 1.3171
     },
-    "anchor": null,
+    "anchor": {
+     "beta": 0.03841,
+     "intercept": -0.26751,
+     "sd": 4.39053,
+     "n": 15448,
+     "alpha": 1.0
+    },
     "fit": {
      "nllPerGame": 2.9036517753471216,
      "iterations": 100,
@@ -521,16 +1045,37 @@
     "games": 2477,
     "partial": false,
     "mae": 3.4888,
-    "marketMae": null,
-    "brierSpread": null,
-    "marketBrierSpread": null,
+    "marketMae": 3.458,
+    "brierSpread": 0.2421,
+    "marketBrierSpread": 0.236,
     "brierMoneyline": 0.2431,
-    "marketBrierMoneyline": null,
+    "marketBrierMoneyline": 0.2416,
     "logLossMoneyline": 0.6791,
     "ece": 0.0277,
-    "anchoredMae": null,
-    "anchoredBrierSpread": null,
+    "anchoredMae": 3.4656,
+    "anchoredBrierSpread": 0.2424,
+    "stackedMae": 3.4892,
+    "stackedBrierMoneyline": 0.2431,
+    "stackedLogLossMoneyline": 0.6791,
+    "stackedBrierSpread": 0.2422,
+    "stackedMarketBrierMoneyline": 0.2422,
+    "stackedMarketMae": 3.4672,
     "selections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 357,
+     "wins": 209,
+     "losses": 148,
+     "pushes": 0,
+     "priced": 356,
+     "unpriced": 1,
+     "units": 14.329,
+     "roi": 0.0403,
+     "winRate": 0.5854,
+     "roiAt110Illustrative": 0.1176,
+     "avgPickProb": 0.5852,
+     "brierPicks": 0.2334
+    },
+    "anchoredSelections": {
      "rule": "abs(model - market) >= 1.0",
      "n": 0,
      "wins": 0,
@@ -545,7 +1090,21 @@
      "avgPickProb": null,
      "brierPicks": null
     },
-    "anchoredSelections": null,
+    "stackedSelections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 330,
+     "wins": 192,
+     "losses": 138,
+     "pushes": 0,
+     "priced": 329,
+     "unpriced": 1,
+     "units": 9.621,
+     "roi": 0.0292,
+     "winRate": 0.5818,
+     "roiAt110Illustrative": 0.1107,
+     "avgPickProb": 0.5828,
+     "brierPicks": 0.2339
+    },
     "hyper": {
      "process_sd_day": 0.03162,
      "season_reversion": 0.28492,
@@ -554,7 +1113,13 @@
      "sigma": 4.36798,
      "init_sd": 1.3171
     },
-    "anchor": null,
+    "anchor": {
+     "beta": 0.0326,
+     "intercept": -0.28195,
+     "sd": 4.37958,
+     "n": 17893,
+     "alpha": 1.0
+    },
     "fit": {
      "nllPerGame": 2.902002692530827,
      "iterations": 114,
@@ -567,16 +1132,37 @@
     "games": 2469,
     "partial": false,
     "mae": 3.4829,
-    "marketMae": null,
-    "brierSpread": null,
-    "marketBrierSpread": null,
+    "marketMae": 3.4597,
+    "brierSpread": 0.2457,
+    "marketBrierSpread": 0.2421,
     "brierMoneyline": 0.2453,
-    "marketBrierMoneyline": null,
+    "marketBrierMoneyline": 0.243,
     "logLossMoneyline": 0.6836,
     "ece": 0.0121,
-    "anchoredMae": null,
-    "anchoredBrierSpread": null,
+    "anchoredMae": 3.4601,
+    "anchoredBrierSpread": 0.2448,
+    "stackedMae": 3.4794,
+    "stackedBrierMoneyline": 0.2449,
+    "stackedLogLossMoneyline": 0.6828,
+    "stackedBrierSpread": 0.2453,
+    "stackedMarketBrierMoneyline": 0.2432,
+    "stackedMarketMae": 3.4623,
     "selections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 277,
+     "wins": 151,
+     "losses": 126,
+     "pushes": 0,
+     "priced": 277,
+     "unpriced": 0,
+     "units": -3.057,
+     "roi": -0.011,
+     "winRate": 0.5451,
+     "roiAt110Illustrative": 0.0407,
+     "avgPickProb": 0.5754,
+     "brierPicks": 0.253
+    },
+    "anchoredSelections": {
      "rule": "abs(model - market) >= 1.0",
      "n": 0,
      "wins": 0,
@@ -591,7 +1177,21 @@
      "avgPickProb": null,
      "brierPicks": null
     },
-    "anchoredSelections": null,
+    "stackedSelections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 264,
+     "wins": 141,
+     "losses": 123,
+     "pushes": 0,
+     "priced": 264,
+     "unpriced": 0,
+     "units": -6.839,
+     "roi": -0.0259,
+     "winRate": 0.5341,
+     "roiAt110Illustrative": 0.0196,
+     "avgPickProb": 0.5709,
+     "brierPicks": 0.2532
+    },
     "hyper": {
      "process_sd_day": 0.033,
      "season_reversion": 0.27027,
@@ -600,7 +1200,13 @@
      "sigma": 4.37914,
      "init_sd": 1.3171
     },
-    "anchor": null,
+    "anchor": {
+     "beta": 0.06467,
+     "intercept": -0.27103,
+     "sd": 4.39249,
+     "n": 20367,
+     "alpha": 1.0
+    },
     "fit": {
      "nllPerGame": 2.904434305786943,
      "iterations": 92,
@@ -617,10 +1223,52 @@
     "mae": 3.4409,
     "bias": -0.0651,
     "rmse": 4.4324,
+    "maeOnMarketGames": 3.4406,
     "brierMoneyline": 0.2421,
     "logLossMoneyline": 0.6771,
     "ece": 0.0092,
     "homeWinRate": 0.5311,
+    "brierMoneylineOnPricedGames": 0.2421,
+    "logLossMoneylineOnPricedGames": 0.677,
+    "brierSpread": 0.2445,
+    "logLossSpread": 0.6823,
+    "eceSpread": 0.0209,
+    "brierSpreadOnPricedGames": 0.2442,
+    "selections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 2839,
+     "wins": 1440,
+     "losses": 1399,
+     "pushes": 0,
+     "priced": 1138,
+     "unpriced": 1701,
+     "units": -66.736,
+     "roi": -0.0586,
+     "winRate": 0.5072,
+     "roiAt110Illustrative": -0.0317,
+     "avgPickProb": 0.5593,
+     "brierPicks": 0.2454
+    }
+   },
+   {
+    "id": "market-anchored",
+    "description": "market margin + ridge(rating - market) fit on earlier games",
+    "available": true,
+    "games": 20410,
+    "mae": 3.405,
+    "bias": -0.0573,
+    "rmse": 4.3927,
+    "maeOnMarketGames": 3.405,
+    "brierMoneyline": 0.2397,
+    "logLossMoneyline": 0.672,
+    "ece": 0.0118,
+    "homeWinRate": 0.5316,
+    "brierMoneylineOnPricedGames": 0.2397,
+    "logLossMoneylineOnPricedGames": 0.6721,
+    "brierSpread": 0.244,
+    "logLossSpread": 0.6811,
+    "eceSpread": 0.0212,
+    "brierSpreadOnPricedGames": 0.2432,
     "selections": {
      "rule": "abs(model - market) >= 1.0",
      "n": 0,
@@ -635,15 +1283,989 @@
      "roiAt110Illustrative": null,
      "avgPickProb": null,
      "brierPicks": null
-    }
+    },
+    "fitsBySeason": [
+     {
+      "season": 2018,
+      "beta": -0.05373,
+      "intercept": -0.18303,
+      "sd": 4.48647,
+      "n": 2425,
+      "alpha": 1.0
+     },
+     {
+      "season": 2019,
+      "beta": -0.02623,
+      "intercept": -0.19366,
+      "sd": 4.39934,
+      "n": 4695,
+      "alpha": 1.0
+     },
+     {
+      "season": 2020,
+      "beta": 0.01317,
+      "intercept": -0.25868,
+      "sd": 4.42527,
+      "n": 7138,
+      "alpha": 1.0
+     },
+     {
+      "season": 2021,
+      "beta": 0.02046,
+      "intercept": -0.24529,
+      "sd": 4.44028,
+      "n": 8078,
+      "alpha": 1.0
+     },
+     {
+      "season": 2022,
+      "beta": 0.05885,
+      "intercept": -0.22957,
+      "sd": 4.42435,
+      "n": 10524,
+      "alpha": 1.0
+     },
+     {
+      "season": 2023,
+      "beta": 0.03394,
+      "intercept": -0.24638,
+      "sd": 4.38795,
+      "n": 12985,
+      "alpha": 1.0
+     },
+     {
+      "season": 2024,
+      "beta": 0.03841,
+      "intercept": -0.26751,
+      "sd": 4.39053,
+      "n": 15448,
+      "alpha": 1.0
+     },
+     {
+      "season": 2025,
+      "beta": 0.0326,
+      "intercept": -0.28195,
+      "sd": 4.37958,
+      "n": 17893,
+      "alpha": 1.0
+     },
+     {
+      "season": 2026,
+      "beta": 0.06467,
+      "intercept": -0.27103,
+      "sd": 4.39249,
+      "n": 20367,
+      "alpha": 1.0
+     }
+    ]
    },
    {
-    "id": "market-anchored",
-    "description": "market margin + ridge(rating - market) fit on earlier games",
-    "available": false,
-    "selections": null,
-    "fitsBySeason": null,
-    "limitation": "MLB source carries no betting lines; the anchored variant and selections cannot be evaluated"
+    "id": "stacked",
+    "description": "ridge margin + logistic win on rating difference, rating uncertainty, rest, back-to-backs, starter adjustments and site (no market input)",
+    "available": true,
+    "features": [
+     "ind_mean",
+     "ind_sd",
+     "rest_diff",
+     "home_b2b",
+     "away_b2b",
+     "home_games7",
+     "away_games7",
+     "starter_diff",
+     "neutral"
+    ],
+    "games": 20706,
+    "mae": 3.4401,
+    "bias": -0.0637,
+    "rmse": 4.4331,
+    "maeOnMarketGames": 3.4395,
+    "brierMoneyline": 0.2421,
+    "logLossMoneyline": 0.6775,
+    "ece": 0.0033,
+    "homeWinRate": 0.5311,
+    "brierMoneylineOnPricedGames": 0.242,
+    "logLossMoneylineOnPricedGames": 0.677,
+    "brierSpread": 0.2447,
+    "logLossSpread": 0.6825,
+    "eceSpread": 0.0228,
+    "brierSpreadOnPricedGames": 0.244,
+    "selections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 2822,
+     "wins": 1449,
+     "losses": 1373,
+     "pushes": 0,
+     "priced": 1058,
+     "unpriced": 1764,
+     "units": -51.902,
+     "roi": -0.0491,
+     "winRate": 0.5135,
+     "roiAt110Illustrative": -0.0197,
+     "avgPickProb": 0.5651,
+     "brierPicks": 0.246
+    },
+    "fitsBySeason": [
+     {
+      "season": 2018,
+      "features": [
+       "ind_mean",
+       "ind_sd",
+       "rest_diff",
+       "home_b2b",
+       "away_b2b",
+       "home_games7",
+       "away_games7",
+       "starter_diff",
+       "neutral"
+      ],
+      "n": 4931,
+      "ridge": {
+       "ind_mean": 0.9522,
+       "ind_sd": -14.3743,
+       "rest_diff": 0.3116,
+       "home_b2b": 0.5089,
+       "away_b2b": -0.3411,
+       "home_games7": -0.0914,
+       "away_games7": 0.0427,
+       "starter_diff": 0.1636,
+       "neutral": -2.1935
+      },
+      "ridgeIntercept": 63.5082,
+      "logit": {
+       "ind_mean": 0.3563,
+       "ind_sd": -2.9778,
+       "rest_diff": 0.1059,
+       "home_b2b": 0.2401,
+       "away_b2b": -0.1546,
+       "home_games7": -0.0156,
+       "away_games7": 0.0095,
+       "starter_diff": 0.0855,
+       "neutral": -4.6773
+      },
+      "logitIntercept": 13.1832,
+      "trainMae": 3.4667,
+      "trainLogLoss": 0.6816,
+      "empiricalResiduals": 4931
+     },
+     {
+      "season": 2019,
+      "features": [
+       "ind_mean",
+       "ind_sd",
+       "rest_diff",
+       "home_b2b",
+       "away_b2b",
+       "home_games7",
+       "away_games7",
+       "starter_diff",
+       "neutral"
+      ],
+      "n": 7395,
+      "ridge": {
+       "ind_mean": 0.9711,
+       "ind_sd": -31.4016,
+       "rest_diff": 0.2147,
+       "home_b2b": 0.2348,
+       "away_b2b": -0.1025,
+       "home_games7": -0.0167,
+       "away_games7": 0.0065,
+       "starter_diff": 0.0885,
+       "neutral": 0.264
+      },
+      "ridgeIntercept": 138.0578,
+      "logit": {
+       "ind_mean": 0.3769,
+       "ind_sd": -10.7242,
+       "rest_diff": 0.0377,
+       "home_b2b": 0.0893,
+       "away_b2b": 0.0098,
+       "home_games7": 0.0103,
+       "away_games7": -0.0056,
+       "starter_diff": 0.068,
+       "neutral": 0.3921
+      },
+      "logitIntercept": 47.1405,
+      "trainMae": 3.4449,
+      "trainLogLoss": 0.6787,
+      "empiricalResiduals": 7395
+     },
+     {
+      "season": 2020,
+      "features": [
+       "ind_mean",
+       "ind_sd",
+       "rest_diff",
+       "home_b2b",
+       "away_b2b",
+       "home_games7",
+       "away_games7",
+       "starter_diff",
+       "neutral"
+      ],
+      "n": 9861,
+      "ridge": {
+       "ind_mean": 0.9872,
+       "ind_sd": -78.689,
+       "rest_diff": 0.2822,
+       "home_b2b": 0.2178,
+       "away_b2b": -0.1729,
+       "home_games7": -0.0005,
+       "away_games7": -0.0376,
+       "starter_diff": 0.0924,
+       "neutral": -1.7802
+      },
+      "ridgeIntercept": 348.4699,
+      "logit": {
+       "ind_mean": 0.3948,
+       "ind_sd": -25.8833,
+       "rest_diff": 0.1198,
+       "home_b2b": 0.1469,
+       "away_b2b": -0.0828,
+       "home_games7": 0.022,
+       "away_games7": -0.0286,
+       "starter_diff": 0.0602,
+       "neutral": -0.705
+      },
+      "logitIntercept": 114.6422,
+      "trainMae": 3.4549,
+      "trainLogLoss": 0.6754,
+      "empiricalResiduals": 9861
+     },
+     {
+      "season": 2021,
+      "features": [
+       "ind_mean",
+       "ind_sd",
+       "rest_diff",
+       "home_b2b",
+       "away_b2b",
+       "home_games7",
+       "away_games7",
+       "starter_diff",
+       "neutral"
+      ],
+      "n": 10812,
+      "ridge": {
+       "ind_mean": 0.988,
+       "ind_sd": -72.6318,
+       "rest_diff": 0.2887,
+       "home_b2b": 0.208,
+       "away_b2b": -0.1751,
+       "home_games7": 0.0098,
+       "away_games7": -0.0439,
+       "starter_diff": 0.1024,
+       "neutral": -1.026
+      },
+      "ridgeIntercept": 322.8534,
+      "logit": {
+       "ind_mean": 0.3974,
+       "ind_sd": -24.7141,
+       "rest_diff": 0.1139,
+       "home_b2b": 0.1386,
+       "away_b2b": -0.1057,
+       "home_games7": 0.0259,
+       "away_games7": -0.0202,
+       "starter_diff": 0.0572,
+       "neutral": -0.1162
+      },
+      "logitIntercept": 109.8326,
+      "trainMae": 3.4639,
+      "trainLogLoss": 0.6757,
+      "empiricalResiduals": 10812
+     },
+     {
+      "season": 2022,
+      "features": [
+       "ind_mean",
+       "ind_sd",
+       "rest_diff",
+       "home_b2b",
+       "away_b2b",
+       "home_games7",
+       "away_games7",
+       "starter_diff",
+       "neutral"
+      ],
+      "n": 13278,
+      "ridge": {
+       "ind_mean": 0.9928,
+       "ind_sd": -75.1647,
+       "rest_diff": 0.246,
+       "home_b2b": 0.2935,
+       "away_b2b": -0.2673,
+       "home_games7": 0.0047,
+       "away_games7": -0.0466,
+       "starter_diff": 0.0929,
+       "neutral": -1.036
+      },
+      "ridgeIntercept": 333.4716,
+      "logit": {
+       "ind_mean": 0.3933,
+       "ind_sd": -25.8135,
+       "rest_diff": 0.1368,
+       "home_b2b": 0.1783,
+       "away_b2b": -0.1585,
+       "home_games7": 0.0315,
+       "away_games7": -0.0296,
+       "starter_diff": 0.0506,
+       "neutral": -0.1264
+      },
+      "logitIntercept": 114.5157,
+      "trainMae": 3.455,
+      "trainLogLoss": 0.6756,
+      "empiricalResiduals": 13278
+     },
+     {
+      "season": 2023,
+      "features": [
+       "ind_mean",
+       "ind_sd",
+       "rest_diff",
+       "home_b2b",
+       "away_b2b",
+       "home_games7",
+       "away_games7",
+       "starter_diff",
+       "neutral"
+      ],
+      "n": 15748,
+      "ridge": {
+       "ind_mean": 0.9902,
+       "ind_sd": -17.4123,
+       "rest_diff": 0.1793,
+       "home_b2b": 0.188,
+       "away_b2b": -0.1609,
+       "home_games7": 0.0222,
+       "away_games7": -0.0403,
+       "starter_diff": 0.0908,
+       "neutral": -1.0199
+      },
+      "ridgeIntercept": 76.8831,
+      "logit": {
+       "ind_mean": 0.3951,
+       "ind_sd": -9.3653,
+       "rest_diff": 0.0899,
+       "home_b2b": 0.1088,
+       "away_b2b": -0.0934,
+       "home_games7": 0.0252,
+       "away_games7": -0.0238,
+       "starter_diff": 0.0473,
+       "neutral": -0.1393
+      },
+      "logitIntercept": 41.3836,
+      "trainMae": 3.4347,
+      "trainLogLoss": 0.6754,
+      "empiricalResiduals": 15748
+     },
+     {
+      "season": 2024,
+      "features": [
+       "ind_mean",
+       "ind_sd",
+       "rest_diff",
+       "home_b2b",
+       "away_b2b",
+       "home_games7",
+       "away_games7",
+       "starter_diff",
+       "neutral"
+      ],
+      "n": 18219,
+      "ridge": {
+       "ind_mean": 0.9838,
+       "ind_sd": -12.4652,
+       "rest_diff": 0.1408,
+       "home_b2b": 0.2072,
+       "away_b2b": -0.1621,
+       "home_games7": 0.0316,
+       "away_games7": -0.038,
+       "starter_diff": 0.0802,
+       "neutral": -0.9096
+      },
+      "ridgeIntercept": 55.0225,
+      "logit": {
+       "ind_mean": 0.3838,
+       "ind_sd": -7.033,
+       "rest_diff": 0.0699,
+       "home_b2b": 0.1139,
+       "away_b2b": -0.0831,
+       "home_games7": 0.0275,
+       "away_games7": -0.0204,
+       "starter_diff": 0.045,
+       "neutral": -0.0521
+      },
+      "logitIntercept": 31.0764,
+      "trainMae": 3.4384,
+      "trainLogLoss": 0.6762,
+      "empiricalResiduals": 18219
+     },
+     {
+      "season": 2025,
+      "features": [
+       "ind_mean",
+       "ind_sd",
+       "rest_diff",
+       "home_b2b",
+       "away_b2b",
+       "home_games7",
+       "away_games7",
+       "starter_diff",
+       "neutral"
+      ],
+      "n": 20691,
+      "ridge": {
+       "ind_mean": 0.9754,
+       "ind_sd": -11.5968,
+       "rest_diff": 0.0919,
+       "home_b2b": 0.1855,
+       "away_b2b": -0.1366,
+       "home_games7": 0.0285,
+       "away_games7": -0.0247,
+       "starter_diff": 0.0997,
+       "neutral": -1.2103
+      },
+      "ridgeIntercept": 51.0465,
+      "logit": {
+       "ind_mean": 0.3839,
+       "ind_sd": -6.6398,
+       "rest_diff": 0.0498,
+       "home_b2b": 0.1097,
+       "away_b2b": -0.085,
+       "home_games7": 0.0324,
+       "away_games7": -0.016,
+       "starter_diff": 0.0542,
+       "neutral": -0.2281
+      },
+      "logitIntercept": 29.2457,
+      "trainMae": 3.436,
+      "trainLogLoss": 0.6765,
+      "empiricalResiduals": 20691
+     },
+     {
+      "season": 2026,
+      "features": [
+       "ind_mean",
+       "ind_sd",
+       "rest_diff",
+       "home_b2b",
+       "away_b2b",
+       "home_games7",
+       "away_games7",
+       "starter_diff",
+       "neutral"
+      ],
+      "n": 23168,
+      "ridge": {
+       "ind_mean": 0.97,
+       "ind_sd": -16.8461,
+       "rest_diff": 0.1205,
+       "home_b2b": 0.1905,
+       "away_b2b": -0.1642,
+       "home_games7": 0.021,
+       "away_games7": -0.0186,
+       "starter_diff": 0.1042,
+       "neutral": -1.2599
+      },
+      "ridgeIntercept": 74.3813,
+      "logit": {
+       "ind_mean": 0.3806,
+       "ind_sd": -7.5469,
+       "rest_diff": 0.049,
+       "home_b2b": 0.1058,
+       "away_b2b": -0.0845,
+       "home_games7": 0.0253,
+       "away_games7": -0.0117,
+       "starter_diff": 0.0543,
+       "neutral": -0.2973
+      },
+      "logitIntercept": 33.3471,
+      "trainMae": 3.4413,
+      "trainLogLoss": 0.6767,
+      "empiricalResiduals": 23168
+     }
+    ]
+   },
+   {
+    "id": "stacked-market",
+    "description": "the stacked inputs plus the market margin and no-vig moneyline logit; the best calibrated probability where a line exists",
+    "available": true,
+    "features": [
+     "ind_mean",
+     "ind_sd",
+     "rest_diff",
+     "home_b2b",
+     "away_b2b",
+     "home_games7",
+     "away_games7",
+     "starter_diff",
+     "neutral",
+     "market_margin",
+     "mkt_logit"
+    ],
+    "games": 20403,
+    "mae": 3.4088,
+    "bias": -0.0563,
+    "rmse": 4.3964,
+    "maeOnMarketGames": 3.4088,
+    "brierMoneyline": 0.2398,
+    "logLossMoneyline": 0.6723,
+    "ece": 0.0065,
+    "homeWinRate": 0.5316,
+    "brierMoneylineOnPricedGames": 0.2398,
+    "logLossMoneylineOnPricedGames": 0.6723,
+    "brierSpread": 0.2441,
+    "logLossSpread": 0.6812,
+    "eceSpread": 0.0204,
+    "brierSpreadOnPricedGames": 0.2431,
+    "selections": {
+     "rule": "abs(model - market) >= 1.0",
+     "n": 67,
+     "wins": 40,
+     "losses": 27,
+     "pushes": 0,
+     "priced": 9,
+     "unpriced": 58,
+     "units": 1.013,
+     "roi": 0.1125,
+     "winRate": 0.597,
+     "roiAt110Illustrative": 0.1398,
+     "avgPickProb": 0.7036,
+     "brierPicks": 0.2597
+    },
+    "fitsBySeason": [
+     {
+      "season": 2018,
+      "features": [
+       "ind_mean",
+       "ind_sd",
+       "rest_diff",
+       "home_b2b",
+       "away_b2b",
+       "home_games7",
+       "away_games7",
+       "starter_diff",
+       "neutral",
+       "market_margin",
+       "mkt_logit"
+      ],
+      "n": 2395,
+      "ridge": {
+       "ind_mean": -0.1484,
+       "ind_sd": -11.8505,
+       "rest_diff": 0.0351,
+       "home_b2b": 0.1771,
+       "away_b2b": 0.0217,
+       "home_games7": -0.2411,
+       "away_games7": 0.0184,
+       "starter_diff": -0.1577,
+       "neutral": 0.0,
+       "market_margin": 0.7227,
+       "mkt_logit": 1.0856
+      },
+      "ridgeIntercept": 53.1637,
+      "logit": {
+       "ind_mean": -0.0583,
+       "ind_sd": 0.7537,
+       "rest_diff": -0.0269,
+       "home_b2b": 0.0282,
+       "away_b2b": 0.142,
+       "home_games7": -0.0757,
+       "away_games7": 0.0127,
+       "starter_diff": -0.0616,
+       "neutral": 0.0,
+       "market_margin": 0.2096,
+       "mkt_logit": 0.586
+      },
+      "logitIntercept": -3.0541,
+      "trainMae": 3.512,
+      "trainLogLoss": 0.6705,
+      "empiricalResiduals": 2395
+     },
+     {
+      "season": 2019,
+      "features": [
+       "ind_mean",
+       "ind_sd",
+       "rest_diff",
+       "home_b2b",
+       "away_b2b",
+       "home_games7",
+       "away_games7",
+       "starter_diff",
+       "neutral",
+       "market_margin",
+       "mkt_logit"
+      ],
+      "n": 4658,
+      "ridge": {
+       "ind_mean": -0.1111,
+       "ind_sd": -33.918,
+       "rest_diff": 0.0248,
+       "home_b2b": -0.0954,
+       "away_b2b": 0.2516,
+       "home_games7": -0.0903,
+       "away_games7": -0.0078,
+       "starter_diff": -0.1739,
+       "neutral": -1.0123,
+       "market_margin": 0.4916,
+       "mkt_logit": 1.6833
+      },
+      "ridgeIntercept": 149.3857,
+      "logit": {
+       "ind_mean": 0.0042,
+       "ind_sd": -9.4373,
+       "rest_diff": -0.0976,
+       "home_b2b": -0.1095,
+       "away_b2b": 0.2782,
+       "home_games7": -0.0169,
+       "away_games7": 0.0022,
+       "starter_diff": -0.035,
+       "neutral": 0.4413,
+       "market_margin": 0.196,
+       "mkt_logit": 0.5466
+      },
+      "logitIntercept": 41.4638,
+      "trainMae": 3.438,
+      "trainLogLoss": 0.6681,
+      "empiricalResiduals": 4658
+     },
+     {
+      "season": 2020,
+      "features": [
+       "ind_mean",
+       "ind_sd",
+       "rest_diff",
+       "home_b2b",
+       "away_b2b",
+       "home_games7",
+       "away_games7",
+       "starter_diff",
+       "neutral",
+       "market_margin",
+       "mkt_logit"
+      ],
+      "n": 7101,
+      "ridge": {
+       "ind_mean": -0.0241,
+       "ind_sd": -104.9157,
+       "rest_diff": 0.1722,
+       "home_b2b": -0.0101,
+       "away_b2b": 0.0584,
+       "home_games7": -0.0465,
+       "away_games7": -0.0709,
+       "starter_diff": -0.1457,
+       "neutral": -2.8551,
+       "market_margin": -0.044,
+       "mkt_logit": 2.9935
+      },
+      "ridgeIntercept": 464.7093,
+      "logit": {
+       "ind_mean": 0.0574,
+       "ind_sd": -29.5333,
+       "rest_diff": 0.0611,
+       "home_b2b": 0.0313,
+       "away_b2b": 0.0727,
+       "home_games7": 0.0076,
+       "away_games7": -0.0379,
+       "starter_diff": -0.035,
+       "neutral": -0.7668,
+       "market_margin": 0.182,
+       "mkt_logit": 0.5046
+      },
+      "logitIntercept": 130.8065,
+      "trainMae": 3.4453,
+      "trainLogLoss": 0.6656,
+      "empiricalResiduals": 7101
+     },
+     {
+      "season": 2021,
+      "features": [
+       "ind_mean",
+       "ind_sd",
+       "rest_diff",
+       "home_b2b",
+       "away_b2b",
+       "home_games7",
+       "away_games7",
+       "starter_diff",
+       "neutral",
+       "market_margin",
+       "mkt_logit"
+      ],
+      "n": 8041,
+      "ridge": {
+       "ind_mean": -0.0431,
+       "ind_sd": -87.3964,
+       "rest_diff": 0.2187,
+       "home_b2b": 0.016,
+       "away_b2b": 0.0109,
+       "home_games7": -0.0209,
+       "away_games7": -0.0694,
+       "starter_diff": -0.1365,
+       "neutral": -1.053,
+       "market_margin": 0.0735,
+       "mkt_logit": 2.6433
+      },
+      "ridgeIntercept": 388.5154,
+      "logit": {
+       "ind_mean": 0.0499,
+       "ind_sd": -27.0493,
+       "rest_diff": 0.0724,
+       "home_b2b": 0.0312,
+       "away_b2b": 0.0238,
+       "home_games7": 0.0166,
+       "away_games7": -0.0224,
+       "starter_diff": -0.0392,
+       "neutral": -0.0159,
+       "market_margin": 0.1806,
+       "mkt_logit": 0.5015
+      },
+      "logitIntercept": 120.1714,
+      "trainMae": 3.4537,
+      "trainLogLoss": 0.6664,
+      "empiricalResiduals": 8041
+     },
+     {
+      "season": 2022,
+      "features": [
+       "ind_mean",
+       "ind_sd",
+       "rest_diff",
+       "home_b2b",
+       "away_b2b",
+       "home_games7",
+       "away_games7",
+       "starter_diff",
+       "neutral",
+       "market_margin",
+       "mkt_logit"
+      ],
+      "n": 10487,
+      "ridge": {
+       "ind_mean": 0.0027,
+       "ind_sd": -91.4668,
+       "rest_diff": 0.1639,
+       "home_b2b": 0.1666,
+       "away_b2b": -0.1548,
+       "home_games7": -0.0226,
+       "away_games7": -0.0664,
+       "starter_diff": -0.1376,
+       "neutral": -1.0465,
+       "market_margin": 0.1427,
+       "mkt_logit": 2.3472
+      },
+      "ridgeIntercept": 405.7836,
+      "logit": {
+       "ind_mean": 0.0482,
+       "ind_sd": -28.5326,
+       "rest_diff": 0.1032,
+       "home_b2b": 0.1052,
+       "away_b2b": -0.0757,
+       "home_games7": 0.0245,
+       "away_games7": -0.0328,
+       "starter_diff": -0.0429,
+       "neutral": -0.0224,
+       "market_margin": 0.1774,
+       "mkt_logit": 0.4943
+      },
+      "logitIntercept": 126.5394,
+      "trainMae": 3.4371,
+      "trainLogLoss": 0.6672,
+      "empiricalResiduals": 10487
+     },
+     {
+      "season": 2023,
+      "features": [
+       "ind_mean",
+       "ind_sd",
+       "rest_diff",
+       "home_b2b",
+       "away_b2b",
+       "home_games7",
+       "away_games7",
+       "starter_diff",
+       "neutral",
+       "market_margin",
+       "mkt_logit"
+      ],
+      "n": 12948,
+      "ridge": {
+       "ind_mean": -0.0337,
+       "ind_sd": -14.1611,
+       "rest_diff": 0.0915,
+       "home_b2b": 0.0542,
+       "away_b2b": -0.0299,
+       "home_games7": 0.0053,
+       "away_games7": -0.0514,
+       "starter_diff": -0.1457,
+       "neutral": -1.008,
+       "market_margin": 0.6526,
+       "mkt_logit": 1.0189
+      },
+      "ridgeIntercept": 62.4455,
+      "logit": {
+       "ind_mean": 0.0321,
+       "ind_sd": -8.4595,
+       "rest_diff": 0.0511,
+       "home_b2b": 0.0281,
+       "away_b2b": -0.0044,
+       "home_games7": 0.0193,
+       "away_games7": -0.0251,
+       "starter_diff": -0.0477,
+       "neutral": -0.0352,
+       "market_margin": 0.186,
+       "mkt_logit": 0.5095
+      },
+      "logitIntercept": 37.3342,
+      "trainMae": 3.4048,
+      "trainLogLoss": 0.667,
+      "empiricalResiduals": 12948
+     },
+     {
+      "season": 2024,
+      "features": [
+       "ind_mean",
+       "ind_sd",
+       "rest_diff",
+       "home_b2b",
+       "away_b2b",
+       "home_games7",
+       "away_games7",
+       "starter_diff",
+       "neutral",
+       "market_margin",
+       "mkt_logit"
+      ],
+      "n": 15411,
+      "ridge": {
+       "ind_mean": -0.0319,
+       "ind_sd": -9.975,
+       "rest_diff": 0.0597,
+       "home_b2b": 0.1063,
+       "away_b2b": -0.0599,
+       "home_games7": 0.0166,
+       "away_games7": -0.0464,
+       "starter_diff": -0.1564,
+       "neutral": -0.8451,
+       "market_margin": 0.3302,
+       "mkt_logit": 1.9096
+      },
+      "ridgeIntercept": 43.8795,
+      "logit": {
+       "ind_mean": 0.0249,
+       "ind_sd": -6.1983,
+       "rest_diff": 0.0333,
+       "home_b2b": 0.051,
+       "away_b2b": -0.0102,
+       "home_games7": 0.0214,
+       "away_games7": -0.0199,
+       "starter_diff": -0.047,
+       "neutral": 0.0708,
+       "market_margin": 0.1839,
+       "mkt_logit": 0.5071
+      },
+      "logitIntercept": 27.3192,
+      "trainMae": 3.4102,
+      "trainLogLoss": 0.6687,
+      "empiricalResiduals": 15411
+     },
+     {
+      "season": 2025,
+      "features": [
+       "ind_mean",
+       "ind_sd",
+       "rest_diff",
+       "home_b2b",
+       "away_b2b",
+       "home_games7",
+       "away_games7",
+       "starter_diff",
+       "neutral",
+       "market_margin",
+       "mkt_logit"
+      ],
+      "n": 17856,
+      "ridge": {
+       "ind_mean": -0.0426,
+       "ind_sd": -9.1275,
+       "rest_diff": 0.005,
+       "home_b2b": 0.0887,
+       "away_b2b": -0.0377,
+       "home_games7": 0.0207,
+       "away_games7": -0.035,
+       "starter_diff": -0.1258,
+       "neutral": -0.976,
+       "market_margin": 0.5471,
+       "mkt_logit": 1.3031
+      },
+      "ridgeIntercept": 39.9722,
+      "logit": {
+       "ind_mean": 0.0226,
+       "ind_sd": -5.8608,
+       "rest_diff": 0.012,
+       "home_b2b": 0.0518,
+       "away_b2b": -0.0192,
+       "home_games7": 0.0297,
+       "away_games7": -0.0159,
+       "starter_diff": -0.0331,
+       "neutral": -0.069,
+       "market_margin": 0.184,
+       "mkt_logit": 0.5072
+      },
+      "logitIntercept": 25.7197,
+      "trainMae": 3.4056,
+      "trainLogLoss": 0.6694,
+      "empiricalResiduals": 17856
+     },
+     {
+      "season": 2026,
+      "features": [
+       "ind_mean",
+       "ind_sd",
+       "rest_diff",
+       "home_b2b",
+       "away_b2b",
+       "home_games7",
+       "away_games7",
+       "starter_diff",
+       "neutral",
+       "market_margin",
+       "mkt_logit"
+      ],
+      "n": 20330,
+      "ridge": {
+       "ind_mean": -0.0027,
+       "ind_sd": -15.102,
+       "rest_diff": 0.0435,
+       "home_b2b": 0.0988,
+       "away_b2b": -0.0757,
+       "home_games7": 0.0101,
+       "away_games7": -0.027,
+       "starter_diff": -0.1089,
+       "neutral": -1.0251,
+       "market_margin": -0.2876,
+       "mkt_logit": 3.4845
+      },
+      "ridgeIntercept": 66.5068,
+      "logit": {
+       "ind_mean": 0.0351,
+       "ind_sd": -6.5555,
+       "rest_diff": 0.0158,
+       "home_b2b": 0.0551,
+       "away_b2b": -0.0274,
+       "home_games7": 0.0214,
+       "away_games7": -0.0117,
+       "starter_diff": -0.0279,
+       "neutral": -0.1466,
+       "market_margin": 0.1757,
+       "mkt_logit": 0.4904
+      },
+      "logitIntercept": 28.8873,
+      "trainMae": 3.4132,
+      "trainLogLoss": 0.6703,
+      "empiricalResiduals": 20330
+     }
+    ]
    }
   ],
   "hyperparameters": [
@@ -739,7 +2361,13 @@
     "sigma": 4.37914,
     "init_sd": 1.3171
    },
-   "anchor": null,
+   "anchor": {
+    "beta": 0.06467,
+    "intercept": -0.27103,
+    "sd": 4.39249,
+    "n": 20367,
+    "alpha": 1.0
+   },
    "fit": {
     "nllPerGame": 2.904434305786943,
     "iterations": 92,
@@ -759,9 +2387,9 @@
     2025
    ]
   },
-  "marketGames": 0,
-  "marketMoneylineGames": 0,
-  "marketSpreadGames": 0
+  "marketGames": 20410,
+  "marketMoneylineGames": 20403,
+  "marketSpreadGames": 9217
  },
  "ratings": [
   {
@@ -2238,10 +3866,12 @@
  "upcoming": [],
  "limitations": [
   "Backtest numbers are not a claim of a live edge; only settled ledger rows can make that claim.",
-  "Ratings use final margins only: no injuries, quarterbacks, rest, travel or weather.",
+  "Ratings use final margins only: no injuries, quarterbacks, travel or weather. The stacked layer adds rest, back-to-backs and (MLB) probable-pitcher adjustments on top.",
   "Home advantage is a single learned constant per fit; it does not vary by team or drift inside a season.",
-  "The MLB source carries no betting lines, so market comparisons, selections and ledger rows are unavailable.",
-  "MLB: the Stats API schedule carries no betting lines, so market fields are null. Margins are runs; regular season and postseason are included, spring training and exhibitions excluded; the feed has no neutral-site flag, so only known international venues and the 2020 bubble postseason are neutral; no starting-pitcher information."
+  "Archived lines are one consensus number per game (effectively closing), so backtest selections are graded at the close; closing-line value is measured live through the ledger.",
+  "The independent model trails the market on margin MAE (3.4409 vs 3.4048); treat it as a sanity check on the market, not a replacement for it.",
+  "MLB: the listed spread is a fixed run line, so the market margin, edge and lean come from the no-vig moneyline converted to a margin with the game's forecast SD; cover probabilities still use the listed line.",
+  "MLB: lines are ESPN per-game multi-book medians from 2017 (earlier seasons are unpriced), matched to Stats API games by local date and team; probable pitchers from the Stats API feed the stacked layer's starter adjustment (the final listed probable, which is the actual starter for completed games). Margins are runs; regular season and postseason are included, spring training and exhibitions excluded; the feed has no neutral-site flag, so only known international venues and the 2020 bubble postseason are neutral; no starting-pitcher information."
  ],
  "forecastFit": {
   "hyper": {
@@ -2272,10 +3902,18 @@
   },
   "reused": true,
   "currentSeason": 2026,
-  "anchor": null,
+  "anchor": {
+   "beta": 0.053,
+   "intercept": -0.27449,
+   "sd": 4.39255,
+   "n": 20367,
+   "alpha": 1.0
+  },
+  "stack": {},
+  "headline": "independent",
   "empiricalResiduals": 23168,
   "empiricalMargin": true
  },
- "forecastGeneratedAt": "2026-11-10T20:30:39Z",
+ "forecastGeneratedAt": "2026-11-11T03:23:46Z",
  "ledgerRecorded": 0
 }

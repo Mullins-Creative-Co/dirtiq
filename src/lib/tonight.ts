@@ -102,7 +102,11 @@ function gameItem(report: SportReport, game: SportUpcoming, ledger: Map<string, 
   rationale.push(formLine(game.home, game.homeForm));
   rationale.push(formLine(game.away, game.awayForm));
   if (pr && pr.sd >= 3) rationale.push(`Rating uncertainty is still wide (SD ${num(pr.sd, 1)}); early-season ratings move fast.`);
-  if (game.marketHomeSpread !== null && game.marketHomeSpread !== undefined) {
+  const fixedLine = report.sport === "nhl" || report.sport === "mlb";
+  if (fixedLine && game.marketHomeWinProb !== null && game.marketHomeWinProb !== undefined) {
+    const mktPick = pickHome ? game.marketHomeWinProb : 1 - game.marketHomeWinProb;
+    rationale.push(`The market prices ${pick} to win ${pct(mktPick, 0)} after removing the vig against the model's ${pct(confidence, 0)}; in ${unit} that is a ${signed(game.edgePts ?? 0, 2)} gap (${game.lean && game.lean !== "none" ? `leans ${game.lean === "home" ? game.home : game.away}` : "inside the lean threshold"}). The listed ${game.home} ${spread(game.marketHomeSpread)} is a fixed ${report.sport === "mlb" ? "run" : "puck"} line, not a margin estimate.`);
+  } else if (game.marketHomeSpread !== null && game.marketHomeSpread !== undefined) {
     const mktMargin = -game.marketHomeSpread;
     const mktWin = game.marketHomeWinProb ?? null;
     const diff = margin - mktMargin;
@@ -110,6 +114,12 @@ function gameItem(report: SportReport, game: SportUpcoming, ledger: Map<string, 
   } else {
     rationale.push("No market line in the public source for this game, so the projection stands alone and nothing is recorded as a priced forecast.");
   }
+  const blended = game.stackedMarketHomeWinProb ?? null;
+  if (blended !== null) {
+    const blendedPick = pickHome ? blended : 1 - blended;
+    rationale.push(`Blending the rating, rest and the market line into one calibrated number gives ${pick} ${pct(blendedPick, 0)} to win; that is the best estimate for grading, while the ${pct(confidence, 0)} above is the model on its own.`);
+  }
+  if (game.headline === "stacked") rationale.push("Headline numbers come from the stacked layer (rating plus rest, back-to-backs and starters), which beat the raw rating filter in this sport's backtest.");
 
   const matchup: MatchupRow[] = [
     { label: "Rating", a: hr ? `${signed(hr.rating)} (${ordinal(hr.rank)})` : "—", b: ar ? `${signed(ar.rating)} (${ordinal(ar.rank)})` : "—", hint: `${unit} above average on a neutral field` },

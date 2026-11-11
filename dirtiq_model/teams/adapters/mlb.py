@@ -20,8 +20,14 @@ postponed game reappears under its makeup date with the same gamePk).
 Margin: runs. Ties are possible only for games called early and are kept as a zero
 margin (``ties=False`` still drops the tie mass from forecasts). The feed has no
 neutral-site flag: games at the known international venues and the 2020 bubble
-postseason are flagged neutral; everything else is a home game. No betting lines:
-market columns are null.
+postseason are flagged neutral; everything else is a home game. The feed has no
+betting lines; market columns are filled from ESPN's per-game odds (``espn_odds``)
+from 2017 onward, with each game mapped to its ESPN event through the ESPN
+scoreboard on local date and team abbreviation (doubleheaders pair in start order).
+Probable pitchers (``hydrate=probablePitcher``, one document per season cached as
+``pitchers_YYYY.json``) give ``home_starter`` / ``away_starter`` player ids for the
+stacked layer's starter adjustment; for completed games the last listed probable is
+the actual starter in all but a handful of scratches.
 """
 from __future__ import annotations
 
@@ -31,9 +37,13 @@ from typing import Any, Dict, List, Optional
 
 import pandas as pd
 
+from . import espn_odds
 from .common import cache_dir_for, download, finalize
 
 SCHEDULE_URL = "https://statsapi.mlb.com/api/v1/schedule?sportId=1&season={season}&gameType=R,F,D,L,W"
+# probable pitchers per game (the final listed probable is the actual starter for completed games);
+# one document per season, kept separate from the schedule because the hydrated call is slower
+PITCHERS_URL = (SCHEDULE_URL + "&hydrate=probablePitcher&fields=dates,games,gamePk,teams,home,away,probablePitcher,id")
 TEAMS_URL = "https://statsapi.mlb.com/api/v1/teams?sportId=1"
 FIRST_SEASON = 2015
 LABEL = "MLB"
@@ -46,7 +56,7 @@ NEUTRAL_VENUES = {
     "fort bragg field",
 }
 DOWNLOAD_TIMEOUT = 600
-NO_LINES = "MLB Stats API carries no betting lines"
+NO_LINES = "MLB Stats API carries no betting lines; ESPN per-game odds fill them from 2017"
 
 
 def current_season(today: Optional[pd.Timestamp] = None) -> int:
@@ -64,6 +74,20 @@ def is_neutral(venue: str, season: int, game_type: str) -> int:
     if season == 2020 and game_type in ("D", "L", "W"):  # bubble postseason at neutral parks
         return 1
     return 0
+
+
+def starters(payload: Dict[str, Any]) -> Dict[str, Dict[str, Optional[str]]]:
+    """``gamePk -> {"home_starter": id, "away_starter": id}`` from a probable-pitcher schedule document (pure)."""
+    out: Dict[str, Dict[str, Optional[str]]] = {}
+    for day in payload.get("dates", []):
+        for g in day.get("games", []):
+            teams = g.get("teams") or {}
+            rec = {}
+            for side in ("home", "away"):
+                pid = ((teams.get(side) or {}).get("probablePitcher") or {}).get("id")
+                rec[f"{side}_starter"] = str(pid) if pid is not None else None
+            out[str(g.get("gamePk"))] = rec
+    return out
 
 
 def convert_frame(payload: Dict[str, Any], teams: Dict[int, str]) -> pd.DataFrame:
@@ -116,7 +140,8 @@ def convert_frame(payload: Dict[str, Any], teams: Dict[int, str]) -> pd.DataFram
     return out.sort_values(["completed", "start"]).drop_duplicates("game_id", keep="last")
 
 
-def load_games(cache_dir: Optional[Path] = None, refresh: bool = False, last_season: Optional[int] = None) -> pd.DataFrame:
+def load_games(cache_dir: Optional[Path] = None, refresh: bool = False, last_season: Optional[int] = None,
+               lines: bool = True) -> pd.DataFrame:
     cache = cache_dir_for("mlb", cache_dir)
     last = last_season or current_season()
     sources = [download(TEAMS_URL, cache / "teams.json", refresh=refresh, timeout=DOWNLOAD_TIMEOUT)]
@@ -137,6 +162,23 @@ def load_games(cache_dir: Optional[Path] = None, refresh: bool = False, last_sea
                 print(f"mlb: season {season} has no games yet")
                 continue
         sources.append(meta)
-        frames.append(convert_frame(payload, teams))
+        converted = convert_frame(payload, teams)
+        pdest = cache / f"pitchers_{season}.json"
+        try:
+            pmeta = download(PITCHERS_URL.format(season=season), pdest, refresh=refresh and season >= last, timeout=DOWNLOAD_TIMEOUT)
+            pitchers = starters(json.loads(pdest.read_text()))
+            sources.append(pmeta)
+        except Exception as exc:  # starters are a feature, not a requirement
+            print(f"mlb: no probable pitchers for season {season} ({exc})")
+            pitchers = {}
+        converted["home_starter"] = converted["game_id"].map(lambda g: (pitchers.get(g) or {}).get("home_starter"))
+        converted["away_starter"] = converted["game_id"].map(lambda g: (pitchers.get(g) or {}).get("away_starter"))
+        frames.append(converted)
     frame = pd.concat(frames, ignore_index=True).drop_duplicates("game_id", keep="last")
-    return finalize(frame, sources, BOOK, LABEL)
+    book = BOOK
+    if lines:
+        frame, odds_meta = espn_odds.attach(frame, "mlb", cache, refresh=refresh)
+        if odds_meta.get("priced"):
+            sources.append(odds_meta)
+            book = espn_odds.BOOK
+    return finalize(frame, sources, book, LABEL)

@@ -16,6 +16,7 @@ from .adapters.common import now_iso as _now
 from .backtest import base_report, limitations, load_report, teams_in, training_artifacts, write_report
 from .model import MODEL_VERSION, Scorer, SportConfig, initial_hyper, opt_int, round_or_none, settle_moneyline, settle_spread
 from .ratings import Hyper, KalmanRatings, fit_hyper, run_filter
+from . import stack
 
 HORIZON_DAYS = 10
 
@@ -94,7 +95,26 @@ def upcoming_entry(row: pd.Series, book: Optional[str], observed_at: Optional[st
         "lean": pick or "none", "note": note,
         "anchoredHomeMargin": round_or_none(row.get("anc_mean"), 2), "anchoredHomeCoverProb": round_or_none(row.get("anc_home_cover")),
         "marketHomeWinProb": round_or_none(row.get("mkt_home_win")),
+        "independentHomeMargin": round_or_none(row.get("base_mean", row.get("ind_mean")), 2),
+        "independentHomeWinProb": round_or_none(row.get("base_home_win", row.get("ind_home_win"))),
+        "stackedHomeMargin": round_or_none(row.get("stk_mean"), 2), "stackedHomeWinProb": round_or_none(row.get("stk_home_win")),
+        "stackedMarketHomeWinProb": round_or_none(row.get("stkm_home_win")), "stackedMarketHomeMargin": round_or_none(row.get("stkm_mean"), 2),
     }
+
+
+VARIANT_KEYS = ("mean", "sd", "home_win", "tie", "home_cover", "away_cover", "push", "edge", "pick")
+
+
+def promote_variant(scored: pd.DataFrame, prefix: str) -> pd.DataFrame:
+    """Publish ``prefix`` as the headline: its columns replace ``ind_*`` wherever present,
+    and the filter's own values move to ``base_*`` so the entry can still show them."""
+    out = scored.copy()
+    for k in VARIANT_KEYS:
+        out[f"base_{k}"] = out[f"ind_{k}"]
+        src = out[f"{prefix}_{k}"]
+        has = src.notna()
+        out.loc[has, f"ind_{k}"] = src[has]
+    return out
 
 
 def ledger_rows(cfg: SportConfig, row: pd.Series, book: Optional[str], observed_at: Optional[str], forecast_at: str) -> List[Forecast]:
@@ -106,8 +126,8 @@ def ledger_rows(cfg: SportConfig, row: pd.Series, book: Optional[str], observed_
                   model_version=MODEL_VERSION, forecast_at=forecast_at, book=book, line_observed_at=observed_at,
                   value=float(row["ind_mean"]), value_sd=float(row["ind_sd"]))
     spread = row.get("spread_line")
-    if spread is not None and not pd.isna(spread) and row.get("ind_home_cover") is not None:
-        meta = {"edgePts": round(float(row["ind_edge"]), 2), "marketHomeMargin": float(row["market_margin"]),
+    if spread is not None and not pd.isna(spread) and row.get("ind_home_cover") is not None and not pd.isna(row.get("ind_home_cover")):
+        meta = {"edgePts": round_or_none(row.get("ind_edge"), 2), "marketHomeMargin": round_or_none(row.get("market_margin"), 3),
                 "pushProb": round(float(row["ind_push"]), 4), "lean": row.get("ind_pick") or "none"}
         for side, team, line, price, prob in (
             ("home", row["home"], float(spread), opt_int(row.get("spread_home_price")), row["ind_home_cover"]),
@@ -139,11 +159,13 @@ def forecast_command(cfg: SportConfig, games: pd.DataFrame, refit: bool = False,
     fit = choose_hyper(cfg, train, teams, existing, refit, maxiter)
     hyper = Hyper.from_dict(fit["hyper"])
     kf = KalmanRatings(teams, hyper)
-    _, emp, anchor, anchor_emp = training_artifacts(kf, train)
-    scorer = Scorer(cfg.threshold, emp, anchor, anchor_emp, ties=cfg.ties)
+    train_pred, emp, anchor, anchor_emp = training_artifacts(kf, train, moneyline_market=cfg.moneyline_market)
+    scorer = Scorer(cfg.threshold, emp, anchor, anchor_emp, ties=cfg.ties, moneyline_market=cfg.moneyline_market)
     this_season = completed[completed["season"] == current]
+    completed_pred = train_pred
     if not this_season.empty and not train.equals(completed):
-        run_filter(kf, this_season)
+        season_pred = run_filter(kf, this_season)
+        completed_pred = pd.concat([train_pred, season_pred])
     snapshot = kf.snapshot()
     updated_at = iso(kf.updated_at) if kf.updated_at is not None else None
     form = team_form(completed, current)
@@ -159,11 +181,21 @@ def forecast_command(cfg: SportConfig, games: pd.DataFrame, refit: bool = False,
     entries: List[Dict[str, Any]] = []
     forecasts: List[Forecast] = []
     forecast_at = now_iso()
+    headline = ((existing.get("backtest") or {}).get("headline")) or "independent"
+    stack_fits: Dict[str, Any] = {}
     if not upcoming.empty:
         pred = run_filter(copy.deepcopy(kf), upcoming, update=False)
         scored = scorer.score_frame(upcoming, pred)
+        fits, stack_cols = stack.fit_fold(cfg, completed, completed_pred, upcoming, pred)
+        stack_fits = {k: (f.to_dict() if f else None) for k, f in fits.items()}
+        scored = scored.join(stack_cols)
+        if headline == "stacked" and fits.get("stk") is not None:
+            scored = promote_variant(scored, "stk")
+        else:
+            headline = "independent"
         for _, row in scored.iterrows():
             entry = upcoming_entry(row, book, observed_at, cfg.threshold)
+            entry["headline"] = headline
             entry["homeRating"] = rating_of.get(str(row["home"]))
             entry["awayRating"] = rating_of.get(str(row["away"]))
             entry["homeForm"] = form.get(str(row["home"]))
@@ -184,6 +216,7 @@ def forecast_command(cfg: SportConfig, games: pd.DataFrame, refit: bool = False,
     report["upcoming"] = entries
     report["forecastFit"] = {"hyper": fit["hyper"], "trainSeasons": fit["trainSeasons"], "fit": fit["fit"], "reused": fit["reused"],
                              "currentSeason": current, "anchor": anchor.to_dict() if anchor else None,
+                             "stack": stack_fits, "headline": headline,
                              "empiricalResiduals": int(len(emp.z)), "empiricalMargin": bool(emp.empirical)}
     report["forecastGeneratedAt"] = forecast_at
     report["ledgerRecorded"] = recorded

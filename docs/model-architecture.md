@@ -114,6 +114,19 @@ Selections: racing `driver:<driver_id>`; team sports the team abbreviation.
   away_score, spread_line (home handicap, negative = home favorite), spread_home_price,
   spread_away_price, home_ml, away_ml, total_line` and `completed (bool)`.
   Raw downloads live outside git in `../sports-cache/<sport>/` with SHA256 noted.
+  Adapters may add feature columns the engine understands: `home_starter` /
+  `away_starter` (MLB probable-pitcher ids) and `open_spread_line`, `open_home_ml`,
+  `open_away_ml`, `books` (ESPN odds).
+* Lines. NFL comes priced (nflverse) and NCAAF through 2025 (cfbfastR archive).
+  NBA, NCAAB, NHL, MLB and NCAAF from 2026 take `adapters/espn_odds.py`: one ESPN
+  core-API request per game, median across real sportsbooks of the closing block
+  (current block for upcoming games), spread as the home handicap, plus the opening
+  medians. NBA and NCAAB are keyed by ESPN id; NHL and MLB are mapped through the
+  ESPN scoreboard on local date and abbreviation (alias table + learned leftovers,
+  doubleheaders in start order). Coverage starts 2015-16 (NBA), 2017 (MLB), 2018-19
+  (NCAAB), 2019-20 (NHL). The per-season cache `<cache>/<sport>/espn/odds_<season>.jsonl`
+  never refetches completed games. NCAAF has no future rows in its schedule archive,
+  so its upcoming list is the ESPN FBS scoreboard for the next ten days.
 * Ratings: state-space (Kalman) team strength on margin, with season-start reversion
   to the mean, home-field advantage estimated per sport, and observation noise per
   sport. Upcoming forecast = rating difference + home field. Margin SD from the
@@ -122,11 +135,22 @@ Selections: racing `driver:<driver_id>`; team sports the team abbreviation.
   NFL (empirical margin histogram, not pure normal).
 * A market-anchored variant (`market + learned residual`) is reported alongside the
   independent model; both are scored on the identical games.
+* The stacked layer (`stack.py`, features in `features.py`) is refit per fold from
+  the training seasons' one-step-ahead filter predictions: ridge for the margin and
+  logistic for the home win on rating difference, rating uncertainty, rest days,
+  back-to-back flags, games in the prior week, starter adjustments (as-of shrunk
+  EWMA of margin residuals per MLB probable pitcher) and site. `stacked` has no
+  market input, so its edge is still a disagreement signal; `stacked-market` adds the
+  market margin and no-vig moneyline logit and is the best calibrated probability.
+  `backtest.headline` names the variant the forecast publishes as `homeWinProb` /
+  `projectedHomeMargin` (`stacked` when it beats the filter on out-of-fold moneyline
+  log loss); the filter's own values stay in `independentHomeMargin` /
+  `independentHomeWinProb`, and `stackedMarketHomeWinProb` is always present.
 * Backtest: rolling by season. Report `public/sports/<sport>.json`:
 
 ```json
 {
-  "sport": "nfl", "label": "NFL", "generatedAt": "ISO", "modelId": "nfl-kalman", "modelVersion": "1.0",
+  "sport": "nfl", "label": "NFL", "generatedAt": "ISO", "modelId": "nfl-kalman", "modelVersion": "1.1",
   "dataThrough": "2026-11-09", "sources": [{"url": "...", "sha256": "...", "retrievedAt": "ISO"}],
   "backtest": {
     "seasons": [2015, ..., 2025], "games": 2900,
@@ -135,7 +159,9 @@ Selections: racing `driver:<driver_id>`; team sports the team abbreviation.
     "ece": 0.02, "calibration": [...],
     "selections": {"rule": "abs(model - market) >= 2.0", "n": 400, "wins": 200, "losses": 195, "pushes": 5, "units": -3.0, "roi": -0.0075},
     "bySeason": [{"season": 2025, "games": 280, "mae": 10.0, "marketMae": 9.8, "brierSpread": 0.25, "selections": {...}}],
-    "variants": [{"id": "independent", "mae": ...}, {"id": "market-anchored", "mae": ...}]
+    "variants": [{"id": "independent", "mae": ...}, {"id": "market-anchored", "mae": ...},
+                 {"id": "stacked", "features": [...], "fitsBySeason": [...]}, {"id": "stacked-market", ...}],
+    "headline": "stacked", "stackedBrierMoneyline": 0.21, "stackedMarketBrierMoneyline": 0.205
   },
   "ratings": [{"team": "KC", "rating": 6.1, "sd": 1.2, "rank": 1, "games": 9, "updatedAt": "ISO"}],
   "upcoming": [{

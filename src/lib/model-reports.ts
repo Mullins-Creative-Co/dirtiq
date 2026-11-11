@@ -44,6 +44,9 @@ export type SportBacktest = {
   brierMoneyline: number | null; marketBrierMoneyline: number | null; logLossMoneyline: number | null;
   ece: number | null; calibration: CalibrationBin[]; selections: SportSelections | null;
   bySeason: SportSeason[]; variants: Array<{ id: string; mae?: number | null; [key: string]: unknown }>;
+  headline?: "independent" | "stacked" | null;
+  brierMoneylineOnPricedGames?: number | null;
+  stackedBrierMoneyline?: number | null; stackedMarketBrierMoneyline?: number | null; stackedMae?: number | null;
   [key: string]: unknown;
 };
 export type TeamForm = {
@@ -62,6 +65,10 @@ export type SportUpcoming = {
   homeRating?: TeamRatingBrief | null; awayRating?: TeamRatingBrief | null;
   homeForm?: TeamForm | null; awayForm?: TeamForm | null; homeAdvantage?: number | null;
   marketHomeWinProb?: number | null; neutral?: number;
+  headline?: "independent" | "stacked" | null;
+  independentHomeMargin?: number | null; independentHomeWinProb?: number | null;
+  stackedHomeMargin?: number | null; stackedHomeWinProb?: number | null;
+  stackedMarketHomeWinProb?: number | null; stackedMarketHomeMargin?: number | null;
   [key: string]: unknown;
 };
 export type SportReport = {

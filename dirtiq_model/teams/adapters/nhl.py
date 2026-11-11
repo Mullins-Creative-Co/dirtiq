@@ -19,7 +19,9 @@ Margin: goals. Any game decided after regulation (``period`` > 3: overtime or
 shootout) is recorded as a one-goal margin for the winner (the feed already credits
 the shootout winner with one goal). Ties cannot occur (``ties=False`` in the sport
 config). The feed carries no neutral-site flag (Global Series games abroad count as
-home games) and no betting lines, so market columns are null.
+home games) and no betting lines; market columns are filled from ESPN's per-game
+odds (``espn_odds``) for the 2019-20 season onward, with each game mapped to its ESPN
+event through the ESPN scoreboard on local date and team abbreviation.
 
 Team ids: NHL tri-code. The Arizona Coyotes (id 53) became Utah (id 68) in 2024 with
 the same roster, so both ids map to ``UTA`` and the rating carries across the move.
@@ -33,6 +35,7 @@ from typing import Any, Dict, List, Optional
 import numpy as np
 import pandas as pd
 
+from . import espn_odds
 from .common import cache_dir_for, download, finalize
 
 GAMES_URL = "https://api.nhle.com/stats/rest/en/game?cayenneExp=season={season_id}"
@@ -45,7 +48,7 @@ FINAL_STATES = {6, 7}  # 7 = official final; 6 = final (seen on exhibition rows)
 DROPPED_SCHEDULE_STATES = {3, 5}  # postponed, cancelled
 TEAM_ALIASES = {"ARI": "UTA"}
 DOWNLOAD_TIMEOUT = 600
-NO_LINES = "NHL stats API carries no betting lines"
+NO_LINES = "NHL stats API carries no betting lines; ESPN per-game odds fill them from 2019-20"
 
 
 def normalize_team(team: str) -> str:
@@ -121,7 +124,8 @@ def convert_frame(payload: Dict[str, Any], teams: Dict[int, str]) -> pd.DataFram
     return out[~stale]
 
 
-def load_games(cache_dir: Optional[Path] = None, refresh: bool = False, last_season: Optional[int] = None) -> pd.DataFrame:
+def load_games(cache_dir: Optional[Path] = None, refresh: bool = False, last_season: Optional[int] = None,
+               lines: bool = True) -> pd.DataFrame:
     cache = cache_dir_for("nhl", cache_dir)
     last = last_season or current_ending_season()
     sources = [download(TEAMS_URL, cache / "teams.json", refresh=refresh, timeout=DOWNLOAD_TIMEOUT)]
@@ -146,7 +150,13 @@ def load_games(cache_dir: Optional[Path] = None, refresh: bool = False, last_sea
         frames.append(convert_frame(payload, teams))
     frame = pd.concat(frames, ignore_index=True).drop_duplicates("game_id", keep="last")
     frame = drop_unplayed_past(frame)
-    return finalize(frame, sources, BOOK, LABEL)
+    book = BOOK
+    if lines:
+        frame, odds_meta = espn_odds.attach(frame, "nhl", cache, refresh=refresh)
+        if odds_meta.get("priced"):
+            sources.append(odds_meta)
+            book = espn_odds.BOOK
+    return finalize(frame, sources, book, LABEL)
 
 
 def drop_unplayed_past(frame: pd.DataFrame) -> pd.DataFrame:

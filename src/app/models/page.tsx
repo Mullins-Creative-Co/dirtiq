@@ -131,7 +131,7 @@ export default async function ModelsPage() {
                       <td className="num">{bt?.games.toLocaleString() ?? "—"}</td>
                       <td className="num">{num(bt?.mae ?? null, 2)}</td>
                       <td className="num text-[var(--muted)]">{num(bt?.marketMae ?? null, 2)}</td>
-                      <td className="num"><Chip tone={brierTone(bt?.brierMoneyline ?? null, bt?.marketBrierMoneyline ?? null)}>{num(bt?.brierMoneyline ?? null, 3)}</Chip></td>
+                      <td className="num"><Chip tone={brierTone(bt?.brierMoneylineOnPricedGames ?? bt?.brierMoneyline ?? null, bt?.marketBrierMoneyline ?? null)}>{num(bt?.brierMoneylineOnPricedGames ?? bt?.brierMoneyline ?? null, 3)}</Chip></td>
                       <td className="num text-[var(--muted)]">{num(bt?.marketBrierMoneyline ?? null, 3)}</td>
                       <td className="num">{pct(bt?.ece ?? null)}</td>
                       <td className="num">{bt?.selections ? `${bt.selections.wins}–${bt.selections.losses}–${bt.selections.pushes}` : "—"}</td>

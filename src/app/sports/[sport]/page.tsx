@@ -130,10 +130,16 @@ export default async function SportPage({ params }: { params: Promise<{ sport: s
                 <Card className="p-4"><SeasonDumbbell rows={seasonRows} title={`Margin error by season, ${label}`} /></Card>
                 <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
                   <StatTile label="Games" value={bt.games.toLocaleString()} detail={`${bt.seasons[0]}–${bt.seasons[bt.seasons.length - 1]}`} />
-                  <StatTile label="ML Brier" value={num(bt.brierMoneyline, 3)} detail={`market ${num(bt.marketBrierMoneyline, 3)}`} tone={bt.brierMoneyline !== null && bt.marketBrierMoneyline !== null && bt.brierMoneyline <= bt.marketBrierMoneyline ? "good" : "neutral"} />
+                  <StatTile label="ML Brier" value={num(bt.brierMoneylineOnPricedGames ?? bt.brierMoneyline, 3)} detail={bt.marketBrierMoneyline !== null ? `market ${num(bt.marketBrierMoneyline, 3)}, same priced games` : "all games"} tone={(bt.brierMoneylineOnPricedGames ?? bt.brierMoneyline) !== null && bt.marketBrierMoneyline !== null && (bt.brierMoneylineOnPricedGames ?? bt.brierMoneyline)! <= bt.marketBrierMoneyline ? "good" : "neutral"} />
                   <StatTile label="Spread Brier" value={num(bt.brierSpread, 3)} detail={`market ${num(bt.marketBrierSpread, 3)}`} />
                   <StatTile label="Calibration error" value={pct(bt.ece)} detail="expected, moneyline" tone={bt.ece !== null && bt.ece < 0.03 ? "good" : "neutral"} />
                 </div>
+                {bt.stackedBrierMoneyline !== null && bt.stackedBrierMoneyline !== undefined ? (
+                  <p className="text-sm leading-6 text-[var(--muted)]">
+                    Headline variant: <span className="font-semibold text-[var(--foreground)]">{bt.headline ?? "independent"}</span>. Stacked layer (rating + rest + starters) ML Brier {num(bt.stackedBrierMoneyline, 3)}
+                    {bt.stackedMarketBrierMoneyline !== null && bt.stackedMarketBrierMoneyline !== undefined ? <>; with the market line as an input {num(bt.stackedMarketBrierMoneyline, 3)} against the market&apos;s own {num(bt.marketBrierMoneyline, 3)}</> : null}.
+                  </p>
+                ) : null}
                 {sel ? (
                   <Card className="p-4">
                     <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--muted)]">Fixed disagreement rule{sel.rule ? `: ${sel.rule}` : ""}</p>

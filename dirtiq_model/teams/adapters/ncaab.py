@@ -6,8 +6,9 @@ ESPN *ending* season, 2016 to the season in progress). The files are the ESPN
 scoreboard schema used by the NBA adapter (``id, season, season_type, date,
 home_abbreviation, away_abbreviation, home_score, away_score, status_type_name,
 status_type_completed, neutral_site, home_conference_id, away_conference_id`` ...).
-They carry no betting lines (the only ``*_linescores`` columns are period scores),
-so the market columns are null and the report is an independent model only.
+They carry no betting lines (the only ``*_linescores`` columns are period scores);
+market columns are filled from ESPN's per-game odds (``espn_odds``) for the 2018-19
+season onward and for upcoming games inside the odds horizon.
 
 Included: regular season (season_type 2) and postseason (3: conference tournaments,
 NCAA/NIT/CBI). Excluded: postponed and canceled rows.
@@ -23,6 +24,7 @@ from typing import List, Optional
 
 import pandas as pd
 
+from . import espn_odds
 from .common import cache_dir_for, download, finalize
 
 RELEASE = "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_mens_college_basketball_schedules/mbb_schedule_{season}.parquet"
@@ -32,7 +34,7 @@ BOOK = None
 SEASON_TYPES = {2: "regular", 3: "postseason"}
 MIN_GAMES_FOR_OWN_RATING = 6
 POOLED_TEAM = "NON_D1"
-NO_LINES = "ESPN schedule files carry no betting lines"
+NO_LINES = "ESPN schedule files carry no betting lines; ESPN per-game odds fill them from 2018-19"
 
 
 def current_ending_season(today: Optional[pd.Timestamp] = None) -> int:
@@ -101,7 +103,8 @@ def pool_non_d1(frame: pd.DataFrame) -> pd.DataFrame:
     return f.drop(columns=[c for c in ("home_d1", "away_d1") if c in f.columns])
 
 
-def load_games(cache_dir: Optional[Path] = None, refresh: bool = False, last_season: Optional[int] = None) -> pd.DataFrame:
+def load_games(cache_dir: Optional[Path] = None, refresh: bool = False, last_season: Optional[int] = None,
+               lines: bool = True) -> pd.DataFrame:
     cache = cache_dir_for("ncaab", cache_dir)
     last = last_season or current_ending_season()
     frames: List[pd.DataFrame] = []
@@ -119,4 +122,10 @@ def load_games(cache_dir: Optional[Path] = None, refresh: bool = False, last_sea
         frames.append(convert_frame(pd.read_parquet(dest)))
     frame = pd.concat(frames, ignore_index=True).drop_duplicates("game_id", keep="last")
     frame = pool_non_d1(frame)
-    return finalize(frame, sources, BOOK, LABEL)
+    book = BOOK
+    if lines:
+        frame, odds_meta = espn_odds.attach(frame, "ncaab", cache, refresh=refresh)
+        if odds_meta.get("priced"):
+            sources.append(odds_meta)
+            book = espn_odds.BOOK
+    return finalize(frame, sources, book, LABEL)

@@ -18,7 +18,7 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 75
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -26,11 +26,15 @@ jobs:
           python-version: '3.12'
           cache: pip
           cache-dependency-path: requirements.txt
+      # The cache also holds the ESPN per-game odds history (sports-cache/<sport>/espn), so only
+      # new and still-open games are fetched on each run.
       - uses: actions/cache@v4
         with:
           path: sports-cache
-          key: sports-sources-v1-${{ github.run_id }}
-          restore-keys: sports-sources-v1-
+          key: sports-sources-v2-${{ github.run_id }}
+          restore-keys: |
+            sports-sources-v2-
+            sports-sources-v1-
       - run: pip install -r requirements.txt
       - run: OPENBLAS_NUM_THREADS=1 python -m unittest discover -s tests -p 'test_teams*.py'
       - run: OPENBLAS_NUM_THREADS=1 python -m unittest discover -s tests -p 'test_ledger.py'
@@ -41,7 +45,7 @@ jobs:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: |
           set -e
-          for sport in nfl nba nhl ncaab mlb; do
+          for sport in nfl nba nhl ncaab mlb ncaaf; do
             python -m dirtiq_model teams settle --sport "$sport" --refresh || echo "settle $sport failed"
             python -m dirtiq_model teams forecast --sport "$sport" || echo "forecast $sport failed"
           done

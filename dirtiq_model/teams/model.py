@@ -13,6 +13,7 @@ there is no -110 assumption (a separate ``roiAt110Illustrative`` is labelled as 
 from __future__ import annotations
 
 import math
+from statistics import NormalDist
 from dataclasses import asdict, dataclass
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
@@ -22,7 +23,7 @@ import pandas as pd
 from .. import scoring
 from .ratings import EmpiricalMargin, Hyper, default_hyper, win_probability
 
-MODEL_VERSION = "1.0"
+MODEL_VERSION = "1.1"
 RIDGE_ALPHA = 1.0
 
 
@@ -40,6 +41,7 @@ class SportConfig:
     hfa_prior: Optional[float] = None     # starting home advantage for the fit (None: mean home margin)
     season_convention: str = "calendar year of the season"  # how the adapter labels ``season``
     maxiter: Optional[int] = None         # optimizer budget per fold when the default is too slow (many teams)
+    moneyline_market: bool = False        # the listed spread is a fixed puck/run line, so the market margin comes from the moneyline
 
     @property
     def model_id(self) -> str:
@@ -63,9 +65,9 @@ SPORT_CONFIG: Dict[str, SportConfig] = {
     "ncaab": SportConfig("ncaab", "NCAAB", threshold=3.0, warm_start=2016, first_test=2019, sigma_prior=11.0,
                          season_convention=ENDING_YEAR, maxiter=80),
     "mlb": SportConfig("mlb", "MLB", threshold=1.0, warm_start=2015, first_test=2018, unit="runs", sigma_prior=4.3,
-                       hfa_prior=0.2, season_convention="calendar year (MLB Stats API season)"),
+                       hfa_prior=0.2, season_convention="calendar year (MLB Stats API season)", moneyline_market=True),
     "nhl": SportConfig("nhl", "NHL", threshold=0.5, warm_start=2016, first_test=2019, unit="goals", sigma_prior=2.3,
-                       hfa_prior=0.2, season_convention=ENDING_YEAR),
+                       hfa_prior=0.2, season_convention=ENDING_YEAR, moneyline_market=True),
 }
 
 
@@ -93,6 +95,29 @@ def market_margin(spread_line: Any) -> Optional[float]:
     if spread_line is None or (isinstance(spread_line, float) and math.isnan(spread_line)):
         return None
     return -float(spread_line)
+
+
+def moneyline_margin(home_win: Any, sd: Any) -> Optional[float]:
+    """Market-implied home margin from a no-vig home win probability: the mean of a normal
+    margin with the game's forecast SD that puts ``home_win`` above zero. Used for NHL and
+    MLB, whose listed spread is a fixed puck/run line rather than a margin estimate."""
+    p = _opt_float(home_win)
+    s = _opt_float(sd)
+    if p is None or s is None or s <= 0:
+        return None
+    p = min(max(p, 1e-4), 1 - 1e-4)
+    return float(s * NormalDist().inv_cdf(p))
+
+
+def implied_market_margin(row: Any, sd: Any, moneyline_market: bool) -> Optional[float]:
+    """The market margin the sport's config calls for: moneyline-implied when
+    ``moneyline_market`` (falling back to the spread when no moneyline), else the spread."""
+    if moneyline_market:
+        hw, _ = scoring.no_vig_two_way(_opt_float(row.get("home_ml")), _opt_float(row.get("away_ml")))
+        m = moneyline_margin(hw, sd)
+        if m is not None:
+            return m
+    return market_margin(_opt_float(row.get("spread_line")))
 
 
 def _opt_int(x: Any) -> Optional[int]:
@@ -168,6 +193,7 @@ class Scorer:
     anchor: Optional[AnchorFit] = None
     anchor_margin: Optional[EmpiricalMargin] = None
     ties: bool = True
+    moneyline_market: bool = False
 
     def _dist(self, emp: EmpiricalMargin, mean: float, sd: float) -> Dict[int, float]:
         dist = emp.distribution(mean, sd)
@@ -180,24 +206,29 @@ class Scorer:
     def score_one(self, mean: float, var: float, row: pd.Series) -> Dict[str, Any]:
         sd = math.sqrt(max(var, 1e-9))
         spread = _opt_float(row.get("spread_line"))
-        mkt = market_margin(spread)
+        mkt = implied_market_margin(row, sd, self.moneyline_market)
         out: Dict[str, Any] = {"ind_mean": mean, "ind_sd": sd, "market_margin": mkt}
         dist = self._dist(self.independent, mean, sd)
         out["ind_home_win"], out["ind_tie"] = win_probability(dist)
         if spread is not None:
             out["ind_home_cover"], out["ind_away_cover"], out["ind_push"] = scoring.cover_probabilities(dist, spread)
+        else:
+            out["ind_home_cover"] = out["ind_away_cover"] = out["ind_push"] = None
+        if mkt is not None:
             out["ind_edge"] = mean - mkt
             out["ind_pick"] = pick_side(out["ind_edge"], self.threshold)
         else:
-            out["ind_home_cover"] = out["ind_away_cover"] = out["ind_push"] = out["ind_edge"] = None
-            out["ind_pick"] = None
+            out["ind_edge"] = out["ind_pick"] = None
         if self.anchor is not None and mkt is not None:
             amean = self.anchor.predict(mean, mkt)
             asd = self.anchor.sd
             adist = self._dist(self.anchor_margin or self.independent, amean, asd)
             out["anc_mean"], out["anc_sd"] = amean, asd
             out["anc_home_win"], out["anc_tie"] = win_probability(adist)
-            out["anc_home_cover"], out["anc_away_cover"], out["anc_push"] = scoring.cover_probabilities(adist, spread)
+            if spread is not None:
+                out["anc_home_cover"], out["anc_away_cover"], out["anc_push"] = scoring.cover_probabilities(adist, spread)
+            else:
+                out["anc_home_cover"] = out["anc_away_cover"] = out["anc_push"] = None
             out["anc_edge"] = amean - mkt
             out["anc_pick"] = pick_side(out["anc_edge"], self.threshold)
         else:
