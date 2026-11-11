@@ -1,9 +1,41 @@
 {
- "configured": false,
- "checkedAt": "2026-11-11T07:14:31Z",
+ "configured": true,
+ "checkedAt": "2026-11-11T15:43:57Z",
  "source": "The Odds API",
- "quota": null,
+ "quota": {
+  "x-requests-remaining": "494",
+  "x-requests-used": "6",
+  "x-requests-last": "2"
+ },
  "error": null,
- "sports": {},
+ "sports": {
+  "nfl": {
+   "snapshotAt": "2026-11-11T15:43:56Z",
+   "events": 27,
+   "unresolved": 0,
+   "openRows": 60,
+   "matchedEvents": 15,
+   "linesFilled": 0,
+   "closesUpdated": 60
+  },
+  "nba": {
+   "snapshotAt": "2026-11-11T15:43:57Z",
+   "events": 14,
+   "unresolved": 0,
+   "openRows": 40,
+   "matchedEvents": 10,
+   "linesFilled": 0,
+   "closesUpdated": 40
+  },
+  "nhl": {
+   "snapshotAt": "2026-11-11T15:43:57Z",
+   "events": 3,
+   "unresolved": 10,
+   "openRows": 24,
+   "matchedEvents": 1,
+   "linesFilled": 0,
+   "closesUpdated": 4
+  }
+ },
  "setup": "Set ODDS_API_KEY in the environment (and as a GitHub Actions secret) and run: npm run odds:snapshot -- --sport nfl"
 }
