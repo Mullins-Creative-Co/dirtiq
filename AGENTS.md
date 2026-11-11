@@ -12,3 +12,7 @@ JSON artifacts it writes (`public/data/*.json`, `public/sports/*.json`,
 `data/ml-predictions/*.json`) through `src/lib/model-reports.ts`. Python is 3.9 in
 production: `from __future__ import annotations`, no runtime `X | Y`, no `match`.
 
+# Roadmap lives in `BUILD_PLANS.md`
+
+Ranked build plans with context, acceptance criteria and what has shipped. Read it
+before proposing work; update it when a plan ships or priorities change.
