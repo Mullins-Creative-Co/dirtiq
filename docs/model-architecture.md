@@ -332,3 +332,16 @@ A missing trigger has no failure record, so artifact age reports the missed upda
 No endpoint or UI access settings were changed; reviewing agents need existing Vercel
 access. The archive fixture test grades a copy of the November 12 card next day,
 checks locked terms against changed quotes, and leaves absent/null scores ungraded.
+
+
+## College team display names
+
+`public/data/team-names.json` is ESPN display metadata for college basketball and
+football, refreshed manually with `node scripts/refresh-team-names.mjs`. Its source
+URLs and retrieval timestamp are recorded. It includes team catalogs and today's
+scoreboard opponents (including non-Division-I schools). Ambiguous abbreviations
+are omitted rather than guessed. The app reads it through `getTeamNames` in
+`model-reports.ts`; `teamLabel` falls back to the code when no unique name exists.
+Card and Tonight show full names with codes; copied card briefs add `homeName`,
+`awayName`, `pickName`. Published model/card identifiers, grading and bet selections
+remain unchanged. The raw model card URL still contains its original identifiers.

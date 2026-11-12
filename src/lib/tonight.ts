@@ -1,8 +1,10 @@
 import "server-only";
 
+import { teamLabel, type TeamNames } from "@/lib/team-names";
+
 import { american, fairAmerican, num, probability as pct, signed, spread } from "@/lib/format";
 import {
-  SPORT_LABELS, getLedgerIndex, getUpcomingRaceBoards, listSportReports,
+  SPORT_LABELS, getTeamNames, getLedgerIndex, getUpcomingRaceBoards, listSportReports,
   type LedgerEventSummary, type RaceBoard, type SportReport, type SportUpcoming, type TeamForm,
 } from "@/lib/model-reports";
 import { forecastReadiness, hasMarket, isUpcomingGame, validProbability, type ForecastReadiness } from "@/lib/forecast-readiness";
@@ -85,7 +87,7 @@ function ledgerSummary(summary: LedgerEventSummary | undefined): TonightItem["le
   };
 }
 
-function gameItem(report: SportReport, game: SportUpcoming, ledger: Map<string, LedgerEventSummary>, today: string, now: number, live: LiveLine | null = null): TonightItem {
+function gameItem(report: SportReport, game: SportUpcoming, ledger: Map<string, LedgerEventSummary>, today: string, now: number, live: LiveLine | null = null, names: TeamNames = {}): TonightItem {
   const homeWin = game.homeWinProb ?? 0.5;
   const pickHome = homeWin >= 0.5;
   const pick = pickHome ? game.home : game.away;
@@ -175,10 +177,10 @@ function gameItem(report: SportReport, game: SportUpcoming, ledger: Map<string, 
     key, kind: "game", sport: report.sport, sportLabel: report.label,
     startsAt: game.startsAt, startsAtLabel: `${dayFmt.format(new Date(game.startsAt))} · ${timeFmt.format(new Date(game.startsAt))} ET`,
     isToday: dayKeyOf(game.startsAt) === today, dayKey: dayKeyOf(game.startsAt),
-    title: `${game.away} at ${game.home}`, subtitle: `${report.label}${neutral ? " · neutral site" : ""}`,
-    pick, pickDetail: `${pick} to win · projected by ${num(Math.abs(pickMargin), 1)}`,
+    title: `${teamLabel(names, report.sport, game.away)} at ${teamLabel(names, report.sport, game.home)}`, subtitle: `${report.label}${neutral ? " · neutral site" : ""}`,
+    pick: teamLabel(names, report.sport, pick), pickDetail: `${teamLabel(names, report.sport, pick)} to win · projected by ${num(Math.abs(pickMargin), 1)}`,
     confidence, confidenceLabel: label(confidence), rationale,
-    matchupHeaders: [game.home, game.away], matchup, market, liveMarket,
+    matchupHeaders: [teamLabel(names, report.sport, game.home), teamLabel(names, report.sport, game.away)], matchup, market, liveMarket,
     readiness: forecastReadiness(report, game, now),
     ledger: ledgerSummary(ledger.get(key)), href: `/sports/${report.sport}`,
     logHref: logBetHref({
@@ -273,6 +275,7 @@ export async function buildTonightBoard(horizonDays = 7, options: { live?: boole
   const today = todayDateString();
   const ledger = getLedgerIndex();
   const reports = listSportReports();
+  const names = getTeamNames();
   const limit = new Date(`${today}T05:00:00Z`);
   limit.setUTCDate(limit.getUTCDate() + horizonDays + 1);
   const items: TonightItem[] = [];
@@ -283,7 +286,7 @@ export async function buildTonightBoard(horizonDays = 7, options: { live?: boole
       if (!isUpcomingGame(game, now, limit.getTime()) || !validProbability(game.homeWinProb)) continue;
       // Pooled placeholder opponents (non-Division-I, FCS) are rating sinks, not matchups worth showing.
       if (placeholders.has(game.home) || placeholders.has(game.away)) continue;
-      const item = gameItem(report, game, ledger, today, now);
+      const item = gameItem(report, game, ledger, today, now, null, names);
       items.push(item);
       gamesByKey.set(item.key, { report, game });
     }
@@ -300,7 +303,7 @@ export async function buildTonightBoard(horizonDays = 7, options: { live?: boole
       const { report, game } = gamesByKey.get(item.key)!;
       const id = item.sport === "nfl" ? await resolveNflEvent(game) : game.gameId;
       const live = id ? (await getLiveLines(item.sport, [id])).get(id) ?? null : null;
-      items[index] = { ...gameItem(report, game, ledger, today, now, live),
+      items[index] = { ...gameItem(report, game, ledger, today, now, live, names),
         liveStatus: live ? "available" : "unavailable", savedLogHref: item.logHref };
     }));
   }

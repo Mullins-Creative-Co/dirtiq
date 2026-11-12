@@ -98,6 +98,7 @@ function readJson<T>(relative: string): T | null {
 }
 
 export type CardPick = {
+  homeName?: string; awayName?: string; pickName?: string;
   id: string; sport: string; sportLabel: string; gameId: string; home: string; away: string; startsAt: string;
   market: "spread"; pick: string; opponent: string; side: "home" | "away";
   line: number; price: number; homeSpread: number; book: string | null; lineObservedAt: string | null; lockedAt: string;
@@ -362,4 +363,9 @@ export function getArtifactFreshness(now = Date.now()) {
   const card = getDailyCard();
   const racing = readJson<{ refreshedAt?: string }>("public/data/race-refresh.json");
   return { sports, dailyCard: artifactAge(card?.generatedAt, now), raceData: artifactAge(racing?.refreshedAt, now) };
+}
+
+/** ESPN display metadata; model team identifiers remain abbreviations. */
+export function getTeamNames(): import("@/lib/team-names").TeamNames {
+  return readJson<{ teams: import("@/lib/team-names").TeamNames }>("public/data/team-names.json")?.teams ?? {};
 }

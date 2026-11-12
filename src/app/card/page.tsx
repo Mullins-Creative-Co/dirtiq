@@ -17,12 +17,12 @@ const startTime = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York
 function status(pick: CardPickView): { label: string; tone: Tone; detail: string } {
   if (pick.result) {
     const tone: Tone = pick.result.outcome === "win" ? "good" : pick.result.outcome === "loss" ? "bad" : "neutral";
-    return { label: pick.result.outcome, tone, detail: `${pick.home} ${pick.result.homeScore}, ${pick.away} ${pick.result.awayScore} · ${units(pick.result.units)}` };
+    return { label: pick.result.outcome, tone, detail: `${pick.homeName ?? pick.home} ${pick.result.homeScore}, ${pick.awayName ?? pick.away} ${pick.result.awayScore} · ${units(pick.result.units)}` };
   }
   if (pick.liveStatus === "closed") return { label: "Started", tone: "neutral", detail: "Graded at the listed line once the result is published." };
   if (pick.live) {
     const moved = pick.live.moved === 0 ? "line unchanged" : `line moved ${signed(pick.live.moved, 1)} ${pick.live.moved > 0 ? "in your favor" : "against you"}`;
-    const now = `Now ${pick.pick} ${spread(pick.live.line)} (${american(pick.live.price)}), ${moved}`;
+    const now = `Now ${pick.pickName ?? pick.pick} ${spread(pick.live.line)} (${american(pick.live.price)}), ${moved}`;
     return pick.liveStatus === "playable"
       ? { label: "Playable", tone: "good", detail: `${now}; model still ${signed(pick.live.edgePts, 1)} pts past it.` }
       : { label: "Edge gone", tone: "warn", detail: `${now}; the model is only ${signed(pick.live.edgePts, 1)} pts past it, under the ${pick.threshold}-pt bar. Skip unless you can still get ${spread(pick.line)}.` };
@@ -96,11 +96,11 @@ export default async function CardPage() {
                     <tr key={pick.id}>
                       <td className="num">{pick.rank}</td>
                       <td>
-                        <span className="strong block">{pick.away} at {pick.home}</span>
+                        <span className="strong block">{pick.awayName ?? pick.away} at {pick.homeName ?? pick.home}</span>
                         <span className="block text-xs text-[var(--muted)]">{pick.sportLabel} · {startTime.format(new Date(pick.startsAt))} ET</span>
                       </td>
                       <td>
-                        <span className="strong block">{pick.pick} {spread(pick.line)} ({american(pick.price)})</span>
+                        <span className="strong block">{pick.pickName ?? pick.pick} {spread(pick.line)} ({american(pick.price)})</span>
                         <span className="block text-xs text-[var(--muted)]" title={dateTime(pick.lockedAt)}>listed {relativeAge(pick.lockedAt, now)}</span>
                       </td>
                       <td className="num">{pick.stakeUnits.toFixed(1)}u</td>

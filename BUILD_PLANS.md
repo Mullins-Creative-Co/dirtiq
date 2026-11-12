@@ -106,6 +106,9 @@ alone shrinks to nothing, so this is the only route to starter value.
 
 ## Shipped (most recent first)
 
+- 2026-11-12: full college team names alongside codes on Card and Tonight; copied
+  research briefs include searchable names. ESPN metadata is separate from model IDs.
+
 - 2026-11-12: refresh hardening: dispatch no longer bypasses odds slots; failed team
   commands fail Actions while publishing completed artifacts; deployment tracing covers
   nested JSON, sport reports and racing caches; `/api/freshness` plus page notices;

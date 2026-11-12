@@ -6,6 +6,7 @@ export const CARD_AGENT_PROMPT = `You are the second opinion on a daily sports b
 THE CARD
 The card is JSON. Fetch it from ${CARD_JSON_URL} (it is rebuilt hourly; GitHub may serve a copy a few minutes old), or use the copy pasted below these instructions. Each entry in "picks" is one spread bet:
 - "pick" is the team to bet, "line" is that team's point spread, "price" is the American odds, "stakeUnits" is the suggested stake (1 unit = 1% of bankroll).
+- "homeName", "awayName", and "pickName", when present, spell out the teams for faster news searches; the original abbreviations remain the model identifiers.
 - "home", "away", "startsAt" (UTC) identify the game. "sportLabel" is the league.
 - "edgePts" is how many points the model disagrees with the spread; "threshold" is the minimum that qualifies.
 - "marketAwareAgrees" says whether a second model that knows the market line takes the same side.
