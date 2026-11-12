@@ -6,7 +6,7 @@ import { useState, useTransition } from "react";
 import { logBetAction } from "@/app/bets/actions";
 import { BET_MARKETS } from "@/lib/my-bets/grade";
 
-export type LogBetPrefill = Partial<Record<"sport" | "eventId" | "eventLabel" | "eventStart" | "market" | "selection" | "selectionLabel" | "line" | "price" | "modelProb" | "marketProb", string>>;
+export type LogBetPrefill = Partial<Record<"sport" | "eventId" | "eventLabel" | "eventStart" | "market" | "selection" | "selectionLabel" | "line" | "price" | "modelProb" | "marketProb" | "stake" | "book" | "note", string>>;
 export type EventOption = { eventId: string; sport: string; label: string; startsAt: string; home: string | null; away: string | null };
 
 const SPORTS = [["nfl", "NFL"], ["nba", "NBA"], ["nhl", "NHL"], ["ncaaf", "College football"], ["ncaab", "College basketball"], ["mlb", "MLB"], ["racing", "Dirt racing"], ["other", "Other"]] as const;
@@ -95,10 +95,10 @@ export function LogBetForm({ prefill, events }: { prefill: LogBetPrefill; events
       <Field label="Price" hint="American, e.g. -110 or +145">
         <input name="price" defaultValue={prefill.price ?? "-110"} className="input" required />
       </Field>
-      <Field label="Stake"><input name="stake" type="number" step="0.01" min="0.01" placeholder="25" className="input" required /></Field>
-      <Field label="Book (optional)"><input name="book" placeholder="DraftKings" className="input" /></Field>
+      <Field label="Stake"><input name="stake" type="number" step="0.01" min="0.01" placeholder="25" defaultValue={prefill.stake ?? ""} className="input" required /></Field>
+      <Field label="Book (optional)"><input name="book" placeholder="DraftKings" defaultValue={prefill.book ?? ""} className="input" /></Field>
       <Field label="Placed at (optional)"><input name="placedAt" type="datetime-local" className="input" /></Field>
-      <Field label="Note (optional)" className="sm:col-span-2 lg:col-span-3"><input name="note" className="input" /></Field>
+      <Field label="Note (optional)" className="sm:col-span-2 lg:col-span-3"><input name="note" defaultValue={prefill.note ?? ""} className="input" /></Field>
       <div className="flex flex-wrap items-center gap-3 sm:col-span-2 lg:col-span-3">
         <button type="submit" disabled={pending} className="btn-primary">{pending ? "Saving…" : "Log bet"}</button>
         {error ? <span className="text-sm text-[var(--bad)]">{error}</span> : null}

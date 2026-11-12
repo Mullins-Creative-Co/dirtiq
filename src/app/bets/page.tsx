@@ -15,7 +15,7 @@ import { buildTonightBoard } from "@/lib/tonight";
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: `My bets | ${SITE_NAME}`, description: "Log the bets you place and track profit, ROI and how the model-backed ones do." };
 
-const PREFILL_KEYS = ["sport", "eventId", "eventLabel", "eventStart", "market", "selection", "selectionLabel", "line", "price", "modelProb", "marketProb"] as const;
+const PREFILL_KEYS = ["sport", "eventId", "eventLabel", "eventStart", "market", "selection", "selectionLabel", "line", "price", "modelProb", "marketProb", "stake", "book", "note"] as const;
 
 function money(v: number | null | undefined): string {
   if (v === null || v === undefined) return "—";
