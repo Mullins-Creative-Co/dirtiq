@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-12T16:11:00Z",
+ "generatedAt": "2026-11-12T20:35:40Z",
  "models": [
   {
    "sport": "nba",
@@ -101,7 +101,7 @@
    "clvCount": 28,
    "clvAvg": -0.0002,
    "firstForecastAt": "2026-11-11T01:59:53Z",
-   "lastForecastAt": "2026-11-12T15:53:59Z"
+   "lastForecastAt": "2026-11-12T20:25:22Z"
   },
   {
    "sport": "nba",
@@ -203,7 +203,7 @@
    "clvCount": 28,
    "clvAvg": 0.0002,
    "firstForecastAt": "2026-11-11T01:59:53Z",
-   "lastForecastAt": "2026-11-12T15:53:59Z"
+   "lastForecastAt": "2026-11-12T20:25:22Z"
   },
   {
    "sport": "ncaab",
@@ -305,7 +305,7 @@
    "clvCount": 92,
    "clvAvg": 0.0,
    "firstForecastAt": "2026-11-11T02:00:10Z",
-   "lastForecastAt": "2026-11-12T15:58:15Z"
+   "lastForecastAt": "2026-11-12T20:27:54Z"
   },
   {
    "sport": "ncaab",
@@ -407,7 +407,7 @@
    "clvCount": 100,
    "clvAvg": 0.0001,
    "firstForecastAt": "2026-11-11T02:00:10Z",
-   "lastForecastAt": "2026-11-12T15:58:15Z"
+   "lastForecastAt": "2026-11-12T20:27:54Z"
   },
   {
    "sport": "ncaaf",
@@ -509,7 +509,7 @@
    "clvCount": 12,
    "clvAvg": 0.0002,
    "firstForecastAt": "2026-11-10T22:26:40Z",
-   "lastForecastAt": "2026-11-12T16:10:58Z"
+   "lastForecastAt": "2026-11-12T20:35:36Z"
   },
   {
    "sport": "ncaaf",
@@ -611,15 +611,15 @@
    "clvCount": 12,
    "clvAvg": 0.0001,
    "firstForecastAt": "2026-11-10T22:26:40Z",
-   "lastForecastAt": "2026-11-12T16:10:58Z"
+   "lastForecastAt": "2026-11-12T20:35:36Z"
   },
   {
    "sport": "nfl",
    "modelId": "nfl-kalman",
    "market": "moneyline",
    "modelVersion": "1.1",
-   "forecasts": 30,
-   "open": 30,
+   "forecasts": 44,
+   "open": 44,
    "settled": 0,
    "wins": 0,
    "losses": 0,
@@ -634,16 +634,16 @@
    "roi": null,
    "clvCount": 0,
    "clvAvg": null,
-   "firstForecastAt": "2026-11-12T15:53:44Z",
-   "lastForecastAt": "2026-11-12T15:53:44Z"
+   "firstForecastAt": "2026-11-12T20:25:11Z",
+   "lastForecastAt": "2026-11-12T20:25:11Z"
   },
   {
    "sport": "nfl",
    "modelId": "nfl-kalman",
    "market": "spread",
    "modelVersion": "1.1",
-   "forecasts": 30,
-   "open": 30,
+   "forecasts": 44,
+   "open": 44,
    "settled": 0,
    "wins": 0,
    "losses": 0,
@@ -658,23 +658,23 @@
    "roi": null,
    "clvCount": 0,
    "clvAvg": null,
-   "firstForecastAt": "2026-11-12T15:53:44Z",
-   "lastForecastAt": "2026-11-12T15:53:44Z"
+   "firstForecastAt": "2026-11-12T20:25:11Z",
+   "lastForecastAt": "2026-11-12T20:25:11Z"
   },
   {
    "sport": "nhl",
    "modelId": "nhl-kalman",
    "market": "moneyline",
    "modelVersion": "1.1",
-   "forecasts": 36,
-   "open": 22,
-   "settled": 14,
-   "wins": 7,
-   "losses": 7,
+   "forecasts": 40,
+   "open": 24,
+   "settled": 16,
+   "wins": 8,
+   "losses": 8,
    "pushes": 0,
-   "brier": 0.2274,
-   "logLoss": 0.6473,
-   "ece": 0.2185,
+   "brier": 0.2127,
+   "logLoss": 0.6166,
+   "ece": 0.1689,
    "calibration": [
     {
      "lo": 0.0,
@@ -707,9 +707,9 @@
     {
      "lo": 0.3,
      "hi": 0.4,
-     "n": 2,
-     "predicted": 0.3726,
-     "observed": 0.5
+     "n": 3,
+     "predicted": 0.3587,
+     "observed": 0.3333
     },
     {
      "lo": 0.4,
@@ -728,9 +728,9 @@
     {
      "lo": 0.6,
      "hi": 0.7,
-     "n": 2,
-     "predicted": 0.6274,
-     "observed": 0.5
+     "n": 3,
+     "predicted": 0.6413,
+     "observed": 0.6667
     },
     {
      "lo": 0.7,
@@ -754,29 +754,29 @@
      "observed": null
     }
    ],
-   "mae": 2.1,
-   "pricedForecasts": 14,
-   "units": -1.201,
-   "roi": -0.0858,
-   "clvCount": 14,
-   "clvAvg": 0.0004,
+   "mae": 2.098,
+   "pricedForecasts": 16,
+   "units": -1.874,
+   "roi": -0.1171,
+   "clvCount": 16,
+   "clvAvg": 0.0003,
    "firstForecastAt": "2026-11-11T02:00:00Z",
-   "lastForecastAt": "2026-11-12T15:57:33Z"
+   "lastForecastAt": "2026-11-12T20:27:27Z"
   },
   {
    "sport": "nhl",
    "modelId": "nhl-kalman",
    "market": "spread",
    "modelVersion": "1.1",
-   "forecasts": 36,
-   "open": 22,
-   "settled": 14,
-   "wins": 7,
-   "losses": 7,
+   "forecasts": 40,
+   "open": 24,
+   "settled": 16,
+   "wins": 8,
+   "losses": 8,
    "pushes": 0,
-   "brier": 0.2678,
-   "logLoss": 0.7302,
-   "ece": 0.2359,
+   "brier": 0.2634,
+   "logLoss": 0.7211,
+   "ece": 0.2666,
    "calibration": [
     {
      "lo": 0.0,
@@ -816,16 +816,16 @@
     {
      "lo": 0.4,
      "hi": 0.5,
-     "n": 4,
-     "predicted": 0.4326,
-     "observed": 0.25
+     "n": 5,
+     "predicted": 0.4424,
+     "observed": 0.2
     },
     {
      "lo": 0.5,
      "hi": 0.6,
-     "n": 4,
-     "predicted": 0.5674,
-     "observed": 0.75
+     "n": 5,
+     "predicted": 0.5576,
+     "observed": 0.8
     },
     {
      "lo": 0.6,
@@ -856,14 +856,14 @@
      "observed": null
     }
    ],
-   "mae": 2.1,
-   "pricedForecasts": 14,
-   "units": 0.712,
-   "roi": 0.0509,
-   "clvCount": 14,
+   "mae": 2.098,
+   "pricedForecasts": 16,
+   "units": 0.532,
+   "roi": 0.0332,
+   "clvCount": 16,
    "clvAvg": 0.0,
    "firstForecastAt": "2026-11-11T02:00:00Z",
-   "lastForecastAt": "2026-11-12T15:57:33Z"
+   "lastForecastAt": "2026-11-12T20:27:27Z"
   },
   {
    "sport": "racing",
