@@ -11,6 +11,7 @@ type Group = { key: string; label: string; href: string; items: Item[]; match: (
 const starts = (prefixes: string[]) => (path: string) => prefixes.some((p) => (p === "/" ? path === "/" : path === p || path.startsWith(`${p}/`)));
 
 const groups: Group[] = [
+  { key: "card", label: "Card", href: "/card", match: (path) => path.startsWith("/card"), items: [] },
   { key: "tonight", label: "Tonight", href: "/", match: (path) => path === "/", items: [] },
   { key: "bets", label: "My bets", href: "/bets", match: (path) => path.startsWith("/bets"), items: [] },
   {
@@ -62,7 +63,7 @@ const mobileDock = groups.map((g) => ({ href: g.href, label: g.label, key: g.key
 export function Nav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const activeGroup = groups.find((g) => g.match(pathname)) ?? groups[0];
+  const activeGroup = groups.find((g) => g.match(pathname)) ?? groups[1];
   const itemActive = (item: Item) => (item.match ? item.match(pathname) : pathname === item.href || pathname.startsWith(`${item.href}/`));
 
   return (
@@ -119,7 +120,7 @@ export function Nav() {
       </header>
 
       <nav aria-label="Mobile sections" className="fixed inset-x-0 bottom-0 z-50 border-t border-[var(--border)] bg-[#080808]/95 px-2 pb-[calc(env(safe-area-inset-bottom)+0.35rem)] pt-2 backdrop-blur md:hidden">
-        <div className="mx-auto grid max-w-md grid-cols-4 gap-1.5">
+        <div className="mx-auto grid max-w-md grid-cols-3 gap-1.5">
           {mobileDock.map((item) => {
             const active = item.key === activeGroup.key;
             return (

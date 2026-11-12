@@ -196,6 +196,24 @@ abbreviations by explicit NFL and NBA tables with a nickname fallback; unresolve
 are listed, never guessed. Without a key the command writes `configured: false` and the
 UI says the feed is off.
 
+## Daily card
+
+`python3 -m dirtiq_model card build` (`dirtiq_model/card/build.py`) runs at the end of every
+sports refresh. It fits nothing: it selects from the published reports. A game qualifies
+when it starts today (US Eastern), is at least 20 minutes away, has a priced spread observed
+within three hours, and the published margin disagrees with the spread by at least the
+sport's `selectionThreshold`. Qualifiers are ranked by whether `stackedMarketHomeMargin`
+takes the same side, then by disagreement in threshold units; capped at 15 picks, 6 per
+sport and 10 units; staked 1.0 unit when the market-aware model agrees and 0.5 otherwise.
+A pick is locked at its first listed line (`public/data/cards/<date>.json` is the day's
+archive and the lock), later runs only update `status`/`current`, and earlier cards are
+graded at the locked line from `public/data/results/`. `public/data/daily-card.json` is the
+current card with `record`, the graded history of all cards. Every pick carries its sport's
+backtest record for the rule, which is negative in every sport: the card is a shortlist for
+review, and `record` is the only evidence it can earn. `/card` (`src/lib/card.ts`) checks
+each open pick against ESPN's current line at request time, and `src/lib/card-agent.ts`
+holds the instructions for a reviewing agent, which can read the card at its raw GitHub URL.
+
 ## Near-live Tonight lines
 
 Forecasts and graded ledger lines remain the JSON artifacts read through

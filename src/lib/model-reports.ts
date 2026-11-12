@@ -95,6 +95,32 @@ function readJson<T>(relative: string): T | null {
   }
 }
 
+export type CardPick = {
+  id: string; sport: string; sportLabel: string; gameId: string; home: string; away: string; startsAt: string;
+  market: "spread"; pick: string; opponent: string; side: "home" | "away";
+  line: number; price: number; homeSpread: number; book: string | null; lineObservedAt: string | null; lockedAt: string;
+  modelHomeMargin: number; edgePts: number; threshold: number; edgeRatio: number;
+  marketAwareAgrees: boolean; marketAwareEdgePts: number | null;
+  modelCoverProb: number | null; breakEvenProb: number; stakeUnits: number; rank: number;
+  record: { rule: string | null; picks: number; wins: number; losses: number; winRate: number | null; roi: number | null; seasons: [number, number] | null } | null;
+  status: "playable" | "edge-gone" | "no-current-line" | "started" | "graded";
+  current?: { checkedAt: string; line?: number; price?: number | null; edgePts?: number; lineObservedAt?: string | null };
+  result?: { outcome: "win" | "loss" | "push"; homeScore: number; awayScore: number; units: number };
+  note?: string | null; [key: string]: unknown;
+};
+export type DailyCard = {
+  date: string; generatedAt: string; forecastsRefreshedAt: string | null; unit: string; rules: string[]; evidence: string;
+  priced: number; qualified: number; totalUnits: number;
+  record: { days: number; wins: number; losses: number; pushes: number; units: number; staked: number; roi: number | null } | null;
+  picks: CardPick[];
+};
+
+/** Today's card, written hourly by `python3 -m dirtiq_model card build`. */
+export function getDailyCard(): DailyCard | null {
+  const card = readJson<DailyCard>("public/data/daily-card.json");
+  return card && Array.isArray(card.picks) ? card : null;
+}
+
 export function getModelHealth(): ModelHealth | null {
   return readJson<ModelHealth>("public/data/model-health.json");
 }

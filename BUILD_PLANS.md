@@ -106,6 +106,13 @@ alone shrinks to nothing, so this is the only route to starter value.
 
 ## Shipped (most recent first)
 
+- 2026-11-12: daily card (`/card`, `dirtiq_model/card/`): up to 15 spread picks a day across
+  the four focus sports, ranked, flat-staked, locked at first listing, graded from published
+  results, checked against the live ESPN line on load, with a copyable brief for a reviewing
+  agent. Tonight hides games without a line by default. Open: the rule behind the card
+  loses in every backtest, so the next model work should be judged by the card's own
+  `record` and by a backtest of ROI by disagreement size and market-aware agreement.
+
 - 2026-11-12: hourly sports refresh through the Eastern day (was every six hours), with
   odds snapshots held to two slots a day by the status file so the 500-request quota is
   unchanged; Tonight shows when forecasts and saved lines were last refreshed and warns

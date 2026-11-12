@@ -17,7 +17,8 @@ export function TonightBoardView({ board, initialSport = "all" }: { board: Tonig
   const [refreshing, startRefresh] = useTransition();
   const [sport, setSport] = useState<string>(board.sports.some((s) => s.sport === initialSport) ? initialSport : "all");
   const [minConfidence, setMinConfidence] = useState<"all" | "medium" | "high">("all");
-  const [withMarket, setWithMarket] = useState(false);
+  // Games without a line cannot be acted on, so they start hidden; races never carry a market here.
+  const [withMarket, setWithMarket] = useState(true);
   const [showAll, setShowAll] = useState(false);
   const [openKey, setOpenKey] = useState<string | null>(() => {
     const scoped = board.items.filter((item) => initialSport === "all" || item.sport === initialSport);
@@ -47,7 +48,7 @@ export function TonightBoardView({ board, initialSport = "all" }: { board: Tonig
   const items = useMemo(() => board.items.filter((item) =>
     (sport === "all" || item.sport === sport)
     && (minConfidence === "all" || item.confidenceLabel === "High" || (minConfidence === "medium" && item.confidenceLabel === "Medium"))
-    && (!withMarket || (item.market !== null || item.liveMarket != null)),
+    && (!withMarket || item.kind === "race" || item.market !== null || item.liveMarket != null),
   ), [board.items, sport, minConfidence, withMarket]);
 
   const groups = useMemo(() => {
@@ -80,6 +81,7 @@ export function TonightBoardView({ board, initialSport = "all" }: { board: Tonig
         <strong>Forecasts and saved lines refreshed {relativeAge(board.refreshedAt, now)}.</strong>{" "}
         {stale ? "That is older than the hourly schedule allows: treat saved lines as stale and rely on rows marked ESPN, or check your book." : "They refresh hourly from about 5 AM to 1 AM Eastern; rows marked ESPN carry a quote from the last few minutes."}
       </p>
+      <p className="text-sm"><Link href="/card" className="font-bold text-[var(--accent)]">Today’s card →</Link> <span className="text-[var(--muted)]">the day’s ranked, staked shortlist, checked against the current line.</span></p>
       <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-[var(--muted)]">
         <p>League counts cover the next week. Filters below apply to this board, not the all-sport summary above.</p>
         <button type="button" className="underline disabled:opacity-50" disabled={refreshing} onClick={() => startRefresh(() => router.refresh())}>{refreshing ? "Refreshing…" : "Refresh board"}</button>
@@ -93,7 +95,7 @@ export function TonightBoardView({ board, initialSport = "all" }: { board: Tonig
         <span className="mx-1 hidden h-5 w-px bg-[var(--border-strong)] sm:block" />
         <FilterButton active={minConfidence === "high"} onClick={() => setMinConfidence(minConfidence === "high" ? "all" : "high")}>Likelihood ≥72%</FilterButton>
         <FilterButton active={minConfidence === "medium"} onClick={() => setMinConfidence(minConfidence === "medium" ? "all" : "medium")}>Likelihood ≥60%</FilterButton>
-        <FilterButton active={withMarket} onClick={() => setWithMarket((v) => !v)}>Has market</FilterButton>
+        <FilterButton active={withMarket} onClick={() => setWithMarket((v) => !v)}>Has a line</FilterButton>
         <FilterButton active={showAll} onClick={() => setShowAll((v) => !v)}>{showAll ? "Featured only" : "Show all"}</FilterButton>
       </div>
 
