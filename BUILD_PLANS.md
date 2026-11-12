@@ -38,11 +38,11 @@ site orders sports the same way; the closing-line feed covers the four focus spo
 | Lines | NFL from nflverse; NCAAF through 2025 from cfbfastR; NBA, NHL, NCAAB, MLB and 2026 NCAAF from ESPN per-game odds (`dirtiq_model/teams/adapters/espn_odds.py`), cached per season in `../sports-cache/<sport>/espn/`. Opening and closing medians kept. |
 | Learned layer | `dirtiq_model/teams/stack.py`: ridge + logistic on rating difference, uncertainty, rest, back-to-backs, games in prior week, MLB probable-pitcher adjustment, site. Headline in NBA, NHL, NCAAB; independent filter in NFL, NCAAF, MLB. A market-aware variant is reported but not used for leans. |
 | Market comparison | Every independent model trails the market on priced games. NHL's market-blended stack edges the market slightly. Leans are fixed-threshold disagreement flags, not proven edges. |
-| Ledger | `public/data/forecast-ledger.json`: every priced forecast, settled by `teams settle` every six hours. Closing lines from The Odds API (`ODDS_API_KEY`, NFL/NBA/NHL only, 500 requests a month). |
+| Ledger | `public/data/forecast-ledger.json`: every priced forecast, settled by `teams settle` at every sports refresh (hourly through the Eastern day). Closing lines from The Odds API (`ODDS_API_KEY`, NFL/NBA/NHL only, 500 requests a month). |
 | Results | `public/data/results/<sport>.json`: recent final scores keyed like the ledger. |
 | Racing | Conditional-logit race model (`dirtiq_model/racing/`), beats the legacy XGBoost method in every series; data-starved; results arrive through the racing database refresh. |
 | Bet tracker | `/bets`: log bets, auto-grade from results and ledger, P&L, ROI, model-backed subset. Postgres (Neon, `DATABASE_URL`) in production, sqlite locally. |
-| Refresh | Three bots commit to `main`: `sports-refresh.yml` (every six hours: settle, forecast, odds snapshot, ledger export), `world100-refresh.yml` (hourly: verified race data, legacy racing model retrains, `public/data/ml-predictions`), `matchups-refresh.yml` (every four hours: NFL pregame projections). Each publishes with `git pull --rebase -X theirs` so its own regenerated files win over an overlapping run; they touch disjoint files otherwise. Local pushes should rebase the same way. |
+| Refresh | Three bots commit to `main`: `sports-refresh.yml` (hourly 10:41-05:41 UTC, about 5 AM to 1 AM Eastern, plus 08:41 UTC: settle, forecast, ledger export; odds snapshots only in the first run after 18:00 and after 00:00 UTC, tracked by `public/data/odds/status.json`), `world100-refresh.yml` (hourly: verified race data, legacy racing model retrains, `public/data/ml-predictions`), `matchups-refresh.yml` (every four hours: NFL pregame projections). Each publishes with `git pull --rebase -X theirs` so its own regenerated files win over an overlapping run; they touch disjoint files otherwise. Local pushes should rebase the same way. |
 
 ## Plans, in priority order
 
@@ -105,6 +105,11 @@ as-of FIP-style starter rate; NHL starting goalies from the league boxscore with
 alone shrinks to nothing, so this is the only route to starter value.
 
 ## Shipped (most recent first)
+
+- 2026-11-12: hourly sports refresh through the Eastern day (was every six hours), with
+  odds snapshots held to two slots a day by the status file so the 500-request quota is
+  unchanged; Tonight shows when forecasts and saved lines were last refreshed and warns
+  past three hours. Near-live lines (below) merged to `main` with it.
 
 - 2026-11-11: plan 3, near-live lines on Tonight (`feat/live-lines`). Server-only ESPN
   odds for six featured games per focus sport today (within 24 hours), a three-minute

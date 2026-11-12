@@ -281,6 +281,6 @@ npm run test:py                    # all Python unit tests
 npm run test:ts                    # all TypeScript tests
 ```
 
-`.github/workflows/sports-refresh.yml` runs settle, forecast and export for NFL and NBA
-every six hours and commits only `public/sports/`, `public/data/forecast-ledger.json` and
+`.github/workflows/sports-refresh.yml` runs settle, forecast and export for every team sport
+hourly from about 5 AM to 1 AM Eastern (plus one overnight run) and commits only `public/sports/`, `public/data/forecast-ledger.json` and
 `public/data/model-health.json`.

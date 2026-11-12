@@ -262,6 +262,8 @@ function logBetHref(p: { sport: string; eventId: string; eventLabel: string; eve
 
 export type TonightBoard = {
   today: string; generatedAt: string;
+  /** Newest forecast run among the sport reports: the age of every saved line and lean. */
+  refreshedAt: string | null;
   items: TonightItem[];
   sports: Array<{ sport: string; label: string; count: number }>;
 };
@@ -308,5 +310,9 @@ export async function buildTonightBoard(horizonDays = 7, options: { live?: boole
     entry.count += 1;
     counts.set(item.sport, entry);
   }
-  return { today, generatedAt: new Date().toISOString(), items, sports: [...counts.values()] };
+  const refreshedAt = reports
+    .map((report) => typeof report.forecastGeneratedAt === "string" ? report.forecastGeneratedAt : report.generatedAt)
+    .filter((stamp) => Number.isFinite(Date.parse(stamp)))
+    .sort().at(-1) ?? null;
+  return { today, generatedAt: new Date().toISOString(), refreshedAt, items, sports: [...counts.values()] };
 }

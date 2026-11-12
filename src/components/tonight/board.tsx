@@ -41,6 +41,8 @@ export function TonightBoardView({ board, initialSport = "all" }: { board: Tonig
     return () => window.clearTimeout(expiry);
   }, [board.items, clock]);
   const now = Math.max(clock, Date.parse(board.generatedAt));
+  // The refresh bot runs hourly through the Eastern day; past three hours something has stalled.
+  const stale = !board.refreshedAt || now - Date.parse(board.refreshedAt) > 3 * 3_600_000;
 
   const items = useMemo(() => board.items.filter((item) =>
     (sport === "all" || item.sport === sport)
@@ -74,6 +76,10 @@ export function TonightBoardView({ board, initialSport = "all" }: { board: Tonig
       <div className="note">
         <strong>Win likelihood is not bet confidence.</strong> A favorite can be likely to win and still be a poor bet at the spread or price. Live lines are ESPN reference quotes; confirm the executable price with your book. Saved lines preserve the forecast snapshot. Injuries and lineups need a separate check.
       </div>
+      <p className={stale ? "note note-warn" : "note"} title={board.refreshedAt ? dateTime(board.refreshedAt) : undefined}>
+        <strong>Forecasts and saved lines refreshed {relativeAge(board.refreshedAt, now)}.</strong>{" "}
+        {stale ? "That is older than the hourly schedule allows: treat saved lines as stale and rely on rows marked ESPN, or check your book." : "They refresh hourly from about 5 AM to 1 AM Eastern; rows marked ESPN carry a quote from the last few minutes."}
+      </p>
       <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-[var(--muted)]">
         <p>League counts cover the next week. Filters below apply to this board, not the all-sport summary above.</p>
         <button type="button" className="underline disabled:opacity-50" disabled={refreshing} onClick={() => startRefresh(() => router.refresh())}>{refreshing ? "Refreshing…" : "Refresh board"}</button>
