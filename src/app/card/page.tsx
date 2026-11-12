@@ -1,5 +1,5 @@
 import { RefreshNotice } from "@/components/refresh-notice";
-import Link from "next/link";
+import { InlineBetRow } from "@/components/bets/inline-log-bet";
 import { connection } from "next/server";
 
 import { CopyBrief } from "@/components/card/copy-brief";
@@ -93,7 +93,7 @@ export default async function CardPage() {
                 {sorted.map((pick) => {
                   const s = status(pick);
                   return (
-                    <tr key={pick.id}>
+                    <InlineBetRow key={pick.id} href={pick.logHref} canLog={!pick.result && pick.liveStatus !== "closed"}>
                       <td className="num">{pick.rank}</td>
                       <td>
                         <span className="strong block">{pick.awayName ?? pick.away} at {pick.homeName ?? pick.home}</span>
@@ -115,8 +115,7 @@ export default async function CardPage() {
                       <td className="text-xs text-[var(--muted)]">
                         {pick.record ? `${pct(pick.record.winRate)} wins, ${pct(pick.record.roi)} ROI on ${pick.record.picks.toLocaleString("en-US")} picks; needs ${pct(pick.breakEvenProb)} at this price` : "No backtest record"}
                       </td>
-                      <td>{pick.result || pick.liveStatus === "closed" ? null : <Link href={pick.logHref} className="text-xs font-bold uppercase tracking-[0.14em] text-[var(--accent)]">Log bet</Link>}</td>
-                    </tr>
+                    </InlineBetRow>
                   );
                 })}
               </tbody>

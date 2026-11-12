@@ -345,3 +345,16 @@ are omitted rather than guessed. The app reads it through `getTeamNames` in
 Card and Tonight show full names with codes; copied card briefs add `homeName`,
 `awayName`, `pickName`. Published model/card identifiers, grading and bet selections
 remain unchanged. The raw model card URL still contains its original identifiers.
+
+
+## Inline bet logging
+
+Card rows expand a full-width log form below the selected pick; Tonight matchups
+expand the same form inside their detail panel. `inline-log-bet.tsx` reads the existing
+log-link query values (including event ID, side, line and price), preserving the same
+terms and grading keys as `/bets`. `LogBetForm` uses the existing server action and
+storage with an inline success state instead of navigating. Validation errors remain
+visible beside the form; pending submissions disable the save button. The standalone
+`/bets` form and incoming prefilled links continue to work. Tonight also carries raw
+`homeTeam`/`awayTeam` codes separately from full display names so event dropdowns
+continue to save selections that the results grader recognizes.

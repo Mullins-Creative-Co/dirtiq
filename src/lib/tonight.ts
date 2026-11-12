@@ -31,6 +31,7 @@ export type TonightItem = {
   key: string; kind: "game" | "race"; sport: string; sportLabel: string;
   startsAt: string; startsAtLabel: string; isToday: boolean; dayKey: string;
   title: string; subtitle: string;
+  homeTeam?: string; awayTeam?: string;
   pick: string; pickDetail: string;
   /** Probability the pick beats its main rival: win probability for a game, head-to-head versus the runner-up for a race. */
   confidence: number; confidenceLabel: ConfidenceLabel;
@@ -175,6 +176,7 @@ function gameItem(report: SportReport, game: SportUpcoming, ledger: Map<string, 
   const key = `${report.sport}:${game.gameId}`;
   return {
     key, kind: "game", sport: report.sport, sportLabel: report.label,
+    homeTeam: game.home, awayTeam: game.away,
     startsAt: game.startsAt, startsAtLabel: `${dayFmt.format(new Date(game.startsAt))} · ${timeFmt.format(new Date(game.startsAt))} ET`,
     isToday: dayKeyOf(game.startsAt) === today, dayKey: dayKeyOf(game.startsAt),
     title: `${teamLabel(names, report.sport, game.away)} at ${teamLabel(names, report.sport, game.home)}`, subtitle: `${report.label}${neutral ? " · neutral site" : ""}`,

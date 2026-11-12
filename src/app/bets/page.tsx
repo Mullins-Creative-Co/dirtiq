@@ -37,7 +37,7 @@ export default async function BetsPage({ searchParams }: { searchParams: Promise
   const board = await buildTonightBoard(10, { live: false });
   const events: EventOption[] = board.items.map((it) => ({
     eventId: it.key, sport: it.sport, label: it.title, startsAt: it.startsAt,
-    home: it.kind === "game" ? it.matchupHeaders[0] : null, away: it.kind === "game" ? it.matchupHeaders[1] : null,
+    home: it.kind === "game" ? it.homeTeam ?? it.matchupHeaders[0] : null, away: it.kind === "game" ? it.awayTeam ?? it.matchupHeaders[1] : null,
   }));
   const storage = myBetsStorage();
 

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { InlineLogBet } from "@/components/bets/inline-log-bet";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState, useTransition } from "react";
 
@@ -259,10 +260,10 @@ function ItemCard({ item, now, index, open, onToggle }: { item: TonightItem; now
             <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-[var(--muted)]">
               <span>{item.ledger ? `Ledger: ${item.ledger.open} open${item.ledger.record ? `, graded ${item.ledger.record}` : ""}${item.ledger.recordedAt ? `, first recorded ${item.ledger.recordedAt.slice(0, 16).replace("T", " ")} UTC` : ""}` : "Not in the ledger (no priced market)."}</span>
               <span className="flex flex-wrap gap-4">
-                <Link href={logHref} className="font-bold uppercase tracking-[0.14em] text-[var(--accent)]">Log this bet →</Link>
                 <Link href={item.href} className="font-bold uppercase tracking-[0.14em] text-[var(--accent)]">{item.kind === "game" ? `${item.sportLabel} page →` : "Race page →"}</Link>
               </span>
             </div>
+            <InlineLogBet href={logHref} />
           </div>
         </div>
       ) : null}

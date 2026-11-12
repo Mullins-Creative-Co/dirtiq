@@ -1,7 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import Link from "next/link";
+import { useId, useState, useTransition } from "react";
 
 import { logBetAction } from "@/app/bets/actions";
 import { BET_MARKETS } from "@/lib/my-bets/grade";
@@ -11,7 +12,8 @@ export type EventOption = { eventId: string; sport: string; label: string; start
 
 const SPORTS = [["nfl", "NFL"], ["nba", "NBA"], ["nhl", "NHL"], ["ncaaf", "College football"], ["ncaab", "College basketball"], ["mlb", "MLB"], ["racing", "Dirt racing"], ["other", "Other"]] as const;
 
-export function LogBetForm({ prefill, events }: { prefill: LogBetPrefill; events: EventOption[] }) {
+export function LogBetForm({ prefill, events, inline = false }: { prefill: LogBetPrefill; events: EventOption[]; inline?: boolean }) {
+  const inlineId = useId();
   const router = useRouter();
   const [pending, start] = useTransition();
   const [error, setError] = useState<string | null>(null);
@@ -32,21 +34,30 @@ export function LogBetForm({ prefill, events }: { prefill: LogBetPrefill; events
     if (e) { setEventLabel(e.label); setEventStart(e.startsAt); if (!selection && e.home) setSelection(e.home); }
   }
 
+  if (inline && saved) return <div role="status" className="text-sm text-[var(--good)]">{saved} <Link href="/bets" className="ml-2 underline">View my bets</Link></div>;
+
   return (
     <form
-      id="log"
+      id={inline ? inlineId : "log"}
+      aria-label="Log bet"
       className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3"
       onSubmit={(ev) => {
         ev.preventDefault();
         const fd = new FormData(ev.currentTarget);
         setError(null); setSaved(null);
         start(async () => {
-          const res = await logBetAction(fd);
-          if (res.error) { setError(res.error); return; }
-          setSaved(`Logged bet #${res.id}.`);
-          setSelection(""); setEventId(""); setEventLabel(""); setEventStart("");
-          router.replace("/bets");
-          router.refresh();
+          try {
+            const res = await logBetAction(fd);
+            if (res.error) { setError(res.error); return; }
+            setSaved(`Logged bet #${res.id}.`);
+            if (!inline) {
+              setSelection(""); setEventId(""); setEventLabel(""); setEventStart("");
+              router.replace("/bets");
+              router.refresh();
+            }
+          } catch {
+            setError("Could not confirm the save. Check My bets before trying again.");
+          }
         });
       }}
     >
@@ -60,7 +71,7 @@ export function LogBetForm({ prefill, events }: { prefill: LogBetPrefill; events
           {SPORTS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
         </select>
       </Field>
-      <Field label="Game or race" hint={options.length ? "Pick from the board for automatic grading, or type a name." : "Type a name; no upcoming events on the board for this sport."}>
+      <Field label="Game or race" hint={inline ? undefined : options.length ? "Pick from the board for automatic grading, or type a name." : "Type a name; no upcoming events on the board for this sport."}>
         {options.length ? (
           <select value={eventId} onChange={(e) => chooseEvent(e.target.value)} className="input">
             <option value="">— choose —</option>
@@ -95,13 +106,13 @@ export function LogBetForm({ prefill, events }: { prefill: LogBetPrefill; events
       <Field label="Price" hint="American, e.g. -110 or +145">
         <input name="price" defaultValue={prefill.price ?? "-110"} className="input" required />
       </Field>
-      <Field label="Stake"><input name="stake" type="number" step="0.01" min="0.01" placeholder="25" defaultValue={prefill.stake ?? ""} className="input" required /></Field>
+      <Field label="Stake"><input name="stake" autoFocus={inline} type="number" step="0.01" min="0.01" placeholder="25" defaultValue={prefill.stake ?? ""} className="input" required /></Field>
       <Field label="Book (optional)"><input name="book" placeholder="DraftKings" defaultValue={prefill.book ?? ""} className="input" /></Field>
       <Field label="Placed at (optional)"><input name="placedAt" type="datetime-local" className="input" /></Field>
       <Field label="Note (optional)" className="sm:col-span-2 lg:col-span-3"><input name="note" defaultValue={prefill.note ?? ""} className="input" /></Field>
       <div className="flex flex-wrap items-center gap-3 sm:col-span-2 lg:col-span-3">
         <button type="submit" disabled={pending} className="btn-primary">{pending ? "Saving…" : "Log bet"}</button>
-        {error ? <span className="text-sm text-[var(--bad)]">{error}</span> : null}
+        {error ? <span role="alert" className="text-sm text-[var(--bad)]">{error}</span> : null}
         {saved ? <span className="text-sm text-[var(--good)]">{saved}</span> : null}
         {prefill.modelProb ? <span className="text-xs text-[var(--muted)]">Model {Math.round(Number(prefill.modelProb) * 100)}% on this side{prefill.marketProb ? `, market ${Math.round(Number(prefill.marketProb) * 100)}%` : ""} at log time; saved with the bet.</span> : null}
       </div>
