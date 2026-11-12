@@ -49,9 +49,10 @@ jobs:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: |
           set -e
+          FAILED=0
           for sport in nfl nba nhl ncaab mlb ncaaf; do
-            python -m dirtiq_model teams settle --sport "$sport" --refresh || echo "settle $sport failed"
-            python -m dirtiq_model teams forecast --sport "$sport" || echo "forecast $sport failed"
+            python -m dirtiq_model teams settle --sport "$sport" --refresh || { echo "settle $sport failed"; FAILED=1; }
+            python -m dirtiq_model teams forecast --sport "$sport" || { echo "forecast $sport failed"; FAILED=1; }
           done
           # Closing-line snapshots for the focus sports. The free tier allows 500 requests a month and
           # each sport call costs two, so snapshots run twice a day: in the first run after 18:00 UTC
@@ -69,17 +70,19 @@ jobs:
           print("yes" if last is None or last < slot else "no")
           PY
           )
-          if [ "$DUE" = "yes" ] || [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ]; then
+          if [ "$DUE" = "yes" ]; then
             for sport in nfl ncaaf nba ncaab; do
-              python -m dirtiq_model odds snapshot --sport "$sport" || echo "odds $sport failed"
+              python -m dirtiq_model odds snapshot --sport "$sport" || { echo "odds $sport failed"; FAILED=1; }
             done
           else
             echo "odds snapshots already taken for this slot (slots open at 18:00 and 00:00 UTC); skipped this run"
           fi
           python -m dirtiq_model ledger export
           # Today's card: grade earlier cards, lock today's picks at their first listed line.
-          python -m dirtiq_model card build || echo "card build failed"
+          python -m dirtiq_model card build
+          exit "$FAILED"
       - name: Publish only sport reports and the ledger, preserving other writers
+        if: ${{ always() && !cancelled() }}
         run: |
           git config user.name 'DirtIQ data bot'
           git config user.email 'actions@users.noreply.github.com'

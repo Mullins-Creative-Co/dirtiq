@@ -2,7 +2,7 @@
 .next
 .vercel
 node_modules
-/data
+/data/*
 
 dirtiq.db
 dirt-track-intel.db
@@ -16,3 +16,7 @@ RACEFEST*/
 *.pdf
 .DS_Store
 npm-debug.log*
+
+# Server-side racing readers prefer these caches; exclude trained models and local DBs.
+!/data/ml-predictions/
+!/data/ml-predictions/*.json

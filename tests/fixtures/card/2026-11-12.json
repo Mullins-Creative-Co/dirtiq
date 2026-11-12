@@ -1,0 +1,810 @@
+{
+ "date": "2026-11-12",
+ "generatedAt": "2026-11-12T14:44:11Z",
+ "forecastsRefreshedAt": "2026-11-12T14:44:10Z",
+ "unit": "1 unit = 1% of bankroll",
+ "rules": [
+  "Spread bets only, in NFL, college football, NBA and college basketball; one bet per game.",
+  "A game qualifies when the model margin disagrees with the spread by at least the sport's fixed backtest threshold.",
+  "Ranked by whether the market-aware model takes the same side, then by the size of the disagreement in threshold units.",
+  "At most 15 picks a day, 6 per sport, 10 units in total.",
+  "Stake is 1.0 unit when the market-aware model agrees with the side, 0.5 unit otherwise. One unit is 1% of bankroll.",
+  "A pick is locked at the line it was first listed with and graded at that line."
+ ],
+ "evidence": "Backtested over many seasons, picks made by this rule have lost money in every sport after the vig; each pick shows its sport's record. Treat the card as a shortlist to check, not as proven value.",
+ "priced": 31,
+ "qualified": 19,
+ "totalUnits": 10.0,
+ "record": {
+  "days": 0,
+  "wins": 0,
+  "losses": 0,
+  "pushes": 0,
+  "units": 0.0,
+  "staked": 0.0,
+  "roi": null
+ },
+ "picks": [
+  {
+   "id": "nba:401909976",
+   "sport": "nba",
+   "sportLabel": "NBA",
+   "gameId": "401909976",
+   "home": "PHI",
+   "away": "TOR",
+   "startsAt": "2026-11-13T00:00:00Z",
+   "neutral": 0,
+   "market": "spread",
+   "pick": "TOR",
+   "opponent": "PHI",
+   "side": "away",
+   "line": 9.5,
+   "price": -103,
+   "homeSpread": -9.5,
+   "book": "ESPN multi-book median",
+   "lineObservedAt": "2026-11-12T12:35:43Z",
+   "modelHomeMargin": 2.44,
+   "edgePts": 7.06,
+   "threshold": 3.0,
+   "edgeRatio": 2.353,
+   "marketAwareAgrees": false,
+   "marketAwareEdgePts": -0.1,
+   "modelCoverProb": 0.6978,
+   "breakEvenProb": 0.5074,
+   "stakeUnits": 0.5,
+   "record": {
+    "rule": "abs(model - market) >= 3.0",
+    "picks": 3907,
+    "wins": 1918,
+    "losses": 1946,
+    "winRate": 0.4964,
+    "roi": -0.0518,
+    "seasons": [
+     2019,
+     2027
+    ]
+   },
+   "homeRating": {
+    "rating": 0.33,
+    "sd": 2.73,
+    "rank": 15
+   },
+   "awayRating": {
+    "rating": 1.71,
+    "sd": 2.76,
+    "rank": 13
+   },
+   "homeForm": {
+    "record": "9-3",
+    "avgMargin": 1.0,
+    "last": "3-2"
+   },
+   "awayForm": {
+    "record": "5-6",
+    "avgMargin": 2.55,
+    "last": "2-3"
+   },
+   "note": "model +2.4 vs market +9.5: leans TOR by 7.1 pts (threshold 3.0)",
+   "lockedAt": "2026-11-12T14:28:46Z",
+   "status": "playable",
+   "current": {
+    "checkedAt": "2026-11-12T14:44:11Z",
+    "line": 9.5,
+    "price": -118,
+    "edgePts": 7.06,
+    "lineObservedAt": "2026-11-12T14:29:47Z"
+   },
+   "rank": 10
+  },
+  {
+   "id": "nba:401909977",
+   "sport": "nba",
+   "sportLabel": "NBA",
+   "gameId": "401909977",
+   "home": "WSH",
+   "away": "DET",
+   "startsAt": "2026-11-13T00:00:00Z",
+   "neutral": 0,
+   "market": "spread",
+   "pick": "DET",
+   "opponent": "WSH",
+   "side": "away",
+   "line": -10.5,
+   "price": -108,
+   "homeSpread": 10.5,
+   "book": "ESPN multi-book median",
+   "lineObservedAt": "2026-11-12T12:35:43Z",
+   "modelHomeMargin": -13.58,
+   "edgePts": 3.08,
+   "threshold": 3.0,
+   "edgeRatio": 1.027,
+   "marketAwareAgrees": true,
+   "marketAwareEdgePts": 0.71,
+   "modelCoverProb": 0.6044,
+   "breakEvenProb": 0.5192,
+   "stakeUnits": 1.0,
+   "record": {
+    "rule": "abs(model - market) >= 3.0",
+    "picks": 3907,
+    "wins": 1918,
+    "losses": 1946,
+    "winRate": 0.4964,
+    "roi": -0.0518,
+    "seasons": [
+     2019,
+     2027
+    ]
+   },
+   "homeRating": {
+    "rating": -6.6,
+    "sd": 2.74,
+    "rank": 26
+   },
+   "awayRating": {
+    "rating": 5.14,
+    "sd": 2.8,
+    "rank": 6
+   },
+   "homeForm": {
+    "record": "4-8",
+    "avgMargin": -5.92,
+    "last": "0-5"
+   },
+   "awayForm": {
+    "record": "7-3",
+    "avgMargin": 8.1,
+    "last": "3-2"
+   },
+   "note": "model -13.6 vs market -10.5: leans DET by 3.1 pts (threshold 3.0)",
+   "lockedAt": "2026-11-12T14:28:46Z",
+   "status": "playable",
+   "current": {
+    "checkedAt": "2026-11-12T14:44:11Z",
+    "line": -10.5,
+    "price": -108,
+    "edgePts": 3.08,
+    "lineObservedAt": "2026-11-12T14:29:47Z"
+   },
+   "rank": 8
+  },
+  {
+   "id": "ncaab:401920135",
+   "sport": "ncaab",
+   "sportLabel": "NCAAB",
+   "gameId": "401920135",
+   "home": "WIU",
+   "away": "CSUB",
+   "startsAt": "2026-11-13T00:00:00Z",
+   "neutral": 0,
+   "market": "spread",
+   "pick": "WIU",
+   "opponent": "CSUB",
+   "side": "home",
+   "line": 9.5,
+   "price": -112,
+   "homeSpread": 9.5,
+   "book": "ESPN multi-book median",
+   "lineObservedAt": "2026-11-12T12:37:58Z",
+   "modelHomeMargin": 1.9,
+   "edgePts": 11.4,
+   "threshold": 3.0,
+   "edgeRatio": 3.8,
+   "marketAwareAgrees": true,
+   "marketAwareEdgePts": 1.65,
+   "modelCoverProb": 0.815,
+   "breakEvenProb": 0.5283,
+   "stakeUnits": 1.0,
+   "record": {
+    "rule": "abs(model - market) >= 3.0",
+    "picks": 11218,
+    "wins": 5694,
+    "losses": 5412,
+    "winRate": 0.5127,
+    "roi": -0.0223,
+    "seasons": [
+     2019,
+     2027
+    ]
+   },
+   "homeRating": {
+    "rating": -11.19,
+    "sd": 4.16,
+    "rank": 368
+   },
+   "awayRating": {
+    "rating": -6.74,
+    "sd": 4.4,
+    "rank": 315
+   },
+   "homeForm": {
+    "record": "1-2",
+    "avgMargin": 4.33,
+    "last": "1-2"
+   },
+   "awayForm": {
+    "record": "2-0",
+    "avgMargin": 25.0,
+    "last": "2-0"
+   },
+   "note": "model +1.9 vs market -9.5: leans WIU by 11.4 pts (threshold 3.0)",
+   "lockedAt": "2026-11-12T14:28:46Z",
+   "status": "playable",
+   "current": {
+    "checkedAt": "2026-11-12T14:44:11Z",
+    "line": 9.5,
+    "price": -112,
+    "edgePts": 11.4,
+    "lineObservedAt": "2026-11-12T14:32:58Z"
+   },
+   "rank": 3
+  },
+  {
+   "id": "ncaab:401920412",
+   "sport": "ncaab",
+   "sportLabel": "NCAAB",
+   "gameId": "401920412",
+   "home": "HPU",
+   "away": "SUU",
+   "startsAt": "2026-11-13T00:00:00Z",
+   "neutral": 0,
+   "market": "spread",
+   "pick": "SUU",
+   "opponent": "HPU",
+   "side": "away",
+   "line": 22.5,
+   "price": -110,
+   "homeSpread": -22.5,
+   "book": "ESPN multi-book median",
+   "lineObservedAt": "2026-11-12T12:37:58Z",
+   "modelHomeMargin": 6.78,
+   "edgePts": 15.72,
+   "threshold": 3.0,
+   "edgeRatio": 5.24,
+   "marketAwareAgrees": true,
+   "marketAwareEdgePts": 2.57,
+   "modelCoverProb": 0.8943,
+   "breakEvenProb": 0.5238,
+   "stakeUnits": 1.0,
+   "record": {
+    "rule": "abs(model - market) >= 3.0",
+    "picks": 11218,
+    "wins": 5694,
+    "losses": 5412,
+    "winRate": 0.5127,
+    "roi": -0.0223,
+    "seasons": [
+     2019,
+     2027
+    ]
+   },
+   "homeRating": {
+    "rating": 6.82,
+    "sd": 4.18,
+    "rank": 77
+   },
+   "awayRating": {
+    "rating": 5.95,
+    "sd": 4.1,
+    "rank": 88
+   },
+   "homeForm": {
+    "record": "3-0",
+    "avgMargin": 13.67,
+    "last": "3-0"
+   },
+   "awayForm": {
+    "record": "3-0",
+    "avgMargin": 67.67,
+    "last": "3-0"
+   },
+   "note": "model +6.8 vs market +22.5: leans SUU by 15.7 pts (threshold 3.0)",
+   "lockedAt": "2026-11-12T14:28:46Z",
+   "status": "playable",
+   "current": {
+    "checkedAt": "2026-11-12T14:44:11Z",
+    "line": 22.5,
+    "price": -105,
+    "edgePts": 15.72,
+    "lineObservedAt": "2026-11-12T14:32:58Z"
+   },
+   "rank": 1
+  },
+  {
+   "id": "ncaab:401924876",
+   "sport": "ncaab",
+   "sportLabel": "NCAAB",
+   "gameId": "401924876",
+   "home": "SHU",
+   "away": "CCSU",
+   "startsAt": "2026-11-13T00:00:00Z",
+   "neutral": 0,
+   "market": "spread",
+   "pick": "SHU",
+   "opponent": "CCSU",
+   "side": "home",
+   "line": -4.5,
+   "price": -115,
+   "homeSpread": -4.5,
+   "book": "ESPN multi-book median",
+   "lineObservedAt": "2026-11-12T12:37:58Z",
+   "modelHomeMargin": 13.15,
+   "edgePts": 8.65,
+   "threshold": 3.0,
+   "edgeRatio": 2.883,
+   "marketAwareAgrees": true,
+   "marketAwareEdgePts": 1.54,
+   "modelCoverProb": 0.7738,
+   "breakEvenProb": 0.5349,
+   "stakeUnits": 1.0,
+   "record": {
+    "rule": "abs(model - market) >= 3.0",
+    "picks": 11218,
+    "wins": 5694,
+    "losses": 5412,
+    "winRate": 0.5127,
+    "roi": -0.0223,
+    "seasons": [
+     2019,
+     2027
+    ]
+   },
+   "homeRating": {
+    "rating": -0.69,
+    "sd": 4.15,
+    "rank": 184
+   },
+   "awayRating": {
+    "rating": -7.8,
+    "sd": 4.19,
+    "rank": 326
+   },
+   "homeForm": {
+    "record": "2-1",
+    "avgMargin": 23.33,
+    "last": "2-1"
+   },
+   "awayForm": {
+    "record": "1-2",
+    "avgMargin": -19.33,
+    "last": "1-2"
+   },
+   "note": "model +13.2 vs market +4.5: leans SHU by 8.7 pts (threshold 3.0)",
+   "lockedAt": "2026-11-12T14:28:46Z",
+   "status": "playable",
+   "current": {
+    "checkedAt": "2026-11-12T14:44:11Z",
+    "line": -4.5,
+    "price": -115,
+    "edgePts": 8.65,
+    "lineObservedAt": "2026-11-12T14:32:58Z"
+   },
+   "rank": 4
+  },
+  {
+   "id": "ncaab:401928818",
+   "sport": "ncaab",
+   "sportLabel": "NCAAB",
+   "gameId": "401928818",
+   "home": "PFW",
+   "away": "WMU",
+   "startsAt": "2026-11-13T00:00:00Z",
+   "neutral": 0,
+   "market": "spread",
+   "pick": "PFW",
+   "opponent": "WMU",
+   "side": "home",
+   "line": 3.5,
+   "price": -112,
+   "homeSpread": 3.5,
+   "book": "ESPN multi-book median",
+   "lineObservedAt": "2026-11-12T12:37:58Z",
+   "modelHomeMargin": 4.77,
+   "edgePts": 8.27,
+   "threshold": 3.0,
+   "edgeRatio": 2.757,
+   "marketAwareAgrees": true,
+   "marketAwareEdgePts": 1.86,
+   "modelCoverProb": 0.7403,
+   "breakEvenProb": 0.5283,
+   "stakeUnits": 1.0,
+   "record": {
+    "rule": "abs(model - market) >= 3.0",
+    "picks": 11218,
+    "wins": 5694,
+    "losses": 5412,
+    "winRate": 0.5127,
+    "roi": -0.0223,
+    "seasons": [
+     2019,
+     2027
+    ]
+   },
+   "homeRating": {
+    "rating": -4.04,
+    "sd": 4.41,
+    "rank": 269
+   },
+   "awayRating": {
+    "rating": -2.52,
+    "sd": 4.15,
+    "rank": 233
+   },
+   "homeForm": {
+    "record": "1-1",
+    "avgMargin": 15.5,
+    "last": "1-1"
+   },
+   "awayForm": {
+    "record": "2-1",
+    "avgMargin": 17.0,
+    "last": "2-1"
+   },
+   "note": "model +4.8 vs market -3.5: leans PFW by 8.3 pts (threshold 3.0)",
+   "lockedAt": "2026-11-12T14:28:46Z",
+   "status": "playable",
+   "current": {
+    "checkedAt": "2026-11-12T14:44:11Z",
+    "line": 3.5,
+    "price": -110,
+    "edgePts": 8.27,
+    "lineObservedAt": "2026-11-12T14:32:58Z"
+   },
+   "rank": 5
+  },
+  {
+   "id": "ncaab:401922250",
+   "sport": "ncaab",
+   "sportLabel": "NCAAB",
+   "gameId": "401922250",
+   "home": "AAMU",
+   "away": "UWF",
+   "startsAt": "2026-11-13T01:00:00Z",
+   "neutral": 0,
+   "market": "spread",
+   "pick": "UWF",
+   "opponent": "AAMU",
+   "side": "away",
+   "line": 7.5,
+   "price": -105,
+   "homeSpread": -7.5,
+   "book": "ESPN multi-book median",
+   "lineObservedAt": "2026-11-12T12:37:58Z",
+   "modelHomeMargin": -7.83,
+   "edgePts": 15.33,
+   "threshold": 3.0,
+   "edgeRatio": 5.11,
+   "marketAwareAgrees": true,
+   "marketAwareEdgePts": 1.32,
+   "modelCoverProb": 0.8854,
+   "breakEvenProb": 0.5122,
+   "stakeUnits": 1.0,
+   "record": {
+    "rule": "abs(model - market) >= 3.0",
+    "picks": 11218,
+    "wins": 5694,
+    "losses": 5412,
+    "winRate": 0.5127,
+    "roi": -0.0223,
+    "seasons": [
+     2019,
+     2027
+    ]
+   },
+   "homeRating": {
+    "rating": -8.07,
+    "sd": 4.12,
+    "rank": 333
+   },
+   "awayRating": {
+    "rating": 6.61,
+    "sd": 4.77,
+    "rank": 83
+   },
+   "homeForm": {
+    "record": "2-1",
+    "avgMargin": 17.33,
+    "last": "2-1"
+   },
+   "awayForm": {
+    "record": "2-1",
+    "avgMargin": 42.0,
+    "last": "2-1"
+   },
+   "note": "model -7.8 vs market +7.5: leans UWF by 15.3 pts (threshold 3.0)",
+   "lockedAt": "2026-11-12T14:28:46Z",
+   "status": "playable",
+   "current": {
+    "checkedAt": "2026-11-12T14:44:11Z",
+    "line": 7.5,
+    "price": -112,
+    "edgePts": 15.33,
+    "lineObservedAt": "2026-11-12T14:32:58Z"
+   },
+   "rank": 2
+  },
+  {
+   "id": "ncaaf:401862824",
+   "sport": "ncaaf",
+   "sportLabel": "NCAAF",
+   "gameId": "401862824",
+   "home": "USF",
+   "away": "MEM",
+   "startsAt": "2026-11-13T01:00:00Z",
+   "neutral": 0,
+   "market": "spread",
+   "pick": "USF",
+   "opponent": "MEM",
+   "side": "home",
+   "line": 3.5,
+   "price": -108,
+   "homeSpread": 3.5,
+   "book": "cfbfastR multi-book median; ESPN multi-book median from 2026",
+   "lineObservedAt": "2026-11-12T12:45:56Z",
+   "modelHomeMargin": 0.09,
+   "edgePts": 3.59,
+   "threshold": 3.0,
+   "edgeRatio": 1.197,
+   "marketAwareAgrees": false,
+   "marketAwareEdgePts": -1.19,
+   "modelCoverProb": 0.5929,
+   "breakEvenProb": 0.5192,
+   "stakeUnits": 0.5,
+   "record": {
+    "rule": "abs(model - market) >= 3.0",
+    "picks": 5125,
+    "wins": 2422,
+    "losses": 2617,
+    "winRate": 0.4807,
+    "roi": -0.0915,
+    "seasons": [
+     2015,
+     2026
+    ]
+   },
+   "homeRating": {
+    "rating": 1.19,
+    "sd": 4.96,
+    "rank": 73
+   },
+   "awayRating": {
+    "rating": 3.86,
+    "sd": 5.03,
+    "rank": 59
+   },
+   "homeForm": {
+    "record": "6-3",
+    "avgMargin": 10.78,
+    "last": "2-3"
+   },
+   "awayForm": {
+    "record": "7-2",
+    "avgMargin": 14.0,
+    "last": "4-1"
+   },
+   "note": "model +0.1 vs market -3.5: leans USF by 3.6 pts (threshold 3.0)",
+   "lockedAt": "2026-11-12T14:28:46Z",
+   "status": "playable",
+   "current": {
+    "checkedAt": "2026-11-12T14:44:11Z",
+    "line": 3.5,
+    "price": -108,
+    "edgePts": 3.59,
+    "lineObservedAt": "2026-11-12T14:44:04Z"
+   },
+   "rank": 11
+  },
+  {
+   "id": "nba:401909979",
+   "sport": "nba",
+   "sportLabel": "NBA",
+   "gameId": "401909979",
+   "home": "PHX",
+   "away": "CHA",
+   "startsAt": "2026-11-13T02:00:00Z",
+   "neutral": 0,
+   "market": "spread",
+   "pick": "CHA",
+   "opponent": "PHX",
+   "side": "away",
+   "line": 6.5,
+   "price": -112,
+   "homeSpread": -6.5,
+   "book": "ESPN multi-book median",
+   "lineObservedAt": "2026-11-12T12:35:43Z",
+   "modelHomeMargin": 3.43,
+   "edgePts": 3.07,
+   "threshold": 3.0,
+   "edgeRatio": 1.023,
+   "marketAwareAgrees": true,
+   "marketAwareEdgePts": 0.88,
+   "modelCoverProb": 0.5832,
+   "breakEvenProb": 0.5283,
+   "stakeUnits": 1.0,
+   "record": {
+    "rule": "abs(model - market) >= 3.0",
+    "picks": 3907,
+    "wins": 1918,
+    "losses": 1946,
+    "winRate": 0.4964,
+    "roi": -0.0518,
+    "seasons": [
+     2019,
+     2027
+    ]
+   },
+   "homeRating": {
+    "rating": -0.68,
+    "sd": 2.81,
+    "rank": 17
+   },
+   "awayRating": {
+    "rating": -3.26,
+    "sd": 2.8,
+    "rank": 22
+   },
+   "homeForm": {
+    "record": "4-6",
+    "avgMargin": -5.3,
+    "last": "3-2"
+   },
+   "awayForm": {
+    "record": "4-7",
+    "avgMargin": -11.55,
+    "last": "1-4"
+   },
+   "note": "model +3.4 vs market +6.5: leans CHA by 3.1 pts (threshold 3.0)",
+   "lockedAt": "2026-11-12T14:28:46Z",
+   "status": "playable",
+   "current": {
+    "checkedAt": "2026-11-12T14:44:11Z",
+    "line": 6.5,
+    "price": -112,
+    "edgePts": 3.07,
+    "lineObservedAt": "2026-11-12T14:29:47Z"
+   },
+   "rank": 9
+  },
+  {
+   "id": "ncaab:401911533",
+   "sport": "ncaab",
+   "sportLabel": "NCAAB",
+   "gameId": "401911533",
+   "home": "UTEP",
+   "away": "NMSU",
+   "startsAt": "2026-11-13T02:00:00Z",
+   "neutral": 0,
+   "market": "spread",
+   "pick": "UTEP",
+   "opponent": "NMSU",
+   "side": "home",
+   "line": -4.5,
+   "price": -112,
+   "homeSpread": -4.5,
+   "book": "ESPN multi-book median",
+   "lineObservedAt": "2026-11-12T12:37:58Z",
+   "modelHomeMargin": 11.7,
+   "edgePts": 7.2,
+   "threshold": 3.0,
+   "edgeRatio": 2.4,
+   "marketAwareAgrees": true,
+   "marketAwareEdgePts": 1.22,
+   "modelCoverProb": 0.7339,
+   "breakEvenProb": 0.5283,
+   "stakeUnits": 1.0,
+   "record": {
+    "rule": "abs(model - market) >= 3.0",
+    "picks": 11218,
+    "wins": 5694,
+    "losses": 5412,
+    "winRate": 0.5127,
+    "roi": -0.0223,
+    "seasons": [
+     2019,
+     2027
+    ]
+   },
+   "homeRating": {
+    "rating": -4.32,
+    "sd": 4.44,
+    "rank": 274
+   },
+   "awayRating": {
+    "rating": -9.51,
+    "sd": 4.41,
+    "rank": 359
+   },
+   "homeForm": {
+    "record": "1-1",
+    "avgMargin": 5.5,
+    "last": "1-1"
+   },
+   "awayForm": {
+    "record": "1-1",
+    "avgMargin": -17.0,
+    "last": "1-1"
+   },
+   "note": "model +11.7 vs market +4.5: leans UTEP by 7.2 pts (threshold 3.0)",
+   "lockedAt": "2026-11-12T14:28:46Z",
+   "status": "playable",
+   "current": {
+    "checkedAt": "2026-11-12T14:44:11Z",
+    "line": -5.5,
+    "price": -105,
+    "edgePts": 6.2,
+    "lineObservedAt": "2026-11-12T14:32:58Z"
+   },
+   "rank": 6
+  },
+  {
+   "id": "ncaaf:401869969",
+   "sport": "ncaaf",
+   "sportLabel": "NCAAF",
+   "gameId": "401869969",
+   "home": "ULM",
+   "away": "UL",
+   "startsAt": "2026-11-13T02:00:00Z",
+   "neutral": 0,
+   "market": "spread",
+   "pick": "UL",
+   "opponent": "ULM",
+   "side": "away",
+   "line": -10.5,
+   "price": -102,
+   "homeSpread": 10.5,
+   "book": "cfbfastR multi-book median; ESPN multi-book median from 2026",
+   "lineObservedAt": "2026-11-12T12:45:56Z",
+   "modelHomeMargin": -13.84,
+   "edgePts": 3.34,
+   "threshold": 3.0,
+   "edgeRatio": 1.113,
+   "marketAwareAgrees": true,
+   "marketAwareEdgePts": 0.48,
+   "modelCoverProb": 0.5801,
+   "breakEvenProb": 0.505,
+   "stakeUnits": 1.0,
+   "record": {
+    "rule": "abs(model - market) >= 3.0",
+    "picks": 5125,
+    "wins": 2422,
+    "losses": 2617,
+    "winRate": 0.4807,
+    "roi": -0.0915,
+    "seasons": [
+     2015,
+     2026
+    ]
+   },
+   "homeRating": {
+    "rating": -21.15,
+    "sd": 4.95,
+    "rank": 149
+   },
+   "awayRating": {
+    "rating": -4.54,
+    "sd": 4.98,
+    "rank": 105
+   },
+   "homeForm": {
+    "record": "2-7",
+    "avgMargin": -14.67,
+    "last": "2-3"
+   },
+   "awayForm": {
+    "record": "6-3",
+    "avgMargin": 8.11,
+    "last": "3-2"
+   },
+   "note": "model -13.8 vs market -10.5: leans UL by 3.3 pts (threshold 3.0)",
+   "lockedAt": "2026-11-12T14:28:46Z",
+   "status": "playable",
+   "current": {
+    "checkedAt": "2026-11-12T14:44:11Z",
+    "line": -10.0,
+    "price": -115,
+    "edgePts": 3.84,
+    "lineObservedAt": "2026-11-12T14:44:04Z"
+   },
+   "rank": 7
+  }
+ ]
+}

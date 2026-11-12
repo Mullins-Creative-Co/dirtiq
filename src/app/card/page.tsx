@@ -1,3 +1,4 @@
+import { RefreshNotice } from "@/components/refresh-notice";
 import Link from "next/link";
 import { connection } from "next/server";
 
@@ -40,6 +41,7 @@ export default async function CardPage() {
       <div className="min-h-screen">
         <Nav />
         <main className="mx-auto max-w-7xl space-y-8 px-4 py-8 sm:px-6">
+          <RefreshNotice />
           <PageHeader kicker="Card" title="Today’s card" />
           <EmptyState title="No card yet" detail="The card is built by the hourly sports refresh." command="python3 -m dirtiq_model card build" />
         </main>
@@ -61,6 +63,7 @@ export default async function CardPage() {
     <div className="min-h-screen">
       <Nav />
       <main className="mx-auto max-w-7xl space-y-8 px-4 py-8 sm:px-6">
+        <RefreshNotice />
         <PageHeader
           kicker={new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", weekday: "long", month: "long", day: "numeric" }).format(new Date(`${card.date}T17:00:00Z`))}
           title="Today’s card"

@@ -302,3 +302,33 @@ npm run test:ts                    # all TypeScript tests
 `.github/workflows/sports-refresh.yml` runs settle, forecast and export for every team sport
 hourly from about 5 AM to 1 AM Eastern (plus one overnight run) and commits only `public/sports/`, `public/data/forecast-ledger.json` and
 `public/data/model-health.json`.
+
+
+## Refresh triggers and health (2026-11-12)
+
+Sports retains its hourly Eastern-day GitHub cron and racing its hourly cron. GitHub
+cron alone missed multiple expected runs despite active workflows and no queued or
+running sports jobs; the API did not reveal why. The independent Cloudflare Worker
+in `ops/refresh-dispatcher/` dispatches both fixed workflows on main hourly at :17 UTC.
+It requires owner activation with a repository-scoped Actions-write token; see its
+README. Implementation is not evidence of activation or two successful hourly runs.
+Snapshots now depend solely on the persisted DUE slot check, including manual dispatch;
+there is no implicit force-snapshot behavior. Sports command failures fail the job
+rather than masquerading as success; completed artifacts can still be published.
+Racing checks automation-status.ok before publishing because auto_refresh catches errors.
+Successful racing publication writes public/data/race-refresh.json (refreshedAt).
+
+All JSON UI inputs are included explicitly in server traces: public/data/**/*.json,
+public/sports/*.json, data/ml-predictions/*.json; the racing seed DB is included too.
+The Vercel ignore file permits the prediction cache under otherwise ignored data/.
+
+GET /api/freshness computes deployment-local ages in minutes for all six sports,
+the daily card, and the last successful race refresh. Missing, invalid or future
+stamps are unknown/overdue; >75 minutes is overdue and >180 is stale. Page notices
+on Tonight and Card show overdue/missing artifacts and failed/cancelled/skipped latest
+runs. They query the public GitHub Actions API at page load without credentials;
+unavailable/rate-limited status is explicitly not verified, never treated as success.
+A missing trigger has no failure record, so artifact age reports the missed update.
+No endpoint or UI access settings were changed; reviewing agents need existing Vercel
+access. The archive fixture test grades a copy of the November 12 card next day,
+checks locked terms against changed quotes, and leaves absent/null scores ungraded.

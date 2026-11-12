@@ -29,7 +29,21 @@ jobs:
       - run: npm ci
       - run: pip install -r requirements.txt
       - name: Refresh verified results and predictions
-        run: python scripts/auto_refresh.py
+        run: |
+          export REFRESH_STARTED_AT=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          python scripts/auto_refresh.py
+          # auto_refresh records errors in JSON but exits zero; make Actions reflect failures.
+          python - <<'PY'
+          import json, sys, os
+          from datetime import datetime
+          sys.path.insert(0, 'scripts')
+          from model_runtime import DATA_DIR
+          status = json.loads((DATA_DIR / 'automation-status.json').read_text())
+          last = datetime.fromisoformat(status['lastRun'].replace('Z', '+00:00'))
+          started = datetime.fromisoformat(os.environ['REFRESH_STARTED_AT'].replace('Z', '+00:00'))
+          if not status.get('ok') or last < started:
+              raise SystemExit('Race refresh failed; see automation-status.json')
+          PY
       - name: Publish refreshed database and prediction caches
         run: |
           python - <<'PY'
@@ -39,6 +53,9 @@ jobs:
           target=sqlite3.connect('public/data/dirtiq.seed.next.db')
           source.backup(target); source.close(); target.close()
           Path('public/data/dirtiq.seed.next.db').replace('public/data/dirtiq.seed.db')
+          import json
+          from datetime import datetime, timezone
+          Path('public/data/race-refresh.json').write_text(json.dumps({'refreshedAt': datetime.now(timezone.utc).isoformat()}) + '\n')
           public=Path('public/data/ml-predictions'); public.mkdir(parents=True,exist_ok=True)
           for cache in Path('data/ml-predictions').glob('*.json'):
               shutil.copy2(cache,public/cache.name)

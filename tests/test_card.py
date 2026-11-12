@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import tempfile
+import shutil
 import unittest
 from datetime import datetime, timezone
 from pathlib import Path
@@ -88,6 +89,31 @@ class CardTest(unittest.TestCase):
         self.assertEqual((card["record"]["wins"], card["record"]["losses"], card["record"]["units"]), (1, 0, 0.909))
         graded = json.loads((self.archive / "2026-11-12.json").read_text())["picks"][0]
         self.assertEqual(graded["result"]["outcome"], "win")
+
+    def test_real_archive_next_day_locked_lines_and_missing_results(self):
+        fixtures = Path(__file__).parent / "fixtures" / "card"
+        self.archive.mkdir()
+        archive = self.archive / "2026-11-12.json"
+        shutil.copy2(fixtures / archive.name, archive)
+        original = json.loads(archive.read_text())
+        # Deliberately make the latest quote a losing number; grading must use +9.5.
+        original["picks"][0]["current"]["line"] = 8.5
+        archive.write_text(json.dumps(original))
+        results = json.loads((fixtures / "results.json").read_text())
+        tomorrow = datetime(2026, 11, 13, 15, 0, tzinfo=timezone.utc)
+        card = self.card(now=tomorrow, results=results)
+        graded = json.loads(archive.read_text())["picks"]
+        self.assertEqual([p.get("result", {}).get("outcome") for p in graded[:4]],
+                         ["win", "loss", "loss", None])
+        for before, after in zip(original["picks"], graded):
+            for key in ("line", "price", "stakeUnits", "lockedAt"):
+                self.assertEqual(before[key], after[key])
+        # Null scores (postponed) and events missing entirely remain ungraded.
+        self.assertTrue(all(not p.get("result") for p in graded[3:]))
+        self.assertEqual((card["record"]["wins"], card["record"]["losses"]), (1, 2))
+        self.assertEqual(card["record"]["staked"], sum(p["stakeUnits"] for p in graded[:3]))
+        again = self.card(now=tomorrow, results=results)
+        self.assertEqual(card["record"], again["record"])
 
     def test_push_and_away_loss(self):
         home_pick = {"id": "nba:1", "side": "home", "line": -5.0, "price": -110, "stakeUnits": 1.0}

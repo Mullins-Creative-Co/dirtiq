@@ -1,5 +1,7 @@
 import "server-only";
 
+import { artifactAge } from "@/lib/freshness-core";
+
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
@@ -73,7 +75,7 @@ export type SportUpcoming = {
   [key: string]: unknown;
 };
 export type SportReport = {
-  sport: string; label: string; generatedAt: string; modelId: string; modelVersion: string;
+  sport: string; label: string; generatedAt: string; forecastGeneratedAt?: string; modelId: string; modelVersion: string;
   dataThrough: string | null; sources: Array<{ url: string; sha256?: string; retrievedAt?: string }>;
   backtest: SportBacktest | null; ratings: SportRating[]; upcoming: SportUpcoming[]; limitations: string[];
   [key: string]: unknown;
@@ -350,3 +352,14 @@ export function getLedgerIndex(): Map<string, LedgerEventSummary> {
   return map;
 }
 
+
+/** Deployment-local artifact ages; missing sports must not be hidden by a newer league. */
+export function getArtifactFreshness(now = Date.now()) {
+  const sports = Object.fromEntries(SPORT_ORDER.map((sport) => {
+    const report = getSportReport(sport);
+    return [sport, artifactAge(report?.forecastGeneratedAt ?? report?.generatedAt, now)];
+  }));
+  const card = getDailyCard();
+  const racing = readJson<{ refreshedAt?: string }>("public/data/race-refresh.json");
+  return { sports, dailyCard: artifactAge(card?.generatedAt, now), raceData: artifactAge(racing?.refreshedAt, now) };
+}

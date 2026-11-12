@@ -1,3 +1,4 @@
+import { RefreshNotice } from "@/components/refresh-notice";
 import Link from "next/link";
 import { connection } from "next/server";
 
@@ -30,6 +31,7 @@ export default async function TonightPage({ searchParams }: { searchParams: Prom
     <div className="min-h-screen">
       <Nav />
       <main className="mx-auto max-w-6xl space-y-10 px-4 py-8 sm:px-6">
+        <RefreshNotice />
         <PageHeader
           kicker={longDay.format(new Date(`${board.today}T17:00:00Z`))}
           title="Tonight"

@@ -4,7 +4,7 @@ Ranked list of what to build next in this repo, with enough context that any age
 person can pick one up cold. Keep it current: when a plan ships, move it to "Shipped"
 with the commit; when priorities change, reorder and say why. Pair this with
 `docs/model-architecture.md` (the contract for how things work) and `AGENTS.md`
-(hard constraints). Last revised 2026-11-11.
+(hard constraints). Last revised 2026-11-12.
 
 ## Focus (set 2026-11-11)
 
@@ -42,7 +42,7 @@ site orders sports the same way; the closing-line feed covers the four focus spo
 | Results | `public/data/results/<sport>.json`: recent final scores keyed like the ledger. |
 | Racing | Conditional-logit race model (`dirtiq_model/racing/`), beats the legacy XGBoost method in every series; data-starved; results arrive through the racing database refresh. |
 | Bet tracker | `/bets`: log bets, auto-grade from results and ledger, P&L, ROI, model-backed subset. Postgres (Neon, `DATABASE_URL`) in production, sqlite locally. |
-| Refresh | Three bots commit to `main`: `sports-refresh.yml` (hourly 10:41-05:41 UTC, about 5 AM to 1 AM Eastern, plus 08:41 UTC: settle, forecast, ledger export; odds snapshots only in the first run after 18:00 and after 00:00 UTC, tracked by `public/data/odds/status.json`), `world100-refresh.yml` (hourly: verified race data, legacy racing model retrains, `public/data/ml-predictions`), `matchups-refresh.yml` (every four hours: NFL pregame projections). Each publishes with `git pull --rebase -X theirs` so its own regenerated files win over an overlapping run; they touch disjoint files otherwise. Local pushes should rebase the same way. |
+| Refresh | Three bots commit to `main`: `sports-refresh.yml` (hourly 10:41-05:41 UTC, about 5 AM to 1 AM Eastern, plus 08:41 UTC: settle, forecast, ledger export; odds snapshots only in the first run after 18:00 and after 00:00 UTC, tracked by `public/data/odds/status.json`), `world100-refresh.yml` (hourly: verified race data, legacy racing model retrains, `public/data/ml-predictions`), `matchups-refresh.yml` (every four hours: NFL pregame projections). Each publishes with `git pull --rebase -X theirs` so its own regenerated files win over an overlapping run; they touch disjoint files otherwise. Local pushes should rebase the same way. External hourly Cloudflare dispatcher is prepared in `ops/refresh-dispatcher/` but requires owner account/token activation; two hourly runs are not yet verified. `/api/freshness` exposes artifact ages and live Actions status. |
 
 ## Plans, in priority order
 
@@ -105,6 +105,12 @@ as-of FIP-style starter rate; NHL starting goalies from the league boxscore with
 alone shrinks to nothing, so this is the only route to starter value.
 
 ## Shipped (most recent first)
+
+- 2026-11-12: refresh hardening: dispatch no longer bypasses odds slots; failed team
+  commands fail Actions while publishing completed artifacts; deployment tracing covers
+  nested JSON, sport reports and racing caches; `/api/freshness` plus page notices;
+  real-card next-day grading fixture. External hourly dispatcher implementation is
+  ready, **activation and two-run production proof pending** (see `ops/refresh-dispatcher/README.md`).
 
 - 2026-11-12: daily card (`/card`, `dirtiq_model/card/`): up to 15 spread picks a day across
   the four focus sports, ranked, flat-staked, locked at first listing, graded from published
