@@ -86,11 +86,17 @@
    },
    "note": "model +2.4 vs market +9.5: leans TOR by 7.1 pts (threshold 3.0)",
    "lockedAt": "2026-11-12T14:28:46Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-13T01:45:00Z"
    },
-   "rank": 10
+   "rank": 10,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 123,
+    "awayScore": 112,
+    "units": -0.5
+   }
   },
   {
    "id": "nba:401909977",
@@ -153,11 +159,17 @@
    },
    "note": "model -13.6 vs market -10.5: leans DET by 3.1 pts (threshold 3.0)",
    "lockedAt": "2026-11-12T14:28:46Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-13T01:45:00Z"
    },
-   "rank": 8
+   "rank": 8,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 140,
+    "awayScore": 144,
+    "units": -1.0
+   }
   },
   {
    "id": "ncaab:401920135",
@@ -220,11 +232,17 @@
    },
    "note": "model +1.9 vs market -9.5: leans WIU by 11.4 pts (threshold 3.0)",
    "lockedAt": "2026-11-12T14:28:46Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-13T01:45:00Z"
    },
-   "rank": 3
+   "rank": 3,
+   "result": {
+    "outcome": "win",
+    "homeScore": 83,
+    "awayScore": 91,
+    "units": 0.893
+   }
   },
   {
    "id": "ncaab:401920412",
@@ -287,11 +305,17 @@
    },
    "note": "model +6.8 vs market +22.5: leans SUU by 15.7 pts (threshold 3.0)",
    "lockedAt": "2026-11-12T14:28:46Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-13T01:45:00Z"
    },
-   "rank": 1
+   "rank": 1,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 88,
+    "awayScore": 59,
+    "units": -1.0
+   }
   },
   {
    "id": "ncaab:401924876",
@@ -354,11 +378,17 @@
    },
    "note": "model +13.2 vs market +4.5: leans SHU by 8.7 pts (threshold 3.0)",
    "lockedAt": "2026-11-12T14:28:46Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-13T01:45:00Z"
    },
-   "rank": 4
+   "rank": 4,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 75,
+    "awayScore": 79,
+    "units": -1.0
+   }
   },
   {
    "id": "ncaab:401928818",
@@ -421,11 +451,17 @@
    },
    "note": "model +4.8 vs market -3.5: leans PFW by 8.3 pts (threshold 3.0)",
    "lockedAt": "2026-11-12T14:28:46Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-13T01:45:00Z"
    },
-   "rank": 5
+   "rank": 5,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 59,
+    "awayScore": 81,
+    "units": -1.0
+   }
   },
   {
    "id": "ncaab:401922250",
@@ -488,11 +524,17 @@
    },
    "note": "model -7.8 vs market +7.5: leans UWF by 15.3 pts (threshold 3.0)",
    "lockedAt": "2026-11-12T14:28:46Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-13T01:45:00Z"
    },
-   "rank": 2
+   "rank": 2,
+   "result": {
+    "outcome": "win",
+    "homeScore": 85,
+    "awayScore": 83,
+    "units": 0.952
+   }
   },
   {
    "id": "ncaaf:401862824",
@@ -628,7 +670,7 @@
    },
    "note": "model +3.4 vs market +6.5: leans CHA by 3.1 pts (threshold 3.0)",
    "lockedAt": "2026-11-12T14:28:46Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-13T01:45:00Z",
     "line": 6.5,
@@ -636,7 +678,13 @@
     "edgePts": 3.07,
     "lineObservedAt": "2026-11-13T01:28:28Z"
    },
-   "rank": 9
+   "rank": 9,
+   "result": {
+    "outcome": "win",
+    "homeScore": 101,
+    "awayScore": 96,
+    "units": 0.893
+   }
   },
   {
    "id": "ncaab:401911533",
@@ -699,7 +747,7 @@
    },
    "note": "model +11.7 vs market +4.5: leans UTEP by 7.2 pts (threshold 3.0)",
    "lockedAt": "2026-11-12T14:28:46Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-13T01:45:00Z",
     "line": -4.5,
@@ -707,7 +755,13 @@
     "edgePts": 7.2,
     "lineObservedAt": "2026-11-13T01:32:12Z"
    },
-   "rank": 6
+   "rank": 6,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 60,
+    "awayScore": 58,
+    "units": -1.0
+   }
   },
   {
    "id": "ncaaf:401869969",
