@@ -555,11 +555,17 @@
    },
    "note": "model +0.1 vs market -3.5: leans USF by 3.6 pts (threshold 3.0)",
    "lockedAt": "2026-11-12T14:28:46Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-13T01:45:00Z"
    },
-   "rank": 11
+   "rank": 11,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 41,
+    "awayScore": 52,
+    "units": -0.5
+   }
   },
   {
    "id": "nba:401909979",
@@ -764,7 +770,7 @@
    },
    "note": "model -13.8 vs market -10.5: leans UL by 3.3 pts (threshold 3.0)",
    "lockedAt": "2026-11-12T14:28:46Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-13T01:45:00Z",
     "line": -10.0,
@@ -772,7 +778,13 @@
     "edgePts": 3.84,
     "lineObservedAt": "2026-11-13T01:44:46Z"
    },
-   "rank": 7
+   "rank": 7,
+   "result": {
+    "outcome": "win",
+    "homeScore": 21,
+    "awayScore": 42,
+    "units": 0.98
+   }
   }
  ]
 }
