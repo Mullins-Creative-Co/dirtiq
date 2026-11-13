@@ -48,7 +48,7 @@ export function TonightBoardView({ board, initialSport = "all" }: { board: Tonig
 
   const items = useMemo(() => board.items.filter((item) =>
     (sport === "all" || item.sport === sport)
-    && (minConfidence === "all" || item.confidenceLabel === "High" || (minConfidence === "medium" && item.confidenceLabel === "Medium"))
+    && (minConfidence === "all" || item.kind === "race" || (minConfidence === "high" ? Boolean(item.flags?.moneyline) : Boolean(item.flags?.lean || item.flags?.moneyline)))
     && (!withMarket || item.kind === "race" || item.market !== null || item.liveMarket != null),
   ), [board.items, sport, minConfidence, withMarket]);
 
@@ -76,7 +76,7 @@ export function TonightBoardView({ board, initialSport = "all" }: { board: Tonig
   return (
     <div className="space-y-6">
       <div className="note">
-        <strong>Win likelihood is not bet confidence.</strong> A favorite can be likely to win and still be a poor bet at the spread or price. Live lines are ESPN reference quotes; confirm the executable price with your book. Saved lines preserve the forecast snapshot. Injuries and lineups need a separate check.
+        <strong>Favorites are not flagged for being favorites.</strong> A row is flagged for a spread lean, or for a moneyline only when the price beats the model’s own win probability by 8% or more and is no longer than +300. In the backtests those moneylines still lost about 4% a bet, so treat a flag as something to check, not as value. Live lines are ESPN reference quotes; confirm the executable price with your book. Saved lines preserve the forecast snapshot. Injuries and lineups need a separate check.
       </div>
       <p className={stale ? "note note-warn" : "note"} title={board.refreshedAt ? dateTime(board.refreshedAt) : undefined}>
         <strong>Forecasts and saved lines refreshed {relativeAge(board.refreshedAt, now)}.</strong>{" "}
@@ -94,8 +94,8 @@ export function TonightBoardView({ board, initialSport = "all" }: { board: Tonig
           <FilterButton key={s.sport} active={sport === s.sport} onClick={() => setSport(s.sport)}>{s.label} ({s.count})</FilterButton>
         ))}
         <span className="mx-1 hidden h-5 w-px bg-[var(--border-strong)] sm:block" />
-        <FilterButton active={minConfidence === "high"} onClick={() => setMinConfidence(minConfidence === "high" ? "all" : "high")}>Likelihood ≥72%</FilterButton>
-        <FilterButton active={minConfidence === "medium"} onClick={() => setMinConfidence(minConfidence === "medium" ? "all" : "medium")}>Likelihood ≥60%</FilterButton>
+        <FilterButton active={minConfidence === "high"} onClick={() => setMinConfidence(minConfidence === "high" ? "all" : "high")}>Moneyline flag</FilterButton>
+        <FilterButton active={minConfidence === "medium"} onClick={() => setMinConfidence(minConfidence === "medium" ? "all" : "medium")}>Any flag</FilterButton>
         <FilterButton active={withMarket} onClick={() => setWithMarket((v) => !v)}>Has a line</FilterButton>
         <FilterButton active={showAll} onClick={() => setShowAll((v) => !v)}>{showAll ? "Featured only" : "Show all"}</FilterButton>
       </div>
@@ -111,7 +111,7 @@ export function TonightBoardView({ board, initialSport = "all" }: { board: Tonig
         <section key={key} className="space-y-3">
           <div className="flex items-baseline justify-between">
             <h2 className="font-display text-xl font-black">{key === "today" ? "Tonight" : dayFmt.format(new Date(`${key}T17:00:00Z`))}</h2>
-            <span className="text-xs text-[var(--muted)]">{group.length} {group.length === 1 ? "event" : "events"} · sorted by model likelihood{hidden ? ` · ${hidden} more under Show all` : ""}</span>
+            <span className="text-xs text-[var(--muted)]">{group.length} {group.length === 1 ? "event" : "events"} · flagged games first, by distance from the line{hidden ? ` · ${hidden} more under Show all` : ""}</span>
           </div>
           <ol className="space-y-2">
             {group.map((item, index) => (
@@ -155,8 +155,8 @@ function ItemCard({ item, now, index, open, onToggle }: { item: TonightItem; now
         </span>
         <span className="hidden sm:block"><Chip tone={item.readiness ? "warn" : toneFor[item.confidenceLabel]}>{item.readiness?.label ?? `${item.confidenceLabel} likelihood`}</Chip></span>
         <span className="text-right">
-          <span className="tnum block font-display text-2xl font-black leading-none">{pct(item.confidence, 0)}</span>
-          <span className="block text-[10px] uppercase tracking-wider text-[var(--muted)]">{item.kind === "game" ? "model win" : "vs runner-up"}</span>
+          <span className="tnum block font-display text-2xl font-black leading-none">{item.kind === "game" ? (item.flags?.edgePts != null ? Math.abs(item.flags.edgePts).toFixed(1) : "—") : pct(item.confidence, 0)}</span>
+          <span className="block text-[10px] uppercase tracking-wider text-[var(--muted)]">{item.kind === "game" ? "pts off the line" : "vs runner-up"}</span>
         </span>
         {item.readiness ? <span className="col-span-3 text-xs text-[var(--muted-strong)] sm:hidden"><strong>{item.readiness.label}</strong> · {live ? `Live lean: ${live.lean ?? "none"} · ` : ""}Saved spread: {item.readiness.spreadLean}</span> : null}
       </button>
@@ -168,7 +168,7 @@ function ItemCard({ item, now, index, open, onToggle }: { item: TonightItem; now
               <div className="rounded-lg border border-[var(--border-strong)] bg-[var(--surface-raised)] p-4">
                 <p className="kicker">Decision check</p>
                 <div className="mt-3 grid grid-cols-2 gap-4">
-                  <dl><Stat label="Outright winner" value={item.pick} detail={`${pct(item.confidence)} model-only win`} /></dl>
+                  <dl><Stat label={item.flags?.moneyline?.kind ?? "Moneyline"} value={item.flags?.moneyline?.label ?? "No flag"} detail={item.flags?.moneyline?.detail ?? `Model has ${item.pick} ${pct(item.confidence, 0)} to win; neither price beats the model by enough`} /></dl>
                   <dl><Stat label="Spread lean · saved line" value={item.readiness.spreadLean} detail={item.readiness.spreadCover ?? undefined} /></dl>
                 </div>
                 {item.readiness.marketInformedWin !== null ? <p className="mt-3 text-xs text-[var(--muted-strong)]">Market-informed win: {item.pick} {pct(item.pick === item.matchupHeaders[0] ? item.readiness.marketInformedWin : 1 - item.readiness.marketInformedWin)}. Uses the saved market line, so it is not an independent second opinion.</p> : null}

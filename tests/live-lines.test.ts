@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { registerHooks } from "node:module";
-import { consolidateLiveLines, featuredLiveKeys, gameBetTerms, isFreshLiveLine, liveEdge, LIVE_LINE_TTL_MS, nflEspnId, noVigHome } from "../src/lib/live-lines/core.ts";
+import { consolidateLiveLines, featuredLiveKeys, gameBetTerms, isFreshLiveLine, liveEdge, moneylineValue, LIVE_LINE_TTL_MS, nflEspnId, noVigHome } from "../src/lib/live-lines/core.ts";
 import type { SportUpcoming } from "../src/lib/model-reports.ts";
 
 const fixture = JSON.parse(readFileSync(new URL("./fixtures/live-lines.json", import.meta.url), "utf8"));
@@ -125,4 +125,23 @@ test("expired or invalid quotes are never presented or logged as live", () => {
   assert(!isFreshLiveLine("invalid", now));
   assert(!isFreshLiveLine(null, now));
   assert(!isFreshLiveLine(observedAt, now - 1));
+});
+
+test("a moneyline is flagged for price, not for being the favorite", () => {
+  // 70% favorite at -150 needs 60%: +16.7% expected value, flagged as a favorite.
+  const fav = moneylineValue(game)!;
+  assert.deepEqual([fav.team, fav.price, fav.underdog], ["BOS", -150, false]);
+  // The same favorite at -260 needs 72%: no flag, and the 30% underdog at +210 is short too.
+  assert.equal(moneylineValue({ ...game, marketHomeMl: -260, marketAwayMl: 210 }), null);
+  // Model makes the +130 underdog 50%: flagged as an underdog.
+  const dog = moneylineValue({ ...game, homeWinProb: .5 })!;
+  assert.deepEqual([dog.team, dog.price, dog.underdog], ["NYK", 130, true]);
+  // Long shots are never flagged, however large the model's number.
+  assert.equal(moneylineValue({ ...game, homeWinProb: .6, marketHomeMl: -900, marketAwayMl: 600 }), null);
+  // A fresh live pair replaces the saved prices.
+  const live = consolidateLiveLines(fixture, observedAt)!;
+  assert.equal(moneylineValue(game, live)?.price ?? null, moneylineValue({ ...game, marketHomeMl: live.homeMl, marketAwayMl: live.awayMl })?.price ?? null);
+  // 92% on a +164 underdog is a rating error, not a bargain.
+  assert.equal(moneylineValue({ ...game, homeWinProb: .08, marketHomeMl: -200, marketAwayMl: 164 }), null);
+  assert.equal(moneylineValue({ ...game, homeWinProb: null }), null);
 });

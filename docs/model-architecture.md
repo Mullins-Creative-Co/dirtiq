@@ -200,6 +200,12 @@ abbreviations by explicit NFL and NBA tables with a nickname fallback; unresolve
 are listed, never guessed. Without a key the command writes `configured: false` and the
 UI says the feed is off.
 
+Tonight flags, not favorites: a game row leads with its spread lean and, separately, a
+moneyline flag from `moneylineValue` (`src/lib/live-lines/core.ts`): the side whose price
+beats the model's win probability by at least `ML_MIN_EV` (8%) and at most `ML_MAX_EV` (50%,
+beyond which it is a rating error), never longer than `ML_MAX_PRICE` (+300). The outright
+winner is no longer a headline. Rows sort by `priority` (flagged first).
+
 ## Daily card
 
 `python3 -m dirtiq_model card build` (`dirtiq_model/card/build.py`) runs at the end of every

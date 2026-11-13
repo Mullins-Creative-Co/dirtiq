@@ -91,6 +91,31 @@ export function liveEdge(margin: number | null, spread: number | null, threshold
   return { edgePts, lean };
 }
 
+/** A moneyline is flagged only when the model's win probability beats the price by this much
+ *  expected value, and never on a long shot: past +300 the backtests lose about 20% a bet. */
+export const ML_MIN_EV = 0.08;
+export const ML_MAX_PRICE = 300;
+/** Past this the model and the price are too far apart to be anything but a rating error. */
+export const ML_MAX_EV = 0.5;
+export type MoneylineValue = { side: "home" | "away"; team: string; price: number; modelProb: number; breakEven: number; ev: number; underdog: boolean };
+
+/** The one moneyline worth a look in this game, or null. Favorites are not flagged for being
+ *  favorites: the price has to be better than the model's own win probability requires. */
+export function moneylineValue(game: SportUpcoming, live: LiveLine | null = null): MoneylineValue | null {
+  const pHome = game.homeWinProb;
+  if (pHome == null || !Number.isFinite(pHome) || pHome <= 0 || pHome >= 1) return null;
+  const paired = live && live.homeMl !== null && live.awayMl !== null;
+  const homeMl = paired ? live.homeMl : game.marketHomeMl, awayMl = paired ? live.awayMl : game.marketAwayMl;
+  const side = (which: "home" | "away", price: number | null | undefined, p: number): MoneylineValue | null => {
+    if (price == null || !Number.isFinite(price) || Math.abs(price) < 100 || price > ML_MAX_PRICE) return null;
+    const payout = price > 0 ? price / 100 : 100 / -price;
+    const ev = p * payout - (1 - p);
+    return ev < ML_MIN_EV || ev > ML_MAX_EV ? null : { side: which, team: which === "home" ? game.home : game.away, price, modelProb: p, breakEven: 1 / (1 + payout), ev, underdog: price > 0 };
+  };
+  const home = side("home", homeMl, pHome), away = side("away", awayMl, 1 - pHome);
+  return home && away ? (home.ev >= away.ev ? home : away) : home ?? away;
+}
+
 /** Select exactly the default featured rows; filters/Show all never grow the network slate. */
 export function featuredLiveKeys(items: Array<{ key: string; sport: string; startsAt: string; isToday: boolean }>, now: number) {
   const counts = new Map<string, number>();

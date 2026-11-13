@@ -106,6 +106,13 @@ alone shrinks to nothing, so this is the only route to starter value.
 
 ## Shipped (most recent first)
 
+- 2026-11-13: Tonight no longer headlines every game with its outright winner (which
+  flagged every favorite). A row is flagged for a spread lean, or for a moneyline only when
+  the model's win probability beats the price by 8-50% expected value at +300 or shorter
+  (`moneylineValue` in `src/lib/live-lines/core.ts`). Backtest of that moneyline rule:
+  about -4% a bet on underdogs to +300 in NBA/NCAAB, roughly break-even in NFL/NCAAF, -20%
+  past +300; it is a filter, not an edge. Rows sort by flag and distance from the line.
+
 - 2026-11-13: card review after the first full day (card 4-7, -2.3u). Sliced the
   out-of-fold backtests by edge size, market-aware agreement, favorite/underdog, home/away,
   spread size, month, season, games played and non-D1 scheduling, and re-ran NCAAB/NBA against

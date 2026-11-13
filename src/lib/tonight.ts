@@ -9,7 +9,7 @@ import {
 } from "@/lib/model-reports";
 import { forecastReadiness, hasMarket, isUpcomingGame, validProbability, type ForecastReadiness } from "@/lib/forecast-readiness";
 import { getLiveLines, resolveNflEvent } from "@/lib/live-lines";
-import { featuredLiveKeys, gameBetTerms, isLiveSport, liveEdge, noVigHome, type LiveLine } from "@/lib/live-lines/core";
+import { featuredLiveKeys, gameBetTerms, isLiveSport, liveEdge, moneylineValue, noVigHome, type LiveLine } from "@/lib/live-lines/core";
 import { todayDateString } from "@/lib/races";
 
 /** One scannable item on the Tonight board: a game or a race, with a pick, a confidence,
@@ -35,6 +35,10 @@ export type TonightItem = {
   pick: string; pickDetail: string;
   /** Probability the pick beats its main rival: win probability for a game, head-to-head versus the runner-up for a race. */
   confidence: number; confidenceLabel: ConfidenceLabel;
+  /** Games only. What the row is flagged for: a spread lean, a moneyline that clears the value bar, both or neither. */
+  flags?: { lean: string | null; edgePts: number | null; moneyline: { label: string; kind: string; detail: string; underdog: boolean } | null };
+  /** Board order within a day: flagged games first, by how far the model is from the line. */
+  priority: number;
   rationale: string[];
   matchupHeaders: [string, string]; matchup: MatchupRow[];
   raceTable?: Array<{ rank: number; driver: string; car: string | null; win: number; top3: number | null; expectedFinish: number | null; last5: string; elo: number | null }>;
@@ -173,6 +177,20 @@ function gameItem(report: SportReport, game: SportUpcoming, ledger: Map<string, 
     book: `ESPN multi-book median (${live.books} books)`,
     note: report.backtest?.selectionThreshold == null ? "Lean unavailable: report has no selection threshold." : `Lean threshold: ${report.backtest.selectionThreshold} points.`,
   } : null;
+  const active = liveMarket ?? market;
+  const threshold = report.backtest?.selectionThreshold ?? null;
+  const leanCode = liveComparison ? (liveComparison.lean === "home" ? game.home : liveComparison.lean === "away" ? game.away : null)
+    : game.lean && game.lean !== "none" ? (game.lean === "home" ? game.home : game.away) : null;
+  const leanSpread = live?.spread ?? game.marketHomeSpread ?? null;
+  const leanLabel = leanCode && leanSpread !== null && !fixedLine ? `${teamLabel(names, report.sport, leanCode)} ${spread(leanCode === game.home ? leanSpread : -leanSpread)}` : null;
+  const mlv = moneylineValue(game, live);
+  const moneylineFlag = mlv ? {
+    label: `${teamLabel(names, report.sport, mlv.team)} ${american(mlv.price)}`, kind: mlv.underdog ? "Underdog moneyline" : "Moneyline value", underdog: mlv.underdog,
+    detail: `model ${pct(mlv.modelProb, 0)} to win; the price needs ${pct(mlv.breakEven, 0)}`,
+  } : null;
+  const edgeAbs = active?.edgePts != null ? Math.abs(active.edgePts) : 0;
+  const headline = [leanLabel ? `Spread lean: ${leanLabel}` : null, moneylineFlag ? `${moneylineFlag.kind}: ${moneylineFlag.label}` : null].filter(Boolean).join(" · ")
+    || `No lean · model has ${teamLabel(names, report.sport, pick)} by ${num(Math.abs(pickMargin), 1)}`;
   const key = `${report.sport}:${game.gameId}`;
   return {
     key, kind: "game", sport: report.sport, sportLabel: report.label,
@@ -180,7 +198,9 @@ function gameItem(report: SportReport, game: SportUpcoming, ledger: Map<string, 
     startsAt: game.startsAt, startsAtLabel: `${dayFmt.format(new Date(game.startsAt))} · ${timeFmt.format(new Date(game.startsAt))} ET`,
     isToday: dayKeyOf(game.startsAt) === today, dayKey: dayKeyOf(game.startsAt),
     title: `${teamLabel(names, report.sport, game.away)} at ${teamLabel(names, report.sport, game.home)}`, subtitle: `${report.label}${neutral ? " · neutral site" : ""}`,
-    pick: teamLabel(names, report.sport, pick), pickDetail: `${teamLabel(names, report.sport, pick)} to win · projected by ${num(Math.abs(pickMargin), 1)}`,
+    pick: teamLabel(names, report.sport, pick), pickDetail: headline,
+    flags: { lean: leanLabel, edgePts: active?.edgePts ?? null, moneyline: moneylineFlag },
+    priority: (leanLabel ? 2 + Math.min(threshold ? edgeAbs / threshold : 0, 4) : 0) + (moneylineFlag ? 1 : 0),
     confidence, confidenceLabel: label(confidence), rationale,
     matchupHeaders: [teamLabel(names, report.sport, game.home), teamLabel(names, report.sport, game.away)], matchup, market, liveMarket,
     readiness: forecastReadiness(report, game, now),
@@ -239,7 +259,7 @@ function raceItem(board: RaceBoard, ledger: Map<string, LedgerEventSummary>, tod
     isToday: board.race.race_date === today, dayKey: board.race.race_date,
     title: board.race.name, subtitle: `${board.modelSeries ?? board.race.division} · ${board.race.track_name}`,
     pick: top.driverName, pickDetail: `${top.driverName} to win · ${pct(top.probability, 0)} · fair ${fairAmerican(top.probability)}`,
-    confidence: headToHead, confidenceLabel: label(headToHead), rationale,
+    confidence: headToHead, confidenceLabel: label(headToHead), priority: headToHead, rationale,
     matchupHeaders: [top.driverName, second?.driverName ?? "Field"], matchup, raceTable,
     market: null,
     ledger: ledgerSummary(ledger.get(key)), href: `/admin/races/${board.race.id}/prediction`,
@@ -297,7 +317,7 @@ export async function buildTonightBoard(horizonDays = 7, options: { live?: boole
     if (!board.rows.length) continue;
     items.push(raceItem(board, ledger, today));
   }
-  items.sort((a, b) => Number(b.isToday) - Number(a.isToday) || a.dayKey.localeCompare(b.dayKey) || b.confidence - a.confidence || a.startsAt.localeCompare(b.startsAt));
+  items.sort((a, b) => Number(b.isToday) - Number(a.isToday) || a.dayKey.localeCompare(b.dayKey) || b.priority - a.priority || a.startsAt.localeCompare(b.startsAt));
   if (options.live !== false) {
     const featured = featuredLiveKeys(items, now);
     await Promise.all(items.map(async (item, index) => {
