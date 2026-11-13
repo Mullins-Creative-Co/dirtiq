@@ -93,3 +93,21 @@ research/FINDINGS.md is the one-page summary. Full per-season metrics, rankings,
 coverage, hashes, and source audit go to ignored research/output/results.json and
 research/output/DETAILS.md. No raw or derived data files are committed or pushed.
 Scripts and protocol are committed to research/spread-market-study only; never main.
+
+
+## Pre-holdout data audit, 2026-11-13
+
+The first development-only pass exposed impossible football back-to-backs from
+combining different FCS opponents under the model's pooled FCS ID. Research schedule
+features now join the original ESPN team IDs for physical rest histories. Rest and
+back-to-back use Eastern calendar dates, not 24-hour elapsed-time cutoffs. The first
+development output is retained as development-preaudit-invalid.json; none of its
+results inform rule changes. Thresholds, model, features, priors and acceptance gates
+are unchanged. These are data-integrity corrections made before any holdout outcome
+evaluation. Synthetic checks cover both errors. NumPy/Apple Accelerate emits spurious
+matmul warnings even for small finite arrays; scalar arithmetic agrees to 1e-12 and
+all learned probabilities/filter predictions are explicitly checked for finiteness.
+
+The fixed ten groups ranked on development are also evaluated on holdout without
+re-ranking or turning them into new betting rules. Conference IDs are historical
+NCAAB IDs; other sports' conference slices remain explicitly unavailable.
