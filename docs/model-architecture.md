@@ -178,6 +178,10 @@ Selections: racing `driver:<driver_id>`; team sports the team abbreviation.
 
 `forecast` records `spread` and `moneyline` rows to the ledger for every upcoming
 game with a visible market; `settle` grades them from completed results.
+`settle` also writes `public/data/results/<sport>.json`. The NBA and NCAAB schedule archives
+are republished about once a day, so `late_finals` fills games they still list as unplayed
+from ESPN's scoreboard (same event ids, `source: "espn-scoreboard"`); last night's bets and
+card picks grade on the next refresh instead of a day later.
 
 ## Odds feed
 
@@ -202,9 +206,11 @@ UI says the feed is off.
 sports refresh. It fits nothing: it selects from the published reports. A game qualifies
 when it starts today (US Eastern), is at least 20 minutes away, has a priced spread observed
 within three hours, and the published margin disagrees with the spread by at least the
-sport's `selectionThreshold`. Qualifiers are ranked by whether `stackedMarketHomeMargin`
+sport's `selectionThreshold` and by less than four times it (a wider gap is a rating or data
+error: a first-season Division I team, a rating built on blowouts). Qualifiers are ranked by whether `stackedMarketHomeMargin`
 takes the same side, then by disagreement in threshold units; capped at 15 picks, 6 per
-sport and 10 units; staked 1.0 unit when the market-aware model agrees and 0.5 otherwise.
+sport and 7.5 units; every pick is staked 0.5 unit, because in the backtests neither
+market-aware agreement nor edge size separated winners from losers.
 A pick is locked at its first listed line (`public/data/cards/<date>.json` is the day's
 archive and the lock), later runs only update `status`/`current`, and earlier cards are
 graded at the locked line from `public/data/results/`. `public/data/daily-card.json` is the

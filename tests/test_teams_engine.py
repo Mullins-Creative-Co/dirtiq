@@ -315,3 +315,36 @@ class ReportTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class LateFinalsTest(unittest.TestCase):
+    """Results for games the schedule archive has not caught up on come from the scoreboard."""
+
+    def test_only_final_unplayed_games_are_filled(self):
+        from dirtiq_model.teams import forecast
+
+        now = pd.Timestamp("2026-11-13T12:00:00Z")
+        games = pd.DataFrame([
+            {"game_id": "1", "start": pd.Timestamp("2026-11-13T00:00:00Z"), "home": "PHI", "away": "TOR", "neutral": 0, "completed": False},
+            {"game_id": "2", "start": pd.Timestamp("2026-11-13T00:30:00Z"), "home": "WSH", "away": "DET", "neutral": 0, "completed": False},
+            {"game_id": "3", "start": pd.Timestamp("2026-11-13T11:30:00Z"), "home": "MIN", "away": "DAL", "neutral": 0, "completed": False},
+            {"game_id": "4", "start": pd.Timestamp("2026-11-12T00:00:00Z"), "home": "POR", "away": "OKC", "neutral": 0, "completed": True},
+        ])
+
+        def event(eid, home, away, name="STATUS_FINAL", done=True):
+            return {"id": eid, "status": {"type": {"name": name, "completed": done}},
+                    "competitions": [{"competitors": [{"homeAway": "home", "score": str(home)}, {"homeAway": "away", "score": str(away)}]}]}
+
+        calls = []
+
+        def fetch(url):
+            calls.append(url)
+            return {"events": [event("1", 123, 112), event("2", 60, 58, "STATUS_IN_PROGRESS", False), event("4", 1, 2), event("9", 5, 6)]}
+
+        cfg = model.config_for("nba")
+        rows = forecast.late_finals(cfg, games, now=now, fetch=fetch)
+        self.assertEqual(len(calls), 1)
+        self.assertIn("dates=20261112", calls[0])
+        self.assertEqual([(r["eventId"], r["homeScore"], r["awayScore"]) for r in rows], [("nba:1", 123, 112)])
+        nfl = type("C", (), {"sport": "nfl"})()
+        self.assertEqual(forecast.late_finals(nfl, games, now=now, fetch=fetch), [])

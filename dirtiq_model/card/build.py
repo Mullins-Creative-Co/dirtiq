@@ -35,9 +35,14 @@ ARCHIVE_DIR = ROOT / "public" / "data" / "cards"
 CARD_SPORTS = ("nfl", "ncaaf", "nba", "ncaab")
 MAX_PICKS = 15
 MAX_PER_SPORT = 6
-MAX_UNITS = 10.0
-FULL_STAKE = 1.0
-HALF_STAKE = 0.5
+# Every pick carries the same stake. Over the backtests, picks the market-aware model agreed with
+# covered no more often than the rest (NCAAB 51.1% v 53.7%, NFL 49.3% v 49.8%), and no edge size
+# covered more often than another, so there is nothing to justify staking one pick above the next.
+STAKE = 0.5
+MAX_UNITS = MAX_PICKS * STAKE
+# A disagreement this many thresholds wide is a rating or data error, not value: a team in its
+# first Division I season, or a rating built on a few blowouts. Such games are left off.
+MAX_EDGE_RATIO = 4.0
 # A game must be at least this far from its start to be added; a bet needs time to be placed.
 MIN_LEAD = timedelta(minutes=20)
 # A line older than this is not a price anyone can still get.
@@ -46,9 +51,10 @@ MAX_LINE_AGE = timedelta(hours=3)
 RULES = [
     "Spread bets only, in NFL, college football, NBA and college basketball; one bet per game.",
     "A game qualifies when the model margin disagrees with the spread by at least the sport's fixed backtest threshold.",
+    "A game is left off when the disagreement is %.0f thresholds or more: a gap that wide is a rating or data error, not value." % MAX_EDGE_RATIO,
     "Ranked by whether the market-aware model takes the same side, then by the size of the disagreement in threshold units.",
-    "At most %d picks a day, %d per sport, %.0f units in total." % (MAX_PICKS, MAX_PER_SPORT, MAX_UNITS),
-    "Stake is %.1f unit when the market-aware model agrees with the side, %.1f unit otherwise. One unit is 1%% of bankroll." % (FULL_STAKE, HALF_STAKE),
+    "At most %d picks a day, %d per sport, %.1f units in total." % (MAX_PICKS, MAX_PER_SPORT, MAX_UNITS),
+    "Every pick is staked %.1f unit: in the backtests no kind of pick covered often enough to earn a larger stake. One unit is 1%% of bankroll." % STAKE,
     "A pick is locked at the line it was first listed with and graded at that line.",
 ]
 
@@ -105,7 +111,7 @@ def candidate(sport: str, report: Dict[str, Any], game: Dict[str, Any], now: dat
     if observed is None or now - observed > MAX_LINE_AGE:
         return None
     edge = margin + spread  # positive: the model likes the home side at this number
-    if abs(edge) < threshold:
+    if abs(edge) < threshold or abs(edge) >= MAX_EDGE_RATIO * threshold:
         return None
     home_pick = edge > 0
     price = _num(game.get("marketHomePrice" if home_pick else "marketAwayPrice"))
@@ -129,7 +135,7 @@ def candidate(sport: str, report: Dict[str, Any], game: Dict[str, Any], now: dat
         "marketAwareAgrees": bool(agrees),
         "marketAwareEdgePts": None if aware_edge is None else round(aware_edge if home_pick else -aware_edge, 2),
         "modelCoverProb": cover, "breakEvenProb": round(american_to_prob(price) or 0.0, 4),
-        "stakeUnits": FULL_STAKE if agrees else HALF_STAKE,
+        "stakeUnits": STAKE,
         "record": sport_record(report),
         "homeRating": game.get("homeRating"), "awayRating": game.get("awayRating"),
         "homeForm": _form(game.get("homeForm")), "awayForm": _form(game.get("awayForm")),

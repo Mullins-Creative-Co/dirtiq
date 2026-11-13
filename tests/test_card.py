@@ -52,17 +52,18 @@ class CardTest(unittest.TestCase):
             game("5", 9.0, -3.5, start="2026-11-12T15:10:00Z"),   # starts in ten minutes
             game("6", 9.0, -3.5, observed="2026-11-12T09:00:00Z"),  # six-hour-old line
             game("7", 9.0, None),               # no spread
+            game("8", 16.0, -3.5, aware=4.5),   # 12.5 of disagreement: too wide to be anything but a rating error
         ])
         picks = {p["gameId"]: p for p in self.card()["picks"]}
         self.assertEqual(sorted(picks), ["1", "2"])
-        self.assertEqual((picks["1"]["pick"], picks["1"]["line"], picks["1"]["stakeUnits"]), ("A1", 9.5, 0.5))
-        self.assertEqual((picks["2"]["pick"], picks["2"]["line"], picks["2"]["stakeUnits"]), ("H2", -3.5, 1.0))
+        self.assertEqual((picks["1"]["pick"], picks["1"]["line"], picks["1"]["stakeUnits"]), ("A1", 9.5, build.STAKE))
+        self.assertEqual((picks["2"]["pick"], picks["2"]["line"], picks["2"]["stakeUnits"]), ("H2", -3.5, build.STAKE))
         self.assertEqual(picks["2"]["rank"], 1)
         self.assertEqual(picks["1"]["record"]["winRate"], 0.49)
 
     def test_caps(self):
-        self.write("ncaab", [game(str(i), 10.0 + i, -3.5, aware=5.0) for i in range(10)])
-        self.write("nba", [game("n%d" % i, 10.0 + i, -3.5, aware=5.0) for i in range(10)])
+        self.write("ncaab", [game(str(i), 7.0 + i * 0.5, -3.5, aware=5.0) for i in range(10)])
+        self.write("nba", [game("n%d" % i, 7.0 + i * 0.5, -3.5, aware=5.0) for i in range(10)])
         card = self.card()
         by_sport = {}
         for p in card["picks"]:
@@ -86,7 +87,7 @@ class CardTest(unittest.TestCase):
         tomorrow = datetime(2026, 11, 13, 15, 0, tzinfo=timezone.utc)
         card = self.card(now=tomorrow, results=results)
         self.assertEqual(card["picks"], [])
-        self.assertEqual((card["record"]["wins"], card["record"]["losses"], card["record"]["units"]), (1, 0, 0.909))
+        self.assertEqual((card["record"]["wins"], card["record"]["losses"], card["record"]["units"]), (1, 0, 0.455))
         graded = json.loads((self.archive / "2026-11-12.json").read_text())["picks"][0]
         self.assertEqual(graded["result"]["outcome"], "win")
 

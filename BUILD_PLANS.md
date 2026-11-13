@@ -106,6 +106,18 @@ alone shrinks to nothing, so this is the only route to starter value.
 
 ## Shipped (most recent first)
 
+- 2026-11-13: card review after the first full day (card 4-7, -2.3u). Sliced the
+  out-of-fold backtests by edge size, market-aware agreement, favorite/underdog, home/away,
+  spread size, month, season, games played and non-D1 scheduling, and re-ran NCAAB/NBA against
+  opening lines. No slice clears break-even at the close in any sport. Findings that changed
+  code: market-aware agreement does not separate winners (stake is now a flat 0.5u, cap
+  7.5u); edges of 4x threshold or more are rating/data errors (left off the card). Finding
+  worth building on: picks made against the opener beat the close more often than they lose
+  to it (NCAAB 43% v 32%, +0.28 pts; NBA 45% v 34%, +0.38 pts), so earlier lines are worth
+  more than later ones, though still under break-even (51.5% and 50.4%). Also: NBA and NCAAB
+  results now fill last night's finals from ESPN's scoreboard, so bets and picks grade the
+  next morning instead of a day late.
+
 - 2026-11-12: inline bet logging below Card picks and inside Tonight matchups, with
   prefilled terms and an in-place saved confirmation; no page navigation required.
 

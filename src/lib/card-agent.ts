@@ -26,7 +26,7 @@ WHAT TO DO FOR EVERY PICK WITH STATUS "playable"
    When in doubt, PASS. Keeping fewer bets is a good outcome. Never raise a stake above "stakeUnits" and never add a bet that is not on the card.
 
 RISK LIMITS FOR THE FINAL CARD
-- At most 10 units in total and at most 4 units in one league.
+- At most 7.5 units in total and at most 3 units in one league.
 - No two bets that depend on the same team or the same game.
 - If more than half of the playable picks come back PASS, say so plainly at the top.
 

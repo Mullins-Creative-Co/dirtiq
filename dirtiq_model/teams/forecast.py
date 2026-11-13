@@ -6,7 +6,7 @@ import copy
 import json
 import math
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Optional, Tuple
 
 import numpy as np
 import pandas as pd
@@ -23,8 +23,60 @@ RESULTS_DIR = Path(__file__).resolve().parents[2] / "public" / "data" / "results
 RESULTS_DAYS = 120
 
 
+# Sports whose schedule archive is republished about once a day: last night's finals are missing
+# from it all morning, so the results file fills them from ESPN's scoreboard (same event ids).
+LATE_FINAL_SPORTS = ("nba", "ncaab")
+LATE_FINAL_MIN_AGE = pd.Timedelta(hours=2)
+LATE_FINAL_MAX_AGE = pd.Timedelta(days=4)
+
+
+def late_finals(cfg: SportConfig, games: pd.DataFrame, now: Optional[pd.Timestamp] = None,
+                fetch: Optional[Callable[[str], Optional[Dict[str, Any]]]] = None) -> List[Dict[str, Any]]:
+    """Final scores ESPN already has for games the schedule archive still lists as unplayed.
+
+    Only for sports keyed by ESPN event id. A scoreboard day that cannot be fetched is skipped;
+    the archive supplies those games on a later run."""
+    if cfg.sport not in LATE_FINAL_SPORTS or games.empty:
+        return []
+    from .adapters import espn_odds
+    now = now or pd.Timestamp.now(tz="UTC")
+    waiting = games[~games["completed"].astype(bool) & (games["start"] <= now - LATE_FINAL_MIN_AGE)
+                    & (games["start"] >= now - LATE_FINAL_MAX_AGE)]
+    if waiting.empty:
+        return []
+    fetch = fetch or espn_odds._get_json
+    sp, lg = espn_odds.LEAGUES[cfg.sport]
+    finals: Dict[str, Tuple[int, int]] = {}
+    for day in sorted(set(espn_odds.local_date(waiting["start"]))):
+        url = espn_odds.SCOREBOARD_URL.format(sport=sp, league=lg, date=day, extra=espn_odds.SCOREBOARD_EXTRA.get(cfg.sport, ""))
+        try:
+            payload = fetch(url) or {}
+        except Exception as exc:
+            print(f"{cfg.sport}: scoreboard {day} unavailable for late finals ({exc})")
+            continue
+        for ev in payload.get("events", []):
+            status = ((ev.get("status") or {}).get("type") or {})
+            if status.get("name") != "STATUS_FINAL" or not status.get("completed"):
+                continue
+            comp = (ev.get("competitions") or [{}])[0]
+            sides = {c.get("homeAway"): c for c in comp.get("competitors", [])}
+            try:
+                finals[str(ev.get("id"))] = (int(sides["home"]["score"]), int(sides["away"]["score"]))
+            except (KeyError, TypeError, ValueError):
+                continue
+    rows = []
+    for r in waiting.sort_values(["start", "game_id"]).itertuples():
+        score = finals.get(str(r.game_id))
+        if score is None or score[0] + score[1] <= 0:
+            continue
+        rows.append({"eventId": f"{cfg.sport}:{r.game_id}", "gameId": str(r.game_id), "home": str(r.home), "away": str(r.away),
+                     "startsAt": iso(r.start), "homeScore": score[0], "awayScore": score[1], "neutral": int(r.neutral),
+                     "source": "espn-scoreboard"})
+    return rows
+
+
 def export_results(cfg: SportConfig, games: pd.DataFrame, days: int = RESULTS_DAYS, out_dir: Optional[Path] = None,
-                   now: Optional[pd.Timestamp] = None) -> Path:
+                   now: Optional[pd.Timestamp] = None, extra: Optional[List[Dict[str, Any]]] = None) -> Path:
     """Write ``public/data/results/<sport>.json``: final scores of every completed game in the
     last ``days`` days, keyed the way the ledger keys events, so the site can grade bets a
     person logs against the same results the ledger settles on."""
@@ -34,6 +86,8 @@ def export_results(cfg: SportConfig, games: pd.DataFrame, days: int = RESULTS_DA
         "eventId": f"{cfg.sport}:{r.game_id}", "gameId": str(r.game_id), "home": str(r.home), "away": str(r.away),
         "startsAt": iso(r.start), "homeScore": int(r.home_score), "awayScore": int(r.away_score), "neutral": int(r.neutral),
     } for r in recent.itertuples()]
+    have = {row["eventId"] for row in rows}
+    rows.extend(row for row in (extra or []) if row["eventId"] not in have)
     out_dir = out_dir or RESULTS_DIR
     out_dir.mkdir(parents=True, exist_ok=True)
     path = out_dir / f"{cfg.sport}.json"
@@ -296,6 +350,6 @@ def settle_command(cfg: SportConfig, games: pd.DataFrame, db_path: Optional[Path
                                                    result_value=margin, close_line=close_line, close_price=close_price)
         _export_health(ledger, health_path)
     if db_path is None:  # the real run, not a test with a scratch ledger
-        export_results(cfg, games)
+        export_results(cfg, games, extra=late_finals(cfg, games))
     print(f"{cfg.sport}: settled {counts['settled']} rows across {counts['events']} open events ({counts['pending']} pending, {counts['missing']} not in source)")
     return counts
