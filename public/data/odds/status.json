@@ -1,31 +1,26 @@
 {
  "configured": true,
- "checkedAt": "2026-11-12T20:35:40Z",
+ "checkedAt": "2026-11-13T01:45:00Z",
  "source": "The Odds API",
  "quota": {
-  "x-requests-remaining": "460",
-  "x-requests-used": "40",
+  "x-requests-remaining": "454",
+  "x-requests-used": "46",
   "x-requests-last": "2"
  },
  "error": null,
  "sports": {
   "nfl": {
-   "snapshotAt": "2026-11-12T20:35:38Z",
-   "events": 27,
-   "unresolved": 0,
-   "openRows": 88,
-   "matchedEvents": 22,
-   "linesFilled": 0,
-   "closesUpdated": 88
+   "snapshotAt": "2026-11-13T01:44:56Z",
+   "skipped": "no nfl games in the next 30 hours"
   },
   "nba": {
-   "snapshotAt": "2026-11-12T20:35:39Z",
-   "events": 8,
+   "snapshotAt": "2026-11-13T01:44:59Z",
+   "events": 17,
    "unresolved": 0,
-   "openRows": 16,
-   "matchedEvents": 4,
+   "openRows": 52,
+   "matchedEvents": 10,
    "linesFilled": 0,
-   "closesUpdated": 16
+   "closesUpdated": 40
   },
   "nhl": {
    "snapshotAt": "2026-11-11T16:29:02Z",
@@ -37,7 +32,7 @@
    "closesUpdated": 24
   },
   "ncaaf": {
-   "snapshotAt": "2026-11-12T20:35:39Z",
+   "snapshotAt": "2026-11-13T01:44:58Z",
    "events": 35,
    "unresolved": 48,
    "openRows": 284,
@@ -46,13 +41,13 @@
    "closesUpdated": 68
   },
   "ncaab": {
-   "snapshotAt": "2026-11-12T20:35:40Z",
-   "events": 9,
-   "unresolved": 28,
-   "openRows": 96,
-   "matchedEvents": 2,
+   "snapshotAt": "2026-11-13T01:45:00Z",
+   "events": 25,
+   "unresolved": 40,
+   "openRows": 236,
+   "matchedEvents": 8,
    "linesFilled": 0,
-   "closesUpdated": 8
+   "closesUpdated": 32
   }
  },
  "setup": "Set ODDS_API_KEY in the environment (and as a GitHub Actions secret) and run: npm run odds:snapshot -- --sport nfl"
