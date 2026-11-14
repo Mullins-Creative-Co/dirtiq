@@ -16,7 +16,7 @@ from .adapters.common import now_iso as _now
 from .backtest import base_report, limitations, load_report, teams_in, training_artifacts, write_report
 from .model import MODEL_VERSION, Scorer, SportConfig, initial_hyper, opt_int, round_or_none, settle_moneyline, settle_spread
 from .ratings import Hyper, KalmanRatings, fit_hyper, run_filter
-from . import stack
+from . import stack, totals
 
 HORIZON_DAYS = 10
 RESULTS_DIR = Path(__file__).resolve().parents[2] / "public" / "data" / "results"
@@ -275,8 +275,10 @@ def forecast_command(cfg: SportConfig, games: pd.DataFrame, refit: bool = False,
             scored = promote_variant(scored, "stk")
         else:
             headline = "independent"
+        totals_state = totals.fit(cfg.sport, completed)
         for _, row in scored.iterrows():
             entry = upcoming_entry(row, book, observed_at, cfg.threshold)
+            entry.update(totals.total_fields(cfg.sport, totals_state, str(row["home"]), str(row["away"]), int(row["season"]), entry.get("marketTotal")))
             entry["headline"] = headline
             entry["homeRating"] = rating_of.get(str(row["home"]))
             entry["awayRating"] = rating_of.get(str(row["away"]))

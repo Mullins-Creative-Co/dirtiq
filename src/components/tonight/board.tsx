@@ -48,7 +48,7 @@ export function TonightBoardView({ board, initialSport = "all" }: { board: Tonig
 
   const items = useMemo(() => board.items.filter((item) =>
     (sport === "all" || item.sport === sport)
-    && (minConfidence === "all" || item.kind === "race" || (minConfidence === "high" ? Boolean(item.flags?.moneyline) : Boolean(item.flags?.lean || item.flags?.moneyline)))
+    && (minConfidence === "all" || item.kind === "race" || (minConfidence === "high" ? Boolean(item.flags?.moneyline) : Boolean(item.flags?.lean || item.flags?.moneyline || item.flags?.total?.label)))
     && (!withMarket || item.kind === "race" || item.market !== null || item.liveMarket != null),
   ), [board.items, sport, minConfidence, withMarket]);
 
@@ -76,7 +76,7 @@ export function TonightBoardView({ board, initialSport = "all" }: { board: Tonig
   return (
     <div className="space-y-6">
       <div className="note">
-        <strong>Favorites are not flagged for being favorites.</strong> A row is flagged for a spread lean, or for a moneyline only when the price beats the model’s own win probability by 8% or more and is no longer than +300. In the backtests those moneylines still lost about 4% a bet, so treat a flag as something to check, not as value. Live lines are ESPN reference quotes; confirm the executable price with your book. Saved lines preserve the forecast snapshot. Injuries and lineups need a separate check.
+        <strong>Favorites are not flagged for being favorites.</strong> A row is flagged for a spread lean, or for a moneyline only when the price beats the model’s own win probability by 8% or more and is no longer than +300. In the backtests those moneylines still lost about 4% a bet, so treat a flag as something to check, not as value. Over/under leans come from a simple team-scoring-pace model that hit 46–51% against closing totals, below the 52.4% needed to break even. Live lines are ESPN reference quotes; confirm the executable price with your book. Saved lines preserve the forecast snapshot. Injuries and lineups need a separate check.
       </div>
       <p className={stale ? "note note-warn" : "note"} title={board.refreshedAt ? dateTime(board.refreshedAt) : undefined}>
         <strong>Forecasts and saved lines refreshed {relativeAge(board.refreshedAt, now)}.</strong>{" "}
@@ -170,6 +170,7 @@ function ItemCard({ item, now, index, open, onToggle }: { item: TonightItem; now
                 <div className="mt-3 grid grid-cols-2 gap-4">
                   <dl><Stat label={item.flags?.moneyline?.kind ?? "Moneyline"} value={item.flags?.moneyline?.label ?? "No flag"} detail={item.flags?.moneyline?.detail ?? `Model has ${item.pick} ${pct(item.confidence, 0)} to win; neither price beats the model by enough`} /></dl>
                   <dl><Stat label="Spread lean · saved line" value={item.readiness.spreadLean} detail={item.readiness.spreadCover ?? undefined} /></dl>
+                  {item.flags?.total ? <dl><Stat label="Over/under" value={item.flags.total.label ?? `No lean · ${item.flags.total.line.toFixed(1)}`} detail={item.flags.total.detail} /></dl> : null}
                 </div>
                 {item.readiness.marketInformedWin !== null ? <p className="mt-3 text-xs text-[var(--muted-strong)]">Market-informed win: {item.pick} {pct(item.pick === item.matchupHeaders[0] ? item.readiness.marketInformedWin : 1 - item.readiness.marketInformedWin)}. Uses the saved market line, so it is not an independent second opinion.</p> : null}
                 <p className="mt-3 text-sm font-semibold">{item.readiness.label}</p>

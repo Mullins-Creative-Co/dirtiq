@@ -68,6 +68,8 @@ export type SportUpcoming = {
   homeRating?: TeamRatingBrief | null; awayRating?: TeamRatingBrief | null;
   homeForm?: TeamForm | null; awayForm?: TeamForm | null; homeAdvantage?: number | null;
   marketHomeWinProb?: number | null; neutral?: number;
+  marketTotal?: number | null; projectedTotal?: number | null; totalEdgePts?: number | null;
+  totalLean?: "over" | "under" | "none" | null; totalThreshold?: number | null; totalEligible?: boolean;
   headline?: "independent" | "stacked" | null;
   independentHomeMargin?: number | null; independentHomeWinProb?: number | null;
   stackedHomeMargin?: number | null; stackedHomeWinProb?: number | null;

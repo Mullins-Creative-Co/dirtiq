@@ -9,7 +9,7 @@ import {
 } from "@/lib/model-reports";
 import { forecastReadiness, hasMarket, isUpcomingGame, validProbability, type ForecastReadiness } from "@/lib/forecast-readiness";
 import { getLiveLines, resolveNflEvent } from "@/lib/live-lines";
-import { featuredLiveKeys, gameBetTerms, isLiveSport, liveEdge, moneylineValue, noVigHome, type LiveLine } from "@/lib/live-lines/core";
+import { featuredLiveKeys, gameBetTerms, isLiveSport, liveEdge, moneylineValue, noVigHome, totalLean, type LiveLine } from "@/lib/live-lines/core";
 import { todayDateString } from "@/lib/races";
 
 /** One scannable item on the Tonight board: a game or a race, with a pick, a confidence,
@@ -36,7 +36,8 @@ export type TonightItem = {
   /** Probability the pick beats its main rival: win probability for a game, head-to-head versus the runner-up for a race. */
   confidence: number; confidenceLabel: ConfidenceLabel;
   /** Games only. What the row is flagged for: a spread lean, a moneyline that clears the value bar, both or neither. */
-  flags?: { lean: string | null; edgePts: number | null; moneyline: { label: string; kind: string; detail: string; underdog: boolean } | null };
+  flags?: { lean: string | null; edgePts: number | null; moneyline: { label: string; kind: string; detail: string; underdog: boolean } | null;
+    total: { label: string | null; line: number; projected: number; edgePts: number; detail: string } | null };
   /** Board order within a day: flagged games first, by how far the model is from the line. */
   priority: number;
   rationale: string[];
@@ -189,7 +190,12 @@ function gameItem(report: SportReport, game: SportUpcoming, ledger: Map<string, 
     detail: `model ${pct(mlv.modelProb, 0)} to win; the price needs ${pct(mlv.breakEven, 0)}`,
   } : null;
   const edgeAbs = active?.edgePts != null ? Math.abs(active.edgePts) : 0;
-  const headline = [leanLabel ? `Spread lean: ${leanLabel}` : null, moneylineFlag ? `${moneylineFlag.kind}: ${moneylineFlag.label}` : null].filter(Boolean).join(" · ")
+  const tl = totalLean(game, live);
+  const totalFlag = tl ? {
+    label: tl.side ? `${tl.side === "over" ? "Over" : "Under"} ${num(tl.line, 1)}` : null, line: tl.line, projected: tl.projected, edgePts: tl.edgePts,
+    detail: `model total ${num(tl.projected, 1)} against ${num(tl.line, 1)} posted (${signed(tl.edgePts, 1)}); a lean needs ${num(tl.threshold, 0)} points`,
+  } : null;
+  const headline = [leanLabel ? `Spread lean: ${leanLabel}` : null, moneylineFlag ? `${moneylineFlag.kind}: ${moneylineFlag.label}` : null, totalFlag?.label ? `Total lean: ${totalFlag.label}` : null].filter(Boolean).join(" · ")
     || `No lean · model has ${teamLabel(names, report.sport, pick)} by ${num(Math.abs(pickMargin), 1)}`;
   const key = `${report.sport}:${game.gameId}`;
   return {
@@ -197,10 +203,10 @@ function gameItem(report: SportReport, game: SportUpcoming, ledger: Map<string, 
     homeTeam: game.home, awayTeam: game.away,
     startsAt: game.startsAt, startsAtLabel: `${dayFmt.format(new Date(game.startsAt))} · ${timeFmt.format(new Date(game.startsAt))} ET`,
     isToday: dayKeyOf(game.startsAt) === today, dayKey: dayKeyOf(game.startsAt),
-    title: `${teamLabel(names, report.sport, game.away)} at ${teamLabel(names, report.sport, game.home)}`, subtitle: `${report.label}${neutral ? " · neutral site" : ""}`,
+    title: `${teamLabel(names, report.sport, game.away)} at ${teamLabel(names, report.sport, game.home)}`, subtitle: `${report.label}${neutral ? " · neutral site" : ""}${tl ? ` · O/U ${num(tl.line, 1)}` : ""}`,
     pick: teamLabel(names, report.sport, pick), pickDetail: headline,
-    flags: { lean: leanLabel, edgePts: active?.edgePts ?? null, moneyline: moneylineFlag },
-    priority: (leanLabel ? 2 + Math.min(threshold ? edgeAbs / threshold : 0, 4) : 0) + (moneylineFlag ? 1 : 0),
+    flags: { lean: leanLabel, edgePts: active?.edgePts ?? null, moneyline: moneylineFlag, total: totalFlag },
+    priority: (leanLabel ? 2 + Math.min(threshold ? edgeAbs / threshold : 0, 4) : 0) + (moneylineFlag ? 1 : 0) + (totalFlag?.label ? 1 : 0),
     confidence, confidenceLabel: label(confidence), rationale,
     matchupHeaders: [teamLabel(names, report.sport, game.home), teamLabel(names, report.sport, game.away)], matchup, market, liveMarket,
     readiness: forecastReadiness(report, game, now),

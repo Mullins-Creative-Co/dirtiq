@@ -200,6 +200,15 @@ abbreviations by explicit NFL and NBA tables with a nickname fallback; unresolve
 are listed, never guessed. Without a key the command writes `configured: false` and the
 UI says the feed is off.
 
+Over/unders: `dirtiq_model/teams/totals.py` projects a game total for NBA, NCAAB, NFL and
+NCAAF from one number per team (how far its games run from the league's season average
+total, exponential half-life, halved between seasons). `forecast` writes `projectedTotal`,
+`totalEdgePts`, `totalLean`, `totalEligible` and `totalThreshold` on each upcoming game;
+`totalLean()` in `src/lib/live-lines/core.ts` re-derives the lean against a live total.
+A lean needs 6 points (basketball) or 4 (football) and four games this season for both
+teams. Against closing totals it is worse than the market in every sport and leans hit
+46-51%, so it is shown as a comparison, never staked on the card.
+
 Tonight flags, not favorites: a game row leads with its spread lean and, separately, a
 moneyline flag from `moneylineValue` (`src/lib/live-lines/core.ts`): the side whose price
 beats the model's win probability by at least `ML_MIN_EV` (8%) and at most `ML_MAX_EV` (50%,

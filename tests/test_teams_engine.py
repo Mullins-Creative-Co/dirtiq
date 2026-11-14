@@ -348,3 +348,35 @@ class LateFinalsTest(unittest.TestCase):
         self.assertEqual([(r["eventId"], r["homeScore"], r["awayScore"]) for r in rows], [("nba:1", 123, 112)])
         nfl = type("C", (), {"sport": "nfl"})()
         self.assertEqual(forecast.late_finals(nfl, games, now=now, fetch=fetch), [])
+
+
+class TotalsTest(unittest.TestCase):
+    def _games(self):
+        import pandas as pd
+        rows = []
+        for i in range(60):
+            fast = i % 2 == 0
+            rows.append({"game_id": str(i), "season": 2026, "start": pd.Timestamp("2025-11-01", tz="UTC") + pd.Timedelta(days=i),
+                         "home": "FAST1" if fast else "SLOW1", "away": "FAST2" if fast else "SLOW2",
+                         "home_score": 125.0 if fast else 100.0, "away_score": 120.0 if fast else 95.0})
+        return pd.DataFrame(rows)
+
+    def test_fast_teams_project_over_and_slow_teams_under(self):
+        from dirtiq_model.teams import totals
+        state = totals.fit("nba", self._games())
+        over = totals.total_fields("nba", state, "FAST1", "FAST2", 2026, 220.0)
+        under = totals.total_fields("nba", state, "SLOW1", "SLOW2", 2026, 220.0)
+        self.assertGreater(over["projectedTotal"], 235)
+        self.assertEqual(over["totalLean"], "over")
+        self.assertEqual(under["totalLean"], "under")
+        near = totals.total_fields("nba", state, "FAST1", "FAST2", 2026, over["projectedTotal"] - 1)
+        self.assertEqual(near["totalLean"], "none")
+
+    def test_no_lean_without_games_or_a_posted_total(self):
+        from dirtiq_model.teams import totals
+        state = totals.fit("nba", self._games())
+        self.assertEqual(totals.total_fields("nba", state, "FAST1", "NEW", 2026, 150.0)["totalLean"], "none")
+        unposted = totals.total_fields("nba", state, "FAST1", "FAST2", 2026, None)
+        self.assertIsNone(unposted["totalLean"])
+        self.assertTrue(unposted["totalEligible"])
+        self.assertIsNone(totals.fit("mlb", self._games()))

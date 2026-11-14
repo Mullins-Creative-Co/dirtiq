@@ -127,6 +127,21 @@ export function featuredLiveKeys(items: Array<{ key: string; sport: string; star
   }).map((item) => item.key));
 }
 
+export type TotalLean = { side: "over" | "under" | null; line: number; projected: number; edgePts: number; threshold: number };
+
+/** Where the model's projected total sits against the posted one. A live total replaces the
+ *  saved one; a side needs both teams to have enough games this season (totalEligible). */
+export function totalLean(game: SportUpcoming, live: LiveLine | null = null): TotalLean | null {
+  const line = live?.total ?? game.marketTotal ?? null;
+  const projected = game.projectedTotal ?? null;
+  const threshold = game.totalThreshold ?? null;
+  if (line === null || projected === null || threshold === null) return null;
+  const edgePts = projected - line;
+  const eligible = game.totalEligible === true;
+  const side = eligible && Math.abs(edgePts) >= threshold ? (edgePts > 0 ? "over" : "under") : null;
+  return { side, line, projected, edgePts, threshold };
+}
+
 export function gameBetTerms(game: SportUpcoming, live: LiveLine | null = null) {
   const pickHome = (game.homeWinProb ?? .5) >= .5;
   const handicap = live ? live.spread : game.marketHomeSpread;

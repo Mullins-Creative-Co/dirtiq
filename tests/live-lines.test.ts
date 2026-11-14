@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { registerHooks } from "node:module";
-import { consolidateLiveLines, featuredLiveKeys, gameBetTerms, isFreshLiveLine, liveEdge, moneylineValue, LIVE_LINE_TTL_MS, nflEspnId, noVigHome } from "../src/lib/live-lines/core.ts";
+import { consolidateLiveLines, featuredLiveKeys, gameBetTerms, isFreshLiveLine, liveEdge, moneylineValue, totalLean, LIVE_LINE_TTL_MS, nflEspnId, noVigHome } from "../src/lib/live-lines/core.ts";
 import type { SportUpcoming } from "../src/lib/model-reports.ts";
 
 const fixture = JSON.parse(readFileSync(new URL("./fixtures/live-lines.json", import.meta.url), "utf8"));
@@ -144,4 +144,18 @@ test("a moneyline is flagged for price, not for being the favorite", () => {
   // 92% on a +164 underdog is a rating error, not a bargain.
   assert.equal(moneylineValue({ ...game, homeWinProb: .08, marketHomeMl: -200, marketAwayMl: 164 }), null);
   assert.equal(moneylineValue({ ...game, homeWinProb: null }), null);
+});
+
+test("a total lean needs the threshold, an eligible game and a posted total", () => {
+  const g = { ...game, marketTotal: 220, projectedTotal: 227, totalEdgePts: 7, totalLean: "over" as const, totalThreshold: 6, totalEligible: true };
+  assert.deepEqual(totalLean(g), { side: "over", line: 220, projected: 227, edgePts: 7, threshold: 6 });
+  // The live total (221.5) replaces the saved one and takes the gap inside the threshold.
+  assert.equal(totalLean(g, consolidateLiveLines(fixture, observedAt))?.side, null);
+  assert.equal(totalLean({ ...g, projectedTotal: 212, totalEdgePts: -8, totalLean: "under" })?.side, "under");
+  // Teams without enough games this season never get a side, whatever the gap.
+  assert.equal(totalLean({ ...g, totalEligible: false })?.side, null);
+  // A game saved without a posted total picks up its lean from the live one.
+  assert.equal(totalLean({ ...g, marketTotal: null, totalEdgePts: null, totalLean: null, projectedTotal: 230 }, consolidateLiveLines(fixture, observedAt))?.side, "over");
+  assert.equal(totalLean({ ...g, marketTotal: null }), null);
+  assert.equal(totalLean(game), null);
 });

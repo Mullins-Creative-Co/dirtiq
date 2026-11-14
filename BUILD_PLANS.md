@@ -73,6 +73,9 @@ probabilities, fixed-threshold leans, ledger rows for `total` (the bet tracker a
 grades totals). NFL and NBA first, then the college sports.
 **Done when**: totals Brier vs the market on priced games is in the report and the Tonight
 board shows a total lean beside the side lean.
+**Status (2026-11-14)**: a first, simple version shipped (see Shipped). Still owed: separate
+offense/defense or pace/efficiency states, a total distribution with over/under
+probabilities, ledger rows for `total`, and the backtest in the report.
 
 ### 5. College-specific rating work (NCAAF, NCAAB)
 **Why**: the two biggest slates; conference structure and the pooled NON_D1/FCS buckets
@@ -105,6 +108,21 @@ as-of FIP-style starter rate; NHL starting goalies from the league boxscore with
 alone shrinks to nothing, so this is the only route to starter value.
 
 ## Shipped (most recent first)
+
+- 2026-11-14: over/unders on Tonight. `dirtiq_model/teams/totals.py` projects a total for
+  NBA, NCAAB, NFL and NCAAF (one pace-of-scoring number per team); each row shows the
+  posted total and a "Total lean" when the model is 6 (basketball) or 4 (football) points
+  away. Checked against closing totals first: market MAE beats it in all four sports and
+  leans hit 49.9% NBA, 51.4% NCAAB, 46.4% NFL, 50.6% NCAAF. Not on the card.
+- 2026-11-14: market-wide miss study (every priced game, not just placed bets). The
+  closing spread beats the model's margin in every sport (MAE 10.44 v 10.85 NBA, 8.81 v
+  9.08 NCAAB, 9.79 v 10.16 NFL, 12.26 v 13.14 NCAAF) and the best blend of the two puts
+  0.94-1.03 on the market and 0.00-0.08 on the model. The model's margins are compressed
+  toward zero: it sits on the favorite's side of the line only 19-45% of the time, so its
+  leans are mostly underdogs. A walk-forward correction on spread size, recent form, rest
+  and early-season games narrowed the MAE gap by about a third in NBA and less elsewhere
+  and left cover rates at 46-50%. Next lever is information the market has and the model
+  does not (plan "Injuries and lineups"), not re-tuning.
 
 - 2026-11-13: Tonight no longer headlines every game with its outright winner (which
   flagged every favorite). A row is flagged for a spread lean, or for a moneyline only when
