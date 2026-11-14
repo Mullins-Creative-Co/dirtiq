@@ -1,7 +1,7 @@
 {
  "date": "2026-11-14",
- "generatedAt": "2026-11-14T15:30:55Z",
- "forecastsRefreshedAt": "2026-11-14T15:30:53Z",
+ "generatedAt": "2026-11-14T20:15:34Z",
+ "forecastsRefreshedAt": "2026-11-14T20:15:28Z",
  "unit": "1 unit = 1% of bankroll",
  "rules": [
   "Spread bets only, in NFL, college football and college basketball; one bet per game. NBA is paused: forecast and tracked, not staked.",
@@ -13,17 +13,17 @@
   "A pick is locked at the line it was first listed with and graded at that line."
  ],
  "evidence": "Backtested over many seasons, picks made by this rule have lost money in every sport after the vig; each pick shows its sport's record. Treat the card as a shortlist to check, not as proven value.",
- "priced": 117,
- "qualified": 51,
+ "priced": 82,
+ "qualified": 33,
  "totalUnits": 6.0,
  "record": {
-  "days": 2,
-  "wins": 8,
+  "days": 3,
+  "wins": 9,
   "losses": 12,
   "pushes": 0,
-  "units": -2.983,
-  "staked": 14.5,
-  "roi": -0.2057
+  "units": -2.528,
+  "staked": 15.0,
+  "roi": -0.1685
  },
  "picks": [
   {
@@ -87,13 +87,9 @@
    },
    "note": "model -5.9 vs market +1.5: leans WAKE by 7.4 pts (threshold 3.0)",
    "lockedAt": "2026-11-14T07:10:16Z",
-   "status": "playable",
+   "status": "started",
    "current": {
-    "checkedAt": "2026-11-14T15:30:55Z",
-    "line": 1.5,
-    "price": -110,
-    "edgePts": 7.43,
-    "lineObservedAt": "2026-11-14T15:30:49Z"
+    "checkedAt": "2026-11-14T20:15:34Z"
    },
    "rank": 11
   },
@@ -158,13 +154,9 @@
    },
    "note": "model -10.7 vs market -4.5: leans JMU by 6.2 pts (threshold 3.0)",
    "lockedAt": "2026-11-14T07:10:16Z",
-   "status": "playable",
+   "status": "started",
    "current": {
-    "checkedAt": "2026-11-14T15:30:55Z",
-    "line": -4.5,
-    "price": -110,
-    "edgePts": 6.23,
-    "lineObservedAt": "2026-11-14T15:30:49Z"
+    "checkedAt": "2026-11-14T20:15:34Z"
    },
    "rank": 8
   },
@@ -229,13 +221,9 @@
    },
    "note": "model -20.3 vs market -14.0: leans ALA by 6.3 pts (threshold 3.0)",
    "lockedAt": "2026-11-14T07:10:16Z",
-   "status": "playable",
+   "status": "started",
    "current": {
-    "checkedAt": "2026-11-14T15:30:55Z",
-    "line": -14.0,
-    "price": -112,
-    "edgePts": 6.25,
-    "lineObservedAt": "2026-11-14T15:30:49Z"
+    "checkedAt": "2026-11-14T20:15:34Z"
    },
    "rank": 7
   },
@@ -300,7 +288,7 @@
    },
    "note": "model +3.9 vs market -7.5: leans ARMY by 11.4 pts (threshold 3.0)",
    "lockedAt": "2026-11-14T07:10:16Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-14T15:30:55Z",
     "line": 6.5,
@@ -308,7 +296,13 @@
     "edgePts": 10.82,
     "lineObservedAt": "2026-11-14T15:23:11Z"
    },
-   "rank": 1
+   "rank": 1,
+   "result": {
+    "outcome": "win",
+    "homeScore": 79,
+    "awayScore": 77,
+    "units": 0.455
+   }
   },
   {
    "id": "ncaaf:401862825",
@@ -371,13 +365,9 @@
    },
    "note": "model -15.9 vs market -10.5: leans ECU by 5.4 pts (threshold 3.0)",
    "lockedAt": "2026-11-14T07:10:16Z",
-   "status": "playable",
+   "status": "started",
    "current": {
-    "checkedAt": "2026-11-14T15:30:55Z",
-    "line": -10.5,
-    "price": -112,
-    "edgePts": 5.37,
-    "lineObservedAt": "2026-11-14T15:30:49Z"
+    "checkedAt": "2026-11-14T20:15:34Z"
    },
    "rank": 9
   },
@@ -442,13 +432,9 @@
    },
    "note": "model +0.2 vs market -7.5: leans DEN by 7.7 pts (threshold 3.0)",
    "lockedAt": "2026-11-14T07:10:16Z",
-   "status": "playable",
+   "status": "started",
    "current": {
-    "checkedAt": "2026-11-14T15:30:55Z",
-    "line": 7.5,
-    "price": -112,
-    "edgePts": 7.85,
-    "lineObservedAt": "2026-11-14T15:23:11Z"
+    "checkedAt": "2026-11-14T20:15:34Z"
    },
    "rank": 6
   },
@@ -515,11 +501,11 @@
    "lockedAt": "2026-11-14T07:10:16Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-14T15:30:55Z",
+    "checkedAt": "2026-11-14T20:15:34Z",
     "line": 18.5,
     "price": -112,
     "edgePts": 11.05,
-    "lineObservedAt": "2026-11-14T15:23:11Z"
+    "lineObservedAt": "2026-11-14T20:07:15Z"
    },
    "rank": 2
   },
@@ -586,11 +572,11 @@
    "lockedAt": "2026-11-14T07:10:16Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-14T15:30:55Z",
-    "line": 3.5,
+    "checkedAt": "2026-11-14T20:15:34Z",
+    "line": 2.5,
     "price": -108,
-    "edgePts": 7.47,
-    "lineObservedAt": "2026-11-14T15:23:11Z"
+    "edgePts": 6.47,
+    "lineObservedAt": "2026-11-14T20:07:15Z"
    },
    "rank": 4
   },
@@ -657,11 +643,11 @@
    "lockedAt": "2026-11-14T07:10:16Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-14T15:30:55Z",
-    "line": 9.5,
+    "checkedAt": "2026-11-14T20:15:34Z",
+    "line": 10.0,
     "price": -108,
-    "edgePts": 3.21,
-    "lineObservedAt": "2026-11-14T15:30:49Z"
+    "edgePts": 3.71,
+    "lineObservedAt": "2026-11-14T20:15:23Z"
    },
    "rank": 10
   },
@@ -728,11 +714,11 @@
    "lockedAt": "2026-11-14T07:10:16Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-14T15:30:55Z",
-    "line": 3.0,
-    "price": -102,
-    "edgePts": 6.69,
-    "lineObservedAt": "2026-11-14T15:30:49Z"
+    "checkedAt": "2026-11-14T20:15:34Z",
+    "line": 4.0,
+    "price": -112,
+    "edgePts": 7.68,
+    "lineObservedAt": "2026-11-14T20:15:23Z"
    },
    "rank": 12
   },
@@ -799,11 +785,11 @@
    "lockedAt": "2026-11-14T07:10:16Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-14T15:30:55Z",
-    "line": 3.5,
-    "price": -118,
-    "edgePts": 8.01,
-    "lineObservedAt": "2026-11-14T15:23:11Z"
+    "checkedAt": "2026-11-14T20:15:34Z",
+    "line": 2.5,
+    "price": -112,
+    "edgePts": 7.01,
+    "lineObservedAt": "2026-11-14T20:07:15Z"
    },
    "rank": 5
   },
@@ -870,11 +856,11 @@
    "lockedAt": "2026-11-14T07:10:16Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-14T15:30:55Z",
-    "line": 32.5,
-    "price": -112,
-    "edgePts": 7.21,
-    "lineObservedAt": "2026-11-14T15:23:11Z"
+    "checkedAt": "2026-11-14T20:15:34Z",
+    "line": 31.5,
+    "price": -108,
+    "edgePts": 6.21,
+    "lineObservedAt": "2026-11-14T20:07:15Z"
    },
    "rank": 3
   }
