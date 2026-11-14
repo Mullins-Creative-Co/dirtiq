@@ -87,11 +87,17 @@
    },
    "note": "model +19.9 vs market +29.5: leans TNST by 9.6 pts (threshold 3.0)",
    "lockedAt": "2026-11-13T13:01:20Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-14T00:01:41Z"
    },
-   "rank": 2
+   "rank": 2,
+   "result": {
+    "outcome": "win",
+    "homeScore": 83,
+    "awayScore": 78,
+    "units": 0.455
+   }
   },
   {
    "id": "ncaab:401911210",
@@ -154,11 +160,17 @@
    },
    "note": "model +21.8 vs market +12.5: leans GW by 9.3 pts (threshold 3.0)",
    "lockedAt": "2026-11-13T13:01:20Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-14T00:01:41Z"
    },
-   "rank": 3
+   "rank": 3,
+   "result": {
+    "outcome": "win",
+    "homeScore": 85,
+    "awayScore": 57,
+    "units": 0.446
+   }
   },
   {
    "id": "nba:401909298",
@@ -221,7 +233,7 @@
    },
    "note": "model -0.8 vs market +2.5: leans CLE by 3.3 pts (threshold 3.0)",
    "lockedAt": "2026-11-13T13:01:20Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-14T00:01:41Z",
     "line": 2.5,
@@ -229,7 +241,13 @@
     "edgePts": 3.29,
     "lineObservedAt": "2026-11-13T23:51:42Z"
    },
-   "rank": 9
+   "rank": 9,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 133,
+    "awayScore": 121,
+    "units": -0.5
+   }
   },
   {
    "id": "ncaab:401920123",
@@ -292,7 +310,7 @@
    },
    "note": "model +12.1 vs market +1.5: leans IDHO by 10.6 pts (threshold 3.0)",
    "lockedAt": "2026-11-13T13:01:20Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-14T00:01:41Z",
     "line": -1.5,
@@ -300,7 +318,13 @@
     "edgePts": 10.57,
     "lineObservedAt": "2026-11-13T23:53:59Z"
    },
-   "rank": 1
+   "rank": 1,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 74,
+    "awayScore": 83,
+    "units": -0.5
+   }
   },
   {
    "id": "ncaab:401921026",
@@ -363,7 +387,7 @@
    },
    "note": "model +14.4 vs market +23.5: leans GASO by 9.1 pts (threshold 3.0)",
    "lockedAt": "2026-11-13T13:01:20Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-14T00:01:41Z",
     "line": 22.5,
@@ -371,7 +395,13 @@
     "edgePts": 8.09,
     "lineObservedAt": "2026-11-13T23:53:59Z"
    },
-   "rank": 4
+   "rank": 4,
+   "result": {
+    "outcome": "win",
+    "homeScore": 84,
+    "awayScore": 70,
+    "units": 0.435
+   }
   },
   {
    "id": "ncaab:401909503",
@@ -434,7 +464,7 @@
    },
    "note": "model +6.6 vs market -1.5: leans NU by 8.1 pts (threshold 3.0)",
    "lockedAt": "2026-11-13T13:01:20Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-14T00:01:41Z",
     "line": 1.5,
@@ -442,7 +472,13 @@
     "edgePts": 8.1,
     "lineObservedAt": "2026-11-13T23:53:59Z"
    },
-   "rank": 5
+   "rank": 5,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 47,
+    "awayScore": 67,
+    "units": -0.5
+   }
   },
   {
    "id": "nba:401909302",
@@ -505,7 +541,7 @@
    },
    "note": "model +6.8 vs market +11.5: leans GS by 4.7 pts (threshold 3.0)",
    "lockedAt": "2026-11-13T13:01:20Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-14T00:01:41Z",
     "line": 12.5,
@@ -513,7 +549,13 @@
     "edgePts": 5.7,
     "lineObservedAt": "2026-11-13T23:51:42Z"
    },
-   "rank": 8
+   "rank": 8,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 123,
+    "awayScore": 85,
+    "units": -0.5
+   }
   },
   {
    "id": "ncaab:401920372",
@@ -576,7 +618,7 @@
    },
    "note": "model +21.5 vs market +13.5: leans USU by 8.0 pts (threshold 3.0)",
    "lockedAt": "2026-11-13T13:01:20Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-14T00:01:41Z",
     "line": -12.5,
@@ -584,7 +626,13 @@
     "edgePts": 9.0,
     "lineObservedAt": "2026-11-13T23:53:59Z"
    },
-   "rank": 6
+   "rank": 6,
+   "result": {
+    "outcome": "win",
+    "homeScore": 120,
+    "awayScore": 82,
+    "units": 0.463
+   }
   },
   {
    "id": "ncaaf:401856860",
@@ -647,7 +695,7 @@
    },
    "note": "model -13.8 vs market -8.5: leans HOU by 5.3 pts (threshold 3.0)",
    "lockedAt": "2026-11-13T13:01:20Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-14T00:01:41Z",
     "line": -7.5,
@@ -655,7 +703,13 @@
     "edgePts": 6.31,
     "lineObservedAt": "2026-11-14T00:01:32Z"
    },
-   "rank": 7
+   "rank": 7,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 42,
+    "awayScore": 32,
+    "units": -0.5
+   }
   }
  ]
 }
