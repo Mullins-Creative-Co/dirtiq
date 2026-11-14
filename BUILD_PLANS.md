@@ -109,6 +109,10 @@ alone shrinks to nothing, so this is the only route to starter value.
 
 ## Shipped (most recent first)
 
+- 2026-11-14: NBA paused on the daily card (`PAUSED_SPORTS` in `dirtiq_model/card/build.py`)
+  at the owner's request until its record gives a better feel. Still forecast, on Tonight
+  and in the ledger. Re-add by emptying the tuple.
+
 - 2026-11-14: over/unders on Tonight. `dirtiq_model/teams/totals.py` projects a total for
   NBA, NCAAB, NFL and NCAAF (one pace-of-scoring number per team); each row shows the
   posted total and a "Total lean" when the model is 6 (basketball) or 4 (football) points

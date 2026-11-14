@@ -33,6 +33,9 @@ CARD_PATH = ROOT / "public" / "data" / "daily-card.json"
 ARCHIVE_DIR = ROOT / "public" / "data" / "cards"
 
 CARD_SPORTS = ("nfl", "ncaaf", "nba", "ncaab")
+# Sports still forecast, shown on Tonight and recorded in the ledger, but kept off the staked card.
+# NBA: paused 2026-11-14 at the owner's request until its record gives a better feel (backtest 49.6% at the close).
+PAUSED_SPORTS = ("nba",)
 MAX_PICKS = 15
 MAX_PER_SPORT = 6
 # Every pick carries the same stake. Over the backtests, picks the market-aware model agreed with
@@ -49,7 +52,7 @@ MIN_LEAD = timedelta(minutes=20)
 MAX_LINE_AGE = timedelta(hours=3)
 
 RULES = [
-    "Spread bets only, in NFL, college football, NBA and college basketball; one bet per game.",
+    "Spread bets only, in NFL, college football and college basketball; one bet per game. NBA is paused: forecast and tracked, not staked.",
     "A game qualifies when the model margin disagrees with the spread by at least the sport's fixed backtest threshold.",
     "A game is left off when the disagreement is %.0f thresholds or more: a gap that wide is a rating or data error, not value." % MAX_EDGE_RATIO,
     "Ranked by whether the market-aware model takes the same side, then by the size of the disagreement in threshold units.",
@@ -280,12 +283,14 @@ def build_card(now: Optional[datetime] = None, sports_dir: Path = SPORTS_DIR, ar
                 continue
             if _num(game.get("marketHomeSpread")) is not None:
                 considered += 1
-            pick = candidate(sport, report, game, now)
+            pick = None if sport in PAUSED_SPORTS else candidate(sport, report, game, now)
             if pick:
                 candidates.append(pick)
 
     previous = _read(archive_dir / ("%s.json" % today)) or {}
     locked = [p for p in previous.get("picks") or [] if p.get("id")]
+    # A pick in a sport paused after it was listed comes off unless its game has already started.
+    locked = [p for p in locked if p.get("sport") not in PAUSED_SPORTS or p.get("result") or (_parse(p.get("startsAt")) or now) <= now]
     picks = select(locked, candidates)
     stamp_now = now.isoformat(timespec="seconds").replace("+00:00", "Z")
     for pick in picks:

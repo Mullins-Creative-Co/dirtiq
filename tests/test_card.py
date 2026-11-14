@@ -4,6 +4,7 @@ import json
 import tempfile
 import shutil
 import unittest
+from unittest import mock
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -44,7 +45,7 @@ class CardTest(unittest.TestCase):
         return build.build_card(now=now, sports_dir=self.sports, archive_dir=self.archive, results=results or {})
 
     def test_qualification_side_and_stake(self):
-        self.write("nba", [
+        self.write("nfl", [
             game("1", 2.0, -9.5, aware=10.0),   # model likes the away side by 7.5; market-aware model is on the home side
             game("2", 8.0, -3.5, aware=4.5),    # home by 4.5, market-aware agrees
             game("3", 4.0, -3.5),               # only 0.5 of disagreement
@@ -61,9 +62,17 @@ class CardTest(unittest.TestCase):
         self.assertEqual(picks["2"]["rank"], 1)
         self.assertEqual(picks["1"]["record"]["winRate"], 0.49)
 
+    def test_paused_sport_is_left_off_and_unstarted_picks_come_off(self):
+        self.write("nba", [game("2", 8.0, -3.5, aware=4.5)])
+        self.write("ncaab", [game("2", 8.0, -3.5, aware=4.5)])
+        self.assertEqual([p["sport"] for p in self.card()["picks"]], ["ncaab"])
+        with mock.patch.object(build, "PAUSED_SPORTS", ()):
+            self.assertEqual(sorted(p["sport"] for p in self.card()["picks"]), ["nba", "ncaab"])
+        self.assertEqual([p["sport"] for p in self.card()["picks"]], ["ncaab"])
+
     def test_caps(self):
         self.write("ncaab", [game(str(i), 7.0 + i * 0.5, -3.5, aware=5.0) for i in range(10)])
-        self.write("nba", [game("n%d" % i, 7.0 + i * 0.5, -3.5, aware=5.0) for i in range(10)])
+        self.write("nfl", [game("n%d" % i, 7.0 + i * 0.5, -3.5, aware=5.0) for i in range(10)])
         card = self.card()
         by_sport = {}
         for p in card["picks"]:
@@ -73,17 +82,17 @@ class CardTest(unittest.TestCase):
         self.assertLessEqual(len(card["picks"]), build.MAX_PICKS)
 
     def test_pick_is_locked_then_graded_at_its_line(self):
-        self.write("nba", [game("1", 8.0, -3.5, aware=4.5)])
+        self.write("nfl", [game("1", 8.0, -3.5, aware=4.5)])
         self.card()
         # The line moves to -7.5: the edge is gone, but the locked terms stay.
-        self.write("nba", [game("1", 8.0, -7.5, aware=7.6, observed="2026-11-12T15:30:00Z")])
+        self.write("nfl", [game("1", 8.0, -7.5, aware=7.6, observed="2026-11-12T15:30:00Z")])
         later = datetime(2026, 11, 12, 16, 0, tzinfo=timezone.utc)
         pick = self.card(now=later)["picks"][0]
         self.assertEqual((pick["line"], pick["status"], pick["current"]["line"]), (-3.5, "edge-gone", -7.5))
         self.assertEqual(pick["lockedAt"], "2026-11-12T15:00:00Z")
         # Next day: home wins by 5, covering -3.5 (it would not have covered -7.5).
-        results = {"nba:1": {"eventId": "nba:1", "homeScore": 105, "awayScore": 100}}
-        self.write("nba", [])
+        results = {"nfl:1": {"eventId": "nfl:1", "homeScore": 105, "awayScore": 100}}
+        self.write("nfl", [])
         tomorrow = datetime(2026, 11, 13, 15, 0, tzinfo=timezone.utc)
         card = self.card(now=tomorrow, results=results)
         self.assertEqual(card["picks"], [])
@@ -117,9 +126,9 @@ class CardTest(unittest.TestCase):
         self.assertEqual(card["record"], again["record"])
 
     def test_push_and_away_loss(self):
-        home_pick = {"id": "nba:1", "side": "home", "line": -5.0, "price": -110, "stakeUnits": 1.0}
-        away_pick = {"id": "nba:2", "side": "away", "line": 4.5, "price": -110, "stakeUnits": 0.5}
-        results = {"nba:1": {"homeScore": 105, "awayScore": 100}, "nba:2": {"homeScore": 105, "awayScore": 100}}
+        home_pick = {"id": "nfl:1", "side": "home", "line": -5.0, "price": -110, "stakeUnits": 1.0}
+        away_pick = {"id": "nfl:2", "side": "away", "line": 4.5, "price": -110, "stakeUnits": 0.5}
+        results = {"nfl:1": {"homeScore": 105, "awayScore": 100}, "nfl:2": {"homeScore": 105, "awayScore": 100}}
         build.grade(home_pick, results)
         build.grade(away_pick, results)
         self.assertEqual((home_pick["result"]["outcome"], home_pick["result"]["units"]), ("push", 0.0))
