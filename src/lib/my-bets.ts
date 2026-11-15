@@ -116,6 +116,33 @@ export async function addBet(bet: NewBet, grading: BetGrading = AUTO_GRADING): P
   return toBet(db.prepare("SELECT * FROM my_bets WHERE id = ?").get(res.lastInsertRowid) as Record<string, unknown>);
 }
 
+/** Bulk logging is retryable and serialized per event/side across server instances. */
+export async function addCardBet(bet: NewBet): Promise<{bet: MyBet; added: boolean}> {
+  if (!bet.eventId) throw new Error("Card picks must be linked to a game.");
+  if (hasLiveBetDatabase()) {
+    const sql = await ensurePg();
+    const key = JSON.stringify([bet.eventId, bet.market, bet.selection]);
+    const rows = await sql.transaction([
+      sql`SELECT pg_advisory_xact_lock(hashtextextended(${key}, 0))`,
+      sql`INSERT INTO my_bets (sport,event_id,event_label,event_start,market,selection,selection_label,line,price,stake,book,note,model_prob,market_prob,placed_at)
+        SELECT ${bet.sport},${bet.eventId},${bet.eventLabel},${bet.eventStart},${bet.market},${bet.selection},${bet.selectionLabel},${bet.line},${bet.price},${bet.stake},${bet.book},${bet.note},${bet.modelProb},${bet.marketProb},${bet.placedAt}
+        WHERE NOT EXISTS (SELECT 1 FROM my_bets WHERE event_id=${bet.eventId} AND market=${bet.market} AND selection=${bet.selection}) RETURNING *`,
+      sql`SELECT * FROM my_bets WHERE event_id=${bet.eventId} AND market=${bet.market} AND selection=${bet.selection} ORDER BY id LIMIT 1`,
+    ]);
+    const inserted = rows[1] as Array<Record<string, unknown>>;
+    const found = rows[2] as Array<Record<string, unknown>>;
+    if (!found[0]) throw new Error("Could not confirm card bet.");
+    return {bet:toBet(found[0]),added:inserted.length>0};
+  }
+  const db = getDb();
+  const inserted = db.prepare(`INSERT INTO my_bets (sport,event_id,event_label,event_start,market,selection,selection_label,line,price,stake,book,note,model_prob,market_prob,placed_at)
+    SELECT ?,?,?,?,?,?,?,?,?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT 1 FROM my_bets WHERE event_id=? AND market=? AND selection=?)`).run(
+      bet.sport,bet.eventId,bet.eventLabel,bet.eventStart,bet.market,bet.selection,bet.selectionLabel,bet.line,bet.price,bet.stake,bet.book,bet.note,bet.modelProb,bet.marketProb,bet.placedAt,
+      bet.eventId,bet.market,bet.selection);
+  const row = db.prepare("SELECT * FROM my_bets WHERE event_id=? AND market=? AND selection=? ORDER BY id LIMIT 1").get(bet.eventId,bet.market,bet.selection) as Record<string,unknown>;
+  return {bet:toBet(row),added:Number(inserted.changes)>0};
+}
+
 export async function updateBet(id: number, bet: NewBet, grading: BetGrading): Promise<MyBet | null> {
   const settledAt = grading.status === "open" ? null : grading.settledAt ?? new Date().toISOString();
   if (hasLiveBetDatabase()) {

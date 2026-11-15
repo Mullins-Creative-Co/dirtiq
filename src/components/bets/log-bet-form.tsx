@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useId, useState, useTransition } from "react";
 import { logBetAction, updateBetAction } from "@/app/bets/actions";
-import { BET_MARKETS } from "@/lib/my-bets/grade";
+import { BET_MARKETS, type MyBet } from "@/lib/my-bets/grade";
 export type LogBetPrefill = Partial<Record<"sport"|"eventId"|"eventLabel"|"eventStart"|"market"|"selection"|"selectionLabel"|"line"|"price"|"modelProb"|"marketProb"|"stake"|"book"|"note"|"placedAt"|"status", string>>;
 export type EventOption = { eventId:string; sport:string; label:string; startsAt:string; home:string|null; away:string|null; homeLabel?:string; awayLabel?:string; completed?:boolean };
 const SPORTS = [["nfl","NFL"],["nba","NBA"],["nhl","NHL"],["ncaaf","College football"],["ncaab","College basketball"],["mlb","MLB"],["racing","Dirt racing"],["other","Other"]] as const;
@@ -15,7 +15,7 @@ function localDate(iso?:string) {
   const pad=(v:number)=>String(v).padStart(2,"0");
   return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
-export function LogBetForm({prefill,events,inline=false,editId}:{prefill:LogBetPrefill;events:EventOption[];inline?:boolean;editId?:number}) {
+export function LogBetForm({prefill,events,inline=false,editId,onSaved}:{prefill:LogBetPrefill;events:EventOption[];inline?:boolean;editId?:number;onSaved?:(bet:MyBet)=>void}) {
   const id=useId(),router=useRouter();
   const [pending,start]=useTransition(),[error,setError]=useState<string|null>(null),[saved,setSaved]=useState<string|null>(null);
   const initial=events.find(e=>e.eventId===prefill.eventId);
@@ -37,6 +37,7 @@ export function LogBetForm({prefill,events,inline=false,editId}:{prefill:LogBetP
     start(async()=>{try{
       const res=await(editId?updateBetAction(fd):logBetAction(fd));
       if(res.error){setError(res.error);return;}
+      if(res.bet)onSaved?.(res.bet);
       setSaved(`${editId?"Updated":"Logged"} bet #${res.id}.`);
       if(editId)router.refresh();
       else if(!inline){setSelection("");setEventId("");setEventLabel("");setEventStart("");router.replace("/bets");router.refresh();}

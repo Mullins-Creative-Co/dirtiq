@@ -395,3 +395,10 @@ source codes. Archived daily cards remain loggable. Bet edits retain the origina
 record ID and placed date; unchanged grading terms retain their outcome and settlement
 time. A changed game, side or line clears an automatic grade for recalculation. Manual
 historical outcomes can be entered explicitly. Profit charts use placed dates.
+
+Bulk card logging reads the requested dated artifact on the server and saves its listed
+line, price and stake as personal bets; it never submits wagers. Existing event/market/side
+records are returned for editing without replacing their terms. Postgres uses a per-key
+transaction advisory lock plus conditional insert; SQLite uses one conditional insert.
+Partial batches can be retried. Historical entries default to the logging time and expose
+the placed date in the editor. Personal edits leave the published card unchanged.
