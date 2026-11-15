@@ -1,75 +1,75 @@
 {
  "sport": "nba",
  "label": "NBA",
- "generatedAt": "2026-11-15T07:10:04Z",
+ "generatedAt": "2026-11-15T15:52:26Z",
  "modelId": "nba-kalman",
  "modelVersion": "1.1",
- "dataThrough": "2026-11-13",
+ "dataThrough": "2026-11-14",
  "sources": [
   {
    "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_2016.parquet",
    "sha256": "a6b85196e5b70c8234d4d9143cc35880c57e3fb09c67684fc1e100633941d010",
-   "retrievedAt": "2026-11-15T07:09:54Z"
+   "retrievedAt": "2026-11-15T15:52:16Z"
   },
   {
    "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_2017.parquet",
    "sha256": "521a83601d18b7ea34dabba62e62cb9307aa7c6aca66e4a0e15ff7db55cf18a0",
-   "retrievedAt": "2026-11-15T07:09:54Z"
+   "retrievedAt": "2026-11-15T15:52:16Z"
   },
   {
    "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_2018.parquet",
    "sha256": "aa4be95197178146409679e75c5d4bd4fbccbc3497ac7c2de3b14acb32a32199",
-   "retrievedAt": "2026-11-15T07:09:55Z"
+   "retrievedAt": "2026-11-15T15:52:16Z"
   },
   {
    "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_2019.parquet",
    "sha256": "f00e6ac49c47ac34168f0b932fad74b0b17f03230b39e67eaf02424e3109eae3",
-   "retrievedAt": "2026-11-15T07:09:55Z"
+   "retrievedAt": "2026-11-15T15:52:17Z"
   },
   {
    "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_2020.parquet",
    "sha256": "402485c4c3638838eade99aeba795bc0dda869c29089a5062baa28a34bd3b752",
-   "retrievedAt": "2026-11-15T07:09:55Z"
+   "retrievedAt": "2026-11-15T15:52:17Z"
   },
   {
    "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_2021.parquet",
    "sha256": "0c2eab5b22cc956646ac0351ddf6110d9527e46f4ee4d9200bf2945051688392",
-   "retrievedAt": "2026-11-15T07:09:56Z"
+   "retrievedAt": "2026-11-15T15:52:17Z"
   },
   {
    "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_2022.parquet",
    "sha256": "e3a764147f108c6fb3883eaa5617234ab41aa95e668dd7eb9506616c8a953d2f",
-   "retrievedAt": "2026-11-15T07:09:56Z"
+   "retrievedAt": "2026-11-15T15:52:18Z"
   },
   {
    "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_2023.parquet",
    "sha256": "9532db81a254b2ea9982111fbea970bb61ea34b6aa3fc4607b2cad17ba55c60b",
-   "retrievedAt": "2026-11-15T07:09:56Z"
+   "retrievedAt": "2026-11-15T15:52:18Z"
   },
   {
    "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_2024.parquet",
    "sha256": "2069783562b531b91ee9ad6a85358761ad6a611ce3291a60ed124bb978969b63",
-   "retrievedAt": "2026-11-15T07:09:56Z"
+   "retrievedAt": "2026-11-15T15:52:18Z"
   },
   {
    "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_2025.parquet",
    "sha256": "239829fdcf99629ee682bca4d6d0a6709b3c095be39c39f425664754ae1a979e",
-   "retrievedAt": "2026-11-15T07:09:57Z"
+   "retrievedAt": "2026-11-15T15:52:18Z"
   },
   {
    "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_2026.parquet",
    "sha256": "b3884aa4aa276d1fcafc71b69394675904a968902068bff634932e5d7afacae4",
-   "retrievedAt": "2026-11-15T07:09:57Z"
+   "retrievedAt": "2026-11-15T15:52:19Z"
   },
   {
    "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_2027.parquet",
-   "sha256": "cd1f109cbfcb94cd819f003f1d1a65dd6aae77d928ad0f6f275c0b19dc656734",
-   "retrievedAt": "2026-11-15T07:09:57Z"
+   "sha256": "841ebd96141121b7603fdd7f5c851841d800f95bd5553a50ac584b5c2c658915",
+   "retrievedAt": "2026-11-15T15:52:19Z"
   },
   {
    "url": "https://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/events/{event}/competitions/{event}/odds?limit=50",
    "sha256": "",
-   "retrievedAt": "2026-11-15T07:09:58Z"
+   "retrievedAt": "2026-11-15T15:52:20Z"
   }
  ],
  "backtest": {
@@ -2330,10 +2330,10 @@
   {
    "team": "SA",
    "rating": 9.22,
-   "sd": 2.65,
+   "sd": 2.67,
    "rank": 1,
    "games": 13,
-   "updatedAt": "2026-11-14T03:30:00Z",
+   "updatedAt": "2026-11-15T01:00:00Z",
    "form": {
     "season": 2027,
     "games": 13,
@@ -2378,11 +2378,11 @@
   },
   {
    "team": "BOS",
-   "rating": 6.57,
-   "sd": 2.75,
+   "rating": 6.59,
+   "sd": 2.76,
    "rank": 2,
    "games": 12,
-   "updatedAt": "2026-11-14T03:30:00Z",
+   "updatedAt": "2026-11-15T01:00:00Z",
    "form": {
     "season": 2027,
     "games": 12,
@@ -2426,61 +2426,12 @@
    }
   },
   {
-   "team": "MIN",
-   "rating": 6.27,
-   "sd": 2.73,
+   "team": "NY",
+   "rating": 6.09,
+   "sd": 2.72,
    "rank": 3,
    "games": 12,
-   "updatedAt": "2026-11-14T03:30:00Z",
-   "form": {
-    "season": 2027,
-    "games": 12,
-    "wins": 9,
-    "losses": 3,
-    "ties": 0,
-    "avgMargin": 13.42,
-    "last": [
-     {
-      "date": "2026-11-03T01:00:00Z",
-      "opponent": "MIL",
-      "home": true,
-      "margin": 12.0
-     },
-     {
-      "date": "2026-11-05T01:30:00Z",
-      "opponent": "HOU",
-      "home": false,
-      "margin": 10.0
-     },
-     {
-      "date": "2026-11-07T01:00:00Z",
-      "opponent": "NO",
-      "home": false,
-      "margin": 6.0
-     },
-     {
-      "date": "2026-11-09T00:00:00Z",
-      "opponent": "UTAH",
-      "home": true,
-      "margin": 15.0
-     },
-     {
-      "date": "2026-11-13T01:00:00Z",
-      "opponent": "DAL",
-      "home": true,
-      "margin": 39.0
-     }
-    ],
-    "lastRecord": "5-0"
-   }
-  },
-  {
-   "team": "NY",
-   "rating": 6.05,
-   "sd": 2.7,
-   "rank": 4,
-   "games": 12,
-   "updatedAt": "2026-11-14T03:30:00Z",
+   "updatedAt": "2026-11-15T01:00:00Z",
    "form": {
     "season": 2027,
     "games": 12,
@@ -2525,11 +2476,11 @@
   },
   {
    "team": "OKC",
-   "rating": 5.94,
-   "sd": 2.67,
-   "rank": 5,
+   "rating": 5.95,
+   "sd": 2.69,
+   "rank": 4,
    "games": 13,
-   "updatedAt": "2026-11-14T03:30:00Z",
+   "updatedAt": "2026-11-15T01:00:00Z",
    "form": {
     "season": 2027,
     "games": 13,
@@ -2573,12 +2524,61 @@
    }
   },
   {
-   "team": "HOU",
-   "rating": 5.29,
+   "team": "MIN",
+   "rating": 5.3,
    "sd": 2.7,
+   "rank": 5,
+   "games": 13,
+   "updatedAt": "2026-11-15T01:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 13,
+    "wins": 9,
+    "losses": 4,
+    "ties": 0,
+    "avgMargin": 11.54,
+    "last": [
+     {
+      "date": "2026-11-05T01:30:00Z",
+      "opponent": "HOU",
+      "home": false,
+      "margin": 10.0
+     },
+     {
+      "date": "2026-11-07T01:00:00Z",
+      "opponent": "NO",
+      "home": false,
+      "margin": 6.0
+     },
+     {
+      "date": "2026-11-09T00:00:00Z",
+      "opponent": "UTAH",
+      "home": true,
+      "margin": 15.0
+     },
+     {
+      "date": "2026-11-13T01:00:00Z",
+      "opponent": "DAL",
+      "home": true,
+      "margin": 39.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "CHI",
+      "home": true,
+      "margin": -11.0
+     }
+    ],
+    "lastRecord": "4-1"
+   }
+  },
+  {
+   "team": "HOU",
+   "rating": 5.25,
+   "sd": 2.72,
    "rank": 6,
    "games": 13,
-   "updatedAt": "2026-11-14T03:30:00Z",
+   "updatedAt": "2026-11-15T01:00:00Z",
    "form": {
     "season": 2027,
     "games": 13,
@@ -2622,61 +2622,12 @@
    }
   },
   {
-   "team": "DET",
-   "rating": 4.94,
-   "sd": 2.78,
-   "rank": 7,
-   "games": 11,
-   "updatedAt": "2026-11-14T03:30:00Z",
-   "form": {
-    "season": 2027,
-    "games": 11,
-    "wins": 8,
-    "losses": 3,
-    "ties": 0,
-    "avgMargin": 7.73,
-    "last": [
-     {
-      "date": "2026-11-03T00:30:00Z",
-      "opponent": "CHA",
-      "home": false,
-      "margin": 33.0
-     },
-     {
-      "date": "2026-11-05T00:00:00Z",
-      "opponent": "PHI",
-      "home": true,
-      "margin": -6.0
-     },
-     {
-      "date": "2026-11-08T23:00:00Z",
-      "opponent": "LAL",
-      "home": true,
-      "margin": -5.0
-     },
-     {
-      "date": "2026-11-10T00:00:00Z",
-      "opponent": "WSH",
-      "home": true,
-      "margin": 11.0
-     },
-     {
-      "date": "2026-11-13T00:00:00Z",
-      "opponent": "WSH",
-      "home": false,
-      "margin": 4.0
-     }
-    ],
-    "lastRecord": "3-2"
-   }
-  },
-  {
    "team": "LAL",
    "rating": 4.15,
-   "sd": 2.7,
-   "rank": 8,
+   "sd": 2.71,
+   "rank": 7,
    "games": 13,
-   "updatedAt": "2026-11-14T03:30:00Z",
+   "updatedAt": "2026-11-15T01:00:00Z",
    "form": {
     "season": 2027,
     "games": 13,
@@ -2721,11 +2672,11 @@
   },
   {
    "team": "POR",
-   "rating": 4.1,
-   "sd": 2.74,
-   "rank": 9,
+   "rating": 4.12,
+   "sd": 2.76,
+   "rank": 8,
    "games": 12,
-   "updatedAt": "2026-11-14T03:30:00Z",
+   "updatedAt": "2026-11-15T01:00:00Z",
    "form": {
     "season": 2027,
     "games": 12,
@@ -2769,26 +2720,69 @@
    }
   },
   {
-   "team": "DEN",
-   "rating": 2.41,
-   "sd": 2.83,
-   "rank": 10,
-   "games": 10,
-   "updatedAt": "2026-11-14T03:30:00Z",
+   "team": "DET",
+   "rating": 4.03,
+   "sd": 2.74,
+   "rank": 9,
+   "games": 12,
+   "updatedAt": "2026-11-15T01:00:00Z",
    "form": {
     "season": 2027,
-    "games": 10,
-    "wins": 6,
+    "games": 12,
+    "wins": 8,
     "losses": 4,
     "ties": 0,
-    "avgMargin": 1.2,
+    "avgMargin": 5.42,
     "last": [
      {
-      "date": "2026-11-03T02:00:00Z",
-      "opponent": "POR",
+      "date": "2026-11-05T00:00:00Z",
+      "opponent": "PHI",
       "home": true,
-      "margin": -8.0
+      "margin": -6.0
      },
+     {
+      "date": "2026-11-08T23:00:00Z",
+      "opponent": "LAL",
+      "home": true,
+      "margin": -5.0
+     },
+     {
+      "date": "2026-11-10T00:00:00Z",
+      "opponent": "WSH",
+      "home": true,
+      "margin": 11.0
+     },
+     {
+      "date": "2026-11-13T00:00:00Z",
+      "opponent": "WSH",
+      "home": false,
+      "margin": 4.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "MIA",
+      "home": false,
+      "margin": -20.0
+     }
+    ],
+    "lastRecord": "2-3"
+   }
+  },
+  {
+   "team": "DEN",
+   "rating": 2.47,
+   "sd": 2.8,
+   "rank": 10,
+   "games": 11,
+   "updatedAt": "2026-11-15T01:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 11,
+    "wins": 7,
+    "losses": 4,
+    "ties": 0,
+    "avgMargin": 1.82,
+    "last": [
      {
       "date": "2026-11-05T02:00:00Z",
       "opponent": "TOR",
@@ -2812,18 +2806,73 @@
       "opponent": "MEM",
       "home": false,
       "margin": 5.0
+     },
+     {
+      "date": "2026-11-15T00:00:00Z",
+      "opponent": "NO",
+      "home": false,
+      "margin": 8.0
      }
     ],
-    "lastRecord": "3-2"
+    "lastRecord": "4-1"
+   }
+  },
+  {
+   "team": "CLE",
+   "rating": 1.97,
+   "sd": 2.63,
+   "rank": 11,
+   "games": 14,
+   "updatedAt": "2026-11-15T01:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 14,
+    "wins": 7,
+    "losses": 7,
+    "ties": 0,
+    "avgMargin": 1.64,
+    "last": [
+     {
+      "date": "2026-11-08T01:00:00Z",
+      "opponent": "NY",
+      "home": true,
+      "margin": -12.0
+     },
+     {
+      "date": "2026-11-10T00:00:00Z",
+      "opponent": "CHA",
+      "home": false,
+      "margin": -12.0
+     },
+     {
+      "date": "2026-11-12T00:00:00Z",
+      "opponent": "NY",
+      "home": false,
+      "margin": 8.0
+     },
+     {
+      "date": "2026-11-14T01:00:00Z",
+      "opponent": "MIA",
+      "home": false,
+      "margin": -12.0
+     },
+     {
+      "date": "2026-11-15T00:30:00Z",
+      "opponent": "DAL",
+      "home": true,
+      "margin": 10.0
+     }
+    ],
+    "lastRecord": "2-3"
    }
   },
   {
    "team": "GS",
-   "rating": 1.87,
-   "sd": 2.71,
-   "rank": 11,
+   "rating": 1.88,
+   "sd": 2.73,
+   "rank": 12,
    "games": 13,
-   "updatedAt": "2026-11-14T03:30:00Z",
+   "updatedAt": "2026-11-15T01:00:00Z",
    "form": {
     "season": 2027,
     "games": 13,
@@ -2867,61 +2916,12 @@
    }
   },
   {
-   "team": "CLE",
-   "rating": 1.82,
-   "sd": 2.67,
-   "rank": 12,
-   "games": 13,
-   "updatedAt": "2026-11-14T03:30:00Z",
-   "form": {
-    "season": 2027,
-    "games": 13,
-    "wins": 6,
-    "losses": 7,
-    "ties": 0,
-    "avgMargin": 1.0,
-    "last": [
-     {
-      "date": "2026-11-07T00:30:00Z",
-      "opponent": "PHI",
-      "home": true,
-      "margin": 24.0
-     },
-     {
-      "date": "2026-11-08T01:00:00Z",
-      "opponent": "NY",
-      "home": true,
-      "margin": -12.0
-     },
-     {
-      "date": "2026-11-10T00:00:00Z",
-      "opponent": "CHA",
-      "home": false,
-      "margin": -12.0
-     },
-     {
-      "date": "2026-11-12T00:00:00Z",
-      "opponent": "NY",
-      "home": false,
-      "margin": 8.0
-     },
-     {
-      "date": "2026-11-14T01:00:00Z",
-      "opponent": "MIA",
-      "home": false,
-      "margin": -12.0
-     }
-    ],
-    "lastRecord": "2-3"
-   }
-  },
-  {
    "team": "TOR",
-   "rating": 1.4,
-   "sd": 2.73,
+   "rating": 1.42,
+   "sd": 2.75,
    "rank": 13,
    "games": 12,
-   "updatedAt": "2026-11-14T03:30:00Z",
+   "updatedAt": "2026-11-15T01:00:00Z",
    "form": {
     "season": 2027,
     "games": 12,
@@ -2966,11 +2966,11 @@
   },
   {
    "team": "PHI",
-   "rating": 0.7,
-   "sd": 2.71,
+   "rating": 0.73,
+   "sd": 2.72,
    "rank": 14,
    "games": 13,
-   "updatedAt": "2026-11-14T03:30:00Z",
+   "updatedAt": "2026-11-15T01:00:00Z",
    "form": {
     "season": 2027,
     "games": 13,
@@ -3015,11 +3015,11 @@
   },
   {
    "team": "ATL",
-   "rating": 0.3,
-   "sd": 2.71,
+   "rating": 0.34,
+   "sd": 2.72,
    "rank": 15,
    "games": 13,
-   "updatedAt": "2026-11-14T03:30:00Z",
+   "updatedAt": "2026-11-15T01:00:00Z",
    "form": {
     "season": 2027,
     "games": 13,
@@ -3063,26 +3063,69 @@
    }
   },
   {
-   "team": "MEM",
-   "rating": -0.49,
-   "sd": 2.76,
+   "team": "MIA",
+   "rating": 0.1,
+   "sd": 2.72,
    "rank": 16,
-   "games": 12,
-   "updatedAt": "2026-11-14T03:30:00Z",
+   "games": 13,
+   "updatedAt": "2026-11-15T01:00:00Z",
    "form": {
     "season": 2027,
-    "games": 12,
-    "wins": 8,
-    "losses": 4,
+    "games": 13,
+    "wins": 7,
+    "losses": 6,
     "ties": 0,
-    "avgMargin": 8.08,
+    "avgMargin": -1.15,
     "last": [
      {
-      "date": "2026-11-05T01:00:00Z",
-      "opponent": "IND",
-      "home": true,
-      "margin": -4.0
+      "date": "2026-11-06T03:00:00Z",
+      "opponent": "GS",
+      "home": false,
+      "margin": -20.0
      },
+     {
+      "date": "2026-11-09T02:00:00Z",
+      "opponent": "SAC",
+      "home": false,
+      "margin": 6.0
+     },
+     {
+      "date": "2026-11-11T02:00:00Z",
+      "opponent": "UTAH",
+      "home": false,
+      "margin": 6.0
+     },
+     {
+      "date": "2026-11-14T01:00:00Z",
+      "opponent": "CLE",
+      "home": true,
+      "margin": 12.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "DET",
+      "home": true,
+      "margin": 20.0
+     }
+    ],
+    "lastRecord": "4-1"
+   }
+  },
+  {
+   "team": "MEM",
+   "rating": -0.04,
+   "sd": 2.72,
+   "rank": 17,
+   "games": 13,
+   "updatedAt": "2026-11-15T01:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 13,
+    "wins": 9,
+    "losses": 4,
+    "ties": 0,
+    "avgMargin": 8.92,
+    "last": [
      {
       "date": "2026-11-07T01:00:00Z",
       "opponent": "OKC",
@@ -3106,18 +3149,24 @@
       "opponent": "NO",
       "home": false,
       "margin": 31.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "BKN",
+      "home": true,
+      "margin": 19.0
      }
     ],
-    "lastRecord": "2-3"
+    "lastRecord": "3-2"
    }
   },
   {
    "team": "PHX",
    "rating": -0.7,
-   "sd": 2.78,
-   "rank": 17,
+   "sd": 2.79,
+   "rank": 18,
    "games": 11,
-   "updatedAt": "2026-11-14T03:30:00Z",
+   "updatedAt": "2026-11-15T01:00:00Z",
    "form": {
     "season": 2027,
     "games": 11,
@@ -3161,110 +3210,12 @@
    }
   },
   {
-   "team": "MIA",
-   "rating": -0.77,
-   "sd": 2.76,
-   "rank": 18,
-   "games": 12,
-   "updatedAt": "2026-11-14T03:30:00Z",
-   "form": {
-    "season": 2027,
-    "games": 12,
-    "wins": 6,
-    "losses": 6,
-    "ties": 0,
-    "avgMargin": -2.92,
-    "last": [
-     {
-      "date": "2026-11-05T03:30:00Z",
-      "opponent": "LAC",
-      "home": false,
-      "margin": 1.0
-     },
-     {
-      "date": "2026-11-06T03:00:00Z",
-      "opponent": "GS",
-      "home": false,
-      "margin": -20.0
-     },
-     {
-      "date": "2026-11-09T02:00:00Z",
-      "opponent": "SAC",
-      "home": false,
-      "margin": 6.0
-     },
-     {
-      "date": "2026-11-11T02:00:00Z",
-      "opponent": "UTAH",
-      "home": false,
-      "margin": 6.0
-     },
-     {
-      "date": "2026-11-14T01:00:00Z",
-      "opponent": "CLE",
-      "home": true,
-      "margin": 12.0
-     }
-    ],
-    "lastRecord": "4-1"
-   }
-  },
-  {
-   "team": "DAL",
-   "rating": -1.23,
-   "sd": 2.77,
-   "rank": 19,
-   "games": 12,
-   "updatedAt": "2026-11-14T03:30:00Z",
-   "form": {
-    "season": 2027,
-    "games": 12,
-    "wins": 7,
-    "losses": 5,
-    "ties": 0,
-    "avgMargin": 1.0,
-    "last": [
-     {
-      "date": "2026-11-05T02:30:00Z",
-      "opponent": "SA",
-      "home": false,
-      "margin": -1.0
-     },
-     {
-      "date": "2026-11-07T01:00:00Z",
-      "opponent": "UTAH",
-      "home": true,
-      "margin": 12.0
-     },
-     {
-      "date": "2026-11-09T00:30:00Z",
-      "opponent": "BKN",
-      "home": true,
-      "margin": 37.0
-     },
-     {
-      "date": "2026-11-10T01:00:00Z",
-      "opponent": "IND",
-      "home": true,
-      "margin": 3.0
-     },
-     {
-      "date": "2026-11-13T01:00:00Z",
-      "opponent": "MIN",
-      "home": false,
-      "margin": -39.0
-     }
-    ],
-    "lastRecord": "3-2"
-   }
-  },
-  {
    "team": "LAC",
    "rating": -1.23,
-   "sd": 2.8,
-   "rank": 20,
+   "sd": 2.82,
+   "rank": 19,
    "games": 11,
-   "updatedAt": "2026-11-14T03:30:00Z",
+   "updatedAt": "2026-11-15T01:00:00Z",
    "form": {
     "season": 2027,
     "games": 11,
@@ -3308,12 +3259,61 @@
    }
   },
   {
-   "team": "ORL",
-   "rating": -1.48,
+   "team": "DAL",
+   "rating": -1.44,
    "sd": 2.73,
+   "rank": 20,
+   "games": 13,
+   "updatedAt": "2026-11-15T01:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 13,
+    "wins": 7,
+    "losses": 6,
+    "ties": 0,
+    "avgMargin": 0.15,
+    "last": [
+     {
+      "date": "2026-11-07T01:00:00Z",
+      "opponent": "UTAH",
+      "home": true,
+      "margin": 12.0
+     },
+     {
+      "date": "2026-11-09T00:30:00Z",
+      "opponent": "BKN",
+      "home": true,
+      "margin": 37.0
+     },
+     {
+      "date": "2026-11-10T01:00:00Z",
+      "opponent": "IND",
+      "home": true,
+      "margin": 3.0
+     },
+     {
+      "date": "2026-11-13T01:00:00Z",
+      "opponent": "MIN",
+      "home": false,
+      "margin": -39.0
+     },
+     {
+      "date": "2026-11-15T00:30:00Z",
+      "opponent": "CLE",
+      "home": false,
+      "margin": -10.0
+     }
+    ],
+    "lastRecord": "3-2"
+   }
+  },
+  {
+   "team": "ORL",
+   "rating": -1.51,
+   "sd": 2.74,
    "rank": 21,
    "games": 12,
-   "updatedAt": "2026-11-14T03:30:00Z",
+   "updatedAt": "2026-11-15T01:00:00Z",
    "form": {
     "season": 2027,
     "games": 12,
@@ -3358,11 +3358,11 @@
   },
   {
    "team": "CHA",
-   "rating": -3.29,
-   "sd": 2.77,
+   "rating": -3.34,
+   "sd": 2.79,
    "rank": 22,
    "games": 12,
-   "updatedAt": "2026-11-14T03:30:00Z",
+   "updatedAt": "2026-11-15T01:00:00Z",
    "form": {
     "season": 2027,
     "games": 12,
@@ -3408,10 +3408,10 @@
   {
    "team": "IND",
    "rating": -3.69,
-   "sd": 2.72,
+   "sd": 2.73,
    "rank": 23,
    "games": 13,
-   "updatedAt": "2026-11-14T03:30:00Z",
+   "updatedAt": "2026-11-15T01:00:00Z",
    "form": {
     "season": 2027,
     "games": 13,
@@ -3455,26 +3455,69 @@
    }
   },
   {
-   "team": "BKN",
-   "rating": -5.66,
-   "sd": 2.81,
+   "team": "CHI",
+   "rating": -5.41,
+   "sd": 2.77,
    "rank": 24,
-   "games": 11,
-   "updatedAt": "2026-11-14T03:30:00Z",
+   "games": 12,
+   "updatedAt": "2026-11-15T01:00:00Z",
    "form": {
     "season": 2027,
-    "games": 11,
+    "games": 12,
     "wins": 3,
-    "losses": 8,
+    "losses": 9,
     "ties": 0,
-    "avgMargin": -5.09,
+    "avgMargin": -11.33,
     "last": [
      {
-      "date": "2026-11-03T00:30:00Z",
+      "date": "2026-11-05T00:30:00Z",
       "opponent": "NY",
       "home": false,
-      "margin": -13.0
+      "margin": -30.0
      },
+     {
+      "date": "2026-11-08T20:30:00Z",
+      "opponent": "PHI",
+      "home": true,
+      "margin": -6.0
+     },
+     {
+      "date": "2026-11-12T01:00:00Z",
+      "opponent": "SA",
+      "home": true,
+      "margin": -5.0
+     },
+     {
+      "date": "2026-11-14T01:00:00Z",
+      "opponent": "ATL",
+      "home": true,
+      "margin": 8.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "MIN",
+      "home": false,
+      "margin": 11.0
+     }
+    ],
+    "lastRecord": "2-3"
+   }
+  },
+  {
+   "team": "BKN",
+   "rating": -6.15,
+   "sd": 2.77,
+   "rank": 25,
+   "games": 12,
+   "updatedAt": "2026-11-15T01:00:00Z",
+   "form": {
+    "season": 2027,
+    "games": 12,
+    "wins": 3,
+    "losses": 9,
+    "ties": 0,
+    "avgMargin": -6.25,
+    "last": [
      {
       "date": "2026-11-05T00:30:00Z",
       "opponent": "CHA",
@@ -3498,6 +3541,12 @@
       "opponent": "NO",
       "home": false,
       "margin": 34.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "MEM",
+      "home": false,
+      "margin": -19.0
      }
     ],
     "lastRecord": "2-3"
@@ -3505,11 +3554,11 @@
   },
   {
    "team": "WSH",
-   "rating": -6.43,
-   "sd": 2.72,
-   "rank": 25,
+   "rating": -6.47,
+   "sd": 2.73,
+   "rank": 26,
    "games": 13,
-   "updatedAt": "2026-11-14T03:30:00Z",
+   "updatedAt": "2026-11-15T01:00:00Z",
    "form": {
     "season": 2027,
     "games": 13,
@@ -3553,75 +3602,20 @@
    }
   },
   {
-   "team": "CHI",
-   "rating": -6.46,
-   "sd": 2.81,
-   "rank": 26,
-   "games": 11,
-   "updatedAt": "2026-11-14T03:30:00Z",
-   "form": {
-    "season": 2027,
-    "games": 11,
-    "wins": 2,
-    "losses": 9,
-    "ties": 0,
-    "avgMargin": -13.36,
-    "last": [
-     {
-      "date": "2026-11-03T00:30:00Z",
-      "opponent": "PHI",
-      "home": false,
-      "margin": -19.0
-     },
-     {
-      "date": "2026-11-05T00:30:00Z",
-      "opponent": "NY",
-      "home": false,
-      "margin": -30.0
-     },
-     {
-      "date": "2026-11-08T20:30:00Z",
-      "opponent": "PHI",
-      "home": true,
-      "margin": -6.0
-     },
-     {
-      "date": "2026-11-12T01:00:00Z",
-      "opponent": "SA",
-      "home": true,
-      "margin": -5.0
-     },
-     {
-      "date": "2026-11-14T01:00:00Z",
-      "opponent": "ATL",
-      "home": true,
-      "margin": 8.0
-     }
-    ],
-    "lastRecord": "1-4"
-   }
-  },
-  {
    "team": "NO",
-   "rating": -6.51,
-   "sd": 2.72,
+   "rating": -6.58,
+   "sd": 2.69,
    "rank": 27,
-   "games": 13,
-   "updatedAt": "2026-11-14T03:30:00Z",
+   "games": 14,
+   "updatedAt": "2026-11-15T01:00:00Z",
    "form": {
     "season": 2027,
-    "games": 13,
+    "games": 14,
     "wins": 4,
-    "losses": 9,
+    "losses": 10,
     "ties": 0,
-    "avgMargin": -9.15,
+    "avgMargin": -9.07,
     "last": [
-     {
-      "date": "2026-11-07T01:00:00Z",
-      "opponent": "MIN",
-      "home": true,
-      "margin": -6.0
-     },
      {
       "date": "2026-11-09T02:00:00Z",
       "opponent": "LAC",
@@ -3645,6 +3639,12 @@
       "opponent": "MEM",
       "home": true,
       "margin": -31.0
+     },
+     {
+      "date": "2026-11-15T00:00:00Z",
+      "opponent": "DEN",
+      "home": true,
+      "margin": -8.0
      }
     ],
     "lastRecord": "0-5"
@@ -3652,11 +3652,11 @@
   },
   {
    "team": "UTAH",
-   "rating": -7.11,
-   "sd": 2.72,
+   "rating": -7.1,
+   "sd": 2.73,
    "rank": 28,
    "games": 13,
-   "updatedAt": "2026-11-14T03:30:00Z",
+   "updatedAt": "2026-11-15T01:00:00Z",
    "form": {
     "season": 2027,
     "games": 13,
@@ -3701,11 +3701,11 @@
   },
   {
    "team": "SAC",
-   "rating": -7.81,
-   "sd": 2.77,
+   "rating": -7.76,
+   "sd": 2.78,
    "rank": 29,
    "games": 12,
-   "updatedAt": "2026-11-14T03:30:00Z",
+   "updatedAt": "2026-11-15T01:00:00Z",
    "form": {
     "season": 2027,
     "games": 12,
@@ -3751,10 +3751,10 @@
   {
    "team": "MIL",
    "rating": -8.2,
-   "sd": 2.71,
+   "sd": 2.72,
    "rank": 30,
    "games": 13,
-   "updatedAt": "2026-11-14T03:30:00Z",
+   "updatedAt": "2026-11-15T01:00:00Z",
    "form": {
     "season": 2027,
     "games": 13,
@@ -3806,47 +3806,47 @@
    "startsAt": "2026-11-15T18:00:00Z",
    "neutral": 0,
    "week": 4,
-   "projectedHomeMargin": 6.96,
+   "projectedHomeMargin": 6.99,
    "marginSd": 13.7,
-   "homeWinProb": 0.7157,
+   "homeWinProb": 0.7164,
    "tieProb": 0.0,
    "marketHomeSpread": -7.5,
-   "marketHomePrice": -108,
-   "marketAwayPrice": -112,
-   "marketHomeMl": -288,
-   "marketAwayMl": 235,
-   "marketTotal": 224.5,
+   "marketHomePrice": -103,
+   "marketAwayPrice": -118,
+   "marketHomeMl": -270,
+   "marketAwayMl": 221,
+   "marketTotal": 225.5,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
-   "homeCoverProb": 0.5005,
-   "awayCoverProb": 0.4995,
+   "lineObservedAt": "2026-11-15T15:52:20Z",
+   "homeCoverProb": 0.502,
+   "awayCoverProb": 0.498,
    "pushProb": 0.0,
-   "edgePts": -0.54,
+   "edgePts": -0.51,
    "lean": "none",
    "note": "model +7.0 vs market +7.5: inside the 3.0-pt threshold, no lean",
    "anchoredHomeMargin": 7.44,
    "anchoredHomeCoverProb": 0.5106,
-   "marketHomeWinProb": 0.7132,
-   "independentHomeMargin": 6.58,
-   "independentHomeWinProb": 0.6986,
-   "stackedHomeMargin": 6.96,
-   "stackedHomeWinProb": 0.7157,
-   "stackedMarketHomeWinProb": 0.713,
-   "stackedMarketHomeMargin": 7.1,
-   "projectedTotal": 225.3,
-   "totalEdgePts": 0.8,
+   "marketHomeWinProb": 0.7008,
+   "independentHomeMargin": 6.61,
+   "independentHomeWinProb": 0.6996,
+   "stackedHomeMargin": 6.99,
+   "stackedHomeWinProb": 0.7164,
+   "stackedMarketHomeWinProb": 0.7017,
+   "stackedMarketHomeMargin": 6.93,
+   "projectedTotal": 225.6,
+   "totalEdgePts": 0.07,
    "totalLean": "none",
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 0.7,
-    "sd": 2.71,
+    "rating": 0.73,
+    "sd": 2.72,
     "rank": 14
    },
    "awayRating": {
     "rating": -3.69,
-    "sd": 2.72,
+    "sd": 2.73,
     "rank": 23
    },
    "homeForm": {
@@ -3940,48 +3940,48 @@
    "startsAt": "2026-11-15T21:00:00Z",
    "neutral": 0,
    "week": 4,
-   "projectedHomeMargin": -3.13,
+   "projectedHomeMargin": -3.12,
    "marginSd": 13.72,
-   "homeWinProb": 0.3974,
+   "homeWinProb": 0.3976,
    "tieProb": 0.0,
    "marketHomeSpread": 2.5,
-   "marketHomePrice": -110,
-   "marketAwayPrice": -110,
-   "marketHomeMl": 124,
-   "marketAwayMl": -148,
-   "marketTotal": 226.5,
+   "marketHomePrice": -105,
+   "marketAwayPrice": -115,
+   "marketHomeMl": 130,
+   "marketAwayMl": -154,
+   "marketTotal": 228.5,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
-   "homeCoverProb": 0.4674,
-   "awayCoverProb": 0.5326,
+   "lineObservedAt": "2026-11-15T15:52:20Z",
+   "homeCoverProb": 0.4677,
+   "awayCoverProb": 0.5323,
    "pushProb": 0.0,
-   "edgePts": -0.63,
+   "edgePts": -0.62,
    "lean": "none",
    "note": "model -3.1 vs market -2.5: inside the 3.0-pt threshold, no lean",
    "anchoredHomeMargin": -2.56,
    "anchoredHomeCoverProb": 0.4804,
-   "marketHomeWinProb": 0.4279,
+   "marketHomeWinProb": 0.4176,
    "independentHomeMargin": -2.66,
    "independentHomeWinProb": 0.4183,
-   "stackedHomeMargin": -3.13,
-   "stackedHomeWinProb": 0.3974,
-   "stackedMarketHomeWinProb": 0.4403,
-   "stackedMarketHomeMargin": -2.01,
-   "projectedTotal": 225.7,
-   "totalEdgePts": -0.82,
+   "stackedHomeMargin": -3.12,
+   "stackedHomeWinProb": 0.3976,
+   "stackedMarketHomeWinProb": 0.4316,
+   "stackedMarketHomeMargin": -2.12,
+   "projectedTotal": 225.9,
+   "totalEdgePts": -2.56,
    "totalLean": "none",
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
     "rating": -0.7,
-    "sd": 2.78,
-    "rank": 17
+    "sd": 2.79,
+    "rank": 18
    },
    "awayRating": {
     "rating": 4.15,
-    "sd": 2.7,
-    "rank": 8
+    "sd": 2.71,
+    "rank": 7
    },
    "homeForm": {
     "season": 2027,
@@ -4074,47 +4074,47 @@
    "startsAt": "2026-11-15T21:30:00Z",
    "neutral": 0,
    "week": 4,
-   "projectedHomeMargin": 3.39,
+   "projectedHomeMargin": 3.44,
    "marginSd": 13.75,
-   "homeWinProb": 0.6122,
+   "homeWinProb": 0.6139,
    "tieProb": 0.0,
-   "marketHomeSpread": -1.5,
-   "marketHomePrice": -112,
-   "marketAwayPrice": -108,
-   "marketHomeMl": -118,
-   "marketAwayMl": 100,
-   "marketTotal": 215.5,
+   "marketHomeSpread": 1.5,
+   "marketHomePrice": -117,
+   "marketAwayPrice": -103,
+   "marketHomeMl": -105,
+   "marketAwayMl": -113,
+   "marketTotal": 214.5,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
-   "homeCoverProb": 0.576,
-   "awayCoverProb": 0.424,
+   "lineObservedAt": "2026-11-15T15:52:20Z",
+   "homeCoverProb": 0.6389,
+   "awayCoverProb": 0.3611,
    "pushProb": 0.0,
-   "edgePts": 1.89,
-   "lean": "none",
-   "note": "model +3.4 vs market +1.5: inside the 3.0-pt threshold, no lean",
-   "anchoredHomeMargin": 1.41,
-   "anchoredHomeCoverProb": 0.5119,
-   "marketHomeWinProb": 0.5198,
-   "independentHomeMargin": 4.25,
-   "independentHomeWinProb": 0.633,
-   "stackedHomeMargin": 3.39,
-   "stackedHomeWinProb": 0.6122,
-   "stackedMarketHomeWinProb": 0.5152,
-   "stackedMarketHomeMargin": 0.87,
-   "projectedTotal": 219.7,
-   "totalEdgePts": 4.19,
+   "edgePts": 4.94,
+   "lean": "home",
+   "note": "model +3.4 vs market -1.5: leans LAC by 4.9 pts (threshold 3.0)",
+   "anchoredHomeMargin": -1.62,
+   "anchoredHomeCoverProb": 0.4745,
+   "marketHomeWinProb": 0.4912,
+   "independentHomeMargin": 4.31,
+   "independentHomeWinProb": 0.6343,
+   "stackedHomeMargin": 3.44,
+   "stackedHomeWinProb": 0.6139,
+   "stackedMarketHomeWinProb": 0.4741,
+   "stackedMarketHomeMargin": -1.39,
+   "projectedTotal": 220.0,
+   "totalEdgePts": 5.45,
    "totalLean": "none",
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
     "rating": -1.23,
-    "sd": 2.8,
-    "rank": 20
+    "sd": 2.82,
+    "rank": 19
    },
    "awayRating": {
-    "rating": -3.29,
-    "sd": 2.77,
+    "rating": -3.34,
+    "sd": 2.79,
     "rank": 22
    },
    "homeForm": {
@@ -4208,47 +4208,47 @@
    "startsAt": "2026-11-15T22:00:00Z",
    "neutral": 0,
    "week": 4,
-   "projectedHomeMargin": -14.85,
+   "projectedHomeMargin": -14.81,
    "marginSd": 13.68,
-   "homeWinProb": 0.1229,
+   "homeWinProb": 0.1235,
    "tieProb": 0.0,
-   "marketHomeSpread": 17.5,
-   "marketHomePrice": -115,
-   "marketAwayPrice": -105,
+   "marketHomeSpread": 16.5,
+   "marketHomePrice": -113,
+   "marketAwayPrice": -107,
    "marketHomeMl": 850,
    "marketAwayMl": -1460,
-   "marketTotal": 223.5,
+   "marketTotal": 226.5,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
-   "homeCoverProb": 0.5805,
-   "awayCoverProb": 0.4195,
+   "lineObservedAt": "2026-11-15T15:52:20Z",
+   "homeCoverProb": 0.5486,
+   "awayCoverProb": 0.4514,
    "pushProb": 0.0,
-   "edgePts": 2.65,
-   "lean": "home",
-   "note": "model -14.8 vs market -17.5: leans UTAH by 2.7 pts (threshold 3.0)",
-   "anchoredHomeMargin": -17.6,
-   "anchoredHomeCoverProb": 0.4881,
+   "edgePts": 1.69,
+   "lean": "none",
+   "note": "model -14.8 vs market -16.5: inside the 3.0-pt threshold, no lean",
+   "anchoredHomeMargin": -16.59,
+   "anchoredHomeCoverProb": 0.4886,
    "marketHomeWinProb": 0.1011,
-   "independentHomeMargin": -14.13,
-   "independentHomeWinProb": 0.1352,
-   "stackedHomeMargin": -14.85,
-   "stackedHomeWinProb": 0.1229,
-   "stackedMarketHomeWinProb": 0.099,
-   "stackedMarketHomeMargin": -17.07,
-   "projectedTotal": 228.7,
-   "totalEdgePts": 5.16,
+   "independentHomeMargin": -14.12,
+   "independentHomeWinProb": 0.1353,
+   "stackedHomeMargin": -14.81,
+   "stackedHomeWinProb": 0.1235,
+   "stackedMarketHomeWinProb": 0.1015,
+   "stackedMarketHomeMargin": -16.38,
+   "projectedTotal": 228.9,
+   "totalEdgePts": 2.42,
    "totalLean": "none",
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -7.11,
-    "sd": 2.72,
+    "rating": -7.1,
+    "sd": 2.73,
     "rank": 28
    },
    "awayRating": {
     "rating": 9.22,
-    "sd": 2.65,
+    "sd": 2.67,
     "rank": 1
    },
    "homeForm": {
@@ -4342,48 +4342,48 @@
    "startsAt": "2026-11-15T23:00:00Z",
    "neutral": 0,
    "week": 4,
-   "projectedHomeMargin": 10.4,
-   "marginSd": 13.74,
-   "homeWinProb": 0.7994,
+   "projectedHomeMargin": 13.13,
+   "marginSd": 13.73,
+   "homeWinProb": 0.8481,
    "tieProb": 0.0,
    "marketHomeSpread": -13.5,
-   "marketHomePrice": -111,
-   "marketAwayPrice": -109,
-   "marketHomeMl": -800,
-   "marketAwayMl": 558,
-   "marketTotal": 217.5,
+   "marketHomePrice": -108,
+   "marketAwayPrice": -112,
+   "marketHomeMl": -750,
+   "marketAwayMl": 530,
+   "marketTotal": 219.5,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
-   "homeCoverProb": 0.4136,
-   "awayCoverProb": 0.5864,
+   "lineObservedAt": "2026-11-15T15:52:20Z",
+   "homeCoverProb": 0.5022,
+   "awayCoverProb": 0.4978,
    "pushProb": 0.0,
-   "edgePts": -3.1,
+   "edgePts": -0.37,
    "lean": "away",
-   "note": "model +10.4 vs market +13.5: leans DAL by 3.1 pts (threshold 3.0)",
+   "note": "model +13.1 vs market +13.5: leans DAL by 0.4 pts (threshold 3.0)",
    "anchoredHomeMargin": 13.47,
    "anchoredHomeCoverProb": 0.5106,
-   "marketHomeWinProb": 0.854,
-   "independentHomeMargin": 9.99,
-   "independentHomeWinProb": 0.7804,
-   "stackedHomeMargin": 10.4,
-   "stackedHomeWinProb": 0.7994,
-   "stackedMarketHomeWinProb": 0.8543,
+   "marketHomeWinProb": 0.8475,
+   "independentHomeMargin": 10.23,
+   "independentHomeWinProb": 0.785,
+   "stackedHomeMargin": 13.13,
+   "stackedHomeWinProb": 0.8481,
+   "stackedMarketHomeWinProb": 0.8483,
    "stackedMarketHomeMargin": 13.22,
-   "projectedTotal": 222.1,
-   "totalEdgePts": 4.59,
+   "projectedTotal": 222.7,
+   "totalEdgePts": 3.16,
    "totalLean": "none",
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 6.57,
-    "sd": 2.75,
+    "rating": 6.59,
+    "sd": 2.76,
     "rank": 2
    },
    "awayRating": {
-    "rating": -1.23,
-    "sd": 2.77,
-    "rank": 19
+    "rating": -1.44,
+    "sd": 2.73,
+    "rank": 20
    },
    "homeForm": {
     "season": 2027,
@@ -4428,18 +4428,12 @@
    },
    "awayForm": {
     "season": 2027,
-    "games": 12,
+    "games": 13,
     "wins": 7,
-    "losses": 5,
+    "losses": 6,
     "ties": 0,
-    "avgMargin": 1.0,
+    "avgMargin": 0.15,
     "last": [
-     {
-      "date": "2026-11-05T02:30:00Z",
-      "opponent": "SA",
-      "home": false,
-      "margin": -1.0
-     },
      {
       "date": "2026-11-07T01:00:00Z",
       "opponent": "UTAH",
@@ -4463,6 +4457,12 @@
       "opponent": "MIN",
       "home": false,
       "margin": -39.0
+     },
+     {
+      "date": "2026-11-15T00:30:00Z",
+      "opponent": "CLE",
+      "home": false,
+      "margin": -10.0
      }
     ],
     "lastRecord": "3-2"
@@ -4478,46 +4478,46 @@
    "week": 4,
    "projectedHomeMargin": -2.24,
    "marginSd": 13.72,
-   "homeWinProb": 0.4258,
+   "homeWinProb": 0.4256,
    "tieProb": 0.0,
    "marketHomeSpread": 4.5,
    "marketHomePrice": -115,
    "marketAwayPrice": -106,
    "marketHomeMl": 160,
-   "marketAwayMl": -192,
+   "marketAwayMl": -191,
    "marketTotal": 217.5,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
-   "homeCoverProb": 0.5587,
-   "awayCoverProb": 0.4413,
+   "lineObservedAt": "2026-11-15T15:52:20Z",
+   "homeCoverProb": 0.5586,
+   "awayCoverProb": 0.4414,
    "pushProb": 0.0,
    "edgePts": 2.26,
    "lean": "none",
    "note": "model -2.2 vs market -4.5: inside the 3.0-pt threshold, no lean",
    "anchoredHomeMargin": -4.58,
    "anchoredHomeCoverProb": 0.4802,
-   "marketHomeWinProb": 0.3691,
-   "independentHomeMargin": -2.45,
-   "independentHomeWinProb": 0.4243,
+   "marketHomeWinProb": 0.3695,
+   "independentHomeMargin": -2.47,
+   "independentHomeWinProb": 0.4237,
    "stackedHomeMargin": -2.24,
-   "stackedHomeWinProb": 0.4258,
-   "stackedMarketHomeWinProb": 0.3665,
-   "stackedMarketHomeMargin": -4.33,
-   "projectedTotal": 218.2,
-   "totalEdgePts": 0.71,
+   "stackedHomeWinProb": 0.4256,
+   "stackedMarketHomeWinProb": 0.3674,
+   "stackedMarketHomeMargin": -4.3,
+   "projectedTotal": 218.5,
+   "totalEdgePts": 0.97,
    "totalLean": "none",
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 1.4,
-    "sd": 2.73,
+    "rating": 1.42,
+    "sd": 2.75,
     "rank": 13
    },
    "awayRating": {
-    "rating": 6.05,
-    "sd": 2.7,
-    "rank": 4
+    "rating": 6.09,
+    "sd": 2.72,
+    "rank": 3
    },
    "homeForm": {
     "season": 2027,
@@ -4610,47 +4610,47 @@
    "startsAt": "2026-11-16T00:00:00Z",
    "neutral": 0,
    "week": 4,
-   "projectedHomeMargin": -9.4,
+   "projectedHomeMargin": -9.38,
    "marginSd": 13.72,
-   "homeWinProb": 0.2224,
+   "homeWinProb": 0.2229,
    "tieProb": 0.0,
-   "marketHomeSpread": 9.5,
-   "marketHomePrice": -110,
-   "marketAwayPrice": -110,
-   "marketHomeMl": 329,
-   "marketAwayMl": -420,
-   "marketTotal": 222.5,
+   "marketHomeSpread": 8.5,
+   "marketHomePrice": -108,
+   "marketAwayPrice": -112,
+   "marketHomeMl": 286,
+   "marketAwayMl": -359,
+   "marketTotal": 223.5,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
-   "homeCoverProb": 0.4936,
-   "awayCoverProb": 0.5064,
+   "lineObservedAt": "2026-11-15T15:52:20Z",
+   "homeCoverProb": 0.4643,
+   "awayCoverProb": 0.5357,
    "pushProb": 0.0,
-   "edgePts": 0.1,
+   "edgePts": -0.88,
    "lean": "none",
-   "note": "model -9.4 vs market -9.5: inside the 3.0-pt threshold, no lean",
-   "anchoredHomeMargin": -9.56,
-   "anchoredHomeCoverProb": 0.4867,
-   "marketHomeWinProb": 0.224,
-   "independentHomeMargin": -9.53,
-   "independentHomeWinProb": 0.2258,
-   "stackedHomeMargin": -9.4,
-   "stackedHomeWinProb": 0.2224,
-   "stackedMarketHomeWinProb": 0.2272,
-   "stackedMarketHomeMargin": -9.26,
-   "projectedTotal": 225.2,
-   "totalEdgePts": 2.67,
+   "note": "model -9.4 vs market -8.5: inside the 3.0-pt threshold, no lean",
+   "anchoredHomeMargin": -8.55,
+   "anchoredHomeCoverProb": 0.4873,
+   "marketHomeWinProb": 0.2488,
+   "independentHomeMargin": -9.52,
+   "independentHomeWinProb": 0.2259,
+   "stackedHomeMargin": -9.38,
+   "stackedHomeWinProb": 0.2229,
+   "stackedMarketHomeWinProb": 0.2537,
+   "stackedMarketHomeMargin": -8.22,
+   "projectedTotal": 225.4,
+   "totalEdgePts": 1.94,
    "totalLean": "none",
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -6.43,
-    "sd": 2.72,
-    "rank": 25
+    "rating": -6.47,
+    "sd": 2.73,
+    "rank": 26
    },
    "awayRating": {
-    "rating": 5.29,
-    "sd": 2.7,
+    "rating": 5.25,
+    "sd": 2.72,
     "rank": 6
    },
    "homeForm": {
@@ -4744,47 +4744,47 @@
    "startsAt": "2026-11-16T01:00:00Z",
    "neutral": 0,
    "week": 4,
-   "projectedHomeMargin": -7.41,
+   "projectedHomeMargin": -7.43,
    "marginSd": 13.72,
-   "homeWinProb": 0.2751,
+   "homeWinProb": 0.2744,
    "tieProb": 0.0,
    "marketHomeSpread": 7.5,
-   "marketHomePrice": -110,
-   "marketAwayPrice": -110,
+   "marketHomePrice": -105,
+   "marketAwayPrice": -115,
    "marketHomeMl": 251,
    "marketAwayMl": -310,
    "marketTotal": 234.5,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
-   "homeCoverProb": 0.4915,
-   "awayCoverProb": 0.5085,
+   "lineObservedAt": "2026-11-15T15:52:20Z",
+   "homeCoverProb": 0.4907,
+   "awayCoverProb": 0.5093,
    "pushProb": 0.0,
-   "edgePts": 0.09,
+   "edgePts": 0.07,
    "lean": "none",
    "note": "model -7.4 vs market -7.5: inside the 3.0-pt threshold, no lean",
    "anchoredHomeMargin": -7.58,
    "anchoredHomeCoverProb": 0.4823,
    "marketHomeWinProb": 0.2737,
-   "independentHomeMargin": -6.31,
-   "independentHomeWinProb": 0.3071,
-   "stackedHomeMargin": -7.41,
-   "stackedHomeWinProb": 0.2751,
-   "stackedMarketHomeWinProb": 0.259,
-   "stackedMarketHomeMargin": -8.04,
-   "projectedTotal": 228.6,
-   "totalEdgePts": -5.87,
+   "independentHomeMargin": -6.35,
+   "independentHomeWinProb": 0.3056,
+   "stackedHomeMargin": -7.43,
+   "stackedHomeWinProb": 0.2744,
+   "stackedMarketHomeWinProb": 0.2597,
+   "stackedMarketHomeMargin": -8.01,
+   "projectedTotal": 228.9,
+   "totalEdgePts": -5.61,
    "totalLean": "none",
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
     "rating": -8.2,
-    "sd": 2.71,
+    "sd": 2.72,
     "rank": 30
    },
    "awayRating": {
-    "rating": 0.3,
-    "sd": 2.71,
+    "rating": 0.34,
+    "sd": 2.72,
     "rank": 15
    },
    "homeForm": {
@@ -4878,48 +4878,48 @@
    "startsAt": "2026-11-16T02:00:00Z",
    "neutral": 0,
    "week": 4,
-   "projectedHomeMargin": -11.8,
+   "projectedHomeMargin": -11.75,
    "marginSd": 13.72,
-   "homeWinProb": 0.1722,
+   "homeWinProb": 0.1731,
    "tieProb": 0.0,
    "marketHomeSpread": 10.5,
-   "marketHomePrice": -111,
-   "marketAwayPrice": -108,
-   "marketHomeMl": 360,
-   "marketAwayMl": -467,
+   "marketHomePrice": -110,
+   "marketAwayPrice": -110,
+   "marketHomeMl": 361,
+   "marketAwayMl": -468,
    "marketTotal": 222.5,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
-   "homeCoverProb": 0.4509,
-   "awayCoverProb": 0.5491,
+   "lineObservedAt": "2026-11-15T15:52:20Z",
+   "homeCoverProb": 0.4527,
+   "awayCoverProb": 0.5473,
    "pushProb": 0.0,
-   "edgePts": -1.3,
+   "edgePts": -1.25,
    "lean": "none",
    "note": "model -11.8 vs market -10.5: inside the 3.0-pt threshold, no lean",
    "anchoredHomeMargin": -10.55,
-   "anchoredHomeCoverProb": 0.489,
-   "marketHomeWinProb": 0.2088,
-   "independentHomeMargin": -11.55,
-   "independentHomeWinProb": 0.1821,
-   "stackedHomeMargin": -11.8,
-   "stackedHomeWinProb": 0.1722,
-   "stackedMarketHomeWinProb": 0.2165,
-   "stackedMarketHomeMargin": -9.92,
-   "projectedTotal": 224.0,
-   "totalEdgePts": 1.51,
+   "anchoredHomeCoverProb": 0.4889,
+   "marketHomeWinProb": 0.2084,
+   "independentHomeMargin": -11.52,
+   "independentHomeWinProb": 0.1827,
+   "stackedHomeMargin": -11.75,
+   "stackedHomeWinProb": 0.1731,
+   "stackedMarketHomeWinProb": 0.2167,
+   "stackedMarketHomeMargin": -9.9,
+   "projectedTotal": 224.3,
+   "totalEdgePts": 1.77,
    "totalLean": "none",
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -7.81,
-    "sd": 2.77,
+    "rating": -7.76,
+    "sd": 2.78,
     "rank": 29
    },
    "awayRating": {
-    "rating": 5.94,
-    "sd": 2.67,
-    "rank": 5
+    "rating": 5.95,
+    "sd": 2.69,
+    "rank": 4
    },
    "homeForm": {
     "season": 2027,
@@ -5012,9 +5012,9 @@
    "startsAt": "2026-11-17T00:00:00Z",
    "neutral": 0,
    "week": 4,
-   "projectedHomeMargin": 9.69,
+   "projectedHomeMargin": 9.74,
    "marginSd": 13.72,
-   "homeWinProb": 0.7839,
+   "homeWinProb": 0.7848,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -5023,7 +5023,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -5033,26 +5033,26 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 10.24,
-   "independentHomeWinProb": 0.7853,
-   "stackedHomeMargin": 9.69,
-   "stackedHomeWinProb": 0.7839,
+   "independentHomeMargin": 10.3,
+   "independentHomeWinProb": 0.7867,
+   "stackedHomeMargin": 9.74,
+   "stackedHomeWinProb": 0.7848,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 217.3,
+   "projectedTotal": 217.5,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 6.57,
-    "sd": 2.75,
+    "rating": 6.59,
+    "sd": 2.76,
     "rank": 2
    },
    "awayRating": {
-    "rating": -1.48,
-    "sd": 2.73,
+    "rating": -1.51,
+    "sd": 2.74,
     "rank": 21
    },
    "homeForm": {
@@ -5146,9 +5146,9 @@
    "startsAt": "2026-11-17T00:00:00Z",
    "neutral": 0,
    "week": 4,
-   "projectedHomeMargin": 10.08,
-   "marginSd": 13.73,
-   "homeWinProb": 0.7933,
+   "projectedHomeMargin": 9.21,
+   "marginSd": 13.71,
+   "homeWinProb": 0.7746,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -5157,7 +5157,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -5167,42 +5167,36 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 10.47,
-   "independentHomeWinProb": 0.7904,
-   "stackedHomeMargin": 10.08,
-   "stackedHomeWinProb": 0.7933,
+   "independentHomeMargin": 9.58,
+   "independentHomeWinProb": 0.7726,
+   "stackedHomeMargin": 9.21,
+   "stackedHomeWinProb": 0.7746,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 235.3,
+   "projectedTotal": 235.7,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 1.82,
-    "sd": 2.67,
-    "rank": 12
+    "rating": 1.97,
+    "sd": 2.63,
+    "rank": 11
    },
    "awayRating": {
-    "rating": -6.46,
-    "sd": 2.81,
-    "rank": 26
+    "rating": -5.41,
+    "sd": 2.77,
+    "rank": 24
    },
    "homeForm": {
     "season": 2027,
-    "games": 13,
-    "wins": 6,
+    "games": 14,
+    "wins": 7,
     "losses": 7,
     "ties": 0,
-    "avgMargin": 1.0,
+    "avgMargin": 1.64,
     "last": [
-     {
-      "date": "2026-11-07T00:30:00Z",
-      "opponent": "PHI",
-      "home": true,
-      "margin": 24.0
-     },
      {
       "date": "2026-11-08T01:00:00Z",
       "opponent": "NY",
@@ -5226,24 +5220,24 @@
       "opponent": "MIA",
       "home": false,
       "margin": -12.0
+     },
+     {
+      "date": "2026-11-15T00:30:00Z",
+      "opponent": "DAL",
+      "home": true,
+      "margin": 10.0
      }
     ],
     "lastRecord": "2-3"
    },
    "awayForm": {
     "season": 2027,
-    "games": 11,
-    "wins": 2,
+    "games": 12,
+    "wins": 3,
     "losses": 9,
     "ties": 0,
-    "avgMargin": -13.36,
+    "avgMargin": -11.33,
     "last": [
-     {
-      "date": "2026-11-03T00:30:00Z",
-      "opponent": "PHI",
-      "home": false,
-      "margin": -19.0
-     },
      {
       "date": "2026-11-05T00:30:00Z",
       "opponent": "NY",
@@ -5267,9 +5261,15 @@
       "opponent": "ATL",
       "home": true,
       "margin": 8.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "MIN",
+      "home": false,
+      "margin": 11.0
      }
     ],
-    "lastRecord": "1-4"
+    "lastRecord": "2-3"
    },
    "homeAdvantage": 2.2
   },
@@ -5280,9 +5280,9 @@
    "startsAt": "2026-11-17T00:00:00Z",
    "neutral": 0,
    "week": 4,
-   "projectedHomeMargin": -7.23,
-   "marginSd": 13.74,
-   "homeWinProb": 0.2877,
+   "projectedHomeMargin": -6.85,
+   "marginSd": 13.73,
+   "homeWinProb": 0.297,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -5291,7 +5291,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -5301,27 +5301,27 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -3.75,
-   "independentHomeWinProb": 0.3827,
-   "stackedHomeMargin": -7.23,
-   "stackedHomeWinProb": 0.2877,
+   "independentHomeMargin": -4.23,
+   "independentHomeWinProb": 0.3674,
+   "stackedHomeMargin": -6.85,
+   "stackedHomeWinProb": 0.297,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 232.6,
+   "projectedTotal": 233.1,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -6.43,
-    "sd": 2.72,
-    "rank": 25
+    "rating": -6.47,
+    "sd": 2.73,
+    "rank": 26
    },
    "awayRating": {
-    "rating": -0.49,
-    "sd": 2.76,
-    "rank": 16
+    "rating": -0.04,
+    "sd": 2.72,
+    "rank": 17
    },
    "homeForm": {
     "season": 2027,
@@ -5366,18 +5366,12 @@
    },
    "awayForm": {
     "season": 2027,
-    "games": 12,
-    "wins": 8,
+    "games": 13,
+    "wins": 9,
     "losses": 4,
     "ties": 0,
-    "avgMargin": 8.08,
+    "avgMargin": 8.92,
     "last": [
-     {
-      "date": "2026-11-05T01:00:00Z",
-      "opponent": "IND",
-      "home": true,
-      "margin": -4.0
-     },
      {
       "date": "2026-11-07T01:00:00Z",
       "opponent": "OKC",
@@ -5401,9 +5395,15 @@
       "opponent": "NO",
       "home": false,
       "margin": 31.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "BKN",
+      "home": true,
+      "margin": 19.0
      }
     ],
-    "lastRecord": "2-3"
+    "lastRecord": "3-2"
    },
    "homeAdvantage": 2.2
   },
@@ -5414,9 +5414,9 @@
    "startsAt": "2026-11-17T00:30:00Z",
    "neutral": 0,
    "week": 4,
-   "projectedHomeMargin": -2.16,
-   "marginSd": 13.74,
-   "homeWinProb": 0.4223,
+   "projectedHomeMargin": -4.13,
+   "marginSd": 13.73,
+   "homeWinProb": 0.3629,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -5425,7 +5425,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -5435,42 +5435,36 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -4.16,
-   "independentHomeWinProb": 0.3698,
-   "stackedHomeMargin": -2.16,
-   "stackedHomeWinProb": 0.4223,
+   "independentHomeMargin": -4.69,
+   "independentHomeWinProb": 0.3541,
+   "stackedHomeMargin": -4.13,
+   "stackedHomeWinProb": 0.3629,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 221.1,
+   "projectedTotal": 221.7,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -5.66,
-    "sd": 2.81,
-    "rank": 24
+    "rating": -6.15,
+    "sd": 2.77,
+    "rank": 25
    },
    "awayRating": {
-    "rating": 0.7,
-    "sd": 2.71,
+    "rating": 0.73,
+    "sd": 2.72,
     "rank": 14
    },
    "homeForm": {
     "season": 2027,
-    "games": 11,
+    "games": 12,
     "wins": 3,
-    "losses": 8,
+    "losses": 9,
     "ties": 0,
-    "avgMargin": -5.09,
+    "avgMargin": -6.25,
     "last": [
-     {
-      "date": "2026-11-03T00:30:00Z",
-      "opponent": "NY",
-      "home": false,
-      "margin": -13.0
-     },
      {
       "date": "2026-11-05T00:30:00Z",
       "opponent": "CHA",
@@ -5494,6 +5488,12 @@
       "opponent": "NO",
       "home": false,
       "margin": 34.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "MEM",
+      "home": false,
+      "margin": -19.0
      }
     ],
     "lastRecord": "2-3"
@@ -5548,9 +5548,9 @@
    "startsAt": "2026-11-17T00:30:00Z",
    "neutral": 0,
    "week": 4,
-   "projectedHomeMargin": -2.42,
-   "marginSd": 13.73,
-   "homeWinProb": 0.4159,
+   "projectedHomeMargin": -2.29,
+   "marginSd": 13.72,
+   "homeWinProb": 0.423,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -5559,7 +5559,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -5569,42 +5569,36 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -3.86,
-   "independentHomeWinProb": 0.379,
-   "stackedHomeMargin": -2.42,
-   "stackedHomeWinProb": 0.4159,
+   "independentHomeMargin": -2.96,
+   "independentHomeWinProb": 0.4065,
+   "stackedHomeMargin": -2.29,
+   "stackedHomeWinProb": 0.423,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 228.0,
+   "projectedTotal": 228.8,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -0.77,
-    "sd": 2.76,
-    "rank": 18
+    "rating": 0.1,
+    "sd": 2.72,
+    "rank": 16
    },
    "awayRating": {
-    "rating": 5.29,
-    "sd": 2.7,
+    "rating": 5.25,
+    "sd": 2.72,
     "rank": 6
    },
    "homeForm": {
     "season": 2027,
-    "games": 12,
-    "wins": 6,
+    "games": 13,
+    "wins": 7,
     "losses": 6,
     "ties": 0,
-    "avgMargin": -2.92,
+    "avgMargin": -1.15,
     "last": [
-     {
-      "date": "2026-11-05T03:30:00Z",
-      "opponent": "LAC",
-      "home": false,
-      "margin": 1.0
-     },
      {
       "date": "2026-11-06T03:00:00Z",
       "opponent": "GS",
@@ -5628,6 +5622,12 @@
       "opponent": "CLE",
       "home": true,
       "margin": 12.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "DET",
+      "home": true,
+      "margin": 20.0
      }
     ],
     "lastRecord": "4-1"
@@ -5682,9 +5682,9 @@
    "startsAt": "2026-11-17T01:00:00Z",
    "neutral": 0,
    "week": 4,
-   "projectedHomeMargin": 5.64,
-   "marginSd": 13.73,
-   "homeWinProb": 0.6736,
+   "projectedHomeMargin": 3.51,
+   "marginSd": 13.72,
+   "homeWinProb": 0.6117,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -5693,7 +5693,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -5703,10 +5703,10 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 4.36,
-   "independentHomeWinProb": 0.6357,
-   "stackedHomeMargin": 5.64,
-   "stackedHomeWinProb": 0.6736,
+   "independentHomeMargin": 3.37,
+   "independentHomeWinProb": 0.6074,
+   "stackedHomeMargin": 3.51,
+   "stackedHomeWinProb": 0.6117,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
    "projectedTotal": 224.8,
@@ -5716,29 +5716,23 @@
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 6.27,
-    "sd": 2.73,
-    "rank": 3
+    "rating": 5.3,
+    "sd": 2.7,
+    "rank": 5
    },
    "awayRating": {
-    "rating": 4.1,
-    "sd": 2.74,
-    "rank": 9
+    "rating": 4.12,
+    "sd": 2.76,
+    "rank": 8
    },
    "homeForm": {
     "season": 2027,
-    "games": 12,
+    "games": 13,
     "wins": 9,
-    "losses": 3,
+    "losses": 4,
     "ties": 0,
-    "avgMargin": 13.42,
+    "avgMargin": 11.54,
     "last": [
-     {
-      "date": "2026-11-03T01:00:00Z",
-      "opponent": "MIL",
-      "home": true,
-      "margin": 12.0
-     },
      {
       "date": "2026-11-05T01:30:00Z",
       "opponent": "HOU",
@@ -5762,9 +5756,15 @@
       "opponent": "DAL",
       "home": true,
       "margin": 39.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "CHI",
+      "home": true,
+      "margin": -11.0
      }
     ],
-    "lastRecord": "5-0"
+    "lastRecord": "4-1"
    },
    "awayForm": {
     "season": 2027,
@@ -5816,9 +5816,9 @@
    "startsAt": "2026-11-17T01:00:00Z",
    "neutral": 0,
    "week": 4,
-   "projectedHomeMargin": -6.33,
-   "marginSd": 13.71,
-   "homeWinProb": 0.3009,
+   "projectedHomeMargin": -7.16,
+   "marginSd": 13.7,
+   "homeWinProb": 0.2805,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -5827,7 +5827,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -5837,42 +5837,36 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -6.19,
-   "independentHomeWinProb": 0.3103,
-   "stackedHomeMargin": -6.33,
-   "stackedHomeWinProb": 0.3009,
+   "independentHomeMargin": -6.26,
+   "independentHomeWinProb": 0.3084,
+   "stackedHomeMargin": -7.16,
+   "stackedHomeWinProb": 0.2805,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 232.0,
+   "projectedTotal": 232.1,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -6.51,
-    "sd": 2.72,
+    "rating": -6.58,
+    "sd": 2.69,
     "rank": 27
    },
    "awayRating": {
-    "rating": 1.87,
-    "sd": 2.71,
-    "rank": 11
+    "rating": 1.88,
+    "sd": 2.73,
+    "rank": 12
    },
    "homeForm": {
     "season": 2027,
-    "games": 13,
+    "games": 14,
     "wins": 4,
-    "losses": 9,
+    "losses": 10,
     "ties": 0,
-    "avgMargin": -9.15,
+    "avgMargin": -9.07,
     "last": [
-     {
-      "date": "2026-11-07T01:00:00Z",
-      "opponent": "MIN",
-      "home": true,
-      "margin": -6.0
-     },
      {
       "date": "2026-11-09T02:00:00Z",
       "opponent": "LAC",
@@ -5896,6 +5890,12 @@
       "opponent": "MEM",
       "home": true,
       "margin": -31.0
+     },
+     {
+      "date": "2026-11-15T00:00:00Z",
+      "opponent": "DEN",
+      "home": true,
+      "margin": -8.0
      }
     ],
     "lastRecord": "0-5"
@@ -5950,9 +5950,9 @@
    "startsAt": "2026-11-17T02:00:00Z",
    "neutral": 0,
    "week": 4,
-   "projectedHomeMargin": 7.97,
-   "marginSd": 13.74,
-   "homeWinProb": 0.7368,
+   "projectedHomeMargin": 6.59,
+   "marginSd": 13.73,
+   "homeWinProb": 0.7023,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -5961,7 +5961,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -5971,42 +5971,36 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 5.31,
-   "independentHomeWinProb": 0.664,
-   "stackedHomeMargin": 7.97,
-   "stackedHomeWinProb": 0.7368,
+   "independentHomeMargin": 5.37,
+   "independentHomeWinProb": 0.6653,
+   "stackedHomeMargin": 6.59,
+   "stackedHomeWinProb": 0.7023,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 227.3,
+   "projectedTotal": 227.4,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 2.41,
-    "sd": 2.83,
+    "rating": 2.47,
+    "sd": 2.8,
     "rank": 10
    },
    "awayRating": {
     "rating": -0.7,
-    "sd": 2.78,
-    "rank": 17
+    "sd": 2.79,
+    "rank": 18
    },
    "homeForm": {
     "season": 2027,
-    "games": 10,
-    "wins": 6,
+    "games": 11,
+    "wins": 7,
     "losses": 4,
     "ties": 0,
-    "avgMargin": 1.2,
+    "avgMargin": 1.82,
     "last": [
-     {
-      "date": "2026-11-03T02:00:00Z",
-      "opponent": "POR",
-      "home": true,
-      "margin": -8.0
-     },
      {
       "date": "2026-11-05T02:00:00Z",
       "opponent": "TOR",
@@ -6030,9 +6024,15 @@
       "opponent": "MEM",
       "home": false,
       "margin": 5.0
+     },
+     {
+      "date": "2026-11-15T00:00:00Z",
+      "opponent": "NO",
+      "home": false,
+      "margin": 8.0
      }
     ],
-    "lastRecord": "3-2"
+    "lastRecord": "4-1"
    },
    "awayForm": {
     "season": 2027,
@@ -6084,9 +6084,9 @@
    "startsAt": "2026-11-18T00:30:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": -2.11,
+   "projectedHomeMargin": -2.12,
    "marginSd": 13.73,
-   "homeWinProb": 0.4291,
+   "homeWinProb": 0.4287,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -6095,7 +6095,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -6105,27 +6105,27 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -2.45,
-   "independentHomeWinProb": 0.4243,
-   "stackedHomeMargin": -2.11,
-   "stackedHomeWinProb": 0.4291,
+   "independentHomeMargin": -2.47,
+   "independentHomeWinProb": 0.4238,
+   "stackedHomeMargin": -2.12,
+   "stackedHomeWinProb": 0.4287,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 218.2,
+   "projectedTotal": 218.5,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 1.4,
-    "sd": 2.73,
+    "rating": 1.42,
+    "sd": 2.75,
     "rank": 13
    },
    "awayRating": {
-    "rating": 6.05,
-    "sd": 2.7,
-    "rank": 4
+    "rating": 6.09,
+    "sd": 2.72,
+    "rank": 3
    },
    "homeForm": {
     "season": 2027,
@@ -6218,9 +6218,9 @@
    "startsAt": "2026-11-18T01:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 4.46,
-   "marginSd": 13.74,
-   "homeWinProb": 0.6453,
+   "projectedHomeMargin": 3.01,
+   "marginSd": 13.73,
+   "homeWinProb": 0.6027,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -6229,7 +6229,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -6239,10 +6239,10 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 4.36,
-   "independentHomeWinProb": 0.6357,
-   "stackedHomeMargin": 4.46,
-   "stackedHomeWinProb": 0.6453,
+   "independentHomeMargin": 3.37,
+   "independentHomeWinProb": 0.6074,
+   "stackedHomeMargin": 3.01,
+   "stackedHomeWinProb": 0.6027,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
    "projectedTotal": 224.8,
@@ -6252,29 +6252,23 @@
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 6.27,
-    "sd": 2.73,
-    "rank": 3
+    "rating": 5.3,
+    "sd": 2.7,
+    "rank": 5
    },
    "awayRating": {
-    "rating": 4.1,
-    "sd": 2.74,
-    "rank": 9
+    "rating": 4.12,
+    "sd": 2.76,
+    "rank": 8
    },
    "homeForm": {
     "season": 2027,
-    "games": 12,
+    "games": 13,
     "wins": 9,
-    "losses": 3,
+    "losses": 4,
     "ties": 0,
-    "avgMargin": 13.42,
+    "avgMargin": 11.54,
     "last": [
-     {
-      "date": "2026-11-03T01:00:00Z",
-      "opponent": "MIL",
-      "home": true,
-      "margin": 12.0
-     },
      {
       "date": "2026-11-05T01:30:00Z",
       "opponent": "HOU",
@@ -6298,9 +6292,15 @@
       "opponent": "DAL",
       "home": true,
       "margin": 39.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "CHI",
+      "home": true,
+      "margin": -11.0
      }
     ],
-    "lastRecord": "5-0"
+    "lastRecord": "4-1"
    },
    "awayForm": {
     "season": 2027,
@@ -6352,9 +6352,9 @@
    "startsAt": "2026-11-18T01:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 4.59,
-   "marginSd": 13.73,
-   "homeWinProb": 0.6505,
+   "projectedHomeMargin": 6.66,
+   "marginSd": 13.72,
+   "homeWinProb": 0.7088,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -6363,7 +6363,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -6373,13 +6373,13 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 6.48,
-   "independentHomeWinProb": 0.696,
-   "stackedHomeMargin": 4.59,
-   "stackedHomeWinProb": 0.6505,
+   "independentHomeMargin": 7.38,
+   "independentHomeWinProb": 0.7191,
+   "stackedHomeMargin": 6.66,
+   "stackedHomeWinProb": 0.7088,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 221.5,
+   "projectedTotal": 222.3,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
@@ -6387,13 +6387,13 @@
    "headline": "stacked",
    "homeRating": {
     "rating": 9.22,
-    "sd": 2.65,
+    "sd": 2.67,
     "rank": 1
    },
    "awayRating": {
-    "rating": 4.94,
-    "sd": 2.78,
-    "rank": 7
+    "rating": 4.03,
+    "sd": 2.74,
+    "rank": 9
    },
    "homeForm": {
     "season": 2027,
@@ -6438,18 +6438,12 @@
    },
    "awayForm": {
     "season": 2027,
-    "games": 11,
+    "games": 12,
     "wins": 8,
-    "losses": 3,
+    "losses": 4,
     "ties": 0,
-    "avgMargin": 7.73,
+    "avgMargin": 5.42,
     "last": [
-     {
-      "date": "2026-11-03T00:30:00Z",
-      "opponent": "CHA",
-      "home": false,
-      "margin": 33.0
-     },
      {
       "date": "2026-11-05T00:00:00Z",
       "opponent": "PHI",
@@ -6473,9 +6467,15 @@
       "opponent": "WSH",
       "home": false,
       "margin": 4.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "MIA",
+      "home": false,
+      "margin": -20.0
      }
     ],
-    "lastRecord": "3-2"
+    "lastRecord": "2-3"
    },
    "homeAdvantage": 2.2
   },
@@ -6486,9 +6486,9 @@
    "startsAt": "2026-11-18T03:30:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 8.57,
+   "projectedHomeMargin": 8.56,
    "marginSd": 13.75,
-   "homeWinProb": 0.7556,
+   "homeWinProb": 0.7551,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -6497,7 +6497,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -6508,12 +6508,12 @@
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
    "independentHomeMargin": 8.07,
-   "independentHomeWinProb": 0.7355,
-   "stackedHomeMargin": 8.57,
-   "stackedHomeWinProb": 0.7556,
+   "independentHomeWinProb": 0.7353,
+   "stackedHomeMargin": 8.56,
+   "stackedHomeWinProb": 0.7551,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 229.9,
+   "projectedTotal": 230.1,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
@@ -6521,12 +6521,12 @@
    "headline": "stacked",
    "homeRating": {
     "rating": -1.23,
-    "sd": 2.8,
-    "rank": 20
+    "sd": 2.82,
+    "rank": 19
    },
    "awayRating": {
-    "rating": -7.11,
-    "sd": 2.72,
+    "rating": -7.1,
+    "sd": 2.73,
     "rank": 28
    },
    "homeForm": {
@@ -6620,9 +6620,9 @@
    "startsAt": "2026-11-18T04:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 9.7,
+   "projectedHomeMargin": 9.75,
    "marginSd": 13.74,
-   "homeWinProb": 0.7829,
+   "homeWinProb": 0.7839,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -6631,7 +6631,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -6641,13 +6641,13 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 9.64,
-   "independentHomeWinProb": 0.7735,
-   "stackedHomeMargin": 9.7,
-   "stackedHomeWinProb": 0.7829,
+   "independentHomeMargin": 9.69,
+   "independentHomeWinProb": 0.7747,
+   "stackedHomeMargin": 9.75,
+   "stackedHomeWinProb": 0.7839,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 221.2,
+   "projectedTotal": 221.4,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
@@ -6655,12 +6655,12 @@
    "headline": "stacked",
    "homeRating": {
     "rating": 4.15,
-    "sd": 2.7,
-    "rank": 8
+    "sd": 2.71,
+    "rank": 7
    },
    "awayRating": {
-    "rating": -3.29,
-    "sd": 2.77,
+    "rating": -3.34,
+    "sd": 2.79,
     "rank": 22
    },
    "homeForm": {
@@ -6754,9 +6754,9 @@
    "startsAt": "2026-11-19T00:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 4.47,
-   "marginSd": 13.74,
-   "homeWinProb": 0.6445,
+   "projectedHomeMargin": 4.2,
+   "marginSd": 13.72,
+   "homeWinProb": 0.6376,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -6765,7 +6765,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -6775,42 +6775,36 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 4.5,
-   "independentHomeWinProb": 0.6403,
-   "stackedHomeMargin": 4.47,
-   "stackedHomeWinProb": 0.6445,
+   "independentHomeMargin": 4.21,
+   "independentHomeWinProb": 0.6323,
+   "stackedHomeMargin": 4.2,
+   "stackedHomeWinProb": 0.6376,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 231.7,
+   "projectedTotal": 232.6,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 1.82,
-    "sd": 2.67,
-    "rank": 12
+    "rating": 1.97,
+    "sd": 2.63,
+    "rank": 11
    },
    "awayRating": {
-    "rating": -0.49,
-    "sd": 2.76,
-    "rank": 16
+    "rating": -0.04,
+    "sd": 2.72,
+    "rank": 17
    },
    "homeForm": {
     "season": 2027,
-    "games": 13,
-    "wins": 6,
+    "games": 14,
+    "wins": 7,
     "losses": 7,
     "ties": 0,
-    "avgMargin": 1.0,
+    "avgMargin": 1.64,
     "last": [
-     {
-      "date": "2026-11-07T00:30:00Z",
-      "opponent": "PHI",
-      "home": true,
-      "margin": 24.0
-     },
      {
       "date": "2026-11-08T01:00:00Z",
       "opponent": "NY",
@@ -6834,24 +6828,24 @@
       "opponent": "MIA",
       "home": false,
       "margin": -12.0
+     },
+     {
+      "date": "2026-11-15T00:30:00Z",
+      "opponent": "DAL",
+      "home": true,
+      "margin": 10.0
      }
     ],
     "lastRecord": "2-3"
    },
    "awayForm": {
     "season": 2027,
-    "games": 12,
-    "wins": 8,
+    "games": 13,
+    "wins": 9,
     "losses": 4,
     "ties": 0,
-    "avgMargin": 8.08,
+    "avgMargin": 8.92,
     "last": [
-     {
-      "date": "2026-11-05T01:00:00Z",
-      "opponent": "IND",
-      "home": true,
-      "margin": -4.0
-     },
      {
       "date": "2026-11-07T01:00:00Z",
       "opponent": "OKC",
@@ -6875,9 +6869,15 @@
       "opponent": "NO",
       "home": false,
       "margin": 31.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "BKN",
+      "home": true,
+      "margin": 19.0
      }
     ],
-    "lastRecord": "2-3"
+    "lastRecord": "3-2"
    },
    "homeAdvantage": 2.2
   },
@@ -6888,9 +6888,9 @@
    "startsAt": "2026-11-19T00:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": -6.09,
+   "projectedHomeMargin": -6.04,
    "marginSd": 13.73,
-   "homeWinProb": 0.3069,
+   "homeWinProb": 0.3082,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -6899,7 +6899,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -6909,13 +6909,13 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -6.78,
-   "independentHomeWinProb": 0.2958,
-   "stackedHomeMargin": -6.09,
-   "stackedHomeWinProb": 0.3069,
+   "independentHomeMargin": -6.74,
+   "independentHomeWinProb": 0.2963,
+   "stackedHomeMargin": -6.04,
+   "stackedHomeWinProb": 0.3082,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 222.8,
+   "projectedTotal": 223.1,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
@@ -6923,12 +6923,12 @@
    "headline": "stacked",
    "homeRating": {
     "rating": -3.69,
-    "sd": 2.72,
+    "sd": 2.73,
     "rank": 23
    },
    "awayRating": {
-    "rating": 5.29,
-    "sd": 2.7,
+    "rating": 5.25,
+    "sd": 2.72,
     "rank": 6
    },
    "homeForm": {
@@ -7022,9 +7022,9 @@
    "startsAt": "2026-11-19T00:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 9.83,
-   "marginSd": 13.74,
-   "homeWinProb": 0.7852,
+   "projectedHomeMargin": 10.24,
+   "marginSd": 13.73,
+   "homeWinProb": 0.796,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -7033,7 +7033,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -7043,42 +7043,36 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 9.63,
-   "independentHomeWinProb": 0.7733,
-   "stackedHomeMargin": 9.83,
-   "stackedHomeWinProb": 0.7852,
+   "independentHomeMargin": 10.49,
+   "independentHomeWinProb": 0.7909,
+   "stackedHomeMargin": 10.24,
+   "stackedHomeWinProb": 0.796,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 231.3,
+   "projectedTotal": 232.1,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -0.77,
-    "sd": 2.76,
-    "rank": 18
+    "rating": 0.1,
+    "sd": 2.72,
+    "rank": 16
    },
    "awayRating": {
     "rating": -8.2,
-    "sd": 2.71,
+    "sd": 2.72,
     "rank": 30
    },
    "homeForm": {
     "season": 2027,
-    "games": 12,
-    "wins": 6,
+    "games": 13,
+    "wins": 7,
     "losses": 6,
     "ties": 0,
-    "avgMargin": -2.92,
+    "avgMargin": -1.15,
     "last": [
-     {
-      "date": "2026-11-05T03:30:00Z",
-      "opponent": "LAC",
-      "home": false,
-      "margin": 1.0
-     },
      {
       "date": "2026-11-06T03:00:00Z",
       "opponent": "GS",
@@ -7102,6 +7096,12 @@
       "opponent": "CLE",
       "home": true,
       "margin": 12.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "DET",
+      "home": true,
+      "margin": 20.0
      }
     ],
     "lastRecord": "4-1"
@@ -7156,9 +7156,9 @@
    "startsAt": "2026-11-19T00:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": -0.07,
+   "projectedHomeMargin": -0.12,
    "marginSd": 13.73,
-   "homeWinProb": 0.4977,
+   "homeWinProb": 0.4959,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -7167,7 +7167,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -7177,26 +7177,26 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 0.02,
-   "independentHomeWinProb": 0.5055,
-   "stackedHomeMargin": -0.07,
-   "stackedHomeWinProb": 0.4977,
+   "independentHomeMargin": -0.04,
+   "independentHomeWinProb": 0.504,
+   "stackedHomeMargin": -0.12,
+   "stackedHomeWinProb": 0.4959,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 221.5,
+   "projectedTotal": 221.8,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -1.48,
-    "sd": 2.73,
+    "rating": -1.51,
+    "sd": 2.74,
     "rank": 21
    },
    "awayRating": {
-    "rating": 0.7,
-    "sd": 2.71,
+    "rating": 0.73,
+    "sd": 2.72,
     "rank": 14
    },
    "homeForm": {
@@ -7290,9 +7290,9 @@
    "startsAt": "2026-11-19T00:30:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 3.37,
-   "marginSd": 13.78,
-   "homeWinProb": 0.608,
+   "projectedHomeMargin": 1.83,
+   "marginSd": 13.75,
+   "homeWinProb": 0.5597,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -7301,7 +7301,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -7311,42 +7311,36 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 3.0,
-   "independentHomeWinProb": 0.5962,
-   "stackedHomeMargin": 3.37,
-   "stackedHomeWinProb": 0.608,
+   "independentHomeMargin": 1.46,
+   "independentHomeWinProb": 0.5501,
+   "stackedHomeMargin": 1.83,
+   "stackedHomeWinProb": 0.5597,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 229.6,
+   "projectedTotal": 230.0,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -5.66,
-    "sd": 2.81,
-    "rank": 24
+    "rating": -6.15,
+    "sd": 2.77,
+    "rank": 25
    },
    "awayRating": {
-    "rating": -6.46,
-    "sd": 2.81,
-    "rank": 26
+    "rating": -5.41,
+    "sd": 2.77,
+    "rank": 24
    },
    "homeForm": {
     "season": 2027,
-    "games": 11,
+    "games": 12,
     "wins": 3,
-    "losses": 8,
+    "losses": 9,
     "ties": 0,
-    "avgMargin": -5.09,
+    "avgMargin": -6.25,
     "last": [
-     {
-      "date": "2026-11-03T00:30:00Z",
-      "opponent": "NY",
-      "home": false,
-      "margin": -13.0
-     },
      {
       "date": "2026-11-05T00:30:00Z",
       "opponent": "CHA",
@@ -7370,24 +7364,24 @@
       "opponent": "NO",
       "home": false,
       "margin": 34.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "MEM",
+      "home": false,
+      "margin": -19.0
      }
     ],
     "lastRecord": "2-3"
    },
    "awayForm": {
     "season": 2027,
-    "games": 11,
-    "wins": 2,
+    "games": 12,
+    "wins": 3,
     "losses": 9,
     "ties": 0,
-    "avgMargin": -13.36,
+    "avgMargin": -11.33,
     "last": [
-     {
-      "date": "2026-11-03T00:30:00Z",
-      "opponent": "PHI",
-      "home": false,
-      "margin": -19.0
-     },
      {
       "date": "2026-11-05T00:30:00Z",
       "opponent": "NY",
@@ -7411,9 +7405,15 @@
       "opponent": "ATL",
       "home": true,
       "margin": 8.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "MIN",
+      "home": false,
+      "margin": 11.0
      }
     ],
-    "lastRecord": "1-4"
+    "lastRecord": "2-3"
    },
    "homeAdvantage": 2.2
   },
@@ -7424,9 +7424,9 @@
    "startsAt": "2026-11-19T00:30:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 7.57,
+   "projectedHomeMargin": 7.67,
    "marginSd": 13.73,
-   "homeWinProb": 0.7404,
+   "homeWinProb": 0.7427,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -7435,7 +7435,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -7445,27 +7445,27 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 10.03,
-   "independentHomeWinProb": 0.7811,
-   "stackedHomeMargin": 7.57,
-   "stackedHomeWinProb": 0.7404,
+   "independentHomeMargin": 10.09,
+   "independentHomeWinProb": 0.7821,
+   "stackedHomeMargin": 7.67,
+   "stackedHomeWinProb": 0.7427,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 227.6,
+   "projectedTotal": 227.9,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 1.4,
-    "sd": 2.73,
+    "rating": 1.42,
+    "sd": 2.75,
     "rank": 13
    },
    "awayRating": {
-    "rating": -6.43,
-    "sd": 2.72,
-    "rank": 25
+    "rating": -6.47,
+    "sd": 2.73,
+    "rank": 26
    },
    "homeForm": {
     "season": 2027,
@@ -7558,9 +7558,9 @@
    "startsAt": "2026-11-19T01:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": -8.27,
-   "marginSd": 13.75,
-   "homeWinProb": 0.2472,
+   "projectedHomeMargin": -7.41,
+   "marginSd": 13.73,
+   "homeWinProb": 0.2705,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -7569,7 +7569,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -7579,42 +7579,36 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -9.26,
-   "independentHomeWinProb": 0.2326,
-   "stackedHomeMargin": -8.27,
-   "stackedHomeWinProb": 0.2472,
+   "independentHomeMargin": -8.41,
+   "independentHomeWinProb": 0.2531,
+   "stackedHomeMargin": -7.41,
+   "stackedHomeWinProb": 0.2705,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 228.6,
+   "projectedTotal": 229.2,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -6.51,
-    "sd": 2.72,
+    "rating": -6.58,
+    "sd": 2.69,
     "rank": 27
    },
    "awayRating": {
-    "rating": 4.94,
-    "sd": 2.78,
-    "rank": 7
+    "rating": 4.03,
+    "sd": 2.74,
+    "rank": 9
    },
    "homeForm": {
     "season": 2027,
-    "games": 13,
+    "games": 14,
     "wins": 4,
-    "losses": 9,
+    "losses": 10,
     "ties": 0,
-    "avgMargin": -9.15,
+    "avgMargin": -9.07,
     "last": [
-     {
-      "date": "2026-11-07T01:00:00Z",
-      "opponent": "MIN",
-      "home": true,
-      "margin": -6.0
-     },
      {
       "date": "2026-11-09T02:00:00Z",
       "opponent": "LAC",
@@ -7638,24 +7632,24 @@
       "opponent": "MEM",
       "home": true,
       "margin": -31.0
+     },
+     {
+      "date": "2026-11-15T00:00:00Z",
+      "opponent": "DEN",
+      "home": true,
+      "margin": -8.0
      }
     ],
     "lastRecord": "0-5"
    },
    "awayForm": {
     "season": 2027,
-    "games": 11,
+    "games": 12,
     "wins": 8,
-    "losses": 3,
+    "losses": 4,
     "ties": 0,
-    "avgMargin": 7.73,
+    "avgMargin": 5.42,
     "last": [
-     {
-      "date": "2026-11-03T00:30:00Z",
-      "opponent": "CHA",
-      "home": false,
-      "margin": 33.0
-     },
      {
       "date": "2026-11-05T00:00:00Z",
       "opponent": "PHI",
@@ -7679,9 +7673,15 @@
       "opponent": "WSH",
       "home": false,
       "margin": 4.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "MIA",
+      "home": false,
+      "margin": -20.0
      }
     ],
-    "lastRecord": "3-2"
+    "lastRecord": "2-3"
    },
    "homeAdvantage": 2.2
   },
@@ -7692,9 +7692,9 @@
    "startsAt": "2026-11-19T01:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 7.39,
+   "projectedHomeMargin": 7.36,
    "marginSd": 13.73,
-   "homeWinProb": 0.7285,
+   "homeWinProb": 0.7277,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -7703,7 +7703,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -7713,26 +7713,26 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 7.83,
-   "independentHomeWinProb": 0.7302,
-   "stackedHomeMargin": 7.39,
-   "stackedHomeWinProb": 0.7285,
+   "independentHomeMargin": 7.81,
+   "independentHomeWinProb": 0.7296,
+   "stackedHomeMargin": 7.36,
+   "stackedHomeWinProb": 0.7277,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 226.1,
+   "projectedTotal": 226.4,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 5.94,
-    "sd": 2.67,
-    "rank": 5
+    "rating": 5.95,
+    "sd": 2.69,
+    "rank": 4
    },
    "awayRating": {
-    "rating": 0.3,
-    "sd": 2.71,
+    "rating": 0.34,
+    "sd": 2.72,
     "rank": 15
    },
    "homeForm": {
@@ -7820,149 +7820,15 @@
    "homeAdvantage": 2.2
   },
   {
-   "gameId": "401910015",
-   "home": "DEN",
-   "away": "BOS",
-   "startsAt": "2026-11-19T02:00:00Z",
-   "neutral": 0,
-   "week": 5,
-   "projectedHomeMargin": -1.68,
-   "marginSd": 13.77,
-   "homeWinProb": 0.44,
-   "tieProb": 0.0,
-   "marketHomeSpread": null,
-   "marketHomePrice": null,
-   "marketAwayPrice": null,
-   "marketHomeMl": null,
-   "marketAwayMl": null,
-   "marketTotal": null,
-   "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
-   "homeCoverProb": null,
-   "awayCoverProb": null,
-   "pushProb": null,
-   "edgePts": null,
-   "lean": "none",
-   "note": "no market line in source; independent projection only",
-   "anchoredHomeMargin": null,
-   "anchoredHomeCoverProb": null,
-   "marketHomeWinProb": null,
-   "independentHomeMargin": -1.96,
-   "independentHomeWinProb": 0.4401,
-   "stackedHomeMargin": -1.68,
-   "stackedHomeWinProb": 0.44,
-   "stackedMarketHomeWinProb": null,
-   "stackedMarketHomeMargin": null,
-   "projectedTotal": 223.2,
-   "totalEdgePts": null,
-   "totalLean": null,
-   "totalEligible": true,
-   "totalThreshold": 6.0,
-   "headline": "stacked",
-   "homeRating": {
-    "rating": 2.41,
-    "sd": 2.83,
-    "rank": 10
-   },
-   "awayRating": {
-    "rating": 6.57,
-    "sd": 2.75,
-    "rank": 2
-   },
-   "homeForm": {
-    "season": 2027,
-    "games": 10,
-    "wins": 6,
-    "losses": 4,
-    "ties": 0,
-    "avgMargin": 1.2,
-    "last": [
-     {
-      "date": "2026-11-03T02:00:00Z",
-      "opponent": "POR",
-      "home": true,
-      "margin": -8.0
-     },
-     {
-      "date": "2026-11-05T02:00:00Z",
-      "opponent": "TOR",
-      "home": true,
-      "margin": 19.0
-     },
-     {
-      "date": "2026-11-07T22:00:00Z",
-      "opponent": "IND",
-      "home": false,
-      "margin": 12.0
-     },
-     {
-      "date": "2026-11-10T01:30:00Z",
-      "opponent": "HOU",
-      "home": false,
-      "margin": -10.0
-     },
-     {
-      "date": "2026-11-12T01:00:00Z",
-      "opponent": "MEM",
-      "home": false,
-      "margin": 5.0
-     }
-    ],
-    "lastRecord": "3-2"
-   },
-   "awayForm": {
-    "season": 2027,
-    "games": 12,
-    "wins": 10,
-    "losses": 2,
-    "ties": 0,
-    "avgMargin": 11.17,
-    "last": [
-     {
-      "date": "2026-11-05T00:30:00Z",
-      "opponent": "MIL",
-      "home": true,
-      "margin": 7.0
-     },
-     {
-      "date": "2026-11-07T00:00:00Z",
-      "opponent": "CHA",
-      "home": false,
-      "margin": 39.0
-     },
-     {
-      "date": "2026-11-09T01:00:00Z",
-      "opponent": "MIL",
-      "home": false,
-      "margin": 20.0
-     },
-     {
-      "date": "2026-11-11T01:00:00Z",
-      "opponent": "PHI",
-      "home": false,
-      "margin": 22.0
-     },
-     {
-      "date": "2026-11-12T00:00:00Z",
-      "opponent": "TOR",
-      "home": false,
-      "margin": 5.0
-     }
-    ],
-    "lastRecord": "5-0"
-   },
-   "homeAdvantage": 2.2
-  },
-  {
    "gameId": "401910016",
    "home": "DAL",
    "away": "GS",
-   "startsAt": "2026-11-19T02:30:00Z",
+   "startsAt": "2026-11-19T01:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": -0.19,
-   "marginSd": 13.75,
-   "homeWinProb": 0.4905,
+   "projectedHomeMargin": -0.88,
+   "marginSd": 13.74,
+   "homeWinProb": 0.4708,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -7971,7 +7837,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -7981,42 +7847,36 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -0.9,
-   "independentHomeWinProb": 0.4766,
-   "stackedHomeMargin": -0.19,
-   "stackedHomeWinProb": 0.4905,
+   "independentHomeMargin": -1.13,
+   "independentHomeWinProb": 0.4688,
+   "stackedHomeMargin": -0.88,
+   "stackedHomeWinProb": 0.4708,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 228.2,
+   "projectedTotal": 228.7,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -1.23,
-    "sd": 2.77,
-    "rank": 19
+    "rating": -1.44,
+    "sd": 2.73,
+    "rank": 20
    },
    "awayRating": {
-    "rating": 1.87,
-    "sd": 2.71,
-    "rank": 11
+    "rating": 1.88,
+    "sd": 2.73,
+    "rank": 12
    },
    "homeForm": {
     "season": 2027,
-    "games": 12,
+    "games": 13,
     "wins": 7,
-    "losses": 5,
+    "losses": 6,
     "ties": 0,
-    "avgMargin": 1.0,
+    "avgMargin": 0.15,
     "last": [
-     {
-      "date": "2026-11-05T02:30:00Z",
-      "opponent": "SA",
-      "home": false,
-      "margin": -1.0
-     },
      {
       "date": "2026-11-07T01:00:00Z",
       "opponent": "UTAH",
@@ -8040,6 +7900,12 @@
       "opponent": "MIN",
       "home": false,
       "margin": -39.0
+     },
+     {
+      "date": "2026-11-15T00:30:00Z",
+      "opponent": "CLE",
+      "home": false,
+      "margin": -10.0
      }
     ],
     "lastRecord": "3-2"
@@ -8088,15 +7954,15 @@
    "homeAdvantage": 2.2
   },
   {
-   "gameId": "401910017",
-   "home": "LAL",
-   "away": "UTAH",
-   "startsAt": "2026-11-19T03:00:00Z",
+   "gameId": "401910015",
+   "home": "DEN",
+   "away": "BOS",
+   "startsAt": "2026-11-19T02:30:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 13.25,
-   "marginSd": 13.72,
-   "homeWinProb": 0.8545,
+   "projectedHomeMargin": -2.1,
+   "marginSd": 13.76,
+   "homeWinProb": 0.429,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -8105,7 +7971,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -8115,13 +7981,147 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 13.46,
-   "independentHomeWinProb": 0.8509,
-   "stackedHomeMargin": 13.25,
-   "stackedHomeWinProb": 0.8545,
+   "independentHomeMargin": -1.93,
+   "independentHomeWinProb": 0.4414,
+   "stackedHomeMargin": -2.1,
+   "stackedHomeWinProb": 0.429,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 231.4,
+   "projectedTotal": 223.2,
+   "totalEdgePts": null,
+   "totalLean": null,
+   "totalEligible": true,
+   "totalThreshold": 6.0,
+   "headline": "stacked",
+   "homeRating": {
+    "rating": 2.47,
+    "sd": 2.8,
+    "rank": 10
+   },
+   "awayRating": {
+    "rating": 6.59,
+    "sd": 2.76,
+    "rank": 2
+   },
+   "homeForm": {
+    "season": 2027,
+    "games": 11,
+    "wins": 7,
+    "losses": 4,
+    "ties": 0,
+    "avgMargin": 1.82,
+    "last": [
+     {
+      "date": "2026-11-05T02:00:00Z",
+      "opponent": "TOR",
+      "home": true,
+      "margin": 19.0
+     },
+     {
+      "date": "2026-11-07T22:00:00Z",
+      "opponent": "IND",
+      "home": false,
+      "margin": 12.0
+     },
+     {
+      "date": "2026-11-10T01:30:00Z",
+      "opponent": "HOU",
+      "home": false,
+      "margin": -10.0
+     },
+     {
+      "date": "2026-11-12T01:00:00Z",
+      "opponent": "MEM",
+      "home": false,
+      "margin": 5.0
+     },
+     {
+      "date": "2026-11-15T00:00:00Z",
+      "opponent": "NO",
+      "home": false,
+      "margin": 8.0
+     }
+    ],
+    "lastRecord": "4-1"
+   },
+   "awayForm": {
+    "season": 2027,
+    "games": 12,
+    "wins": 10,
+    "losses": 2,
+    "ties": 0,
+    "avgMargin": 11.17,
+    "last": [
+     {
+      "date": "2026-11-05T00:30:00Z",
+      "opponent": "MIL",
+      "home": true,
+      "margin": 7.0
+     },
+     {
+      "date": "2026-11-07T00:00:00Z",
+      "opponent": "CHA",
+      "home": false,
+      "margin": 39.0
+     },
+     {
+      "date": "2026-11-09T01:00:00Z",
+      "opponent": "MIL",
+      "home": false,
+      "margin": 20.0
+     },
+     {
+      "date": "2026-11-11T01:00:00Z",
+      "opponent": "PHI",
+      "home": false,
+      "margin": 22.0
+     },
+     {
+      "date": "2026-11-12T00:00:00Z",
+      "opponent": "TOR",
+      "home": false,
+      "margin": 5.0
+     }
+    ],
+    "lastRecord": "5-0"
+   },
+   "homeAdvantage": 2.2
+  },
+  {
+   "gameId": "401910017",
+   "home": "LAL",
+   "away": "UTAH",
+   "startsAt": "2026-11-19T03:00:00Z",
+   "neutral": 0,
+   "week": 5,
+   "projectedHomeMargin": 13.24,
+   "marginSd": 13.72,
+   "homeWinProb": 0.8543,
+   "tieProb": 0.0,
+   "marketHomeSpread": null,
+   "marketHomePrice": null,
+   "marketAwayPrice": null,
+   "marketHomeMl": null,
+   "marketAwayMl": null,
+   "marketTotal": null,
+   "book": "ESPN multi-book median",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
+   "homeCoverProb": null,
+   "awayCoverProb": null,
+   "pushProb": null,
+   "edgePts": null,
+   "lean": "none",
+   "note": "no market line in source; independent projection only",
+   "anchoredHomeMargin": null,
+   "anchoredHomeCoverProb": null,
+   "marketHomeWinProb": null,
+   "independentHomeMargin": 13.45,
+   "independentHomeWinProb": 0.8509,
+   "stackedHomeMargin": 13.24,
+   "stackedHomeWinProb": 0.8543,
+   "stackedMarketHomeWinProb": null,
+   "stackedMarketHomeMargin": null,
+   "projectedTotal": 231.6,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
@@ -8129,12 +8129,12 @@
    "headline": "stacked",
    "homeRating": {
     "rating": 4.15,
-    "sd": 2.7,
-    "rank": 8
+    "sd": 2.71,
+    "rank": 7
    },
    "awayRating": {
-    "rating": -7.11,
-    "sd": 2.72,
+    "rating": -7.1,
+    "sd": 2.73,
     "rank": 28
    },
    "homeForm": {
@@ -8228,9 +8228,9 @@
    "startsAt": "2026-11-19T03:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": -4.3,
+   "projectedHomeMargin": -4.25,
    "marginSd": 13.76,
-   "homeWinProb": 0.3581,
+   "homeWinProb": 0.3598,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -8239,7 +8239,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -8249,27 +8249,27 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -4.91,
-   "independentHomeWinProb": 0.3483,
-   "stackedHomeMargin": -4.3,
-   "stackedHomeWinProb": 0.3581,
+   "independentHomeMargin": -4.86,
+   "independentHomeWinProb": 0.3495,
+   "stackedHomeMargin": -4.25,
+   "stackedHomeWinProb": 0.3598,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 225.6,
+   "projectedTotal": 225.9,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -7.81,
-    "sd": 2.77,
+    "rating": -7.76,
+    "sd": 2.78,
     "rank": 29
    },
    "awayRating": {
     "rating": -0.7,
-    "sd": 2.78,
-    "rank": 17
+    "sd": 2.79,
+    "rank": 18
    },
    "homeForm": {
     "season": 2027,
@@ -8362,9 +8362,9 @@
    "startsAt": "2026-11-20T01:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 1.16,
-   "marginSd": 13.74,
-   "homeWinProb": 0.5338,
+   "projectedHomeMargin": 1.1,
+   "marginSd": 13.73,
+   "homeWinProb": 0.5347,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -8373,7 +8373,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -8383,42 +8383,36 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -0.16,
-   "independentHomeWinProb": 0.4997,
-   "stackedHomeMargin": 1.16,
-   "stackedHomeWinProb": 0.5338,
+   "independentHomeMargin": 0.28,
+   "independentHomeWinProb": 0.5136,
+   "stackedHomeMargin": 1.1,
+   "stackedHomeWinProb": 0.5347,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 229.8,
+   "projectedTotal": 230.4,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -0.49,
-    "sd": 2.76,
-    "rank": 16
+    "rating": -0.04,
+    "sd": 2.72,
+    "rank": 17
    },
    "awayRating": {
-    "rating": 1.87,
-    "sd": 2.71,
-    "rank": 11
+    "rating": 1.88,
+    "sd": 2.73,
+    "rank": 12
    },
    "homeForm": {
     "season": 2027,
-    "games": 12,
-    "wins": 8,
+    "games": 13,
+    "wins": 9,
     "losses": 4,
     "ties": 0,
-    "avgMargin": 8.08,
+    "avgMargin": 8.92,
     "last": [
-     {
-      "date": "2026-11-05T01:00:00Z",
-      "opponent": "IND",
-      "home": true,
-      "margin": -4.0
-     },
      {
       "date": "2026-11-07T01:00:00Z",
       "opponent": "OKC",
@@ -8442,9 +8436,15 @@
       "opponent": "NO",
       "home": false,
       "margin": 31.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "BKN",
+      "home": true,
+      "margin": 19.0
      }
     ],
-    "lastRecord": "2-3"
+    "lastRecord": "3-2"
    },
    "awayForm": {
     "season": 2027,
@@ -8498,7 +8498,7 @@
    "week": 5,
    "projectedHomeMargin": -10.7,
    "marginSd": 13.75,
-   "homeWinProb": 0.1945,
+   "homeWinProb": 0.1944,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -8507,7 +8507,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -8517,13 +8517,13 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -10.11,
-   "independentHomeWinProb": 0.2132,
+   "independentHomeMargin": -10.13,
+   "independentHomeWinProb": 0.213,
    "stackedHomeMargin": -10.7,
-   "stackedHomeWinProb": 0.1945,
+   "stackedHomeWinProb": 0.1944,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 225.1,
+   "projectedTotal": 225.4,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
@@ -8531,13 +8531,13 @@
    "headline": "stacked",
    "homeRating": {
     "rating": -8.2,
-    "sd": 2.71,
+    "sd": 2.72,
     "rank": 30
    },
    "awayRating": {
-    "rating": 4.1,
-    "sd": 2.74,
-    "rank": 9
+    "rating": 4.12,
+    "sd": 2.76,
+    "rank": 8
    },
    "homeForm": {
     "season": 2027,
@@ -8630,9 +8630,9 @@
    "startsAt": "2026-11-20T01:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 2.34,
-   "marginSd": 13.74,
-   "homeWinProb": 0.5773,
+   "projectedHomeMargin": 0.87,
+   "marginSd": 13.73,
+   "homeWinProb": 0.5318,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -8641,7 +8641,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -8651,42 +8651,36 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 2.41,
-   "independentHomeWinProb": 0.5793,
-   "stackedHomeMargin": 2.34,
-   "stackedHomeWinProb": 0.5773,
+   "independentHomeMargin": 1.41,
+   "independentHomeWinProb": 0.5488,
+   "stackedHomeMargin": 0.87,
+   "stackedHomeWinProb": 0.5318,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 218.7,
+   "projectedTotal": 218.8,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 6.27,
-    "sd": 2.73,
-    "rank": 3
+    "rating": 5.3,
+    "sd": 2.7,
+    "rank": 5
    },
    "awayRating": {
-    "rating": 6.05,
-    "sd": 2.7,
-    "rank": 4
+    "rating": 6.09,
+    "sd": 2.72,
+    "rank": 3
    },
    "homeForm": {
     "season": 2027,
-    "games": 12,
+    "games": 13,
     "wins": 9,
-    "losses": 3,
+    "losses": 4,
     "ties": 0,
-    "avgMargin": 13.42,
+    "avgMargin": 11.54,
     "last": [
-     {
-      "date": "2026-11-03T01:00:00Z",
-      "opponent": "MIL",
-      "home": true,
-      "margin": 12.0
-     },
      {
       "date": "2026-11-05T01:30:00Z",
       "opponent": "HOU",
@@ -8710,9 +8704,15 @@
       "opponent": "DAL",
       "home": true,
       "margin": 39.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "CHI",
+      "home": true,
+      "margin": -11.0
      }
     ],
-    "lastRecord": "5-0"
+    "lastRecord": "4-1"
    },
    "awayForm": {
     "season": 2027,
@@ -8764,9 +8764,9 @@
    "startsAt": "2026-11-20T01:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 12.78,
+   "projectedHomeMargin": 12.77,
    "marginSd": 13.74,
-   "homeWinProb": 0.8456,
+   "homeWinProb": 0.8453,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -8775,7 +8775,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -8785,13 +8785,13 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 12.65,
-   "independentHomeWinProb": 0.836,
-   "stackedHomeMargin": 12.78,
-   "stackedHomeWinProb": 0.8456,
+   "independentHomeMargin": 12.64,
+   "independentHomeWinProb": 0.8359,
+   "stackedHomeMargin": 12.77,
+   "stackedHomeWinProb": 0.8453,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 224.3,
+   "projectedTotal": 224.6,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
@@ -8799,13 +8799,13 @@
    "headline": "stacked",
    "homeRating": {
     "rating": 9.22,
-    "sd": 2.65,
+    "sd": 2.67,
     "rank": 1
    },
    "awayRating": {
     "rating": -1.23,
-    "sd": 2.8,
-    "rank": 20
+    "sd": 2.82,
+    "rank": 19
    },
    "homeForm": {
     "season": 2027,
@@ -8898,9 +8898,9 @@
    "startsAt": "2026-11-21T00:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 5.01,
+   "projectedHomeMargin": 5.11,
    "marginSd": 13.74,
-   "homeWinProb": 0.662,
+   "homeWinProb": 0.6649,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -8909,7 +8909,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -8919,26 +8919,26 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 5.78,
-   "independentHomeWinProb": 0.6774,
-   "stackedHomeMargin": 5.01,
-   "stackedHomeWinProb": 0.662,
+   "independentHomeMargin": 5.88,
+   "independentHomeWinProb": 0.68,
+   "stackedHomeMargin": 5.11,
+   "stackedHomeWinProb": 0.6649,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 223.2,
+   "projectedTotal": 223.5,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 0.3,
-    "sd": 2.71,
+    "rating": 0.34,
+    "sd": 2.72,
     "rank": 15
    },
    "awayRating": {
-    "rating": -3.29,
-    "sd": 2.77,
+    "rating": -3.34,
+    "sd": 2.79,
     "rank": 22
    },
    "homeForm": {
@@ -9032,9 +9032,9 @@
    "startsAt": "2026-11-21T00:30:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": -2.15,
-   "marginSd": 13.77,
-   "homeWinProb": 0.4276,
+   "projectedHomeMargin": -3.08,
+   "marginSd": 13.76,
+   "homeWinProb": 0.4006,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -9043,7 +9043,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -9053,42 +9053,36 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -1.98,
-   "independentHomeWinProb": 0.4394,
-   "stackedHomeMargin": -2.15,
-   "stackedHomeWinProb": 0.4276,
+   "independentHomeMargin": -2.45,
+   "independentHomeWinProb": 0.4245,
+   "stackedHomeMargin": -3.08,
+   "stackedHomeWinProb": 0.4006,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 219.6,
+   "projectedTotal": 220.1,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -5.66,
-    "sd": 2.81,
-    "rank": 24
+    "rating": -6.15,
+    "sd": 2.77,
+    "rank": 25
    },
    "awayRating": {
-    "rating": -1.48,
-    "sd": 2.73,
+    "rating": -1.51,
+    "sd": 2.74,
     "rank": 21
    },
    "homeForm": {
     "season": 2027,
-    "games": 11,
+    "games": 12,
     "wins": 3,
-    "losses": 8,
+    "losses": 9,
     "ties": 0,
-    "avgMargin": -5.09,
+    "avgMargin": -6.25,
     "last": [
-     {
-      "date": "2026-11-03T00:30:00Z",
-      "opponent": "NY",
-      "home": false,
-      "margin": -13.0
-     },
      {
       "date": "2026-11-05T00:30:00Z",
       "opponent": "CHA",
@@ -9112,6 +9106,12 @@
       "opponent": "NO",
       "home": false,
       "margin": 34.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "MEM",
+      "home": false,
+      "margin": -19.0
      }
     ],
     "lastRecord": "2-3"
@@ -9166,9 +9166,9 @@
    "startsAt": "2026-11-21T00:30:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 7.26,
-   "marginSd": 13.74,
-   "homeWinProb": 0.725,
+   "projectedHomeMargin": 6.96,
+   "marginSd": 13.73,
+   "homeWinProb": 0.7194,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -9177,7 +9177,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -9187,42 +9187,36 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 7.7,
-   "independentHomeWinProb": 0.7261,
-   "stackedHomeMargin": 7.26,
-   "stackedHomeWinProb": 0.725,
+   "independentHomeMargin": 7.85,
+   "independentHomeWinProb": 0.7308,
+   "stackedHomeMargin": 6.96,
+   "stackedHomeWinProb": 0.7194,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 229.1,
+   "projectedTotal": 229.6,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 1.82,
-    "sd": 2.67,
-    "rank": 12
+    "rating": 1.97,
+    "sd": 2.63,
+    "rank": 11
    },
    "awayRating": {
     "rating": -3.69,
-    "sd": 2.72,
+    "sd": 2.73,
     "rank": 23
    },
    "homeForm": {
     "season": 2027,
-    "games": 13,
-    "wins": 6,
+    "games": 14,
+    "wins": 7,
     "losses": 7,
     "ties": 0,
-    "avgMargin": 1.0,
+    "avgMargin": 1.64,
     "last": [
-     {
-      "date": "2026-11-07T00:30:00Z",
-      "opponent": "PHI",
-      "home": true,
-      "margin": 24.0
-     },
      {
       "date": "2026-11-08T01:00:00Z",
       "opponent": "NY",
@@ -9246,6 +9240,12 @@
       "opponent": "MIA",
       "home": false,
       "margin": -12.0
+     },
+     {
+      "date": "2026-11-15T00:30:00Z",
+      "opponent": "DAL",
+      "home": true,
+      "margin": 10.0
      }
     ],
     "lastRecord": "2-3"
@@ -9300,9 +9300,9 @@
    "startsAt": "2026-11-21T00:30:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 6.17,
-   "marginSd": 13.76,
-   "homeWinProb": 0.6919,
+   "projectedHomeMargin": 4.76,
+   "marginSd": 13.75,
+   "homeWinProb": 0.6534,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -9311,7 +9311,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -9321,42 +9321,36 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 5.73,
-   "independentHomeWinProb": 0.6761,
-   "stackedHomeMargin": 6.17,
-   "stackedHomeWinProb": 0.6919,
+   "independentHomeMargin": 4.8,
+   "independentHomeWinProb": 0.649,
+   "stackedHomeMargin": 4.76,
+   "stackedHomeWinProb": 0.6534,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 221.4,
+   "projectedTotal": 222.2,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 4.94,
-    "sd": 2.78,
-    "rank": 7
+    "rating": 4.03,
+    "sd": 2.74,
+    "rank": 9
    },
    "awayRating": {
-    "rating": 1.4,
-    "sd": 2.73,
+    "rating": 1.42,
+    "sd": 2.75,
     "rank": 13
    },
    "homeForm": {
     "season": 2027,
-    "games": 11,
+    "games": 12,
     "wins": 8,
-    "losses": 3,
+    "losses": 4,
     "ties": 0,
-    "avgMargin": 7.73,
+    "avgMargin": 5.42,
     "last": [
-     {
-      "date": "2026-11-03T00:30:00Z",
-      "opponent": "CHA",
-      "home": false,
-      "margin": 33.0
-     },
      {
       "date": "2026-11-05T00:00:00Z",
       "opponent": "PHI",
@@ -9380,9 +9374,15 @@
       "opponent": "WSH",
       "home": false,
       "margin": 4.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "MIA",
+      "home": false,
+      "margin": -20.0
      }
     ],
-    "lastRecord": "3-2"
+    "lastRecord": "2-3"
    },
    "awayForm": {
     "season": 2027,
@@ -9434,9 +9434,9 @@
    "startsAt": "2026-11-21T01:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 2.09,
-   "marginSd": 13.75,
-   "homeWinProb": 0.5694,
+   "projectedHomeMargin": 2.73,
+   "marginSd": 13.74,
+   "homeWinProb": 0.5929,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -9445,7 +9445,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -9455,10 +9455,10 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 2.17,
-   "independentHomeWinProb": 0.5718,
-   "stackedHomeMargin": 2.09,
-   "stackedHomeWinProb": 0.5694,
+   "independentHomeMargin": 3.25,
+   "independentHomeWinProb": 0.6037,
+   "stackedHomeMargin": 2.73,
+   "stackedHomeWinProb": 0.5929,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
    "projectedTotal": 236.2,
@@ -9468,29 +9468,23 @@
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -6.46,
-    "sd": 2.81,
-    "rank": 26
+    "rating": -5.41,
+    "sd": 2.77,
+    "rank": 24
    },
    "awayRating": {
-    "rating": -6.43,
-    "sd": 2.72,
-    "rank": 25
+    "rating": -6.47,
+    "sd": 2.73,
+    "rank": 26
    },
    "homeForm": {
     "season": 2027,
-    "games": 11,
-    "wins": 2,
+    "games": 12,
+    "wins": 3,
     "losses": 9,
     "ties": 0,
-    "avgMargin": -13.36,
+    "avgMargin": -11.33,
     "last": [
-     {
-      "date": "2026-11-03T00:30:00Z",
-      "opponent": "PHI",
-      "home": false,
-      "margin": -19.0
-     },
      {
       "date": "2026-11-05T00:30:00Z",
       "opponent": "NY",
@@ -9514,9 +9508,15 @@
       "opponent": "ATL",
       "home": true,
       "margin": 8.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "MIN",
+      "home": false,
+      "margin": 11.0
      }
     ],
-    "lastRecord": "1-4"
+    "lastRecord": "2-3"
    },
    "awayForm": {
     "season": 2027,
@@ -9568,9 +9568,9 @@
    "startsAt": "2026-11-21T01:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 14.78,
-   "marginSd": 13.74,
-   "homeWinProb": 0.8772,
+   "projectedHomeMargin": 15.33,
+   "marginSd": 13.73,
+   "homeWinProb": 0.8842,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -9579,7 +9579,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -9589,10 +9589,10 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 14.65,
-   "independentHomeWinProb": 0.8709,
-   "stackedHomeMargin": 14.78,
-   "stackedHomeWinProb": 0.8772,
+   "independentHomeMargin": 14.73,
+   "independentHomeWinProb": 0.8723,
+   "stackedHomeMargin": 15.33,
+   "stackedHomeWinProb": 0.8842,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
    "projectedTotal": 228.5,
@@ -9602,13 +9602,13 @@
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 5.94,
-    "sd": 2.67,
-    "rank": 5
+    "rating": 5.95,
+    "sd": 2.69,
+    "rank": 4
    },
    "awayRating": {
-    "rating": -6.51,
-    "sd": 2.72,
+    "rating": -6.58,
+    "sd": 2.69,
     "rank": 27
    },
    "homeForm": {
@@ -9654,18 +9654,12 @@
    },
    "awayForm": {
     "season": 2027,
-    "games": 13,
+    "games": 14,
     "wins": 4,
-    "losses": 9,
+    "losses": 10,
     "ties": 0,
-    "avgMargin": -9.15,
+    "avgMargin": -9.07,
     "last": [
-     {
-      "date": "2026-11-07T01:00:00Z",
-      "opponent": "MIN",
-      "home": true,
-      "margin": -6.0
-     },
      {
       "date": "2026-11-09T02:00:00Z",
       "opponent": "LAC",
@@ -9689,6 +9683,12 @@
       "opponent": "MEM",
       "home": true,
       "margin": -31.0
+     },
+     {
+      "date": "2026-11-15T00:00:00Z",
+      "opponent": "DEN",
+      "home": true,
+      "margin": -8.0
      }
     ],
     "lastRecord": "0-5"
@@ -9702,9 +9702,9 @@
    "startsAt": "2026-11-21T02:30:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": -4.4,
+   "projectedHomeMargin": -4.38,
    "marginSd": 13.76,
-   "homeWinProb": 0.3582,
+   "homeWinProb": 0.3588,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -9713,7 +9713,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -9723,27 +9723,27 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -4.21,
-   "independentHomeWinProb": 0.3686,
-   "stackedHomeMargin": -4.4,
-   "stackedHomeWinProb": 0.3582,
+   "independentHomeMargin": -4.2,
+   "independentHomeWinProb": 0.3689,
+   "stackedHomeMargin": -4.38,
+   "stackedHomeWinProb": 0.3588,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 228.5,
+   "projectedTotal": 228.8,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -7.11,
-    "sd": 2.72,
+    "rating": -7.1,
+    "sd": 2.73,
     "rank": 28
    },
    "awayRating": {
     "rating": -0.7,
-    "sd": 2.78,
-    "rank": 17
+    "sd": 2.79,
+    "rank": 18
    },
    "homeForm": {
     "season": 2027,
@@ -9836,9 +9836,9 @@
    "startsAt": "2026-11-21T03:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": -0.35,
-   "marginSd": 13.75,
-   "homeWinProb": 0.4854,
+   "projectedHomeMargin": -0.72,
+   "marginSd": 13.74,
+   "homeWinProb": 0.476,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -9847,7 +9847,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -9857,10 +9857,10 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -0.68,
-   "independentHomeWinProb": 0.4837,
-   "stackedHomeMargin": -0.35,
-   "stackedHomeWinProb": 0.4854,
+   "independentHomeMargin": -0.59,
+   "independentHomeWinProb": 0.4863,
+   "stackedHomeMargin": -0.72,
+   "stackedHomeWinProb": 0.476,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
    "projectedTotal": 225.0,
@@ -9870,29 +9870,23 @@
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 2.41,
-    "sd": 2.83,
+    "rating": 2.47,
+    "sd": 2.8,
     "rank": 10
    },
    "awayRating": {
-    "rating": 5.29,
-    "sd": 2.7,
+    "rating": 5.25,
+    "sd": 2.72,
     "rank": 6
    },
    "homeForm": {
     "season": 2027,
-    "games": 10,
-    "wins": 6,
+    "games": 11,
+    "wins": 7,
     "losses": 4,
     "ties": 0,
-    "avgMargin": 1.2,
+    "avgMargin": 1.82,
     "last": [
-     {
-      "date": "2026-11-03T02:00:00Z",
-      "opponent": "POR",
-      "home": true,
-      "margin": -8.0
-     },
      {
       "date": "2026-11-05T02:00:00Z",
       "opponent": "TOR",
@@ -9916,9 +9910,15 @@
       "opponent": "MEM",
       "home": false,
       "margin": 5.0
+     },
+     {
+      "date": "2026-11-15T00:00:00Z",
+      "opponent": "NO",
+      "home": false,
+      "margin": 8.0
      }
     ],
-    "lastRecord": "3-2"
+    "lastRecord": "4-1"
    },
    "awayForm": {
     "season": 2027,
@@ -9970,9 +9970,9 @@
    "startsAt": "2026-11-21T03:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 14.29,
+   "projectedHomeMargin": 14.23,
    "marginSd": 13.74,
-   "homeWinProb": 0.8699,
+   "homeWinProb": 0.869,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -9981,7 +9981,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -9991,13 +9991,13 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 14.16,
-   "independentHomeWinProb": 0.8629,
-   "stackedHomeMargin": 14.29,
-   "stackedHomeWinProb": 0.8699,
+   "independentHomeMargin": 14.11,
+   "independentHomeWinProb": 0.8621,
+   "stackedHomeMargin": 14.23,
+   "stackedHomeWinProb": 0.869,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 228.5,
+   "projectedTotal": 228.7,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
@@ -10005,12 +10005,12 @@
    "headline": "stacked",
    "homeRating": {
     "rating": 4.15,
-    "sd": 2.7,
-    "rank": 8
+    "sd": 2.71,
+    "rank": 7
    },
    "awayRating": {
-    "rating": -7.81,
-    "sd": 2.77,
+    "rating": -7.76,
+    "sd": 2.78,
     "rank": 29
    },
    "homeForm": {
@@ -10104,9 +10104,9 @@
    "startsAt": "2026-11-21T18:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 11.53,
+   "projectedHomeMargin": 11.55,
    "marginSd": 13.73,
-   "homeWinProb": 0.8224,
+   "homeWinProb": 0.8228,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -10115,7 +10115,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -10125,26 +10125,26 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 11.1,
-   "independentHomeWinProb": 0.8047,
-   "stackedHomeMargin": 11.53,
-   "stackedHomeWinProb": 0.8224,
+   "independentHomeMargin": 11.13,
+   "independentHomeWinProb": 0.8054,
+   "stackedHomeMargin": 11.55,
+   "stackedHomeWinProb": 0.8228,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 223.9,
+   "projectedTotal": 224.1,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 0.7,
-    "sd": 2.71,
+    "rating": 0.73,
+    "sd": 2.72,
     "rank": 14
    },
    "awayRating": {
     "rating": -8.2,
-    "sd": 2.71,
+    "sd": 2.72,
     "rank": 30
    },
    "homeForm": {
@@ -10238,9 +10238,9 @@
    "startsAt": "2026-11-22T00:30:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 4.09,
+   "projectedHomeMargin": 4.11,
    "marginSd": 13.76,
-   "homeWinProb": 0.6331,
+   "homeWinProb": 0.6336,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -10249,7 +10249,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -10259,27 +10259,27 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 4.15,
-   "independentHomeWinProb": 0.6302,
-   "stackedHomeMargin": 4.09,
-   "stackedHomeWinProb": 0.6331,
+   "independentHomeMargin": 4.16,
+   "independentHomeWinProb": 0.6307,
+   "stackedHomeMargin": 4.11,
+   "stackedHomeWinProb": 0.6336,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 219.6,
+   "projectedTotal": 219.8,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 6.05,
-    "sd": 2.7,
-    "rank": 4
+    "rating": 6.09,
+    "sd": 2.72,
+    "rank": 3
    },
    "awayRating": {
-    "rating": 4.1,
-    "sd": 2.74,
-    "rank": 9
+    "rating": 4.12,
+    "sd": 2.76,
+    "rank": 8
    },
    "homeForm": {
     "season": 2027,
@@ -10372,9 +10372,9 @@
    "startsAt": "2026-11-22T01:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 2.87,
-   "marginSd": 13.78,
-   "homeWinProb": 0.5918,
+   "projectedHomeMargin": 2.68,
+   "marginSd": 13.77,
+   "homeWinProb": 0.5856,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -10383,7 +10383,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -10393,42 +10393,36 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 2.2,
-   "independentHomeWinProb": 0.5724,
-   "stackedHomeMargin": 2.87,
-   "stackedHomeWinProb": 0.5918,
+   "independentHomeMargin": 1.98,
+   "independentHomeWinProb": 0.5662,
+   "stackedHomeMargin": 2.68,
+   "stackedHomeWinProb": 0.5856,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 227.6,
+   "projectedTotal": 228.1,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -1.23,
-    "sd": 2.77,
-    "rank": 19
+    "rating": -1.44,
+    "sd": 2.73,
+    "rank": 20
    },
    "awayRating": {
     "rating": -1.23,
-    "sd": 2.8,
-    "rank": 20
+    "sd": 2.82,
+    "rank": 19
    },
    "homeForm": {
     "season": 2027,
-    "games": 12,
+    "games": 13,
     "wins": 7,
-    "losses": 5,
+    "losses": 6,
     "ties": 0,
-    "avgMargin": 1.0,
+    "avgMargin": 0.15,
     "last": [
-     {
-      "date": "2026-11-05T02:30:00Z",
-      "opponent": "SA",
-      "home": false,
-      "margin": -1.0
-     },
      {
       "date": "2026-11-07T01:00:00Z",
       "opponent": "UTAH",
@@ -10452,6 +10446,12 @@
       "opponent": "MIN",
       "home": false,
       "margin": -39.0
+     },
+     {
+      "date": "2026-11-15T00:30:00Z",
+      "opponent": "CLE",
+      "home": false,
+      "margin": -10.0
      }
     ],
     "lastRecord": "3-2"
@@ -10506,9 +10506,9 @@
    "startsAt": "2026-11-22T01:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 8.97,
-   "marginSd": 13.77,
-   "homeWinProb": 0.7675,
+   "projectedHomeMargin": 7.55,
+   "marginSd": 13.74,
+   "homeWinProb": 0.7333,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -10517,7 +10517,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -10527,42 +10527,36 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 8.95,
-   "independentHomeWinProb": 0.7565,
-   "stackedHomeMargin": 8.97,
-   "stackedHomeWinProb": 0.7675,
+   "independentHomeMargin": 7.53,
+   "independentHomeWinProb": 0.7225,
+   "stackedHomeMargin": 7.55,
+   "stackedHomeWinProb": 0.7333,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 228.4,
+   "projectedTotal": 228.8,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 6.27,
-    "sd": 2.73,
-    "rank": 3
+    "rating": 5.3,
+    "sd": 2.7,
+    "rank": 5
    },
    "awayRating": {
-    "rating": -0.49,
-    "sd": 2.76,
-    "rank": 16
+    "rating": -0.04,
+    "sd": 2.72,
+    "rank": 17
    },
    "homeForm": {
     "season": 2027,
-    "games": 12,
+    "games": 13,
     "wins": 9,
-    "losses": 3,
+    "losses": 4,
     "ties": 0,
-    "avgMargin": 13.42,
+    "avgMargin": 11.54,
     "last": [
-     {
-      "date": "2026-11-03T01:00:00Z",
-      "opponent": "MIL",
-      "home": true,
-      "margin": 12.0
-     },
      {
       "date": "2026-11-05T01:30:00Z",
       "opponent": "HOU",
@@ -10586,24 +10580,24 @@
       "opponent": "DAL",
       "home": true,
       "margin": 39.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "CHI",
+      "home": true,
+      "margin": -11.0
      }
     ],
-    "lastRecord": "5-0"
+    "lastRecord": "4-1"
    },
    "awayForm": {
     "season": 2027,
-    "games": 12,
-    "wins": 8,
+    "games": 13,
+    "wins": 9,
     "losses": 4,
     "ties": 0,
-    "avgMargin": 8.08,
+    "avgMargin": 8.92,
     "last": [
-     {
-      "date": "2026-11-05T01:00:00Z",
-      "opponent": "IND",
-      "home": true,
-      "margin": -4.0
-     },
      {
       "date": "2026-11-07T01:00:00Z",
       "opponent": "OKC",
@@ -10627,9 +10621,15 @@
       "opponent": "NO",
       "home": false,
       "margin": 31.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "BKN",
+      "home": true,
+      "margin": 19.0
      }
     ],
-    "lastRecord": "2-3"
+    "lastRecord": "3-2"
    },
    "homeAdvantage": 2.2
   },
@@ -10640,8 +10640,8 @@
    "startsAt": "2026-11-22T01:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 19.84,
-   "marginSd": 13.74,
+   "projectedHomeMargin": 19.86,
+   "marginSd": 13.73,
    "homeWinProb": 0.9321,
    "tieProb": 0.0,
    "marketHomeSpread": null,
@@ -10651,7 +10651,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -10661,13 +10661,13 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 17.93,
-   "independentHomeWinProb": 0.9131,
-   "stackedHomeMargin": 19.84,
+   "independentHomeMargin": 17.99,
+   "independentHomeWinProb": 0.9139,
+   "stackedHomeMargin": 19.86,
    "stackedHomeWinProb": 0.9321,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 230.2,
+   "projectedTotal": 230.3,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
@@ -10675,12 +10675,12 @@
    "headline": "stacked",
    "homeRating": {
     "rating": 9.22,
-    "sd": 2.65,
+    "sd": 2.67,
     "rank": 1
    },
    "awayRating": {
-    "rating": -6.51,
-    "sd": 2.72,
+    "rating": -6.58,
+    "sd": 2.69,
     "rank": 27
    },
    "homeForm": {
@@ -10726,18 +10726,12 @@
    },
    "awayForm": {
     "season": 2027,
-    "games": 13,
+    "games": 14,
     "wins": 4,
-    "losses": 9,
+    "losses": 10,
     "ties": 0,
-    "avgMargin": -9.15,
+    "avgMargin": -9.07,
     "last": [
-     {
-      "date": "2026-11-07T01:00:00Z",
-      "opponent": "MIN",
-      "home": true,
-      "margin": -6.0
-     },
      {
       "date": "2026-11-09T02:00:00Z",
       "opponent": "LAC",
@@ -10761,6 +10755,12 @@
       "opponent": "MEM",
       "home": true,
       "margin": -31.0
+     },
+     {
+      "date": "2026-11-15T00:00:00Z",
+      "opponent": "DEN",
+      "home": true,
+      "margin": -8.0
      }
     ],
     "lastRecord": "0-5"
@@ -10774,9 +10774,9 @@
    "startsAt": "2026-11-22T03:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": -15.39,
+   "projectedHomeMargin": -15.29,
    "marginSd": 13.77,
-   "homeWinProb": 0.119,
+   "homeWinProb": 0.1203,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -10785,7 +10785,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -10795,26 +10795,26 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -12.18,
-   "independentHomeWinProb": 0.1707,
-   "stackedHomeMargin": -15.39,
-   "stackedHomeWinProb": 0.119,
+   "independentHomeMargin": -12.16,
+   "independentHomeWinProb": 0.1711,
+   "stackedHomeMargin": -15.29,
+   "stackedHomeWinProb": 0.1203,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 221.5,
+   "projectedTotal": 221.8,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -7.81,
-    "sd": 2.77,
+    "rating": -7.76,
+    "sd": 2.78,
     "rank": 29
    },
    "awayRating": {
-    "rating": 6.57,
-    "sd": 2.75,
+    "rating": 6.59,
+    "sd": 2.76,
     "rank": 2
    },
    "homeForm": {
@@ -10908,9 +10908,9 @@
    "startsAt": "2026-11-22T20:30:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": -2.61,
-   "marginSd": 13.77,
-   "homeWinProb": 0.4147,
+   "projectedHomeMargin": -1.62,
+   "marginSd": 13.76,
+   "homeWinProb": 0.4467,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -10919,7 +10919,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -10929,27 +10929,27 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -2.44,
-   "independentHomeWinProb": 0.425,
-   "stackedHomeMargin": -2.61,
-   "stackedHomeWinProb": 0.4147,
+   "independentHomeMargin": -1.49,
+   "independentHomeWinProb": 0.4564,
+   "stackedHomeMargin": -1.62,
+   "stackedHomeWinProb": 0.4467,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 226.2,
+   "projectedTotal": 227.1,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 0.3,
-    "sd": 2.71,
+    "rating": 0.34,
+    "sd": 2.72,
     "rank": 15
    },
    "awayRating": {
-    "rating": 4.94,
-    "sd": 2.78,
-    "rank": 7
+    "rating": 4.03,
+    "sd": 2.74,
+    "rank": 9
    },
    "homeForm": {
     "season": 2027,
@@ -10994,18 +10994,12 @@
    },
    "awayForm": {
     "season": 2027,
-    "games": 11,
+    "games": 12,
     "wins": 8,
-    "losses": 3,
+    "losses": 4,
     "ties": 0,
-    "avgMargin": 7.73,
+    "avgMargin": 5.42,
     "last": [
-     {
-      "date": "2026-11-03T00:30:00Z",
-      "opponent": "CHA",
-      "home": false,
-      "margin": 33.0
-     },
      {
       "date": "2026-11-05T00:00:00Z",
       "opponent": "PHI",
@@ -11029,9 +11023,15 @@
       "opponent": "WSH",
       "home": false,
       "margin": 4.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "MIA",
+      "home": false,
+      "margin": -20.0
      }
     ],
-    "lastRecord": "3-2"
+    "lastRecord": "2-3"
    },
    "homeAdvantage": 2.2
   },
@@ -11042,9 +11042,9 @@
    "startsAt": "2026-11-22T23:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": -3.56,
-   "marginSd": 13.76,
-   "homeWinProb": 0.3811,
+   "projectedHomeMargin": -2.68,
+   "marginSd": 13.75,
+   "homeWinProb": 0.4089,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -11053,7 +11053,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -11063,42 +11063,36 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -4.51,
-   "independentHomeWinProb": 0.3594,
-   "stackedHomeMargin": -3.56,
-   "stackedHomeWinProb": 0.3811,
+   "independentHomeMargin": -3.66,
+   "independentHomeWinProb": 0.3857,
+   "stackedHomeMargin": -2.68,
+   "stackedHomeWinProb": 0.4089,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 228.7,
+   "projectedTotal": 229.6,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -0.77,
-    "sd": 2.76,
-    "rank": 18
+    "rating": 0.1,
+    "sd": 2.72,
+    "rank": 16
    },
    "awayRating": {
-    "rating": 5.94,
-    "sd": 2.67,
-    "rank": 5
+    "rating": 5.95,
+    "sd": 2.69,
+    "rank": 4
    },
    "homeForm": {
     "season": 2027,
-    "games": 12,
-    "wins": 6,
+    "games": 13,
+    "wins": 7,
     "losses": 6,
     "ties": 0,
-    "avgMargin": -2.92,
+    "avgMargin": -1.15,
     "last": [
-     {
-      "date": "2026-11-05T03:30:00Z",
-      "opponent": "LAC",
-      "home": false,
-      "margin": 1.0
-     },
      {
       "date": "2026-11-06T03:00:00Z",
       "opponent": "GS",
@@ -11122,6 +11116,12 @@
       "opponent": "CLE",
       "home": true,
       "margin": 12.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "DET",
+      "home": true,
+      "margin": 20.0
      }
     ],
     "lastRecord": "4-1"
@@ -11176,9 +11176,9 @@
    "startsAt": "2026-11-23T00:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": -3.39,
+   "projectedHomeMargin": -3.38,
    "marginSd": 13.75,
-   "homeWinProb": 0.3923,
+   "homeWinProb": 0.3926,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -11187,7 +11187,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -11198,25 +11198,25 @@
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
    "independentHomeMargin": -2.76,
-   "independentHomeWinProb": 0.4142,
-   "stackedHomeMargin": -3.39,
-   "stackedHomeWinProb": 0.3923,
+   "independentHomeWinProb": 0.4141,
+   "stackedHomeMargin": -3.38,
+   "stackedHomeWinProb": 0.3926,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 226.1,
+   "projectedTotal": 226.4,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -6.43,
-    "sd": 2.72,
-    "rank": 25
+    "rating": -6.47,
+    "sd": 2.73,
+    "rank": 26
    },
    "awayRating": {
-    "rating": -1.48,
-    "sd": 2.73,
+    "rating": -1.51,
+    "sd": 2.74,
     "rank": 21
    },
    "homeForm": {
@@ -11310,9 +11310,9 @@
    "startsAt": "2026-11-23T00:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": -6.93,
-   "marginSd": 13.81,
-   "homeWinProb": 0.2855,
+   "projectedHomeMargin": -5.89,
+   "marginSd": 13.79,
+   "homeWinProb": 0.3143,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -11321,7 +11321,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -11331,42 +11331,36 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -6.68,
-   "independentHomeWinProb": 0.2989,
-   "stackedHomeMargin": -6.93,
-   "stackedHomeWinProb": 0.2855,
+   "independentHomeMargin": -5.69,
+   "independentHomeWinProb": 0.3254,
+   "stackedHomeMargin": -5.89,
+   "stackedHomeWinProb": 0.3143,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 235.9,
+   "projectedTotal": 235.7,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -6.46,
-    "sd": 2.81,
-    "rank": 26
+    "rating": -5.41,
+    "sd": 2.77,
+    "rank": 24
    },
    "awayRating": {
-    "rating": 2.41,
-    "sd": 2.83,
+    "rating": 2.47,
+    "sd": 2.8,
     "rank": 10
    },
    "homeForm": {
     "season": 2027,
-    "games": 11,
-    "wins": 2,
+    "games": 12,
+    "wins": 3,
     "losses": 9,
     "ties": 0,
-    "avgMargin": -13.36,
+    "avgMargin": -11.33,
     "last": [
-     {
-      "date": "2026-11-03T00:30:00Z",
-      "opponent": "PHI",
-      "home": false,
-      "margin": -19.0
-     },
      {
       "date": "2026-11-05T00:30:00Z",
       "opponent": "NY",
@@ -11390,24 +11384,24 @@
       "opponent": "ATL",
       "home": true,
       "margin": 8.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "MIN",
+      "home": false,
+      "margin": 11.0
      }
     ],
-    "lastRecord": "1-4"
+    "lastRecord": "2-3"
    },
    "awayForm": {
     "season": 2027,
-    "games": 10,
-    "wins": 6,
+    "games": 11,
+    "wins": 7,
     "losses": 4,
     "ties": 0,
-    "avgMargin": 1.2,
+    "avgMargin": 1.82,
     "last": [
-     {
-      "date": "2026-11-03T02:00:00Z",
-      "opponent": "POR",
-      "home": true,
-      "margin": -8.0
-     },
      {
       "date": "2026-11-05T02:00:00Z",
       "opponent": "TOR",
@@ -11431,9 +11425,15 @@
       "opponent": "MEM",
       "home": false,
       "margin": 5.0
+     },
+     {
+      "date": "2026-11-15T00:00:00Z",
+      "opponent": "NO",
+      "home": false,
+      "margin": 8.0
      }
     ],
-    "lastRecord": "3-2"
+    "lastRecord": "4-1"
    },
    "homeAdvantage": 2.2
   },
@@ -11444,9 +11444,9 @@
    "startsAt": "2026-11-23T00:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": -2.63,
-   "marginSd": 13.75,
-   "homeWinProb": 0.4102,
+   "projectedHomeMargin": -2.41,
+   "marginSd": 13.74,
+   "homeWinProb": 0.417,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -11455,7 +11455,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -11465,27 +11465,27 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -3.68,
-   "independentHomeWinProb": 0.3851,
-   "stackedHomeMargin": -2.63,
-   "stackedHomeWinProb": 0.4102,
+   "independentHomeMargin": -3.46,
+   "independentHomeWinProb": 0.391,
+   "stackedHomeMargin": -2.41,
+   "stackedHomeWinProb": 0.417,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 231.9,
+   "projectedTotal": 232.5,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -7.11,
-    "sd": 2.72,
+    "rating": -7.1,
+    "sd": 2.73,
     "rank": 28
    },
    "awayRating": {
-    "rating": -1.23,
-    "sd": 2.77,
-    "rank": 19
+    "rating": -1.44,
+    "sd": 2.73,
+    "rank": 20
    },
    "homeForm": {
     "season": 2027,
@@ -11530,18 +11530,12 @@
    },
    "awayForm": {
     "season": 2027,
-    "games": 12,
+    "games": 13,
     "wins": 7,
-    "losses": 5,
+    "losses": 6,
     "ties": 0,
-    "avgMargin": 1.0,
+    "avgMargin": 0.15,
     "last": [
-     {
-      "date": "2026-11-05T02:30:00Z",
-      "opponent": "SA",
-      "home": false,
-      "margin": -1.0
-     },
      {
       "date": "2026-11-07T01:00:00Z",
       "opponent": "UTAH",
@@ -11565,6 +11559,12 @@
       "opponent": "MIN",
       "home": false,
       "margin": -39.0
+     },
+     {
+      "date": "2026-11-15T00:30:00Z",
+      "opponent": "CLE",
+      "home": false,
+      "margin": -10.0
      }
     ],
     "lastRecord": "3-2"
@@ -11578,9 +11578,9 @@
    "startsAt": "2026-11-23T01:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 11.23,
+   "projectedHomeMargin": 11.26,
    "marginSd": 13.74,
-   "homeWinProb": 0.8174,
+   "homeWinProb": 0.8179,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -11589,7 +11589,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -11599,26 +11599,26 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 11.93,
-   "independentHomeWinProb": 0.8217,
-   "stackedHomeMargin": 11.23,
-   "stackedHomeWinProb": 0.8174,
+   "independentHomeMargin": 11.97,
+   "independentHomeWinProb": 0.8224,
+   "stackedHomeMargin": 11.26,
+   "stackedHomeWinProb": 0.8179,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 220.5,
+   "projectedTotal": 220.8,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 6.05,
-    "sd": 2.7,
-    "rank": 4
+    "rating": 6.09,
+    "sd": 2.72,
+    "rank": 3
    },
    "awayRating": {
     "rating": -3.69,
-    "sd": 2.72,
+    "sd": 2.73,
     "rank": 23
    },
    "homeForm": {
@@ -11712,9 +11712,9 @@
    "startsAt": "2026-11-23T01:30:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": -0.6,
+   "projectedHomeMargin": -0.64,
    "marginSd": 13.77,
-   "homeWinProb": 0.4755,
+   "homeWinProb": 0.4742,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -11723,7 +11723,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -11733,26 +11733,26 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -2.5,
-   "independentHomeWinProb": 0.423,
-   "stackedHomeMargin": -0.6,
-   "stackedHomeWinProb": 0.4755,
+   "independentHomeMargin": -2.52,
+   "independentHomeWinProb": 0.4227,
+   "stackedHomeMargin": -0.64,
+   "stackedHomeWinProb": 0.4742,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 220.7,
+   "projectedTotal": 220.9,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 1.87,
-    "sd": 2.71,
-    "rank": 11
+    "rating": 1.88,
+    "sd": 2.73,
+    "rank": 12
    },
    "awayRating": {
-    "rating": 6.57,
-    "sd": 2.75,
+    "rating": 6.59,
+    "sd": 2.76,
     "rank": 2
    },
    "homeForm": {
@@ -11846,9 +11846,9 @@
    "startsAt": "2026-11-24T00:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 0.51,
-   "marginSd": 13.79,
-   "homeWinProb": 0.5136,
+   "projectedHomeMargin": 0.02,
+   "marginSd": 13.78,
+   "homeWinProb": 0.4969,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -11857,7 +11857,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -11867,27 +11867,27 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -0.6,
-   "independentHomeWinProb": 0.486,
-   "stackedHomeMargin": 0.51,
-   "stackedHomeWinProb": 0.5136,
+   "independentHomeMargin": -1.11,
+   "independentHomeWinProb": 0.4697,
+   "stackedHomeMargin": 0.02,
+   "stackedHomeWinProb": 0.4969,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 223.4,
+   "projectedTotal": 223.9,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -3.29,
-    "sd": 2.77,
+    "rating": -3.34,
+    "sd": 2.79,
     "rank": 22
    },
    "awayRating": {
-    "rating": -0.49,
-    "sd": 2.76,
-    "rank": 16
+    "rating": -0.04,
+    "sd": 2.72,
+    "rank": 17
    },
    "homeForm": {
     "season": 2027,
@@ -11932,18 +11932,12 @@
    },
    "awayForm": {
     "season": 2027,
-    "games": 12,
-    "wins": 8,
+    "games": 13,
+    "wins": 9,
     "losses": 4,
     "ties": 0,
-    "avgMargin": 8.08,
+    "avgMargin": 8.92,
     "last": [
-     {
-      "date": "2026-11-05T01:00:00Z",
-      "opponent": "IND",
-      "home": true,
-      "margin": -4.0
-     },
      {
       "date": "2026-11-07T01:00:00Z",
       "opponent": "OKC",
@@ -11967,9 +11961,15 @@
       "opponent": "NO",
       "home": false,
       "margin": 31.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "BKN",
+      "home": true,
+      "margin": 19.0
      }
     ],
-    "lastRecord": "2-3"
+    "lastRecord": "3-2"
    },
    "homeAdvantage": 2.2
   },
@@ -11980,9 +11980,9 @@
    "startsAt": "2026-11-24T00:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": -0.8,
+   "projectedHomeMargin": -0.79,
    "marginSd": 13.77,
-   "homeWinProb": 0.4727,
+   "homeWinProb": 0.4732,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -11991,7 +11991,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -12001,27 +12001,27 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -1.21,
-   "independentHomeWinProb": 0.466,
-   "stackedHomeMargin": -0.8,
-   "stackedHomeWinProb": 0.4727,
+   "independentHomeMargin": -1.2,
+   "independentHomeWinProb": 0.4663,
+   "stackedHomeMargin": -0.79,
+   "stackedHomeWinProb": 0.4732,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 224.4,
+   "projectedTotal": 224.6,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 0.7,
-    "sd": 2.71,
+    "rating": 0.73,
+    "sd": 2.72,
     "rank": 14
    },
    "awayRating": {
-    "rating": 4.1,
-    "sd": 2.74,
-    "rank": 9
+    "rating": 4.12,
+    "sd": 2.76,
+    "rank": 8
    },
    "homeForm": {
     "season": 2027,
@@ -12114,9 +12114,9 @@
    "startsAt": "2026-11-24T00:30:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": -9.9,
+   "projectedHomeMargin": -9.85,
    "marginSd": 13.76,
-   "homeWinProb": 0.2187,
+   "homeWinProb": 0.2197,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -12125,7 +12125,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -12135,13 +12135,13 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -7.43,
-   "independentHomeWinProb": 0.2777,
-   "stackedHomeMargin": -9.9,
-   "stackedHomeWinProb": 0.2187,
+   "independentHomeMargin": -7.44,
+   "independentHomeWinProb": 0.2775,
+   "stackedHomeMargin": -9.85,
+   "stackedHomeWinProb": 0.2197,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 223.6,
+   "projectedTotal": 223.8,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
@@ -12149,13 +12149,13 @@
    "headline": "stacked",
    "homeRating": {
     "rating": -3.69,
-    "sd": 2.72,
+    "sd": 2.73,
     "rank": 23
    },
    "awayRating": {
-    "rating": 5.94,
-    "sd": 2.67,
-    "rank": 5
+    "rating": 5.95,
+    "sd": 2.69,
+    "rank": 4
    },
    "homeForm": {
     "season": 2027,
@@ -12248,9 +12248,9 @@
    "startsAt": "2026-11-24T00:30:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 12.12,
+   "projectedHomeMargin": 12.14,
    "marginSd": 13.75,
-   "homeWinProb": 0.8338,
+   "homeWinProb": 0.8339,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -12259,7 +12259,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -12269,26 +12269,26 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 11.8,
-   "independentHomeWinProb": 0.8193,
-   "stackedHomeMargin": 12.12,
-   "stackedHomeWinProb": 0.8338,
+   "independentHomeMargin": 11.82,
+   "independentHomeWinProb": 0.8196,
+   "stackedHomeMargin": 12.14,
+   "stackedHomeWinProb": 0.8339,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 223.8,
+   "projectedTotal": 224.1,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 1.4,
-    "sd": 2.73,
+    "rating": 1.42,
+    "sd": 2.75,
     "rank": 13
    },
    "awayRating": {
     "rating": -8.2,
-    "sd": 2.71,
+    "sd": 2.72,
     "rank": 30
    },
    "homeForm": {
@@ -12382,9 +12382,9 @@
    "startsAt": "2026-11-24T00:30:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 13.38,
-   "marginSd": 13.79,
-   "homeWinProb": 0.8576,
+   "projectedHomeMargin": 12.92,
+   "marginSd": 13.77,
+   "homeWinProb": 0.8497,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -12393,7 +12393,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -12403,42 +12403,36 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 14.12,
-   "independentHomeWinProb": 0.8614,
-   "stackedHomeMargin": 13.38,
-   "stackedHomeWinProb": 0.8576,
+   "independentHomeMargin": 13.65,
+   "independentHomeWinProb": 0.853,
+   "stackedHomeMargin": 12.92,
+   "stackedHomeWinProb": 0.8497,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 221.6,
+   "projectedTotal": 221.9,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 6.27,
-    "sd": 2.73,
-    "rank": 3
+    "rating": 5.3,
+    "sd": 2.7,
+    "rank": 5
    },
    "awayRating": {
-    "rating": -5.66,
-    "sd": 2.81,
-    "rank": 24
+    "rating": -6.15,
+    "sd": 2.77,
+    "rank": 25
    },
    "homeForm": {
     "season": 2027,
-    "games": 12,
+    "games": 13,
     "wins": 9,
-    "losses": 3,
+    "losses": 4,
     "ties": 0,
-    "avgMargin": 13.42,
+    "avgMargin": 11.54,
     "last": [
-     {
-      "date": "2026-11-03T01:00:00Z",
-      "opponent": "MIL",
-      "home": true,
-      "margin": 12.0
-     },
      {
       "date": "2026-11-05T01:30:00Z",
       "opponent": "HOU",
@@ -12462,24 +12456,24 @@
       "opponent": "DAL",
       "home": true,
       "margin": 39.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "CHI",
+      "home": true,
+      "margin": -11.0
      }
     ],
-    "lastRecord": "5-0"
+    "lastRecord": "4-1"
    },
    "awayForm": {
     "season": 2027,
-    "games": 11,
+    "games": 12,
     "wins": 3,
-    "losses": 8,
+    "losses": 9,
     "ties": 0,
-    "avgMargin": -5.09,
+    "avgMargin": -6.25,
     "last": [
-     {
-      "date": "2026-11-03T00:30:00Z",
-      "opponent": "NY",
-      "home": false,
-      "margin": -13.0
-     },
      {
       "date": "2026-11-05T00:30:00Z",
       "opponent": "CHA",
@@ -12503,6 +12497,12 @@
       "opponent": "NO",
       "home": false,
       "margin": 34.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "MEM",
+      "home": false,
+      "margin": -19.0
      }
     ],
     "lastRecord": "2-3"
@@ -12516,9 +12516,9 @@
    "startsAt": "2026-11-24T01:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": -7.43,
-   "marginSd": 13.77,
-   "homeWinProb": 0.2728,
+   "projectedHomeMargin": -6.5,
+   "marginSd": 13.75,
+   "homeWinProb": 0.2978,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -12527,7 +12527,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -12537,42 +12537,36 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -6.08,
-   "independentHomeWinProb": 0.3153,
-   "stackedHomeMargin": -7.43,
-   "stackedHomeWinProb": 0.2728,
+   "independentHomeMargin": -5.19,
+   "independentHomeWinProb": 0.3398,
+   "stackedHomeMargin": -6.5,
+   "stackedHomeWinProb": 0.2978,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 235.3,
+   "projectedTotal": 235.7,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -6.46,
-    "sd": 2.81,
-    "rank": 26
+    "rating": -5.41,
+    "sd": 2.77,
+    "rank": 24
    },
    "awayRating": {
-    "rating": 1.82,
-    "sd": 2.67,
-    "rank": 12
+    "rating": 1.97,
+    "sd": 2.63,
+    "rank": 11
    },
    "homeForm": {
     "season": 2027,
-    "games": 11,
-    "wins": 2,
+    "games": 12,
+    "wins": 3,
     "losses": 9,
     "ties": 0,
-    "avgMargin": -13.36,
+    "avgMargin": -11.33,
     "last": [
-     {
-      "date": "2026-11-03T00:30:00Z",
-      "opponent": "PHI",
-      "home": false,
-      "margin": -19.0
-     },
      {
       "date": "2026-11-05T00:30:00Z",
       "opponent": "NY",
@@ -12596,24 +12590,24 @@
       "opponent": "ATL",
       "home": true,
       "margin": 8.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "MIN",
+      "home": false,
+      "margin": 11.0
      }
     ],
-    "lastRecord": "1-4"
+    "lastRecord": "2-3"
    },
    "awayForm": {
     "season": 2027,
-    "games": 13,
-    "wins": 6,
+    "games": 14,
+    "wins": 7,
     "losses": 7,
     "ties": 0,
-    "avgMargin": 1.0,
+    "avgMargin": 1.64,
     "last": [
-     {
-      "date": "2026-11-07T00:30:00Z",
-      "opponent": "PHI",
-      "home": true,
-      "margin": 24.0
-     },
      {
       "date": "2026-11-08T01:00:00Z",
       "opponent": "NY",
@@ -12637,6 +12631,12 @@
       "opponent": "MIA",
       "home": false,
       "margin": -12.0
+     },
+     {
+      "date": "2026-11-15T00:30:00Z",
+      "opponent": "DAL",
+      "home": true,
+      "margin": 10.0
      }
     ],
     "lastRecord": "2-3"
@@ -12650,9 +12650,9 @@
    "startsAt": "2026-11-24T01:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": -4.6,
-   "marginSd": 13.78,
-   "homeWinProb": 0.3553,
+   "projectedHomeMargin": -4.64,
+   "marginSd": 13.77,
+   "homeWinProb": 0.354,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -12661,7 +12661,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -12671,10 +12671,10 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -3.62,
-   "independentHomeWinProb": 0.3871,
-   "stackedHomeMargin": -4.6,
-   "stackedHomeWinProb": 0.3553,
+   "independentHomeMargin": -3.68,
+   "independentHomeWinProb": 0.3855,
+   "stackedHomeMargin": -4.64,
+   "stackedHomeWinProb": 0.354,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
    "projectedTotal": 230.1,
@@ -12684,29 +12684,23 @@
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -6.51,
-    "sd": 2.72,
+    "rating": -6.58,
+    "sd": 2.69,
     "rank": 27
    },
    "awayRating": {
     "rating": -0.7,
-    "sd": 2.78,
-    "rank": 17
+    "sd": 2.79,
+    "rank": 18
    },
    "homeForm": {
     "season": 2027,
-    "games": 13,
+    "games": 14,
     "wins": 4,
-    "losses": 9,
+    "losses": 10,
     "ties": 0,
-    "avgMargin": -9.15,
+    "avgMargin": -9.07,
     "last": [
-     {
-      "date": "2026-11-07T01:00:00Z",
-      "opponent": "MIN",
-      "home": true,
-      "margin": -6.0
-     },
      {
       "date": "2026-11-09T02:00:00Z",
       "opponent": "LAC",
@@ -12730,6 +12724,12 @@
       "opponent": "MEM",
       "home": true,
       "margin": -31.0
+     },
+     {
+      "date": "2026-11-15T00:00:00Z",
+      "opponent": "DEN",
+      "home": true,
+      "margin": -8.0
      }
     ],
     "lastRecord": "0-5"
@@ -12784,9 +12784,9 @@
    "startsAt": "2026-11-24T01:30:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 9.48,
+   "projectedHomeMargin": 9.44,
    "marginSd": 13.78,
-   "homeWinProb": 0.7774,
+   "homeWinProb": 0.7764,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -12795,7 +12795,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -12805,27 +12805,27 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 8.71,
-   "independentHomeWinProb": 0.751,
-   "stackedHomeMargin": 9.48,
-   "stackedHomeWinProb": 0.7774,
+   "independentHomeMargin": 8.68,
+   "independentHomeWinProb": 0.7502,
+   "stackedHomeMargin": 9.44,
+   "stackedHomeWinProb": 0.7764,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 221.8,
+   "projectedTotal": 222.1,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 5.29,
-    "sd": 2.7,
+    "rating": 5.25,
+    "sd": 2.72,
     "rank": 6
    },
    "awayRating": {
     "rating": -1.23,
-    "sd": 2.8,
-    "rank": 20
+    "sd": 2.82,
+    "rank": 19
    },
    "homeForm": {
     "season": 2027,
@@ -12918,9 +12918,9 @@
    "startsAt": "2026-11-24T03:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": 14.65,
+   "projectedHomeMargin": 14.64,
    "marginSd": 13.75,
-   "homeWinProb": 0.8748,
+   "homeWinProb": 0.8745,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -12929,7 +12929,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -12939,13 +12939,13 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 13.46,
+   "independentHomeMargin": 13.45,
    "independentHomeWinProb": 0.8505,
-   "stackedHomeMargin": 14.65,
-   "stackedHomeWinProb": 0.8748,
+   "stackedHomeMargin": 14.64,
+   "stackedHomeWinProb": 0.8745,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 231.4,
+   "projectedTotal": 231.6,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
@@ -12953,12 +12953,12 @@
    "headline": "stacked",
    "homeRating": {
     "rating": 4.15,
-    "sd": 2.7,
-    "rank": 8
+    "sd": 2.71,
+    "rank": 7
    },
    "awayRating": {
-    "rating": -7.11,
-    "sd": 2.72,
+    "rating": -7.1,
+    "sd": 2.73,
     "rank": 28
    },
    "homeForm": {
@@ -13052,9 +13052,9 @@
    "startsAt": "2026-11-24T03:00:00Z",
    "neutral": 0,
    "week": 5,
-   "projectedHomeMargin": -15.19,
+   "projectedHomeMargin": -15.12,
    "marginSd": 13.73,
-   "homeWinProb": 0.1171,
+   "homeWinProb": 0.1182,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -13063,7 +13063,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -13073,26 +13073,26 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -14.84,
-   "independentHomeWinProb": 0.1248,
-   "stackedHomeMargin": -15.19,
-   "stackedHomeWinProb": 0.1171,
+   "independentHomeMargin": -14.78,
+   "independentHomeWinProb": 0.1254,
+   "stackedHomeMargin": -15.12,
+   "stackedHomeWinProb": 0.1182,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 225.8,
+   "projectedTotal": 226.0,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -7.81,
-    "sd": 2.77,
+    "rating": -7.76,
+    "sd": 2.78,
     "rank": 29
    },
    "awayRating": {
     "rating": 9.22,
-    "sd": 2.65,
+    "sd": 2.67,
     "rank": 1
    },
    "homeForm": {
@@ -13186,9 +13186,9 @@
    "startsAt": "2026-11-25T00:00:00Z",
    "neutral": 0,
    "week": 6,
-   "projectedHomeMargin": -4.01,
-   "marginSd": 13.78,
-   "homeWinProb": 0.3693,
+   "projectedHomeMargin": -3.1,
+   "marginSd": 13.77,
+   "homeWinProb": 0.3978,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -13197,7 +13197,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -13207,27 +13207,27 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -4.22,
-   "independentHomeWinProb": 0.3685,
-   "stackedHomeMargin": -4.01,
-   "stackedHomeWinProb": 0.3693,
+   "independentHomeMargin": -3.34,
+   "independentHomeWinProb": 0.395,
+   "stackedHomeMargin": -3.1,
+   "stackedHomeWinProb": 0.3978,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 219.9,
+   "projectedTotal": 220.7,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -1.48,
-    "sd": 2.73,
+    "rating": -1.51,
+    "sd": 2.74,
     "rank": 21
    },
    "awayRating": {
-    "rating": 4.94,
-    "sd": 2.78,
-    "rank": 7
+    "rating": 4.03,
+    "sd": 2.74,
+    "rank": 9
    },
    "homeForm": {
     "season": 2027,
@@ -13272,18 +13272,12 @@
    },
    "awayForm": {
     "season": 2027,
-    "games": 11,
+    "games": 12,
     "wins": 8,
-    "losses": 3,
+    "losses": 4,
     "ties": 0,
-    "avgMargin": 7.73,
+    "avgMargin": 5.42,
     "last": [
-     {
-      "date": "2026-11-03T00:30:00Z",
-      "opponent": "CHA",
-      "home": false,
-      "margin": 33.0
-     },
      {
       "date": "2026-11-05T00:00:00Z",
       "opponent": "PHI",
@@ -13307,9 +13301,15 @@
       "opponent": "WSH",
       "home": false,
       "margin": 4.0
+     },
+     {
+      "date": "2026-11-15T01:00:00Z",
+      "opponent": "MIA",
+      "home": false,
+      "margin": -20.0
      }
     ],
-    "lastRecord": "3-2"
+    "lastRecord": "2-3"
    },
    "homeAdvantage": 2.2
   },
@@ -13320,9 +13320,9 @@
    "startsAt": "2026-11-25T01:00:00Z",
    "neutral": 0,
    "week": 6,
-   "projectedHomeMargin": -11.1,
+   "projectedHomeMargin": -11.14,
    "marginSd": 13.77,
-   "homeWinProb": 0.1864,
+   "homeWinProb": 0.1856,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -13331,7 +13331,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -13341,26 +13341,26 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": -10.81,
-   "independentHomeWinProb": 0.1989,
-   "stackedHomeMargin": -11.1,
-   "stackedHomeWinProb": 0.1864,
+   "independentHomeMargin": -10.86,
+   "independentHomeWinProb": 0.1978,
+   "stackedHomeMargin": -11.14,
+   "stackedHomeWinProb": 0.1856,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 223.4,
+   "projectedTotal": 223.7,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": -6.43,
-    "sd": 2.72,
-    "rank": 25
+    "rating": -6.47,
+    "sd": 2.73,
+    "rank": 26
    },
    "awayRating": {
-    "rating": 6.57,
-    "sd": 2.75,
+    "rating": 6.59,
+    "sd": 2.76,
     "rank": 2
    },
    "homeForm": {
@@ -13454,9 +13454,9 @@
    "startsAt": "2026-11-25T03:00:00Z",
    "neutral": 0,
    "week": 6,
-   "projectedHomeMargin": 5.76,
-   "marginSd": 13.8,
-   "homeWinProb": 0.6835,
+   "projectedHomeMargin": 6.06,
+   "marginSd": 13.78,
+   "homeWinProb": 0.6917,
    "tieProb": 0.0,
    "marketHomeSpread": null,
    "marketHomePrice": null,
@@ -13465,7 +13465,7 @@
    "marketAwayMl": null,
    "marketTotal": null,
    "book": "ESPN multi-book median",
-   "lineObservedAt": "2026-11-15T07:09:58Z",
+   "lineObservedAt": "2026-11-15T15:52:20Z",
    "homeCoverProb": null,
    "awayCoverProb": null,
    "pushProb": null,
@@ -13475,42 +13475,36 @@
    "anchoredHomeMargin": null,
    "anchoredHomeCoverProb": null,
    "marketHomeWinProb": null,
-   "independentHomeMargin": 5.84,
-   "independentHomeWinProb": 0.6781,
-   "stackedHomeMargin": 5.76,
-   "stackedHomeWinProb": 0.6835,
+   "independentHomeMargin": 6.11,
+   "independentHomeWinProb": 0.6845,
+   "stackedHomeMargin": 6.06,
+   "stackedHomeWinProb": 0.6917,
    "stackedMarketHomeWinProb": null,
    "stackedMarketHomeMargin": null,
-   "projectedTotal": 230.7,
+   "projectedTotal": 231.0,
    "totalEdgePts": null,
    "totalLean": null,
    "totalEligible": true,
    "totalThreshold": 6.0,
    "headline": "stacked",
    "homeRating": {
-    "rating": 2.41,
-    "sd": 2.83,
+    "rating": 2.47,
+    "sd": 2.8,
     "rank": 10
    },
    "awayRating": {
-    "rating": -1.23,
-    "sd": 2.77,
-    "rank": 19
+    "rating": -1.44,
+    "sd": 2.73,
+    "rank": 20
    },
    "homeForm": {
     "season": 2027,
-    "games": 10,
-    "wins": 6,
+    "games": 11,
+    "wins": 7,
     "losses": 4,
     "ties": 0,
-    "avgMargin": 1.2,
+    "avgMargin": 1.82,
     "last": [
-     {
-      "date": "2026-11-03T02:00:00Z",
-      "opponent": "POR",
-      "home": true,
-      "margin": -8.0
-     },
      {
       "date": "2026-11-05T02:00:00Z",
       "opponent": "TOR",
@@ -13534,24 +13528,24 @@
       "opponent": "MEM",
       "home": false,
       "margin": 5.0
+     },
+     {
+      "date": "2026-11-15T00:00:00Z",
+      "opponent": "NO",
+      "home": false,
+      "margin": 8.0
      }
     ],
-    "lastRecord": "3-2"
+    "lastRecord": "4-1"
    },
    "awayForm": {
     "season": 2027,
-    "games": 12,
+    "games": 13,
     "wins": 7,
-    "losses": 5,
+    "losses": 6,
     "ties": 0,
-    "avgMargin": 1.0,
+    "avgMargin": 0.15,
     "last": [
-     {
-      "date": "2026-11-05T02:30:00Z",
-      "opponent": "SA",
-      "home": false,
-      "margin": -1.0
-     },
      {
       "date": "2026-11-07T01:00:00Z",
       "opponent": "UTAH",
@@ -13575,6 +13569,12 @@
       "opponent": "MIN",
       "home": false,
       "margin": -39.0
+     },
+     {
+      "date": "2026-11-15T00:30:00Z",
+      "opponent": "CLE",
+      "home": false,
+      "margin": -10.0
      }
     ],
     "lastRecord": "3-2"
@@ -13639,34 +13639,34 @@
      "starter_diff",
      "neutral"
     ],
-    "n": 13035,
+    "n": 13040,
     "ridge": {
-     "ind_mean": 1.016,
-     "ind_sd": -1.1677,
-     "rest_diff": 0.3303,
-     "home_b2b": -2.2031,
-     "away_b2b": 1.3857,
-     "home_games7": -0.4718,
-     "away_games7": 0.4695,
+     "ind_mean": 1.015,
+     "ind_sd": -1.152,
+     "rest_diff": 0.3317,
+     "home_b2b": -2.1503,
+     "away_b2b": 1.3525,
+     "home_games7": -0.4675,
+     "away_games7": 0.4672,
      "starter_diff": 0.0,
-     "neutral": -1.4891
+     "neutral": -1.4908
     },
-    "ridgeIntercept": 15.9525,
+    "ridgeIntercept": 15.7347,
     "logit": {
-     "ind_mean": 0.1351,
-     "ind_sd": -0.0917,
-     "rest_diff": 0.0433,
-     "home_b2b": -0.2517,
-     "away_b2b": 0.1654,
-     "home_games7": -0.0504,
-     "away_games7": 0.0578,
+     "ind_mean": 0.1349,
+     "ind_sd": -0.0901,
+     "rest_diff": 0.0437,
+     "home_b2b": -0.2453,
+     "away_b2b": 0.1605,
+     "home_games7": -0.0498,
+     "away_games7": 0.0576,
      "starter_diff": 0.0,
-     "neutral": -0.0036
+     "neutral": -0.0038
     },
-    "logitIntercept": 1.2243,
-    "trainMae": 10.6651,
-    "trainLogLoss": 0.6207,
-    "empiricalResiduals": 13035
+    "logitIntercept": 1.2026,
+    "trainMae": 10.6673,
+    "trainLogLoss": 0.6208,
+    "empiricalResiduals": 13040
    },
    "stkm": {
     "features": [
@@ -13682,44 +13682,44 @@
      "market_margin",
      "mkt_logit"
     ],
-    "n": 12996,
+    "n": 13001,
     "ridge": {
-     "ind_mean": -0.0347,
-     "ind_sd": 0.756,
-     "rest_diff": -0.1626,
-     "home_b2b": -0.8159,
-     "away_b2b": 0.0009,
-     "home_games7": -0.3357,
-     "away_games7": 0.52,
+     "ind_mean": -0.0345,
+     "ind_sd": 0.7818,
+     "rest_diff": -0.1603,
+     "home_b2b": -0.7524,
+     "away_b2b": -0.0332,
+     "home_games7": -0.3295,
+     "away_games7": 0.5166,
      "starter_diff": 0.0,
-     "neutral": -0.9455,
-     "market_margin": 0.6617,
-     "mkt_logit": 2.6324
+     "neutral": -0.9445,
+     "market_margin": 0.6512,
+     "mkt_logit": 2.7013
     },
-    "ridgeIntercept": -10.7817,
+    "ridgeIntercept": -11.1407,
     "logit": {
      "ind_mean": -0.0069,
-     "ind_sd": 0.2244,
+     "ind_sd": 0.2269,
      "rest_diff": -0.0228,
-     "home_b2b": -0.0686,
-     "away_b2b": -0.014,
-     "home_games7": -0.0348,
-     "away_games7": 0.0684,
+     "home_b2b": -0.0605,
+     "away_b2b": -0.0193,
+     "home_games7": -0.0343,
+     "away_games7": 0.0683,
      "starter_diff": 0.0,
-     "neutral": 0.0929,
-     "market_margin": 0.0226,
-     "mkt_logit": 0.8651
+     "neutral": 0.0903,
+     "market_margin": 0.0211,
+     "mkt_logit": 0.8744
     },
-    "logitIntercept": -3.1556,
-    "trainMae": 10.2819,
-    "trainLogLoss": 0.5985,
-    "empiricalResiduals": 12996
+    "logitIntercept": -3.19,
+    "trainMae": 10.2851,
+    "trainLogLoss": 0.5987,
+    "empiricalResiduals": 13001
    }
   },
   "headline": "stacked",
   "empiricalResiduals": 12852,
   "empiricalMargin": true
  },
- "forecastGeneratedAt": "2026-11-15T07:10:03Z",
+ "forecastGeneratedAt": "2026-11-15T15:52:25Z",
  "ledgerRecorded": 36
 }
