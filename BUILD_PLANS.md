@@ -109,6 +109,12 @@ alone shrinks to nothing, so this is the only route to starter value.
 
 ## Shipped (most recent first)
 
+- 2026-11-15: bet review, 8-15 November (`docs/bet-review-2026-11-15.md`). Tracker 24-32,
+  -9.6u; bets that followed the card 10-19. Tested early-season, big-underdog and
+  repeat-miss explanations against history: none holds. `docs/tested-hypotheses.json` now
+  lists every tested idea with its sample and verdict; read it before proposing a filter.
+  Scripts in `scripts/research/`. Open, untested: key absences, roster turnover, CLV.
+
 - 2026-11-14: NBA paused on the daily card (`PAUSED_SPORTS` in `dirtiq_model/card/build.py`)
   at the owner's request until its record gives a better feel. Still forecast, on Tonight
   and in the ledger. Re-add by emptying the tuple.

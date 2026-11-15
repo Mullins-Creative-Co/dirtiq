@@ -1,0 +1,527 @@
+{
+ "asOf": "2026-11-15",
+ "purpose": "Hypotheses about why spread picks miss, each tested against closing lines in data/sports/<sport>-backtest-predictions.csv. Read before proposing a filter or feature: a rejected entry should not be re-tested on the same data, and no entry here is evidence of an edge.",
+ "breakEvenCoverRate": 0.524,
+ "hypotheses": [
+  {
+   "id": "market-beats-model",
+   "claim": "The closing spread is a better margin forecast than the model",
+   "verdict": "confirmed",
+   "evidence": {
+    "maeModelVsMarket": {
+     "nba": [
+      10.85,
+      10.44
+     ],
+     "ncaab": [
+      9.08,
+      8.81
+     ],
+     "nfl": [
+      10.16,
+      9.79
+     ],
+     "ncaaf": [
+      13.14,
+      12.26
+     ]
+    },
+    "blendWeightMarket": [
+     0.94,
+     1.03
+    ],
+    "blendWeightModel": [
+     -0.01,
+     0.08
+    ]
+   },
+   "script": "scripts/research/market_miss.py"
+  },
+  {
+   "id": "model-compressed",
+   "claim": "Model margins are squeezed toward zero, so its leans are mostly underdogs",
+   "verdict": "confirmed",
+   "evidence": {
+    "modelOnFavoriteSideOfLinePct": [
+     19,
+     45
+    ]
+   },
+   "script": "scripts/research/market_miss.py"
+  },
+  {
+   "id": "linear-correction",
+   "claim": "Correcting the model for spread size, recent form, rest and early-season games makes its picks profitable",
+   "verdict": "rejected",
+   "evidence": {
+    "holdoutCoverPct": {
+     "nba": [
+      50.3,
+      49.8
+     ],
+     "ncaab": [
+      49.8,
+      49.5
+     ],
+     "nfl": [
+      45.7,
+      47.8
+     ],
+     "ncaaf": [
+      48.7,
+      50.0
+     ]
+    }
+   },
+   "script": "scripts/research/market_miss.py"
+  },
+  {
+   "id": "early-season-ncaab",
+   "claim": "NCAAB picks are worse while teams have played fewer than 6 games",
+   "verdict": "rejected",
+   "evidence": {
+    "coverPctByGamesPlayed": {
+     "0-2": 51.2,
+     "3-5": 52.4,
+     "6-9": 50.4,
+     "10+": 51.0
+    },
+    "n": 10610
+   },
+   "script": "scripts/research/early_season_and_spread_size.py"
+  },
+  {
+   "id": "big-underdogs-ncaab",
+   "claim": "NCAAB picks on underdogs of 15 or more lose more often",
+   "verdict": "rejected",
+   "evidence": {
+    "earlyCoverPct": 53.1,
+    "earlyN": 951,
+    "laterCoverPct": 50.2,
+    "laterN": 711,
+    "marketWideDogs15PlusCoverPct": [
+     51.6,
+     50.8
+    ]
+   },
+   "script": "scripts/research/early_season_and_spread_size.py"
+  },
+  {
+   "id": "repeat-miss",
+   "claim": "A pick on a team the model missed by 15+ in its last game keeps losing",
+   "verdict": "rejected",
+   "evidence": {
+    "ncaabCoverPct": 51.1,
+    "ncaabN": 1179,
+    "ncaafCoverPct": 47.3,
+    "ncaafN": 806,
+    "ncaafAllPicksCoverPct": 48.6
+   },
+   "script": "scripts/research/repeat_miss.py"
+  },
+  {
+   "id": "market-aware-agreement",
+   "claim": "Picks the market-aware model agrees with cover more often",
+   "verdict": "rejected",
+   "evidence": {
+    "ncaabCoverPct": [
+     51.1,
+     53.7
+    ],
+    "nflCoverPct": [
+     49.3,
+     49.8
+    ]
+   },
+   "note": "tested 2026-11-13"
+  },
+  {
+   "id": "simple-totals",
+   "claim": "A team scoring-pace model beats closing totals",
+   "verdict": "rejected",
+   "evidence": {
+    "leanHitPct": {
+     "nba": 49.9,
+     "ncaab": 51.4,
+     "nfl": 46.4,
+     "ncaaf": 50.6
+    }
+   },
+   "script": "scripts/research/totals_vs_close.py"
+  },
+  {
+   "id": "ncaaf-unders",
+   "claim": "NCAAF unders when the pace model is 4+ points under the total",
+   "verdict": "open",
+   "evidence": {
+    "hitPct": 54.9,
+    "n": 729
+   },
+   "note": "One of roughly 30 slices looked at; needs an out-of-sample season before anyone stakes it."
+  },
+  {
+   "id": "key-absence",
+   "claim": "Picks lose more when a starter or quarterback on the picked side is out",
+   "verdict": "untested",
+   "note": "No injury or lineup data in the model. The owner's three largest college losses each had a recorded key absence on the bet side. Needs the data in BUILD_PLANS 'Injuries and lineups'."
+  },
+  {
+   "id": "roster-continuity",
+   "claim": "Early-season NCAAB ratings are wrong for teams with heavy transfer turnover",
+   "verdict": "untested",
+   "note": "Ratings carry last season's team forward. No returning-minutes data yet."
+  },
+  {
+   "id": "closing-line-value",
+   "claim": "Bets placed at a better number than the close win more often",
+   "verdict": "untested",
+   "note": "The tracker does not store the closing line beside each bet."
+  }
+ ],
+ "cardPicksBetByOwner": {
+  "note": "Graded card picks the owner bet, 2026-11-12 to 2026-11-15. Sample is far too small to fit anything to; kept so later reviews can append.",
+  "rows": [
+   {
+    "sport": "ncaab",
+    "betSide": "UL Monroe Warhawks",
+    "betLine": 31.5,
+    "cardLine": 32.5,
+    "relation": "with card",
+    "modelEdgePts": 10.47,
+    "edgeRatio": 3.49,
+    "marketAwareAgrees": true,
+    "result": "lost"
+   },
+   {
+    "sport": "ncaab",
+    "betSide": "Denver Pioneers",
+    "betLine": 7.5,
+    "cardLine": 7.5,
+    "relation": "with card",
+    "modelEdgePts": 7.71,
+    "edgeRatio": 2.57,
+    "marketAwareAgrees": true,
+    "result": "lost"
+   },
+   {
+    "sport": "ncaaf",
+    "betSide": "Fresno State Bulldogs",
+    "betLine": 10.0,
+    "cardLine": 9.5,
+    "relation": "with card",
+    "modelEdgePts": 3.21,
+    "edgeRatio": 1.07,
+    "marketAwareAgrees": true,
+    "result": "won"
+   },
+   {
+    "sport": "ncaaf",
+    "betSide": "Ole Miss Rebels",
+    "betLine": 2.5,
+    "cardLine": 2.5,
+    "relation": "with card",
+    "modelEdgePts": 5.89,
+    "edgeRatio": 1.963,
+    "marketAwareAgrees": false,
+    "result": "lost"
+   },
+   {
+    "sport": "ncaab",
+    "betSide": "Purdue Fort Wayne Mastodons",
+    "betLine": -3.5,
+    "cardLine": 3.5,
+    "relation": "against card",
+    "modelEdgePts": 7.97,
+    "edgeRatio": 2.657,
+    "marketAwareAgrees": true,
+    "result": "won"
+   },
+   {
+    "sport": "nfl",
+    "betSide": "Buffalo Bills",
+    "betLine": -10.5,
+    "cardLine": -7.5,
+    "relation": "with card",
+    "modelEdgePts": 2.97,
+    "edgeRatio": 1.485,
+    "marketAwareAgrees": true,
+    "result": "won"
+   },
+   {
+    "sport": "nfl",
+    "betSide": "Jacksonville Jaguars",
+    "betLine": -10.5,
+    "cardLine": -10.5,
+    "relation": "with card",
+    "modelEdgePts": 2.05,
+    "edgeRatio": 1.025,
+    "marketAwareAgrees": true,
+    "result": "won"
+   },
+   {
+    "sport": "ncaab",
+    "betSide": "Saint Louis Billikens",
+    "betLine": -6.5,
+    "cardLine": -6.5,
+    "relation": "with card",
+    "modelEdgePts": 7.07,
+    "edgeRatio": 2.357,
+    "marketAwareAgrees": true,
+    "result": "lost"
+   },
+   {
+    "sport": "ncaab",
+    "betSide": "Rhode Island Rams",
+    "betLine": -7.5,
+    "cardLine": -7.5,
+    "relation": "with card",
+    "modelEdgePts": 7.4,
+    "edgeRatio": 2.467,
+    "marketAwareAgrees": true,
+    "result": "lost"
+   },
+   {
+    "sport": "ncaab",
+    "betSide": "UL Monroe Warhawks",
+    "betLine": 31.5,
+    "cardLine": 32.5,
+    "relation": "with card",
+    "modelEdgePts": 10.47,
+    "edgeRatio": 3.49,
+    "marketAwareAgrees": true,
+    "result": "lost"
+   },
+   {
+    "sport": "ncaab",
+    "betSide": "Jacksonville State Gamecocks",
+    "betLine": 2.5,
+    "cardLine": 3.5,
+    "relation": "with card",
+    "modelEdgePts": 8.02,
+    "edgeRatio": 2.673,
+    "marketAwareAgrees": true,
+    "result": "won"
+   },
+   {
+    "sport": "ncaab",
+    "betSide": "Southern Utah Thunderbirds",
+    "betLine": 18.5,
+    "cardLine": 18.5,
+    "relation": "with card",
+    "modelEdgePts": 10.89,
+    "edgeRatio": 3.63,
+    "marketAwareAgrees": true,
+    "result": "lost"
+   },
+   {
+    "sport": "ncaab",
+    "betSide": "Army Black Knights",
+    "betLine": 6.5,
+    "cardLine": 7.5,
+    "relation": "with card",
+    "modelEdgePts": 11.4,
+    "edgeRatio": 3.8,
+    "marketAwareAgrees": true,
+    "result": "won"
+   },
+   {
+    "sport": "nba",
+    "betSide": "Cleveland Cavaliers",
+    "betLine": 2.5,
+    "cardLine": 2.5,
+    "relation": "with card",
+    "modelEdgePts": 3.29,
+    "edgeRatio": 1.097,
+    "marketAwareAgrees": false,
+    "result": "lost"
+   },
+   {
+    "sport": "nba",
+    "betSide": "Golden State Warriors",
+    "betLine": 11.5,
+    "cardLine": 11.5,
+    "relation": "with card",
+    "modelEdgePts": 4.7,
+    "edgeRatio": 1.567,
+    "marketAwareAgrees": false,
+    "result": "lost"
+   },
+   {
+    "sport": "ncaaf",
+    "betSide": "Houston Cougars",
+    "betLine": -8.5,
+    "cardLine": -8.5,
+    "relation": "with card",
+    "modelEdgePts": 5.31,
+    "edgeRatio": 1.77,
+    "marketAwareAgrees": true,
+    "result": "lost"
+   },
+   {
+    "sport": "ncaab",
+    "betSide": "Utah State Aggies",
+    "betLine": -13.5,
+    "cardLine": -13.5,
+    "relation": "with card",
+    "modelEdgePts": 8.0,
+    "edgeRatio": 2.667,
+    "marketAwareAgrees": true,
+    "result": "won"
+   },
+   {
+    "sport": "ncaab",
+    "betSide": "Northwestern Wildcats",
+    "betLine": 1.5,
+    "cardLine": 1.5,
+    "relation": "with card",
+    "modelEdgePts": 8.1,
+    "edgeRatio": 2.7,
+    "marketAwareAgrees": true,
+    "result": "lost"
+   },
+   {
+    "sport": "ncaab",
+    "betSide": "Georgia Southern Eagles",
+    "betLine": 23.5,
+    "cardLine": 23.5,
+    "relation": "with card",
+    "modelEdgePts": 9.09,
+    "edgeRatio": 3.03,
+    "marketAwareAgrees": true,
+    "result": "won"
+   },
+   {
+    "sport": "ncaab",
+    "betSide": "George Washington Revolutionaries",
+    "betLine": -12.5,
+    "cardLine": -12.5,
+    "relation": "with card",
+    "modelEdgePts": 9.25,
+    "edgeRatio": 3.083,
+    "marketAwareAgrees": true,
+    "result": "won"
+   },
+   {
+    "sport": "ncaab",
+    "betSide": "Tennessee State Tigers",
+    "betLine": 29.5,
+    "cardLine": 29.5,
+    "relation": "with card",
+    "modelEdgePts": 9.55,
+    "edgeRatio": 3.183,
+    "marketAwareAgrees": true,
+    "result": "won"
+   },
+   {
+    "sport": "ncaab",
+    "betSide": "Idaho Vandals",
+    "betLine": -1.5,
+    "cardLine": -1.5,
+    "relation": "with card",
+    "modelEdgePts": 10.57,
+    "edgeRatio": 3.523,
+    "marketAwareAgrees": true,
+    "result": "lost"
+   },
+   {
+    "sport": "ncaaf",
+    "betSide": "South Florida Bulls",
+    "betLine": 4.0,
+    "cardLine": 3.5,
+    "relation": "with card",
+    "modelEdgePts": 3.59,
+    "edgeRatio": 1.197,
+    "marketAwareAgrees": false,
+    "result": "lost"
+   },
+   {
+    "sport": "ncaaf",
+    "betSide": "UL Monroe Warhawks",
+    "betLine": -10.5,
+    "cardLine": -10.5,
+    "relation": "against card",
+    "modelEdgePts": 3.34,
+    "edgeRatio": 1.113,
+    "marketAwareAgrees": true,
+    "result": "won"
+   },
+   {
+    "sport": "ncaab",
+    "betSide": "UTEP Miners",
+    "betLine": -5.5,
+    "cardLine": -4.5,
+    "relation": "with card",
+    "modelEdgePts": 7.2,
+    "edgeRatio": 2.4,
+    "marketAwareAgrees": true,
+    "result": "lost"
+   },
+   {
+    "sport": "ncaab",
+    "betSide": "Purdue Fort Wayne Mastodons",
+    "betLine": 3.5,
+    "cardLine": 3.5,
+    "relation": "with card",
+    "modelEdgePts": 8.27,
+    "edgeRatio": 2.757,
+    "marketAwareAgrees": true,
+    "result": "lost"
+   },
+   {
+    "sport": "nba",
+    "betSide": "Toronto Raptors",
+    "betLine": 9.5,
+    "cardLine": 9.5,
+    "relation": "with card",
+    "modelEdgePts": 7.06,
+    "edgeRatio": 2.353,
+    "marketAwareAgrees": false,
+    "result": "lost"
+   },
+   {
+    "sport": "nba",
+    "betSide": "Detroit Pistons",
+    "betLine": -10.5,
+    "cardLine": -10.5,
+    "relation": "with card",
+    "modelEdgePts": 3.08,
+    "edgeRatio": 1.027,
+    "marketAwareAgrees": true,
+    "result": "lost"
+   },
+   {
+    "sport": "ncaab",
+    "betSide": "Sacred Heart Pioneers",
+    "betLine": -6.5,
+    "cardLine": -4.5,
+    "relation": "with card",
+    "modelEdgePts": 8.65,
+    "edgeRatio": 2.883,
+    "marketAwareAgrees": true,
+    "result": "lost"
+   },
+   {
+    "sport": "ncaab",
+    "betSide": "West Florida Argonauts",
+    "betLine": 5.5,
+    "cardLine": 7.5,
+    "relation": "with card",
+    "modelEdgePts": 15.33,
+    "edgeRatio": 5.11,
+    "marketAwareAgrees": true,
+    "result": "won"
+   },
+   {
+    "sport": "ncaab",
+    "betSide": "Southern Utah Thunderbirds",
+    "betLine": 23.5,
+    "cardLine": 22.5,
+    "relation": "with card",
+    "modelEdgePts": 15.72,
+    "edgeRatio": 5.24,
+    "marketAwareAgrees": true,
+    "result": "lost"
+   }
+  ]
+ }
+}
