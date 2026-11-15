@@ -383,11 +383,17 @@
    },
    "note": "model -15.9 vs market -10.5: leans ECU by 5.4 pts (threshold 3.0)",
    "lockedAt": "2026-11-14T07:10:16Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-15T00:33:16Z"
    },
-   "rank": 9
+   "rank": 9,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 16,
+    "awayScore": 17,
+    "units": -0.5
+   }
   },
   {
    "id": "ncaab:401924921",
@@ -754,11 +760,17 @@
    },
    "note": "model -3.7 vs market +3.0: leans TULN by 6.7 pts (threshold 3.0)",
    "lockedAt": "2026-11-14T07:10:16Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-15T00:33:16Z"
    },
-   "rank": 12
+   "rank": 12,
+   "result": {
+    "outcome": "win",
+    "homeScore": 17,
+    "awayScore": 20,
+    "units": 0.49
+   }
   },
   {
    "id": "ncaab:401919017",
@@ -821,11 +833,17 @@
    },
    "note": "model +4.5 vs market -3.5: leans JXST by 8.0 pts (threshold 3.0)",
    "lockedAt": "2026-11-14T07:10:16Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-15T00:33:16Z"
    },
-   "rank": 5
+   "rank": 5,
+   "result": {
+    "outcome": "win",
+    "homeScore": 71,
+    "awayScore": 68,
+    "units": 0.463
+   }
   },
   {
    "id": "ncaab:401911347",
@@ -888,7 +906,7 @@
    },
    "note": "model +22.0 vs market +32.5: leans ULM by 10.5 pts (threshold 3.0)",
    "lockedAt": "2026-11-14T07:10:16Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-15T00:33:16Z",
     "line": 31.5,
@@ -896,7 +914,13 @@
     "edgePts": 6.21,
     "lineObservedAt": "2026-11-15T00:19:55Z"
    },
-   "rank": 3
+   "rank": 3,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 88,
+    "awayScore": 52,
+    "units": -0.5
+   }
   }
  ]
 }
