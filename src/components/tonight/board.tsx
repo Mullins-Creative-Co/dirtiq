@@ -264,7 +264,7 @@ function ItemCard({ item, now, index, open, onToggle }: { item: TonightItem; now
                 <Link href={item.href} className="font-bold uppercase tracking-[0.14em] text-[var(--accent)]">{item.kind === "game" ? `${item.sportLabel} page →` : "Race page →"}</Link>
               </span>
             </div>
-            <InlineLogBet href={logHref} />
+            <InlineLogBet href={logHref} event={{eventId:item.key,sport:item.sport,label:item.title,startsAt:item.startsAt,home:item.homeTeam??null,away:item.awayTeam??null,homeLabel:item.matchupHeaders[0],awayLabel:item.matchupHeaders[1]}} />
           </div>
         </div>
       ) : null}

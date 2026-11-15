@@ -1,7 +1,7 @@
 {
  "date": "2026-11-15",
- "generatedAt": "2026-11-15T21:25:09Z",
- "forecastsRefreshedAt": "2026-11-15T21:25:06Z",
+ "generatedAt": "2026-11-15T22:09:56Z",
+ "forecastsRefreshedAt": "2026-11-15T22:09:25Z",
  "unit": "1 unit = 1% of bankroll",
  "rules": [
   "Spread bets only, in NFL, college football and college basketball; one bet per game. NBA is paused: forecast and tracked, not staked.",
@@ -13,17 +13,17 @@
   "A pick is locked at the line it was first listed with and graded at that line."
  ],
  "evidence": "Backtested over many seasons, picks made by this rule have lost money in every sport after the vig; each pick shows its sport's record. Treat the card as a shortlist to check, not as proven value.",
- "priced": 17,
+ "priced": 13,
  "qualified": 3,
  "totalUnits": 5.0,
  "record": {
   "days": 4,
-  "wins": 15,
+  "wins": 16,
   "losses": 19,
   "pushes": 0,
-  "units": -3.256,
-  "staked": 21.5,
-  "roi": -0.1514
+  "units": -2.821,
+  "staked": 22.0,
+  "roi": -0.1282
  },
  "picks": [
   {
@@ -241,11 +241,17 @@
    },
    "note": "model -12.5 vs market -10.5: leans JAX by 2.0 pts (threshold 2.0)",
    "lockedAt": "2026-11-15T07:19:08Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-15T21:25:09Z"
    },
-   "rank": 8
+   "rank": 8,
+   "result": {
+    "outcome": "win",
+    "homeScore": 23,
+    "awayScore": 40,
+    "units": 0.435
+   }
   },
   {
    "id": "ncaab:401920065",
@@ -310,7 +316,7 @@
    "lockedAt": "2026-11-15T07:19:08Z",
    "status": "started",
    "current": {
-    "checkedAt": "2026-11-15T21:25:09Z"
+    "checkedAt": "2026-11-15T22:09:56Z"
    },
    "rank": 5
   },
@@ -377,7 +383,7 @@
    "lockedAt": "2026-11-15T07:19:08Z",
    "status": "started",
    "current": {
-    "checkedAt": "2026-11-15T21:25:09Z"
+    "checkedAt": "2026-11-15T22:09:56Z"
    },
    "rank": 6
   },
@@ -444,7 +450,7 @@
    "lockedAt": "2026-11-15T07:19:08Z",
    "status": "started",
    "current": {
-    "checkedAt": "2026-11-15T21:25:09Z"
+    "checkedAt": "2026-11-15T22:09:56Z"
    },
    "rank": 3
   },
@@ -511,7 +517,7 @@
    "lockedAt": "2026-11-15T07:19:08Z",
    "status": "started",
    "current": {
-    "checkedAt": "2026-11-15T21:25:09Z"
+    "checkedAt": "2026-11-15T22:09:56Z"
    },
    "rank": 2
   },
@@ -578,7 +584,7 @@
    "lockedAt": "2026-11-15T07:19:08Z",
    "status": "started",
    "current": {
-    "checkedAt": "2026-11-15T21:25:09Z"
+    "checkedAt": "2026-11-15T22:09:56Z"
    },
    "rank": 4
   },
@@ -645,7 +651,7 @@
    "lockedAt": "2026-11-15T07:19:08Z",
    "status": "started",
    "current": {
-    "checkedAt": "2026-11-15T21:25:09Z"
+    "checkedAt": "2026-11-15T22:09:56Z"
    },
    "rank": 10
   },
@@ -710,13 +716,9 @@
    },
    "note": "model +1.0 vs market -7.5: leans USI by 8.5 pts (threshold 3.0)",
    "lockedAt": "2026-11-15T07:19:08Z",
-   "status": "playable",
+   "status": "started",
    "current": {
-    "checkedAt": "2026-11-15T21:25:09Z",
-    "line": 7.5,
-    "price": -115,
-    "edgePts": 8.46,
-    "lineObservedAt": "2026-11-15T21:17:47Z"
+    "checkedAt": "2026-11-15T22:09:56Z"
    },
    "rank": 1
   }

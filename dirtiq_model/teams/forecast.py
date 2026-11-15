@@ -23,9 +23,8 @@ RESULTS_DIR = Path(__file__).resolve().parents[2] / "public" / "data" / "results
 RESULTS_DAYS = 120
 
 
-# Sports whose schedule archive is republished about once a day: last night's finals are missing
-# from it all morning, so the results file fills them from ESPN's scoreboard (same event ids).
-LATE_FINAL_SPORTS = ("nba", "ncaab")
+# Schedule archives can lag a final whistle; use verified scoreboard finals for recent pending games.
+LATE_FINAL_SPORTS = ("nba", "ncaab", "nfl")
 LATE_FINAL_MIN_AGE = pd.Timedelta(hours=2)
 LATE_FINAL_MAX_AGE = pd.Timedelta(days=4)
 
@@ -34,8 +33,8 @@ def late_finals(cfg: SportConfig, games: pd.DataFrame, now: Optional[pd.Timestam
                 fetch: Optional[Callable[[str], Optional[Dict[str, Any]]]] = None) -> List[Dict[str, Any]]:
     """Final scores ESPN already has for games the schedule archive still lists as unplayed.
 
-    Only for sports keyed by ESPN event id. A scoreboard day that cannot be fetched is skipped;
-    the archive supplies those games on a later run."""
+    NBA/NCAAB match ESPN ids. NFL preserves nflverse ids and requires unique matching
+    home/away teams and kickoff within one minute. Never grade from live scores."""
     if cfg.sport not in LATE_FINAL_SPORTS or games.empty:
         return []
     from .adapters import espn_odds
@@ -45,8 +44,8 @@ def late_finals(cfg: SportConfig, games: pd.DataFrame, now: Optional[pd.Timestam
     if waiting.empty:
         return []
     fetch = fetch or espn_odds._get_json
-    sp, lg = espn_odds.LEAGUES[cfg.sport]
-    finals: Dict[str, Tuple[int, int]] = {}
+    sp, lg = ("football", "nfl") if cfg.sport == "nfl" else espn_odds.LEAGUES[cfg.sport]
+    finals: Dict[str, Dict[str, Any]] = {}
     for day in sorted(set(espn_odds.local_date(waiting["start"]))):
         url = espn_odds.SCOREBOARD_URL.format(sport=sp, league=lg, date=day, extra=espn_odds.SCOREBOARD_EXTRA.get(cfg.sport, ""))
         try:
@@ -61,18 +60,64 @@ def late_finals(cfg: SportConfig, games: pd.DataFrame, now: Optional[pd.Timestam
             comp = (ev.get("competitions") or [{}])[0]
             sides = {c.get("homeAway"): c for c in comp.get("competitors", [])}
             try:
-                finals[str(ev.get("id"))] = (int(sides["home"]["score"]), int(sides["away"]["score"]))
+                score = (int(sides["home"]["score"]), int(sides["away"]["score"]))
+                if min(score) < 0:
+                    continue
+                finals[str(ev.get("id"))] = {"score": score, "home": (sides["home"].get("team") or {}).get("abbreviation"),
+                    "away": (sides["away"].get("team") or {}).get("abbreviation"), "startsAt": comp.get("date") or ev.get("date"), "sourceUrl": url}
             except (KeyError, TypeError, ValueError):
                 continue
     rows = []
     for r in waiting.sort_values(["start", "game_id"]).itertuples():
-        score = finals.get(str(r.game_id))
-        if score is None or score[0] + score[1] <= 0:
+        final = finals.get(str(r.game_id)) if cfg.sport != "nfl" else nfl_final_match(finals, r.home, r.away, r.start)
+        if final is None:
+            continue
+        score = final["score"]
+        if score[0] + score[1] <= 0 and cfg.sport != "nfl":
             continue
         rows.append({"eventId": f"{cfg.sport}:{r.game_id}", "gameId": str(r.game_id), "home": str(r.home), "away": str(r.away),
                      "startsAt": iso(r.start), "homeScore": score[0], "awayScore": score[1], "neutral": int(r.neutral),
-                     "source": "espn-scoreboard"})
+                     "source": "espn-scoreboard", "sourceUrl": final["sourceUrl"]})
     return rows
+
+
+def nfl_final_match(finals: Dict[str, Dict[str, Any]], home: str, away: str, start: Any) -> Optional[Dict[str, Any]]:
+    """Resolve a recent NFL final without replacing the canonical nflverse event id."""
+    aliases = {"WSH": "WAS", "LAR": "LA", "STL": "LA", "OAK": "LV", "SD": "LAC"}
+    def norm(team: Any) -> str:
+        return aliases.get(str(team).upper(), str(team).upper())
+    matches = []
+    for final in finals.values():
+        kickoff = pd.to_datetime(final.get("startsAt"), utc=True, errors="coerce")
+        if pd.isna(kickoff) or abs(kickoff - pd.Timestamp(start)) > pd.Timedelta(minutes=1):
+            continue
+        if norm(final.get("home")) == norm(home) and norm(final.get("away")) == norm(away):
+            matches.append(final)
+    return matches[0] if len(matches) == 1 else None
+
+
+def supplement_finals(cfg: SportConfig, games: pd.DataFrame, now: Optional[pd.Timestamp] = None,
+                      fetch: Optional[Callable[[str], Optional[Dict[str, Any]]]] = None) -> pd.DataFrame:
+    """Use the same verified finals for ratings, ledger settlement and results export.
+
+    Only pending rows are filled; source prices/ids and existing final scores stay intact.
+    Historical backtests do not call this function.
+    """
+    rows = late_finals(cfg, games, now=now, fetch=fetch)
+    if not rows:
+        return games
+    out = games.copy()
+    for result in rows:
+        mask = out["game_id"].astype(str).eq(result["gameId"]) & ~out["completed"].astype(bool)
+        out.loc[mask, "home_score"] = result["homeScore"]
+        out.loc[mask, "away_score"] = result["awayScore"]
+        out.loc[mask, "completed"] = True
+    sources = list(games.attrs.get("sources") or [])
+    for url in sorted(set(row["sourceUrl"] for row in rows)):
+        sources.append({"url": url, "retrievedAt": now_iso(), "purpose": "verified late final scores"})
+    out.attrs["sources"] = sources
+    print(f"{cfg.sport}: filled {len(rows)} pending finals from ESPN")
+    return out
 
 
 def export_results(cfg: SportConfig, games: pd.DataFrame, days: int = RESULTS_DAYS, out_dir: Optional[Path] = None,

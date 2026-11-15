@@ -379,3 +379,19 @@ visible beside the form; pending submissions disable the save button. The standa
 `/bets` form and incoming prefilled links continue to work. Tonight also carries raw
 `homeTeam`/`awayTeam` codes separately from full display names so event dropdowns
 continue to save selections that the results grader recognizes.
+
+## Bet history and final-score recovery (2026-11-15)
+
+NFL forecast/settle commands supplement pending source rows using official ESPN final
+scores, requiring a unique team-pair and kickoff match within one minute. Canonical
+nflverse IDs, locked prices and existing finals are preserved. Historical backtests do
+not use this supplement. On-request bet settlement additionally checks missing linked
+NFL finals within four days (uncached scoreboard request, five-second timeout); failures
+leave records pending. Free-text games and manual grades are never inferred or replaced.
+
+The event picker merges upcoming games, recent results and ledger entries through the
+artifact reader. Display names use the verified team catalog while identifiers retain
+source codes. Archived daily cards remain loggable. Bet edits retain the original
+record ID and placed date; unchanged grading terms retain their outcome and settlement
+time. A changed game, side or line clears an automatic grade for recalculation. Manual
+historical outcomes can be entered explicitly. Profit charts use placed dates.

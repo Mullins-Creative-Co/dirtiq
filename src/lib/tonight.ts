@@ -1,6 +1,6 @@
 import "server-only";
 
-import { teamLabel, type TeamNames } from "@/lib/team-names";
+import { teamName, type TeamNames } from "@/lib/team-names";
 
 import { american, fairAmerican, num, probability as pct, signed, spread } from "@/lib/format";
 import {
@@ -183,10 +183,10 @@ function gameItem(report: SportReport, game: SportUpcoming, ledger: Map<string, 
   const leanCode = liveComparison ? (liveComparison.lean === "home" ? game.home : liveComparison.lean === "away" ? game.away : null)
     : game.lean && game.lean !== "none" ? (game.lean === "home" ? game.home : game.away) : null;
   const leanSpread = live?.spread ?? game.marketHomeSpread ?? null;
-  const leanLabel = leanCode && leanSpread !== null && !fixedLine ? `${teamLabel(names, report.sport, leanCode)} ${spread(leanCode === game.home ? leanSpread : -leanSpread)}` : null;
+  const leanLabel = leanCode && leanSpread !== null && !fixedLine ? `${teamName(names, report.sport, leanCode)} ${spread(leanCode === game.home ? leanSpread : -leanSpread)}` : null;
   const mlv = moneylineValue(game, live);
   const moneylineFlag = mlv ? {
-    label: `${teamLabel(names, report.sport, mlv.team)} ${american(mlv.price)}`, kind: mlv.underdog ? "Underdog moneyline" : "Moneyline value", underdog: mlv.underdog,
+    label: `${teamName(names, report.sport, mlv.team)} ${american(mlv.price)}`, kind: mlv.underdog ? "Underdog moneyline" : "Moneyline value", underdog: mlv.underdog,
     detail: `model ${pct(mlv.modelProb, 0)} to win; the price needs ${pct(mlv.breakEven, 0)}`,
   } : null;
   const edgeAbs = active?.edgePts != null ? Math.abs(active.edgePts) : 0;
@@ -196,23 +196,23 @@ function gameItem(report: SportReport, game: SportUpcoming, ledger: Map<string, 
     detail: `model total ${num(tl.projected, 1)} against ${num(tl.line, 1)} posted (${signed(tl.edgePts, 1)}); a lean needs ${num(tl.threshold, 0)} points`,
   } : null;
   const headline = [leanLabel ? `Spread lean: ${leanLabel}` : null, moneylineFlag ? `${moneylineFlag.kind}: ${moneylineFlag.label}` : null, totalFlag?.label ? `Total lean: ${totalFlag.label}` : null].filter(Boolean).join(" · ")
-    || `No lean · model has ${teamLabel(names, report.sport, pick)} by ${num(Math.abs(pickMargin), 1)}`;
+    || `No lean · model has ${teamName(names, report.sport, pick)} by ${num(Math.abs(pickMargin), 1)}`;
   const key = `${report.sport}:${game.gameId}`;
   return {
     key, kind: "game", sport: report.sport, sportLabel: report.label,
     homeTeam: game.home, awayTeam: game.away,
     startsAt: game.startsAt, startsAtLabel: `${dayFmt.format(new Date(game.startsAt))} · ${timeFmt.format(new Date(game.startsAt))} ET`,
     isToday: dayKeyOf(game.startsAt) === today, dayKey: dayKeyOf(game.startsAt),
-    title: `${teamLabel(names, report.sport, game.away)} at ${teamLabel(names, report.sport, game.home)}`, subtitle: `${report.label}${neutral ? " · neutral site" : ""}${tl ? ` · O/U ${num(tl.line, 1)}` : ""}`,
-    pick: teamLabel(names, report.sport, pick), pickDetail: headline,
+    title: `${teamName(names, report.sport, game.away)} at ${teamName(names, report.sport, game.home)}`, subtitle: `${report.label}${neutral ? " · neutral site" : ""}${tl ? ` · O/U ${num(tl.line, 1)}` : ""}`,
+    pick: teamName(names, report.sport, pick), pickDetail: headline,
     flags: { lean: leanLabel, edgePts: active?.edgePts ?? null, moneyline: moneylineFlag, total: totalFlag },
     priority: (leanLabel ? 2 + Math.min(threshold ? edgeAbs / threshold : 0, 4) : 0) + (moneylineFlag ? 1 : 0) + (totalFlag?.label ? 1 : 0),
     confidence, confidenceLabel: label(confidence), rationale,
-    matchupHeaders: [teamLabel(names, report.sport, game.home), teamLabel(names, report.sport, game.away)], matchup, market, liveMarket,
+    matchupHeaders: [teamName(names, report.sport, game.home), teamName(names, report.sport, game.away)], matchup, market, liveMarket,
     readiness: forecastReadiness(report, game, now),
     ledger: ledgerSummary(ledger.get(key)), href: `/sports/${report.sport}`,
     logHref: logBetHref({
-      sport: report.sport, eventId: key, eventLabel: `${game.away} at ${game.home}`, eventStart: game.startsAt,
+      sport: report.sport, eventId: key, eventLabel: `${teamName(names,report.sport,game.away)} at ${teamName(names,report.sport,game.home)}`, eventStart: game.startsAt,
       ...gameBetTerms(fixedLine ? { ...game, marketHomeSpread: null } : game, live),
     }),
   };

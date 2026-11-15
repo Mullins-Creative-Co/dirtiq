@@ -119,12 +119,12 @@ export function summarize(bets: MyBet[]): BetSummary {
       pushes: list.filter((b) => b.status === "push").length, staked: st, profit: p, roi: st > 0 ? round4(p / st) : null,
     };
   }).sort((a, b) => b.bets - a.bets);
-  const ordered = [...settled].sort((a, b) => (a.settledAt ?? a.placedAt).localeCompare(b.settledAt ?? b.placedAt));
+  const ordered = [...settled].sort((a, b) => a.placedAt.localeCompare(b.placedAt));
   let cumulative = 0;
   const series = ordered.map((b) => {
     const p = profit(b);
     cumulative = round2(cumulative + p);
-    return { at: b.settledAt ?? b.placedAt, label: `${b.selectionLabel} ${b.status}`, profit: p, cumulative };
+    return { at: b.placedAt, label: `${b.selectionLabel} ${b.status}`, profit: p, cumulative };
   });
   return {
     bets: bets.length, settled: settled.length, open: bets.length - settled.length, wins, losses, pushes, voids,

@@ -1,9 +1,10 @@
 import "server-only";
 
 import { getDb } from "./db";
+import { getNflFinalResults } from "./live-results";
 import { ensureLiveBetTables, getLiveBetSql, hasLiveBetDatabase, toIsoString } from "./live-bets-db";
 import { getAllResultsIndex, getLedgerIndex } from "./model-reports";
-import { BET_MARKETS, BET_STATUSES, gradeGameBet, gradeRaceBet, type BetMarket, type BetStatus, type MyBet } from "./my-bets/grade";
+import { BET_MARKETS, BET_STATUSES, gradeGameBet, gradeRaceBet, type BetMarket, type BetStatus, type MyBet, type GameResult } from "./my-bets/grade";
 
 export type { MyBet, BetMarket, BetStatus } from "./my-bets/grade";
 
@@ -84,21 +85,52 @@ export async function listBets(): Promise<MyBet[]> {
   return rows.map(toBet);
 }
 
-export async function addBet(bet: NewBet): Promise<MyBet> {
+export type BetGrading = { status: BetStatus; manual: boolean; resultValue?: number|null; settledAt?: string|null };
+export const AUTO_GRADING: BetGrading = { status: "open", manual: false };
+
+export async function getBet(id: number): Promise<MyBet | null> {
+  if (hasLiveBetDatabase()) {
+    const sql = await ensurePg();
+    const [row] = (await sql`SELECT * FROM my_bets WHERE id = ${id}`) as Array<Record<string, unknown>>;
+    return row ? toBet(row as Record<string, unknown>) : null;
+  }
+  const row = getDb().prepare("SELECT * FROM my_bets WHERE id = ?").get(id);
+  return row ? toBet(row as Record<string, unknown>) : null;
+}
+
+export async function addBet(bet: NewBet, grading: BetGrading = AUTO_GRADING): Promise<MyBet> {
+  const settledAt = grading.status === "open" ? null : new Date().toISOString();
   if (hasLiveBetDatabase()) {
     const sql = await ensurePg();
     const [row] = (await sql`
-      INSERT INTO my_bets (sport, event_id, event_label, event_start, market, selection, selection_label, line, price, stake, book, note, model_prob, market_prob, placed_at)
-      VALUES (${bet.sport}, ${bet.eventId}, ${bet.eventLabel}, ${bet.eventStart}, ${bet.market}, ${bet.selection}, ${bet.selectionLabel}, ${bet.line}, ${bet.price}, ${bet.stake}, ${bet.book}, ${bet.note}, ${bet.modelProb}, ${bet.marketProb}, ${bet.placedAt})
+      INSERT INTO my_bets (sport, event_id, event_label, event_start, market, selection, selection_label, line, price, stake, book, note, model_prob, market_prob, placed_at, status, manual, settled_at)
+      VALUES (${bet.sport}, ${bet.eventId}, ${bet.eventLabel}, ${bet.eventStart}, ${bet.market}, ${bet.selection}, ${bet.selectionLabel}, ${bet.line}, ${bet.price}, ${bet.stake}, ${bet.book}, ${bet.note}, ${bet.modelProb}, ${bet.marketProb}, ${bet.placedAt}, ${grading.status}, ${grading.manual}, ${settledAt})
       RETURNING *
     `) as Array<Record<string, unknown>>;
     return toBet(row);
   }
   const db = getDb();
-  const res = db.prepare(`INSERT INTO my_bets (sport, event_id, event_label, event_start, market, selection, selection_label, line, price, stake, book, note, model_prob, market_prob, placed_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).run(
-    bet.sport, bet.eventId, bet.eventLabel, bet.eventStart, bet.market, bet.selection, bet.selectionLabel, bet.line, bet.price, bet.stake, bet.book, bet.note, bet.modelProb, bet.marketProb, bet.placedAt);
+  const res = db.prepare(`INSERT INTO my_bets (sport, event_id, event_label, event_start, market, selection, selection_label, line, price, stake, book, note, model_prob, market_prob, placed_at, status, manual, settled_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).run(
+    bet.sport, bet.eventId, bet.eventLabel, bet.eventStart, bet.market, bet.selection, bet.selectionLabel, bet.line, bet.price, bet.stake, bet.book, bet.note, bet.modelProb, bet.marketProb, bet.placedAt, grading.status, grading.manual ? 1 : 0, settledAt);
   return toBet(db.prepare("SELECT * FROM my_bets WHERE id = ?").get(res.lastInsertRowid) as Record<string, unknown>);
+}
+
+export async function updateBet(id: number, bet: NewBet, grading: BetGrading): Promise<MyBet | null> {
+  const settledAt = grading.status === "open" ? null : grading.settledAt ?? new Date().toISOString();
+  if (hasLiveBetDatabase()) {
+    const sql = await ensurePg();
+    const [row] = (await sql`UPDATE my_bets SET sport=${bet.sport}, event_id=${bet.eventId}, event_label=${bet.eventLabel}, event_start=${bet.eventStart},
+      market=${bet.market}, selection=${bet.selection}, selection_label=${bet.selectionLabel}, line=${bet.line}, price=${bet.price}, stake=${bet.stake},
+      book=${bet.book}, note=${bet.note}, model_prob=${bet.modelProb}, market_prob=${bet.marketProb}, placed_at=${bet.placedAt},
+      status=${grading.status}, manual=${grading.manual}, settled_at=${settledAt}, result_value=${grading.resultValue??null} WHERE id=${id} RETURNING *`) as Array<Record<string, unknown>>;
+    return row ? toBet(row as Record<string, unknown>) : null;
+  }
+  getDb().prepare(`UPDATE my_bets SET sport=?,event_id=?,event_label=?,event_start=?,market=?,selection=?,selection_label=?,line=?,price=?,stake=?,
+    book=?,note=?,model_prob=?,market_prob=?,placed_at=?,status=?,manual=?,settled_at=?,result_value=? WHERE id=?`).run(
+      bet.sport,bet.eventId,bet.eventLabel,bet.eventStart,bet.market,bet.selection,bet.selectionLabel,bet.line,bet.price,bet.stake,
+      bet.book,bet.note,bet.modelProb,bet.marketProb,bet.placedAt,grading.status,grading.manual?1:0,settledAt,grading.resultValue??null,id);
+  return getBet(id);
 }
 
 export async function deleteBet(id: number): Promise<void> {
@@ -135,7 +167,9 @@ export async function settleOpenBets(bets?: MyBet[]): Promise<number> {
   const list = bets ?? await listBets();
   const open = list.filter((b) => b.status === "open" && !b.manual && b.eventId);
   if (!open.length) return 0;
-  const results = getAllResultsIndex();
+  const results = new Map<string,GameResult>(getAllResultsIndex());
+  const live = await getNflFinalResults(open.filter(b => !results.has(b.eventId!)));
+  for (const row of live) results.set(row.eventId, row);
   const ledger = getLedgerIndex();
   let graded = 0;
   for (const bet of open) {

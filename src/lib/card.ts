@@ -1,6 +1,6 @@
 import "server-only";
 
-import { teamLabel } from "@/lib/team-names";
+import { teamName } from "@/lib/team-names";
 
 import { getLiveLines, resolveNflEvent } from "@/lib/live-lines";
 import { isLiveSport, type LiveLine } from "@/lib/live-lines/core";
@@ -18,7 +18,7 @@ export type CardView = Omit<DailyCard, "picks"> & { picks: CardPickView[]; loade
 
 function logHref(pick: CardPick, line: number, price: number | null): string {
   const q = new URLSearchParams({
-    sport: pick.sport, eventId: pick.id, eventLabel: `${pick.away} at ${pick.home}`, eventStart: pick.startsAt,
+    sport: pick.sport, eventId: pick.id, eventLabel: `${pick.awayName??pick.away} at ${pick.homeName??pick.home}`, eventStart: pick.startsAt,
     market: "spread", selection: pick.pick, line: String(line),
   });
   if (price !== null) q.set("price", String(price));
@@ -32,15 +32,15 @@ async function liveFor(pick: CardPick): Promise<LiveLine | null> {
 }
 
 /** Today's card with each open pick checked against ESPN's current line. */
-export async function buildCardView(): Promise<CardView | null> {
-  const published = getDailyCard();
+export async function buildCardView(date?: string): Promise<CardView | null> {
+  const published = getDailyCard(date);
   if (!published) return null;
   const names = getTeamNames();
   const card = { ...published, picks: published.picks.map((pick) => ({
     ...pick,
-    homeName: teamLabel(names, pick.sport, pick.home),
-    awayName: teamLabel(names, pick.sport, pick.away),
-    pickName: teamLabel(names, pick.sport, pick.pick),
+    homeName: teamName(names, pick.sport, pick.home),
+    awayName: teamName(names, pick.sport, pick.away),
+    pickName: teamName(names, pick.sport, pick.pick),
   })) };
   const now = Date.now();
   const picks = await Promise.all(card.picks.map(async (pick): Promise<CardPickView> => {

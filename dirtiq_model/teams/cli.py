@@ -43,11 +43,13 @@ def main(argv: List[str]) -> int:
         games = adapter.load_games(cache_dir=cache, refresh=args.refresh)
         backtest_command(cfg, games, maxiter=args.maxiter, first_test=args.first_test)
     elif args.command == "forecast":
-        from .forecast import forecast_command
+        from .forecast import forecast_command, supplement_finals
         games = adapter.load_games(cache_dir=cache, refresh=args.refresh)
+        games = supplement_finals(cfg, games)
         forecast_command(cfg, games, refit=args.refit, maxiter=args.maxiter, horizon_days=args.days, record=not args.no_ledger)
     elif args.command == "settle":
-        from .forecast import settle_command
+        from .forecast import settle_command, supplement_finals
         games = adapter.load_games(cache_dir=cache, refresh=args.refresh)
+        games = supplement_finals(cfg, games)
         settle_command(cfg, games)
     return 0

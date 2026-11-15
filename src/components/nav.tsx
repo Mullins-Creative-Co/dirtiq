@@ -120,12 +120,12 @@ export function Nav() {
       </header>
 
       <nav aria-label="Mobile sections" className="fixed inset-x-0 bottom-0 z-50 border-t border-[var(--border)] bg-[#080808]/95 px-2 pb-[calc(env(safe-area-inset-bottom)+0.35rem)] pt-2 backdrop-blur md:hidden">
-        <div className="mx-auto grid max-w-md grid-cols-3 gap-1.5">
+        <div className="mx-auto grid max-w-md grid-cols-6 gap-1">
           {mobileDock.map((item) => {
             const active = item.key === activeGroup.key;
             return (
               <Link key={item.href} href={item.href} onClick={() => setOpen(false)}
-                className={`min-h-11 rounded-md border px-2 py-2 text-center text-[10px] font-black uppercase tracking-wide ${active ? "border-[var(--accent)] bg-[var(--accent)] text-white" : "border-[var(--border)] bg-[var(--surface-raised)] text-[var(--muted)]"}`}>
+                className={`flex min-h-11 items-center justify-center rounded-md border px-0.5 py-2 text-center text-[9px] font-black uppercase tracking-wide ${active ? "border-[var(--accent)] bg-[var(--accent)] text-white" : "border-[var(--border)] bg-[var(--surface-raised)] text-[var(--muted)]"}`}>
                 {item.label}
               </Link>
             );

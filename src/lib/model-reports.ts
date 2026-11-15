@@ -121,8 +121,9 @@ export type DailyCard = {
 };
 
 /** Today's card, written hourly by `python3 -m dirtiq_model card build`. */
-export function getDailyCard(): DailyCard | null {
-  const card = readJson<DailyCard>("public/data/daily-card.json");
+export function getDailyCard(date?: string): DailyCard | null {
+  if (date && !/^\d{4}-\d{2}-\d{2}$/.test(date)) return null;
+  const card = readJson<DailyCard>(date ? `public/data/cards/${date}.json` : "public/data/daily-card.json");
   return card && Array.isArray(card.picks) ? card : null;
 }
 
@@ -370,4 +371,10 @@ export function getArtifactFreshness(now = Date.now()) {
 /** ESPN display metadata; model team identifiers remain abbreviations. */
 export function getTeamNames(): import("@/lib/team-names").TeamNames {
   return readJson<{ teams: import("@/lib/team-names").TeamNames }>("public/data/team-names.json")?.teams ?? {};
+}
+
+export function listCardDates(): string[] {
+  const dir=join(process.cwd(),"public/data/cards");
+  if(!existsSync(dir))return [];
+  return readdirSync(dir).filter(f=>/^\d{4}-\d{2}-\d{2}\.json$/.test(f)).map(f=>f.slice(0,10)).sort().reverse();
 }

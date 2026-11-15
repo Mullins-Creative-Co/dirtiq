@@ -204,3 +204,14 @@ alone shrinks to nothing, so this is the only route to starter value.
   snapshots begin. Decide whether to buy a historical injury archive or accept a short
   evaluation window.
 - Odds quota (plan 6): paid tier or rotation. Rotation is free; the paid tier is simpler.
+
+### Shipped 2026-11-15: historical bets, full event names and NFL finals
+
+Card and My Bets now use compact mobile cards, with secondary details collapsed. Full
+school/team names appear in events and the searchable game picker. Saved card dates
+remain available for logging after games finish. Historical manual entries accept a
+placed date and outcome; saved bets can be edited without duplicating them. Note/price/
+stake edits preserve grades, while changed sides/lines regrade from the actual terms.
+NFL refreshes supplement missing finals from ESPN, matched uniquely by teams and kickoff
+time; My Bets also checks recent linked NFL finals on refresh. Manual outcomes remain
+untouched. NBA card pause and model selection rules remain unchanged.
