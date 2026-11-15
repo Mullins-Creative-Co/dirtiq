@@ -1,7 +1,7 @@
 {
  "date": "2026-11-15",
- "generatedAt": "2026-11-15T22:09:56Z",
- "forecastsRefreshedAt": "2026-11-15T22:09:25Z",
+ "generatedAt": "2026-11-15T22:32:03Z",
+ "forecastsRefreshedAt": "2026-11-15T22:32:01Z",
  "unit": "1 unit = 1% of bankroll",
  "rules": [
   "Spread bets only, in NFL, college football and college basketball; one bet per game. NBA is paused: forecast and tracked, not staked.",
@@ -13,17 +13,17 @@
   "A pick is locked at the line it was first listed with and graded at that line."
  ],
  "evidence": "Backtested over many seasons, picks made by this rule have lost money in every sport after the vig; each pick shows its sport's record. Treat the card as a shortlist to check, not as proven value.",
- "priced": 13,
+ "priced": 12,
  "qualified": 3,
  "totalUnits": 5.0,
  "record": {
   "days": 4,
   "wins": 16,
-  "losses": 19,
+  "losses": 23,
   "pushes": 0,
-  "units": -2.821,
-  "staked": 22.0,
-  "roi": -0.1282
+  "units": -4.821,
+  "staked": 24.0,
+  "roi": -0.2009
  },
  "picks": [
   {
@@ -314,11 +314,17 @@
    },
    "note": "model +14.9 vs market +7.5: leans URI by 7.4 pts (threshold 3.0)",
    "lockedAt": "2026-11-15T07:19:08Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-15T22:09:56Z"
    },
-   "rank": 5
+   "rank": 5,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 79,
+    "awayScore": 72,
+    "units": -0.5
+   }
   },
   {
    "id": "ncaab:401911251",
@@ -381,11 +387,17 @@
    },
    "note": "model +13.6 vs market +6.5: leans SLU by 7.1 pts (threshold 3.0)",
    "lockedAt": "2026-11-15T07:19:08Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-15T22:09:56Z"
    },
-   "rank": 6
+   "rank": 6,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 58,
+    "awayScore": 68,
+    "units": -0.5
+   }
   },
   {
    "id": "ncaab:401921168",
@@ -448,11 +460,17 @@
    },
    "note": "model +10.2 vs market +2.5: leans AAMU by 7.7 pts (threshold 3.0)",
    "lockedAt": "2026-11-15T07:19:08Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-15T22:09:56Z"
    },
-   "rank": 3
+   "rank": 3,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 73,
+    "awayScore": 74,
+    "units": -0.5
+   }
   },
   {
    "id": "ncaab:401926068",
@@ -515,11 +533,17 @@
    },
    "note": "model +4.5 vs market -3.5: leans EIU by 8.0 pts (threshold 3.0)",
    "lockedAt": "2026-11-15T07:19:08Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-15T22:09:56Z"
    },
-   "rank": 2
+   "rank": 2,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 74,
+    "awayScore": 86,
+    "units": -0.5
+   }
   },
   {
    "id": "ncaab:401928789",
@@ -584,7 +608,7 @@
    "lockedAt": "2026-11-15T07:19:08Z",
    "status": "started",
    "current": {
-    "checkedAt": "2026-11-15T22:09:56Z"
+    "checkedAt": "2026-11-15T22:32:03Z"
    },
    "rank": 4
   },
@@ -651,7 +675,7 @@
    "lockedAt": "2026-11-15T07:19:08Z",
    "status": "started",
    "current": {
-    "checkedAt": "2026-11-15T22:09:56Z"
+    "checkedAt": "2026-11-15T22:32:03Z"
    },
    "rank": 10
   },
@@ -718,7 +742,7 @@
    "lockedAt": "2026-11-15T07:19:08Z",
    "status": "started",
    "current": {
-    "checkedAt": "2026-11-15T22:09:56Z"
+    "checkedAt": "2026-11-15T22:32:03Z"
    },
    "rank": 1
   }
