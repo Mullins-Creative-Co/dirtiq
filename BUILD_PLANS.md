@@ -224,7 +224,7 @@ untouched. NBA card pause and model selection rules remain unchanged.
 
 ### Shipped 2026-11-15: log the whole card
 
-A top-of-card Log all bets action saves listed locked lines, prices and stakes. It works
+A top-of-card Log all bets action saves listed locked lines and prices. Each new bet defaults to $1 (updated 2026-11-16). It works
 for saved cards too, then exposes individual editors directly beneath the button. Existing
 linked picks are retained without overwriting edited terms; repeat/retried batch requests
 skip the same event, market and side. SQLite inserts conditionally; Postgres serializes

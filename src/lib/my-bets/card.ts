@@ -9,7 +9,7 @@ export function cardBetInputs(card: DailyCard, names: TeamNames, now = new Date(
     eventLabel: `${teamName(names, pick.sport, pick.away)} at ${teamName(names, pick.sport, pick.home)}`,
     eventStart: pick.startsAt, market: "spread", selection: pick.pick,
     selectionLabel: `${pick.pick} ${pick.line > 0 ? "+" : ""}${pick.line}`,
-    line: pick.line, price: pick.price, stake: pick.stakeUnits,
+    line: pick.line, price: pick.price, stake: 1,
     book: pick.book, note: null, modelProb: pick.modelCoverProb,
     marketProb: pick.breakEvenProb, placedAt: now.toISOString(),
   }));
