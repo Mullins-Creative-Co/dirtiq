@@ -1,7 +1,7 @@
 {
  "date": "2026-11-15",
- "generatedAt": "2026-11-15T22:32:03Z",
- "forecastsRefreshedAt": "2026-11-15T22:32:01Z",
+ "generatedAt": "2026-11-16T01:35:24Z",
+ "forecastsRefreshedAt": "2026-11-16T01:35:20Z",
  "unit": "1 unit = 1% of bankroll",
  "rules": [
   "Spread bets only, in NFL, college football and college basketball; one bet per game. NBA is paused: forecast and tracked, not staked.",
@@ -13,17 +13,17 @@
   "A pick is locked at the line it was first listed with and graded at that line."
  ],
  "evidence": "Backtested over many seasons, picks made by this rule have lost money in every sport after the vig; each pick shows its sport's record. Treat the card as a shortlist to check, not as proven value.",
- "priced": 12,
- "qualified": 3,
+ "priced": 2,
+ "qualified": 1,
  "totalUnits": 5.0,
  "record": {
   "days": 4,
   "wins": 16,
-  "losses": 23,
+  "losses": 26,
   "pushes": 0,
-  "units": -4.821,
-  "staked": 24.0,
-  "roi": -0.2009
+  "units": -6.321,
+  "staked": 25.5,
+  "roi": -0.2479
  },
  "picks": [
   {
@@ -606,11 +606,17 @@
    },
    "note": "model +20.1 vs market +12.5: leans SDSU by 7.6 pts (threshold 3.0)",
    "lockedAt": "2026-11-15T07:19:08Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-15T22:32:03Z"
    },
-   "rank": 4
+   "rank": 4,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 73,
+    "awayScore": 61,
+    "units": -0.5
+   }
   },
   {
    "id": "nfl:2026_10_LA_ARI",
@@ -673,11 +679,17 @@
    },
    "note": "model -6.5 vs market -9.5: leans ARI by 3.0 pts (threshold 2.0)",
    "lockedAt": "2026-11-15T07:19:08Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-15T22:32:03Z"
    },
-   "rank": 10
+   "rank": 10,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 6,
+    "awayScore": 34,
+    "units": -0.5
+   }
   },
   {
    "id": "ncaab:401923393",
@@ -740,11 +752,17 @@
    },
    "note": "model +1.0 vs market -7.5: leans USI by 8.5 pts (threshold 3.0)",
    "lockedAt": "2026-11-15T07:19:08Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-15T22:32:03Z"
    },
-   "rank": 1
+   "rank": 1,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 59,
+    "awayScore": 80,
+    "units": -0.5
+   }
   }
  ]
 }
