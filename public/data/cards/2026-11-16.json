@@ -391,11 +391,17 @@
    },
    "note": "model +11.5 vs market +21.5: leans CARK by 10.0 pts (threshold 3.0)",
    "lockedAt": "2026-11-16T08:51:41Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-17T03:08:25Z"
    },
-   "rank": 1
+   "rank": 1,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 99,
+    "awayScore": 66,
+    "units": -0.5
+   }
   },
   {
    "id": "ncaab:401920373",
@@ -458,11 +464,17 @@
    },
    "note": "model +13.1 vs market +19.5: leans TXSO by 6.4 pts (threshold 3.0)",
    "lockedAt": "2026-11-16T08:51:41Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-17T03:08:25Z"
    },
-   "rank": 3
+   "rank": 3,
+   "result": {
+    "outcome": "win",
+    "homeScore": 97,
+    "awayScore": 92,
+    "units": 0.435
+   }
   }
  ]
 }
