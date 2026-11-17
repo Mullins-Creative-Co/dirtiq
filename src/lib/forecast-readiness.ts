@@ -81,12 +81,12 @@ export function forecastReadiness(report: SportReport, game: SportUpcoming, now 
   const lean = game.lean === "home" || game.lean === "away" ? game.lean : null;
   const home = lean === "home";
   const handicap = finite(game.marketHomeSpread) ? (home ? game.marketHomeSpread : -game.marketHomeSpread) : null;
-  const cover = lean ? (home ? game.homeCoverProb : game.awayCoverProb) : null;
+  const cover = lean ? game.empiricalCover?.coverRate : null;
   const price = home ? game.marketHomePrice : game.marketAwayPrice;
   const spreadLean = !finite(game.marketHomeSpread) ? "No spread available"
     : lean ? `${home ? game.home : game.away} ${spread(handicap)}` : "No spread lean";
   const spreadCover = lean && finite(game.marketHomeSpread) && validProbability(cover)
-    ? `${probability(cover)} model cover${finite(price) ? ` · saved ${american(price)}` : " · price unavailable"}` : null;
+    ? `${probability(cover)} historical lean cover · n=${game.empiricalCover?.sample ?? 0} decided${finite(price) ? ` · saved ${american(price)}` : " · price unavailable"}` : null;
   const marketInformedWin = validProbability(game.stackedMarketHomeWinProb) ? game.stackedMarketHomeWinProb : null;
   return {
     label: !priced ? "No priced market" : forecastStatus !== "recent" || quoteStatus !== "recent" ? "Check inputs" : "Research only",

@@ -40,12 +40,18 @@ export type RacingReport = {
 
 export type SportSelections = { rule?: string; n: number; wins: number; losses: number; pushes: number; units: number | null; roi: number | null; [key: string]: unknown };
 export type SportSeason = { season: number; games: number; mae: number | null; marketMae: number | null; brierSpread?: number | null; selections?: SportSelections | null; [key: string]: unknown };
+export type SpreadClv = { count: number; meanPts: number | null; totalPts: number; positiveRate: number | null };
+export type EmpiricalCover = { minRatio: number; maxRatio: number | null; games: number; sample: number; wins: number; losses: number; pushes: number; coverRate: number | null };
+export type StakingGate = { passed: boolean; coverRate: number | null; lower95: number | null; requiredLower: number; minimumLiveGames: number; liveClv: SpreadClv };
 export type SportBacktest = {
   seasons: number[]; games: number; mae: number | null; marketMae: number | null;
   brierSpread: number | null; marketBrierSpread: number | null;
   brierMoneyline: number | null; marketBrierMoneyline: number | null; logLossMoneyline: number | null;
   ece: number | null; calibration: CalibrationBin[]; selections: SportSelections | null;
   bySeason: SportSeason[]; variants: Array<{ id: string; mae?: number | null; [key: string]: unknown }>;
+  predictionThrough?: string;
+  clv?: SpreadClv; clvByVariant?: Record<string, SpreadClv>; clvNote?: string;
+  spreadEvidence?: { headline: string; threshold: number; buckets: EmpiricalCover[] };
   selectionThreshold?: number | null;
   headline?: "independent" | "stacked" | null;
   brierMoneylineOnPricedGames?: number | null;
@@ -63,7 +69,9 @@ export type SportUpcoming = {
   projectedHomeMargin: number | null; marginSd: number | null; homeWinProb: number | null;
   marketHomeSpread: number | null; marketHomePrice: number | null; marketAwayPrice: number | null;
   marketHomeMl: number | null; marketAwayMl: number | null; book: string | null; lineObservedAt: string | null;
-  homeCoverProb: number | null; awayCoverProb: number | null; pushProb: number | null;
+  empiricalCover?: EmpiricalCover | null;
+  uncalibratedHomeCoverProb?: number | null; uncalibratedAwayCoverProb?: number | null;
+  homeCoverProb?: number | null; awayCoverProb?: number | null; pushProb: number | null;
   edgePts: number | null; lean: "home" | "away" | "none" | null; note?: string | null;
   homeRating?: TeamRatingBrief | null; awayRating?: TeamRatingBrief | null;
   homeForm?: TeamForm | null; awayForm?: TeamForm | null; homeAdvantage?: number | null;
@@ -106,7 +114,10 @@ export type CardPick = {
   line: number; price: number; homeSpread: number; book: string | null; lineObservedAt: string | null; lockedAt: string;
   modelHomeMargin: number; edgePts: number; threshold: number; edgeRatio: number;
   marketAwareAgrees: boolean; marketAwareEdgePts: number | null;
-  modelCoverProb: number | null; breakEvenProb: number; stakeUnits: number; rank: number;
+  modelCoverProb?: number | null; uncalibratedModelCoverProb?: number | null; empiricalCover?: EmpiricalCover | null;
+  stakingGate?: StakingGate; stakingStatus?: "staked" | "unstaked";
+  clv?: { points: number; closeLine: number; source: string };
+  breakEvenProb: number; stakeUnits: number; rank: number;
   record: { rule: string | null; picks: number; wins: number; losses: number; winRate: number | null; roi: number | null; seasons: [number, number] | null } | null;
   status: "playable" | "edge-gone" | "no-current-line" | "started" | "graded";
   current?: { checkedAt: string; line?: number; price?: number | null; edgePts?: number; lineObservedAt?: string | null };
@@ -115,8 +126,8 @@ export type CardPick = {
 };
 export type DailyCard = {
   date: string; generatedAt: string; forecastsRefreshedAt: string | null; unit: string; rules: string[]; evidence: string;
-  priced: number; qualified: number; totalUnits: number;
-  record: { days: number; wins: number; losses: number; pushes: number; units: number; staked: number; roi: number | null } | null;
+  priced: number; qualified: number; totalUnits: number; stakingGates?: Record<string, StakingGate>;
+  record: { days: number; wins: number; losses: number; pushes: number; units: number; staked: number; roi: number | null; unstakedGraded?: number; clv?: SpreadClv } | null;
   picks: CardPick[];
 };
 

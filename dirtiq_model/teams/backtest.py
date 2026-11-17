@@ -21,6 +21,7 @@ from .model import (MODEL_VERSION, AnchorFit, Scorer, SportConfig, anchor_residu
                     grade_selections, implied_market_margin, initial_hyper, market_metrics, round_or_none, variant_metrics)
 from .ratings import EmpiricalMargin, Hyper, KalmanRatings, fit_hyper, run_filter
 from . import stack
+from .evidence import backtest_evidence, backtest_clv
 
 REPORT_DIR = ROOT / "public" / "sports"
 PRED_DIR = ROOT / "data" / "sports"
@@ -193,7 +194,8 @@ def assemble_backtest(cfg: SportConfig, games: pd.DataFrame, scored: pd.DataFram
         variants[1]["limitation"] = f"{cfg.label} source carries no betting lines; the anchored variant and selections cannot be evaluated"
     last = folds[-1]
     backtest = {
-        "seasons": test_seasons, "games": int(len(scored)), "warmStartSeason": cfg.warm_start,
+        "seasons": test_seasons, "games": int(len(scored)),
+        "predictionThrough": pd.to_datetime(scored["start"], utc=True).max().isoformat(), "warmStartSeason": cfg.warm_start,
         "protocol": "rolling by season: hyperparameters fit on all prior seasons, filter updates only from completed games before each game day",
         "mae": ind.get("mae"), "marketMae": mk.get("marketMae"),
         "brierSpread": ind.get("brierSpread"), "marketBrierSpread": mk.get("marketBrierSpread"),
@@ -212,8 +214,10 @@ def assemble_backtest(cfg: SportConfig, games: pd.DataFrame, scored: pd.DataFram
         "selections": sel if has_market else {"rule": cfg.rule, "n": 0, "wins": 0, "losses": 0, "pushes": 0, "units": None, "roi": None,
                                               "limitation": "no market lines in source"},
         "selectionThreshold": cfg.threshold,
-        "clv": None,
-        "clvNote": "archive holds one line per game, so closing-line value is only measurable live through the ledger",
+        "spreadEvidence": backtest_evidence(scored, cfg.threshold, choose_headline(ind, stk)),
+        "clv": backtest_clv(scored, cfg.threshold, "stk" if choose_headline(ind, stk) == "stacked" else "ind"),
+        "clvByVariant": {p: backtest_clv(scored, cfg.threshold, p) for p in ("ind", "stk")},
+        "clvNote": "Pregame independent and stacked margins selected against the opening spread; descriptive, not timestamped opener-time forecasts. Positive points beat the close. Market-input variants omitted because their saved predictions use closing lines.",
         "bySeason": by_season, "variants": variants,
         "hyperparameters": [{"season": f["season"], **f["hyper"]} for f in folds],
         "latestFit": {"season": last["season"], "hyper": last["hyper"], "anchor": last["anchor"], "fit": last["fit"], "trainSeasons": last["trainSeasons"]},

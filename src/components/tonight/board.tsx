@@ -208,7 +208,7 @@ function ItemCard({ item, now, index, open, onToggle }: { item: TonightItem; now
                   <Stat label="Moneyline" value={item.market.moneyline ?? "—"} />
                   <Stat label="Model-only fair price" value={`${item.pick} ${item.market.fairPrice}`} detail="Uses unrounded probability; not a quote" />
                   <Stat label="Market implies" value={item.market.marketWinProb === null ? "—" : pct(item.market.marketWinProb, 0)} detail="no-vig" />
-                  <Stat label="Winner's cover prob" value={item.market.coverProb === null ? "—" : pct(item.market.coverProb, 0)} detail={`${item.pick} at the saved spread`} />
+                  <Stat label="Historical lean cover rate" value={item.market.empiricalCover?.coverRate == null ? "—" : pct(item.market.empiricalCover.coverRate, 1)} detail={item.market.empiricalCover ? `${item.market.lean ?? "Disagreement side"} · ${item.market.empiricalCover.sample} decided games in this size bucket; not a per-game probability` : "No backtest bucket available"} />
                   <Stat label="Lean" value={item.market.lean ? `${item.market.lean} ${item.market.edgePts !== null ? `${Math.abs(item.market.edgePts).toFixed(1)} pts` : ""}` : "none"} detail={item.market.edgePts !== null ? `model − market ${signed(item.market.edgePts, 1)}` : undefined} />
                 </dl>
                 <p className="mt-2 text-xs leading-5 text-[var(--muted)]">{item.market.book ? `Line from ${item.market.book}. ` : ""}A lean is a research flag at a fixed threshold, not a bet. Expected value needs a current executable price.</p>

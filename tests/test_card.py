@@ -4,7 +4,6 @@ import json
 import tempfile
 import shutil
 import unittest
-from unittest import mock
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -42,7 +41,7 @@ class CardTest(unittest.TestCase):
         (self.sports / ("%s.json" % sport)).write_text(json.dumps(report(sport, games, threshold)))
 
     def card(self, now=NOW, results=None):
-        return build.build_card(now=now, sports_dir=self.sports, archive_dir=self.archive, results=results or {})
+        return build.build_card(now=now, sports_dir=self.sports, archive_dir=self.archive, results=results or {}, ledger_rows=[])
 
     def test_qualification_side_and_stake(self):
         self.write("nfl", [
@@ -57,18 +56,18 @@ class CardTest(unittest.TestCase):
         ])
         picks = {p["gameId"]: p for p in self.card()["picks"]}
         self.assertEqual(sorted(picks), ["1", "2"])
-        self.assertEqual((picks["1"]["pick"], picks["1"]["line"], picks["1"]["stakeUnits"]), ("A1", 9.5, build.STAKE))
-        self.assertEqual((picks["2"]["pick"], picks["2"]["line"], picks["2"]["stakeUnits"]), ("H2", -3.5, build.STAKE))
+        self.assertEqual((picks["1"]["pick"], picks["1"]["line"], picks["1"]["stakeUnits"]), ("A1", 9.5, 0.0))
+        self.assertEqual((picks["2"]["pick"], picks["2"]["line"], picks["2"]["stakeUnits"]), ("H2", -3.5, 0.0))
         self.assertEqual(picks["2"]["rank"], 1)
         self.assertEqual(picks["1"]["record"]["winRate"], 0.49)
 
-    def test_paused_sport_is_left_off_and_unstarted_picks_come_off(self):
-        self.write("nba", [game("2", 8.0, -3.5, aware=4.5)])
-        self.write("ncaab", [game("2", 8.0, -3.5, aware=4.5)])
-        self.assertEqual([p["sport"] for p in self.card()["picks"]], ["ncaab"])
-        with mock.patch.object(build, "PAUSED_SPORTS", ()):
-            self.assertEqual(sorted(p["sport"] for p in self.card()["picks"]), ["nba", "ncaab"])
-        self.assertEqual([p["sport"] for p in self.card()["picks"]], ["ncaab"])
+    def test_all_sports_listed_but_unstaked_and_bulk_risk_zero(self):
+        for sport in build.CARD_SPORTS:
+            self.write(sport, [game("2", 8.0, -3.5, aware=4.5)])
+        card = self.card()
+        self.assertEqual(set(p["sport"] for p in card["picks"]), set(build.CARD_SPORTS))
+        self.assertEqual(card["totalUnits"], 0)
+        self.assertTrue(all(p["stakingStatus"] == "unstaked" for p in card["picks"]))
 
     def test_caps(self):
         self.write("ncaab", [game(str(i), 7.0 + i * 0.5, -3.5, aware=5.0) for i in range(10)])
@@ -96,7 +95,7 @@ class CardTest(unittest.TestCase):
         tomorrow = datetime(2026, 11, 13, 15, 0, tzinfo=timezone.utc)
         card = self.card(now=tomorrow, results=results)
         self.assertEqual(card["picks"], [])
-        self.assertEqual((card["record"]["wins"], card["record"]["losses"], card["record"]["units"]), (1, 0, 0.455))
+        self.assertEqual((card["record"]["wins"], card["record"]["losses"], card["record"]["units"]), (1, 0, 0.0))
         graded = json.loads((self.archive / "2026-11-12.json").read_text())["picks"][0]
         self.assertEqual(graded["result"]["outcome"], "win")
 

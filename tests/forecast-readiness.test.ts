@@ -18,6 +18,7 @@ const game: SportUpcoming = {
   marketHomeSpread: -15.5, marketHomePrice: -110, marketAwayPrice: -108,
   marketHomeMl: -700, marketAwayMl: 450, book: "ESPN multi-book median", lineObservedAt: "2026-11-11T12:30:00Z",
   homeCoverProb: .40, awayCoverProb: .60, pushProb: 0,
+  empiricalCover: {minRatio:1,maxRatio:2,games:102,sample:100,wins:51,losses:49,pushes:2,coverRate:.51},
   edgePts: -3.3, lean: "away", stackedMarketHomeWinProb: .81,
 };
 
@@ -33,10 +34,10 @@ test("a recent source bundle never certifies a fresh per-game quote", () => {
 test("spread summary follows the covering side, not the outright favorite", () => {
   const result = forecastReadiness(report, game, now);
   assert.equal(result.spreadLean, "CHI +15.5");
-  assert.equal(result.spreadCover, "60% model cover · saved -108");
+  assert.equal(result.spreadCover, "51% historical lean cover · n=100 decided · saved -108");
   const home = forecastReadiness(report, { ...game, lean: "home" }, now);
   assert.equal(home.spreadLean, "SAS -15.5");
-  assert.equal(home.spreadCover, "40% model cover · saved -110");
+  assert.equal(home.spreadCover, "51% historical lean cover · n=100 decided · saved -110");
   assert.equal(forecastReadiness(report, { ...game, lean: "none" }, now).spreadCover, null);
 });
 

@@ -22,3 +22,15 @@ test("bulk logging uses locked terms and a flat $1 stake, including completed pi
   assert.ok(inputs.some(input=>input.eventLabel.includes("High Point Panthers")));
   assert.equal(JSON.stringify(card),before);
 });
+
+test("bulk logging excludes every unstaked pick, including an all-unstaked card", () => {
+  const card = JSON.parse(readFileSync(new URL("../public/data/cards/2026-11-12.json",import.meta.url),"utf8")) as DailyCard;
+  const names = {};
+  card.picks.forEach(p => {p.stakeUnits = 0;});
+  assert.deepEqual(cardBetInputs(card,names), []);
+  card.picks[0].stakeUnits = .5;
+  const inputs = cardBetInputs(card,names);
+  assert.equal(inputs.length,1);
+  assert.equal(inputs[0].eventId,card.picks[0].id);
+  assert.equal(inputs[0].modelProb,null);
+});

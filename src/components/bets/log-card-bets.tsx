@@ -24,10 +24,10 @@ export function LogCardBets({date, count, events}: {date: string; count: number;
         } catch {
           setError("Could not confirm every save. Try again; already logged picks will be skipped.");
         }
-      })}>{pending ? "Logging…" : "Log all bets"}</button>
+      })}>{pending ? "Logging…" : "Log staked bets"}</button>
       {message ? <span role="status" className="text-sm">{message} <Link href="/bets" className="text-[var(--accent)] underline">My bets</Link></span> : null}
     </div>
-    <p className="mt-2 text-xs text-[var(--muted)]">Save all {count} picks at $1 each, using the listed lines and prices. Already logged picks are skipped. Edit lines below after saving.</p>
+    <p className="mt-2 text-xs text-[var(--muted)]">{count === 0 ? "No staked picks to log. Unstaked picks remain on the card for tracking; log an actual bet individually if needed." : `Save ${count} staked picks at $1 each, using the listed lines and prices.`} Already logged picks are skipped. Edit lines below after saving.</p>
     {error ? <p role="alert" className="mt-2 text-sm text-[var(--bad)]">{error}</p> : null}
     {bets.length ? <details className="mt-3" open><summary className="cursor-pointer text-sm font-bold">Edit logged bets</summary>
       <div className="mt-2 space-y-2">{bets.map(bet => <div key={bet.id} className="rounded border border-[var(--border)] p-2">

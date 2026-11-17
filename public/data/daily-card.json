@@ -1,21 +1,84 @@
 {
  "date": "2026-11-17",
- "generatedAt": "2026-11-17T11:15:57Z",
- "forecastsRefreshedAt": "2026-11-17T11:15:56Z",
+ "generatedAt": "2026-11-17T16:57:23Z",
+ "forecastsRefreshedAt": "2026-11-17T16:55:46Z",
  "unit": "1 unit = 1% of bankroll",
  "rules": [
-  "Spread bets only, in NFL, college football and college basketball; one bet per game. NBA is paused: forecast and tracked, not staked.",
+  "Spread picks in NFL, college football, NBA and college basketball; one pick per game, including unstaked tracking picks.",
+  "Staking gate: the lower endpoint of the two-sided 95% Wilson interval for this headline rule (1 to under 4 thresholds, pushes excluded) must exceed 52.4%, AND mean live spread CLV must be positive over at least 100 unique started leaned-side games with closing snapshots. Missing evidence fails closed.",
   "A game qualifies when the model margin disagrees with the spread by at least the sport's fixed backtest threshold.",
   "A game is left off when the disagreement is 4 thresholds or more: a gap that wide is a rating or data error, not value.",
   "Ranked by whether the market-aware model takes the same side, then by the size of the disagreement in threshold units.",
   "At most 15 picks a day, 6 per sport, 7.5 units in total.",
-  "Every pick is staked 0.5 unit: in the backtests no kind of pick covered often enough to earn a larger stake. One unit is 1% of bankroll.",
+  "New picks in passing sports stake 0.5 unit; all other new picks stake zero and are still graded. A failing gate also zeros unstarted picks on the current card; past stakes/results are preserved. One unit is 1% of bankroll.",
   "A pick is locked at the line it was first listed with and graded at that line."
  ],
- "evidence": "Backtested over many seasons, picks made by this rule have lost money in every sport after the vig; each pick shows its sport's record. Treat the card as a shortlist to check, not as proven value.",
+ "evidence": "Stakes require both documented evidence conditions; each pick shows its sport's backtest record and gate. Unstaked picks remain tracked. Historical bucket frequencies are not per-game probabilities.",
  "priced": 63,
- "qualified": 34,
- "totalUnits": 4.0,
+ "qualified": 33,
+ "stakingGates": {
+  "nfl": {
+   "passed": false,
+   "backtestWins": 684,
+   "backtestLosses": 704,
+   "coverRate": 0.49279538904899134,
+   "lower95": 0.46655022283339226,
+   "requiredLower": 0.524,
+   "minimumLiveGames": 100,
+   "liveClv": {
+    "count": 2,
+    "meanPts": -0.25,
+    "totalPts": -0.5,
+    "positiveRate": 0.0
+   }
+  },
+  "ncaaf": {
+   "passed": false,
+   "backtestWins": 2140,
+   "backtestLosses": 2343,
+   "coverRate": 0.47735891144323,
+   "lower95": 0.4627631752723864,
+   "requiredLower": 0.524,
+   "minimumLiveGames": 100,
+   "liveClv": {
+    "count": 25,
+    "meanPts": -0.06,
+    "totalPts": -1.5,
+    "positiveRate": 0.2
+   }
+  },
+  "nba": {
+   "passed": false,
+   "backtestWins": 1734,
+   "backtestLosses": 1763,
+   "coverRate": 0.49585358879039176,
+   "lower95": 0.4792959793849173,
+   "requiredLower": 0.524,
+   "minimumLiveGames": 100,
+   "liveClv": {
+    "count": 12,
+    "meanPts": -0.08333333333333333,
+    "totalPts": -1.0,
+    "positiveRate": 0.16666666666666666
+   }
+  },
+  "ncaab": {
+   "passed": false,
+   "backtestWins": 5231,
+   "backtestLosses": 5001,
+   "coverRate": 0.5112392494136043,
+   "lower95": 0.5015512135114458,
+   "requiredLower": 0.524,
+   "minimumLiveGames": 100,
+   "liveClv": {
+    "count": 153,
+    "meanPts": 0.29411764705882354,
+    "totalPts": 45.0,
+    "positiveRate": 0.28104575163398693
+   }
+  }
+ },
+ "totalUnits": 0.0,
  "record": {
   "days": 5,
   "wins": 18,
@@ -23,7 +86,14 @@
   "pushes": 0,
   "units": -7.423,
   "staked": 28.5,
-  "roi": -0.2605
+  "roi": -0.2605,
+  "unstakedGraded": 0,
+  "clv": {
+   "count": 48,
+   "meanPts": 0.3229166666666667,
+   "totalPts": 15.5,
+   "positiveRate": 0.375
+  }
  },
  "picks": [
   {
@@ -50,16 +120,15 @@
    "edgeRatio": 2.243,
    "marketAwareAgrees": true,
    "marketAwareEdgePts": 1.54,
-   "modelCoverProb": 0.6999,
    "breakEvenProb": 0.5413,
-   "stakeUnits": 0.5,
+   "stakeUnits": 0.0,
    "record": {
-    "rule": "abs(model - market) >= 3.0",
-    "picks": 11218,
-    "wins": 5694,
-    "losses": 5412,
-    "winRate": 0.5127,
-    "roi": -0.0223,
+    "rule": "stk headline: 3.0 <= abs(model + spread) < 12.0",
+    "picks": 10326,
+    "wins": 5231,
+    "losses": 5001,
+    "winRate": 0.5112,
+    "roi": -0.02502134330216075,
     "seasons": [
      2019,
      2027
@@ -89,13 +158,44 @@
    "lockedAt": "2026-11-17T11:15:57Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-17T11:15:57Z",
-    "line": 1.5,
-    "price": -118,
-    "edgePts": 6.73,
-    "lineObservedAt": "2026-11-17T11:08:50Z"
+    "checkedAt": "2026-11-17T16:57:24Z",
+    "line": -1.5,
+    "price": -102,
+    "edgePts": 3.73,
+    "lineObservedAt": "2026-11-17T16:53:01Z"
    },
-   "rank": 6
+   "rank": 6,
+   "stakingGate": {
+    "passed": false,
+    "backtestWins": 5231,
+    "backtestLosses": 5001,
+    "coverRate": 0.5112392494136043,
+    "lower95": 0.5015512135114458,
+    "requiredLower": 0.524,
+    "minimumLiveGames": 100,
+    "liveClv": {
+     "count": 153,
+     "meanPts": 0.29411764705882354,
+     "totalPts": 45.0,
+     "positiveRate": 0.28104575163398693
+    }
+   },
+   "originallyListedStakeUnits": 0.5,
+   "stakingStatus": "unstaked",
+   "uncalibratedModelCoverProb": 0.6999,
+   "empiricalCover": {
+    "minRatio": 2,
+    "maxRatio": 3,
+    "games": 1685,
+    "n": 1685,
+    "wins": 872,
+    "losses": 792,
+    "pushes": 21,
+    "sample": 1664,
+    "coverRate": 0.5240384615384616,
+    "priced": 1685,
+    "roi": -0.0007895692065174703
+   }
   },
   {
    "id": "ncaaf:401866465",
@@ -121,16 +221,15 @@
    "edgeRatio": 1.11,
    "marketAwareAgrees": false,
    "marketAwareEdgePts": -0.43,
-   "modelCoverProb": 0.6026,
    "breakEvenProb": 0.5238,
-   "stakeUnits": 0.5,
+   "stakeUnits": 0.0,
    "record": {
-    "rule": "abs(model - market) >= 3.0",
-    "picks": 5125,
-    "wins": 2422,
-    "losses": 2617,
-    "winRate": 0.4807,
-    "roi": -0.0915,
+    "rule": "ind headline: 3.0 <= abs(model + spread) < 12.0",
+    "picks": 4557,
+    "wins": 2140,
+    "losses": 2343,
+    "winRate": 0.4774,
+    "roi": -0.0949686896777713,
     "seasons": [
      2015,
      2026
@@ -160,13 +259,44 @@
    "lockedAt": "2026-11-17T11:15:57Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-17T11:15:57Z",
+    "checkedAt": "2026-11-17T16:57:24Z",
     "line": -14.5,
-    "price": -110,
-    "edgePts": 3.33,
-    "lineObservedAt": "2026-11-17T11:15:52Z"
+    "price": -115,
+    "edgePts": 3.2,
+    "lineObservedAt": "2026-11-17T16:37:00Z"
    },
-   "rank": 8
+   "rank": 8,
+   "stakingGate": {
+    "passed": false,
+    "backtestWins": 2140,
+    "backtestLosses": 2343,
+    "coverRate": 0.47735891144323,
+    "lower95": 0.4627631752723864,
+    "requiredLower": 0.524,
+    "minimumLiveGames": 100,
+    "liveClv": {
+     "count": 25,
+     "meanPts": -0.06,
+     "totalPts": -1.5,
+     "positiveRate": 0.2
+    }
+   },
+   "originallyListedStakeUnits": 0.5,
+   "stakingStatus": "unstaked",
+   "uncalibratedModelCoverProb": 0.6026,
+   "empiricalCover": {
+    "minRatio": 1,
+    "maxRatio": 2,
+    "games": 2845,
+    "n": 2845,
+    "wins": 1351,
+    "losses": 1444,
+    "pushes": 50,
+    "sample": 2795,
+    "coverRate": 0.4833631484794276,
+    "priced": 1418,
+    "roi": -0.1017404967756387
+   }
   },
   {
    "id": "ncaab:401911198",
@@ -192,16 +322,15 @@
    "edgeRatio": 2.447,
    "marketAwareAgrees": true,
    "marketAwareEdgePts": 0.67,
-   "modelCoverProb": 0.7186,
    "breakEvenProb": 0.5238,
-   "stakeUnits": 0.5,
+   "stakeUnits": 0.0,
    "record": {
-    "rule": "abs(model - market) >= 3.0",
-    "picks": 11218,
-    "wins": 5694,
-    "losses": 5412,
-    "winRate": 0.5127,
-    "roi": -0.0223,
+    "rule": "stk headline: 3.0 <= abs(model + spread) < 12.0",
+    "picks": 10326,
+    "wins": 5231,
+    "losses": 5001,
+    "winRate": 0.5112,
+    "roi": -0.02502134330216075,
     "seasons": [
      2019,
      2027
@@ -231,13 +360,44 @@
    "lockedAt": "2026-11-17T11:15:57Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-17T11:15:57Z",
+    "checkedAt": "2026-11-17T16:57:24Z",
     "line": 11.5,
-    "price": -110,
+    "price": -118,
     "edgePts": 7.34,
-    "lineObservedAt": "2026-11-17T11:08:50Z"
+    "lineObservedAt": "2026-11-17T16:53:01Z"
    },
-   "rank": 4
+   "rank": 4,
+   "stakingGate": {
+    "passed": false,
+    "backtestWins": 5231,
+    "backtestLosses": 5001,
+    "coverRate": 0.5112392494136043,
+    "lower95": 0.5015512135114458,
+    "requiredLower": 0.524,
+    "minimumLiveGames": 100,
+    "liveClv": {
+     "count": 153,
+     "meanPts": 0.29411764705882354,
+     "totalPts": 45.0,
+     "positiveRate": 0.28104575163398693
+    }
+   },
+   "originallyListedStakeUnits": 0.5,
+   "stakingStatus": "unstaked",
+   "uncalibratedModelCoverProb": 0.7186,
+   "empiricalCover": {
+    "minRatio": 2,
+    "maxRatio": 3,
+    "games": 1685,
+    "n": 1685,
+    "wins": 872,
+    "losses": 792,
+    "pushes": 21,
+    "sample": 1664,
+    "coverRate": 0.5240384615384616,
+    "priced": 1685,
+    "roi": -0.0007895692065174703
+   }
   },
   {
    "id": "ncaaf:401866464",
@@ -263,16 +423,15 @@
    "edgeRatio": 1.85,
    "marketAwareAgrees": true,
    "marketAwareEdgePts": 0.02,
-   "modelCoverProb": 0.6576,
    "breakEvenProb": 0.5192,
-   "stakeUnits": 0.5,
+   "stakeUnits": 0.0,
    "record": {
-    "rule": "abs(model - market) >= 3.0",
-    "picks": 5125,
-    "wins": 2422,
-    "losses": 2617,
-    "winRate": 0.4807,
-    "roi": -0.0915,
+    "rule": "ind headline: 3.0 <= abs(model + spread) < 12.0",
+    "picks": 4557,
+    "wins": 2140,
+    "losses": 2343,
+    "winRate": 0.4774,
+    "roi": -0.0949686896777713,
     "seasons": [
      2015,
      2026
@@ -302,13 +461,44 @@
    "lockedAt": "2026-11-17T11:15:57Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-17T11:15:57Z",
-    "line": -11.5,
-    "price": -108,
-    "edgePts": 5.55,
-    "lineObservedAt": "2026-11-17T11:15:52Z"
+    "checkedAt": "2026-11-17T16:57:24Z",
+    "line": -10.0,
+    "price": -110,
+    "edgePts": 5.42,
+    "lineObservedAt": "2026-11-17T16:37:00Z"
    },
-   "rank": 7
+   "rank": 7,
+   "stakingGate": {
+    "passed": false,
+    "backtestWins": 2140,
+    "backtestLosses": 2343,
+    "coverRate": 0.47735891144323,
+    "lower95": 0.4627631752723864,
+    "requiredLower": 0.524,
+    "minimumLiveGames": 100,
+    "liveClv": {
+     "count": 25,
+     "meanPts": -0.06,
+     "totalPts": -1.5,
+     "positiveRate": 0.2
+    }
+   },
+   "originallyListedStakeUnits": 0.5,
+   "stakingStatus": "unstaked",
+   "uncalibratedModelCoverProb": 0.6576,
+   "empiricalCover": {
+    "minRatio": 1,
+    "maxRatio": 2,
+    "games": 2845,
+    "n": 2845,
+    "wins": 1351,
+    "losses": 1444,
+    "pushes": 50,
+    "sample": 2795,
+    "coverRate": 0.4833631484794276,
+    "priced": 1418,
+    "roi": -0.1017404967756387
+   }
   },
   {
    "id": "ncaab:401906761",
@@ -334,16 +524,15 @@
    "edgeRatio": 2.593,
    "marketAwareAgrees": true,
    "marketAwareEdgePts": 1.63,
-   "modelCoverProb": 0.7427,
    "breakEvenProb": 0.5349,
-   "stakeUnits": 0.5,
+   "stakeUnits": 0.0,
    "record": {
-    "rule": "abs(model - market) >= 3.0",
-    "picks": 11218,
-    "wins": 5694,
-    "losses": 5412,
-    "winRate": 0.5127,
-    "roi": -0.0223,
+    "rule": "stk headline: 3.0 <= abs(model + spread) < 12.0",
+    "picks": 10326,
+    "wins": 5231,
+    "losses": 5001,
+    "winRate": 0.5112,
+    "roi": -0.02502134330216075,
     "seasons": [
      2019,
      2027
@@ -373,13 +562,44 @@
    "lockedAt": "2026-11-17T11:15:57Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-17T11:15:57Z",
+    "checkedAt": "2026-11-17T16:57:24Z",
     "line": 25.5,
-    "price": -115,
+    "price": -112,
     "edgePts": 7.78,
-    "lineObservedAt": "2026-11-17T11:08:50Z"
+    "lineObservedAt": "2026-11-17T16:53:01Z"
    },
-   "rank": 3
+   "rank": 3,
+   "stakingGate": {
+    "passed": false,
+    "backtestWins": 5231,
+    "backtestLosses": 5001,
+    "coverRate": 0.5112392494136043,
+    "lower95": 0.5015512135114458,
+    "requiredLower": 0.524,
+    "minimumLiveGames": 100,
+    "liveClv": {
+     "count": 153,
+     "meanPts": 0.29411764705882354,
+     "totalPts": 45.0,
+     "positiveRate": 0.28104575163398693
+    }
+   },
+   "originallyListedStakeUnits": 0.5,
+   "stakingStatus": "unstaked",
+   "uncalibratedModelCoverProb": 0.7427,
+   "empiricalCover": {
+    "minRatio": 2,
+    "maxRatio": 3,
+    "games": 1685,
+    "n": 1685,
+    "wins": 872,
+    "losses": 792,
+    "pushes": 21,
+    "sample": 1664,
+    "coverRate": 0.5240384615384616,
+    "priced": 1685,
+    "roi": -0.0007895692065174703
+   }
   },
   {
    "id": "ncaab:401921027",
@@ -405,16 +625,15 @@
    "edgeRatio": 2.277,
    "marketAwareAgrees": true,
    "marketAwareEdgePts": 1.83,
-   "modelCoverProb": 0.703,
    "breakEvenProb": 0.5349,
-   "stakeUnits": 0.5,
+   "stakeUnits": 0.0,
    "record": {
-    "rule": "abs(model - market) >= 3.0",
-    "picks": 11218,
-    "wins": 5694,
-    "losses": 5412,
-    "winRate": 0.5127,
-    "roi": -0.0223,
+    "rule": "stk headline: 3.0 <= abs(model + spread) < 12.0",
+    "picks": 10326,
+    "wins": 5231,
+    "losses": 5001,
+    "winRate": 0.5112,
+    "roi": -0.02502134330216075,
     "seasons": [
      2019,
      2027
@@ -444,13 +663,44 @@
    "lockedAt": "2026-11-17T11:15:57Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-17T11:15:57Z",
+    "checkedAt": "2026-11-17T16:57:24Z",
     "line": 2.5,
     "price": -115,
     "edgePts": 6.83,
-    "lineObservedAt": "2026-11-17T11:08:50Z"
+    "lineObservedAt": "2026-11-17T16:53:01Z"
    },
-   "rank": 5
+   "rank": 5,
+   "stakingGate": {
+    "passed": false,
+    "backtestWins": 5231,
+    "backtestLosses": 5001,
+    "coverRate": 0.5112392494136043,
+    "lower95": 0.5015512135114458,
+    "requiredLower": 0.524,
+    "minimumLiveGames": 100,
+    "liveClv": {
+     "count": 153,
+     "meanPts": 0.29411764705882354,
+     "totalPts": 45.0,
+     "positiveRate": 0.28104575163398693
+    }
+   },
+   "originallyListedStakeUnits": 0.5,
+   "stakingStatus": "unstaked",
+   "uncalibratedModelCoverProb": 0.703,
+   "empiricalCover": {
+    "minRatio": 2,
+    "maxRatio": 3,
+    "games": 1685,
+    "n": 1685,
+    "wins": 872,
+    "losses": 792,
+    "pushes": 21,
+    "sample": 1664,
+    "coverRate": 0.5240384615384616,
+    "priced": 1685,
+    "roi": -0.0007895692065174703
+   }
   },
   {
    "id": "ncaab:401925012",
@@ -476,16 +726,15 @@
    "edgeRatio": 2.61,
    "marketAwareAgrees": true,
    "marketAwareEdgePts": 0.69,
-   "modelCoverProb": 0.7645,
    "breakEvenProb": 0.5413,
-   "stakeUnits": 0.5,
+   "stakeUnits": 0.0,
    "record": {
-    "rule": "abs(model - market) >= 3.0",
-    "picks": 11218,
-    "wins": 5694,
-    "losses": 5412,
-    "winRate": 0.5127,
-    "roi": -0.0223,
+    "rule": "stk headline: 3.0 <= abs(model + spread) < 12.0",
+    "picks": 10326,
+    "wins": 5231,
+    "losses": 5001,
+    "winRate": 0.5112,
+    "roi": -0.02502134330216075,
     "seasons": [
      2019,
      2027
@@ -515,13 +764,44 @@
    "lockedAt": "2026-11-17T11:15:57Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-17T11:15:57Z",
+    "checkedAt": "2026-11-17T16:57:24Z",
     "line": -1.5,
     "price": -118,
     "edgePts": 7.83,
-    "lineObservedAt": "2026-11-17T11:08:50Z"
+    "lineObservedAt": "2026-11-17T16:53:01Z"
    },
-   "rank": 2
+   "rank": 2,
+   "stakingGate": {
+    "passed": false,
+    "backtestWins": 5231,
+    "backtestLosses": 5001,
+    "coverRate": 0.5112392494136043,
+    "lower95": 0.5015512135114458,
+    "requiredLower": 0.524,
+    "minimumLiveGames": 100,
+    "liveClv": {
+     "count": 153,
+     "meanPts": 0.29411764705882354,
+     "totalPts": 45.0,
+     "positiveRate": 0.28104575163398693
+    }
+   },
+   "originallyListedStakeUnits": 0.5,
+   "stakingStatus": "unstaked",
+   "uncalibratedModelCoverProb": 0.7645,
+   "empiricalCover": {
+    "minRatio": 2,
+    "maxRatio": 3,
+    "games": 1685,
+    "n": 1685,
+    "wins": 872,
+    "losses": 792,
+    "pushes": 21,
+    "sample": 1664,
+    "coverRate": 0.5240384615384616,
+    "priced": 1685,
+    "roi": -0.0007895692065174703
+   }
   },
   {
    "id": "ncaab:401917533",
@@ -547,16 +827,15 @@
    "edgeRatio": 2.727,
    "marketAwareAgrees": true,
    "marketAwareEdgePts": 1.17,
-   "modelCoverProb": 0.741,
    "breakEvenProb": 0.5349,
-   "stakeUnits": 0.5,
+   "stakeUnits": 0.0,
    "record": {
-    "rule": "abs(model - market) >= 3.0",
-    "picks": 11218,
-    "wins": 5694,
-    "losses": 5412,
-    "winRate": 0.5127,
-    "roi": -0.0223,
+    "rule": "stk headline: 3.0 <= abs(model + spread) < 12.0",
+    "picks": 10326,
+    "wins": 5231,
+    "losses": 5001,
+    "winRate": 0.5112,
+    "roi": -0.02502134330216075,
     "seasons": [
      2019,
      2027
@@ -586,13 +865,44 @@
    "lockedAt": "2026-11-17T11:15:57Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-17T11:15:57Z",
-    "line": 9.5,
-    "price": -115,
-    "edgePts": 8.18,
-    "lineObservedAt": "2026-11-17T11:08:50Z"
+    "checkedAt": "2026-11-17T16:57:24Z",
+    "line": 8.5,
+    "price": -108,
+    "edgePts": 7.18,
+    "lineObservedAt": "2026-11-17T16:53:01Z"
    },
-   "rank": 1
+   "rank": 1,
+   "stakingGate": {
+    "passed": false,
+    "backtestWins": 5231,
+    "backtestLosses": 5001,
+    "coverRate": 0.5112392494136043,
+    "lower95": 0.5015512135114458,
+    "requiredLower": 0.524,
+    "minimumLiveGames": 100,
+    "liveClv": {
+     "count": 153,
+     "meanPts": 0.29411764705882354,
+     "totalPts": 45.0,
+     "positiveRate": 0.28104575163398693
+    }
+   },
+   "originallyListedStakeUnits": 0.5,
+   "stakingStatus": "unstaked",
+   "uncalibratedModelCoverProb": 0.741,
+   "empiricalCover": {
+    "minRatio": 2,
+    "maxRatio": 3,
+    "games": 1685,
+    "n": 1685,
+    "wins": 872,
+    "losses": 792,
+    "pushes": 21,
+    "sample": 1664,
+    "coverRate": 0.5240384615384616,
+    "priced": 1685,
+    "roi": -0.0007895692065174703
+   }
   }
  ]
 }

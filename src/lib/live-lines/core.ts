@@ -63,9 +63,14 @@ export function consolidateLiveLines(payload: unknown, observedAt: string): Live
       homeMl: legal(american(hc.moneyLine) ?? number(h.moneyLine)),
       awayMl: legal(american(ac.moneyLine) ?? number(a.moneyLine)), total: number(item.overUnder),
     };
+    if (book.spread !== null && Math.abs(book.spread) >= 100) {
+      book.spread = null; book.homeSpreadPrice = null; book.awaySpreadPrice = null;
+    }
     return [book.spread, book.homeMl, book.awayMl, book.total].every((v) => v === null) ? [] : [book];
   });
   if (!books.length) return null;
+  const conflicting = books.some(b => b.spread !== null && b.spread < 0) && books.some(b => b.spread !== null && b.spread > 0);
+  if (conflicting) return { spread: null, homeSpreadPrice: null, awaySpreadPrice: null, homeMl: null, awayMl: null, total: median(books.map(b => b.total)), books: books.length, observedAt };
   const paired = books.filter((b) => b.homeMl !== null && b.awayMl !== null);
   const spreads = books.filter((b) => b.spread !== null);
   return {
@@ -154,7 +159,7 @@ export function gameBetTerms(game: SportUpcoming, live: LiveLine | null = null) 
     market: isSpread ? "spread" : "moneyline", selection: pickHome ? game.home : game.away,
     line: isSpread ? (pickHome ? handicap : -handicap) : null, price: price ?? null,
     // Saved cover probabilities describe the saved line only. Live cover probabilities need the model distribution.
-    modelProb: isSpread ? (live ? null : pickHome ? game.homeCoverProb : game.awayCoverProb) : (pickHome ? game.homeWinProb : game.homeWinProb == null ? null : 1 - game.homeWinProb),
+    modelProb: isSpread ? null : (pickHome ? game.homeWinProb : game.homeWinProb == null ? null : 1 - game.homeWinProb),
     marketProb: homeProb === null ? null : pickHome ? homeProb : 1 - homeProb,
   };
 }
