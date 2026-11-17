@@ -5,7 +5,7 @@ import { teamName, type TeamNames } from "@/lib/team-names";
 import { american, fairAmerican, num, probability as pct, signed, spread } from "@/lib/format";
 import {
   SPORT_LABELS, getTeamNames, getLedgerIndex, getUpcomingRaceBoards, listSportReports,
-  type LedgerEventSummary, type RaceBoard, type SportReport, type SportUpcoming, type TeamForm,
+  type EmpiricalCover, type LedgerEventSummary, type RaceBoard, type SportReport, type SportUpcoming, type TeamForm,
 } from "@/lib/model-reports";
 import { forecastReadiness, hasMarket, isUpcomingGame, validProbability, type ForecastReadiness } from "@/lib/forecast-readiness";
 import { getLiveLines, resolveNflEvent } from "@/lib/live-lines";
@@ -24,6 +24,7 @@ export type TonightMarket = {
   observedAt: string | null;
   spreadLabel: string | null; spreadPrices: string | null; moneyline: string | null;
   marketWinProb: number | null; modelWinProb: number | null; fairPrice: string | null;
+  empiricalCover?: EmpiricalCover | null;
   coverProb: number | null; edgePts: number | null; lean: string | null; book: string | null; note: string | null;
 };
 
@@ -157,7 +158,7 @@ function gameItem(report: SportReport, game: SportUpcoming, ledger: Map<string, 
         moneyline: game.marketHomeMl !== null && game.marketHomeMl !== undefined ? `${game.home} ${american(game.marketHomeMl)} · ${game.away} ${american(game.marketAwayMl)}` : null,
         marketWinProb: pickHome ? (game.marketHomeWinProb ?? null) : game.marketHomeWinProb !== null && game.marketHomeWinProb !== undefined ? 1 - game.marketHomeWinProb : null,
         modelWinProb: confidence, fairPrice: fairAmerican(confidence),
-        coverProb: pickHome ? (game.homeCoverProb ?? null) : (game.awayCoverProb ?? null),
+        coverProb: null, empiricalCover: game.empiricalCover ?? null,
         edgePts: game.edgePts ?? null,
         lean: game.lean && game.lean !== "none" ? (game.lean === "home" ? game.home : game.away) : null,
         book: game.book ?? null, note: game.note ?? null,

@@ -12,7 +12,7 @@ import { buildCardView, type CardPickView } from "@/lib/card";
 import { CARD_AGENT_PROMPT, CARD_JSON_URL } from "@/lib/card-agent";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Today’s card", description: "The day’s ranked, staked shortlist of spread bets across NFL, college football, NBA and college basketball, checked against the current line." };
+export const metadata = { title: "Today’s card", description: "The day’s ranked spread shortlist, with evidence determining stakes and quotes checked against the current line." };
 
 const startTime = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit" });
 
@@ -32,6 +32,14 @@ function status(pick: CardPickView): { label: string; tone: Tone; detail: string
   return pick.status === "edge-gone"
     ? { label: "Edge gone", tone: "warn", detail: "At the last hourly refresh the line had moved under the bar. No live quote right now." }
     : { label: "Check price", tone: "warn", detail: "No live quote right now; confirm the line with your book before betting." };
+}
+
+function empiricalText(pick: CardPickView): string {
+  const e = pick.empiricalCover;
+  return e?.coverRate != null ? `Historical lean cover rate ${pct(e.coverRate)} · n=${e.sample} decided (${e.pushes} pushes), ${e.minRatio}–${e.maxRatio ?? "∞"}× threshold; not a per-game probability` : "Historical size-bucket cover rate unavailable";
+}
+function clvText(pick: CardPickView): string {
+  return pick.clv ? `CLV ${signed(pick.clv.points, 1)} pts at close ${spread(pick.clv.closeLine)}` : "CLV pending or closing snapshot unavailable";
 }
 
 export default async function CardPage({searchParams}:{searchParams:Promise<{date?:string|string[]}>}) {
@@ -57,7 +65,7 @@ export default async function CardPage({searchParams}:{searchParams:Promise<{dat
   const now = Date.parse(card.loadedAt);
   const current = card.date === card.today;
   const open = card.picks.filter((p) => !p.result && p.liveStatus !== "closed");
-  const playable = open.filter((p) => p.liveStatus === "playable");
+  const playable = open.filter((p) => p.liveStatus === "playable" && p.stakeUnits > 0);
   const playableUnits = playable.reduce((sum, p) => sum + p.stakeUnits, 0);
   const stale = current && (!card.forecastsRefreshedAt || now - Date.parse(card.forecastsRefreshedAt) > 3 * 3_600_000);
   const record = card.record;
@@ -71,15 +79,15 @@ export default async function CardPage({searchParams}:{searchParams:Promise<{dat
       <main className="mx-auto max-w-7xl space-y-3 px-3 py-3 sm:space-y-5 sm:px-6 sm:py-6 [&>header]:gap-3 [&>header]:pb-3 [&_.stat]:!p-2.5 [&_.stat-value]:!text-2xl [&_.stat-detail]:!text-[11px]">
         {current?<RefreshNotice />:null}
         <form method="get" className="flex flex-wrap items-center gap-2 text-sm"><label className="flex items-center gap-2">Card date<select name="date" defaultValue={card.date} className="input !w-auto !py-1.5">{dates.map(date=><option key={date} value={date}>{date}</option>)}</select></label><button className="text-xs font-bold text-[var(--accent)]" type="submit">View card</button></form>
-        <LogCardBets key={card.date} date={card.date} count={card.picks.length} events={sorted.map(eventFor)} />
+        <LogCardBets key={card.date} date={card.date} count={card.picks.filter(p => p.stakeUnits > 0).length} events={sorted.map(eventFor)} />
         <PageHeader
           kicker={new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", weekday: "long", month: "long", day: "numeric" }).format(new Date(`${card.date}T17:00:00Z`))}
           title={current?"Today’s card":"Past card"}
-          lede="Spread picks at locked lines. Log or edit what you actually bet."
+          lede="Spread picks at locked lines. Unstaked picks are tracked and graded with zero money at risk."
           aside={
             <div className="grid grid-cols-3 gap-2">
-              <StatTile label={current?"Playable now":"Saved picks"} value={current?`${playable.length} of ${card.picks.length}`:card.picks.length} detail={current?`${playableUnits.toFixed(1)} units at risk`:"Log what you actually bet"} />
-              <StatTile label="Card record" value={record && record.wins + record.losses > 0 ? `${record.wins}–${record.losses}${record.pushes ? `–${record.pushes}` : ""}` : "—"} detail={record && record.staked > 0 ? `${units(record.units)} · ${pct(record.roi)} ROI over ${record.days} day${record.days === 1 ? "" : "s"}` : "No graded card yet"} tone={record && record.units > 0 ? "good" : "neutral"} />
+              <StatTile label={current?"Staked and playable":"Saved picks"} value={current?`${playable.length} of ${card.picks.length}`:card.picks.length} detail={current?`${playableUnits.toFixed(1)} units at risk`:"Log what you actually bet"} />
+              <StatTile label="Card record" value={record && record.wins + record.losses > 0 ? `${record.wins}–${record.losses}${record.pushes ? `–${record.pushes}` : ""}` : "—"} detail={`${record && record.staked > 0 ? `${units(record.units)} · ${pct(record.roi)} ROI` : "No graded stakes"}${record?.clv?.count ? ` · CLV ${signed(record.clv.totalPts, 1)} pts / ${record.clv.count} closes` : " · CLV pending"}`} tone={record && record.units > 0 ? "good" : "neutral"} />
               <StatTile label="Refreshed" value={relativeAge(card.forecastsRefreshedAt, now)} detail={`${card.qualified} qualified of ${card.priced} priced games`} tone={stale ? "warn" : "neutral"} />
             </div>
           }
@@ -87,7 +95,8 @@ export default async function CardPage({searchParams}:{searchParams:Promise<{dat
 
         {!current ? <Note><strong>Saved card for {card.date}.</strong> You can log a past bet below; enter the line and price you actually took.</Note> : null}
         {stale ? <Note tone="warn"><strong>Forecasts were last refreshed {relativeAge(card.forecastsRefreshedAt, now)}.</strong> The hourly refresh has stalled; rely only on rows with a live quote.</Note> : null}
-        <div className="note note-warn"><strong>No edge has been shown.</strong> These rules lost money in backtests.<details className="mt-1"><summary>Evidence and stakes</summary>{card.evidence} {card.unit}.</details></div>
+        {card.totalUnits === 0 ? <Note><strong>All picks are unstaked.</strong> Picks remain listed and graded for tracking; no money is assigned to them.</Note> : null}
+        <div className="note note-warn"><strong>Evidence determines stakes.</strong> Zero-stake picks are tracked for research.<details className="mt-1"><summary>Evidence and stakes</summary>{card.evidence} {card.unit}.</details></div>
 
         <Section title={`${card.picks.length} pick${card.picks.length === 1 ? "" : "s"} · ${card.totalUnits.toFixed(1)} units`} description={current?`Quotes checked ${startTime.format(new Date(card.loadedAt))} ET · refresh to update.`:"Log any finished pick below."}>
           {card.picks.length === 0 ? (
@@ -95,12 +104,13 @@ export default async function CardPage({searchParams}:{searchParams:Promise<{dat
           ) : (
             <>
             <div className="space-y-2 md:hidden">{sorted.map(pick=>{const s=status(pick);return <article key={pick.id} className="rounded-lg border border-[var(--border)] bg-[var(--surface)] p-3">
-              <div className="flex items-center justify-between gap-2 text-[11px] text-[var(--muted)]"><span>{pick.sportLabel} · {startTime.format(new Date(pick.startsAt))} ET</span><Chip tone={s.tone}>{s.label}</Chip></div>
+              <div className="flex items-center justify-between gap-2 text-[11px] text-[var(--muted)]"><span>{pick.sportLabel} · {startTime.format(new Date(pick.startsAt))} ET</span><Chip tone={pick.stakeUnits === 0 ? "neutral" : s.tone}>{pick.stakeUnits === 0 ? "Unstaked" : s.label}</Chip></div>
               <p className="mt-1 text-sm leading-5">{pick.awayName??pick.away} at {pick.homeName??pick.home}</p>
               <p className="mt-1 text-sm font-bold">{pick.pickName??pick.pick} {spread(pick.line)} ({american(pick.price)})</p>
-              <p className="mt-1 text-xs text-[var(--muted)]">Card stake {pick.stakeUnits.toFixed(1)}u · gap {pick.edgePts.toFixed(1)} pts</p>
+              <p className="mt-1 text-xs text-[var(--muted)]">{pick.stakeUnits === 0 ? "Unstaked · 0.0u" : `Card stake ${pick.stakeUnits.toFixed(1)}u`} · gap {pick.edgePts.toFixed(1)} pts</p>
+              <p className="mt-1 text-xs text-[var(--muted)]">Historical cover {pick.empiricalCover?.coverRate == null ? "unavailable" : `${pct(pick.empiricalCover.coverRate)} · n=${pick.empiricalCover.sample}`}</p>
               <div className="mt-2"><InlineLogBet href={pick.logHref} event={eventFor(pick)} label="Log bet" /></div>
-              <details className="mt-2 text-xs text-[var(--muted)]"><summary>Price and model details</summary><p className="mt-1">{s.detail}</p><p className="mt-1">{pick.record?`${pct(pick.record.winRate)} wins, ${pct(pick.record.roi)} ROI in the backtest`:"No backtest record"}</p></details>
+              <details className="mt-2 text-xs text-[var(--muted)]"><summary>Price and model details</summary><p className="mt-1">{s.detail}</p><p className="mt-1">{empiricalText(pick)}</p><p className="mt-1">{clvText(pick)}</p><p className="mt-1">{pick.record?`${pct(pick.record.winRate)} wins, ${pct(pick.record.roi)} ROI in the backtest`:"No backtest record"}</p></details>
             </article>})}</div>
             <div className="hidden md:block [&_td]:!py-2"><Table caption="Card picks, strongest first">
               <thead>
@@ -120,9 +130,9 @@ export default async function CardPage({searchParams}:{searchParams:Promise<{dat
                         <span className="strong block">{pick.pickName ?? pick.pick} {spread(pick.line)} ({american(pick.price)})</span>
                         <span className="block text-xs text-[var(--muted)]" title={dateTime(pick.lockedAt)}>listed {relativeAge(pick.lockedAt, now)}</span>
                       </td>
-                      <td className="num">{pick.stakeUnits.toFixed(1)}u</td>
+                      <td className="num">{pick.stakeUnits === 0 ? "Unstaked · 0.0u" : `${pick.stakeUnits.toFixed(1)}u`}</td>
                       <td>
-                        <Chip tone={s.tone}>{s.label}</Chip>
+                        <Chip tone={pick.stakeUnits === 0 ? "neutral" : s.tone}>{pick.stakeUnits === 0 ? "Unstaked" : s.label}</Chip>
                         <span className="mt-1 block max-w-xs text-xs text-[var(--muted)]">{s.detail}{pick.live ? ` Quote ${relativeAge(pick.live.observedAt, now)}.` : ""}</span>
                       </td>
                       <td className="num">
@@ -130,6 +140,7 @@ export default async function CardPage({searchParams}:{searchParams:Promise<{dat
                         <span className="block text-xs text-[var(--muted)]">{pick.marketAwareAgrees ? "market-aware model agrees" : "market-aware model disagrees"}</span>
                       </td>
                       <td className="text-xs text-[var(--muted)]">
+                        <p>{empiricalText(pick)}</p><p>{clvText(pick)}</p>
                         {pick.record ? `${pct(pick.record.winRate)} wins, ${pct(pick.record.roi)} ROI on ${pick.record.picks.toLocaleString("en-US")} picks; needs ${pct(pick.breakEvenProb)} at this price` : "No backtest record"}
                       </td>
                     </InlineBetRow>
@@ -141,6 +152,9 @@ export default async function CardPage({searchParams}:{searchParams:Promise<{dat
           )}
         </Section>
 
+        <Section title="Closing-line value" description="Positive points mean the listed handicap beat the last available pre-start closing snapshot; missing closes are excluded.">
+          <p className="text-sm">All tracked cards: {record?.clv?.count ? `${signed(record.clv.totalPts, 1)} total points · ${signed(record.clv.meanPts ?? 0, 2)} points per pick over ${record.clv.count} closes` : "No closing snapshots yet"}. Win–loss includes unstaked picks; P&L uses actual card stakes.</p>
+        </Section>
         <Section title="Second opinion" description="The model knows scores, not injuries or lineups. Hand the card to an assistant that can search the web before you bet.">
           <div className="flex flex-wrap items-center gap-3">
             <CopyBrief text={brief} label="Copy instructions and card" />

@@ -234,7 +234,7 @@ class ReportTests(unittest.TestCase):
     REQUIRED_BT = ["seasons", "games", "mae", "marketMae", "brierSpread", "marketBrierSpread", "brierMoneyline", "marketBrierMoneyline",
                    "logLossMoneyline", "ece", "calibration", "selections", "bySeason", "variants"]
     REQUIRED_UP = ["gameId", "home", "away", "startsAt", "projectedHomeMargin", "marginSd", "homeWinProb", "marketHomeSpread", "marketHomePrice",
-                   "marketAwayPrice", "marketHomeMl", "marketAwayMl", "book", "lineObservedAt", "homeCoverProb", "awayCoverProb", "pushProb",
+                   "marketAwayPrice", "marketHomeMl", "marketAwayMl", "book", "lineObservedAt", "uncalibratedHomeCoverProb", "uncalibratedAwayCoverProb", "pushProb",
                    "edgePts", "lean", "note"]
 
     def synthetic_games(self):

@@ -4,7 +4,7 @@ The card is a selection over forecasts that already exist; it fits nothing. A ga
 qualifies when it starts today (US Eastern), has a priced spread, and the published
 model margin disagrees with that spread by at least the sport's fixed backtest
 threshold (the report's ``lean``). Qualifiers are ranked, capped per sport and in
-total, and given a flat stake. A pick is locked at the line it was first listed
+total, and staked only when their sport passes the evidence gate. A pick is locked at the line it was first listed
 with, so a card read in the morning is the card that gets graded.
 
 Nothing here claims an edge: every pick carries its sport's backtest record for the
@@ -19,6 +19,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from ..ledger_core import now_iso
 from ..scoring import american_to_prob, settle_units
+from ..teams.evidence import (finite, empirical_cover, ledger_spread_rows, clv_summary, staking_gate, spread_clv)
 
 try:  # Python 3.9+
     from zoneinfo import ZoneInfo
@@ -33,12 +34,9 @@ CARD_PATH = ROOT / "public" / "data" / "daily-card.json"
 ARCHIVE_DIR = ROOT / "public" / "data" / "cards"
 
 CARD_SPORTS = ("nfl", "ncaaf", "nba", "ncaab")
-# Sports still forecast, shown on Tonight and recorded in the ledger, but kept off the staked card.
-# NBA: paused 2026-11-14 at the owner's request until its record gives a better feel (backtest 49.6% at the close).
-PAUSED_SPORTS = ("nba",)
 MAX_PICKS = 15
 MAX_PER_SPORT = 6
-# Every pick carries the same stake. Over the backtests, picks the market-aware model agreed with
+# Every new pick in a passing sport carries the same stake; other picks carry zero. Over the backtests, picks the market-aware model agreed with
 # covered no more often than the rest (NCAAB 51.1% v 53.7%, NFL 49.3% v 49.8%), and no edge size
 # covered more often than another, so there is nothing to justify staking one pick above the next.
 STAKE = 0.5
@@ -52,12 +50,13 @@ MIN_LEAD = timedelta(minutes=20)
 MAX_LINE_AGE = timedelta(hours=3)
 
 RULES = [
-    "Spread bets only, in NFL, college football and college basketball; one bet per game. NBA is paused: forecast and tracked, not staked.",
+    "Spread picks in NFL, college football, NBA and college basketball; one pick per game, including unstaked tracking picks.",
+    "Staking gate: the lower endpoint of the two-sided 95% Wilson interval for this headline rule (1 to under 4 thresholds, pushes excluded) must exceed 52.4%, AND mean live spread CLV must be positive over at least 100 unique started leaned-side games with closing snapshots. Missing evidence fails closed.",
     "A game qualifies when the model margin disagrees with the spread by at least the sport's fixed backtest threshold.",
     "A game is left off when the disagreement is %.0f thresholds or more: a gap that wide is a rating or data error, not value." % MAX_EDGE_RATIO,
     "Ranked by whether the market-aware model takes the same side, then by the size of the disagreement in threshold units.",
     "At most %d picks a day, %d per sport, %.1f units in total." % (MAX_PICKS, MAX_PER_SPORT, MAX_UNITS),
-    "Every pick is staked %.1f unit: in the backtests no kind of pick covered often enough to earn a larger stake. One unit is 1%% of bankroll." % STAKE,
+    "New picks in passing sports stake %.1f unit; all other new picks stake zero and are still graded. A failing gate also zeros unstarted picks on the current card; past stakes/results are preserved. One unit is 1%% of bankroll." % STAKE,
     "A pick is locked at the line it was first listed with and graded at that line.",
 ]
 
@@ -83,13 +82,13 @@ def _read(path: Path) -> Optional[Dict[str, Any]]:
 
 
 def _num(value: Any) -> Optional[float]:
-    return float(value) if isinstance(value, (int, float)) and not isinstance(value, bool) else None
+    return finite(value) if isinstance(value, (int, float)) and not isinstance(value, bool) else None
 
 
 def sport_record(report: Dict[str, Any]) -> Optional[Dict[str, Any]]:
     """The sport's backtest record for the rule that qualifies a pick."""
     backtest = report.get("backtest") or {}
-    sel = backtest.get("selections") or {}
+    sel = (backtest.get("spreadEvidence") or {}).get("selections") or backtest.get("selections") or {}
     if not sel.get("n"):
         return None
     decided = (sel.get("wins") or 0) + (sel.get("losses") or 0)
@@ -100,7 +99,7 @@ def sport_record(report: Dict[str, Any]) -> Optional[Dict[str, Any]]:
     }
 
 
-def candidate(sport: str, report: Dict[str, Any], game: Dict[str, Any], now: datetime) -> Optional[Dict[str, Any]]:
+def candidate(sport: str, report: Dict[str, Any], game: Dict[str, Any], now: datetime, gate: Optional[Dict[str, Any]] = None) -> Optional[Dict[str, Any]]:
     """One qualifying pick for ``game``, or None."""
     start = _parse(game.get("startsAt"))
     spread = _num(game.get("marketHomeSpread"))
@@ -123,7 +122,8 @@ def candidate(sport: str, report: Dict[str, Any], game: Dict[str, Any], now: dat
     aware_margin = _num(game.get("stackedMarketHomeMargin"))
     aware_edge = None if aware_margin is None else aware_margin + spread
     agrees = aware_edge is not None and aware_edge != 0 and (aware_edge > 0) == home_pick
-    cover = _num(game.get("homeCoverProb" if home_pick else "awayCoverProb"))
+    cover = _num(game.get("uncalibratedHomeCoverProb" if home_pick else "uncalibratedAwayCoverProb", game.get("homeCoverProb" if home_pick else "awayCoverProb")))
+    gate = gate or staking_gate((report.get("backtest") or {}).get("spreadEvidence") or {}, clv_summary([]))
     team, opponent = (game["home"], game["away"]) if home_pick else (game["away"], game["home"])
     line = spread if home_pick else -spread
     return {
@@ -137,8 +137,11 @@ def candidate(sport: str, report: Dict[str, Any], game: Dict[str, Any], now: dat
         "edgeRatio": round(abs(edge) / threshold, 3),
         "marketAwareAgrees": bool(agrees),
         "marketAwareEdgePts": None if aware_edge is None else round(aware_edge if home_pick else -aware_edge, 2),
-        "modelCoverProb": cover, "breakEvenProb": round(american_to_prob(price) or 0.0, 4),
-        "stakeUnits": STAKE,
+        "uncalibratedModelCoverProb": cover,
+        "empiricalCover": empirical_cover((report.get("backtest") or {}).get("spreadEvidence") or {}, edge, threshold),
+        "stakingGate": gate, "stakingStatus": "staked" if gate["passed"] else "unstaked",
+        "breakEvenProb": round(american_to_prob(price) or 0.0, 4),
+        "stakeUnits": STAKE if gate["passed"] else 0.0,
         "record": sport_record(report),
         "homeRating": game.get("homeRating"), "awayRating": game.get("awayRating"),
         "homeForm": _form(game.get("homeForm")), "awayForm": _form(game.get("awayForm")),
@@ -229,14 +232,33 @@ def load_results() -> Dict[str, Dict[str, Any]]:
     return out
 
 
+def attach_clv(pick: Dict[str, Any], rows: List[Dict[str, Any]], now: datetime) -> bool:
+    if pick.get("clv") is not None or (_parse(pick.get("startsAt")) or now) > now:
+        return False
+    matches = [r for r in rows if r.get("market") == "spread" and r.get("event_id") == pick["id"]
+               and r.get("selection") == pick["pick"] and finite(r.get("close_line")) is not None]
+    if not matches:
+        return False
+    row = max(matches, key=lambda r: str(r.get("forecast_at", "")))
+    value = spread_clv(pick["line"], row["close_line"])
+    if value is None:
+        return False
+    pick["clv"] = {"points": value, "closeLine": row["close_line"], "source": "last available pre-start ledger snapshot"}
+    return True
+
+
 def card_record(archive_dir: Path) -> Dict[str, Any]:
     """Graded history of every archived card."""
     wins = losses = pushes = 0
     units = staked = 0.0
     days = 0
+    clvs = []
+    unstaked_graded = 0
     for path in sorted(archive_dir.glob("*.json")):
         card = _read(path) or {}
+        clvs.extend(p["clv"]["points"] for p in card.get("picks") or [] if p.get("clv"))
         graded = [p for p in card.get("picks") or [] if p.get("result")]
+        unstaked_graded += sum(p["stakeUnits"] == 0 for p in graded)
         if graded:
             days += 1
         for p in graded:
@@ -247,14 +269,19 @@ def card_record(archive_dir: Path) -> Dict[str, Any]:
             units += p["result"]["units"]
             staked += p["stakeUnits"]
     return {"days": days, "wins": wins, "losses": losses, "pushes": pushes, "units": round(units, 3),
-            "staked": round(staked, 2), "roi": round(units / staked, 4) if staked else None}
+            "staked": round(staked, 2), "roi": round(units / staked, 4) if staked else None,
+            "unstakedGraded": unstaked_graded, "clv": clv_summary(clvs)}
 
 
 def build_card(now: Optional[datetime] = None, sports_dir: Path = SPORTS_DIR, archive_dir: Path = ARCHIVE_DIR,
-               results: Optional[Dict[str, Dict[str, Any]]] = None) -> Dict[str, Any]:
+               results: Optional[Dict[str, Dict[str, Any]]] = None,
+               ledger_rows: Optional[List[Dict[str, Any]]] = None) -> Dict[str, Any]:
     now = now or datetime.now(timezone.utc)
     today = eastern_date(now)
     results = load_results() if results is None else results
+    ledger_rows = ((_read(ROOT / "public/data/forecast-ledger.json") or {}).get("rows") or []) if ledger_rows is None else ledger_rows
+    leaned_rows = ledger_spread_rows(ledger_rows, now)
+    gates = {}
 
     # Grade every archived card that still has ungraded picks.
     archive_dir.mkdir(parents=True, exist_ok=True)
@@ -262,7 +289,9 @@ def build_card(now: Optional[datetime] = None, sports_dir: Path = SPORTS_DIR, ar
         card = _read(path)
         if not card or path.stem == today:
             continue
-        if any([grade(p, results) for p in card.get("picks") or []]):
+        changed = [grade(p, results) for p in card.get("picks") or []]
+        changed.extend(attach_clv(p, ledger_rows, now) for p in card.get("picks") or [])
+        if any(changed):
             path.write_text(json.dumps(card, indent=1) + "\n")
 
     games: Dict[str, Dict[str, Any]] = {}
@@ -273,6 +302,8 @@ def build_card(now: Optional[datetime] = None, sports_dir: Path = SPORTS_DIR, ar
         report = _read(sports_dir / ("%s.json" % sport))
         if not report:
             continue
+        live = clv_summary(r["clvPts"] for r in leaned_rows.values() if r.get("sport") == sport)
+        gates[sport] = staking_gate((report.get("backtest") or {}).get("spreadEvidence") or {}, live)
         stamp = report.get("forecastGeneratedAt") or report.get("generatedAt")
         if stamp:
             refreshed.append(stamp)
@@ -283,18 +314,35 @@ def build_card(now: Optional[datetime] = None, sports_dir: Path = SPORTS_DIR, ar
                 continue
             if _num(game.get("marketHomeSpread")) is not None:
                 considered += 1
-            pick = None if sport in PAUSED_SPORTS else candidate(sport, report, game, now)
+            pick = candidate(sport, report, game, now, gates[sport])
             if pick:
                 candidates.append(pick)
 
     previous = _read(archive_dir / ("%s.json" % today)) or {}
     locked = [p for p in previous.get("picks") or [] if p.get("id")]
-    # A pick in a sport paused after it was listed comes off unless its game has already started.
-    locked = [p for p in locked if p.get("sport") not in PAUSED_SPORTS or p.get("result") or (_parse(p.get("startsAt")) or now) <= now]
+    for pick in locked:
+        gate = gates.get(pick["sport"])
+        if gate and not pick.get("result") and (_parse(pick.get("startsAt")) or now) > now:
+            pick["stakingGate"] = gate
+            if not gate["passed"]:
+                pick.setdefault("originallyListedStakeUnits", pick["stakeUnits"])
+                pick["stakeUnits"] = 0.0
+            pick["stakingStatus"] = "staked" if pick["stakeUnits"] > 0 else "unstaked"
+        report = _read(sports_dir / (pick["sport"] + ".json")) or {}
+        if not pick.get("result") and (_parse(pick.get("startsAt")) or now) > now:
+            pick["record"] = sport_record(report)
+        pick.setdefault("uncalibratedModelCoverProb", pick.get("modelCoverProb"))
+        pick.pop("modelCoverProb", None)
+        empirical = empirical_cover((report.get("backtest") or {}).get("spreadEvidence") or {}, pick.get("edgePts"), pick.get("threshold"))
+        if not pick.get("result") and (_parse(pick.get("startsAt")) or now) > now:
+            pick["empiricalCover"] = empirical
+        else:
+            pick.setdefault("empiricalCover", empirical)
     picks = select(locked, candidates)
     stamp_now = now.isoformat(timespec="seconds").replace("+00:00", "Z")
     for pick in picks:
         pick.setdefault("lockedAt", stamp_now)
+        attach_clv(pick, ledger_rows, now)
         grade(pick, results)
         if not pick.get("result"):
             refresh_status(pick, games, now)
@@ -305,9 +353,9 @@ def build_card(now: Optional[datetime] = None, sports_dir: Path = SPORTS_DIR, ar
     card = {
         "date": today, "generatedAt": stamp_now, "forecastsRefreshedAt": max(refreshed) if refreshed else None,
         "unit": "1 unit = 1% of bankroll", "rules": RULES,
-        "evidence": ("Backtested over many seasons, picks made by this rule have lost money in every sport after the "
-                     "vig; each pick shows its sport's record. Treat the card as a shortlist to check, not as proven value."),
-        "priced": considered, "qualified": len(candidates),
+        "evidence": ("Stakes require both documented evidence conditions; each pick shows its sport's backtest "
+                     "record and gate. Unstaked picks remain tracked. Historical bucket frequencies are not per-game probabilities."),
+        "priced": considered, "qualified": len(candidates), "stakingGates": gates,
         "totalUnits": round(sum(p["stakeUnits"] for p in picks), 2),
         "record": None, "picks": picks,
     }

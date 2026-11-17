@@ -49,12 +49,16 @@ site orders sports the same way; the closing-line feed covers the four focus spo
 ### 1. Closing lines for all four focus sports, and offline CLV
 **Why**: NCAAF and NCAAB carry the most leans and had no closing-line feed; ESPN's cached
 opening and closing lines allow CLV offline today.
-**Build**: (shipped 2026-11-11) The Odds API snapshots now cover NFL, NCAAF, NBA, NCAAB at
-two runs a day, skipping sports with no game in the next 30 hours. Remaining: in
-`backtest.py`, score every fixed-rule selection on open-to-close movement from
-`open_spread_line` / `open_home_ml` and report CLV rate per sport and variant; show it on
-`/models` beside the ledger's live CLV.
-**Done when**: `/models` shows CLV per focus sport from the backtest and the ledger.
+**Status (2026-11-17)**: implemented on `feat/card-evidence-gate`. Backtests retain
+opening lines and report opener-to-close spread CLV for independent and stacked
+variants; `/models` shows headline CLV alongside unique leaned-side live spread CLV.
+Opening selections use opening spreads, never closing spreads. Market-input variants
+are explicitly unavailable for opener CLV because their saved predictions use the close;
+NFL's source has no opening pairs. Missing coverage is displayed, not imputed.
+Card builds add each started pick's CLV and aggregate points/count/mean to the record.
+See `docs/card-evidence-review-2026-11-17.md` for validation and data limits.
+**Done when**: completed for independent headline spread leans; market-input opener
+replays and moneyline CLV need a separately scoped evaluation.
 
 ### (old 2) Injuries and lineups for NBA and NFL
 **Why**: rest is in; absence of stars is the largest remaining rating error in NBA; the
@@ -109,6 +113,20 @@ alone shrinks to nothing, so this is the only route to starter value.
 
 ## Shipped (most recent first)
 
+- 2026-11-17: evidence-gated card implementation (`feat/card-evidence-gate`; not deployed).
+  New stakes require a 95% Wilson lower bound above 52.4% plus positive live spread
+  CLV on 100 unique started games. All other picks stay listed/graded at zero stake;
+  bulk logging excludes them. Current unstarted stakes can be reduced to zero; past
+  stakes/results are preserved. NBA's manual pause is superseded by the same gate.
+  Card/Tonight show descriptive out-of-fold cover frequencies by fixed size bucket
+  with samples, instead of raw model cover probabilities. Raw figures are labeled
+  uncalibrated. ESPN closing price placeholders masquerading as handicaps are
+  rejected before per-book medians, including old compact caches. Conflicting
+  provider favorite directions are quarantined in Python
+  and the live TypeScript parser. Missing ledger leans normalize to `none`, not NaN.
+  The remaining extreme NCAAB tail is not certified clean; see the evidence review.
+
+
 - 2026-11-15: bet review, 8-15 November (`docs/bet-review-2026-11-15.md`). Tracker 24-32,
   -9.6u; bets that followed the card 10-19. Tested early-season, big-underdog and
   repeat-miss explanations against history: none holds. `docs/tested-hypotheses.json` now
@@ -117,7 +135,7 @@ alone shrinks to nothing, so this is the only route to starter value.
 
 - 2026-11-14: NBA paused on the daily card (`PAUSED_SPORTS` in `dirtiq_model/card/build.py`)
   at the owner's request until its record gives a better feel. Still forecast, on Tonight
-  and in the ledger. Re-add by emptying the tuple.
+  and in the ledger. Superseded by the data-derived staking gate on 2026-11-17.
 
 - 2026-11-14: over/unders on Tonight. `dirtiq_model/teams/totals.py` projects a total for
   NBA, NCAAB, NFL and NCAAF (one pace-of-scoring number per team); each row shows the

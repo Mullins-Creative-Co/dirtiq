@@ -119,6 +119,15 @@ def _num(v: Any) -> Optional[float]:
     return None if np.isnan(f) else f
 
 
+def valid_handicap(value: Any) -> Optional[float]:
+    """Side handicaps are not American prices. ESPN has close.pointSpread=-110
+    price placeholders (2023 NCAAB). Reject |handicap| >= 100; never substitute
+    an earlier quote and call it the close. Apply to old compact caches too.
+    """
+    v = _num(value)
+    return v if v is not None and np.isfinite(v) and abs(v) < 100 else None
+
+
 def book_row(item: Dict[str, Any]) -> Optional[Dict[str, Any]]:
     """One ESPN odds item -> compact per-book record, or ``None`` for excluded providers.
 
@@ -170,6 +179,10 @@ def book_row(item: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         v = rec.get(key)
         if v is not None and abs(v) < 100:
             rec[key] = None if abs(v) < 1 else (-100.0 if v < 0 else 100.0)
+    rec["spread"] = valid_handicap(rec.get("spread"))
+    rec["open_spread"] = valid_handicap(rec.get("open_spread"))
+    if rec["spread"] is None:
+        rec["home_spread_price"] = rec["away_spread_price"] = None
     if all(rec.get(k) is None for k in ("spread", "home_ml", "away_ml", "total")):
         return None
     return rec
@@ -200,6 +213,23 @@ def consolidate(books: Sequence[Dict[str, Any]]) -> Dict[str, Any]:
     if not books:
         return {"spread_line": None, "spread_home_price": None, "spread_away_price": None, "home_ml": None, "away_ml": None,
                 "total_line": None, "open_spread_line": None, "open_home_ml": None, "open_away_ml": None, "books": 0, "closing": False}
+    # Validate EACH book before taking a median: -110 and -49.5 otherwise become
+    # an equally corrupt -79.75. This also repairs use of already-compacted caches.
+    books = [{**b, "spread": valid_handicap(b.get("spread")),
+              "open_spread": valid_handicap(b.get("open_spread"))} for b in books]
+    # Conflicting home-favorite directions are not a meaningful consensus. In the
+    # 2018-19 NCAAB archive, providers publish mirrored sides for the same event
+    # (e.g. 401090034: WEB -10.5 at Westgate, +10.5 at Caesars). Do not choose a
+    # source using model accuracy or majority votes from duplicate brand feeds.
+    # Conservatively withhold side markets (including opens) if signs disagree.
+    spreads = [float(b["spread"]) for b in books if b.get("spread") is not None]
+    conflicting = any(v < 0 for v in spreads) and any(v > 0 for v in spreads)
+    if conflicting:
+        clean = [{**b, **{key: None for key in ("spread", "home_spread_price", "away_spread_price",
+                  "home_ml", "away_ml", "open_spread", "open_home_ml", "open_away_ml")}} for b in books]
+        result = consolidate(clean)
+        result["conflictingSides"] = True
+        return result
     # moneylines must come from books quoting both sides, so the pair is vig-consistent
     ml_books = [b for b in books if b.get("home_ml") is not None and b.get("away_ml") is not None]
     sp_books = [b for b in books if b.get("spread") is not None]

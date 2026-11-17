@@ -1,0 +1,267 @@
+{
+  "tailBefore": {
+    "games": 140,
+    "wins": 115,
+    "losses": 22,
+    "pushes": 3,
+    "winRate": 0.8214285714285714
+  },
+  "tailAfterConflictQuarantineOnly": {
+    "games": 130,
+    "wins": 107,
+    "losses": 20,
+    "pushes": 3,
+    "winRate": 0.823076923076923
+  },
+  "tailAfterAllValidationFixedMargins": {
+    "games": 65,
+    "wins": 42,
+    "losses": 20,
+    "pushes": 3,
+    "winRate": 0.6461538461538462
+  },
+  "malformedHandicapEventsInPredictions": 5576,
+  "tailWithMalformedBook": 68,
+  "quarantinedPricedGames": 1304,
+  "tailQuarantined": 10,
+  "sourceExamples": [
+    {
+      "eventId": "401090034",
+      "books": [
+        {
+          "provider": "Caesar's",
+          "spread": 10.5,
+          "home_spread_price": -110.0,
+          "away_spread_price": -110.0,
+          "home_ml": 425.0,
+          "away_ml": -550.0,
+          "total": 138.5,
+          "has_close": false,
+          "open_spread": null,
+          "open_home_ml": null,
+          "open_away_ml": null
+        },
+        {
+          "provider": "Caesars (New Jersey)",
+          "spread": 10.5,
+          "home_spread_price": -110.0,
+          "away_spread_price": -110.0,
+          "home_ml": 425.0,
+          "away_ml": -550.0,
+          "total": 138.5,
+          "has_close": false,
+          "open_spread": null,
+          "open_home_ml": null,
+          "open_away_ml": null
+        },
+        {
+          "provider": "Caesars Sportsbook",
+          "spread": 10.5,
+          "home_spread_price": -110.0,
+          "away_spread_price": -110.0,
+          "home_ml": 450.0,
+          "away_ml": -600.0,
+          "total": 139.0,
+          "has_close": false,
+          "open_spread": null,
+          "open_home_ml": null,
+          "open_away_ml": null
+        },
+        {
+          "provider": "Unibet",
+          "spread": 10.5,
+          "home_spread_price": -111.0,
+          "away_spread_price": -111.0,
+          "home_ml": 440.0,
+          "away_ml": -667.0,
+          "total": 138.5,
+          "has_close": false,
+          "open_spread": null,
+          "open_home_ml": null,
+          "open_away_ml": null
+        },
+        {
+          "provider": "Westgate",
+          "spread": -10.5,
+          "home_spread_price": -110.0,
+          "away_spread_price": -110.0,
+          "home_ml": -600.0,
+          "away_ml": 425.0,
+          "total": 139.0,
+          "has_close": false,
+          "open_spread": null,
+          "open_home_ml": null,
+          "open_away_ml": null
+        },
+        {
+          "provider": "Wynn",
+          "spread": 10.0,
+          "home_spread_price": -110.0,
+          "away_spread_price": -110.0,
+          "home_ml": null,
+          "away_ml": null,
+          "total": null,
+          "has_close": false,
+          "open_spread": null,
+          "open_home_ml": null,
+          "open_away_ml": null
+        }
+      ]
+    },
+    {
+      "eventId": "401099942",
+      "books": [
+        {
+          "provider": "Caesar's",
+          "spread": -13.0,
+          "home_spread_price": -110.0,
+          "away_spread_price": -110.0,
+          "home_ml": -1000.0,
+          "away_ml": 650.0,
+          "total": 142.0,
+          "has_close": false,
+          "open_spread": null,
+          "open_home_ml": null,
+          "open_away_ml": null
+        },
+        {
+          "provider": "Caesars (New Jersey)",
+          "spread": -13.0,
+          "home_spread_price": -110.0,
+          "away_spread_price": -110.0,
+          "home_ml": -1000.0,
+          "away_ml": 650.0,
+          "total": 142.0,
+          "has_close": false,
+          "open_spread": null,
+          "open_home_ml": null,
+          "open_away_ml": null
+        },
+        {
+          "provider": "Caesars Sportsbook",
+          "spread": -13.0,
+          "home_spread_price": -110.0,
+          "away_spread_price": -110.0,
+          "home_ml": -1000.0,
+          "away_ml": 650.0,
+          "total": 141.0,
+          "has_close": false,
+          "open_spread": null,
+          "open_home_ml": null,
+          "open_away_ml": null
+        },
+        {
+          "provider": "Unibet",
+          "spread": -13.0,
+          "home_spread_price": -111.0,
+          "away_spread_price": -111.0,
+          "home_ml": -1111.0,
+          "away_ml": 650.0,
+          "total": 143.0,
+          "has_close": false,
+          "open_spread": null,
+          "open_home_ml": null,
+          "open_away_ml": null
+        },
+        {
+          "provider": "Westgate",
+          "spread": -13.0,
+          "home_spread_price": -110.0,
+          "away_spread_price": -110.0,
+          "home_ml": -1100.0,
+          "away_ml": 700.0,
+          "total": 141.0,
+          "has_close": false,
+          "open_spread": null,
+          "open_home_ml": null,
+          "open_away_ml": null
+        },
+        {
+          "provider": "Wynn",
+          "spread": -13.0,
+          "home_spread_price": -110.0,
+          "away_spread_price": -110.0,
+          "home_ml": null,
+          "away_ml": null,
+          "total": null,
+          "has_close": false,
+          "open_spread": null,
+          "open_home_ml": null,
+          "open_away_ml": null
+        }
+      ]
+    },
+    {
+      "eventId": "401489751",
+      "books": [
+        {
+          "provider": "ESPN BET",
+          "spread": -110.0,
+          "home_spread_price": -110.0,
+          "away_spread_price": -110.0,
+          "home_ml": null,
+          "away_ml": 2200.0,
+          "total": 143.5,
+          "has_close": true,
+          "open_spread": null,
+          "open_home_ml": null,
+          "open_away_ml": null
+        }
+      ]
+    },
+    {
+      "eventId": "401489513",
+      "books": [
+        {
+          "provider": "ESPN BET",
+          "spread": -110.0,
+          "home_spread_price": -110.0,
+          "away_spread_price": -110.0,
+          "home_ml": null,
+          "away_ml": 2200.0,
+          "total": 161.5,
+          "has_close": true,
+          "open_spread": null,
+          "open_home_ml": null,
+          "open_away_ml": null
+        }
+      ]
+    }
+  ],
+  "ledgerNov11Through16": {
+    "games": 227,
+    "explicitHomeAwayLabels": 178,
+    "derivedFromMarginAndLine": 143,
+    "inconsistentExplicitLabels": 35,
+    "invalidNaNLeans": 48,
+    "first225Chronological": {
+      "naiveNotNone": 224,
+      "explicitHomeAwayLabels": 176,
+      "derivedFromMarginAndLine": 141,
+      "invalidNaN": 48
+    },
+    "naiveNotNoneCount": 226,
+    "sameGamesInSavedBacktest": 0
+  },
+  "earlyNovemberBacktest": {
+    "priced": 3654,
+    "independentLeanRate": 0.5618500273672687,
+    "stackedLeanRate": 0.5210727969348659
+  },
+  "savedBacktestThrough": "2026-11-10 04:59:00+00:00",
+  "sameGameComparison": {
+    "games": 224,
+    "headline": "stacked",
+    "liveExplicitLabels": 178,
+    "liveMathLeans": 143,
+    "backtestLeansAtLiveLine": 118,
+    "backtestLeansAtClose": 118,
+    "meanAbsoluteMarginDifference": 2.025138663596618,
+    "meanAbsoluteLineDifference": 0.5982142857142857,
+    "missingLiveGames": [
+      "401917529",
+      "401921760",
+      "401926073"
+    ]
+  }
+}

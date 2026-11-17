@@ -77,7 +77,7 @@ export default async function SportPage({ params }: { params: Promise<{ sport: s
             <EmptyState title="No upcoming games in the saved window" detail="There are no future games in this report. Check back after the next forecast refresh." href="/sports" linkLabel="All sports" />
           ) : (
             <Table caption={`Upcoming ${label} games`}>
-              <thead><tr><th>Game / input check</th><th className="num">Proj. margin</th><th className="num">SD</th><th className="num">Home win</th><th className="num">Saved spread</th>{odds ? <th className="num">Snapshot consensus</th> : null}<th className="num">Home cover</th><th className="num">Moneyline</th><th className="num">Spread lean</th></tr></thead>
+              <thead><tr><th>Game / input check</th><th className="num">Proj. margin</th><th className="num">SD</th><th className="num">Home win</th><th className="num">Saved spread</th>{odds ? <th className="num">Snapshot consensus</th> : null}<th className="num">Historical lean cover</th><th className="num">Moneyline</th><th className="num">Spread lean</th></tr></thead>
               <tbody>
                 {shownGames.map((g) => {
                   const leanTeam = g.lean === "home" ? g.home : g.lean === "away" ? g.away : null;
@@ -91,7 +91,7 @@ export default async function SportPage({ params }: { params: Promise<{ sport: s
                       <td className="num">{probability(g.homeWinProb, 1)}<div className="text-xs text-[var(--muted)]">model-only</div></td>
                       <td className="num">{g.marketHomeSpread === null ? "—" : `${g.home} ${spread(g.marketHomeSpread)}`}<div className="text-xs text-[var(--muted)]">{g.marketHomePrice !== null ? `${american(g.marketHomePrice)} / ${american(g.marketAwayPrice)}` : ""}</div></td>
                       {odds ? (() => { const candidate = live.get(`${g.home}|${g.away}`); const l = candidate?.startsAt === g.startsAt ? candidate : null; return <td className="num">{l && l.homeSpread !== null ? `${g.home} ${spread(l.homeSpread)}` : "—"}<div className="text-xs text-[var(--muted)]">{l ? `${american(l.homeMl)} / ${american(l.awayMl)} · ${l.books} books` : ""}</div>{l ? <div className="text-xs text-[var(--muted)]">Retrieved {dateTime(l.observedAt)}</div> : null}</td>; })() : null}
-                      <td className="num">{probability(g.homeCoverProb, 1)}{g.pushProb ? <div className="text-xs text-[var(--muted)]">push {probability(g.pushProb, 1)}</div> : null}</td>
+                      <td className="num">{probability(g.empiricalCover?.coverRate, 1)}<div className="text-xs text-[var(--muted)]">{g.empiricalCover ? `n=${g.empiricalCover.sample} decided · size bucket` : "No bucket evidence"}</div></td>
                       <td className="num">{g.marketHomeMl !== null ? `${american(g.marketHomeMl)} / ${american(g.marketAwayMl)}` : "—"}</td>
                       <td className="num">{leanTeam ? <Chip tone={tone} title="Model disagrees with the market by this many points toward this side">{leanTeam} {g.edgePts === null ? "" : `${Math.abs(g.edgePts).toFixed(1)} pts`}</Chip> : <span className="text-[var(--muted)]">—</span>}</td>
                     </tr>

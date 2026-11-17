@@ -4,8 +4,8 @@ import { connection } from "next/server";
 import { Nav } from "@/components/nav";
 import { Card, Chip, EmptyState, Note, PageHeader, Section, StatTile, Table, type Tone } from "@/components/ui/primitives";
 import { ReliabilityChart } from "@/components/ui/reliability-chart";
-import { num, pct, relativeAge, signed, units } from "@/lib/format";
-import { SPORT_LABELS, getModelHealth, getOddsStatus, getRacingReport, listSportReports } from "@/lib/model-reports";
+import { dateTime, num, pct, relativeAge, signed, units } from "@/lib/format";
+import { SPORT_LABELS, getDailyCard, getModelHealth, getOddsStatus, getRacingReport, listSportReports } from "@/lib/model-reports";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Model health", description: "Ledger scores, calibration, and backtests for every sportIQ model." };
@@ -23,6 +23,7 @@ export default async function ModelsPage() {
   const sports = listSportReports();
   const models = health?.models ?? [];
   const odds = getOddsStatus();
+  const gates = getDailyCard()?.stakingGates ?? {};
   const oddsRuns = Object.entries(odds?.sports ?? {});
 
   return (
@@ -64,6 +65,17 @@ export default async function ModelsPage() {
               ))}
             </div>
           ) : null}
+        </Section>
+
+        <Section title="Lean closing-line value and staking gate" description="Backtest: pregame headline margins compared with opening and closing spreads; descriptive, not an opener-time trading backtest. Live: unique started games, leaned side only, last available pre-start closing snapshot. Positive points beat the close; missing pairs are excluded.">
+          <Table caption="Spread CLV by sport">
+            <thead><tr><th>Sport</th><th>Backtest CLV</th><th>Live CLV</th><th>95% cover lower bound</th><th>Staking</th></tr></thead>
+            <tbody>{sports.filter(r => ["nfl", "ncaaf", "nba", "ncaab"].includes(r.sport)).map(r => {
+              const clv = r.backtest?.clv, gate = gates[r.sport];
+              return <tr key={r.sport}><td>{r.label}</td><td>{clv?.count ? `${signed(clv.meanPts ?? 0, 2)} pts · n=${clv.count} · ${pct(clv.positiveRate)} positive` : "No open/close pairs"}<details className="mt-1 text-xs"><summary>Independent variants</summary><p>Backtest through {dateTime(r.backtest?.predictionThrough)}</p>{Object.entries(r.backtest?.clvByVariant ?? {}).map(([variant, value]) => <p key={variant}>{variant === "stk" ? "Stacked" : "Kalman"}: {value.count ? `${signed(value.meanPts ?? 0, 2)} pts · n=${value.count}` : "No pairs"}</p>)}</details></td><td>{gate?.liveClv.count ? `${signed(gate.liveClv.meanPts ?? 0, 2)} pts · n=${gate.liveClv.count}` : "No closing samples"}</td><td>{gate?.lower95 == null ? "Unavailable" : `${pct(gate.lower95, 2)}; must exceed 52.4%`}</td><td>{gate?.passed ? "Passed" : "Unstaked"}</td></tr>;
+            })}</tbody>
+          </Table>
+          <p className="text-xs text-[var(--muted)]">The gate also requires positive mean live spread CLV on at least 100 unique games. Backtest cover evidence uses the headline model, existing threshold and under-4× card cap. Market-input variants are excluded from opener CLV because their saved forecasts already use the close.</p>
         </Section>
 
         <Section id="racing" kicker="Backtest" title="Dirt racing: new engine versus the legacy method" description="Rolling-origin by season on identical races. Log loss is per race on the winner distribution; lower is better. The legacy method is the old binary-XGBoost-plus-normalizer approach refit on the same folds without its leaking features, so this is method against method.">

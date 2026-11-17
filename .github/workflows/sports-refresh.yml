@@ -43,6 +43,7 @@ jobs:
       - run: OPENBLAS_NUM_THREADS=1 python -m unittest discover -s tests -p 'test_ledger.py'
       - run: OPENBLAS_NUM_THREADS=1 python -m unittest discover -s tests -p 'test_odds.py'
       - run: python -m unittest discover -s tests -p 'test_card.py'
+      - run: OPENBLAS_NUM_THREADS=1 python -m unittest discover -s tests -p 'test_spread_evidence.py'
       - name: Settle, forecast, snapshot odds and export
         env:
           DIRTIQ_SPORTS_CACHE: ${{ github.workspace }}/sports-cache

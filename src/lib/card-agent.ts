@@ -10,13 +10,17 @@ The card is JSON. Fetch it from ${CARD_JSON_URL} (it is rebuilt hourly; GitHub m
 - "home", "away", "startsAt" (UTC) identify the game. "sportLabel" is the league.
 - "edgePts" is how many points the model disagrees with the spread; "threshold" is the minimum that qualifies.
 - "marketAwareAgrees" says whether a second model that knows the market line takes the same side.
-- "record" is that league's long-run backtest for this rule. Read it: the win rates are near 50% and the ROI is negative. The model has NOT shown a betting edge.
+- "record" is that league's long-run backtest for this rule. Read it alongside the staking gate: a model disagreement alone does not demonstrate a betting edge.
+- "stakeUnits": 0 means an unstaked tracking pick. Never turn it into a bet, even when its line still qualifies. The sport must pass the published evidence gate first.
+- "empiricalCover" is a historical frequency for this sport and disagreement bucket, with its sample size; it is not a calibrated chance for this game. "uncalibratedModelCoverProb" is diagnostic only.
+- "clv" compares the listed line with the last available pre-start closing snapshot; positive points beat the close.
 - "status": "playable" means the latest line still qualifies; "edge-gone" means the line has moved past the model's number; "started" and "graded" are finished.
 
 WHAT THE MODEL DOES NOT KNOW
 It rates teams from past scores only. It knows nothing about: injuries, suspensions, rest or load management, starting quarterbacks or lineups, transfers and roster turnover, coaching changes, travel, weather, motivation, or anything that happened today. A large disagreement with the market very often means the market knows one of these things and the model does not.
 
-WHAT TO DO FOR EVERY PICK WITH STATUS "playable"
+WHAT TO DO FOR EVERY STAKED PICK WITH STATUS "playable"
+For zero-stake picks, report TRACK / 0 units and do not recommend staking them.
 1. Search for today's news on both teams: injury report, confirmed or expected starters, rest, suspensions, and for football the weather at the venue. Use sources dated today or yesterday and say which.
 2. Find the current spread and price at a major US sportsbook. Compare with "line" and "price".
 3. Decide:

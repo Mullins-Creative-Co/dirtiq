@@ -17,6 +17,7 @@ from .backtest import base_report, limitations, load_report, teams_in, training_
 from .model import MODEL_VERSION, Scorer, SportConfig, initial_hyper, opt_int, round_or_none, settle_moneyline, settle_spread
 from .ratings import Hyper, KalmanRatings, fit_hyper, run_filter
 from . import stack, totals
+from .evidence import empirical_cover
 
 HORIZON_DAYS = 10
 RESULTS_DIR = Path(__file__).resolve().parents[2] / "public" / "data" / "results"
@@ -212,7 +213,7 @@ def upcoming_entry(row: pd.Series, book: Optional[str], observed_at: Optional[st
         "marketHomeMl": opt_int(row.get("home_ml")), "marketAwayMl": opt_int(row.get("away_ml")),
         "marketTotal": round_or_none(row.get("total_line"), 2),
         "book": book, "lineObservedAt": observed_at,
-        "homeCoverProb": round_or_none(row.get("ind_home_cover")), "awayCoverProb": round_or_none(row.get("ind_away_cover")),
+        "uncalibratedHomeCoverProb": round_or_none(row.get("ind_home_cover")), "uncalibratedAwayCoverProb": round_or_none(row.get("ind_away_cover")),
         "pushProb": round_or_none(row.get("ind_push")), "edgePts": round_or_none(edge, 2),
         "lean": pick or "none", "note": note,
         "anchoredHomeMargin": round_or_none(row.get("anc_mean"), 2), "anchoredHomeCoverProb": round_or_none(row.get("anc_home_cover")),
@@ -238,9 +239,14 @@ def promote_variant(scored: pd.DataFrame, prefix: str) -> pd.DataFrame:
         if k != "pick":
             src = pd.to_numeric(src, errors="coerce")
             base = pd.to_numeric(base, errors="coerce")
-        # ``where`` keeps the column's dtype where it can and upcasts otherwise; a positional
-        # ``loc`` write of object-typed floats into a float column is rejected by newer pandas
-        out[f"ind_{k}"] = base.where(src.isna(), src)
+        # A missing pick can mean a VALID stacked prediction inside the threshold,
+        # not a missing prediction. In that case clear the old filter lean rather
+        # than silently retaining it beside the new stacked margin.
+        if k == "pick":
+            available = pd.to_numeric(scored[f"{prefix}_mean"], errors="coerce").notna()
+            out[f"ind_{k}"] = src.where(available, base)
+        else:
+            out[f"ind_{k}"] = base.where(src.isna(), src)
     return out
 
 
@@ -254,8 +260,8 @@ def ledger_rows(cfg: SportConfig, row: pd.Series, book: Optional[str], observed_
                   value=float(row["ind_mean"]), value_sd=float(row["ind_sd"]))
     spread = row.get("spread_line")
     if spread is not None and not pd.isna(spread) and row.get("ind_home_cover") is not None and not pd.isna(row.get("ind_home_cover")):
-        meta = {"edgePts": round_or_none(row.get("ind_edge"), 2), "marketHomeMargin": round_or_none(row.get("market_margin"), 3),
-                "pushProb": round(float(row["ind_push"]), 4), "lean": row.get("ind_pick") or "none"}
+        meta = {"selectionThreshold": cfg.threshold, "edgePts": round_or_none(row.get("ind_edge"), 2), "marketHomeMargin": round_or_none(row.get("market_margin"), 3),
+                "pushProb": round(float(row["ind_push"]), 4), "lean": row.get("ind_pick") if row.get("ind_pick") in ("home", "away") else "none"}
         for side, team, line, price, prob in (
             ("home", row["home"], float(spread), opt_int(row.get("spread_home_price")), row["ind_home_cover"]),
             ("away", row["away"], -float(spread), opt_int(row.get("spread_away_price")), row["ind_away_cover"]),
@@ -324,6 +330,7 @@ def forecast_command(cfg: SportConfig, games: pd.DataFrame, refit: bool = False,
         for _, row in scored.iterrows():
             entry = upcoming_entry(row, book, observed_at, cfg.threshold)
             entry.update(totals.total_fields(cfg.sport, totals_state, str(row["home"]), str(row["away"]), int(row["season"]), entry.get("marketTotal")))
+            entry["empiricalCover"] = empirical_cover((existing.get("backtest") or {}).get("spreadEvidence") or {}, entry.get("edgePts"), cfg.threshold)
             entry["headline"] = headline
             entry["homeRating"] = rating_of.get(str(row["home"]))
             entry["awayRating"] = rating_of.get(str(row["away"]))

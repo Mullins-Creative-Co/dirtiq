@@ -248,6 +248,9 @@ class Scorer:
         extra = pd.DataFrame(rows).set_index("_idx")
         base = games[["game_id", "season", "week", "start", "home", "away", "neutral", "home_score", "away_score", "completed",
                       "spread_line", "spread_home_price", "spread_away_price", "home_ml", "away_ml", "total_line"]].copy()
+        for col in ("open_spread_line", "open_home_ml", "open_away_ml"):
+            if col in games:
+                base[col] = games[col]
         base["margin"] = base["home_score"] - base["away_score"]
         return base.join(extra)
 

@@ -46,7 +46,7 @@ test("bet prefill uses live spread prices, live no-vig ML probability, and saved
   assert.equal(terms.marketProb, noVigHome(-170, 145));
   assert.equal(gameBetTerms(game).line, -3);
   assert.equal(gameBetTerms(game).price, -110);
-  assert.equal(gameBetTerms(game).modelProb, .6);
+  assert.equal(gameBetTerms(game).modelProb, null); // raw model cover probability is uncalibrated
   const away = gameBetTerms({ ...game, homeWinProb: .3 }, live);
   assert.equal(away.line, 5.5);
   assert.equal(away.marketProb, 1 - noVigHome(-170, 145)!);
@@ -158,4 +158,25 @@ test("a total lean needs the threshold, an eligible game and a posted total", ()
   assert.equal(totalLean({ ...g, marketTotal: null, totalEdgePts: null, totalLean: null, projectedTotal: 230 }, consolidateLiveLines(fixture, observedAt))?.side, "over");
   assert.equal(totalLean({ ...g, marketTotal: null }), null);
   assert.equal(totalLean(game), null);
+});
+
+
+test("mirrored favorite quotes withhold side markets rather than vote on a sign", () => {
+  const payload = {items: [
+    {provider:{name:"Westgate"},spread:-10.5,homeTeamOdds:{favorite:true,moneyLine:-600,spreadOdds:-110},awayTeamOdds:{moneyLine:425,spreadOdds:-110},overUnder:150},
+    {provider:{name:"Caesars"},spread:10.5,homeTeamOdds:{favorite:false,moneyLine:425,spreadOdds:-110},awayTeamOdds:{moneyLine:-550,spreadOdds:-110},overUnder:150},
+  ]};
+  const quote = consolidateLiveLines(payload,observedAt);
+  assert.equal(quote?.spread,null);
+  assert.equal(quote?.homeMl,null);
+  assert.equal(quote?.total,150);
+});
+
+
+test("ESPN price in close.pointSpread is rejected rather than used as a handicap", () => {
+  const payload = JSON.parse(readFileSync(new URL("./fixtures/espn-malformed-handicap.json", import.meta.url),"utf8"));
+  const quote = consolidateLiveLines(payload,observedAt);
+  assert.equal(quote?.spread,null);
+  assert.equal(quote?.homeSpreadPrice,null);
+  assert.equal(quote?.total,143.5);
 });

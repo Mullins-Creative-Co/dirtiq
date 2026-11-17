@@ -169,7 +169,7 @@ Selections: racing `driver:<driver_id>`; team sports the team abbreviation.
     "projectedHomeMargin": 2.3, "marginSd": 13.1, "homeWinProb": 0.57,
     "marketHomeSpread": -1.5, "marketHomePrice": -110, "marketAwayPrice": -110,
     "marketHomeMl": -120, "marketAwayMl": 100, "book": "consensus", "lineObservedAt": "ISO",
-    "homeCoverProb": 0.53, "awayCoverProb": 0.47, "pushProb": 0.02, "edgePts": 0.8,
+    "uncalibratedHomeCoverProb": 0.53, "uncalibratedAwayCoverProb": 0.47, "pushProb": 0.02, "edgePts": 0.8,
     "lean": "home", "note": "..."
   }],
   "limitations": ["..."]
@@ -224,16 +224,73 @@ within three hours, and the published margin disagrees with the spread by at lea
 sport's `selectionThreshold` and by less than four times it (a wider gap is a rating or data
 error: a first-season Division I team, a rating built on blowouts). Qualifiers are ranked by whether `stackedMarketHomeMargin`
 takes the same side, then by disagreement in threshold units; capped at 15 picks, 6 per
-sport and 7.5 units; every pick is staked 0.5 unit, because in the backtests neither
-market-aware agreement nor edge size separated winners from losers.
-A pick is locked at its first listed line (`public/data/cards/<date>.json` is the day's
-archive and the lock), later runs only update `status`/`current`, and earlier cards are
-graded at the locked line from `public/data/results/`. `public/data/daily-card.json` is the
-current card with `record`, the graded history of all cards. Every pick carries its sport's
-backtest record for the rule, which is negative in every sport: the card is a shortlist for
-review, and `record` is the only evidence it can earn. `/card` (`src/lib/card.ts`) checks
-each open pick against ESPN's current line at request time, and `src/lib/card-agent.ts`
-holds the instructions for a reviewing agent, which can read the card at its raw GitHub URL.
+sport and 7.5 units. The same existing selection thresholds and 4× cap remain.
+
+Stakes are computed from evidence every run (`teams/evidence.py`), replacing the NBA
+pause. The lower endpoint of a two-sided 95% Wilson interval (z=1.959963984540054)
+for the headline model's out-of-fold card rule must exceed 52.4%. Pushes are excluded.
+The mean live spread CLV must also be positive over at least 100 unique started games
+with a valid leaned-side closing snapshot. Both sides never count as two games; invalid
+or NaN leans, future events, voids and missing closes are excluded. A legacy lean
+must also agree with the stored margin/handicap at the sport threshold; contradictory
+labels are excluded. New metadata records `selectionThreshold` explicitly. Missing evidence
+fails closed. Passing new picks stake 0.5 unit; other new picks stake zero and remain
+listed and graded. The current card's unstarted stakes are reduced to zero if its sport
+fails; a zero stake is never automatically promoted. Past cards keep their original
+picks, stakes and results. A current reduction retains `originallyListedStakeUnits`.
+
+The archive (`public/data/cards/<date>.json`) locks listed lines/prices. The normal build
+can grade ungraded results and append CLV fields to past cards, never rewrite existing
+results/stakes. `clv.points = listed selected-side handicap - closing selected-side
+handicap`: +3 taken vs +2 close is +1 point. The source is the last available pre-start
+ledger snapshot, not a guaranteed tip-time quote. `record.clv` includes count, total,
+mean and positive fraction for all tracked picks, including unstaked picks. Win-loss
+also includes unstaked tracking picks; money P&L uses actual original stakes. Missing
+closing coverage stays missing and is excluded from the CLV denominator.
+
+`backtest.spreadEvidence` is generated from out-of-fold predictions using the published
+headline model (`stk` when promoted, otherwise `ind`), with fixed absolute-disagreement
+buckets [0,1), [1,2), [2,3), [3,4), [4,infinity) in threshold multiples. Each bucket
+reports games, wins/losses/pushes, decided sample and empirical cover rate. The gate
+uses 1 to under 4 thresholds. These are descriptive historical frequencies, not
+calibrated per-game probabilities or a new backtest of a probability calibration.
+They are attached as `empiricalCover` to upcoming games and card picks. Promotion
+of a valid stacked prediction with no lean clears the old filter lean; it only falls
+back when the stacked prediction itself is missing. Card, Tonight,
+readiness summaries and sport tables show them with sample sizes. Raw values remain
+`uncalibratedHomeCoverProb` / `uncalibratedAwayCoverProb` on games and
+`uncalibratedModelCoverProb` on new card picks. Legacy archives can retain old fields;
+UI and logging never use raw cover probabilities as actionable probabilities. Bulk
+logging selects only positive-stake picks and is disabled on an all-unstaked card;
+individual logging remains available for recording an actual bet.
+
+`backtest.predictionThrough` records the scored sample cutoff independently of the
+current forecast data-through date. Backtest scored CSVs retain `open_spread_line`, `open_home_ml`, `open_away_ml`.
+`backtest.clv` and `clvByVariant` summarize opening-line spread leans for independent
+and stacked forecasts. Side selection uses `mean + opening handicap`, then compares
+opening vs closing selected-side handicaps, avoiding selection on the close. These are descriptive comparisons using pregame
+margins; there is no forecast timestamp at opener publication, so this is not a
+backtest of an executable opener-betting strategy.
+Market-input forecasts cannot be reused here because their inputs contain closing
+lines; that limitation is explicit. NFL has no opening-line pairs in its source.
+`scripts/refresh_spread_evidence.py` regenerates reporting-only fields from saved
+predictions, using cached event opening lines for older CSVs. It never fits a model
+or writes bets. `/models` shows backtest and live spread CLV separately, in points;
+the older ledger scorecard's price/probability CLV remains a different measurement.
+
+The odds adapter and live parser reject |handicap| >= 100 on each book before
+aggregation: ESPN sometimes writes an American price such as -110 into closing
+`pointSpread`. A malformed closing handicap stays unavailable; an earlier/current
+quote is never silently relabeled as its close. Compact cached records are validated
+on every read, so existing caches also receive this correction. Other valid books
+can still price the event. The parsers also withhold side markets, including opening lines, when
+real providers disagree about home-favorite direction. No model-based sign flipping
+or majority vote across duplicated brands is allowed. Totals remain available. This
+can also withhold genuine near-pick'em movement; it is a conservative data-quality
+policy, not a betting filter. It does not certify unanimous historical feeds as clean.
+
+`/card` (`src/lib/card.ts`) checks each open pick against ESPN's current line at request
+time. `src/lib/card-agent.ts` tells reviewing agents never to stake zero-stake picks.
 
 ## Near-live Tonight lines
 
