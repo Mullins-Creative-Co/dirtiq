@@ -60,15 +60,26 @@ See `docs/card-evidence-review-2026-11-17.md` for validation and data limits.
 **Done when**: completed for independent headline spread leans; market-input opener
 replays and moneyline CLV need a separately scoped evaluation.
 
-### (old 2) Injuries and lineups for NBA and NFL
-**Why**: rest is in; absence of stars is the largest remaining rating error in NBA; the
-NFL quarterback is the single biggest line mover.
-**Build**: ESPN injuries endpoint per team snapshotted each refresh; NFL quarterback
-out/in flag first; NBA minutes-weighted available-strength adjustment learned in the stack.
-Snapshots start the day they begin, so the evaluation window is short; never leak a
-snapshot into earlier games.
-**Done when**: a stable positive weight across folds and a better headline variant in NBA
-and NFL on priced games.
+### 2. Injuries and lineups — current priority (2026-11-18)
+**Why**: the main scores-only forecasts have no current availability. Player absence
+and replacements are material missing inputs; the existing historical rotation lab did
+not establish an edge, so actual timestamped statuses must be collected before promotion.
+**Implemented, not yet deployed** (`feat/injury-context`): hourly availability collection
+for all four focus sports; `/injuries`, Card and Tonight summaries; NFL QB-listed flags;
+NBA player/minute ridge associations trained on eligible completed boxes, five-game
+rotation exposure and explicit replacement scenarios. Out-only and every combination of
+up to eight unresolved players are evaluated; uncertainty is not assigned a probability.
+Long absences already absent from the recent rotation receive no new penalty. Missing,
+stale, contradictory or insufficient evidence is unvalued. College ESPN feeds are
+currently empty/stale and explicitly unavailable, not healthy.
+**Still owed**: reliable college availability, verified announced starters/minute limits,
+a validated NFL QB/player-to-spread conversion, and prospective proof that NBA injury
+scenarios improve the same-game forecast. Current scenarios never alter headline margins,
+probabilities, leans, log terms or stakes. Snapshots and paired MAE evaluation start now;
+there is no invented historical injury backtest.
+**Done when**: at least 100 paired prospectively observed games, an uncertainty-aware
+review against the baseline and market on the same priced games, and a separately
+reviewed model change; no automatic promotion from the first favorable small sample.
 
 ### (old 4) Totals model for the focus sports
 **Why**: every priced game carries a total; the site forecasts only sides.
@@ -112,6 +123,12 @@ as-of FIP-style starter rate; NHL starting goalies from the league boxscore with
 alone shrinks to nothing, so this is the only route to starter value.
 
 ## Shipped (most recent first)
+
+- 2026-11-18: availability collection and NBA experimental value scenarios implemented
+  on `feat/injury-context` (pending merge/deployment). Structured reports with source
+  dates, missing-feed states, normalized rotation minutes and replacement assumptions;
+  no change to betting predictions/stakes. See `docs/availability.md`.
+
 
 - 2026-11-17: evidence-gated card implementation (`feat/card-evidence-gate`; not deployed).
   New stakes require a 95% Wilson lower bound above 52.4% plus positive live spread

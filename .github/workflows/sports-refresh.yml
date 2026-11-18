@@ -44,6 +44,7 @@ jobs:
       - run: OPENBLAS_NUM_THREADS=1 python -m unittest discover -s tests -p 'test_odds.py'
       - run: python -m unittest discover -s tests -p 'test_card.py'
       - run: OPENBLAS_NUM_THREADS=1 python -m unittest discover -s tests -p 'test_spread_evidence.py'
+      - run: OPENBLAS_NUM_THREADS=1 python -m unittest discover -s tests -p 'test_availability.py'
       - name: Settle, forecast, snapshot odds and export
         env:
           DIRTIQ_SPORTS_CACHE: ${{ github.workspace }}/sports-cache
@@ -78,6 +79,7 @@ jobs:
           else
             echo "odds snapshots already taken for this slot (slots open at 18:00 and 00:00 UTC); skipped this run"
           fi
+          python -m dirtiq_model availability refresh --cache "$DIRTIQ_SPORTS_CACHE/availability" || { echo "availability refresh failed"; FAILED=1; }
           python -m dirtiq_model ledger export
           # Today's card: grade earlier cards, lock today's picks at their first listed line.
           python -m dirtiq_model card build
@@ -87,7 +89,7 @@ jobs:
         run: |
           git config user.name 'DirtIQ data bot'
           git config user.email 'actions@users.noreply.github.com'
-          git add public/sports public/data/forecast-ledger.json public/data/model-health.json public/data/odds public/data/results public/data/daily-card.json public/data/cards
+          git add public/sports public/data/forecast-ledger.json public/data/model-health.json public/data/odds public/data/results public/data/daily-card.json public/data/cards public/data/availability
           if git diff --cached --quiet; then exit 0; fi
           git commit -m 'Refresh team-sport forecasts and ledger'
           # Generated files always conflict when two refreshes overlap; the newer run's files win.

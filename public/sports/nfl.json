@@ -306,8 +306,111 @@
    "brierPicks": 0.2692
   },
   "selectionThreshold": 2.0,
-  "clv": null,
-  "clvNote": "archive holds one line per game, so closing-line value is only measurable live through the ledger",
+  "spreadEvidence": {
+   "headline": "independent",
+   "threshold": 2.0,
+   "selections": {
+    "games": 1424,
+    "n": 1424,
+    "wins": 684,
+    "losses": 704,
+    "pushes": 36,
+    "sample": 1388,
+    "coverRate": 0.49279538904899134,
+    "priced": 1424,
+    "roi": -0.045726009250691396,
+    "rule": "ind headline: 2.0 <= abs(model + spread) < 8.0"
+   },
+   "buckets": [
+    {
+     "minRatio": 0,
+     "maxRatio": 1,
+     "games": 1686,
+     "n": 1686,
+     "wins": 816,
+     "losses": 825,
+     "pushes": 45,
+     "sample": 1641,
+     "coverRate": 0.49725776965265084,
+     "priced": 1685,
+     "roi": -0.03518045820001469
+    },
+    {
+     "minRatio": 1,
+     "maxRatio": 2,
+     "games": 959,
+     "n": 959,
+     "wins": 461,
+     "losses": 472,
+     "pushes": 26,
+     "sample": 933,
+     "coverRate": 0.4941050375133976,
+     "priced": 959,
+     "roi": -0.042373591248500736
+    },
+    {
+     "minRatio": 2,
+     "maxRatio": 3,
+     "games": 375,
+     "n": 375,
+     "wins": 178,
+     "losses": 190,
+     "pushes": 7,
+     "sample": 368,
+     "coverRate": 0.483695652173913,
+     "priced": 375,
+     "roi": -0.06487441833605515
+    },
+    {
+     "minRatio": 3,
+     "maxRatio": 4,
+     "games": 90,
+     "n": 90,
+     "wins": 45,
+     "losses": 42,
+     "pushes": 3,
+     "sample": 87,
+     "coverRate": 0.5172413793103449,
+     "priced": 90,
+     "roi": -0.0016628476627963975
+    },
+    {
+     "minRatio": 4,
+     "maxRatio": null,
+     "games": 54,
+     "n": 54,
+     "wins": 29,
+     "losses": 25,
+     "pushes": 0,
+     "sample": 54,
+     "coverRate": 0.5370370370370371,
+     "priced": 54,
+     "roi": 0.03393946739621074
+    }
+   ],
+   "note": "Descriptive out-of-fold frequency for the leaned side at the closing spread; pushes excluded; not a per-game probability."
+  },
+  "clv": {
+   "count": 0,
+   "meanPts": null,
+   "totalPts": 0,
+   "positiveRate": null
+  },
+  "clvByVariant": {
+   "ind": {
+    "count": 0,
+    "meanPts": null,
+    "totalPts": 0,
+    "positiveRate": null
+   },
+   "stk": {
+    "count": 0,
+    "meanPts": null,
+    "totalPts": 0,
+    "positiveRate": null
+   }
+  },
+  "clvNote": "Pregame margins selected against opening lines; descriptive only, not timestamped opener-time forecasts. Market-input variants excluded: saved predictions use closing lines. Missing open/close pairs excluded.",
   "bySeason": [
    {
     "season": 2015,
@@ -2855,7 +2958,8 @@
   },
   "marketGames": 3164,
   "marketMoneylineGames": 3152,
-  "marketSpreadGames": 3082
+  "marketSpreadGames": 3082,
+  "predictionThrough": "2026-11-10T01:15:00+00:00"
  },
  "ratings": [
   {
@@ -4447,8 +4551,6 @@
    "marketTotal": 44.5,
    "book": "nflverse consensus",
    "lineObservedAt": "2026-11-18T10:41:58Z",
-   "homeCoverProb": 0.3461,
-   "awayCoverProb": 0.6539,
    "pushProb": 0.0,
    "edgePts": -4.36,
    "lean": "away",
@@ -4560,7 +4662,22 @@
     ],
     "lastRecord": "1-4"
    },
-   "homeAdvantage": 2.07
+   "homeAdvantage": 2.07,
+   "empiricalCover": {
+    "minRatio": 2,
+    "maxRatio": 3,
+    "games": 375,
+    "n": 375,
+    "wins": 178,
+    "losses": 190,
+    "pushes": 7,
+    "sample": 368,
+    "coverRate": 0.483695652173913,
+    "priced": 375,
+    "roi": -0.06487441833605515
+   },
+   "uncalibratedHomeCoverProb": 0.3461,
+   "uncalibratedAwayCoverProb": 0.6539
   },
   {
    "gameId": "2026_11_ARI_KC",
@@ -4581,8 +4698,6 @@
    "marketTotal": 41.5,
    "book": "nflverse consensus",
    "lineObservedAt": "2026-11-18T10:41:58Z",
-   "homeCoverProb": 0.3461,
-   "awayCoverProb": 0.6539,
    "pushProb": 0.0,
    "edgePts": -4.41,
    "lean": "away",
@@ -4694,7 +4809,22 @@
     ],
     "lastRecord": "2-3"
    },
-   "homeAdvantage": 2.07
+   "homeAdvantage": 2.07,
+   "empiricalCover": {
+    "minRatio": 2,
+    "maxRatio": 3,
+    "games": 375,
+    "n": 375,
+    "wins": 178,
+    "losses": 190,
+    "pushes": 7,
+    "sample": 368,
+    "coverRate": 0.483695652173913,
+    "priced": 375,
+    "roi": -0.06487441833605515
+   },
+   "uncalibratedHomeCoverProb": 0.3461,
+   "uncalibratedAwayCoverProb": 0.6539
   },
   {
    "gameId": "2026_11_BAL_CAR",
@@ -4715,8 +4845,6 @@
    "marketTotal": 44.5,
    "book": "nflverse consensus",
    "lineObservedAt": "2026-11-18T10:41:58Z",
-   "homeCoverProb": 0.5072,
-   "awayCoverProb": 0.4928,
    "pushProb": 0.0,
    "edgePts": 0.44,
    "lean": "none",
@@ -4828,7 +4956,22 @@
     ],
     "lastRecord": "0-5"
    },
-   "homeAdvantage": 2.07
+   "homeAdvantage": 2.07,
+   "empiricalCover": {
+    "minRatio": 0,
+    "maxRatio": 1,
+    "games": 1686,
+    "n": 1686,
+    "wins": 816,
+    "losses": 825,
+    "pushes": 45,
+    "sample": 1641,
+    "coverRate": 0.49725776965265084,
+    "priced": 1685,
+    "roi": -0.03518045820001469
+   },
+   "uncalibratedHomeCoverProb": 0.5072,
+   "uncalibratedAwayCoverProb": 0.4928
   },
   {
    "gameId": "2026_11_JAX_NYG",
@@ -4849,8 +4992,6 @@
    "marketTotal": 46.5,
    "book": "nflverse consensus",
    "lineObservedAt": "2026-11-18T10:41:58Z",
-   "homeCoverProb": 0.4204,
-   "awayCoverProb": 0.5796,
    "pushProb": 0.0339,
    "edgePts": -2.01,
    "lean": "away",
@@ -4962,7 +5103,22 @@
     ],
     "lastRecord": "4-1"
    },
-   "homeAdvantage": 2.07
+   "homeAdvantage": 2.07,
+   "empiricalCover": {
+    "minRatio": 1,
+    "maxRatio": 2,
+    "games": 959,
+    "n": 959,
+    "wins": 461,
+    "losses": 472,
+    "pushes": 26,
+    "sample": 933,
+    "coverRate": 0.4941050375133976,
+    "priced": 959,
+    "roi": -0.042373591248500736
+   },
+   "uncalibratedHomeCoverProb": 0.4204,
+   "uncalibratedAwayCoverProb": 0.5796
   },
   {
    "gameId": "2026_11_MIA_BUF",
@@ -4983,8 +5139,6 @@
    "marketTotal": 45.5,
    "book": "nflverse consensus",
    "lineObservedAt": "2026-11-18T10:41:58Z",
-   "homeCoverProb": 0.4121,
-   "awayCoverProb": 0.5879,
    "pushProb": 0.0,
    "edgePts": -2.39,
    "lean": "away",
@@ -5096,7 +5250,22 @@
     ],
     "lastRecord": "1-4"
    },
-   "homeAdvantage": 2.07
+   "homeAdvantage": 2.07,
+   "empiricalCover": {
+    "minRatio": 1,
+    "maxRatio": 2,
+    "games": 959,
+    "n": 959,
+    "wins": 461,
+    "losses": 472,
+    "pushes": 26,
+    "sample": 933,
+    "coverRate": 0.4941050375133976,
+    "priced": 959,
+    "roi": -0.042373591248500736
+   },
+   "uncalibratedHomeCoverProb": 0.4121,
+   "uncalibratedAwayCoverProb": 0.5879
   },
   {
    "gameId": "2026_11_NO_CHI",
@@ -5117,8 +5286,6 @@
    "marketTotal": 48.5,
    "book": "nflverse consensus",
    "lineObservedAt": "2026-11-18T10:41:58Z",
-   "homeCoverProb": 0.422,
-   "awayCoverProb": 0.578,
    "pushProb": 0.0,
    "edgePts": -2.03,
    "lean": "away",
@@ -5230,7 +5397,22 @@
     ],
     "lastRecord": "2-3"
    },
-   "homeAdvantage": 2.07
+   "homeAdvantage": 2.07,
+   "empiricalCover": {
+    "minRatio": 1,
+    "maxRatio": 2,
+    "games": 959,
+    "n": 959,
+    "wins": 461,
+    "losses": 472,
+    "pushes": 26,
+    "sample": 933,
+    "coverRate": 0.4941050375133976,
+    "priced": 959,
+    "roi": -0.042373591248500736
+   },
+   "uncalibratedHomeCoverProb": 0.422,
+   "uncalibratedAwayCoverProb": 0.578
   },
   {
    "gameId": "2026_11_TB_DET",
@@ -5251,8 +5433,6 @@
    "marketTotal": 43.5,
    "book": "nflverse consensus",
    "lineObservedAt": "2026-11-18T10:41:58Z",
-   "homeCoverProb": 0.4271,
-   "awayCoverProb": 0.5729,
    "pushProb": 0.0303,
    "edgePts": -1.83,
    "lean": "none",
@@ -5364,7 +5544,22 @@
     ],
     "lastRecord": "3-2"
    },
-   "homeAdvantage": 2.07
+   "homeAdvantage": 2.07,
+   "empiricalCover": {
+    "minRatio": 0,
+    "maxRatio": 1,
+    "games": 1686,
+    "n": 1686,
+    "wins": 816,
+    "losses": 825,
+    "pushes": 45,
+    "sample": 1641,
+    "coverRate": 0.49725776965265084,
+    "priced": 1685,
+    "roi": -0.03518045820001469
+   },
+   "uncalibratedHomeCoverProb": 0.4271,
+   "uncalibratedAwayCoverProb": 0.5729
   },
   {
    "gameId": "2026_11_TEN_DAL",
@@ -5385,8 +5580,6 @@
    "marketTotal": 54.5,
    "book": "nflverse consensus",
    "lineObservedAt": "2026-11-18T10:41:58Z",
-   "homeCoverProb": 0.4483,
-   "awayCoverProb": 0.5517,
    "pushProb": 0.0,
    "edgePts": -1.25,
    "lean": "none",
@@ -5498,7 +5691,22 @@
     ],
     "lastRecord": "1-4"
    },
-   "homeAdvantage": 2.07
+   "homeAdvantage": 2.07,
+   "empiricalCover": {
+    "minRatio": 0,
+    "maxRatio": 1,
+    "games": 1686,
+    "n": 1686,
+    "wins": 816,
+    "losses": 825,
+    "pushes": 45,
+    "sample": 1641,
+    "coverRate": 0.49725776965265084,
+    "priced": 1685,
+    "roi": -0.03518045820001469
+   },
+   "uncalibratedHomeCoverProb": 0.4483,
+   "uncalibratedAwayCoverProb": 0.5517
   },
   {
    "gameId": "2026_11_NYJ_LAC",
@@ -5519,8 +5727,6 @@
    "marketTotal": 41.5,
    "book": "nflverse consensus",
    "lineObservedAt": "2026-11-18T10:41:58Z",
-   "homeCoverProb": 0.5251,
-   "awayCoverProb": 0.4749,
    "pushProb": 0.0,
    "edgePts": 0.89,
    "lean": "none",
@@ -5632,7 +5838,22 @@
     ],
     "lastRecord": "0-5"
    },
-   "homeAdvantage": 2.07
+   "homeAdvantage": 2.07,
+   "empiricalCover": {
+    "minRatio": 0,
+    "maxRatio": 1,
+    "games": 1686,
+    "n": 1686,
+    "wins": 816,
+    "losses": 825,
+    "pushes": 45,
+    "sample": 1641,
+    "coverRate": 0.49725776965265084,
+    "priced": 1685,
+    "roi": -0.03518045820001469
+   },
+   "uncalibratedHomeCoverProb": 0.5251,
+   "uncalibratedAwayCoverProb": 0.4749
   },
   {
    "gameId": "2026_11_LV_DEN",
@@ -5653,8 +5874,6 @@
    "marketTotal": 40.5,
    "book": "nflverse consensus",
    "lineObservedAt": "2026-11-18T10:41:58Z",
-   "homeCoverProb": 0.4794,
-   "awayCoverProb": 0.5206,
    "pushProb": 0.0323,
    "edgePts": -0.36,
    "lean": "none",
@@ -5766,7 +5985,22 @@
     ],
     "lastRecord": "1-4"
    },
-   "homeAdvantage": 2.07
+   "homeAdvantage": 2.07,
+   "empiricalCover": {
+    "minRatio": 0,
+    "maxRatio": 1,
+    "games": 1686,
+    "n": 1686,
+    "wins": 816,
+    "losses": 825,
+    "pushes": 45,
+    "sample": 1641,
+    "coverRate": 0.49725776965265084,
+    "priced": 1685,
+    "roi": -0.03518045820001469
+   },
+   "uncalibratedHomeCoverProb": 0.4794,
+   "uncalibratedAwayCoverProb": 0.5206
   },
   {
    "gameId": "2026_11_PIT_PHI",
@@ -5787,8 +6021,6 @@
    "marketTotal": 38.5,
    "book": "nflverse consensus",
    "lineObservedAt": "2026-11-18T10:41:58Z",
-   "homeCoverProb": 0.567,
-   "awayCoverProb": 0.433,
    "pushProb": 0.0,
    "edgePts": 2.15,
    "lean": "home",
@@ -5900,7 +6132,22 @@
     ],
     "lastRecord": "4-1"
    },
-   "homeAdvantage": 2.07
+   "homeAdvantage": 2.07,
+   "empiricalCover": {
+    "minRatio": 1,
+    "maxRatio": 2,
+    "games": 959,
+    "n": 959,
+    "wins": 461,
+    "losses": 472,
+    "pushes": 26,
+    "sample": 933,
+    "coverRate": 0.4941050375133976,
+    "priced": 959,
+    "roi": -0.042373591248500736
+   },
+   "uncalibratedHomeCoverProb": 0.567,
+   "uncalibratedAwayCoverProb": 0.433
   },
   {
    "gameId": "2026_11_MIN_SF",
@@ -5921,8 +6168,6 @@
    "marketTotal": 45.5,
    "book": "nflverse consensus",
    "lineObservedAt": "2026-11-18T10:41:58Z",
-   "homeCoverProb": 0.4079,
-   "awayCoverProb": 0.5921,
    "pushProb": 0.0335,
    "edgePts": -2.38,
    "lean": "away",
@@ -6034,7 +6279,22 @@
     ],
     "lastRecord": "3-2"
    },
-   "homeAdvantage": 2.07
+   "homeAdvantage": 2.07,
+   "empiricalCover": {
+    "minRatio": 1,
+    "maxRatio": 2,
+    "games": 959,
+    "n": 959,
+    "wins": 461,
+    "losses": 472,
+    "pushes": 26,
+    "sample": 933,
+    "coverRate": 0.4941050375133976,
+    "priced": 959,
+    "roi": -0.042373591248500736
+   },
+   "uncalibratedHomeCoverProb": 0.4079,
+   "uncalibratedAwayCoverProb": 0.5921
   },
   {
    "gameId": "2026_11_CIN_WAS",
@@ -6055,8 +6315,6 @@
    "marketTotal": 53.5,
    "book": "nflverse consensus",
    "lineObservedAt": "2026-11-18T10:41:58Z",
-   "homeCoverProb": 0.5554,
-   "awayCoverProb": 0.4446,
    "pushProb": 0.0,
    "edgePts": 1.87,
    "lean": "none",
@@ -6168,7 +6426,22 @@
     ],
     "lastRecord": "5-0"
    },
-   "homeAdvantage": 2.07
+   "homeAdvantage": 2.07,
+   "empiricalCover": {
+    "minRatio": 0,
+    "maxRatio": 1,
+    "games": 1686,
+    "n": 1686,
+    "wins": 816,
+    "losses": 825,
+    "pushes": 45,
+    "sample": 1641,
+    "coverRate": 0.49725776965265084,
+    "priced": 1685,
+    "roi": -0.03518045820001469
+   },
+   "uncalibratedHomeCoverProb": 0.5554,
+   "uncalibratedAwayCoverProb": 0.4446
   },
   {
    "gameId": "2026_12_GB_LA",
@@ -6189,8 +6462,6 @@
    "marketTotal": 46.5,
    "book": "nflverse consensus",
    "lineObservedAt": "2026-11-18T10:41:58Z",
-   "homeCoverProb": 0.5826,
-   "awayCoverProb": 0.4174,
    "pushProb": 0.0,
    "edgePts": 2.73,
    "lean": "home",
@@ -6302,7 +6573,22 @@
     ],
     "lastRecord": "3-2"
    },
-   "homeAdvantage": 2.07
+   "homeAdvantage": 2.07,
+   "empiricalCover": {
+    "minRatio": 1,
+    "maxRatio": 2,
+    "games": 959,
+    "n": 959,
+    "wins": 461,
+    "losses": 472,
+    "pushes": 26,
+    "sample": 933,
+    "coverRate": 0.4941050375133976,
+    "priced": 959,
+    "roi": -0.042373591248500736
+   },
+   "uncalibratedHomeCoverProb": 0.5826,
+   "uncalibratedAwayCoverProb": 0.4174
   },
   {
    "gameId": "2026_12_CHI_DET",
@@ -6323,8 +6609,6 @@
    "marketTotal": 54.5,
    "book": "nflverse consensus",
    "lineObservedAt": "2026-11-18T10:41:58Z",
-   "homeCoverProb": 0.6441,
-   "awayCoverProb": 0.3559,
    "pushProb": 0.0,
    "edgePts": 4.54,
    "lean": "home",
@@ -6436,7 +6720,22 @@
     ],
     "lastRecord": "4-1"
    },
-   "homeAdvantage": 2.07
+   "homeAdvantage": 2.07,
+   "empiricalCover": {
+    "minRatio": 2,
+    "maxRatio": 3,
+    "games": 375,
+    "n": 375,
+    "wins": 178,
+    "losses": 190,
+    "pushes": 7,
+    "sample": 368,
+    "coverRate": 0.483695652173913,
+    "priced": 375,
+    "roi": -0.06487441833605515
+   },
+   "uncalibratedHomeCoverProb": 0.6441,
+   "uncalibratedAwayCoverProb": 0.3559
   },
   {
    "gameId": "2026_12_PHI_DAL",
@@ -6457,8 +6756,6 @@
    "marketTotal": 47.5,
    "book": "nflverse consensus",
    "lineObservedAt": "2026-11-18T10:41:58Z",
-   "homeCoverProb": 0.3672,
-   "awayCoverProb": 0.6328,
    "pushProb": 0.0,
    "edgePts": -3.67,
    "lean": "away",
@@ -6570,7 +6867,22 @@
     ],
     "lastRecord": "0-5"
    },
-   "homeAdvantage": 2.07
+   "homeAdvantage": 2.07,
+   "empiricalCover": {
+    "minRatio": 1,
+    "maxRatio": 2,
+    "games": 959,
+    "n": 959,
+    "wins": 461,
+    "losses": 472,
+    "pushes": 26,
+    "sample": 933,
+    "coverRate": 0.4941050375133976,
+    "priced": 959,
+    "roi": -0.042373591248500736
+   },
+   "uncalibratedHomeCoverProb": 0.3672,
+   "uncalibratedAwayCoverProb": 0.6328
   },
   {
    "gameId": "2026_12_KC_BUF",
@@ -6591,8 +6903,6 @@
    "marketTotal": 50.5,
    "book": "nflverse consensus",
    "lineObservedAt": "2026-11-18T10:41:58Z",
-   "homeCoverProb": 0.5682,
-   "awayCoverProb": 0.4318,
    "pushProb": 0.0307,
    "edgePts": 2.2,
    "lean": "home",
@@ -6704,7 +7014,22 @@
     ],
     "lastRecord": "3-2"
    },
-   "homeAdvantage": 2.07
+   "homeAdvantage": 2.07,
+   "empiricalCover": {
+    "minRatio": 1,
+    "maxRatio": 2,
+    "games": 959,
+    "n": 959,
+    "wins": 461,
+    "losses": 472,
+    "pushes": 26,
+    "sample": 933,
+    "coverRate": 0.4941050375133976,
+    "priced": 959,
+    "roi": -0.042373591248500736
+   },
+   "uncalibratedHomeCoverProb": 0.5682,
+   "uncalibratedAwayCoverProb": 0.4318
   },
   {
    "gameId": "2026_12_DEN_PIT",
@@ -6725,8 +7050,6 @@
    "marketTotal": 41.5,
    "book": "nflverse consensus",
    "lineObservedAt": "2026-11-18T10:41:58Z",
-   "homeCoverProb": 0.5274,
-   "awayCoverProb": 0.4726,
    "pushProb": 0.0,
    "edgePts": 0.99,
    "lean": "none",
@@ -6838,7 +7161,22 @@
     ],
     "lastRecord": "5-0"
    },
-   "homeAdvantage": 2.07
+   "homeAdvantage": 2.07,
+   "empiricalCover": {
+    "minRatio": 0,
+    "maxRatio": 1,
+    "games": 1686,
+    "n": 1686,
+    "wins": 816,
+    "losses": 825,
+    "pushes": 45,
+    "sample": 1641,
+    "coverRate": 0.49725776965265084,
+    "priced": 1685,
+    "roi": -0.03518045820001469
+   },
+   "uncalibratedHomeCoverProb": 0.5274,
+   "uncalibratedAwayCoverProb": 0.4726
   }
  ],
  "limitations": [

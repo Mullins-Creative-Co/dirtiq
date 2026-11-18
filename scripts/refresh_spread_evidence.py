@@ -17,7 +17,7 @@ from dirtiq_model.teams.backtest import load_report, write_report, PRED_DIR
 from dirtiq_model.teams.evidence import backtest_evidence, backtest_clv, empirical_cover
 
 
-def refresh(sport: str) -> None:
+def refresh(sport: str, verified_backtests: Path = None) -> None:
     scored = pd.read_csv(PRED_DIR / (sport + "-backtest-predictions.csv"), dtype={"game_id": str})
     if "open_spread_line" not in scored:
         quotes = {}
@@ -26,6 +26,12 @@ def refresh(sport: str) -> None:
                            for eid, row in load_odds_cache(cache_dir_for(sport), int(season)).items()})
         scored["open_spread_line"] = scored.game_id.map(quotes)
     report = load_report(sport)
+    if verified_backtests is not None:
+        import json
+        frozen = json.loads((verified_backtests / (sport + ".json")).read_text())
+        if frozen.get("sport") != sport or frozen["backtest"]["games"] != len(scored):
+            raise ValueError("Verified backtest does not match this scored CSV")
+        report["backtest"] = frozen["backtest"]
     bt = report["backtest"]
     bt["predictionThrough"] = pd.to_datetime(scored["start"], utc=True).max().isoformat()
     threshold, headline = bt["selectionThreshold"], bt.get("headline", "independent")
@@ -34,6 +40,8 @@ def refresh(sport: str) -> None:
     bt["clv"] = bt["clvByVariant"]["stk" if headline == "stacked" else "ind"]
     bt["clvNote"] = "Pregame margins selected against opening lines; descriptive only, not timestamped opener-time forecasts. Market-input variants excluded: saved predictions use closing lines. Missing open/close pairs excluded."
     for game in report.get("upcoming") or []:
+        from dirtiq_model.teams.model import pick_side
+        game["lean"] = pick_side(game.get("edgePts"), threshold) or "none"
         game["empiricalCover"] = empirical_cover(bt["spreadEvidence"], game.get("edgePts"), threshold)
         for side in ("Home", "Away"):
             old = side.lower()+"CoverProb"
@@ -46,6 +54,7 @@ def refresh(sport: str) -> None:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--sport", choices=("nfl", "ncaaf", "nba", "ncaab"))
+    parser.add_argument("--verified-backtests", type=Path, help="Reuse a matching previously validated backtest, preserving the current upcoming forecasts")
     args = parser.parse_args()
     for sport in [args.sport] if args.sport else ("nfl", "ncaaf", "nba", "ncaab"):
-        refresh(sport)
+        refresh(sport, args.verified_backtests)
