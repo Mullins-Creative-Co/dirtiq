@@ -261,8 +261,9 @@ readiness summaries and sport tables show them with sample sizes. Raw values rem
 `uncalibratedHomeCoverProb` / `uncalibratedAwayCoverProb` on games and
 `uncalibratedModelCoverProb` on new card picks. Legacy archives can retain old fields;
 UI and logging never use raw cover probabilities as actionable probabilities. Bulk
-logging selects only positive-stake picks and is disabled on an all-unstaked card;
-individual logging remains available for recording an actual bet.
+logging saves every pick on the card at a flat $1, staked or not, and says how many are
+unstaked; the card stake is what the evidence supports, the tracker is what the owner bet.
+Individual logging remains available.
 
 `backtest.predictionThrough` records the scored sample cutoff independently of the
 current forecast data-through date. Backtest scored CSVs retain `open_spread_line`, `open_home_ml`, `open_away_ml`.

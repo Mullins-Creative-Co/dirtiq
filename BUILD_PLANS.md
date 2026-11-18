@@ -121,7 +121,8 @@ alone shrinks to nothing, so this is the only route to starter value.
 - 2026-11-17: evidence-gated card implementation (`feat/card-evidence-gate`; merged 2026-11-18).
   New stakes require a 95% Wilson lower bound above 52.4% plus positive live spread
   CLV on 100 unique started games. All other picks stay listed/graded at zero stake;
-  bulk logging excludes them. Current unstarted stakes can be reduced to zero; past
+  bulk logging excluded them until 2026-11-18, when $1-on-every-pick logging was restored
+  at the owner's request (labelled as the owner's own stake). Current unstarted stakes can be reduced to zero; past
   stakes/results are preserved. NBA's manual pause is superseded by the same gate.
   Card/Tonight show descriptive out-of-fold cover frequencies by fixed size bucket
   with samples, instead of raw model cover probabilities. Raw figures are labeled
