@@ -1,7 +1,7 @@
 {
  "date": "2026-11-17",
- "generatedAt": "2026-11-17T22:18:00Z",
- "forecastsRefreshedAt": "2026-11-17T22:17:58Z",
+ "generatedAt": "2026-11-18T02:53:16Z",
+ "forecastsRefreshedAt": "2026-11-18T02:53:09Z",
  "unit": "1 unit = 1% of bankroll",
  "rules": [
   "Spread bets only, in NFL, college football and college basketball; one bet per game. NBA is paused: forecast and tracked, not staked.",
@@ -13,17 +13,17 @@
   "A pick is locked at the line it was first listed with and graded at that line."
  ],
  "evidence": "Backtested over many seasons, picks made by this rule have lost money in every sport after the vig; each pick shows its sport's record. Treat the card as a shortlist to check, not as proven value.",
- "priced": 60,
- "qualified": 29,
+ "priced": 6,
+ "qualified": 1,
  "totalUnits": 4.0,
  "record": {
-  "days": 5,
+  "days": 6,
   "wins": 18,
-  "losses": 30,
+  "losses": 33,
   "pushes": 0,
-  "units": -7.423,
-  "staked": 28.5,
-  "roi": -0.2605
+  "units": -8.923,
+  "staked": 30.0,
+  "roi": -0.2974
  },
  "picks": [
   {
@@ -87,7 +87,7 @@
    },
    "note": "model +5.2 vs market -1.5: leans ARMY by 6.7 pts (threshold 3.0)",
    "lockedAt": "2026-11-17T11:15:57Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-17T22:18:00Z",
     "line": -1.5,
@@ -95,7 +95,13 @@
     "edgePts": 3.73,
     "lineObservedAt": "2026-11-17T22:07:56Z"
    },
-   "rank": 6
+   "rank": 6,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 68,
+    "awayScore": 73,
+    "units": -0.5
+   }
   },
   {
    "id": "ncaaf:401866465",
@@ -158,7 +164,7 @@
    },
    "note": "model +17.8 vs market +14.5: leans WMU by 3.3 pts (threshold 3.0)",
    "lockedAt": "2026-11-17T11:15:57Z",
-   "status": "edge-gone",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-17T22:18:00Z",
     "line": -16.5,
@@ -166,7 +172,13 @@
     "edgePts": 1.33,
     "lineObservedAt": "2026-11-17T22:17:53Z"
    },
-   "rank": 8
+   "rank": 8,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 34,
+    "awayScore": 27,
+    "units": -0.5
+   }
   },
   {
    "id": "ncaab:401911198",
@@ -229,7 +241,7 @@
    },
    "note": "model -4.2 vs market -11.5: leans MAN by 7.3 pts (threshold 3.0)",
    "lockedAt": "2026-11-17T11:15:57Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-17T22:18:00Z",
     "line": 12.5,
@@ -237,7 +249,13 @@
     "edgePts": 8.35,
     "lineObservedAt": "2026-11-17T22:07:56Z"
    },
-   "rank": 4
+   "rank": 4,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 61,
+    "awayScore": 80,
+    "units": -0.5
+   }
   },
   {
    "id": "ncaaf:401866464",
@@ -300,13 +318,9 @@
    },
    "note": "model +17.0 vs market +11.5: leans OHIO by 5.5 pts (threshold 3.0)",
    "lockedAt": "2026-11-17T11:15:57Z",
-   "status": "playable",
+   "status": "started",
    "current": {
-    "checkedAt": "2026-11-17T22:18:00Z",
-    "line": -10.0,
-    "price": -112,
-    "edgePts": 7.05,
-    "lineObservedAt": "2026-11-17T22:17:53Z"
+    "checkedAt": "2026-11-18T02:53:16Z"
    },
    "rank": 7
   },
@@ -371,13 +385,9 @@
    },
    "note": "model +17.7 vs market +25.5: leans KENN by 7.8 pts (threshold 3.0)",
    "lockedAt": "2026-11-17T11:15:57Z",
-   "status": "playable",
+   "status": "started",
    "current": {
-    "checkedAt": "2026-11-17T22:18:00Z",
-    "line": 25.5,
-    "price": -115,
-    "edgePts": 7.77,
-    "lineObservedAt": "2026-11-17T22:07:56Z"
+    "checkedAt": "2026-11-18T02:53:16Z"
    },
    "rank": 3
   },
@@ -442,13 +452,9 @@
    },
    "note": "model +4.3 vs market -2.5: leans GASO by 6.8 pts (threshold 3.0)",
    "lockedAt": "2026-11-17T11:15:57Z",
-   "status": "playable",
+   "status": "started",
    "current": {
-    "checkedAt": "2026-11-17T22:18:00Z",
-    "line": 1.5,
-    "price": -105,
-    "edgePts": 5.83,
-    "lineObservedAt": "2026-11-17T22:07:56Z"
+    "checkedAt": "2026-11-18T02:53:16Z"
    },
    "rank": 5
   },
@@ -513,13 +519,9 @@
    },
    "note": "model -9.3 vs market -1.5: leans LAM by 7.8 pts (threshold 3.0)",
    "lockedAt": "2026-11-17T11:15:57Z",
-   "status": "playable",
+   "status": "started",
    "current": {
-    "checkedAt": "2026-11-17T22:18:00Z",
-    "line": 1.5,
-    "price": -115,
-    "edgePts": 10.83,
-    "lineObservedAt": "2026-11-17T22:07:56Z"
+    "checkedAt": "2026-11-18T02:53:16Z"
    },
    "rank": 2
   },
@@ -586,11 +588,11 @@
    "lockedAt": "2026-11-17T11:15:57Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-17T22:18:00Z",
+    "checkedAt": "2026-11-18T02:53:16Z",
     "line": 8.5,
     "price": -115,
-    "edgePts": 7.18,
-    "lineObservedAt": "2026-11-17T22:07:56Z"
+    "edgePts": 7.24,
+    "lineObservedAt": "2026-11-18T02:40:44Z"
    },
    "rank": 1
   }
