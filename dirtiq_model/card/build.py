@@ -33,7 +33,11 @@ RESULTS_DIR = ROOT / "public" / "data" / "results"
 CARD_PATH = ROOT / "public" / "data" / "daily-card.json"
 ARCHIVE_DIR = ROOT / "public" / "data" / "cards"
 
-CARD_SPORTS = ("nfl", "ncaaf", "nba", "ncaab")
+CARD_SPORTS = ("nfl", "nba", "ncaab")
+# College football came off the card on 2026-11-18 at the owner's request: its rule covers under 49% in
+# every size and side of pick in the backtest, and it shows no positive closing-line value live. It is
+# still forecast, shown on Tonight and recorded in the ledger, and its past card picks are still graded.
+GRADED_SPORTS = CARD_SPORTS + ("ncaaf",)
 MAX_PICKS = 15
 MAX_PER_SPORT = 6
 # Every new pick in a passing sport carries the same stake; other picks carry zero. Over the backtests, picks the market-aware model agreed with
@@ -50,7 +54,7 @@ MIN_LEAD = timedelta(minutes=20)
 MAX_LINE_AGE = timedelta(hours=3)
 
 RULES = [
-    "Spread picks in NFL, college football, NBA and college basketball; one pick per game, including unstaked tracking picks.",
+    "Spread picks in NFL, NBA and college basketball; one pick per game, including unstaked tracking picks. College football is off the card: forecast and tracked in the ledger only.",
     "Staking gate: the lower endpoint of the two-sided 95% Wilson interval for this headline rule (1 to under 4 thresholds, pushes excluded) must exceed 52.4%, AND mean live spread CLV must be positive over at least 100 unique started leaned-side games with closing snapshots. Missing evidence fails closed.",
     "A game qualifies when the model margin disagrees with the spread by at least the sport's fixed backtest threshold.",
     "A game is left off when the disagreement is %.0f thresholds or more: a gap that wide is a rating or data error, not value." % MAX_EDGE_RATIO,
@@ -224,7 +228,7 @@ def grade(pick: Dict[str, Any], results: Dict[str, Dict[str, Any]]) -> bool:
 
 def load_results() -> Dict[str, Dict[str, Any]]:
     out: Dict[str, Dict[str, Any]] = {}
-    for sport in CARD_SPORTS:
+    for sport in GRADED_SPORTS:
         data = _read(RESULTS_DIR / ("%s.json" % sport)) or {}
         for game in data.get("games") or []:
             if game.get("eventId"):
@@ -320,6 +324,8 @@ def build_card(now: Optional[datetime] = None, sports_dir: Path = SPORTS_DIR, ar
 
     previous = _read(archive_dir / ("%s.json" % today)) or {}
     locked = [p for p in previous.get("picks") or [] if p.get("id")]
+    # A pick in a sport taken off the card after it was listed comes off unless its game has already started.
+    locked = [p for p in locked if p.get("sport") in CARD_SPORTS or p.get("result") or (_parse(p.get("startsAt")) or now) <= now]
     for pick in locked:
         gate = gates.get(pick["sport"])
         if gate and not pick.get("result") and (_parse(pick.get("startsAt")) or now) > now:

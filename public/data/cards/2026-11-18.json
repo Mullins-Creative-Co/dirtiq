@@ -1,0 +1,791 @@
+{
+ "date": "2026-11-18",
+ "generatedAt": "2026-11-18T16:37:49Z",
+ "forecastsRefreshedAt": "2026-11-18T16:37:40Z",
+ "unit": "1 unit = 1% of bankroll",
+ "rules": [
+  "Spread picks in NFL, NBA and college basketball; one pick per game, including unstaked tracking picks. College football is off the card: forecast and tracked in the ledger only.",
+  "Staking gate: the lower endpoint of the two-sided 95% Wilson interval for this headline rule (1 to under 4 thresholds, pushes excluded) must exceed 52.4%, AND mean live spread CLV must be positive over at least 100 unique started leaned-side games with closing snapshots. Missing evidence fails closed.",
+  "A game qualifies when the model margin disagrees with the spread by at least the sport's fixed backtest threshold.",
+  "A game is left off when the disagreement is 4 thresholds or more: a gap that wide is a rating or data error, not value.",
+  "Ranked by whether the market-aware model takes the same side, then by the size of the disagreement in threshold units.",
+  "At most 15 picks a day, 6 per sport, 7.5 units in total.",
+  "New picks in passing sports stake 0.5 unit; all other new picks stake zero and are still graded. A failing gate also zeros unstarted picks on the current card; past stakes/results are preserved. One unit is 1% of bankroll.",
+  "A pick is locked at the line it was first listed with and graded at that line."
+ ],
+ "evidence": "Stakes require both documented evidence conditions; each pick shows its sport's backtest record and gate. Unstaked picks remain tracked. Historical bucket frequencies are not per-game probabilities.",
+ "priced": 69,
+ "qualified": 32,
+ "stakingGates": {
+  "nfl": {
+   "passed": false,
+   "backtestWins": 684,
+   "backtestLosses": 704,
+   "coverRate": 0.49279538904899134,
+   "lower95": 0.46655022283339226,
+   "requiredLower": 0.524,
+   "minimumLiveGames": 100,
+   "liveClv": {
+    "count": 2,
+    "meanPts": -0.25,
+    "totalPts": -0.5,
+    "positiveRate": 0.0
+   }
+  },
+  "nba": {
+   "passed": false,
+   "backtestWins": 1734,
+   "backtestLosses": 1763,
+   "coverRate": 0.49585358879039176,
+   "lower95": 0.4792959793849173,
+   "requiredLower": 0.524,
+   "minimumLiveGames": 100,
+   "liveClv": {
+    "count": 13,
+    "meanPts": -0.07692307692307693,
+    "totalPts": -1.0,
+    "positiveRate": 0.15384615384615385
+   }
+  },
+  "ncaab": {
+   "passed": false,
+   "backtestWins": 5231,
+   "backtestLosses": 5001,
+   "coverRate": 0.5112392494136043,
+   "lower95": 0.5015512135114458,
+   "requiredLower": 0.524,
+   "minimumLiveGames": 100,
+   "liveClv": {
+    "count": 184,
+    "meanPts": 0.25,
+    "totalPts": 46.0,
+    "positiveRate": 0.2608695652173913
+   }
+  }
+ },
+ "totalUnits": 0.0,
+ "record": {
+  "days": 6,
+  "wins": 20,
+  "losses": 36,
+  "pushes": 0,
+  "units": -9.564,
+  "staked": 32.5,
+  "roi": -0.2943,
+  "unstakedGraded": 0,
+  "clv": {
+   "count": 56,
+   "meanPts": 0.35714285714285715,
+   "totalPts": 20.0,
+   "positiveRate": 0.39285714285714285
+  }
+ },
+ "picks": [
+  {
+   "id": "ncaab:401922283",
+   "sport": "ncaab",
+   "sportLabel": "NCAAB",
+   "gameId": "401922283",
+   "home": "UPST",
+   "away": "SAM",
+   "startsAt": "2026-11-18T23:30:00Z",
+   "neutral": 0,
+   "market": "spread",
+   "pick": "UPST",
+   "opponent": "SAM",
+   "side": "home",
+   "line": 7.5,
+   "price": -115,
+   "homeSpread": 7.5,
+   "book": "ESPN multi-book median",
+   "lineObservedAt": "2026-11-18T10:45:32Z",
+   "modelHomeMargin": 3.63,
+   "edgePts": 11.13,
+   "threshold": 3.0,
+   "edgeRatio": 3.71,
+   "marketAwareAgrees": true,
+   "marketAwareEdgePts": 2.21,
+   "breakEvenProb": 0.5349,
+   "stakeUnits": 0.0,
+   "record": {
+    "rule": "stk headline: 3.0 <= abs(model + spread) < 12.0",
+    "picks": 10326,
+    "wins": 5231,
+    "losses": 5001,
+    "winRate": 0.5112,
+    "roi": -0.02502134330216075,
+    "seasons": [
+     2019,
+     2027
+    ]
+   },
+   "homeRating": {
+    "rating": -7.01,
+    "sd": 3.77,
+    "rank": 314
+   },
+   "awayRating": {
+    "rating": -5.03,
+    "sd": 4.18,
+    "rank": 279
+   },
+   "homeForm": {
+    "record": "1-4",
+    "avgMargin": 1.8,
+    "last": "1-4"
+   },
+   "awayForm": {
+    "record": "1-2",
+    "avgMargin": -1.33,
+    "last": "1-2"
+   },
+   "note": "model +3.6 vs market -7.5: leans UPST by 11.1 pts (threshold 3.0)",
+   "lockedAt": "2026-11-18T10:55:15Z",
+   "status": "playable",
+   "current": {
+    "checkedAt": "2026-11-18T16:37:50Z",
+    "line": 6.5,
+    "price": -108,
+    "edgePts": 10.13,
+    "lineObservedAt": "2026-11-18T16:36:05Z"
+   },
+   "rank": 2,
+   "stakingGate": {
+    "passed": false,
+    "backtestWins": 5231,
+    "backtestLosses": 5001,
+    "coverRate": 0.5112392494136043,
+    "lower95": 0.5015512135114458,
+    "requiredLower": 0.524,
+    "minimumLiveGames": 100,
+    "liveClv": {
+     "count": 184,
+     "meanPts": 0.25,
+     "totalPts": 46.0,
+     "positiveRate": 0.2608695652173913
+    }
+   },
+   "originallyListedStakeUnits": 0.5,
+   "stakingStatus": "unstaked",
+   "uncalibratedModelCoverProb": 0.8135,
+   "empiricalCover": {
+    "minRatio": 3,
+    "maxRatio": 4,
+    "games": 355,
+    "n": 355,
+    "wins": 182,
+    "losses": 171,
+    "pushes": 2,
+    "sample": 353,
+    "coverRate": 0.5155807365439093,
+    "priced": 355,
+    "roi": -0.016828945767913696
+   }
+  },
+  {
+   "id": "ncaab:401920075",
+   "sport": "ncaab",
+   "sportLabel": "NCAAB",
+   "gameId": "401920075",
+   "home": "GMU",
+   "away": "NCCU",
+   "startsAt": "2026-11-19T00:00:00Z",
+   "neutral": 0,
+   "market": "spread",
+   "pick": "NCCU",
+   "opponent": "GMU",
+   "side": "away",
+   "line": 26.5,
+   "price": -112,
+   "homeSpread": -26.5,
+   "book": "ESPN multi-book median",
+   "lineObservedAt": "2026-11-18T10:45:32Z",
+   "modelHomeMargin": 15.38,
+   "edgePts": 11.12,
+   "threshold": 3.0,
+   "edgeRatio": 3.707,
+   "marketAwareAgrees": true,
+   "marketAwareEdgePts": 1.54,
+   "breakEvenProb": 0.5283,
+   "stakeUnits": 0.0,
+   "record": {
+    "rule": "stk headline: 3.0 <= abs(model + spread) < 12.0",
+    "picks": 10326,
+    "wins": 5231,
+    "losses": 5001,
+    "winRate": 0.5112,
+    "roi": -0.02502134330216075,
+    "seasons": [
+     2019,
+     2027
+    ]
+   },
+   "homeRating": {
+    "rating": 3.5,
+    "sd": 3.96,
+    "rank": 116
+   },
+   "awayRating": {
+    "rating": -6.54,
+    "sd": 3.75,
+    "rank": 307
+   },
+   "homeForm": {
+    "record": "3-1",
+    "avgMargin": 13.0,
+    "last": "3-1"
+   },
+   "awayForm": {
+    "record": "1-4",
+    "avgMargin": 0.6,
+    "last": "1-4"
+   },
+   "note": "model +15.4 vs market +26.5: leans NCCU by 11.1 pts (threshold 3.0)",
+   "lockedAt": "2026-11-18T10:55:15Z",
+   "status": "playable",
+   "current": {
+    "checkedAt": "2026-11-18T16:37:50Z",
+    "line": 23.5,
+    "price": -110,
+    "edgePts": 8.12,
+    "lineObservedAt": "2026-11-18T16:36:05Z"
+   },
+   "rank": 3,
+   "stakingGate": {
+    "passed": false,
+    "backtestWins": 5231,
+    "backtestLosses": 5001,
+    "coverRate": 0.5112392494136043,
+    "lower95": 0.5015512135114458,
+    "requiredLower": 0.524,
+    "minimumLiveGames": 100,
+    "liveClv": {
+     "count": 184,
+     "meanPts": 0.25,
+     "totalPts": 46.0,
+     "positiveRate": 0.2608695652173913
+    }
+   },
+   "originallyListedStakeUnits": 0.5,
+   "stakingStatus": "unstaked",
+   "uncalibratedModelCoverProb": 0.8209,
+   "empiricalCover": {
+    "minRatio": 3,
+    "maxRatio": 4,
+    "games": 355,
+    "n": 355,
+    "wins": 182,
+    "losses": 171,
+    "pushes": 2,
+    "sample": 353,
+    "coverRate": 0.5155807365439093,
+    "priced": 355,
+    "roi": -0.016828945767913696
+   }
+  },
+  {
+   "id": "ncaab:401922047",
+   "sport": "ncaab",
+   "sportLabel": "NCAAB",
+   "gameId": "401922047",
+   "home": "LONG",
+   "away": "VMI",
+   "startsAt": "2026-11-19T00:00:00Z",
+   "neutral": 0,
+   "market": "spread",
+   "pick": "LONG",
+   "opponent": "VMI",
+   "side": "home",
+   "line": -6.5,
+   "price": -110,
+   "homeSpread": -6.5,
+   "book": "ESPN multi-book median",
+   "lineObservedAt": "2026-11-18T10:45:32Z",
+   "modelHomeMargin": 14.9,
+   "edgePts": 8.4,
+   "threshold": 3.0,
+   "edgeRatio": 2.8,
+   "marketAwareAgrees": true,
+   "marketAwareEdgePts": 1.31,
+   "breakEvenProb": 0.5238,
+   "stakeUnits": 0.0,
+   "record": {
+    "rule": "stk headline: 3.0 <= abs(model + spread) < 12.0",
+    "picks": 10326,
+    "wins": 5231,
+    "losses": 5001,
+    "winRate": 0.5112,
+    "roi": -0.02502134330216075,
+    "seasons": [
+     2019,
+     2027
+    ]
+   },
+   "homeRating": {
+    "rating": 0.11,
+    "sd": 3.75,
+    "rank": 164
+   },
+   "awayRating": {
+    "rating": -9.88,
+    "sd": 3.75,
+    "rank": 350
+   },
+   "homeForm": {
+    "record": "3-2",
+    "avgMargin": 20.4,
+    "last": "3-2"
+   },
+   "awayForm": {
+    "record": "3-2",
+    "avgMargin": 7.4,
+    "last": "3-2"
+   },
+   "note": "model +14.9 vs market +6.5: leans LONG by 8.4 pts (threshold 3.0)",
+   "lockedAt": "2026-11-18T10:55:15Z",
+   "status": "playable",
+   "current": {
+    "checkedAt": "2026-11-18T16:37:50Z",
+    "line": -7.5,
+    "price": -108,
+    "edgePts": 7.4,
+    "lineObservedAt": "2026-11-18T16:36:05Z"
+   },
+   "rank": 6,
+   "stakingGate": {
+    "passed": false,
+    "backtestWins": 5231,
+    "backtestLosses": 5001,
+    "coverRate": 0.5112392494136043,
+    "lower95": 0.5015512135114458,
+    "requiredLower": 0.524,
+    "minimumLiveGames": 100,
+    "liveClv": {
+     "count": 184,
+     "meanPts": 0.25,
+     "totalPts": 46.0,
+     "positiveRate": 0.2608695652173913
+    }
+   },
+   "originallyListedStakeUnits": 0.5,
+   "stakingStatus": "unstaked",
+   "uncalibratedModelCoverProb": 0.7696,
+   "empiricalCover": {
+    "minRatio": 2,
+    "maxRatio": 3,
+    "games": 1685,
+    "n": 1685,
+    "wins": 872,
+    "losses": 792,
+    "pushes": 21,
+    "sample": 1664,
+    "coverRate": 0.5240384615384616,
+    "priced": 1685,
+    "roi": -0.0007895692065174703
+   }
+  },
+  {
+   "id": "ncaab:401925782",
+   "sport": "ncaab",
+   "sportLabel": "NCAAB",
+   "gameId": "401925782",
+   "home": "DUQ",
+   "away": "HOW",
+   "startsAt": "2026-11-19T00:00:00Z",
+   "neutral": 1,
+   "market": "spread",
+   "pick": "HOW",
+   "opponent": "DUQ",
+   "side": "away",
+   "line": 7.5,
+   "price": -115,
+   "homeSpread": -7.5,
+   "book": "ESPN multi-book median",
+   "lineObservedAt": "2026-11-18T10:45:32Z",
+   "modelHomeMargin": -0.93,
+   "edgePts": 8.43,
+   "threshold": 3.0,
+   "edgeRatio": 2.81,
+   "marketAwareAgrees": true,
+   "marketAwareEdgePts": 1.85,
+   "breakEvenProb": 0.5349,
+   "stakeUnits": 0.0,
+   "record": {
+    "rule": "stk headline: 3.0 <= abs(model + spread) < 12.0",
+    "picks": 10326,
+    "wins": 5231,
+    "losses": 5001,
+    "winRate": 0.5112,
+    "roi": -0.02502134330216075,
+    "seasons": [
+     2019,
+     2027
+    ]
+   },
+   "homeRating": {
+    "rating": -3.88,
+    "sd": 3.94,
+    "rank": 258
+   },
+   "awayRating": {
+    "rating": -1.53,
+    "sd": 3.77,
+    "rank": 207
+   },
+   "homeForm": {
+    "record": "4-0",
+    "avgMargin": 7.75,
+    "last": "4-0"
+   },
+   "awayForm": {
+    "record": "3-2",
+    "avgMargin": 1.4,
+    "last": "3-2"
+   },
+   "note": "model -0.9 vs market +7.5: leans HOW by 8.4 pts (threshold 3.0)",
+   "lockedAt": "2026-11-18T10:55:15Z",
+   "status": "playable",
+   "current": {
+    "checkedAt": "2026-11-18T16:37:50Z",
+    "line": 4.5,
+    "price": -102,
+    "edgePts": 5.43,
+    "lineObservedAt": "2026-11-18T16:36:05Z"
+   },
+   "rank": 5,
+   "stakingGate": {
+    "passed": false,
+    "backtestWins": 5231,
+    "backtestLosses": 5001,
+    "coverRate": 0.5112392494136043,
+    "lower95": 0.5015512135114458,
+    "requiredLower": 0.524,
+    "minimumLiveGames": 100,
+    "liveClv": {
+     "count": 184,
+     "meanPts": 0.25,
+     "totalPts": 46.0,
+     "positiveRate": 0.2608695652173913
+    }
+   },
+   "originallyListedStakeUnits": 0.5,
+   "stakingStatus": "unstaked",
+   "uncalibratedModelCoverProb": 0.7553,
+   "empiricalCover": {
+    "minRatio": 2,
+    "maxRatio": 3,
+    "games": 1685,
+    "n": 1685,
+    "wins": 872,
+    "losses": 792,
+    "pushes": 21,
+    "sample": 1664,
+    "coverRate": 0.5240384615384616,
+    "priced": 1685,
+    "roi": -0.0007895692065174703
+   }
+  },
+  {
+   "id": "ncaab:401920751",
+   "sport": "ncaab",
+   "sportLabel": "NCAAB",
+   "gameId": "401920751",
+   "home": "CIN",
+   "away": "YSU",
+   "startsAt": "2026-11-19T00:30:00Z",
+   "neutral": 0,
+   "market": "spread",
+   "pick": "YSU",
+   "opponent": "CIN",
+   "side": "away",
+   "line": 27.5,
+   "price": -115,
+   "homeSpread": -27.5,
+   "book": "ESPN multi-book median",
+   "lineObservedAt": "2026-11-18T10:45:32Z",
+   "modelHomeMargin": 18.61,
+   "edgePts": 8.89,
+   "threshold": 3.0,
+   "edgeRatio": 2.963,
+   "marketAwareAgrees": true,
+   "marketAwareEdgePts": 1.55,
+   "breakEvenProb": 0.5349,
+   "stakeUnits": 0.0,
+   "record": {
+    "rule": "stk headline: 3.0 <= abs(model + spread) < 12.0",
+    "picks": 10326,
+    "wins": 5231,
+    "losses": 5001,
+    "winRate": 0.5112,
+    "roi": -0.02502134330216075,
+    "seasons": [
+     2019,
+     2027
+    ]
+   },
+   "homeRating": {
+    "rating": 11.92,
+    "sd": 3.96,
+    "rank": 43
+   },
+   "awayRating": {
+    "rating": -1.25,
+    "sd": 3.98,
+    "rank": 195
+   },
+   "homeForm": {
+    "record": "3-1",
+    "avgMargin": 16.0,
+    "last": "3-1"
+   },
+   "awayForm": {
+    "record": "2-2",
+    "avgMargin": -6.5,
+    "last": "2-2"
+   },
+   "note": "model +18.6 vs market +27.5: leans YSU by 8.9 pts (threshold 3.0)",
+   "lockedAt": "2026-11-18T10:55:15Z",
+   "status": "playable",
+   "current": {
+    "checkedAt": "2026-11-18T16:37:50Z",
+    "line": 28.5,
+    "price": -115,
+    "edgePts": 9.89,
+    "lineObservedAt": "2026-11-18T16:36:05Z"
+   },
+   "rank": 4,
+   "stakingGate": {
+    "passed": false,
+    "backtestWins": 5231,
+    "backtestLosses": 5001,
+    "coverRate": 0.5112392494136043,
+    "lower95": 0.5015512135114458,
+    "requiredLower": 0.524,
+    "minimumLiveGames": 100,
+    "liveClv": {
+     "count": 184,
+     "meanPts": 0.25,
+     "totalPts": 46.0,
+     "positiveRate": 0.2608695652173913
+    }
+   },
+   "originallyListedStakeUnits": 0.5,
+   "stakingStatus": "unstaked",
+   "uncalibratedModelCoverProb": 0.7715,
+   "empiricalCover": {
+    "minRatio": 2,
+    "maxRatio": 3,
+    "games": 1685,
+    "n": 1685,
+    "wins": 872,
+    "losses": 792,
+    "pushes": 21,
+    "sample": 1664,
+    "coverRate": 0.5240384615384616,
+    "priced": 1685,
+    "roi": -0.0007895692065174703
+   }
+  },
+  {
+   "id": "nba:401910016",
+   "sport": "nba",
+   "sportLabel": "NBA",
+   "gameId": "401910016",
+   "home": "DAL",
+   "away": "GS",
+   "startsAt": "2026-11-19T01:00:00Z",
+   "neutral": 0,
+   "market": "spread",
+   "pick": "GS",
+   "opponent": "DAL",
+   "side": "away",
+   "line": 4.5,
+   "price": -106,
+   "homeSpread": -4.5,
+   "book": "ESPN multi-book median",
+   "lineObservedAt": "2026-11-18T16:37:39Z",
+   "modelHomeMargin": -0.87,
+   "edgePts": 5.37,
+   "threshold": 3.0,
+   "edgeRatio": 1.79,
+   "marketAwareAgrees": true,
+   "marketAwareEdgePts": 0.08,
+   "uncalibratedModelCoverProb": 0.6518,
+   "empiricalCover": {
+    "minRatio": 1,
+    "maxRatio": 2,
+    "games": 2727,
+    "n": 2727,
+    "wins": 1352,
+    "losses": 1350,
+    "pushes": 25,
+    "sample": 2702,
+    "coverRate": 0.5003700962250185,
+    "priced": 2727,
+    "roi": -0.04444946737855829
+   },
+   "stakingGate": {
+    "passed": false,
+    "backtestWins": 1734,
+    "backtestLosses": 1763,
+    "coverRate": 0.49585358879039176,
+    "lower95": 0.4792959793849173,
+    "requiredLower": 0.524,
+    "minimumLiveGames": 100,
+    "liveClv": {
+     "count": 13,
+     "meanPts": -0.07692307692307693,
+     "totalPts": -1.0,
+     "positiveRate": 0.15384615384615385
+    }
+   },
+   "stakingStatus": "unstaked",
+   "breakEvenProb": 0.5146,
+   "stakeUnits": 0.0,
+   "record": {
+    "rule": "stk headline: 3.0 <= abs(model + spread) < 12.0",
+    "picks": 3531,
+    "wins": 1734,
+    "losses": 1763,
+    "winRate": 0.4959,
+    "roi": -0.05297854457690561,
+    "seasons": [
+     2019,
+     2027
+    ]
+   },
+   "homeRating": {
+    "rating": -2.48,
+    "sd": 2.72,
+    "rank": 21
+   },
+   "awayRating": {
+    "rating": 0.86,
+    "sd": 2.72,
+    "rank": 15
+   },
+   "homeForm": {
+    "record": "7-7",
+    "avgMargin": -2.5,
+    "last": "2-3"
+   },
+   "awayForm": {
+    "record": "8-6",
+    "avgMargin": 2.5,
+    "last": "2-3"
+   },
+   "note": "model -0.9 vs market +4.5: leans GS by 5.4 pts (threshold 3.0)",
+   "lockedAt": "2026-11-18T16:37:49Z",
+   "status": "playable",
+   "current": {
+    "checkedAt": "2026-11-18T16:37:50Z",
+    "line": 4.5,
+    "price": -106,
+    "edgePts": 5.37,
+    "lineObservedAt": "2026-11-18T16:37:39Z"
+   },
+   "rank": 7
+  },
+  {
+   "id": "ncaab:401906805",
+   "sport": "ncaab",
+   "sportLabel": "NCAAB",
+   "gameId": "401906805",
+   "home": "OU",
+   "away": "CAM",
+   "startsAt": "2026-11-19T01:00:00Z",
+   "neutral": 0,
+   "market": "spread",
+   "pick": "CAM",
+   "opponent": "OU",
+   "side": "away",
+   "line": 23.5,
+   "price": -112,
+   "homeSpread": -23.5,
+   "book": "ESPN multi-book median",
+   "lineObservedAt": "2026-11-18T10:45:32Z",
+   "modelHomeMargin": 11.95,
+   "edgePts": 11.55,
+   "threshold": 3.0,
+   "edgeRatio": 3.85,
+   "marketAwareAgrees": true,
+   "marketAwareEdgePts": 1.56,
+   "breakEvenProb": 0.5283,
+   "stakeUnits": 0.0,
+   "record": {
+    "rule": "stk headline: 3.0 <= abs(model + spread) < 12.0",
+    "picks": 10326,
+    "wins": 5231,
+    "losses": 5001,
+    "winRate": 0.5112,
+    "roi": -0.02502134330216075,
+    "seasons": [
+     2019,
+     2027
+    ]
+   },
+   "homeRating": {
+    "rating": 4.26,
+    "sd": 3.96,
+    "rank": 105
+   },
+   "awayRating": {
+    "rating": -2.21,
+    "sd": 3.97,
+    "rank": 225
+   },
+   "homeForm": {
+    "record": "3-1",
+    "avgMargin": 12.0,
+    "last": "3-1"
+   },
+   "awayForm": {
+    "record": "1-3",
+    "avgMargin": -8.5,
+    "last": "1-3"
+   },
+   "note": "model +12.0 vs market +23.5: leans CAM by 11.5 pts (threshold 3.0)",
+   "lockedAt": "2026-11-18T10:55:15Z",
+   "status": "playable",
+   "current": {
+    "checkedAt": "2026-11-18T16:37:50Z",
+    "line": 20.5,
+    "price": -108,
+    "edgePts": 8.55,
+    "lineObservedAt": "2026-11-18T16:36:05Z"
+   },
+   "rank": 1,
+   "stakingGate": {
+    "passed": false,
+    "backtestWins": 5231,
+    "backtestLosses": 5001,
+    "coverRate": 0.5112392494136043,
+    "lower95": 0.5015512135114458,
+    "requiredLower": 0.524,
+    "minimumLiveGames": 100,
+    "liveClv": {
+     "count": 184,
+     "meanPts": 0.25,
+     "totalPts": 46.0,
+     "positiveRate": 0.2608695652173913
+    }
+   },
+   "originallyListedStakeUnits": 0.5,
+   "stakingStatus": "unstaked",
+   "uncalibratedModelCoverProb": 0.828,
+   "empiricalCover": {
+    "minRatio": 3,
+    "maxRatio": 4,
+    "games": 355,
+    "n": 355,
+    "wins": 182,
+    "losses": 171,
+    "pushes": 2,
+    "sample": 353,
+    "coverRate": 0.5155807365439093,
+    "priced": 355,
+    "roi": -0.016828945767913696
+   }
+  }
+ ]
+}

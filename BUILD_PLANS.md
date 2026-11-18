@@ -113,7 +113,12 @@ alone shrinks to nothing, so this is the only route to starter value.
 
 ## Shipped (most recent first)
 
-- 2026-11-17: evidence-gated card implementation (`feat/card-evidence-gate`; not deployed).
+- 2026-11-18: evidence gate merged to `main`; college football taken off the daily card
+  (`CARD_SPORTS` in `dirtiq_model/card/build.py`) at the owner's request: under 49% in every
+  size and side of pick in the backtest, no positive live CLV. Still forecast, on Tonight
+  and in the ledger; its past card picks are still graded (`GRADED_SPORTS`).
+
+- 2026-11-17: evidence-gated card implementation (`feat/card-evidence-gate`; merged 2026-11-18).
   New stakes require a 95% Wilson lower bound above 52.4% plus positive live spread
   CLV on 100 unique started games. All other picks stay listed/graded at zero stake;
   bulk logging excludes them. Current unstarted stakes can be reduced to zero; past
