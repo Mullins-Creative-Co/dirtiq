@@ -79,7 +79,7 @@ export default async function CardPage({searchParams}:{searchParams:Promise<{dat
       <main className="mx-auto max-w-7xl space-y-3 px-3 py-3 sm:space-y-5 sm:px-6 sm:py-6 [&>header]:gap-3 [&>header]:pb-3 [&_.stat]:!p-2.5 [&_.stat-value]:!text-2xl [&_.stat-detail]:!text-[11px]">
         {current?<RefreshNotice />:null}
         <form method="get" className="flex flex-wrap items-center gap-2 text-sm"><label className="flex items-center gap-2">Card date<select name="date" defaultValue={card.date} className="input !w-auto !py-1.5">{dates.map(date=><option key={date} value={date}>{date}</option>)}</select></label><button className="text-xs font-bold text-[var(--accent)]" type="submit">View card</button></form>
-        <LogCardBets key={card.date} date={card.date} count={card.picks.filter(p => p.stakeUnits > 0).length} events={sorted.map(eventFor)} />
+        <LogCardBets key={card.date} date={card.date} count={card.picks.length} unstaked={card.picks.filter(p => p.stakeUnits === 0).length} events={sorted.map(eventFor)} />
         <PageHeader
           kicker={new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", weekday: "long", month: "long", day: "numeric" }).format(new Date(`${card.date}T17:00:00Z`))}
           title={current?"Today’s card":"Past card"}
