@@ -4,7 +4,7 @@ Ranked list of what to build next in this repo, with enough context that any age
 person can pick one up cold. Keep it current: when a plan ships, move it to "Shipped"
 with the commit; when priorities change, reorder and say why. Pair this with
 `docs/model-architecture.md` (the contract for how things work) and `AGENTS.md`
-(hard constraints). Last revised 2026-11-12.
+(hard constraints). Last revised 2026-11-19.
 
 ## Focus (set 2026-11-11)
 
@@ -45,6 +45,38 @@ site orders sports the same way; the closing-line feed covers the four focus spo
 | Refresh | Three bots commit to `main`: `sports-refresh.yml` (hourly 10:41-05:41 UTC, about 5 AM to 1 AM Eastern, plus 08:41 UTC: settle, forecast, ledger export; odds snapshots only in the first run after 18:00 and after 00:00 UTC, tracked by `public/data/odds/status.json`), `world100-refresh.yml` (hourly: verified race data, legacy racing model retrains, `public/data/ml-predictions`), `matchups-refresh.yml` (every four hours: NFL pregame projections). Each publishes with `git pull --rebase -X theirs` so its own regenerated files win over an overlapping run; they touch disjoint files otherwise. Local pushes should rebase the same way. External hourly Cloudflare dispatcher is prepared in `ops/refresh-dispatcher/` but requires owner account/token activation; two hourly runs are not yet verified. `/api/freshness` exposes artifact ages and live Actions status. |
 
 ## Plans, in priority order
+
+### Current priority: fair lines with genuinely new information (2026-11-19)
+Owner authorized taking the wheel on spread/total accuracy and comparisons with
+FanDuel/DraftKings. `feat/fair-line-lab` implements a frozen, reproducible historical
+comparison of separate offense/defense scoring states and market-residual ridge,
+with distinct fit/calibration/evaluation seasons, date-cluster uncertainty, full
+season results and honest price coverage on `/models`. Neither candidate beats the
+closing market reliably; no production forecast or staking change is justified.
+See `docs/fair-line-review-2026-11-19.md` and `docs/fair-line-protocol.md`.
+
+The same branch retains exact per-book spread/moneyline quotes from existing calls
+and freezes pregame baseline/quote observations for future evaluation. Collection
+starts on deployment; old consensus snapshots cannot support named-book ROI.
+Snapshot frequency/paid markets stay unchanged. Manual $1 card logging is preserved.
+
+Next implementation order:
+1. Reconcile/deploy the pending timestamped injury work (`feat/injury-context`, PR #2)
+   while preserving main's restored manual logging. Prospective observations first;
+   no retroactive injury history or automatic point-model promotion.
+2. Build verified as-of basketball possession/efficiency inputs, and football QB /
+   EPA-success-rate inputs plus timestamped weather forecasts. Audit coverage and
+   release lag before fitting. Repeating score-only filters is not a priority.
+3. Freeze a new feature experiment before outcomes are inspected; compare on the same
+   priced games, then run forward shadow forecasts with exact-book observations.
+4. Expand named-book totals collection only after a documented quota/source decision;
+   existing historical totals have no archived side prices. Track forecast/quote
+   times, accepted terms when manually logged, closing quotes and final results.
+
+Done when: a prospectively frozen candidate improves fair-line accuracy and probability
+calibration against the market, with sustained positive exact-price returns and CLV
+on sufficient independent games. Historical positive slices alone do not qualify.
+
 
 ### 1. Closing lines for all four focus sports, and offline CLV
 **Why**: NCAAF and NCAAB carry the most leans and had no closing-line feed; ESPN's cached
@@ -112,6 +144,10 @@ as-of FIP-style starter rate; NHL starting goalies from the league boxscore with
 alone shrinks to nothing, so this is the only route to starter value.
 
 ## Shipped (most recent first)
+
+- 2026-11-19: fair-line evaluation and named-book observation infrastructure implemented
+  on `feat/fair-line-lab` (pending review/deployment). All four focus sports and both
+  markets evaluated; no candidate promoted. See current priority above.
 
 - 2026-11-18: evidence gate merged to `main`; college football taken off the daily card
   (`CARD_SPORTS` in `dirtiq_model/card/build.py`) at the owner's request: under 49% in every

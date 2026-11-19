@@ -42,3 +42,12 @@ Fixed candidates, no outcome-driven grid:
 Keep source CSV SHA256 fingerprints, source date range and audit counts in the report.
 Fresh named-book quotes may be retained from the existing quota-limited snapshot call;
 no new paid API markets, credentials or production bets database access in this work.
+
+## Audit clarification after first run
+
+Archived spread-price columns can be consensus medians, combining prices quoted at
+different lines/books. All historical selection returns are therefore paper returns,
+including the “archived price” subset; they cannot establish executable named-book ROI.
+This changes the reporting label, not the frozen candidate, selection rule or results.
+Apple Accelerate emitted matmul warnings on finite arrays; equivalent explicit einsum
+contractions remove the platform warning. Forecasts/metrics agree to floating precision.

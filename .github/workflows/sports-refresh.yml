@@ -11,6 +11,8 @@ on:
       - '.github/workflows/sports-refresh.yml'
       - 'dirtiq_model/teams/**'
       - 'dirtiq_model/card/**'
+      - 'dirtiq_model/fair_lines/**'
+      - 'dirtiq_model/odds/**'
       - 'dirtiq_model/ledger_core.py'
       - 'dirtiq_model/scoring.py'
 permissions:
@@ -42,6 +44,8 @@ jobs:
       - run: OPENBLAS_NUM_THREADS=1 python -m unittest discover -s tests -p 'test_teams*.py'
       - run: OPENBLAS_NUM_THREADS=1 python -m unittest discover -s tests -p 'test_ledger.py'
       - run: OPENBLAS_NUM_THREADS=1 python -m unittest discover -s tests -p 'test_odds.py'
+      - run: python -m unittest discover -s tests -p 'test_book_quotes.py'
+      - run: OPENBLAS_NUM_THREADS=1 python -m unittest discover -s tests -p 'test_fair_lines.py'
       - run: python -m unittest discover -s tests -p 'test_card.py'
       - run: OPENBLAS_NUM_THREADS=1 python -m unittest discover -s tests -p 'test_spread_evidence.py'
       - name: Settle, forecast, snapshot odds and export
@@ -87,7 +91,8 @@ jobs:
         run: |
           git config user.name 'DirtIQ data bot'
           git config user.email 'actions@users.noreply.github.com'
-          git add public/sports public/data/forecast-ledger.json public/data/model-health.json public/data/odds public/data/results public/data/daily-card.json public/data/cards
+          mkdir -p observations/book-quotes
+          git add observations/book-quotes public/sports public/data/forecast-ledger.json public/data/model-health.json public/data/odds public/data/results public/data/daily-card.json public/data/cards
           if git diff --cached --quiet; then exit 0; fi
           git commit -m 'Refresh team-sport forecasts and ledger'
           # Generated files always conflict when two refreshes overlap; the newer run's files win.

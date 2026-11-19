@@ -35,7 +35,7 @@ def load(path: Path, sport: str, as_of: pd.Timestamp) -> Tuple[pd.DataFrame, Dic
     d = d[valid].copy()
     dup = d[d.duplicated("game_id", keep=False)]
     for _, group in dup.groupby("game_id"):
-        if len(group[required].drop_duplicates()) > 1:
+        if len(group.drop_duplicates()) > 1:
             raise ValueError("Conflicting duplicate game ID: " + str(group.game_id.iloc[0]))
     audit["duplicateRows"] = int(d.duplicated("game_id").sum())
     d = d.drop_duplicates("game_id")
@@ -92,7 +92,7 @@ def selections(d: pd.DataFrame, real_price: bool) -> Dict[str, Any]:
     return {"bets": len(chosen), "wins": wins, "losses": losses, "pushes": pushes,
             "coverRate": wins / n if n else None, "lower95": lower,
             "units": float(profit.sum()), "roi": float(profit.mean()) if len(chosen) else None,
-            "priceBasis": "archived side price" if real_price else "assumed -110 sensitivity; not executable ROI"}
+            "priceBasis": "archived reported side price; consensus may mix books; paper returns" if real_price else "assumed -110 sensitivity; not executable ROI"}
 
 
 def metrics(d: pd.DataFrame) -> Dict[str, Any]:
@@ -102,7 +102,11 @@ def metrics(d: pd.DataFrame) -> Dict[str, Any]:
     y = (no_push.actual > no_push.market_line).to_numpy(dtype=float)
     p = np.clip(no_push.conditional.to_numpy(), 1e-6, 1-1e-6)
     pm = no_push.market_probability.to_numpy()
-    return {"games": len(d), "mae": float(ae.mean()), "rmse": float(np.sqrt(np.mean((d.actual-d.prediction)**2))),
+    priced = no_push[no_push.paired_price]
+    py = (priced.actual > priced.market_line).to_numpy(dtype=float)
+    return {"pricedBrier": float(np.mean((priced.conditional.to_numpy()-py)**2)) if len(priced) else None,
+            "pricedBenchmarkBrier": float(np.mean((priced.market_probability.to_numpy()-py)**2)) if len(priced) else None,
+            "games": len(d), "mae": float(ae.mean()), "rmse": float(np.sqrt(np.mean((d.actual-d.prediction)**2))),
             "marketMae": float(me.mean()), "maeDelta": float((ae-me).mean()),
             "maeDelta95": interval((ae-me).to_numpy(), d.day),
             "nonPushGames": len(no_push), "brier": float(np.mean((p-y)**2)),
@@ -197,6 +201,7 @@ def run(input_dir: Path, output: Path, detail_dir: Path, as_of: str) -> Dict[str
               "protocol": "docs/fair-line-protocol.md", "sports": sports,
               "limitations": ["Previously inspected historical seasons; not untouched external validation.",
                               "Closing consensus is not an executable FanDuel/DraftKings price or a timestamped opener.",
+                              "Archived spread prices can be medians from different books/lines: their returns are also paper comparisons, not exact-book executable ROI.",
                               "Totals prices absent: -110 results are sensitivity only, not executable ROI.",
                               "Scoring states use final scores, not possessions, verified starters, weather or injury history.",
                               "Marginal date-cluster intervals do not adjust for multiple candidate comparisons.",

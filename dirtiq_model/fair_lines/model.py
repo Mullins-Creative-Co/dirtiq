@@ -99,7 +99,7 @@ class Fit:
 
     def mean(self, frame: pd.DataFrame) -> np.ndarray:
         x, _ = design(frame, self.market, self.anchored)
-        out = np.column_stack([(x - self.mu) / self.scale, np.ones(len(x))]) @ self.coef
+        out = np.einsum("ij,j->i", np.column_stack([(x - self.mu) / self.scale, np.ones(len(x))]), self.coef, optimize=False)
         return out + frame["market_line"].to_numpy(dtype=float) if self.anchored else out
 
 
@@ -122,7 +122,8 @@ def fit(train: pd.DataFrame, calibration: pd.DataFrame, market: str, anchored: b
         y = y - train.market_line.to_numpy(dtype=float)
     penalty = np.eye(z.shape[1]) * RIDGE
     penalty[-1, -1] = 0.0
-    coef = np.linalg.solve(z.T @ z + penalty, z.T @ y)
+    coef = np.linalg.solve(np.einsum("ni,nj->ij", z, z, optimize=False) + penalty,
+                           np.einsum("ni,n->i", z, y, optimize=False))
     result = Fit(mu, scale, coef, names, anchored, market, np.array([]),
                  str(train.start.max()), str(calibration.start.max()), len(train))
     result.residuals = np.sort(calibration.actual.to_numpy(dtype=float) - result.mean(calibration))
