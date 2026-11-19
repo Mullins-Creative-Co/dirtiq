@@ -1,7 +1,7 @@
 {
  "date": "2026-11-18",
- "generatedAt": "2026-11-18T19:51:26Z",
- "forecastsRefreshedAt": "2026-11-18T19:39:13Z",
+ "generatedAt": "2026-11-19T01:41:23Z",
+ "forecastsRefreshedAt": "2026-11-19T01:31:55Z",
  "unit": "1 unit = 1% of bankroll",
  "rules": [
   "Spread picks in NFL, NBA and college basketball; one pick per game, including unstaked tracking picks. College football is off the card: forecast and tracked in the ledger only.",
@@ -14,8 +14,8 @@
   "A pick is locked at the line it was first listed with and graded at that line."
  ],
  "evidence": "Stakes require both documented evidence conditions; each pick shows its sport's backtest record and gate. Unstaked picks remain tracked. Historical bucket frequencies are not per-game probabilities.",
- "priced": 71,
- "qualified": 36,
+ "priced": 19,
+ "qualified": 4,
  "stakingGates": {
   "nfl": {
    "passed": false,
@@ -41,10 +41,10 @@
    "requiredLower": 0.524,
    "minimumLiveGames": 100,
    "liveClv": {
-    "count": 13,
-    "meanPts": -0.07692307692307693,
+    "count": 15,
+    "meanPts": -0.06666666666666667,
     "totalPts": -1.0,
-    "positiveRate": 0.15384615384615385
+    "positiveRate": 0.13333333333333333
    }
   },
   "ncaab": {
@@ -56,10 +56,10 @@
    "requiredLower": 0.524,
    "minimumLiveGames": 100,
    "liveClv": {
-    "count": 185,
-    "meanPts": 0.25405405405405407,
-    "totalPts": 47.0,
-    "positiveRate": 0.2648648648648649
+    "count": 190,
+    "meanPts": 0.25,
+    "totalPts": 47.5,
+    "positiveRate": 0.2631578947368421
    }
   }
  },
@@ -74,10 +74,10 @@
   "roi": -0.2943,
   "unstakedGraded": 0,
   "clv": {
-   "count": 56,
-   "meanPts": 0.35714285714285715,
-   "totalPts": 20.0,
-   "positiveRate": 0.39285714285714285
+   "count": 60,
+   "meanPts": 0.4,
+   "totalPts": 24.0,
+   "positiveRate": 0.4
   }
  },
  "picks": [
@@ -141,13 +141,9 @@
    },
    "note": "model +3.6 vs market -7.5: leans UPST by 11.1 pts (threshold 3.0)",
    "lockedAt": "2026-11-18T10:55:15Z",
-   "status": "playable",
+   "status": "started",
    "current": {
-    "checkedAt": "2026-11-18T19:51:27Z",
-    "line": 6.5,
-    "price": -108,
-    "edgePts": 10.13,
-    "lineObservedAt": "2026-11-18T19:39:06Z"
+    "checkedAt": "2026-11-19T01:41:24Z"
    },
    "rank": 2,
    "stakingGate": {
@@ -242,13 +238,9 @@
    },
    "note": "model +15.4 vs market +26.5: leans NCCU by 11.1 pts (threshold 3.0)",
    "lockedAt": "2026-11-18T10:55:15Z",
-   "status": "playable",
+   "status": "started",
    "current": {
-    "checkedAt": "2026-11-18T19:51:27Z",
-    "line": 22.5,
-    "price": -105,
-    "edgePts": 7.12,
-    "lineObservedAt": "2026-11-18T19:39:06Z"
+    "checkedAt": "2026-11-19T01:41:24Z"
    },
    "rank": 3,
    "stakingGate": {
@@ -343,13 +335,9 @@
    },
    "note": "model +14.9 vs market +6.5: leans LONG by 8.4 pts (threshold 3.0)",
    "lockedAt": "2026-11-18T10:55:15Z",
-   "status": "playable",
+   "status": "started",
    "current": {
-    "checkedAt": "2026-11-18T19:51:27Z",
-    "line": -7.5,
-    "price": -108,
-    "edgePts": 7.4,
-    "lineObservedAt": "2026-11-18T19:39:06Z"
+    "checkedAt": "2026-11-19T01:41:24Z"
    },
    "rank": 6,
    "stakingGate": {
@@ -382,6 +370,11 @@
     "coverRate": 0.5240384615384616,
     "priced": 1685,
     "roi": -0.0007895692065174703
+   },
+   "clv": {
+    "points": 1.0,
+    "closeLine": -7.5,
+    "source": "last available pre-start ledger snapshot"
    }
   },
   {
@@ -444,13 +437,9 @@
    },
    "note": "model -0.9 vs market +7.5: leans HOW by 8.4 pts (threshold 3.0)",
    "lockedAt": "2026-11-18T10:55:15Z",
-   "status": "playable",
+   "status": "started",
    "current": {
-    "checkedAt": "2026-11-18T19:51:27Z",
-    "line": 4.5,
-    "price": -108,
-    "edgePts": 5.46,
-    "lineObservedAt": "2026-11-18T19:39:06Z"
+    "checkedAt": "2026-11-19T01:41:24Z"
    },
    "rank": 5,
    "stakingGate": {
@@ -483,6 +472,11 @@
     "coverRate": 0.5240384615384616,
     "priced": 1685,
     "roi": -0.0007895692065174703
+   },
+   "clv": {
+    "points": 3.0,
+    "closeLine": 4.5,
+    "source": "last available pre-start ledger snapshot"
    }
   },
   {
@@ -575,15 +569,16 @@
    },
    "note": "model +8.5 vs market +4.5: leans TOR by 4.0 pts (threshold 3.0)",
    "lockedAt": "2026-11-18T19:51:26Z",
-   "status": "playable",
+   "status": "started",
    "current": {
-    "checkedAt": "2026-11-18T19:51:27Z",
-    "line": -4.5,
-    "price": -110,
-    "edgePts": 3.97,
-    "lineObservedAt": "2026-11-18T19:35:03Z"
+    "checkedAt": "2026-11-19T01:41:24Z"
    },
-   "rank": 8
+   "rank": 8,
+   "clv": {
+    "points": 0.0,
+    "closeLine": -4.5,
+    "source": "last available pre-start ledger snapshot"
+   }
   },
   {
    "id": "ncaab:401920751",
@@ -645,13 +640,9 @@
    },
    "note": "model +18.6 vs market +27.5: leans YSU by 8.9 pts (threshold 3.0)",
    "lockedAt": "2026-11-18T10:55:15Z",
-   "status": "playable",
+   "status": "started",
    "current": {
-    "checkedAt": "2026-11-18T19:51:27Z",
-    "line": 28.5,
-    "price": -115,
-    "edgePts": 9.89,
-    "lineObservedAt": "2026-11-18T19:39:06Z"
+    "checkedAt": "2026-11-19T01:41:24Z"
    },
    "rank": 4,
    "stakingGate": {
@@ -776,16 +767,17 @@
    },
    "note": "model -0.9 vs market +4.5: leans GS by 5.4 pts (threshold 3.0)",
    "lockedAt": "2026-11-18T16:37:49Z",
-   "status": "playable",
+   "status": "started",
    "current": {
-    "checkedAt": "2026-11-18T19:51:27Z",
-    "line": 4.5,
-    "price": -109,
-    "edgePts": 5.37,
-    "lineObservedAt": "2026-11-18T19:35:03Z"
+    "checkedAt": "2026-11-19T01:41:24Z"
    },
    "rank": 7,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "clv": {
+    "points": 0.0,
+    "closeLine": 4.5,
+    "source": "last available pre-start ledger snapshot"
+   }
   },
   {
    "id": "ncaab:401906805",
@@ -847,13 +839,9 @@
    },
    "note": "model +12.0 vs market +23.5: leans CAM by 11.5 pts (threshold 3.0)",
    "lockedAt": "2026-11-18T10:55:15Z",
-   "status": "playable",
+   "status": "started",
    "current": {
-    "checkedAt": "2026-11-18T19:51:27Z",
-    "line": 20.5,
-    "price": -108,
-    "edgePts": 8.54,
-    "lineObservedAt": "2026-11-18T19:39:06Z"
+    "checkedAt": "2026-11-19T01:41:24Z"
    },
    "rank": 1,
    "stakingGate": {
