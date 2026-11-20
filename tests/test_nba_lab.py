@@ -77,7 +77,9 @@ class NbaFitTests(unittest.TestCase):
 
     def test_paper_profit_counts_push_in_stake_denominator(self):
         f=pd.DataFrame(dict(select=[True]*3,has_price=[True]*3,won=[True,False,False],push=[False,False,True],price=[150,-110,-110]))
-        r=selections(f,True);self.assertAlmostEqual(r['units'],.5);self.assertAlmostEqual(r['roi'],.5/3)
+        with patch.object(pd.DataFrame,'select',lambda self:self,create=True):
+            r=selections(f,True)
+        self.assertAlmostEqual(r['units'],.5);self.assertAlmostEqual(r['roi'],.5/3)
         self.assertIn('paper',r['priceBasis'])
 
 

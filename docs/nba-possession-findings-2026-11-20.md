@@ -53,3 +53,9 @@ npm run test:py
 ```
 
 Validation: eight new synthetic tests; 181 Python tests pass on Python 3.9.6. No production data, credentials, bets database, UI, cards, locked terms or stakes were changed.
+
+
+Post-evaluation compatibility correction: explicit `["select"]` column access avoids
+a DataFrame method-name collision on the newer CI dataframe library. The synthetic
+paper-return test reproduces that collision on the local runtime. This changes no
+features, fits, calibration, selection rule or reported result; no quarantine retuning.
