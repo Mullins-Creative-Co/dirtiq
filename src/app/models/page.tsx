@@ -5,7 +5,7 @@ import { Nav } from "@/components/nav";
 import { Card, Chip, EmptyState, Note, PageHeader, Section, StatTile, Table, type Tone } from "@/components/ui/primitives";
 import { ReliabilityChart } from "@/components/ui/reliability-chart";
 import { dateTime, num, pct, relativeAge, signed, units } from "@/lib/format";
-import { SPORT_LABELS, getAvailabilityReport, getDailyCard, getModelHealth, getOddsStatus, getRacingReport, listSportReports } from "@/lib/model-reports";
+import { SPORT_LABELS, getBookQuoteCoverage, getFairLineReport, getAvailabilityReport, getDailyCard, getModelHealth, getOddsStatus, getRacingReport, listSportReports } from "@/lib/model-reports";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Model health", description: "Ledger scores, calibration, and backtests for every sportIQ model." };
@@ -18,6 +18,8 @@ function brierTone(value: number | null, baseline: number | null): Tone {
 
 export default async function ModelsPage() {
   await connection();
+  const fairLines = getFairLineReport();
+  const bookQuotes = getBookQuoteCoverage();
   const health = getModelHealth();
   const racing = getRacingReport();
   const sports = listSportReports();
@@ -82,6 +84,37 @@ export default async function ModelsPage() {
         <Section title="Injury context evaluation" description="New availability snapshots are evaluated prospectively. User-enabled experimental NBA injury adjustments change the displayed spread/total variant; baseline win probabilities and stakes stay unchanged.">
           <p className="text-sm">{availability ? `${availability.evaluation.games} paired games · baseline MAE ${num(availability.evaluation.baselineMae,2)} · listed-out scenario MAE ${num(availability.evaluation.listedOutScenarioMae,2)}` : "No availability snapshots yet"}. <Link className="underline" href="/injuries">Reports, player values and coverage</Link></p>
           <p className="text-sm">Totals forward evaluation: {availability?.totalEvaluation?.games ?? 0} paired games · baseline MAE {num(availability?.totalEvaluation?.baselineMae,2)} · injury-adjusted MAE {num(availability?.totalEvaluation?.listedOutScenarioMae,2)}. No validated improvement is claimed.</p>
+        </Section>
+
+        <Section id="fair-lines" kicker="Research" title="Can our fair lines beat the market?" description="Spreads and totals evaluated on the same games, using earlier seasons for fitting and calibration. Historical seasons have been examined before; this is model comparison, not untouched validation or proof of profit.">
+          {!fairLines ? <EmptyState title="Fair-line comparison not generated" detail="No model improvement is claimed until the comparison is available." /> : <>
+            <Note>Research only. Neither candidate is promoted. Positive error differences mean the model is worse than the market. These comparisons use closing consensus lines; they do not establish an edge over FanDuel or DraftKings.</Note>
+            <Table caption="Experimental fair lines versus the closing market">
+              <thead><tr><th>Sport</th><th>Market</th><th>Candidate</th><th className="num">Games</th><th className="num">Model error</th><th className="num">Market error</th><th>Error difference · 95% interval</th><th className="num">Brier / benchmark</th></tr></thead>
+              <tbody>{fairLines.sports.flatMap(s => s.comparisons.map(c => <tr key={`${s.sport}-${c.market}-${c.variant}`}>
+                <td className="strong">{SPORT_LABELS[s.sport]}</td><td>{c.market === "total" ? "Total" : "Spread"}</td>
+                <td>{c.variant === "market-residual" ? "Market + score information" : c.market === "total" ? "Scores and schedule" : "Scores + team ratings"}</td>
+                <td className="num">{c.games.toLocaleString()}</td><td className="num">{num(c.mae, 3)}</td><td className="num">{num(c.marketMae, 3)}</td>
+                <td>{signed(c.maeDelta, 3)} [{signed(c.maeDelta95[0], 3)}, {signed(c.maeDelta95[1], 3)}]</td>
+                <td className="num">{num(c.brier, 4)} / {num(c.benchmarkBrier, 4)}</td>
+              </tr>))}</tbody>
+            </Table>
+            <p className="text-xs text-[var(--muted)]">Error is mean absolute error in points; lower is better. Intervals resample game dates and do not adjust for multiple tests. Spread Brier uses paired no-vig prices where available and a 50% benchmark otherwise; totals use a 50% benchmark because historical side prices are missing.</p>
+            <details className="panel p-4"><summary className="cursor-pointer font-semibold">Prices, paper returns and data quality</summary><div className="mt-3 space-y-4">
+              {fairLines.sports.map(s => <div key={s.sport}><p className="font-semibold">{SPORT_LABELS[s.sport]} · history through {dateTime(s.audit.lastStart)}</p>
+                <p className="text-xs text-[var(--muted)]">Excluded market fields: {s.audit.invalidSpreadLines} invalid spreads, {s.audit.invalidTotalLines} invalid totals. Excluded pooled opponents: {s.audit.pooledOpponentGames} games.</p>
+                {s.comparisons.map(c => <div key={`${c.market}-${c.variant}`} className="mt-2 text-xs"><p>{c.market} · {c.variant}: archived-price selections {c.archivedPriceSelections.bets} bets, {units(c.archivedPriceSelections.units)}, ROI {pct(c.archivedPriceSelections.roi)}. Assumed −110 sensitivity: {c.assumedPriceSelections.bets} bets, {units(c.assumedPriceSelections.units)}, ROI {pct(c.assumedPriceSelections.roi)}. Both are paper returns; consensus prices may combine books and lines. Neither is exact-book executable ROI.</p>
+                  <p>Paired-price Brier: {num(c.pricedBrier, 4)} versus {num(c.pricedBenchmarkBrier, 4)} · {c.pairedPriceGames} non-push games.</p>
+                  <p>By season: {c.bySeason.map(y => `${y.season}: ${y.games} games, error difference ${signed(y.maeDelta, 3)}`).join("; ")}</p>
+                </div>)}
+              </div>)}
+              <a className="underline" href="/data/fair-line-report.json">Full comparison, source fingerprints and season results</a>
+            </div></details>
+          </>}
+          <div className="panel p-4"><h3 className="font-semibold">FanDuel and DraftKings evidence</h3><p className="mt-1 text-sm text-[var(--muted)]">New odds snapshots retain each book’s exact line, side prices and market timestamp, paired with the published forecast for later review. Older consensus-only snapshots cannot be reconstructed. Collection starts after this change is deployed; a saved quote does not prove a profitable model.</p>
+            <ul className="mt-2 space-y-1 text-xs">{bookQuotes.map(q => <li key={q.sport}>{SPORT_LABELS[q.sport]} · saved {dateTime(q.generatedAt)} · DraftKings {q.draftkings} market pairs · FanDuel {q.fanduel} · all books {q.quotes}{q.quotes === 0 ? " · awaiting a snapshot with named-book quotes" : ""}</li>)}</ul>
+            <p className="mt-2 text-xs text-[var(--muted)]">The existing feed requests spreads and moneylines. Named-book totals prices are not collected yet. Snapshot frequency is unchanged.</p>
+          </div>
         </Section>
 
         <Section id="racing" kicker="Backtest" title="Dirt racing: new engine versus the legacy method" description="Rolling-origin by season on identical races. Log loss is per race on the winner distribution; lower is better. The legacy method is the old binary-XGBoost-plus-normalizer approach refit on the same folds without its leaking features, so this is method against method.">

@@ -438,3 +438,36 @@ export function getAvailabilityIndex(): Map<string, AvailabilityGame> {
 export function getAvailabilityView() {
   return { report: getAvailabilityReport(), loadedAt: new Date().toISOString() };
 }
+
+
+export type FairLineSelections = {
+  bets: number; wins: number; losses: number; pushes: number;
+  coverRate: number | null; lower95: number | null; units: number; roi: number | null; priceBasis: string;
+};
+export type FairLineMetrics = {
+  games: number; mae: number; marketMae: number; maeDelta: number; maeDelta95: [number, number];
+  brier: number; benchmarkBrier: number; pairedPriceGames: number;
+  pricedBrier: number | null; pricedBenchmarkBrier: number | null;
+  archivedPriceSelections: FairLineSelections; assumedPriceSelections: FairLineSelections;
+};
+export type FairLineReport = {
+  generatedAt: string; asOf: string; modelVersion: string; status: string; promoted: false; limitations: string[];
+  sports: Array<{ sport: string; audit: { sha256: string; lastStart: string; eligibleHistoryGames: number; invalidSpreadLines: number; invalidTotalLines: number; pooledOpponentGames: number };
+    comparisons: Array<FairLineMetrics & { market: string; variant: string; benchmark: string; bySeason: Array<FairLineMetrics & { season: number }> }> }>;
+};
+
+export function getFairLineReport(): FairLineReport | null {
+  return readJson<FairLineReport>("public/data/fair-line-report.json");
+}
+
+/** Named-book quote coverage, as saved; no stale quote is labelled current. */
+export function getBookQuoteCoverage(): Array<{ sport: string; generatedAt: string; quotes: number; draftkings: number; fanduel: number }> {
+  return ["ncaaf", "ncaab", "nba", "nfl"].flatMap(sport => {
+    const snapshot = readJson<{ generatedAt: string; events: Array<{ bookQuotes?: Array<{ book: string }> }> }>(`public/data/odds/${sport}-latest.json`);
+    if (!snapshot) return [];
+    const quotes = snapshot.events.flatMap(event => event.bookQuotes ?? []);
+    return [{ sport, generatedAt: snapshot.generatedAt, quotes: quotes.length,
+      draftkings: quotes.filter(q => q.book === "draftkings").length,
+      fanduel: quotes.filter(q => q.book === "fanduel").length }];
+  });
+}

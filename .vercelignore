@@ -23,3 +23,6 @@ npm-debug.log*
 
 # Offline availability evaluation history is retained in git, not the app bundle.
 /public/data/availability/history/
+
+# Exact-book observations are retained for offline research/CI, not app uploads.
+/observations/

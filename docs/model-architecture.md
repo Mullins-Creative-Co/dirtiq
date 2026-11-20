@@ -582,3 +582,45 @@ margin-only snapshots cannot become total observations. Both cohorts retain one-
 pregame cutoffs and identical-game baseline/market comparisons. Totals currently have
 zero graded prospective games. The original margin cohort has nine and does not yet
 improve MAE. A genuine historical injury backtest remains unavailable.
+
+
+## Experimental fair-line lab (2026-11-19)
+
+`python3 -m dirtiq_model fair_lines evaluate --input-dir <OOF-CSV-directory>
+--as-of YYYY-MM-DD` writes `public/data/fair-line-report.json` and ignored detailed
+CSV predictions in `data/fair-lines/`. It never writes the production sport reports,
+ledger, cards, bet database or model fits. Contract/protocol: `docs/fair-line-protocol.md`.
+
+The `fair_lines` package maintains separate offense/defense scoring states, with
+Eastern-date result batching and season shrinkage. These are score states, not
+possession/efficiency estimates. Independent and market-residual ridge candidates
+are fitted strictly before the preceding calibration season; empirical residual
+probabilities use only that calibration season; the next complete season is scored.
+Push probabilities derive from integer outcome bins. Fitting, scaling, calibration
+and evaluation have distinct time boundaries. No candidate is automatically promoted.
+
+Report audit includes source CSV hashes, valid-game dates, exclusions and impossible
+line counts. Every variant/market reports same-game MAE/RMSE, date-cluster paired
+MAE intervals, no-push Brier/log loss, separate paired-price Brier, paper selections
+and seasons. Missing totals prices use an explicit 50% benchmark and a separately
+labelled -110 sensitivity. Consensus spread-price paper returns may also combine
+books/lines; none establish exact-book executable ROI. The server reads this report
+only through `getFairLineReport` in `src/lib/model-reports.ts`, shown on `/models`.
+
+Existing Odds API calls still request only `h2h,spreads` with unchanged schedule/quota.
+`consolidate` now retains legacy perBook plus validated `bookQuotes`: exact book,
+market, coherent paired line/prices, market last_update (never replaced with the
+book-level clock), and book clock for reference. The normalizer also understands
+totals if supplied, but this change does not request a new paid market. Latest JSON
+retains validated bookQuotes; legacy consensus and ledger-close behavior is unchanged.
+
+At snapshot publication `fair_lines.quotes.archive` writes immutable content-hashed
+pregame observations under `observations/book-quotes/<sport>/<date>/`. Each carries
+retrieval time, source clock, freshness-at-observation (<=15 minutes), exact quotes,
+and a frozen published baseline when a unique home/away/start match (within 60 seconds)
+exists and its generation time precedes observation/start. Missing/stale clocks remain
+explicit; missing/ambiguous/future forecasts are not attached. Post-start observations
+are excluded. Observations are committed by the sports workflow for future offline
+book-specific evaluation and excluded from Vercel deployment input. These observations
+are baseline records, not live candidate forecasts or claimed profitable opportunities.
+No historical named-book records are fabricated from old consensus-only snapshots.

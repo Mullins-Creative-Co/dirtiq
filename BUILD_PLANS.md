@@ -46,6 +46,22 @@ site orders sports the same way; the closing-line feed covers the four focus spo
 
 ## Plans, in priority order
 
+### Current validation work (2026-11-20)
+The owner agreed to one focused NBA candidate and evidence-based promotion. A frozen
+possession/efficiency study is recorded separately on `research/nba-possession-candidate`:
+it does not beat the market and is rejected. No production prediction/staking change
+follows from that result. Historical injury/announced-starter inputs remain unavailable.
+
+This change (PR #3) enables the prerequisite exact-book observations: retain source
+market timestamps, coherent FanDuel/DraftKings/other-book lines and prices, paired with
+frozen baseline forecasts. Existing quota-limited calls and schedule are unchanged;
+no new paid totals market. Collection begins on the next normal snapshot after deployment,
+not retroactively. Old consensus snapshots cannot establish named-book executable ROI.
+Next: investigate material player-box inconsistencies, collect timestamped expected
+minutes/availability, and judge frozen forward predictions with exact-book results/CLV.
+No more threshold searches on previously inspected historical seasons.
+
+
 ### 1. Closing lines for all four focus sports, and offline CLV
 **Why**: NCAAF and NCAAB carry the most leans and had no closing-line feed; ESPN's cached
 opening and closing lines allow CLV offline today.

@@ -12,6 +12,7 @@ from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 from ..ledger_core import Ledger, now_iso
 from .teams import SPORT_KEYS, TeamMapper
+from ..fair_lines.quotes import archive, extract_quotes
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 ODDS_DIR = ROOT / "public" / "data" / "odds"
@@ -89,7 +90,7 @@ def consolidate(sport: str, events: List[Dict[str, Any]], mapper: TeamMapper, ob
             "homeSpread": _median(spreads),
             "homeSpreadPrice": _round_price(_median(home_sp)), "awaySpreadPrice": _round_price(_median(away_sp)),
             "homeMl": _round_price(_median(home_ml)), "awayMl": _round_price(_median(away_ml)),
-            "perBook": books,
+            "perBook": books, "bookQuotes": extract_quotes(ev),
         })
     return out
 
@@ -178,6 +179,7 @@ def write_snapshot(sport: str, snapshot: List[Dict[str, Any]], quota: Dict[str, 
     tmp = path.with_suffix(".tmp")
     tmp.write_text(json.dumps(payload, indent=1))
     tmp.replace(path)
+    archive(ROOT, sport, snapshot)
     return path
 
 
