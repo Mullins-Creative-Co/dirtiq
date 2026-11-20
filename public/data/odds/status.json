@@ -1,31 +1,26 @@
 {
  "configured": true,
- "checkedAt": "2026-11-20T00:44:43Z",
+ "checkedAt": "2026-11-20T18:38:39Z",
  "source": "The Odds API",
  "quota": {
-  "x-requests-remaining": "356",
-  "x-requests-used": "144",
+  "x-requests-remaining": "350",
+  "x-requests-used": "150",
   "x-requests-last": "2"
  },
  "error": null,
  "sports": {
   "nfl": {
-   "snapshotAt": "2026-11-20T00:44:39Z",
-   "events": 29,
-   "unresolved": 0,
-   "openRows": 108,
-   "matchedEvents": 27,
-   "linesFilled": 0,
-   "closesUpdated": 108
+   "snapshotAt": "2026-11-20T18:38:33Z",
+   "skipped": "no nfl games in the next 30 hours"
   },
   "nba": {
-   "snapshotAt": "2026-11-20T00:44:42Z",
+   "snapshotAt": "2026-11-20T18:38:38Z",
    "events": 9,
    "unresolved": 0,
-   "openRows": 32,
-   "matchedEvents": 8,
+   "openRows": 36,
+   "matchedEvents": 9,
    "linesFilled": 0,
-   "closesUpdated": 32
+   "closesUpdated": 36
   },
   "nhl": {
    "snapshotAt": "2026-11-11T16:29:02Z",
@@ -37,20 +32,20 @@
    "closesUpdated": 24
   },
   "ncaaf": {
-   "snapshotAt": "2026-11-20T00:44:41Z",
-   "events": 38,
+   "snapshotAt": "2026-11-20T18:38:36Z",
+   "events": 37,
    "unresolved": 50,
-   "openRows": 296,
+   "openRows": 292,
    "matchedEvents": 16,
    "linesFilled": 0,
    "closesUpdated": 64
   },
   "ncaab": {
-   "snapshotAt": "2026-11-20T00:44:43Z",
-   "events": 25,
-   "unresolved": 48,
-   "openRows": 234,
-   "matchedEvents": 8,
+   "snapshotAt": "2026-11-20T18:38:39Z",
+   "events": 18,
+   "unresolved": 43,
+   "openRows": 204,
+   "matchedEvents": 6,
    "linesFilled": 0,
    "closesUpdated": 22
   }
