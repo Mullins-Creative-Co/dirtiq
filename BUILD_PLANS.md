@@ -46,6 +46,20 @@ site orders sports the same way; the closing-line feed covers the four focus spo
 
 ## Plans, in priority order
 
+### Current focused validation: NBA (2026-11-20)
+At the owner's agreement, one frozen NBA possession/efficiency candidate was audited
+and evaluated before any model promotion. Protocol `020cbd2`, implementation `ca04409`;
+research branch `research/nba-possession-candidate`. It fails the strict two-market
+screen: spread MAE 10.8301 vs market 10.8172; total 14.3721 vs 14.3261; both Brier
+comparisons worsen. No retuning on this quarantine and no production model change.
+Findings: `docs/nba-possession-findings-2026-11-20.md`; source fingerprints and complete
+season results: `reports/nba-possession-study.json`. Historical publication delays are
+assumed; injuries/expected starters cannot be backfilled from participation.
+Next: retain exact-book pregame observations (prepared PR #3), investigate material
+player-box inconsistencies, and collect timestamped expected minutes/availability.
+This focused experiment does not change the standing sport priority order.
+
+
 ### 1. Closing lines for all four focus sports, and offline CLV
 **Why**: NCAAF and NCAAB carry the most leans and had no closing-line feed; ESPN's cached
 opening and closing lines allow CLV offline today.
