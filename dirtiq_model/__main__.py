@@ -15,6 +15,7 @@ USAGE = """usage: python3 -m dirtiq_model <target> <command> [options]
 targets:
   racing   conditional-logit race model      (train | backtest | score | settle)
   teams    two-team margin model             (backtest | forecast | settle; --sport nfl|nba|...)
+  nba_lab  frozen NBA possession research (audit | evaluate; explicit source paths)
   ledger   forecast ledger                   (summary | export | settle)
   odds     live odds snapshots               (snapshot --sport nfl; needs ODDS_API_KEY)
   card     today's ranked shortlist         (build)

@@ -67,3 +67,16 @@ MAE in both individual years. This is a deliberately fixed research screen, not 
 of profitable betting. Otherwise reject this version, publish the failure, do not retune
 on the same quarantine. Any successful candidate still requires genuinely prospective
 frozen forecasts and exact-book quotes/results/CLV before recommendation or staking.
+
+
+## Pre-evaluation audit finding
+
+The 2018 team-box release lacks total_turnovers on 2,624 of 2,626 rows. It is
+excluded under the frozen missing-count rule rather than substituting the player-only
+turnover count. This creates a state-history gap: season carry is applied once per
+elapsed season (.5 to the power of the season difference), so a missing year cannot
+silently retain a single-year prior. This is an as-of/data-integrity correction before
+any candidate outcome evaluation. All feature/penalty/selection/acceptance rules stay fixed.
+Player minute-sum mismatches are reported at 1/5/10-minute tolerances because rounded
+minutes can explain small discrepancies; a mismatch is not automatically proof of
+missing participation. Player inputs remain excluded from this candidate.
