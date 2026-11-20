@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import tempfile
 import unittest
+from unittest import mock
 from pathlib import Path
 
 import numpy as np
@@ -107,7 +108,9 @@ class FairLineTests(unittest.TestCase):
 
     def test_actual_price_profit_counts_push_stake(self):
         d = pd.DataFrame(dict(select=[True]*3, has_price=[True]*3, won=[True,False,False], push=[False,False,True], price=[150,-110,-110]))
-        result = selections(d, True)
+        # pandas 3 exposes DataFrame.select; column lookup must not resolve that method.
+        with mock.patch.object(pd.DataFrame, "select", lambda self: self, create=True):
+            result = selections(d, True)
         self.assertEqual(result["bets"], 3)
         self.assertEqual(result["units"], 0.5)
         self.assertAlmostEqual(result["roi"], 0.5/3)
