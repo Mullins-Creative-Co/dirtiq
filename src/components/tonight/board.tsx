@@ -1,5 +1,6 @@
 "use client";
 
+import { injuryProjectionView } from "@/lib/availability-display";
 import { AvailabilitySummary } from "@/components/availability/summary";
 
 import Link from "next/link";
@@ -8,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState, useTransition } from "react";
 
 import { Chip, type Tone } from "@/components/ui/primitives";
-import { dateTime, probability as pct, relativeAge, signed } from "@/lib/format";
+import { dateTime, probability as pct, relativeAge, signed, num, spread } from "@/lib/format";
 import { FEATURED_PER_SPORT, isFreshLiveLine, LIVE_LINE_TTL_MS } from "@/lib/live-lines/core";
 import type { TonightBoard, TonightItem } from "@/lib/tonight";
 
@@ -140,6 +141,8 @@ function ItemCard({ item, now, index, open, onToggle }: { item: TonightItem; now
   const quoteTime = live?.observedAt ?? item.market?.observedAt;
   const quoteStatus = live ? "ESPN" : item.liveStatus === "unavailable" ? "Live unavailable · saved" : item.liveMarket ? "Live expired · saved" : "Saved";
   const logHref = live ? item.logHref : item.savedLogHref ?? item.logHref;
+  const projection = injuryProjectionView(item.availability,now);
+  const injuryLine = projection ? `${item.homeTeam} ${spread(projection.homeSpread)} · total ${num(projection.total,1)} · injury-adjusted (experimental)` : null;
   const panelId = `tonight-${item.key.replace(/[^a-z0-9]/gi, "-")}`;
   return (
     <li className={`panel overflow-hidden ${open ? "ring-1 ring-[var(--accent)]/40" : ""}`}>
@@ -152,14 +155,15 @@ function ItemCard({ item, now, index, open, onToggle }: { item: TonightItem; now
           {item.kind === "game" ? <span className="block text-xs text-[var(--muted)]" title={quoteTime ? dateTime(quoteTime) : undefined}>{quoteStatus} · {quoteTime ? `line ${relativeAge(quoteTime, now)}` : "line time unknown"}</span> : null}
         </span>
         <span className="hidden min-w-0 sm:block">
-          <span className="block truncate text-sm">{item.pickDetail}</span>
+          <span className="block truncate text-sm">{injuryLine ?? item.pickDetail}</span>
           <span className="block truncate text-xs text-[var(--muted)]">{item.readiness ? `${live ? `Live lean: ${live.lean ?? "none"} · ` : ""}Saved spread: ${item.readiness.spreadLean}` : `${item.raceTable?.length ?? 0} contenders shown`}</span>
         </span>
         <span className="hidden sm:block"><Chip tone={item.readiness ? "warn" : toneFor[item.confidenceLabel]}>{item.readiness?.label ?? `${item.confidenceLabel} likelihood`}</Chip></span>
         <span className="text-right">
           <span className="tnum block font-display text-2xl font-black leading-none">{item.kind === "game" ? (item.flags?.edgePts != null ? Math.abs(item.flags.edgePts).toFixed(1) : "—") : pct(item.confidence, 0)}</span>
-          <span className="block text-[10px] uppercase tracking-wider text-[var(--muted)]">{item.kind === "game" ? "pts off the line" : "vs runner-up"}</span>
+          <span className="block text-[10px] uppercase tracking-wider text-[var(--muted)]">{item.kind === "game" ? "baseline pts off line" : "vs runner-up"}</span>
         </span>
+        {injuryLine ? <span className="col-span-3 text-xs font-semibold sm:hidden">{injuryLine}</span> : null}
         {item.readiness ? <span className="col-span-3 text-xs text-[var(--muted-strong)] sm:hidden"><strong>{item.readiness.label}</strong> · {live ? `Live lean: ${live.lean ?? "none"} · ` : ""}Saved spread: {item.readiness.spreadLean}</span> : null}
       </button>
 
