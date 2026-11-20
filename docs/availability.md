@@ -110,3 +110,29 @@ Validation: 167 Python tests, 141 TypeScript tests, typecheck, lint (zero errors
 existing racing warnings), production build; Card/NBA/college source links render over
 HTTP 200 in an isolated production server. Numeric forecast/card artifacts are identical
 to main. No production credentials or bets database were accessed.
+
+
+## Applying injuries to the prediction (2026-11-20)
+
+At the owner's request, a user-enabled experimental variant now displays injury-adjusted
+NBA spread and total predictions directly in Card, Tonight and the injury report. This
+supersedes the earlier display-only policy for these new variant numbers. Baseline win
+probabilities, saved leans and locked card/bet terms remain baseline; stakes never increase.
+
+The point estimate applies the listed-Out replacement rotation. Questionable/doubtful
+players retain reference minutes in that estimate and appear in play/out scenario ranges.
+Total changes use a separately learned total-points model, not margin coefficients.
+Missing/stale forecast or player evidence withholds the numeric variant. NFL and college
+adjustments remain unavailable where no supported player-value model/coverage exists.
+
+The existing nine-game forward margin evaluation has baseline MAE 9.402 versus scenario
+9.526, so there is no demonstrated improvement. Total evaluation begins with a new model
+version and zero completed games; no old total results are invented. This experimental
+variant is enabled at user request, not promoted on evidence of a betting edge. Protocol:
+`docs/injury-adjustment-protocol.md`. Cards and personal bet records are not rewritten.
+
+Current implementation checks: 173 Python tests, 142 TypeScript tests, typecheck and
+lint (zero errors/two existing warnings), plus the production build and rendered
+projection checks. The normal NBA forecast generator refreshed the stale baseline
+with no ledger writes, then the availability writer generated 9 usable adjusted
+contexts and 6 unavailable NBA contexts. Cards and bet logging were untouched.

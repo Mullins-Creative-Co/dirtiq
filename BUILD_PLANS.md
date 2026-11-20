@@ -4,7 +4,7 @@ Ranked list of what to build next in this repo, with enough context that any age
 person can pick one up cold. Keep it current: when a plan ships, move it to "Shipped"
 with the commit; when priorities change, reorder and say why. Pair this with
 `docs/model-architecture.md` (the contract for how things work) and `AGENTS.md`
-(hard constraints). Last revised 2026-11-12.
+(hard constraints). Last revised 2026-11-20.
 
 ## Focus (set 2026-11-11)
 
@@ -63,7 +63,7 @@ replays and moneyline CLV need a separately scoped evaluation.
 ### 2. Injuries and lineups — injury checking (2026-11-19)
 **Why**: rest is in; absence of stars is the largest remaining rating error in NBA; the
 NFL quarterback is the single biggest line mover.
-**Status**: implemented on `feat/injury-context` (PR #2; publication tracked on the PR), reconciled with current main and its restored personal $1 logging. Card/Tonight link timestamped reports and source checks; collection runs hourly after deployment. College coverage can be unavailable; NBA point values remain experimental and never change forecasts or stakes.
+**Status**: implemented on `feat/injury-context` (PR #2; publication tracked on the PR), reconciled with current main and its restored personal $1 logging. Card/Tonight link timestamped reports and source checks; collection runs hourly after deployment. College coverage can be unavailable; NBA point values now feed a user-enabled experimental injury-adjusted spread/total variant; baseline probabilities, locked cards and stakes are unchanged. NFL/college point adjustments remain unsupported.
 **Build**: ESPN injuries endpoint per team snapshotted each refresh; NFL quarterback
 out/in flag first; NBA minutes-weighted available-strength adjustment learned in the stack.
 Snapshots start the day they begin, so the evaluation window is short; never leak a
@@ -113,6 +113,16 @@ as-of FIP-style starter rate; NHL starting goalies from the league boxscore with
 alone shrinks to nothing, so this is the only route to starter value.
 
 ## Shipped (most recent first)
+
+- 2026-11-20: `feat/injury-adjusted-projections` implements the owner's explicit request
+  to apply injuries to displayed predictions. NBA listed-out replacement changes feed
+  a separate spread and total variant; total coefficients use their own total-points
+  response/design. Current source/model/forecast and replacement evidence are required;
+  unknowns remain unavailable. This is user-enabled experimental output, not validated
+  model promotion. First existing margin evaluation: 9 games, baseline MAE 9.402 versus
+  scenario 9.526; no accuracy improvement. Total prospective cohort starts at zero.
+  Baseline probabilities, locked cards and stakes stay unchanged. See
+  `docs/injury-adjustment-protocol.md` and `docs/availability.md`.
 
 - 2026-11-19: inline injury details on prediction panels (`feat/inline-injury-predictions`).
   Card and Tonight show listed players/statuses directly; Tonight places them beside

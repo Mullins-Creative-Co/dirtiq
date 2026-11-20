@@ -10,11 +10,12 @@ export function availabilitySummary(game: AvailabilityGame | null | undefined, n
   const uncertain = teams.flatMap(t=>t.players).filter(p=>p.category === "uncertain" && !p.stale);
   const qb = teams.some(t=>t.qbFlag);
   const points = game.homeMarginChange;
+  const applied=game.injuryAdjustedProjection?.status === "applied" && game.injuryAdjustedProjection.asOf === game.asOf && Date.parse(game.startsAt)>now;
   const signed = (n:number) => `${n>0?"+":""}${n.toFixed(1)}`;
   return {
     stale:false,
     label: teams.every(t=>t.coverage === "unknown") ? "Injury coverage unavailable" : `${out.length} listed out · ${uncertain.length} unresolved${qb?" · QB listed":""}`,
-    detail: points ? `Experimental home-margin change ${signed(points.min)} to ${signed(points.max)} pts. Separate from the forecast; not a betting adjustment.`
+    detail: points ? `Experimental home-margin change ${signed(points.min)} to ${signed(points.max)} pts. ${applied ? "Used in the experimental injury-adjusted spread; baseline probabilities and stakes are unchanged." : "Separate from the forecast; not a betting adjustment."}`
       : "Point impact unvalued; current player/replacement evidence is incomplete. Missing reports do not mean healthy.",
   };
 }

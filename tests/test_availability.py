@@ -221,3 +221,21 @@ class InjuryProjectionTests(unittest.TestCase):
         self.assertEqual(result['games'],1);self.assertEqual(result['baselineMae'],4.)
         self.assertEqual(result['listedOutScenarioMae'],0.)
         self.assertEqual(evaluate_history([dict(row,totalModelVersion='other')],{'nba:1':216.},total=True)['games'],0)
+
+    def test_away_absence_improves_home_margin_but_total_changes_add(self):
+        report={'forecastGeneratedAt':iso(NOW-timedelta(minutes=30)),'upcoming':[
+            dict(gameId='1',home='BOS',away='NY',startsAt=iso(NOW+timedelta(hours=2)),projectedHomeMargin=3.,projectedTotal=220.)]}
+        feeds={s:dict(coverage='unavailable',teams=[],sourceUrl='https://example.test') for s in ('nba','nfl','ncaaf','ncaab')}
+        feeds['nba']=dict(coverage='partial',sourceUrl='https://example.test',teams=[
+            dict(team='BOS',teamId='2',name='Boston',players=[],qbFlag=False),
+            dict(team='NY',teamId='18',name='New York',players=[],qbFlag=False)])
+        def context(margin,total):
+            return dict(coverage='scenario',points=dict(min=margin,max=margin,listedOut=margin),
+                        totalPoints=dict(min=total,max=total,listedOut=total),players=[])
+        with mock.patch('dirtiq_model.availability.build.team_scenario',side_effect=[context(-2.,-4.),context(-3.,2.)]):
+            row=build_games({'nba':report},feeds,[],{},NOW)[0]
+        self.assertEqual(row['homeMarginChange']['listedOut'],1.)
+        self.assertEqual(row['totalChange']['listedOut'],-2.)
+        result=project(row,self.metadata(),NOW)
+        self.assertEqual(result['homeMargin'],4.)
+        self.assertEqual(result['total'],218.)

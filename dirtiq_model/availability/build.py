@@ -104,7 +104,7 @@ def build_games(reports: Dict[str,Any],feeds: Dict[str,Any],games: List[Dict[str
                            'marketTotal':g.get('marketTotal'),'totalChange':total_range,'totalModelVersion':TOTAL_VERSION,'baselineForecastAt':reports[sport].get('forecastGeneratedAt') or reports[sport].get('generatedAt'),
                            'marketHomeMargin':-g['marketHomeSpread'] if isinstance(g.get('marketHomeSpread'),(int,float)) and math.isfinite(g['marketHomeSpread']) and abs(g['marketHomeSpread'])<100 else None,
                            'marketObservedAt':g.get('lineObservedAt'),'book':g.get('book'),'homeMarginChange':point_range,
-                           'sourceUrl':feed['sourceUrl'],'contexts':contexts,'appliedToForecast':False})
+                           'sourceUrl':feed['sourceUrl'],'contexts':contexts,'appliedToBaselineForecast':False,'appliedToForecast':False})
     return result
 
 
@@ -174,6 +174,7 @@ def refresh(cache: Path, output: Path=OUTPUT, now=None) -> Dict[str,Any]:
     contexts=build_games(reports,feeds,games,model,now)
     for context in contexts:
         context['injuryAdjustedProjection']=project(context,metadata,now)
+        context['appliedToForecast']=context['injuryAdjustedProjection']['status']=='applied'
     day=output/'history'/(now.strftime('%Y-%m-%d')+'.json')
     history=json.loads(day.read_text()) if day.exists() else {'observations':[]}
     history.setdefault('feeds',[])
@@ -204,6 +205,10 @@ def refresh(cache: Path, output: Path=OUTPUT, now=None) -> Dict[str,Any]:
             actual_totals[row['eventId']]=row['homeScore']+row['awayScore']
     evaluation=evaluate_history(all_observations,actual)
     total_evaluation=evaluate_history(all_observations,actual_totals,total=True)
+    for context in contexts:
+        context['injuryAdjustedProjection']['validation']={
+            'marginGames':evaluation['games'],'baselineMae':evaluation['baselineMae'],
+            'adjustedMae':evaluation['listedOutScenarioMae'],'totalGames':total_evaluation['games']}
     if metadata is not None:
         metadata['validation']['evaluatedInjuryGames']=evaluation['games']
     report={'generatedAt':iso(now),'policy':POLICY,'feeds':feeds,'model':metadata,'games':contexts,

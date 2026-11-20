@@ -410,12 +410,13 @@ export type InjuryAdjustedProjection = {
   baselineHomeMargin: number | null; baselineHomeSpread: number | null; baselineTotal: number | null;
   homeMarginRange: [number, number] | null; totalRange: [number, number] | null;
   method: string | null; totalMethod: string | null;
+  validation?: { marginGames: number; baselineMae: number | null; adjustedMae: number | null; totalGames: number };
 };
 export type AvailabilityGame = {
   id: string; sport: string; gameId: string; home: string; away: string; startsAt: string; asOf: string;
   injuryAdjustedProjection?: InjuryAdjustedProjection;
   baselineTotal?: number | null; totalChange?: { min: number; max: number; listedOut: number } | null;
-  baselineHomeMargin: number | null; baselineForecastAt?: string; marketHomeMargin?: number | null; marketObservedAt?: string | null; appliedToForecast: false; sourceUrl: string;
+  baselineHomeMargin: number | null; baselineForecastAt?: string; marketHomeMargin?: number | null; marketObservedAt?: string | null; appliedToForecast: boolean; appliedToBaselineForecast?: false; sourceUrl: string;
   homeMarginChange: { min: number; max: number; listedOut: number } | null;
   contexts: { home: AvailabilityTeam; away: AvailabilityTeam };
 };

@@ -544,3 +544,41 @@ say to recheck; a stale/future/missing whole snapshot withholds current player d
 Report time uses an explicit Eastern timezone. Full report and search links are secondary.
 This is presentation of the existing timestamped artifact, not a numeric injury
 adjustment: margins, totals, probabilities, leans, betting terms and stakes are unchanged.
+
+
+## User-enabled injury-adjusted projection variant (2026-11-20)
+
+This supersedes earlier statements that injury values are display-only. At the owner's
+explicit request, `availability/projection.py` writes a numeric `injuryAdjustedProjection`
+for each next-game availability context. The UI reads and prominently displays this
+spread/total variant. It does not train, add point values or overwrite baseline forecasts.
+Baseline moneyline/cover probabilities, saved leans, locked cards, terms and stakes remain
+separate and unchanged. This is experimental user-enabled output, not statistical
+promotion of a validated betting model. No profitability or improved accuracy is claimed.
+
+Margin stays `nba-minute-ridge-v1`. A separate `nba-total-minute-ridge-v1` fits actual
+game total on positive home/away player minutes and team terms with an unpenalized
+intercept, using the existing 730-day / 120-day-decay sample, 500-game minimum and fixed
+team/player penalties. Margin differences cannot be reused as total effects. The same
+conserved 240-minute replacement rotations are evaluated in each model. Team margin
+changes subtract away from home; team total changes add together. Only listed Out
+statuses change the point estimate. Uncertain players retain reference minutes there;
+play/out combinations give scenario envelopes, not confidence intervals or probabilities.
+
+A numeric projection requires NBA, matching event/team identities, complete scenario
+coverage for both teams, finite baselines/changes, an available recognized model, current
+observation and baseline forecast (<=3 hours), and a game that has not started. Model
+training must precede observation; baseline generation cannot follow it. Unsupported
+leagues and missing evidence get status unavailable with null values, never invented
+zero-impact adjustments. Display expiry independently suppresses old/post-start numbers.
+Existing long-absence, stale-status, identity and replacement-capacity safeguards remain.
+
+The variant preserves both baseline values and the fixed deltas, scenario ranges,
+observation time and model versions. It is rebuilt from the original baseline each
+refresh, never from a previously adjusted number. No core report numeric field is replaced
+by an injury number. Availability history carries the new fields immutably. Total
+prospective evaluation is a version-separated cohort with actual total outcomes; old
+margin-only snapshots cannot become total observations. Both cohorts retain one-hour
+pregame cutoffs and identical-game baseline/market comparisons. Totals currently have
+zero graded prospective games. The original margin cohort has nine and does not yet
+improve MAE. A genuine historical injury backtest remains unavailable.
