@@ -16,8 +16,9 @@ const groups: Group[] = [
   { key: "bets", label: "My bets", href: "/bets", match: (path) => path.startsWith("/bets"), items: [] },
   {
     key: "sports", label: "Sports", href: "/sports",
-    match: starts(["/sports", "/matchups", "/bet", "/bettor", "/bettors", "/race", "/preview", "/odds"]),
+    match: starts(["/sports", "/injuries", "/matchups", "/bet", "/bettor", "/bettors", "/race", "/preview", "/odds"]),
     items: [
+      { href: "/injuries", label: "Injuries" },
       { href: "/sports", label: "All", match: (path) => path === "/sports" },
       { href: "/sports/nfl", label: "NFL" },
       { href: "/sports/ncaaf", label: "College football" },

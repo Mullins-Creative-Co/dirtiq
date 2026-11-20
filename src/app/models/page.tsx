@@ -5,7 +5,7 @@ import { Nav } from "@/components/nav";
 import { Card, Chip, EmptyState, Note, PageHeader, Section, StatTile, Table, type Tone } from "@/components/ui/primitives";
 import { ReliabilityChart } from "@/components/ui/reliability-chart";
 import { dateTime, num, pct, relativeAge, signed, units } from "@/lib/format";
-import { SPORT_LABELS, getDailyCard, getModelHealth, getOddsStatus, getRacingReport, listSportReports } from "@/lib/model-reports";
+import { SPORT_LABELS, getAvailabilityReport, getDailyCard, getModelHealth, getOddsStatus, getRacingReport, listSportReports } from "@/lib/model-reports";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Model health", description: "Ledger scores, calibration, and backtests for every sportIQ model." };
@@ -24,6 +24,7 @@ export default async function ModelsPage() {
   const models = health?.models ?? [];
   const odds = getOddsStatus();
   const gates = getDailyCard()?.stakingGates ?? {};
+  const availability = getAvailabilityReport();
   const oddsRuns = Object.entries(odds?.sports ?? {});
 
   return (
@@ -76,6 +77,10 @@ export default async function ModelsPage() {
             })}</tbody>
           </Table>
           <p className="text-xs text-[var(--muted)]">The gate also requires positive mean live spread CLV on at least 100 unique games. Backtest cover evidence uses the headline model, existing threshold and under-4× card cap. Market-input variants are excluded from opener CLV because their saved forecasts already use the close.</p>
+        </Section>
+
+        <Section title="Injury context evaluation" description="New availability snapshots are evaluated prospectively. Experimental NBA minute scenarios do not change the headline forecast or stakes.">
+          <p className="text-sm">{availability ? `${availability.evaluation.games} paired games · baseline MAE ${num(availability.evaluation.baselineMae,2)} · listed-out scenario MAE ${num(availability.evaluation.listedOutScenarioMae,2)}` : "No availability snapshots yet"}. <Link className="underline" href="/injuries">Reports, player values and coverage</Link></p>
         </Section>
 
         <Section id="racing" kicker="Backtest" title="Dirt racing: new engine versus the legacy method" description="Rolling-origin by season on identical races. Log loss is per race on the winner distribution; lower is better. The legacy method is the old binary-XGBoost-plus-normalizer approach refit on the same folds without its leaking features, so this is method against method.">

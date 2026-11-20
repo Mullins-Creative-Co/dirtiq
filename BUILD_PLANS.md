@@ -60,9 +60,10 @@ See `docs/card-evidence-review-2026-11-17.md` for validation and data limits.
 **Done when**: completed for independent headline spread leans; market-input opener
 replays and moneyline CLV need a separately scoped evaluation.
 
-### (old 2) Injuries and lineups for NBA and NFL
+### 2. Injuries and lineups — injury checking (2026-11-19)
 **Why**: rest is in; absence of stars is the largest remaining rating error in NBA; the
 NFL quarterback is the single biggest line mover.
+**Status**: implemented on `feat/injury-context` (PR #2; publication tracked on the PR), reconciled with current main and its restored personal $1 logging. Card/Tonight link timestamped reports and source checks; collection runs hourly after deployment. College coverage can be unavailable; NBA point values remain experimental and never change forecasts or stakes.
 **Build**: ESPN injuries endpoint per team snapshotted each refresh; NFL quarterback
 out/in flag first; NBA minutes-weighted available-strength adjustment learned in the stack.
 Snapshots start the day they begin, so the evaluation window is short; never leak a

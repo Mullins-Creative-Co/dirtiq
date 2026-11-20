@@ -4,9 +4,10 @@ import { teamName } from "@/lib/team-names";
 
 import { getLiveLines, resolveNflEvent } from "@/lib/live-lines";
 import { isLiveSport, type LiveLine } from "@/lib/live-lines/core";
-import { getDailyCard, getTeamNames, type CardPick, type DailyCard } from "@/lib/model-reports";
+import { getAvailabilityIndex, type AvailabilityGame, getDailyCard, getTeamNames, type CardPick, type DailyCard } from "@/lib/model-reports";
 
 export type CardPickView = CardPick & {
+  availability?: AvailabilityGame | null;
   /** The price right now from ESPN, seen from the pick's side; null when the game has started or ESPN has no quote. */
   live: { line: number; price: number | null; edgePts: number; observedAt: string; books: number; moved: number } | null;
   liveStatus: "playable" | "edge-gone" | "unavailable" | "closed";
@@ -36,8 +37,9 @@ export async function buildCardView(date?: string): Promise<CardView | null> {
   const published = getDailyCard(date);
   if (!published) return null;
   const names = getTeamNames();
+  const availability = getAvailabilityIndex();
   const card = { ...published, picks: published.picks.map((pick) => ({
-    ...pick,
+    ...pick, availability: availability.get(pick.id) ?? null,
     homeName: teamName(names, pick.sport, pick.home),
     awayName: teamName(names, pick.sport, pick.away),
     pickName: teamName(names, pick.sport, pick.pick),

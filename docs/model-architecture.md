@@ -460,3 +460,75 @@ records are returned for editing without replacing their terms. Postgres uses a 
 transaction advisory lock plus conditional insert; SQLite uses one conditional insert.
 Partial batches can be retried. Historical entries default to the logging time and expose
 the placed date in the editor. Personal edits leave the published card unchanged.
+
+
+## Availability context and experimental player values (2026-11-18)
+
+`python3 -m dirtiq_model availability refresh` writes
+`public/data/availability/latest.json` and immutable observations in daily
+`public/data/availability/history/YYYY-MM-DD.json`. It runs after the sport forecasts
+in the hourly sports workflow. Feed/model errors produce unavailable context and a
+visible failure field; the workflow fails while publishing the diagnostic artifact.
+Expected unsupported college coverage is reported explicitly, not treated as transport
+failure. Raw public responses and NBA box-score releases are cached outside git
+(`../injury-cache`, or the workflow's cached sports-cache/availability directory).
+
+`availability/feed.py` reads ESPN's public league injury endpoints for NBA, NFL, NCAAF
+and NCAAB, with source and retrieval times and content hashes. It joins by athlete ids
+(explicit or consistent athlete URLs), never injury-news ids or fuzzy names. Latest
+Active news clears older Out rows; conflicting current statuses and team mismatches
+are not valued. Future source/item timestamps are rejected. Missing/stale sources and
+college feeds with no recent reports are unavailable, never "healthy". Current NFL
+reports provide QB-listed flags only: starting-QB identity and point value are unverified.
+Editorial injury-news prose is not republished; status and structured body-part facts
+are displayed with source links. A generic team report applies only to its next game,
+not every future fixture. Missing teams/opponents remain unknown.
+
+`availability/impact.py` fits `nba-minute-ridge-v1`, a separate experimental association
+model: home-field and team terms plus observed player regulation-equivalent minutes/48
+against historical game margins. Fixed penalties are 1 for home field, 10 for teams,
+100 for players; a 120-day weight half-life and 730-day lookback are fixed in code.
+Actual player minutes enter only completed training boxes conservatively available
+8 hours after tip and strictly before the snapshot. Current-season and prior-two-season
+public SportsDataverse NBA player-box releases are retained by URL/hash; invalid or
+unidentified played-player boxes are excluded. A fit requires 500 games. Associations
+can be confounded by role, teammates and game state; they are not causal injury values.
+No historical target-game injury statuses are inferred from participation.
+
+Reference rotations average the last five complete team games (minimum three, within
+21 days), scaled to 240 team minutes. A player missing throughout that reference has
+zero new missing minutes: long injuries are not charged twice. Out-only scenarios and
+all subsets of up to eight unresolved recent participants are considered without status
+probabilities. Remaining known recent players receive replacement minutes in proportion
+to spare capacity, capped at 48 each; conservation and sufficient replacement history
+are required. Point changes use player-coefficient differences between the scenario
+rotation and reference. A moving player needs five training appearances and 100 minutes;
+otherwise the value is unavailable, not zero. A listed Out contradicted by a later
+appearance, stale report, missing identity or unknown status is not automatically valued.
+The reported min/max is an envelope of these roster assumptions, NOT a confidence interval.
+Single-player values are explicitly "out alone" and must not be added together.
+
+The public history retains normalized source statuses, hashes and times for all four
+sports and immutable NBA game scenarios/model versions. Evaluation selects the latest
+eligible observation at least one hour before tip, rejects a model trained after its
+observation, and compares baseline versus the fixed listed-out scenario on the same
+completed games from public results artifacts. It never chooses whichever scenario
+looked best after the result. A frozen baseline timestamp must also precede its observation. Baseline, scenario and
+reference-market MAE are additionally reported on the identical priced subset with a
+reference quote observed within three hours of the snapshot; missing/stale quotes stay
+missing. Source medians are not guaranteed executable offers. The model version is fixed per evaluation cohort. No
+promotion happens automatically; zero evaluated games is displayed honestly. A new
+forecast-time injury evaluation needs at least 100 paired games and a separately
+reviewed comparison against the baseline and market.
+
+The app reads this artifact only via `getAvailabilityReport` / `getAvailabilityIndex`
+in `src/lib/model-reports.ts`. `/injuries` displays league coverage, players, source dates,
+rotation exposure, experimental values and evaluation. Card and Tonight carry separate
+availability summaries by canonical event id. Missing/future or >3-hour-old snapshots
+hide current point valuations and say to refresh. Player values remain separate from
+headline margins, probabilities, leans, bet-prefill fields and stakes; the staking gate
+is unchanged. Models links the live evaluation report. No bets database is accessed.
+
+Availability history stays in git/CI and is excluded from application upload/server
+traces; the app only needs latest.json and its precomputed evaluation. This keeps the
+request bundle bounded as the prospective dataset grows.
