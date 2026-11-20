@@ -3,8 +3,8 @@
 Ridge on game margins: home field, team identities, observed player minutes/48.
 Actual minutes only enter training games already available before the snapshot.
 Today's scenarios change a lagged five-game rotation; they never use today's boxes.
-The measured coefficients are confounded by teammates/role/garbage time. No headline,
-probability, lean, bet or stake is changed by these experimental calculations.
+The measured coefficients are confounded by teammates/role/garbage time. The injury builder publishes a separate experimental adjusted projection.
+Baseline probabilities, locked bets and stakes are not changed by this fit.
 """
 from __future__ import annotations
 
@@ -17,6 +17,7 @@ from scipy import sparse
 from scipy.sparse.linalg import lsqr
 
 VERSION='nba-minute-ridge-v1'
+TOTAL_VERSION='nba-total-minute-ridge-v1'
 LOOKBACK_DAYS=730
 ROTATION_GAMES=5
 MIN_ROTATION_GAMES=3
@@ -74,7 +75,15 @@ def fit(games: List[Dict[str,Any]], now: datetime) -> Dict[str,Any]:
     design=sparse.vstack([x.multiply(sw[:,None]),sparse.diags(np.sqrt(penalties))],format='csr')
     result=lsqr(design,np.r_[np.asarray(y)*sw,np.zeros(len(penalties))],atol=1e-9,btol=1e-9,iter_lim=2000)
     if result[1] not in (1,2) or not np.isfinite(result[0]).all(): raise ValueError('Player association fit did not converge')
-    return {'version':VERSION,'trainedThrough':max(g['availableAt'] for g in games).isoformat(),
+    # Total points have a different response/design: both rotations enter positively.
+    total_x=x.copy();total_x.data=np.abs(total_x.data)
+    total_penalties=penalties.copy();total_penalties[0]=0.
+    total_design=sparse.vstack([total_x.multiply(sw[:,None]),sparse.diags(np.sqrt(total_penalties))],format='csr')
+    total_y=np.asarray([g['home']['score']+g['away']['score'] for g in games])
+    total_result=lsqr(total_design,np.r_[total_y*sw,np.zeros(len(penalties))],atol=1e-9,btol=1e-9,iter_lim=2000)
+    if total_result[1] not in (1,2) or not np.isfinite(total_result[0]).all(): raise ValueError('Total player association fit did not converge')
+    return {'totalVersion':TOTAL_VERSION,'totalCoefficients':{p:float(total_result[0][pi[p]]) for p in players},
+            'version':VERSION,'trainedThrough':max(g['availableAt'] for g in games).isoformat(),
             'trainingGames':len(games),'playerPenalty':PLAYER_PENALTY,'teamPenalty':TEAM_PENALTY,
             'coefficients':{p:float(result[0][pi[p]]) for p in players},'minutes':minutes,'appearances':appearances}
 
@@ -129,21 +138,27 @@ def team_scenario(base: Optional[Dict[str,Any]], players: List[Dict[str,Any]], m
         listed.append(p)
     confirmed_minutes=sum(rotation.get(p,0) for p in confirmed)
     uncertain_minutes=sum(rotation.get(p,0) for p in uncertain)
-    def change(missing: set) -> Optional[float]:
+    def change(missing: set, total: bool=False) -> Optional[float]:
         if model is None: return None
         eligible={p for p in rotation if model['appearances'].get(p,0)>=5 and model['minutes'].get(p,0)>=100}
         target=redistribute(rotation,missing,eligible)
         if target is None: return None
         moving=[p for p in rotation if abs(target[p]-rotation[p])>1e-7]
         if any(model['appearances'].get(p,0)<5 or model['minutes'].get(p,0)<100 for p in moving): return None
-        return sum(model['coefficients'][p]*(target[p]-rotation[p])/48 for p in moving)
-    points=None
+        coefficients=model.get('totalCoefficients') if total else model['coefficients']
+        if coefficients is None: return None
+        return sum(coefficients[p]*(target[p]-rotation[p])/48 for p in moving)
+    points=None;total_points=None
     variable=sorted(p for p in uncertain if rotation.get(p,0)>0)
     if not unresolved and len(variable)<=8:
         values=[change(confirmed|set(subset)) for n in range(len(variable)+1) for subset in combinations(variable,n)]
         if all(v is not None for v in values):
             points={'listedOut':round(values[0],3),'allUncertainOut':round(values[-1],3),
                     'min':round(min(values),3),'max':round(max(values),3),'scenarios':len(values)}
+        total_values=[change(confirmed|set(subset),True) for n in range(len(variable)+1) for subset in combinations(variable,n)]
+        if all(v is not None for v in total_values):
+            total_points={'listedOut':round(total_values[0],3),'min':round(min(total_values),3),
+                          'max':round(max(total_values),3),'scenarios':len(total_values)}
     for p in listed:
         if p.get('athleteId') in confirmed|uncertain:
             v=change({p['athleteId']});p['impactPointsIfOut']=round(v,3) if v is not None else None
@@ -151,4 +166,4 @@ def team_scenario(base: Optional[Dict[str,Any]], players: List[Dict[str,Any]], m
             'reason':'Unresolved/stale identity or status: '+', '.join(unresolved) if unresolved else 'Insufficient player/replacement history or too many unresolved combinations.' if points is None else None,
             'baselineGames':base['games'],'baselineThrough':base['through'],
             'outMinutes':round(confirmed_minutes,1),'uncertainMinutes':round(uncertain_minutes,1),
-            'points':points,'players':listed}
+            'points':points,'totalPoints':total_points,'players':listed}

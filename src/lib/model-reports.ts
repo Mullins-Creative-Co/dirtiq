@@ -403,9 +403,20 @@ export type AvailabilityTeam = {
   points: { listedOut: number; allUncertainOut: number; min: number; max: number; scenarios: number } | null;
   players: AvailabilityPlayer[]; baselineGames?: number; baselineThrough?: string;
 };
+export type InjuryAdjustedProjection = {
+  status: "applied" | "unavailable"; experimental: true; asOf: string; reason: string;
+  homeMargin: number | null; homeSpread: number | null; total: number | null;
+  marginChange: number | null; totalChange: number | null;
+  baselineHomeMargin: number | null; baselineHomeSpread: number | null; baselineTotal: number | null;
+  homeMarginRange: [number, number] | null; totalRange: [number, number] | null;
+  method: string | null; totalMethod: string | null;
+  validation?: { marginGames: number; baselineMae: number | null; adjustedMae: number | null; totalGames: number };
+};
 export type AvailabilityGame = {
   id: string; sport: string; gameId: string; home: string; away: string; startsAt: string; asOf: string;
-  baselineHomeMargin: number | null; baselineForecastAt?: string; marketHomeMargin?: number | null; marketObservedAt?: string | null; appliedToForecast: false; sourceUrl: string;
+  injuryAdjustedProjection?: InjuryAdjustedProjection;
+  baselineTotal?: number | null; totalChange?: { min: number; max: number; listedOut: number } | null;
+  baselineHomeMargin: number | null; baselineForecastAt?: string; marketHomeMargin?: number | null; marketObservedAt?: string | null; appliedToForecast: boolean; appliedToBaselineForecast?: false; sourceUrl: string;
   homeMarginChange: { min: number; max: number; listedOut: number } | null;
   contexts: { home: AvailabilityTeam; away: AvailabilityTeam };
 };
@@ -414,6 +425,7 @@ export type AvailabilityReport = {
   feeds: Record<string, {officialSourceUrl?: string | null; coverage: string; reason: string | null; retrievedAt: string; sourcePublishedAt?: string; sourceUrl: string; listedPlayers: number; recentPlayers: number}>;
   model: { version: string; trainedThrough: string; trainingGames: number } | null;
   games: AvailabilityGame[];
+  totalEvaluation?: { games: number; baselineMae: number | null; listedOutScenarioMae: number | null };
   evaluation: { games: number; pricedGames: number; baselineMaeOnPricedGames: number | null; listedOutScenarioMaeOnPricedGames: number | null; marketMae: number | null; baselineMae: number | null; listedOutScenarioMae: number | null; promoted: false; policy: string };
 };
 export function getAvailabilityReport(): AvailabilityReport | null {

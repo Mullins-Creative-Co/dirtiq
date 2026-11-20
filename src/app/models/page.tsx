@@ -79,8 +79,9 @@ export default async function ModelsPage() {
           <p className="text-xs text-[var(--muted)]">The gate also requires positive mean live spread CLV on at least 100 unique games. Backtest cover evidence uses the headline model, existing threshold and under-4× card cap. Market-input variants are excluded from opener CLV because their saved forecasts already use the close.</p>
         </Section>
 
-        <Section title="Injury context evaluation" description="New availability snapshots are evaluated prospectively. Experimental NBA minute scenarios do not change the headline forecast or stakes.">
+        <Section title="Injury context evaluation" description="New availability snapshots are evaluated prospectively. User-enabled experimental NBA injury adjustments change the displayed spread/total variant; baseline win probabilities and stakes stay unchanged.">
           <p className="text-sm">{availability ? `${availability.evaluation.games} paired games · baseline MAE ${num(availability.evaluation.baselineMae,2)} · listed-out scenario MAE ${num(availability.evaluation.listedOutScenarioMae,2)}` : "No availability snapshots yet"}. <Link className="underline" href="/injuries">Reports, player values and coverage</Link></p>
+          <p className="text-sm">Totals forward evaluation: {availability?.totalEvaluation?.games ?? 0} paired games · baseline MAE {num(availability?.totalEvaluation?.baselineMae,2)} · injury-adjusted MAE {num(availability?.totalEvaluation?.listedOutScenarioMae,2)}. No validated improvement is claimed.</p>
         </Section>
 
         <Section id="racing" kicker="Backtest" title="Dirt racing: new engine versus the legacy method" description="Rolling-origin by season on identical races. Log loss is per race on the winner distribution; lower is better. The legacy method is the old binary-XGBoost-plus-normalizer approach refit on the same folds without its leaking features, so this is method against method.">

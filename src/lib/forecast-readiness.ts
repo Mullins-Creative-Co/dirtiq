@@ -74,7 +74,7 @@ export function forecastReadiness(report: SportReport, game: SportUpcoming, now 
   if (!priced) reasons.push("No saved market to compare with this projection.");
   else if (quoteStatus !== "recent") reasons.push(quoteStatus === "stale" ? "Saved quote is over 2 hours old. Recheck the spread and price." : "Per-game quote time is unavailable. Recheck the spread and price.");
   // The current team forecast contract has no verified game-day injury/lineup input.
-  const availabilityDetail = "Injuries and lineups are not verified or included in this forecast. Missing reports do not mean a healthy roster.";
+  const availabilityDetail = "Injuries and confirmed lineups are not verified or included in these baseline probabilities. A separate experimental injury-adjusted spread/total is shown where supported. Missing reports do not mean a healthy roster.";
   reasons.push("Verify player availability before using this projection.");
   if (priced) reasons.push("Consensus and source-file prices are reference snapshots, not executable sportsbook offers.");
 
