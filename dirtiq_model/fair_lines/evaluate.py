@@ -80,7 +80,7 @@ def interval(values: np.ndarray, dates: pd.Series) -> list:
 
 
 def selections(d: pd.DataFrame, real_price: bool) -> Dict[str, Any]:
-    chosen = d[d.select & (d.has_price == real_price)]
+    chosen = d[d["select"] & (d["has_price"] == real_price)]
     wins = int(chosen.won.sum())
     pushes = int(chosen.push.sum())
     losses = int(len(chosen) - wins - pushes)
