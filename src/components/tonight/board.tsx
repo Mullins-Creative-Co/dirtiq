@@ -203,7 +203,7 @@ function ItemCard({ item, now, index, open, onToggle }: { item: TonightItem; now
             ) : null}
             {item.market ? (
               <div>
-                <AvailabilitySummary game={item.availability} now={now}/><p className="kicker">Refresh-time market and lean</p>
+                <AvailabilitySummary game={item.availability} now={now} matchup={{sport:item.sport,label:item.title,startsAt:item.startsAt}}/><p className="kicker">Refresh-time market and lean</p>
                 <p className="mt-1 text-xs text-[var(--muted)]">Observed {dateTime(item.market.observedAt)} · line {relativeAge(item.market.observedAt, now)}</p>
                 <dl className="mt-2 grid grid-cols-2 gap-x-6 gap-y-2 text-sm sm:grid-cols-3">
                   <Stat label="Spread" value={item.market.spreadLabel ?? "—"} detail={item.market.spreadPrices ?? undefined} />

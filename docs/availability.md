@@ -1,8 +1,6 @@
 # Availability and injury-value context
 
-Implemented on `feat/injury-context`; not deployed yet. The earlier evidence/staking
-changes are included on the same branch so availability context does not re-enable
-unproven card stakes.
+Implemented in PR #2 (`feat/injury-context`); deployment status is tracked on the PR. The branch is reconciled with current main, preserving personal $1 bulk logging and the current card sport policy. Availability context does not alter forecast stakes.
 
 The scores-only baseline has no current injuries. This change collects current public
 ESPN reports and gives them a useful, transparent numeric context where possible:
@@ -97,3 +95,18 @@ now omit it. An incremental build then reported `next/font/google queries have e
 one entry` / missing internal Google-font module. After stopping the local server and
 clearing the generated build directory, a clean production build passed. Fresh trace
 checks for Injuries, Card and Models include latest.json and exclude history.
+
+
+## Source checking (2026-11-19)
+
+Card and Tonight expose “Check injuries” and date-specific matchup injury-news searches,
+including when the automated snapshot is missing or stale. The Injuries page keeps
+sport selection and upcoming matchup checks available even without feed coverage.
+Search results are source discovery, not verified availability. Existing player/league
+source links and timestamps remain visible; experimental values do not alter forecasts.
+Reconciled with current main: personal $1 bulk logging and current card sports policy
+are preserved exactly. Refreshed all four feeds with zero collector errors.
+Validation: 167 Python tests, 141 TypeScript tests, typecheck, lint (zero errors, two
+existing racing warnings), production build; Card/NBA/college source links render over
+HTTP 200 in an isolated production server. Numeric forecast/card artifacts are identical
+to main. No production credentials or bets database were accessed.

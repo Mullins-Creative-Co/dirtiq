@@ -1,10 +1,10 @@
 {
  "date": "2026-11-18",
- "generatedAt": "2026-11-18T15:40:49Z",
- "forecastsRefreshedAt": "2026-11-18T10:55:13Z",
+ "generatedAt": "2026-11-19T01:41:23Z",
+ "forecastsRefreshedAt": "2026-11-19T01:31:55Z",
  "unit": "1 unit = 1% of bankroll",
  "rules": [
-  "Spread picks in NFL, college football, NBA and college basketball; one pick per game, including unstaked tracking picks.",
+  "Spread picks in NFL, NBA and college basketball; one pick per game, including unstaked tracking picks. College football is off the card: forecast and tracked in the ledger only.",
   "Staking gate: the lower endpoint of the two-sided 95% Wilson interval for this headline rule (1 to under 4 thresholds, pushes excluded) must exceed 52.4%, AND mean live spread CLV must be positive over at least 100 unique started leaned-side games with closing snapshots. Missing evidence fails closed.",
   "A game qualifies when the model margin disagrees with the spread by at least the sport's fixed backtest threshold.",
   "A game is left off when the disagreement is 4 thresholds or more: a gap that wide is a rating or data error, not value.",
@@ -14,8 +14,8 @@
   "A pick is locked at the line it was first listed with and graded at that line."
  ],
  "evidence": "Stakes require both documented evidence conditions; each pick shows its sport's backtest record and gate. Unstaked picks remain tracked. Historical bucket frequencies are not per-game probabilities.",
- "priced": 71,
- "qualified": 0,
+ "priced": 19,
+ "qualified": 4,
  "stakingGates": {
   "nfl": {
    "passed": false,
@@ -32,21 +32,6 @@
     "positiveRate": 0.0
    }
   },
-  "ncaaf": {
-   "passed": false,
-   "backtestWins": 2140,
-   "backtestLosses": 2343,
-   "coverRate": 0.47735891144323,
-   "lower95": 0.4627631752723864,
-   "requiredLower": 0.524,
-   "minimumLiveGames": 100,
-   "liveClv": {
-    "count": 26,
-    "meanPts": -0.057692307692307696,
-    "totalPts": -1.5,
-    "positiveRate": 0.19230769230769232
-   }
-  },
   "nba": {
    "passed": false,
    "backtestWins": 1734,
@@ -56,10 +41,10 @@
    "requiredLower": 0.524,
    "minimumLiveGames": 100,
    "liveClv": {
-    "count": 13,
-    "meanPts": -0.07692307692307693,
+    "count": 15,
+    "meanPts": -0.06666666666666667,
     "totalPts": -1.0,
-    "positiveRate": 0.15384615384615385
+    "positiveRate": 0.13333333333333333
    }
   },
   "ncaab": {
@@ -71,10 +56,10 @@
    "requiredLower": 0.524,
    "minimumLiveGames": 100,
    "liveClv": {
-    "count": 184,
+    "count": 190,
     "meanPts": 0.25,
-    "totalPts": 46.0,
-    "positiveRate": 0.2608695652173913
+    "totalPts": 47.5,
+    "positiveRate": 0.2631578947368421
    }
   }
  },
@@ -89,10 +74,10 @@
   "roi": -0.2943,
   "unstakedGraded": 0,
   "clv": {
-   "count": 56,
-   "meanPts": 0.35714285714285715,
-   "totalPts": 20.0,
-   "positiveRate": 0.39285714285714285
+   "count": 60,
+   "meanPts": 0.4,
+   "totalPts": 24.0,
+   "positiveRate": 0.4
   }
  },
  "picks": [
@@ -156,13 +141,9 @@
    },
    "note": "model +3.6 vs market -7.5: leans UPST by 11.1 pts (threshold 3.0)",
    "lockedAt": "2026-11-18T10:55:15Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
-    "checkedAt": "2026-11-18T15:40:50Z",
-    "line": 7.5,
-    "price": -115,
-    "edgePts": 11.13,
-    "lineObservedAt": "2026-11-18T10:45:32Z"
+    "checkedAt": "2026-11-19T01:41:24Z"
    },
    "rank": 2,
    "stakingGate": {
@@ -174,10 +155,10 @@
     "requiredLower": 0.524,
     "minimumLiveGames": 100,
     "liveClv": {
-     "count": 184,
-     "meanPts": 0.25,
-     "totalPts": 46.0,
-     "positiveRate": 0.2608695652173913
+     "count": 185,
+     "meanPts": 0.25405405405405407,
+     "totalPts": 47.0,
+     "positiveRate": 0.2648648648648649
     }
    },
    "originallyListedStakeUnits": 0.5,
@@ -195,6 +176,17 @@
     "coverRate": 0.5155807365439093,
     "priced": 355,
     "roi": -0.016828945767913696
+   },
+   "result": {
+    "outcome": "loss",
+    "homeScore": 64,
+    "awayScore": 74,
+    "units": -0.0
+   },
+   "clv": {
+    "points": 0.0,
+    "closeLine": 7.5,
+    "source": "last available pre-start ledger snapshot"
    }
   },
   {
@@ -257,13 +249,9 @@
    },
    "note": "model +15.4 vs market +26.5: leans NCCU by 11.1 pts (threshold 3.0)",
    "lockedAt": "2026-11-18T10:55:15Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
-    "checkedAt": "2026-11-18T15:40:50Z",
-    "line": 26.5,
-    "price": -112,
-    "edgePts": 11.12,
-    "lineObservedAt": "2026-11-18T10:45:32Z"
+    "checkedAt": "2026-11-19T01:41:24Z"
    },
    "rank": 3,
    "stakingGate": {
@@ -275,10 +263,10 @@
     "requiredLower": 0.524,
     "minimumLiveGames": 100,
     "liveClv": {
-     "count": 184,
-     "meanPts": 0.25,
-     "totalPts": 46.0,
-     "positiveRate": 0.2608695652173913
+     "count": 185,
+     "meanPts": 0.25405405405405407,
+     "totalPts": 47.0,
+     "positiveRate": 0.2648648648648649
     }
    },
    "originallyListedStakeUnits": 0.5,
@@ -296,6 +284,17 @@
     "coverRate": 0.5155807365439093,
     "priced": 355,
     "roi": -0.016828945767913696
+   },
+   "result": {
+    "outcome": "win",
+    "homeScore": 83,
+    "awayScore": 60,
+    "units": 0.0
+   },
+   "clv": {
+    "points": 5.0,
+    "closeLine": 21.5,
+    "source": "last available pre-start ledger snapshot"
    }
   },
   {
@@ -358,13 +357,9 @@
    },
    "note": "model +14.9 vs market +6.5: leans LONG by 8.4 pts (threshold 3.0)",
    "lockedAt": "2026-11-18T10:55:15Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
-    "checkedAt": "2026-11-18T15:40:50Z",
-    "line": -6.5,
-    "price": -110,
-    "edgePts": 8.4,
-    "lineObservedAt": "2026-11-18T10:45:32Z"
+    "checkedAt": "2026-11-19T01:41:24Z"
    },
    "rank": 6,
    "stakingGate": {
@@ -376,10 +371,10 @@
     "requiredLower": 0.524,
     "minimumLiveGames": 100,
     "liveClv": {
-     "count": 184,
-     "meanPts": 0.25,
-     "totalPts": 46.0,
-     "positiveRate": 0.2608695652173913
+     "count": 185,
+     "meanPts": 0.25405405405405407,
+     "totalPts": 47.0,
+     "positiveRate": 0.2648648648648649
     }
    },
    "originallyListedStakeUnits": 0.5,
@@ -397,6 +392,17 @@
     "coverRate": 0.5240384615384616,
     "priced": 1685,
     "roi": -0.0007895692065174703
+   },
+   "clv": {
+    "points": 1.0,
+    "closeLine": -7.5,
+    "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "loss",
+    "homeScore": 82,
+    "awayScore": 76,
+    "units": -0.0
    }
   },
   {
@@ -459,13 +465,9 @@
    },
    "note": "model -0.9 vs market +7.5: leans HOW by 8.4 pts (threshold 3.0)",
    "lockedAt": "2026-11-18T10:55:15Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
-    "checkedAt": "2026-11-18T15:40:50Z",
-    "line": 7.5,
-    "price": -115,
-    "edgePts": 8.43,
-    "lineObservedAt": "2026-11-18T10:45:32Z"
+    "checkedAt": "2026-11-19T01:41:24Z"
    },
    "rank": 5,
    "stakingGate": {
@@ -477,10 +479,10 @@
     "requiredLower": 0.524,
     "minimumLiveGames": 100,
     "liveClv": {
-     "count": 184,
-     "meanPts": 0.25,
-     "totalPts": 46.0,
-     "positiveRate": 0.2608695652173913
+     "count": 185,
+     "meanPts": 0.25405405405405407,
+     "totalPts": 47.0,
+     "positiveRate": 0.2648648648648649
     }
    },
    "originallyListedStakeUnits": 0.5,
@@ -498,107 +500,124 @@
     "coverRate": 0.5240384615384616,
     "priced": 1685,
     "roi": -0.0007895692065174703
+   },
+   "clv": {
+    "points": 3.0,
+    "closeLine": 4.5,
+    "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "win",
+    "homeScore": 74,
+    "awayScore": 68,
+    "units": 0.0
    }
   },
   {
-   "id": "ncaaf:401866467",
-   "sport": "ncaaf",
-   "sportLabel": "NCAAF",
-   "gameId": "401866467",
-   "home": "MASS",
-   "away": "AKR",
-   "startsAt": "2026-11-19T00:00:00Z",
+   "id": "nba:401910012",
+   "sport": "nba",
+   "sportLabel": "NBA",
+   "gameId": "401910012",
+   "home": "TOR",
+   "away": "WSH",
+   "startsAt": "2026-11-19T00:30:00Z",
    "neutral": 0,
    "market": "spread",
-   "pick": "MASS",
-   "opponent": "AKR",
+   "pick": "TOR",
+   "opponent": "WSH",
    "side": "home",
-   "line": -3.0,
-   "price": -118,
-   "homeSpread": -3.0,
-   "book": "cfbfastR multi-book median; ESPN multi-book median from 2026",
-   "lineObservedAt": "2026-11-18T10:55:07Z",
-   "modelHomeMargin": 6.18,
-   "edgePts": 3.18,
+   "line": -4.5,
+   "price": -110,
+   "homeSpread": -4.5,
+   "book": "ESPN multi-book median",
+   "lineObservedAt": "2026-11-18T19:35:03Z",
+   "modelHomeMargin": 8.47,
+   "edgePts": 3.97,
    "threshold": 3.0,
-   "edgeRatio": 1.06,
+   "edgeRatio": 1.323,
    "marketAwareAgrees": false,
-   "marketAwareEdgePts": -0.59,
-   "breakEvenProb": 0.5413,
-   "stakeUnits": 0.0,
-   "record": {
-    "rule": "ind headline: 3.0 <= abs(model + spread) < 12.0",
-    "picks": 4557,
-    "wins": 2140,
-    "losses": 2343,
-    "winRate": 0.4774,
-    "roi": -0.0949686896777713,
-    "seasons": [
-     2015,
-     2026
-    ]
-   },
-   "homeRating": {
-    "rating": -18.27,
-    "sd": 4.88,
-    "rank": 146
-   },
-   "awayRating": {
-    "rating": -21.68,
-    "sd": 4.89,
-    "rank": 151
-   },
-   "homeForm": {
-    "record": "5-5",
-    "avgMargin": 2.0,
-    "last": "1-4"
-   },
-   "awayForm": {
-    "record": "1-9",
-    "avgMargin": -14.6,
-    "last": "0-5"
-   },
-   "note": "model +6.2 vs market +3.0: leans MASS by 3.2 pts (threshold 3.0)",
-   "lockedAt": "2026-11-18T10:55:15Z",
-   "status": "playable",
-   "current": {
-    "checkedAt": "2026-11-18T15:40:50Z",
-    "line": -3.0,
-    "price": -118,
-    "edgePts": 3.18,
-    "lineObservedAt": "2026-11-18T10:55:07Z"
-   },
-   "rank": 7,
-   "stakingGate": {
-    "passed": false,
-    "backtestWins": 2140,
-    "backtestLosses": 2343,
-    "coverRate": 0.47735891144323,
-    "lower95": 0.4627631752723864,
-    "requiredLower": 0.524,
-    "minimumLiveGames": 100,
-    "liveClv": {
-     "count": 26,
-     "meanPts": -0.057692307692307696,
-     "totalPts": -1.5,
-     "positiveRate": 0.19230769230769232
-    }
-   },
-   "originallyListedStakeUnits": 0.5,
-   "stakingStatus": "unstaked",
-   "uncalibratedModelCoverProb": 0.6095,
+   "marketAwareEdgePts": -0.87,
+   "uncalibratedModelCoverProb": 0.6339,
    "empiricalCover": {
     "minRatio": 1,
     "maxRatio": 2,
-    "games": 2845,
-    "n": 2845,
-    "wins": 1351,
-    "losses": 1444,
-    "pushes": 50,
-    "sample": 2795,
-    "coverRate": 0.4833631484794276,
-    "priced": 1418,
-    "roi": -0.1017404967756387
+    "games": 2727,
+    "n": 2727,
+    "wins": 1352,
+    "losses": 1350,
+    "pushes": 25,
+    "sample": 2702,
+    "coverRate": 0.5003700962250185,
+    "priced": 2727,
+    "roi": -0.04444946737855829
+   },
+   "stakingGate": {
+    "passed": false,
+    "backtestWins": 1734,
+    "backtestLosses": 1763,
+    "coverRate": 0.49585358879039176,
+    "lower95": 0.4792959793849173,
+    "requiredLower": 0.524,
+    "minimumLiveGames": 100,
+    "liveClv": {
+     "count": 13,
+     "meanPts": -0.07692307692307693,
+     "totalPts": -1.0,
+     "positiveRate": 0.15384615384615385
+    }
+   },
+   "stakingStatus": "unstaked",
+   "breakEvenProb": 0.5238,
+   "stakeUnits": 0.0,
+   "record": {
+    "rule": "stk headline: 3.0 <= abs(model + spread) < 12.0",
+    "picks": 3531,
+    "wins": 1734,
+    "losses": 1763,
+    "winRate": 0.4959,
+    "roi": -0.05297854457690561,
+    "seasons": [
+     2019,
+     2027
+    ]
+   },
+   "homeRating": {
+    "rating": 1.15,
+    "sd": 2.69,
+    "rank": 12
+   },
+   "awayRating": {
+    "rating": -7.51,
+    "sd": 2.68,
+    "rank": 28
+   },
+   "homeForm": {
+    "record": "5-9",
+    "avgMargin": 0.29,
+    "last": "0-5"
+   },
+   "awayForm": {
+    "record": "4-11",
+    "avgMargin": -7.93,
+    "last": "0-5"
+   },
+   "note": "model +8.5 vs market +4.5: leans TOR by 4.0 pts (threshold 3.0)",
+   "lockedAt": "2026-11-18T19:51:26Z",
+   "status": "graded",
+   "current": {
+    "checkedAt": "2026-11-19T01:41:24Z"
+   },
+   "rank": 8,
+   "clv": {
+    "points": 0.0,
+    "closeLine": -4.5,
+    "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "loss",
+    "homeScore": 99,
+    "awayScore": 103,
+    "units": -0.0
    }
   },
   {
@@ -661,13 +680,9 @@
    },
    "note": "model +18.6 vs market +27.5: leans YSU by 8.9 pts (threshold 3.0)",
    "lockedAt": "2026-11-18T10:55:15Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
-    "checkedAt": "2026-11-18T15:40:50Z",
-    "line": 27.5,
-    "price": -115,
-    "edgePts": 8.89,
-    "lineObservedAt": "2026-11-18T10:45:32Z"
+    "checkedAt": "2026-11-19T01:41:24Z"
    },
    "rank": 4,
    "stakingGate": {
@@ -679,10 +694,10 @@
     "requiredLower": 0.524,
     "minimumLiveGames": 100,
     "liveClv": {
-     "count": 184,
-     "meanPts": 0.25,
-     "totalPts": 46.0,
-     "positiveRate": 0.2608695652173913
+     "count": 185,
+     "meanPts": 0.25405405405405407,
+     "totalPts": 47.0,
+     "positiveRate": 0.2648648648648649
     }
    },
    "originallyListedStakeUnits": 0.5,
@@ -700,6 +715,125 @@
     "coverRate": 0.5240384615384616,
     "priced": 1685,
     "roi": -0.0007895692065174703
+   },
+   "result": {
+    "outcome": "loss",
+    "homeScore": 91,
+    "awayScore": 54,
+    "units": -0.0
+   },
+   "clv": {
+    "points": -2.0,
+    "closeLine": 29.5,
+    "source": "last available pre-start ledger snapshot"
+   }
+  },
+  {
+   "id": "nba:401910016",
+   "sport": "nba",
+   "sportLabel": "NBA",
+   "gameId": "401910016",
+   "home": "DAL",
+   "away": "GS",
+   "startsAt": "2026-11-19T01:00:00Z",
+   "neutral": 0,
+   "market": "spread",
+   "pick": "GS",
+   "opponent": "DAL",
+   "side": "away",
+   "line": 4.5,
+   "price": -106,
+   "homeSpread": -4.5,
+   "book": "ESPN multi-book median",
+   "lineObservedAt": "2026-11-18T16:37:39Z",
+   "modelHomeMargin": -0.87,
+   "edgePts": 5.37,
+   "threshold": 3.0,
+   "edgeRatio": 1.79,
+   "marketAwareAgrees": true,
+   "marketAwareEdgePts": 0.08,
+   "uncalibratedModelCoverProb": 0.6518,
+   "empiricalCover": {
+    "minRatio": 1,
+    "maxRatio": 2,
+    "games": 2727,
+    "n": 2727,
+    "wins": 1352,
+    "losses": 1350,
+    "pushes": 25,
+    "sample": 2702,
+    "coverRate": 0.5003700962250185,
+    "priced": 2727,
+    "roi": -0.04444946737855829
+   },
+   "stakingGate": {
+    "passed": false,
+    "backtestWins": 1734,
+    "backtestLosses": 1763,
+    "coverRate": 0.49585358879039176,
+    "lower95": 0.4792959793849173,
+    "requiredLower": 0.524,
+    "minimumLiveGames": 100,
+    "liveClv": {
+     "count": 13,
+     "meanPts": -0.07692307692307693,
+     "totalPts": -1.0,
+     "positiveRate": 0.15384615384615385
+    }
+   },
+   "stakingStatus": "unstaked",
+   "breakEvenProb": 0.5146,
+   "stakeUnits": 0.0,
+   "record": {
+    "rule": "stk headline: 3.0 <= abs(model + spread) < 12.0",
+    "picks": 3531,
+    "wins": 1734,
+    "losses": 1763,
+    "winRate": 0.4959,
+    "roi": -0.05297854457690561,
+    "seasons": [
+     2019,
+     2027
+    ]
+   },
+   "homeRating": {
+    "rating": -2.48,
+    "sd": 2.72,
+    "rank": 21
+   },
+   "awayRating": {
+    "rating": 0.86,
+    "sd": 2.72,
+    "rank": 15
+   },
+   "homeForm": {
+    "record": "7-7",
+    "avgMargin": -2.5,
+    "last": "2-3"
+   },
+   "awayForm": {
+    "record": "8-6",
+    "avgMargin": 2.5,
+    "last": "2-3"
+   },
+   "note": "model -0.9 vs market +4.5: leans GS by 5.4 pts (threshold 3.0)",
+   "lockedAt": "2026-11-18T16:37:49Z",
+   "status": "graded",
+   "current": {
+    "checkedAt": "2026-11-19T01:41:24Z"
+   },
+   "rank": 7,
+   "originallyListedStakeUnits": 0.0,
+   "clv": {
+    "points": 0.0,
+    "closeLine": 4.5,
+    "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "loss",
+    "homeScore": 116,
+    "awayScore": 94,
+    "units": -0.0
    }
   },
   {
@@ -762,13 +896,9 @@
    },
    "note": "model +12.0 vs market +23.5: leans CAM by 11.5 pts (threshold 3.0)",
    "lockedAt": "2026-11-18T10:55:15Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
-    "checkedAt": "2026-11-18T15:40:50Z",
-    "line": 23.5,
-    "price": -112,
-    "edgePts": 11.55,
-    "lineObservedAt": "2026-11-18T10:45:32Z"
+    "checkedAt": "2026-11-19T01:41:24Z"
    },
    "rank": 1,
    "stakingGate": {
@@ -780,10 +910,10 @@
     "requiredLower": 0.524,
     "minimumLiveGames": 100,
     "liveClv": {
-     "count": 184,
-     "meanPts": 0.25,
-     "totalPts": 46.0,
-     "positiveRate": 0.2608695652173913
+     "count": 185,
+     "meanPts": 0.25405405405405407,
+     "totalPts": 47.0,
+     "positiveRate": 0.2648648648648649
     }
    },
    "originallyListedStakeUnits": 0.5,
@@ -801,6 +931,17 @@
     "coverRate": 0.5155807365439093,
     "priced": 355,
     "roi": -0.016828945767913696
+   },
+   "result": {
+    "outcome": "win",
+    "homeScore": 87,
+    "awayScore": 78,
+    "units": 0.0
+   },
+   "clv": {
+    "points": 3.0,
+    "closeLine": 20.5,
+    "source": "last available pre-start ledger snapshot"
    }
   }
  ]

@@ -80,7 +80,7 @@ export default async function CardPage({searchParams}:{searchParams:Promise<{dat
       <main className="mx-auto max-w-7xl space-y-3 px-3 py-3 sm:space-y-5 sm:px-6 sm:py-6 [&>header]:gap-3 [&>header]:pb-3 [&_.stat]:!p-2.5 [&_.stat-value]:!text-2xl [&_.stat-detail]:!text-[11px]">
         {current?<RefreshNotice />:null}
         <form method="get" className="flex flex-wrap items-center gap-2 text-sm"><label className="flex items-center gap-2">Card date<select name="date" defaultValue={card.date} className="input !w-auto !py-1.5">{dates.map(date=><option key={date} value={date}>{date}</option>)}</select></label><button className="text-xs font-bold text-[var(--accent)]" type="submit">View card</button></form>
-        <LogCardBets key={card.date} date={card.date} count={card.picks.filter(p => p.stakeUnits > 0).length} events={sorted.map(eventFor)} />
+        <LogCardBets key={card.date} date={card.date} count={card.picks.length} unstaked={card.picks.filter(p => p.stakeUnits === 0).length} events={sorted.map(eventFor)} />
         <PageHeader
           kicker={new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", weekday: "long", month: "long", day: "numeric" }).format(new Date(`${card.date}T17:00:00Z`))}
           title={current?"Today’s card":"Past card"}
@@ -110,7 +110,7 @@ export default async function CardPage({searchParams}:{searchParams:Promise<{dat
               <p className="mt-1 text-sm font-bold">{pick.pickName??pick.pick} {spread(pick.line)} ({american(pick.price)})</p>
               <p className="mt-1 text-xs text-[var(--muted)]">{pick.stakeUnits === 0 ? "Unstaked · 0.0u" : `Card stake ${pick.stakeUnits.toFixed(1)}u`} · gap {pick.edgePts.toFixed(1)} pts</p>
               <p className="mt-1 text-xs text-[var(--muted)]">Historical cover {pick.empiricalCover?.coverRate == null ? "unavailable" : `${pct(pick.empiricalCover.coverRate)} · n=${pick.empiricalCover.sample}`}</p>
-              <AvailabilitySummary game={pick.availability} now={now}/>
+              <AvailabilitySummary game={pick.availability} now={now} matchup={{sport:pick.sport,label:`${pick.awayName??pick.away} at ${pick.homeName??pick.home}`,startsAt:pick.startsAt}}/>
               <div className="mt-2"><InlineLogBet href={pick.logHref} event={eventFor(pick)} label="Log bet" /></div>
               <details className="mt-2 text-xs text-[var(--muted)]"><summary>Price and model details</summary><p className="mt-1">{s.detail}</p><p className="mt-1">{empiricalText(pick)}</p><p className="mt-1">{clvText(pick)}</p><p className="mt-1">{pick.record?`${pct(pick.record.winRate)} wins, ${pct(pick.record.roi)} ROI in the backtest`:"No backtest record"}</p></details>
             </article>})}</div>
@@ -142,7 +142,7 @@ export default async function CardPage({searchParams}:{searchParams:Promise<{dat
                         <span className="block text-xs text-[var(--muted)]">{pick.marketAwareAgrees ? "market-aware model agrees" : "market-aware model disagrees"}</span>
                       </td>
                       <td className="text-xs text-[var(--muted)]">
-                        <p>{empiricalText(pick)}</p><p>{clvText(pick)}</p><AvailabilitySummary game={pick.availability} now={now}/>
+                        <p>{empiricalText(pick)}</p><p>{clvText(pick)}</p><AvailabilitySummary game={pick.availability} now={now} matchup={{sport:pick.sport,label:`${pick.awayName??pick.away} at ${pick.homeName??pick.home}`,startsAt:pick.startsAt}}/>
                         {pick.record ? `${pct(pick.record.winRate)} wins, ${pct(pick.record.roi)} ROI on ${pick.record.picks.toLocaleString("en-US")} picks; needs ${pct(pick.breakEvenProb)} at this price` : "No backtest record"}
                       </td>
                     </InlineBetRow>

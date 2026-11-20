@@ -18,3 +18,13 @@ export function availabilitySummary(game: AvailabilityGame | null | undefined, n
       : "Point impact unvalued; current player/replacement evidence is incomplete. Missing reports do not mean healthy.",
   };
 }
+
+
+/** Source discovery is available even when our automated feed has no coverage. */
+export function injuryNewsHref(label: string, sport: string, startsAt: string): string {
+  const date = new Date(startsAt);
+  const day = Number.isFinite(date.getTime())
+    ? new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit" }).format(date)
+    : "";
+  return `https://www.google.com/search?${new URLSearchParams({ q: `${label} ${sport.toUpperCase()} injury report confirmed starters ${day}`.trim() })}`;
+}

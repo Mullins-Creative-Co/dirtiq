@@ -69,6 +69,23 @@ class CardTest(unittest.TestCase):
         self.assertEqual(card["totalUnits"], 0)
         self.assertTrue(all(p["stakingStatus"] == "unstaked" for p in card["picks"]))
 
+    def test_sport_off_the_card_is_not_listed_and_unstarted_locked_pick_is_removed(self):
+        self.assertNotIn("ncaaf", build.CARD_SPORTS)
+        self.assertIn("ncaaf", build.GRADED_SPORTS)
+        self.write("ncaaf", [game("2", 8.0, -3.5, aware=4.5)])
+        self.write("nfl", [game("3", 8.0, -3.5, aware=4.5)])
+        self.assertEqual([p["sport"] for p in self.card()["picks"]], ["nfl"])
+        # a college football pick locked earlier today: not started comes off, already started stays with its stake
+        path = self.archive / "2026-11-12.json"
+        card = json.loads(path.read_text())
+        base = dict(card["picks"][0], sport="ncaaf", stakeUnits=0.5)
+        card["picks"] += [dict(base, id="ncaaf:later", gameId="later", startsAt="2026-11-13T00:00:00Z"),
+                          dict(base, id="ncaaf:started", gameId="started", startsAt="2026-11-12T14:00:00Z")]
+        path.write_text(json.dumps(card))
+        picks = {p["id"]: p for p in self.card()["picks"]}
+        self.assertNotIn("ncaaf:later", picks)
+        self.assertEqual(picks["ncaaf:started"]["stakeUnits"], 0.5)
+
     def test_caps(self):
         self.write("ncaab", [game(str(i), 7.0 + i * 0.5, -3.5, aware=5.0) for i in range(10)])
         self.write("nfl", [game("n%d" % i, 7.0 + i * 0.5, -3.5, aware=5.0) for i in range(10)])
