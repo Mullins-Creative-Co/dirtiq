@@ -11,7 +11,8 @@ from typing import Any, Dict, List
 import pandas as pd
 
 from .feed import LEAGUES, feed_url, normalize, stamp, iso, team_code
-from .impact import VERSION, games_from_boxes, fit, baseline, team_scenario
+from .projection import project
+from .impact import TOTAL_VERSION, VERSION, games_from_boxes, fit, baseline, team_scenario
 from ..teams.adapters.common import download
 
 ROOT=Path(__file__).resolve().parents[2]
@@ -21,7 +22,7 @@ POLICY=('Experimental player/minute associations, not causal injury values or ca
         'Recent five-game rotation is the reference; existing absences are not charged twice. '
         'Uncertain statuses get play/out scenarios, not assigned probabilities. '
         'Replacement minutes are redistributed among recent participants up to 48 each; announced starters/minute limits are not verified. '
-        'Missing reports never mean healthy. No forecasts, probabilities, leans or stakes are changed.')
+        'Missing reports never mean healthy. A separate experimental injury-adjusted spread/total projection applies listed-out replacement changes when supported. Baseline probabilities, leans, locked cards and stakes stay unchanged.')
 
 
 def write_json(path: Path, payload: Any) -> None:
@@ -53,7 +54,7 @@ def nba_data(cache: Path, now: datetime):
     games=games_from_boxes(pd.concat(frames,ignore_index=True),now)
     model=fit(games,now)
     model['sourceHash']=hashlib.sha256('|'.join(s['sha256'] for s in sources).encode()).hexdigest()
-    metadata={k:v for k,v in model.items() if k not in ('coefficients','minutes','appearances')}
+    metadata={k:v for k,v in model.items() if k not in ('coefficients','totalCoefficients','minutes','appearances')}
     metadata['sources']=[{k:s[k] for k in ('url','sha256','retrievedAt')} for s in sources]
     metadata['validation']={'evaluatedInjuryGames':0,'promoted':False,'reason':'Timestamped injury evaluation starts with collected snapshots; historical target-game injuries are not inferred from box scores.'}
     return games,model,metadata
@@ -93,33 +94,41 @@ def build_games(reports: Dict[str,Any],feeds: Dict[str,Any],games: List[Dict[str
                 changes=[h['min']-a['max'],h['max']-a['min']]
                 point_range={'min':round(min(changes),3),'max':round(max(changes),3),
                              'listedOut':round(h['listedOut']-a['listedOut'],3)}
+            total_range=None
+            ht,at=contexts['home'].get('totalPoints'),contexts['away'].get('totalPoints')
+            if ht is not None and at is not None:
+                total_range={k:round(ht[k]+at[k],3) for k in ('min','max','listedOut')}
             result.append({'id':sport+':'+str(g['gameId']),'sport':sport,'gameId':str(g['gameId']),
                            'home':g['home'],'away':g['away'],'startsAt':g['startsAt'],'asOf':iso(now),
-                           'baselineHomeMargin':g.get('projectedHomeMargin'),'baselineForecastAt':reports[sport].get('forecastGeneratedAt') or reports[sport].get('generatedAt'),
+                           'baselineHomeMargin':g.get('projectedHomeMargin'),'baselineTotal':g.get('projectedTotal'),
+                           'marketTotal':g.get('marketTotal'),'totalChange':total_range,'totalModelVersion':TOTAL_VERSION,'baselineForecastAt':reports[sport].get('forecastGeneratedAt') or reports[sport].get('generatedAt'),
                            'marketHomeMargin':-g['marketHomeSpread'] if isinstance(g.get('marketHomeSpread'),(int,float)) and math.isfinite(g['marketHomeSpread']) and abs(g['marketHomeSpread'])<100 else None,
                            'marketObservedAt':g.get('lineObservedAt'),'book':g.get('book'),'homeMarginChange':point_range,
                            'sourceUrl':feed['sourceUrl'],'contexts':contexts,'appliedToForecast':False})
     return result
 
 
-def evaluate_history(observations: List[Dict[str,Any]], results: Dict[str,Any]) -> Dict[str,Any]:
+def evaluate_history(observations: List[Dict[str,Any]], results: Dict[str,Any], total: bool=False) -> Dict[str,Any]:
     selected={}
+    baseline_key='baselineTotal' if total else 'baselineHomeMargin'
+    change_key='totalChange' if total else 'homeMarginChange'
+    market_key='marketTotal' if total else 'marketHomeMargin'
     for row in observations:
-        if row.get('modelVersion') != VERSION: continue
+        if row.get('modelVersion') != VERSION or (total and row.get('totalModelVersion')!=TOTAL_VERSION): continue
         observed,start=stamp(row.get('asOf')),stamp(row.get('startsAt'))
         trained=stamp(row.get('modelTrainedThrough')); baseline_at=stamp(row.get('baselineForecastAt'))
         if observed is None or start is None or trained is None or trained>=observed or baseline_at is None or baseline_at>observed or observed>start-timedelta(hours=1): continue
-        if not row.get('homeMarginChange') or row.get('baselineHomeMargin') is None: continue
+        if not row.get(change_key) or row.get(baseline_key) is None: continue
         if row['id'] not in selected or row['asOf']>selected[row['id']]['asOf']: selected[row['id']]=row
     errors=[]; priced=[]
     for key,row in selected.items():
         actual=results.get(key)
         if actual is None: continue
-        change=row['homeMarginChange']
-        pair=(abs(row['baselineHomeMargin']-actual),abs(row['baselineHomeMargin']+change['listedOut']-actual))
+        change=row[change_key]
+        pair=(abs(row[baseline_key]-actual),abs(row[baseline_key]+change['listedOut']-actual))
         errors.append(pair)
         quote=stamp(row.get('marketObservedAt')); observed=stamp(row['asOf'])
-        market=row.get('marketHomeMargin')
+        market=row.get(market_key)
         if isinstance(market,(int,float)) and math.isfinite(market) and quote is not None and timedelta(0)<=observed-quote<=timedelta(hours=3):
             priced.append((*pair,abs(market-actual)))
     return {'pricedGames':len(priced),'baselineMaeOnPricedGames':sum(x[0] for x in priced)/len(priced) if priced else None,
@@ -163,6 +172,8 @@ def refresh(cache: Path, output: Path=OUTPUT, now=None) -> Dict[str,Any]:
     # Observation time is after all sources and the fit were actually available.
     now=now if fixed_clock else datetime.now(timezone.utc)
     contexts=build_games(reports,feeds,games,model,now)
+    for context in contexts:
+        context['injuryAdjustedProjection']=project(context,metadata,now)
     day=output/'history'/(now.strftime('%Y-%m-%d')+'.json')
     history=json.loads(day.read_text()) if day.exists() else {'observations':[]}
     history.setdefault('feeds',[])
@@ -185,16 +196,18 @@ def refresh(cache: Path, output: Path=OUTPUT, now=None) -> Dict[str,Any]:
     all_observations=[]
     for path in sorted((output/'history').glob('*.json')):
         all_observations.extend(json.loads(path.read_text()).get('observations',[]))
-    actual={}
+    actual={};actual_totals={}
     path=ROOT/'public/data/results/nba.json'
     for row in (json.loads(path.read_text()).get('games',[]) if path.exists() else []):
         if row.get('homeScore') is not None and row.get('awayScore') is not None:
             actual[row['eventId']]=row['homeScore']-row['awayScore']
+            actual_totals[row['eventId']]=row['homeScore']+row['awayScore']
     evaluation=evaluate_history(all_observations,actual)
+    total_evaluation=evaluate_history(all_observations,actual_totals,total=True)
     if metadata is not None:
         metadata['validation']['evaluatedInjuryGames']=evaluation['games']
     report={'generatedAt':iso(now),'policy':POLICY,'feeds':feeds,'model':metadata,'games':contexts,
-            'evaluation':evaluation,'failures':failures}
+            'evaluation':evaluation,'totalEvaluation':total_evaluation,'failures':failures}
     write_json(output/'latest.json',report)
     print('Availability:',len(contexts),'next-game contexts;',sum(r['homeMarginChange'] is not None for r in contexts),'NBA valued scenarios;',len(failures),'errors')
     return report

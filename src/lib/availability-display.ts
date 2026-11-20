@@ -28,3 +28,12 @@ export function injuryNewsHref(label: string, sport: string, startsAt: string): 
     : "";
   return `https://www.google.com/search?${new URLSearchParams({ q: `${label} ${sport.toUpperCase()} injury report confirmed starters ${day}`.trim() })}`;
 }
+
+
+/** The numeric variant is written by Python; the UI only enforces display expiry. */
+export function injuryProjectionView(game: AvailabilityGame | null | undefined, now: number) {
+  const p=game?.injuryAdjustedProjection;
+  if (!game || !p || p.status !== "applied" || p.asOf !== game.asOf || availabilitySummary(game,now).stale || !(Date.parse(game.startsAt)>now)) return null;
+  if (![p.homeMargin,p.homeSpread,p.total].some(n=>typeof n==="number" && Number.isFinite(n))) return null;
+  return p;
+}

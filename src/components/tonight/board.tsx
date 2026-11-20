@@ -78,7 +78,7 @@ export function TonightBoardView({ board, initialSport = "all" }: { board: Tonig
   return (
     <div className="space-y-6">
       <div className="note">
-        <strong>Favorites are not flagged for being favorites.</strong> A row is flagged for a spread lean, or for a moneyline only when the price beats the model’s own win probability by 8% or more and is no longer than +300. In the backtests those moneylines still lost about 4% a bet, so treat a flag as something to check, not as value. Over/under leans come from a simple team-scoring-pace model that hit 46–51% against closing totals, below the 52.4% needed to break even. Live lines are ESPN reference quotes; confirm the executable price with your book. Saved lines preserve the forecast snapshot. Listed injuries appear inside each game’s prediction; confirmed lineups and any point adjustment remain unverified.
+        <strong>Favorites are not flagged for being favorites.</strong> A row is flagged for a spread lean, or for a moneyline only when the price beats the model’s own win probability by 8% or more and is no longer than +300. In the backtests those moneylines still lost about 4% a bet, so treat a flag as something to check, not as value. Over/under leans come from a simple team-scoring-pace model that hit 46–51% against closing totals, below the 52.4% needed to break even. Live lines are ESPN reference quotes; confirm the executable price with your book. Saved lines preserve the forecast snapshot. Injury-adjusted spread and total estimates appear inside each game where supported; win probabilities and saved betting terms remain baseline estimates.
       </div>
       <p className={stale ? "note note-warn" : "note"} title={board.refreshedAt ? dateTime(board.refreshedAt) : undefined}>
         <strong>Forecasts and saved lines refreshed {relativeAge(board.refreshedAt, now)}.</strong>{" "}
@@ -171,7 +171,7 @@ function ItemCard({ item, now, index, open, onToggle }: { item: TonightItem; now
                 <p className="kicker">Decision check</p>
                 <div className="mt-3 grid grid-cols-2 gap-4">
                   <dl><Stat label={item.flags?.moneyline?.kind ?? "Moneyline"} value={item.flags?.moneyline?.label ?? "No flag"} detail={item.flags?.moneyline?.detail ?? `Model has ${item.pick} ${pct(item.confidence, 0)} to win; neither price beats the model by enough`} /></dl>
-                  <dl><Stat label="Spread lean · saved line" value={item.readiness.spreadLean} detail={item.readiness.spreadCover ?? undefined} /></dl>
+                  <dl><Stat label="Baseline spread lean · saved line" value={item.readiness.spreadLean} detail={item.readiness.spreadCover ?? undefined} /></dl>
                   {item.flags?.total ? <dl><Stat label="Over/under" value={item.flags.total.label ?? `No lean · ${item.flags.total.line.toFixed(1)}`} detail={item.flags.total.detail} /></dl> : null}
                 </div>
                 <AvailabilitySummary game={item.availability} now={now} matchup={{sport:item.sport,label:item.title,startsAt:item.startsAt}}/>

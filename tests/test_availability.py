@@ -11,6 +11,8 @@ import pandas as pd
 from dirtiq_model.availability.feed import normalize,athlete_id,iso
 from dirtiq_model.availability.impact import games_from_boxes,baseline,redistribute,team_scenario,fit,VERSION
 from dirtiq_model.availability.build import build_games,evaluate_history,refresh
+from dirtiq_model.availability.projection import project
+from dirtiq_model.availability.impact import TOTAL_VERSION
 
 NOW=datetime(2026,11,18,15,tzinfo=timezone.utc)
 
@@ -128,6 +130,7 @@ class AvailabilityTest(unittest.TestCase):
         future=deepcopy(games[0]);future['availableAt']=NOW+timedelta(days=1);future['home']['score']=9999
         b=fit(games+[future],NOW)
         self.assertEqual(a['coefficients'],b['coefficients'])
+        self.assertEqual(a['totalCoefficients'],b['totalCoefficients'])
 
     def test_network_and_box_failure_replace_old_report_with_unknown_not_healthy(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -160,3 +163,61 @@ class AvailabilityTest(unittest.TestCase):
         self.assertEqual(result['listedOutScenarioMaeOnPricedGames'],0)
         self.assertEqual(evaluate_history([dict(row,marketObservedAt=iso(NOW-timedelta(hours=4)))],{'nba:1':1})['pricedGames'],0)
         self.assertEqual(evaluate_history([dict(row,baselineForecastAt=iso(NOW+timedelta(hours=1)))],{'nba:1':1})['games'],0)
+
+
+class InjuryProjectionTests(unittest.TestCase):
+    def row(self):
+        return dict(id='nba:1',sport='nba',gameId='1',home='BOS',away='NY',
+                    startsAt=iso(NOW+timedelta(hours=2)),asOf=iso(NOW),
+                    baselineForecastAt=iso(NOW-timedelta(minutes=30)),baselineHomeMargin=3.,baselineTotal=220.,
+                    homeMarginChange=dict(min=-3.,max=0.,listedOut=-2.),
+                    totalChange=dict(min=-5.,max=2.,listedOut=-4.),
+                    contexts=dict(home=dict(team='BOS',coverage='scenario'),away=dict(team='NY',coverage='scenario')))
+
+    def metadata(self):
+        return dict(version=VERSION,totalVersion=TOTAL_VERSION,trainedThrough=iso(NOW-timedelta(days=1)))
+
+    def test_adjusts_real_numbers_without_mutating_the_baseline(self):
+        row=self.row();before=deepcopy(row)
+        p=project(row,self.metadata(),NOW)
+        self.assertEqual(p['homeMargin'],1.)
+        self.assertEqual(p['homeSpread'],-1.)
+        self.assertEqual(p['total'],216.)
+        self.assertEqual(p['homeMarginRange'],[0.,3.])
+        self.assertEqual(p['totalRange'],[215.,222.])
+        self.assertEqual(row,before)
+
+    def test_unknown_stale_started_identity_and_future_evidence_withhold(self):
+        rows=[dict(self.row(),sport='nfl'),dict(self.row(),asOf=iso(NOW-timedelta(hours=4))),
+              dict(self.row(),asOf=iso(NOW+timedelta(seconds=1))),dict(self.row(),startsAt=iso(NOW)),
+              dict(self.row(),id='nba:other'),dict(self.row(),baselineForecastAt=iso(NOW+timedelta(seconds=1))),
+              dict(self.row(),baselineForecastAt=iso(NOW-timedelta(hours=4)))]
+        partial=self.row();partial['contexts']['away']['coverage']='partial';rows.append(partial)
+        for row in rows:
+            p=project(row,self.metadata(),NOW)
+            self.assertEqual(p['status'],'unavailable');self.assertIsNone(p['homeMargin']);self.assertIsNone(p['total'])
+        self.assertEqual(project(self.row(),dict(self.metadata(),trainedThrough=iso(NOW)),NOW)['status'],'unavailable')
+
+    def test_totals_require_a_separate_total_model_and_finite_changes(self):
+        p=project(self.row(),dict(self.metadata(),totalVersion='unsupported'),NOW)
+        self.assertEqual(p['homeMargin'],1.);self.assertIsNone(p['total'])
+        row=self.row();row['homeMarginChange']['listedOut']=float('nan')
+        self.assertIsNone(project(row,self.metadata(),NOW)['homeMargin'])
+        row=self.row();row['totalChange']['listedOut']=100.
+        self.assertIsNone(project(row,self.metadata(),NOW)['total'])
+
+    def test_margin_and_total_player_effects_are_independent(self):
+        m=model();m['totalCoefficients']={str(p):0. for p in range(1,7)};m['totalCoefficients']['1']=-4.
+        scenario=team_scenario(base(),[player('1')],m)
+        self.assertLess(scenario['points']['listedOut'],0.)
+        self.assertGreater(scenario['totalPoints']['listedOut'],0.)
+        b=base();b['minutes']={'1':0.,**{str(p):48. for p in range(2,7)}}
+        self.assertEqual(team_scenario(b,[player('1')],m)['totalPoints']['listedOut'],0.)
+
+    def test_total_evaluation_is_versioned_and_uses_actual_totals(self):
+        row=dict(self.row(),modelVersion=VERSION,totalModelVersion=TOTAL_VERSION,
+                 modelTrainedThrough=self.metadata()['trainedThrough'])
+        result=evaluate_history([row],{'nba:1':216.},total=True)
+        self.assertEqual(result['games'],1);self.assertEqual(result['baselineMae'],4.)
+        self.assertEqual(result['listedOutScenarioMae'],0.)
+        self.assertEqual(evaluate_history([dict(row,totalModelVersion='other')],{'nba:1':216.},total=True)['games'],0)
