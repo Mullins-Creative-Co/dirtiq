@@ -582,3 +582,35 @@ margin-only snapshots cannot become total observations. Both cohorts retain one-
 pregame cutoffs and identical-game baseline/market comparisons. Totals currently have
 zero graded prospective games. The original margin cohort has nine and does not yet
 improve MAE. A genuine historical injury backtest remains unavailable.
+
+
+## Offline NBA possession experiment (2026-11-20)
+
+`python3 -m dirtiq_model nba_lab audit|evaluate` reads explicitly provided team-box,
+schedule, rolling OOF and player-box caches. It writes only the requested research JSON
+(default `reports/nba-possession-study.json`) and ignored per-game detail CSVs. It never
+writes production sport reports, availability reports, cards, the ledger or bets.
+
+`nba_lab/data.py` audits pair identities, timestamps, final-score/stat reconciliation,
+periods and counts. Possession estimates use total team turnovers, not player-only
+turnovers; overtime pace is normalized to 48 minutes. Missing stats remain excluded,
+including almost all 2018 team boxes. Historical first-publication timestamps are not
+known, and the assumed eight-hour result lag cannot prove point-in-time vintages.
+Player files are audited separately; postgame participation is not an injury/lineup
+feature. Exact frozen input copies and checked hashes are retained locally under
+ignored `data/nba-possession-study/inputs/`.
+
+`nba_lab/model.py` creates opponent-adjusted efficiency/pace states with earlier-day,
+eight-hour-release batching, 15-game half-life and one half-carry per elapsed season.
+A single fixed ridge market-residual layer uses prior-only scaling; the preceding
+season supplies calibration, followed by rolling test seasons and a fixed 2025/2026
+quarantine. The new residual fit/calibration is frozen across the quarantine; its
+lagged states and existing independent OOF input can update from earlier completed
+results. It is not a claim that the underlying OOF models are jointly frozen.
+
+`nba_lab/evaluate.py` reports all same-game errors, date-cluster paired error/Brier
+intervals, probabilities/calibration, seasons and explicitly paper selections. The
+simple-total baseline is reconstructed on the audited history. Spread consensus
+prices may mix books/lines; totals have no side prices. Neither establishes named-book
+executable ROI. The fixed screen fails and this candidate is rejected; the failure
+stays in `docs/tested-hypotheses.json`. Protocol and findings are linked in BUILD_PLANS.

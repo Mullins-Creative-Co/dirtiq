@@ -1,0 +1,3058 @@
+{
+  "generatedAt": "2026-11-20T18:11:17.325075+00:00",
+  "asOf": "2026-11-20T05:00:00+00:00",
+  "protocol": "docs/nba-possession-protocol.md",
+  "modelVersion": "nba-possession-residual-v1",
+  "audit": {
+    "teamRows": 28810,
+    "scheduleRows": 15460,
+    "sources": [
+      {
+        "file": "nba-backtest-predictions.csv",
+        "sha256": "b9a36044c76c22a11bfbbc5891ed2f32fa4e3fca78c4837a4b9042dd35d308b2",
+        "bytes": 6707834,
+        "url": null,
+        "retrievedAt": null
+      },
+      {
+        "file": "team_box_2016.parquet",
+        "sha256": "a5bf9e3fab17f26fe34623b42688674f817df0a19a6026ee0728cae7e942917f",
+        "bytes": 145763,
+        "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_team_boxscores/team_box_2016.parquet",
+        "retrievedAt": "2026-11-20T18:04:26Z"
+      },
+      {
+        "file": "nba_schedule_2016.parquet",
+        "sha256": "a6b85196e5b70c8234d4d9143cc35880c57e3fb09c67684fc1e100633941d010",
+        "bytes": 89281,
+        "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_2016.parquet",
+        "retrievedAt": "2026-11-20T16:19:58Z"
+      },
+      {
+        "file": "team_box_2017.parquet",
+        "sha256": "c296120a0c98238ee23cc83d7ffe849e2ce87fcdd85a82721a24d3ca469783ea",
+        "bytes": 144516,
+        "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_team_boxscores/team_box_2017.parquet",
+        "retrievedAt": "2026-11-20T18:04:26Z"
+      },
+      {
+        "file": "nba_schedule_2017.parquet",
+        "sha256": "521a83601d18b7ea34dabba62e62cb9307aa7c6aca66e4a0e15ff7db55cf18a0",
+        "bytes": 89142,
+        "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_2017.parquet",
+        "retrievedAt": "2026-11-20T16:19:59Z"
+      },
+      {
+        "file": "team_box_2018.parquet",
+        "sha256": "9e58866f324bb49c880db4b57e323d0bb5c3d94f9006f55e63d5337cbbcdd4ca",
+        "bytes": 127967,
+        "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_team_boxscores/team_box_2018.parquet",
+        "retrievedAt": "2026-11-20T18:04:26Z"
+      },
+      {
+        "file": "nba_schedule_2018.parquet",
+        "sha256": "aa4be95197178146409679e75c5d4bd4fbccbc3497ac7c2de3b14acb32a32199",
+        "bytes": 88920,
+        "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_2018.parquet",
+        "retrievedAt": "2026-11-20T16:20:00Z"
+      },
+      {
+        "file": "team_box_2019.parquet",
+        "sha256": "3f3f15ccfd1f676e0aaf5bfbdb8fd5cd69f9a21a4961cd4f6337d857593c788a",
+        "bytes": 152257,
+        "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_team_boxscores/team_box_2019.parquet",
+        "retrievedAt": "2026-11-20T18:04:26Z"
+      },
+      {
+        "file": "nba_schedule_2019.parquet",
+        "sha256": "f00e6ac49c47ac34168f0b932fad74b0b17f03230b39e67eaf02424e3109eae3",
+        "bytes": 89329,
+        "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_2019.parquet",
+        "retrievedAt": "2026-11-20T16:20:00Z"
+      },
+      {
+        "file": "team_box_2020.parquet",
+        "sha256": "e96bec73056f08ce21bce63ca6d329fc1cf62d7229608d949bfce102df01b56a",
+        "bytes": 136914,
+        "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_team_boxscores/team_box_2020.parquet",
+        "retrievedAt": "2026-11-20T18:04:27Z"
+      },
+      {
+        "file": "nba_schedule_2020.parquet",
+        "sha256": "402485c4c3638838eade99aeba795bc0dda869c29089a5062baa28a34bd3b752",
+        "bytes": 137301,
+        "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_2020.parquet",
+        "retrievedAt": "2026-11-20T16:20:00Z"
+      },
+      {
+        "file": "team_box_2021.parquet",
+        "sha256": "56e59fe9062942933c708ae4ba2172ec4dda055de9c6a3409f0816ac363fdd58",
+        "bytes": 123317,
+        "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_team_boxscores/team_box_2021.parquet",
+        "retrievedAt": "2026-11-20T18:04:27Z"
+      },
+      {
+        "file": "nba_schedule_2021.parquet",
+        "sha256": "0c2eab5b22cc956646ac0351ddf6110d9527e46f4ee4d9200bf2945051688392",
+        "bytes": 130148,
+        "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_2021.parquet",
+        "retrievedAt": "2026-11-20T16:20:01Z"
+      },
+      {
+        "file": "team_box_2022.parquet",
+        "sha256": "f8185936836a81240d6f170ec7afeab47e3e736a718fe2c9f72999e681434b7f",
+        "bytes": 136075,
+        "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_team_boxscores/team_box_2022.parquet",
+        "retrievedAt": "2026-11-20T18:04:27Z"
+      },
+      {
+        "file": "nba_schedule_2022.parquet",
+        "sha256": "e3a764147f108c6fb3883eaa5617234ab41aa95e668dd7eb9506616c8a953d2f",
+        "bytes": 140437,
+        "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_2022.parquet",
+        "retrievedAt": "2026-11-20T16:20:01Z"
+      },
+      {
+        "file": "team_box_2023.parquet",
+        "sha256": "b86bb087fe57eeeacead4e27965a20d1e67fdb39a3ee2ca36294a0b7d014e9b6",
+        "bytes": 136082,
+        "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_team_boxscores/team_box_2023.parquet",
+        "retrievedAt": "2026-11-20T18:04:27Z"
+      },
+      {
+        "file": "nba_schedule_2023.parquet",
+        "sha256": "9532db81a254b2ea9982111fbea970bb61ea34b6aa3fc4607b2cad17ba55c60b",
+        "bytes": 138092,
+        "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_2023.parquet",
+        "retrievedAt": "2026-11-20T16:20:02Z"
+      },
+      {
+        "file": "team_box_2024.parquet",
+        "sha256": "5e4d1b7a2ccc287f212f65888dcd674e370adec8a0e32d7ae0825eecacaaa8a9",
+        "bytes": 135889,
+        "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_team_boxscores/team_box_2024.parquet",
+        "retrievedAt": "2026-11-20T18:04:27Z"
+      },
+      {
+        "file": "nba_schedule_2024.parquet",
+        "sha256": "2069783562b531b91ee9ad6a85358761ad6a611ce3291a60ed124bb978969b63",
+        "bytes": 143706,
+        "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_2024.parquet",
+        "retrievedAt": "2026-11-20T16:20:02Z"
+      },
+      {
+        "file": "team_box_2025.parquet",
+        "sha256": "f735bf3b743618e50987f3e3e296734e1dba43c450a21af848d7c34f23bf2aee",
+        "bytes": 136502,
+        "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_team_boxscores/team_box_2025.parquet",
+        "retrievedAt": "2026-11-20T18:04:27Z"
+      },
+      {
+        "file": "nba_schedule_2025.parquet",
+        "sha256": "239829fdcf99629ee682bca4d6d0a6709b3c095be39c39f425664754ae1a979e",
+        "bytes": 151821,
+        "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_2025.parquet",
+        "retrievedAt": "2026-11-20T16:20:03Z"
+      },
+      {
+        "file": "team_box_2026.parquet",
+        "sha256": "db846dfb39b0f75eee50ad91b1b5b7a7a62dd31d3ec0bb066a0a3bb08e366f7e",
+        "bytes": 140628,
+        "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_team_boxscores/team_box_2026.parquet",
+        "retrievedAt": "2026-11-20T18:04:27Z"
+      },
+      {
+        "file": "nba_schedule_2026.parquet",
+        "sha256": "b3884aa4aa276d1fcafc71b69394675904a968902068bff634932e5d7afacae4",
+        "bytes": 525802,
+        "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_2026.parquet",
+        "retrievedAt": "2026-11-20T16:20:03Z"
+      },
+      {
+        "file": "team_box_2027.parquet",
+        "sha256": "72654a4a1eca3a77b2688a31e9c26e44cde96751d029f77f86f7c54ab7651f24",
+        "bytes": 47387,
+        "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_team_boxscores/team_box_2027.parquet",
+        "retrievedAt": "2026-11-20T18:04:27Z"
+      },
+      {
+        "file": "nba_schedule_2027.parquet",
+        "sha256": "d9615ece03f6bedb431b4add8f342faa963aa9bd41417fe3fa98d13660bfad50",
+        "bytes": 164191,
+        "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_schedules/nba_schedule_2027.parquet",
+        "retrievedAt": "2026-11-20T16:20:04Z"
+      }
+    ],
+    "historicalFirstPublicationVerified": false,
+    "assumedReleaseDelayHours": 8,
+    "vintageLimitation": "Retrospectively downloaded files can contain later corrections. First publication timestamps are not verified.",
+    "exactDuplicateTeamRows": 0,
+    "conflictingDuplicateGames": 0,
+    "invalidStatRows": 2627,
+    "rowsWherePlayerAndTeamTurnoversDiffer": 15299,
+    "eligibleBySeason": {
+      "2016": 1317,
+      "2017": 1309,
+      "2018": 1,
+      "2019": 1314,
+      "2020": 1144,
+      "2021": 1166,
+      "2022": 1318,
+      "2023": 1315,
+      "2024": 1314,
+      "2025": 1314,
+      "2026": 1315,
+      "2027": 226
+    },
+    "eligibleGames": 13053,
+    "rejectedGames": {
+      "invalidCountsOrDuplicate": 1314,
+      "invalidPeriod": 7
+    },
+    "missingPairedBoxGames": 2,
+    "overtimeGames": 700,
+    "oofJoinConflicts": 0,
+    "invalidSpreadLines": 449,
+    "invalidTotalLines": 879,
+    "oofInputGames": 10385,
+    "joinedCompleteSeasonGames": 10192,
+    "firstStart": "2015-10-28T00:00:00+00:00",
+    "lastStart": "2026-11-20T01:00:00+00:00",
+    "playerData": {
+      "available": true,
+      "sources": [
+        {
+          "file": "player_box_2025.parquet",
+          "sha256": "e89f7fbc1124092c715b722e6d72d9dd1b9d28776ca6888b508fd2831cd705e2",
+          "bytes": 610289,
+          "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_player_boxscores/player_box_2025.parquet",
+          "retrievedAt": "2026-11-18T15:30:50Z"
+        },
+        {
+          "file": "player_box_2026.parquet",
+          "sha256": "29a29dc9efd055a93e069a0382ac830d98a13274bee655beba69d95cff099713",
+          "bytes": 606444,
+          "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_player_boxscores/player_box_2026.parquet",
+          "retrievedAt": "2026-11-18T15:30:50Z"
+        },
+        {
+          "file": "player_box_2027.parquet",
+          "sha256": "1570eefbef738bf4ea265433304ab9e8cc363d624e06923a80990cb8e0782b81",
+          "bytes": 140503,
+          "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_nba_player_boxscores/player_box_2027.parquet",
+          "retrievedAt": "2026-11-20T16:19:18Z"
+        }
+      ],
+      "playedRowsWithoutAthleteId": 0,
+      "duplicatePlayerRows": 0,
+      "matchedTeamGames": 5702,
+      "scoreSumMismatches": 7,
+      "minuteSumMismatchesOverOneMinute": 609,
+      "minuteSumMismatchesOverFiveMinutes": 8,
+      "minuteSumMismatchesOverTenMinutes": 5,
+      "announcedStarterOrHistoricalInjuryVerified": false,
+      "usedInCandidate": false,
+      "reason": "Participation is postgame evidence. Current injury snapshots cannot be backfilled into older games."
+    }
+  },
+  "promoted": false,
+  "comparisons": [
+    {
+      "market": "spread",
+      "mode": "rolling",
+      "pricedBrier": 0.25066383396644804,
+      "pricedBenchmarkBrier": 0.24984978595362,
+      "games": 6705,
+      "mae": 10.614712919000405,
+      "rmse": 13.632591995842233,
+      "marketMae": 10.603057419835944,
+      "maeDelta": 0.011655499164461326,
+      "maeDelta95": [
+        -0.00542,
+        0.02629
+      ],
+      "nonPushGames": 6646,
+      "brier": 0.25066383396644804,
+      "benchmarkBrier": 0.24984978595362,
+      "pairedPriceGames": 6646,
+      "logLoss": 0.694482282291292,
+      "archivedPriceSelections": {
+        "bets": 424,
+        "wins": 213,
+        "losses": 205,
+        "pushes": 6,
+        "coverRate": 0.5095693779904307,
+        "lower95": 0.4617762827432497,
+        "units": -11.57491327399794,
+        "roi": -0.027299323759429103,
+        "priceBasis": "archived reported side price; consensus may mix books; paper returns"
+      },
+      "assumedPriceSelections": {
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "pushes": 0,
+        "coverRate": null,
+        "lower95": null,
+        "units": 0.0,
+        "roi": null,
+        "priceBasis": "assumed -110 sensitivity; not executable ROI"
+      },
+      "currentModelMae": 11.049397368978521,
+      "deltaVersusCurrent": -0.4346844499781174,
+      "currentModelMaeDelta95": [
+        -0.51159,
+        -0.36032
+      ],
+      "brierDelta": 0.0008140480128279636,
+      "brierDelta95": [
+        0.0001,
+        0.0014
+      ],
+      "calibration": [
+        {
+          "lo": 0.0,
+          "hi": 0.1,
+          "n": 0,
+          "predicted": null,
+          "observed": null
+        },
+        {
+          "lo": 0.1,
+          "hi": 0.2,
+          "n": 0,
+          "predicted": null,
+          "observed": null
+        },
+        {
+          "lo": 0.2,
+          "hi": 0.3,
+          "n": 0,
+          "predicted": null,
+          "observed": null
+        },
+        {
+          "lo": 0.3,
+          "hi": 0.4,
+          "n": 11,
+          "predicted": 0.38826651799053946,
+          "observed": 0.36363636363636365
+        },
+        {
+          "lo": 0.4,
+          "hi": 0.5,
+          "n": 3959,
+          "predicted": 0.4810919707046571,
+          "observed": 0.5016418287446325
+        },
+        {
+          "lo": 0.5,
+          "hi": 0.6,
+          "n": 2665,
+          "predicted": 0.5164402872462122,
+          "observed": 0.49530956848030017
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.7,
+          "n": 11,
+          "predicted": 0.6181837425651193,
+          "observed": 0.6363636363636364
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.8,
+          "n": 0,
+          "predicted": null,
+          "observed": null
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.9,
+          "n": 0,
+          "predicted": null,
+          "observed": null
+        },
+        {
+          "lo": 0.9,
+          "hi": 1.0,
+          "n": 0,
+          "predicted": null,
+          "observed": null
+        }
+      ],
+      "bySeason": [
+        {
+          "season": 2021,
+          "pricedBrier": 0.25113987183066216,
+          "pricedBenchmarkBrier": 0.24999782199355913,
+          "games": 953,
+          "mae": 10.825079264234164,
+          "rmse": 13.68825430970294,
+          "marketMae": 10.802203567681007,
+          "maeDelta": 0.022875696553157063,
+          "maeDelta95": [
+            -0.06199,
+            0.09918
+          ],
+          "nonPushGames": 942,
+          "brier": 0.25113987183066216,
+          "benchmarkBrier": 0.24999782199355913,
+          "pairedPriceGames": 942,
+          "logLoss": 0.6954661487180052,
+          "archivedPriceSelections": {
+            "bets": 265,
+            "wins": 133,
+            "losses": 129,
+            "pushes": 3,
+            "coverRate": 0.5076335877862596,
+            "lower95": 0.4474246270666159,
+            "units": -8.13099702573387,
+            "roi": -0.030683007644278757,
+            "priceBasis": "archived reported side price; consensus may mix books; paper returns"
+          },
+          "assumedPriceSelections": {
+            "bets": 0,
+            "wins": 0,
+            "losses": 0,
+            "pushes": 0,
+            "coverRate": null,
+            "lower95": null,
+            "units": 0.0,
+            "roi": null,
+            "priceBasis": "assumed -110 sensitivity; not executable ROI"
+          },
+          "currentModelMae": 11.331680339367027,
+          "deltaVersusCurrent": -0.5066010751328622,
+          "currentModelMaeDelta95": [
+            -0.72035,
+            -0.30421
+          ],
+          "brierDelta": 0.001142049837103057,
+          "brierDelta95": [
+            -0.00181,
+            0.00382
+          ],
+          "calibration": [
+            {
+              "lo": 0.0,
+              "hi": 0.1,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.1,
+              "hi": 0.2,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.2,
+              "hi": 0.3,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.3,
+              "hi": 0.4,
+              "n": 4,
+              "predicted": 0.39607590659523534,
+              "observed": 0.5
+            },
+            {
+              "lo": 0.4,
+              "hi": 0.5,
+              "n": 466,
+              "predicted": 0.46503182494313894,
+              "observed": 0.4957081545064378
+            },
+            {
+              "lo": 0.5,
+              "hi": 0.6,
+              "n": 461,
+              "predicted": 0.5338062859528574,
+              "observed": 0.49891540130151846
+            },
+            {
+              "lo": 0.6,
+              "hi": 0.7,
+              "n": 11,
+              "predicted": 0.6181837425651193,
+              "observed": 0.6363636363636364
+            },
+            {
+              "lo": 0.7,
+              "hi": 0.8,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.8,
+              "hi": 0.9,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.9,
+              "hi": 1.0,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            }
+          ]
+        },
+        {
+          "season": 2022,
+          "pricedBrier": 0.2503418794342595,
+          "pricedBenchmarkBrier": 0.25006269833223976,
+          "games": 1098,
+          "mae": 10.659368722680508,
+          "rmse": 13.705256899367484,
+          "marketMae": 10.645264116575593,
+          "maeDelta": 0.014104606104916744,
+          "maeDelta95": [
+            -0.02262,
+            0.04612
+          ],
+          "nonPushGames": 1082,
+          "brier": 0.2503418794342595,
+          "benchmarkBrier": 0.25006269833223976,
+          "pairedPriceGames": 1082,
+          "logLoss": 0.6938332179524721,
+          "archivedPriceSelections": {
+            "bets": 2,
+            "wins": 0,
+            "losses": 2,
+            "pushes": 0,
+            "coverRate": 0.0,
+            "lower95": 0.0,
+            "units": -2.0,
+            "roi": -1.0,
+            "priceBasis": "archived reported side price; consensus may mix books; paper returns"
+          },
+          "assumedPriceSelections": {
+            "bets": 0,
+            "wins": 0,
+            "losses": 0,
+            "pushes": 0,
+            "coverRate": null,
+            "lower95": null,
+            "units": 0.0,
+            "roi": null,
+            "priceBasis": "assumed -110 sensitivity; not executable ROI"
+          },
+          "currentModelMae": 11.149457514033303,
+          "deltaVersusCurrent": -0.4900887913527935,
+          "currentModelMaeDelta95": [
+            -0.70214,
+            -0.29212
+          ],
+          "brierDelta": 0.0002791811020197547,
+          "brierDelta95": [
+            -0.00081,
+            0.00111
+          ],
+          "calibration": [
+            {
+              "lo": 0.0,
+              "hi": 0.1,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.1,
+              "hi": 0.2,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.2,
+              "hi": 0.3,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.3,
+              "hi": 0.4,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.4,
+              "hi": 0.5,
+              "n": 573,
+              "predicted": 0.4851198364757526,
+              "observed": 0.4816753926701571
+            },
+            {
+              "lo": 0.5,
+              "hi": 0.6,
+              "n": 509,
+              "predicted": 0.5117760268344098,
+              "observed": 0.47347740667976423
+            },
+            {
+              "lo": 0.6,
+              "hi": 0.7,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.7,
+              "hi": 0.8,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.8,
+              "hi": 0.9,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.9,
+              "hi": 1.0,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            }
+          ]
+        },
+        {
+          "season": 2023,
+          "pricedBrier": 0.25156902083893035,
+          "pricedBenchmarkBrier": 0.24999098335984246,
+          "games": 1067,
+          "mae": 9.842926336226448,
+          "rmse": 12.621434575670994,
+          "marketMae": 9.826616682286785,
+          "maeDelta": 0.016309653939661148,
+          "maeDelta95": [
+            -0.01382,
+            0.04392
+          ],
+          "nonPushGames": 1047,
+          "brier": 0.25156902083893035,
+          "benchmarkBrier": 0.24999098335984246,
+          "pairedPriceGames": 1047,
+          "logLoss": 0.6962925837556425,
+          "archivedPriceSelections": {
+            "bets": 144,
+            "wins": 76,
+            "losses": 65,
+            "pushes": 3,
+            "coverRate": 0.5390070921985816,
+            "lower95": 0.4567850400524269,
+            "units": 4.074529074529076,
+            "roi": 0.02829534079534081,
+            "priceBasis": "archived reported side price; consensus may mix books; paper returns"
+          },
+          "assumedPriceSelections": {
+            "bets": 0,
+            "wins": 0,
+            "losses": 0,
+            "pushes": 0,
+            "coverRate": null,
+            "lower95": null,
+            "units": 0.0,
+            "roi": null,
+            "priceBasis": "assumed -110 sensitivity; not executable ROI"
+          },
+          "currentModelMae": 10.309602250611956,
+          "deltaVersusCurrent": -0.46667591438550793,
+          "currentModelMaeDelta95": [
+            -0.65377,
+            -0.28517
+          ],
+          "brierDelta": 0.0015780374790878994,
+          "brierDelta95": [
+            -0.00097,
+            0.00393
+          ],
+          "calibration": [
+            {
+              "lo": 0.0,
+              "hi": 0.1,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.1,
+              "hi": 0.2,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.2,
+              "hi": 0.3,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.3,
+              "hi": 0.4,
+              "n": 1,
+              "predicted": 0.37067395264116576,
+              "observed": 0.0
+            },
+            {
+              "lo": 0.4,
+              "hi": 0.5,
+              "n": 970,
+              "predicted": 0.46733390158690996,
+              "observed": 0.5010309278350515
+            },
+            {
+              "lo": 0.5,
+              "hi": 0.6,
+              "n": 76,
+              "predicted": 0.5092722183059596,
+              "observed": 0.5263157894736842
+            },
+            {
+              "lo": 0.6,
+              "hi": 0.7,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.7,
+              "hi": 0.8,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.8,
+              "hi": 0.9,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.9,
+              "hi": 1.0,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            }
+          ]
+        },
+        {
+          "season": 2024,
+          "pricedBrier": 0.2503512568540893,
+          "pricedBenchmarkBrier": 0.24980364962669546,
+          "games": 959,
+          "mae": 10.637519223402307,
+          "rmse": 13.854864623243248,
+          "marketMae": 10.633993743482794,
+          "maeDelta": 0.0035254799195116398,
+          "maeDelta95": [
+            -0.02741,
+            0.02984
+          ],
+          "nonPushGames": 949,
+          "brier": 0.2503512568540893,
+          "benchmarkBrier": 0.24980364962669546,
+          "pairedPriceGames": 949,
+          "logLoss": 0.6938529269205058,
+          "archivedPriceSelections": {
+            "bets": 3,
+            "wins": 0,
+            "losses": 3,
+            "pushes": 0,
+            "coverRate": 0.0,
+            "lower95": 0.0,
+            "units": -3.0,
+            "roi": -1.0,
+            "priceBasis": "archived reported side price; consensus may mix books; paper returns"
+          },
+          "assumedPriceSelections": {
+            "bets": 0,
+            "wins": 0,
+            "losses": 0,
+            "pushes": 0,
+            "coverRate": null,
+            "lower95": null,
+            "units": 0.0,
+            "roi": null,
+            "priceBasis": "assumed -110 sensitivity; not executable ROI"
+          },
+          "currentModelMae": 10.974653915218015,
+          "deltaVersusCurrent": -0.33713469181570993,
+          "currentModelMaeDelta95": [
+            -0.5551,
+            -0.12553
+          ],
+          "brierDelta": 0.0005476072273938125,
+          "brierDelta95": [
+            -0.00057,
+            0.00165
+          ],
+          "calibration": [
+            {
+              "lo": 0.0,
+              "hi": 0.1,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.1,
+              "hi": 0.2,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.2,
+              "hi": 0.3,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.3,
+              "hi": 0.4,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.4,
+              "hi": 0.5,
+              "n": 260,
+              "predicted": 0.48920970823956195,
+              "observed": 0.4846153846153846
+            },
+            {
+              "lo": 0.5,
+              "hi": 0.6,
+              "n": 689,
+              "predicted": 0.5160433536349828,
+              "observed": 0.49782293178519593
+            },
+            {
+              "lo": 0.6,
+              "hi": 0.7,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.7,
+              "hi": 0.8,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.8,
+              "hi": 0.9,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.9,
+              "hi": 1.0,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            }
+          ]
+        },
+        {
+          "season": 2025,
+          "pricedBrier": 0.25004056901073585,
+          "pricedBenchmarkBrier": 0.24956044265352315,
+          "games": 1313,
+          "mae": 10.627327724590112,
+          "rmse": 13.71591521545555,
+          "marketMae": 10.632520944402133,
+          "maeDelta": -0.0051932198120224,
+          "maeDelta95": [
+            -0.03325,
+            0.01964
+          ],
+          "nonPushGames": 1313,
+          "brier": 0.25004056901073585,
+          "benchmarkBrier": 0.24956044265352315,
+          "pairedPriceGames": 1313,
+          "logLoss": 0.6932255140897293,
+          "archivedPriceSelections": {
+            "bets": 6,
+            "wins": 4,
+            "losses": 2,
+            "pushes": 0,
+            "coverRate": 0.6666666666666666,
+            "lower95": 0.2999883213415286,
+            "units": 1.481554677206851,
+            "roi": 0.24692577953447517,
+            "priceBasis": "archived reported side price; consensus may mix books; paper returns"
+          },
+          "assumedPriceSelections": {
+            "bets": 0,
+            "wins": 0,
+            "losses": 0,
+            "pushes": 0,
+            "coverRate": null,
+            "lower95": null,
+            "units": 0.0,
+            "roi": null,
+            "priceBasis": "assumed -110 sensitivity; not executable ROI"
+          },
+          "currentModelMae": 11.072619026470122,
+          "deltaVersusCurrent": -0.4452913018800122,
+          "currentModelMaeDelta95": [
+            -0.63115,
+            -0.2779
+          ],
+          "brierDelta": 0.00048012635721264764,
+          "brierDelta95": [
+            -0.00059,
+            0.00149
+          ],
+          "calibration": [
+            {
+              "lo": 0.0,
+              "hi": 0.1,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.1,
+              "hi": 0.2,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.2,
+              "hi": 0.3,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.3,
+              "hi": 0.4,
+              "n": 6,
+              "predicted": 0.3859923531456378,
+              "observed": 0.3333333333333333
+            },
+            {
+              "lo": 0.4,
+              "hi": 0.5,
+              "n": 1037,
+              "predicted": 0.4892361156500412,
+              "observed": 0.502410800385728
+            },
+            {
+              "lo": 0.5,
+              "hi": 0.6,
+              "n": 270,
+              "predicted": 0.5093847758081335,
+              "observed": 0.5
+            },
+            {
+              "lo": 0.6,
+              "hi": 0.7,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.7,
+              "hi": 0.8,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.8,
+              "hi": 0.9,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.9,
+              "hi": 1.0,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            }
+          ]
+        },
+        {
+          "season": 2026,
+          "pricedBrier": 0.2507149985107951,
+          "pricedBenchmarkBrier": 0.24977822182542098,
+          "games": 1315,
+          "mae": 11.021975731708068,
+          "rmse": 14.067557546275134,
+          "marketMae": 11.001520912547528,
+          "maeDelta": 0.020454819160540854,
+          "maeDelta95": [
+            0.00047,
+            0.03962
+          ],
+          "nonPushGames": 1313,
+          "brier": 0.2507149985107951,
+          "benchmarkBrier": 0.24977822182542098,
+          "pairedPriceGames": 1313,
+          "logLoss": 0.6945793841214464,
+          "archivedPriceSelections": {
+            "bets": 4,
+            "wins": 0,
+            "losses": 4,
+            "pushes": 0,
+            "coverRate": 0.0,
+            "lower95": 0.0,
+            "units": -4.0,
+            "roi": -1.0,
+            "priceBasis": "archived reported side price; consensus may mix books; paper returns"
+          },
+          "assumedPriceSelections": {
+            "bets": 0,
+            "wins": 0,
+            "losses": 0,
+            "pushes": 0,
+            "coverRate": null,
+            "lower95": null,
+            "units": 0.0,
+            "roi": null,
+            "priceBasis": "assumed -110 sensitivity; not executable ROI"
+          },
+          "currentModelMae": 11.39287160252726,
+          "deltaVersusCurrent": -0.3708958708191886,
+          "currentModelMaeDelta95": [
+            -0.57815,
+            -0.16596
+          ],
+          "brierDelta": 0.0009367766853741256,
+          "brierDelta95": [
+            -4e-05,
+            0.00184
+          ],
+          "calibration": [
+            {
+              "lo": 0.0,
+              "hi": 0.1,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.1,
+              "hi": 0.2,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.2,
+              "hi": 0.3,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.3,
+              "hi": 0.4,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.4,
+              "hi": 0.5,
+              "n": 653,
+              "predicted": 0.49328997654662615,
+              "observed": 0.5298621745788668
+            },
+            {
+              "lo": 0.5,
+              "hi": 0.6,
+              "n": 660,
+              "predicted": 0.5120336686579116,
+              "observed": 0.5015151515151515
+            },
+            {
+              "lo": 0.6,
+              "hi": 0.7,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.7,
+              "hi": 0.8,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.8,
+              "hi": 0.9,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.9,
+              "hi": 1.0,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "market": "spread",
+      "mode": "strict-2025-2026",
+      "pricedBrier": 0.2506008567500226,
+      "pricedBenchmarkBrier": 0.24966933223947205,
+      "games": 2628,
+      "mae": 10.830073854581105,
+      "rmse": 13.896046764994265,
+      "marketMae": 10.817161339421613,
+      "maeDelta": 0.012912515159492734,
+      "maeDelta95": [
+        -0.00412,
+        0.03037
+      ],
+      "nonPushGames": 2626,
+      "brier": 0.2506008567500226,
+      "benchmarkBrier": 0.24966933223947205,
+      "pairedPriceGames": 2626,
+      "logLoss": 0.6943529157922051,
+      "archivedPriceSelections": {
+        "bets": 12,
+        "wins": 6,
+        "losses": 6,
+        "pushes": 0,
+        "coverRate": 0.5,
+        "lower95": 0.2537781703934222,
+        "units": -0.6964991530208922,
+        "roi": -0.058041596085074344,
+        "priceBasis": "archived reported side price; consensus may mix books; paper returns"
+      },
+      "assumedPriceSelections": {
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "pushes": 0,
+        "coverRate": null,
+        "lower95": null,
+        "units": 0.0,
+        "roi": null,
+        "priceBasis": "assumed -110 sensitivity; not executable ROI"
+      },
+      "currentModelMae": 11.232867176209519,
+      "deltaVersusCurrent": -0.4027933216284125,
+      "currentModelMaeDelta95": [
+        -0.51997,
+        -0.28358
+      ],
+      "brierDelta": 0.0009315245105504499,
+      "brierDelta95": [
+        0.00027,
+        0.00163
+      ],
+      "calibration": [
+        {
+          "lo": 0.0,
+          "hi": 0.1,
+          "n": 0,
+          "predicted": null,
+          "observed": null
+        },
+        {
+          "lo": 0.1,
+          "hi": 0.2,
+          "n": 0,
+          "predicted": null,
+          "observed": null
+        },
+        {
+          "lo": 0.2,
+          "hi": 0.3,
+          "n": 0,
+          "predicted": null,
+          "observed": null
+        },
+        {
+          "lo": 0.3,
+          "hi": 0.4,
+          "n": 12,
+          "predicted": 0.38607924921793524,
+          "observed": 0.5
+        },
+        {
+          "lo": 0.4,
+          "hi": 0.5,
+          "n": 2071,
+          "predicted": 0.48956468676304393,
+          "observed": 0.5118300338000966
+        },
+        {
+          "lo": 0.5,
+          "hi": 0.6,
+          "n": 543,
+          "predicted": 0.5098764169700959,
+          "observed": 0.4953959484346225
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.7,
+          "n": 0,
+          "predicted": null,
+          "observed": null
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.8,
+          "n": 0,
+          "predicted": null,
+          "observed": null
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.9,
+          "n": 0,
+          "predicted": null,
+          "observed": null
+        },
+        {
+          "lo": 0.9,
+          "hi": 1.0,
+          "n": 0,
+          "predicted": null,
+          "observed": null
+        }
+      ],
+      "bySeason": [
+        {
+          "season": 2025,
+          "pricedBrier": 0.25004056901073585,
+          "pricedBenchmarkBrier": 0.24956044265352315,
+          "games": 1313,
+          "mae": 10.627327724590112,
+          "rmse": 13.71591521545555,
+          "marketMae": 10.632520944402133,
+          "maeDelta": -0.0051932198120224,
+          "maeDelta95": [
+            -0.03325,
+            0.01964
+          ],
+          "nonPushGames": 1313,
+          "brier": 0.25004056901073585,
+          "benchmarkBrier": 0.24956044265352315,
+          "pairedPriceGames": 1313,
+          "logLoss": 0.6932255140897293,
+          "archivedPriceSelections": {
+            "bets": 6,
+            "wins": 4,
+            "losses": 2,
+            "pushes": 0,
+            "coverRate": 0.6666666666666666,
+            "lower95": 0.2999883213415286,
+            "units": 1.481554677206851,
+            "roi": 0.24692577953447517,
+            "priceBasis": "archived reported side price; consensus may mix books; paper returns"
+          },
+          "assumedPriceSelections": {
+            "bets": 0,
+            "wins": 0,
+            "losses": 0,
+            "pushes": 0,
+            "coverRate": null,
+            "lower95": null,
+            "units": 0.0,
+            "roi": null,
+            "priceBasis": "assumed -110 sensitivity; not executable ROI"
+          },
+          "currentModelMae": 11.072619026470122,
+          "deltaVersusCurrent": -0.4452913018800122,
+          "currentModelMaeDelta95": [
+            -0.63115,
+            -0.2779
+          ],
+          "brierDelta": 0.00048012635721264764,
+          "brierDelta95": [
+            -0.00059,
+            0.00149
+          ],
+          "calibration": [
+            {
+              "lo": 0.0,
+              "hi": 0.1,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.1,
+              "hi": 0.2,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.2,
+              "hi": 0.3,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.3,
+              "hi": 0.4,
+              "n": 6,
+              "predicted": 0.3859923531456378,
+              "observed": 0.3333333333333333
+            },
+            {
+              "lo": 0.4,
+              "hi": 0.5,
+              "n": 1037,
+              "predicted": 0.4892361156500412,
+              "observed": 0.502410800385728
+            },
+            {
+              "lo": 0.5,
+              "hi": 0.6,
+              "n": 270,
+              "predicted": 0.5093847758081335,
+              "observed": 0.5
+            },
+            {
+              "lo": 0.6,
+              "hi": 0.7,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.7,
+              "hi": 0.8,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.8,
+              "hi": 0.9,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.9,
+              "hi": 1.0,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            }
+          ]
+        },
+        {
+          "season": 2026,
+          "pricedBrier": 0.2511611444893092,
+          "pricedBenchmarkBrier": 0.24977822182542098,
+          "games": 1315,
+          "mae": 11.032511625439037,
+          "rmse": 14.073604246939675,
+          "marketMae": 11.001520912547528,
+          "maeDelta": 0.030990712891507472,
+          "maeDelta95": [
+            0.0086,
+            0.05515
+          ],
+          "nonPushGames": 1313,
+          "brier": 0.2511611444893092,
+          "benchmarkBrier": 0.24977822182542098,
+          "pairedPriceGames": 1313,
+          "logLoss": 0.695480317494681,
+          "archivedPriceSelections": {
+            "bets": 6,
+            "wins": 2,
+            "losses": 4,
+            "pushes": 0,
+            "coverRate": 0.3333333333333333,
+            "lower95": 0.09676933255921684,
+            "units": -2.1780538302277432,
+            "roi": -0.3630089717046239,
+            "priceBasis": "archived reported side price; consensus may mix books; paper returns"
+          },
+          "assumedPriceSelections": {
+            "bets": 0,
+            "wins": 0,
+            "losses": 0,
+            "pushes": 0,
+            "coverRate": null,
+            "lower95": null,
+            "units": 0.0,
+            "roi": null,
+            "priceBasis": "assumed -110 sensitivity; not executable ROI"
+          },
+          "currentModelMae": 11.39287160252726,
+          "deltaVersusCurrent": -0.36035997708822204,
+          "currentModelMaeDelta95": [
+            -0.5565,
+            -0.16588
+          ],
+          "brierDelta": 0.0013829226638882523,
+          "brierDelta95": [
+            0.00046,
+            0.00233
+          ],
+          "calibration": [
+            {
+              "lo": 0.0,
+              "hi": 0.1,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.1,
+              "hi": 0.2,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.2,
+              "hi": 0.3,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.3,
+              "hi": 0.4,
+              "n": 6,
+              "predicted": 0.3861661452902329,
+              "observed": 0.6666666666666666
+            },
+            {
+              "lo": 0.4,
+              "hi": 0.5,
+              "n": 1034,
+              "predicted": 0.4898942111771482,
+              "observed": 0.5212765957446809
+            },
+            {
+              "lo": 0.5,
+              "hi": 0.6,
+              "n": 273,
+              "predicted": 0.5103626554819267,
+              "observed": 0.4908424908424908
+            },
+            {
+              "lo": 0.6,
+              "hi": 0.7,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.7,
+              "hi": 0.8,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.8,
+              "hi": 0.9,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.9,
+              "hi": 1.0,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "market": "total",
+      "mode": "rolling",
+      "pricedBrier": null,
+      "pricedBenchmarkBrier": null,
+      "games": 6705,
+      "mae": 14.24788474950929,
+      "rmse": 17.99551036222983,
+      "marketMae": 14.193363161819537,
+      "maeDelta": 0.054521587689750815,
+      "maeDelta95": [
+        0.02709,
+        0.08634
+      ],
+      "nonPushGames": 6659,
+      "brier": 0.2512205073465623,
+      "benchmarkBrier": 0.25,
+      "pairedPriceGames": 0,
+      "logLoss": 0.6956177200423657,
+      "archivedPriceSelections": {
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "pushes": 0,
+        "coverRate": null,
+        "lower95": null,
+        "units": 0.0,
+        "roi": null,
+        "priceBasis": "archived reported side price; consensus may mix books; paper returns"
+      },
+      "assumedPriceSelections": {
+        "bets": 726,
+        "wins": 356,
+        "losses": 364,
+        "pushes": 6,
+        "coverRate": 0.49444444444444446,
+        "lower95": 0.45805076767863906,
+        "units": -40.36363636363636,
+        "roi": -0.05559729526671675,
+        "priceBasis": "assumed -110 sensitivity; not executable ROI"
+      },
+      "currentModelMae": 14.781131805358289,
+      "deltaVersusCurrent": -0.5332470558490009,
+      "currentModelMaeDelta95": [
+        -0.65654,
+        -0.4176
+      ],
+      "brierDelta": 0.0012205073465623205,
+      "brierDelta95": [
+        0.00052,
+        0.00198
+      ],
+      "calibration": [
+        {
+          "lo": 0.0,
+          "hi": 0.1,
+          "n": 0,
+          "predicted": null,
+          "observed": null
+        },
+        {
+          "lo": 0.1,
+          "hi": 0.2,
+          "n": 0,
+          "predicted": null,
+          "observed": null
+        },
+        {
+          "lo": 0.2,
+          "hi": 0.3,
+          "n": 4,
+          "predicted": 0.28563470652437983,
+          "observed": 0.25
+        },
+        {
+          "lo": 0.3,
+          "hi": 0.4,
+          "n": 27,
+          "predicted": 0.3604403963274506,
+          "observed": 0.5555555555555556
+        },
+        {
+          "lo": 0.4,
+          "hi": 0.5,
+          "n": 2485,
+          "predicted": 0.47522523014173457,
+          "observed": 0.5098591549295775
+        },
+        {
+          "lo": 0.5,
+          "hi": 0.6,
+          "n": 4139,
+          "predicted": 0.5248643399378675,
+          "observed": 0.5003624063783523
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.7,
+          "n": 3,
+          "predicted": 0.6475029548319933,
+          "observed": 0.6666666666666666
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.8,
+          "n": 1,
+          "predicted": 0.7017167381974249,
+          "observed": 0.0
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.9,
+          "n": 0,
+          "predicted": null,
+          "observed": null
+        },
+        {
+          "lo": 0.9,
+          "hi": 1.0,
+          "n": 0,
+          "predicted": null,
+          "observed": null
+        }
+      ],
+      "bySeason": [
+        {
+          "season": 2021,
+          "pricedBrier": null,
+          "pricedBenchmarkBrier": null,
+          "games": 953,
+          "mae": 14.327151852232683,
+          "rmse": 18.18783953025601,
+          "marketMae": 14.258656873032528,
+          "maeDelta": 0.06849497920015493,
+          "maeDelta95": [
+            -0.00939,
+            0.15557
+          ],
+          "nonPushGames": 947,
+          "brier": 0.2510749650097786,
+          "benchmarkBrier": 0.25,
+          "pairedPriceGames": 0,
+          "logLoss": 0.6953294581767536,
+          "archivedPriceSelections": {
+            "bets": 0,
+            "wins": 0,
+            "losses": 0,
+            "pushes": 0,
+            "coverRate": null,
+            "lower95": null,
+            "units": 0.0,
+            "roi": null,
+            "priceBasis": "archived reported side price; consensus may mix books; paper returns"
+          },
+          "assumedPriceSelections": {
+            "bets": 117,
+            "wins": 54,
+            "losses": 62,
+            "pushes": 1,
+            "coverRate": 0.46551724137931033,
+            "lower95": 0.37730845831344373,
+            "units": -12.90909090909091,
+            "roi": -0.11033411033411034,
+            "priceBasis": "assumed -110 sensitivity; not executable ROI"
+          },
+          "currentModelMae": 14.777557198154994,
+          "deltaVersusCurrent": -0.45040534592231113,
+          "currentModelMaeDelta95": [
+            -0.68354,
+            -0.19025
+          ],
+          "brierDelta": 0.001074965009778616,
+          "brierDelta95": [
+            -0.0006,
+            0.00301
+          ],
+          "calibration": [
+            {
+              "lo": 0.0,
+              "hi": 0.1,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.1,
+              "hi": 0.2,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.2,
+              "hi": 0.3,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.3,
+              "hi": 0.4,
+              "n": 2,
+              "predicted": 0.38306010928961753,
+              "observed": 1.0
+            },
+            {
+              "lo": 0.4,
+              "hi": 0.5,
+              "n": 387,
+              "predicted": 0.48022913799023687,
+              "observed": 0.4780361757105943
+            },
+            {
+              "lo": 0.5,
+              "hi": 0.6,
+              "n": 556,
+              "predicted": 0.5256661869016622,
+              "observed": 0.49640287769784175
+            },
+            {
+              "lo": 0.6,
+              "hi": 0.7,
+              "n": 2,
+              "predicted": 0.6368458300974522,
+              "observed": 0.5
+            },
+            {
+              "lo": 0.7,
+              "hi": 0.8,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.8,
+              "hi": 0.9,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.9,
+              "hi": 1.0,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            }
+          ]
+        },
+        {
+          "season": 2022,
+          "pricedBrier": null,
+          "pricedBenchmarkBrier": null,
+          "games": 1098,
+          "mae": 14.24497685478552,
+          "rmse": 17.966745202954332,
+          "marketMae": 14.160291438979964,
+          "maeDelta": 0.084685415805556,
+          "maeDelta95": [
+            -0.03692,
+            0.2022
+          ],
+          "nonPushGames": 1080,
+          "brier": 0.2506109354137742,
+          "benchmarkBrier": 0.25,
+          "pairedPriceGames": 0,
+          "logLoss": 0.6944559065976239,
+          "archivedPriceSelections": {
+            "bets": 0,
+            "wins": 0,
+            "losses": 0,
+            "pushes": 0,
+            "coverRate": null,
+            "lower95": null,
+            "units": 0.0,
+            "roi": null,
+            "priceBasis": "archived reported side price; consensus may mix books; paper returns"
+          },
+          "assumedPriceSelections": {
+            "bets": 215,
+            "wins": 107,
+            "losses": 105,
+            "pushes": 3,
+            "coverRate": 0.5047169811320755,
+            "lower95": 0.43793092567533065,
+            "units": -7.727272727272732,
+            "roi": -0.035940803382663866,
+            "priceBasis": "assumed -110 sensitivity; not executable ROI"
+          },
+          "currentModelMae": 14.712367801511343,
+          "deltaVersusCurrent": -0.467390946725824,
+          "currentModelMaeDelta95": [
+            -0.78908,
+            -0.15622
+          ],
+          "brierDelta": 0.0006109354137741607,
+          "brierDelta95": [
+            -0.00212,
+            0.00327
+          ],
+          "calibration": [
+            {
+              "lo": 0.0,
+              "hi": 0.1,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.1,
+              "hi": 0.2,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.2,
+              "hi": 0.3,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.3,
+              "hi": 0.4,
+              "n": 13,
+              "predicted": 0.3727353163202501,
+              "observed": 0.46153846153846156
+            },
+            {
+              "lo": 0.4,
+              "hi": 0.5,
+              "n": 745,
+              "predicted": 0.468094239740653,
+              "observed": 0.48322147651006714
+            },
+            {
+              "lo": 0.5,
+              "hi": 0.6,
+              "n": 320,
+              "predicted": 0.5231388216314825,
+              "observed": 0.5125
+            },
+            {
+              "lo": 0.6,
+              "hi": 0.7,
+              "n": 1,
+              "predicted": 0.6688172043010753,
+              "observed": 1.0
+            },
+            {
+              "lo": 0.7,
+              "hi": 0.8,
+              "n": 1,
+              "predicted": 0.7017167381974249,
+              "observed": 0.0
+            },
+            {
+              "lo": 0.8,
+              "hi": 0.9,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.9,
+              "hi": 1.0,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            }
+          ]
+        },
+        {
+          "season": 2023,
+          "pricedBrier": null,
+          "pricedBenchmarkBrier": null,
+          "games": 1067,
+          "mae": 14.268642358441266,
+          "rmse": 18.430589489744428,
+          "marketMae": 14.19821930646673,
+          "maeDelta": 0.07042305197453877,
+          "maeDelta95": [
+            0.01878,
+            0.11859
+          ],
+          "nonPushGames": 1051,
+          "brier": 0.2517770369001615,
+          "benchmarkBrier": 0.25,
+          "pairedPriceGames": 0,
+          "logLoss": 0.6966959542797381,
+          "archivedPriceSelections": {
+            "bets": 0,
+            "wins": 0,
+            "losses": 0,
+            "pushes": 0,
+            "coverRate": null,
+            "lower95": null,
+            "units": 0.0,
+            "roi": null,
+            "priceBasis": "archived reported side price; consensus may mix books; paper returns"
+          },
+          "assumedPriceSelections": {
+            "bets": 57,
+            "wins": 31,
+            "losses": 26,
+            "pushes": 0,
+            "coverRate": 0.543859649122807,
+            "lower95": 0.4159046083127224,
+            "units": 2.1818181818181808,
+            "roi": 0.03827751196172247,
+            "priceBasis": "assumed -110 sensitivity; not executable ROI"
+          },
+          "currentModelMae": 14.696840119409444,
+          "deltaVersusCurrent": -0.42819776096817574,
+          "currentModelMaeDelta95": [
+            -0.71002,
+            -0.17361
+          ],
+          "brierDelta": 0.0017770369001615335,
+          "brierDelta95": [
+            0.00022,
+            0.00304
+          ],
+          "calibration": [
+            {
+              "lo": 0.0,
+              "hi": 0.1,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.1,
+              "hi": 0.2,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.2,
+              "hi": 0.3,
+              "n": 1,
+              "predicted": 0.2978142076502732,
+              "observed": 0.0
+            },
+            {
+              "lo": 0.3,
+              "hi": 0.4,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.4,
+              "hi": 0.5,
+              "n": 657,
+              "predicted": 0.478958080852825,
+              "observed": 0.5220700152207002
+            },
+            {
+              "lo": 0.5,
+              "hi": 0.6,
+              "n": 393,
+              "predicted": 0.5161398996911535,
+              "observed": 0.47837150127226463
+            },
+            {
+              "lo": 0.6,
+              "hi": 0.7,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.7,
+              "hi": 0.8,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.8,
+              "hi": 0.9,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.9,
+              "hi": 1.0,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            }
+          ]
+        },
+        {
+          "season": 2024,
+          "pricedBrier": null,
+          "pricedBenchmarkBrier": null,
+          "games": 959,
+          "mae": 13.822572980634215,
+          "rmse": 17.361694680913907,
+          "marketMae": 13.79718456725756,
+          "maeDelta": 0.025388413376653415,
+          "maeDelta95": [
+            -0.05333,
+            0.10304
+          ],
+          "nonPushGames": 953,
+          "brier": 0.2512833900180879,
+          "benchmarkBrier": 0.25,
+          "pairedPriceGames": 0,
+          "logLoss": 0.6957478028054997,
+          "archivedPriceSelections": {
+            "bets": 0,
+            "wins": 0,
+            "losses": 0,
+            "pushes": 0,
+            "coverRate": null,
+            "lower95": null,
+            "units": 0.0,
+            "roi": null,
+            "priceBasis": "archived reported side price; consensus may mix books; paper returns"
+          },
+          "assumedPriceSelections": {
+            "bets": 145,
+            "wins": 73,
+            "losses": 70,
+            "pushes": 2,
+            "coverRate": 0.5104895104895105,
+            "lower95": 0.42935980036114746,
+            "units": -3.6363636363636367,
+            "roi": -0.025078369905956115,
+            "priceBasis": "assumed -110 sensitivity; not executable ROI"
+          },
+          "currentModelMae": 14.498325741378286,
+          "deltaVersusCurrent": -0.6757527607440739,
+          "currentModelMaeDelta95": [
+            -1.00381,
+            -0.31032
+          ],
+          "brierDelta": 0.00128339001808793,
+          "brierDelta95": [
+            -0.00088,
+            0.00344
+          ],
+          "calibration": [
+            {
+              "lo": 0.0,
+              "hi": 0.1,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.1,
+              "hi": 0.2,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.2,
+              "hi": 0.3,
+              "n": 2,
+              "predicted": 0.2727272727272727,
+              "observed": 0.5
+            },
+            {
+              "lo": 0.3,
+              "hi": 0.4,
+              "n": 1,
+              "predicted": 0.30084348641049674,
+              "observed": 0.0
+            },
+            {
+              "lo": 0.4,
+              "hi": 0.5,
+              "n": 424,
+              "predicted": 0.4685902854523972,
+              "observed": 0.5165094339622641
+            },
+            {
+              "lo": 0.5,
+              "hi": 0.6,
+              "n": 526,
+              "predicted": 0.523788928281219,
+              "observed": 0.5133079847908745
+            },
+            {
+              "lo": 0.6,
+              "hi": 0.7,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.7,
+              "hi": 0.8,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.8,
+              "hi": 0.9,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.9,
+              "hi": 1.0,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            }
+          ]
+        },
+        {
+          "season": 2025,
+          "pricedBrier": null,
+          "pricedBenchmarkBrier": null,
+          "games": 1313,
+          "mae": 14.167342323615982,
+          "rmse": 17.69384182229903,
+          "marketMae": 14.145087585681646,
+          "maeDelta": 0.022254737934339148,
+          "maeDelta95": [
+            -0.03657,
+            0.07696
+          ],
+          "nonPushGames": 1313,
+          "brier": 0.2502850335569475,
+          "benchmarkBrier": 0.25,
+          "pairedPriceGames": 0,
+          "logLoss": 0.6937101389879472,
+          "archivedPriceSelections": {
+            "bets": 0,
+            "wins": 0,
+            "losses": 0,
+            "pushes": 0,
+            "coverRate": null,
+            "lower95": null,
+            "units": 0.0,
+            "roi": null,
+            "priceBasis": "archived reported side price; consensus may mix books; paper returns"
+          },
+          "assumedPriceSelections": {
+            "bets": 82,
+            "wins": 40,
+            "losses": 42,
+            "pushes": 0,
+            "coverRate": 0.4878048780487805,
+            "lower95": 0.3826071216079986,
+            "units": -5.636363636363636,
+            "roi": -0.0687361419068736,
+            "priceBasis": "assumed -110 sensitivity; not executable ROI"
+          },
+          "currentModelMae": 14.848986499905966,
+          "deltaVersusCurrent": -0.6816441762899812,
+          "currentModelMaeDelta95": [
+            -0.98226,
+            -0.3733
+          ],
+          "brierDelta": 0.00028503355694743855,
+          "brierDelta95": [
+            -0.00145,
+            0.00182
+          ],
+          "calibration": [
+            {
+              "lo": 0.0,
+              "hi": 0.1,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.1,
+              "hi": 0.2,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.2,
+              "hi": 0.3,
+              "n": 1,
+              "predicted": 0.2992700729927007,
+              "observed": 0.0
+            },
+            {
+              "lo": 0.3,
+              "hi": 0.4,
+              "n": 5,
+              "predicted": 0.3349322210636079,
+              "observed": 0.4
+            },
+            {
+              "lo": 0.4,
+              "hi": 0.5,
+              "n": 164,
+              "predicted": 0.48634883898369746,
+              "observed": 0.5914634146341463
+            },
+            {
+              "lo": 0.5,
+              "hi": 0.6,
+              "n": 1143,
+              "predicted": 0.5268474652347289,
+              "observed": 0.5161854768153981
+            },
+            {
+              "lo": 0.6,
+              "hi": 0.7,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.7,
+              "hi": 0.8,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.8,
+              "hi": 0.9,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.9,
+              "hi": 1.0,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            }
+          ]
+        },
+        {
+          "season": 2026,
+          "pricedBrier": null,
+          "pricedBenchmarkBrier": null,
+          "games": 1315,
+          "mae": 14.566614135311559,
+          "rmse": 18.27272455044777,
+          "marketMae": 14.506844106463879,
+          "maeDelta": 0.05977002884768084,
+          "maeDelta95": [
+            0.01978,
+            0.10651
+          ],
+          "nonPushGames": 1315,
+          "brier": 0.2522696355741768,
+          "benchmarkBrier": 0.25,
+          "pairedPriceGames": 0,
+          "logLoss": 0.6977281408596754,
+          "archivedPriceSelections": {
+            "bets": 0,
+            "wins": 0,
+            "losses": 0,
+            "pushes": 0,
+            "coverRate": null,
+            "lower95": null,
+            "units": 0.0,
+            "roi": null,
+            "priceBasis": "archived reported side price; consensus may mix books; paper returns"
+          },
+          "assumedPriceSelections": {
+            "bets": 110,
+            "wins": 51,
+            "losses": 59,
+            "pushes": 0,
+            "coverRate": 0.4636363636363636,
+            "lower95": 0.37324922744634015,
+            "units": -12.636363636363638,
+            "roi": -0.11487603305785125,
+            "priceBasis": "assumed -110 sensitivity; not executable ROI"
+          },
+          "currentModelMae": 15.04802648764865,
+          "deltaVersusCurrent": -0.48141235233709356,
+          "currentModelMaeDelta95": [
+            -0.76084,
+            -0.22691
+          ],
+          "brierDelta": 0.0022696355741768015,
+          "brierDelta95": [
+            0.00074,
+            0.0042
+          ],
+          "calibration": [
+            {
+              "lo": 0.0,
+              "hi": 0.1,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.1,
+              "hi": 0.2,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.2,
+              "hi": 0.3,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.3,
+              "hi": 0.4,
+              "n": 6,
+              "predicted": 0.3574511297283574,
+              "observed": 0.8333333333333334
+            },
+            {
+              "lo": 0.4,
+              "hi": 0.5,
+              "n": 108,
+              "predicted": 0.4929339087754929,
+              "observed": 0.5833333333333334
+            },
+            {
+              "lo": 0.5,
+              "hi": 0.6,
+              "n": 1201,
+              "predicted": 0.5263913992885892,
+              "observed": 0.48542880932556204
+            },
+            {
+              "lo": 0.6,
+              "hi": 0.7,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.7,
+              "hi": 0.8,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.8,
+              "hi": 0.9,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.9,
+              "hi": 1.0,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "market": "total",
+      "mode": "strict-2025-2026",
+      "pricedBrier": null,
+      "pricedBenchmarkBrier": null,
+      "games": 2628,
+      "mae": 14.372114614912011,
+      "rmse": 17.99359431179329,
+      "marketMae": 14.326103500761034,
+      "maeDelta": 0.04601111415097491,
+      "maeDelta95": [
+        0.00734,
+        0.08762
+      ],
+      "nonPushGames": 2628,
+      "brier": 0.2512503385605423,
+      "benchmarkBrier": 0.25,
+      "pairedPriceGames": 0,
+      "logLoss": 0.6956802115939663,
+      "archivedPriceSelections": {
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "pushes": 0,
+        "coverRate": null,
+        "lower95": null,
+        "units": 0.0,
+        "roi": null,
+        "priceBasis": "archived reported side price; consensus may mix books; paper returns"
+      },
+      "assumedPriceSelections": {
+        "bets": 132,
+        "wins": 63,
+        "losses": 69,
+        "pushes": 0,
+        "coverRate": 0.4772727272727273,
+        "lower95": 0.3939166161603908,
+        "units": -11.727272727272728,
+        "roi": -0.08884297520661158,
+        "priceBasis": "assumed -110 sensitivity; not executable ROI"
+      },
+      "currentModelMae": 14.948582231976605,
+      "deltaVersusCurrent": -0.5764676170645925,
+      "currentModelMaeDelta95": [
+        -0.77485,
+        -0.35604
+      ],
+      "brierDelta": 0.0012503385605422775,
+      "brierDelta95": [
+        0.00014,
+        0.00244
+      ],
+      "calibration": [
+        {
+          "lo": 0.0,
+          "hi": 0.1,
+          "n": 0,
+          "predicted": null,
+          "observed": null
+        },
+        {
+          "lo": 0.1,
+          "hi": 0.2,
+          "n": 0,
+          "predicted": null,
+          "observed": null
+        },
+        {
+          "lo": 0.2,
+          "hi": 0.3,
+          "n": 2,
+          "predicted": 0.2940563086548488,
+          "observed": 0.5
+        },
+        {
+          "lo": 0.3,
+          "hi": 0.4,
+          "n": 10,
+          "predicted": 0.335245046923879,
+          "observed": 0.6
+        },
+        {
+          "lo": 0.4,
+          "hi": 0.5,
+          "n": 358,
+          "predicted": 0.48681992542192654,
+          "observed": 0.5726256983240223
+        },
+        {
+          "lo": 0.5,
+          "hi": 0.6,
+          "n": 2258,
+          "predicted": 0.5252462837042327,
+          "observed": 0.4995571302037201
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.7,
+          "n": 0,
+          "predicted": null,
+          "observed": null
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.8,
+          "n": 0,
+          "predicted": null,
+          "observed": null
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.9,
+          "n": 0,
+          "predicted": null,
+          "observed": null
+        },
+        {
+          "lo": 0.9,
+          "hi": 1.0,
+          "n": 0,
+          "predicted": null,
+          "observed": null
+        }
+      ],
+      "bySeason": [
+        {
+          "season": 2025,
+          "pricedBrier": null,
+          "pricedBenchmarkBrier": null,
+          "games": 1313,
+          "mae": 14.167342323615982,
+          "rmse": 17.69384182229903,
+          "marketMae": 14.145087585681646,
+          "maeDelta": 0.022254737934339148,
+          "maeDelta95": [
+            -0.03657,
+            0.07696
+          ],
+          "nonPushGames": 1313,
+          "brier": 0.2502850335569475,
+          "benchmarkBrier": 0.25,
+          "pairedPriceGames": 0,
+          "logLoss": 0.6937101389879472,
+          "archivedPriceSelections": {
+            "bets": 0,
+            "wins": 0,
+            "losses": 0,
+            "pushes": 0,
+            "coverRate": null,
+            "lower95": null,
+            "units": 0.0,
+            "roi": null,
+            "priceBasis": "archived reported side price; consensus may mix books; paper returns"
+          },
+          "assumedPriceSelections": {
+            "bets": 82,
+            "wins": 40,
+            "losses": 42,
+            "pushes": 0,
+            "coverRate": 0.4878048780487805,
+            "lower95": 0.3826071216079986,
+            "units": -5.636363636363636,
+            "roi": -0.0687361419068736,
+            "priceBasis": "assumed -110 sensitivity; not executable ROI"
+          },
+          "currentModelMae": 14.848986499905966,
+          "deltaVersusCurrent": -0.6816441762899812,
+          "currentModelMaeDelta95": [
+            -0.98226,
+            -0.3733
+          ],
+          "brierDelta": 0.00028503355694743855,
+          "brierDelta95": [
+            -0.00145,
+            0.00182
+          ],
+          "calibration": [
+            {
+              "lo": 0.0,
+              "hi": 0.1,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.1,
+              "hi": 0.2,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.2,
+              "hi": 0.3,
+              "n": 1,
+              "predicted": 0.2992700729927007,
+              "observed": 0.0
+            },
+            {
+              "lo": 0.3,
+              "hi": 0.4,
+              "n": 5,
+              "predicted": 0.3349322210636079,
+              "observed": 0.4
+            },
+            {
+              "lo": 0.4,
+              "hi": 0.5,
+              "n": 164,
+              "predicted": 0.48634883898369746,
+              "observed": 0.5914634146341463
+            },
+            {
+              "lo": 0.5,
+              "hi": 0.6,
+              "n": 1143,
+              "predicted": 0.5268474652347289,
+              "observed": 0.5161854768153981
+            },
+            {
+              "lo": 0.6,
+              "hi": 0.7,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.7,
+              "hi": 0.8,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.8,
+              "hi": 0.9,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.9,
+              "hi": 1.0,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            }
+          ]
+        },
+        {
+          "season": 2026,
+          "pricedBrier": null,
+          "pricedBenchmarkBrier": null,
+          "games": 1315,
+          "mae": 14.576575465460818,
+          "rmse": 18.287989618208,
+          "marketMae": 14.506844106463879,
+          "maeDelta": 0.06973135899693898,
+          "maeDelta95": [
+            0.02228,
+            0.12115
+          ],
+          "nonPushGames": 1315,
+          "brier": 0.25221417541964497,
+          "benchmarkBrier": 0.25,
+          "pairedPriceGames": 0,
+          "logLoss": 0.6976472878918394,
+          "archivedPriceSelections": {
+            "bets": 0,
+            "wins": 0,
+            "losses": 0,
+            "pushes": 0,
+            "coverRate": null,
+            "lower95": null,
+            "units": 0.0,
+            "roi": null,
+            "priceBasis": "archived reported side price; consensus may mix books; paper returns"
+          },
+          "assumedPriceSelections": {
+            "bets": 50,
+            "wins": 23,
+            "losses": 27,
+            "pushes": 0,
+            "coverRate": 0.46,
+            "lower95": 0.3296943460178264,
+            "units": -6.090909090909091,
+            "roi": -0.12181818181818181,
+            "priceBasis": "assumed -110 sensitivity; not executable ROI"
+          },
+          "currentModelMae": 15.04802648764865,
+          "deltaVersusCurrent": -0.47145102218783547,
+          "currentModelMaeDelta95": [
+            -0.75876,
+            -0.21125
+          ],
+          "brierDelta": 0.002214175419644957,
+          "brierDelta95": [
+            0.00081,
+            0.00395
+          ],
+          "calibration": [
+            {
+              "lo": 0.0,
+              "hi": 0.1,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.1,
+              "hi": 0.2,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.2,
+              "hi": 0.3,
+              "n": 1,
+              "predicted": 0.28884254431699685,
+              "observed": 1.0
+            },
+            {
+              "lo": 0.3,
+              "hi": 0.4,
+              "n": 5,
+              "predicted": 0.3355578727841502,
+              "observed": 0.8
+            },
+            {
+              "lo": 0.4,
+              "hi": 0.5,
+              "n": 194,
+              "predicted": 0.4872181634418728,
+              "observed": 0.5567010309278351
+            },
+            {
+              "lo": 0.5,
+              "hi": 0.6,
+              "n": 1115,
+              "predicted": 0.5236048931308181,
+              "observed": 0.48251121076233183
+            },
+            {
+              "lo": 0.6,
+              "hi": 0.7,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.7,
+              "hi": 0.8,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.8,
+              "hi": 0.9,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            },
+            {
+              "lo": 0.9,
+              "hi": 1.0,
+              "n": 0,
+              "predicted": null,
+              "observed": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "fits": [
+    {
+      "market": "spread",
+      "mode": "rolling",
+      "testSeason": 2021,
+      "trainingGames": 884,
+      "calibrationGames": 915,
+      "coefficients": {
+        "eff_margin_gap": -0.182851526940831,
+        "eff_total_gap": 0.029621594406303343,
+        "independent_gap": 0.18853940566269983,
+        "off_diff": -0.11559658959953321,
+        "def_diff": -0.16368410461836144,
+        "pace_gap": -0.5640771686087216,
+        "rest_diff": 0.2879067494002022,
+        "rest_sum": 0.08577332155882963,
+        "home_b2b": 0.9471439753048623,
+        "away_b2b": -0.14577140104415318,
+        "neutral": -2.231490106528914,
+        "min_games": 0.0787531988992223
+      }
+    },
+    {
+      "market": "spread",
+      "mode": "rolling",
+      "testSeason": 2022,
+      "trainingGames": 1799,
+      "calibrationGames": 953,
+      "coefficients": {
+        "eff_margin_gap": -0.20849929603877781,
+        "eff_total_gap": 0.008241260860971687,
+        "independent_gap": 0.3244953039538221,
+        "off_diff": -0.07665166494380207,
+        "def_diff": -0.09270085926148047,
+        "pace_gap": -0.07009462249159457,
+        "rest_diff": 0.007917424342593512,
+        "rest_sum": -0.05542702887612894,
+        "home_b2b": 0.058529497870208974,
+        "away_b2b": 0.5954004501248062,
+        "neutral": -1.2245704821398187,
+        "min_games": 0.0033320517947825323
+      }
+    },
+    {
+      "market": "spread",
+      "mode": "rolling",
+      "testSeason": 2023,
+      "trainingGames": 2752,
+      "calibrationGames": 1098,
+      "coefficients": {
+        "eff_margin_gap": -0.11038869399660203,
+        "eff_total_gap": 0.03486498749760621,
+        "independent_gap": 0.15624533694929493,
+        "off_diff": 0.058033403384102504,
+        "def_diff": 0.004836801663730606,
+        "pace_gap": -0.13429132253234027,
+        "rest_diff": 0.0001280539320396883,
+        "rest_sum": -0.06210845498830205,
+        "home_b2b": 0.730893662142432,
+        "away_b2b": 0.28117325449726377,
+        "neutral": -1.6955082825379444,
+        "min_games": 0.016604046427327095
+      }
+    },
+    {
+      "market": "spread",
+      "mode": "rolling",
+      "testSeason": 2024,
+      "trainingGames": 3850,
+      "calibrationGames": 1067,
+      "coefficients": {
+        "eff_margin_gap": -0.10918853045602146,
+        "eff_total_gap": 0.04268563963786075,
+        "independent_gap": 0.08675792464366884,
+        "off_diff": -0.021910562720622157,
+        "def_diff": -0.060979438570987955,
+        "pace_gap": 0.02755487112474221,
+        "rest_diff": 0.015285369318629031,
+        "rest_sum": -0.05324567833940547,
+        "home_b2b": 0.3376842429505858,
+        "away_b2b": -0.12050478829714831,
+        "neutral": -1.6762847966289487,
+        "min_games": 0.014511823323725978
+      }
+    },
+    {
+      "market": "spread",
+      "mode": "rolling",
+      "testSeason": 2025,
+      "trainingGames": 4917,
+      "calibrationGames": 959,
+      "coefficients": {
+        "eff_margin_gap": -0.05590839542635489,
+        "eff_total_gap": 0.04356805676599577,
+        "independent_gap": 0.0587782036566147,
+        "off_diff": -0.04498805416060196,
+        "def_diff": -0.0262368074867939,
+        "pace_gap": 0.08059051260648002,
+        "rest_diff": -0.001052712627545409,
+        "rest_sum": -0.042406056307598826,
+        "home_b2b": 0.2226620619585084,
+        "away_b2b": 0.11168039782022648,
+        "neutral": -3.4518030325503903,
+        "min_games": -0.004033411312571942
+      }
+    },
+    {
+      "market": "spread",
+      "mode": "rolling",
+      "testSeason": 2026,
+      "trainingGames": 5876,
+      "calibrationGames": 1313,
+      "coefficients": {
+        "eff_margin_gap": -0.09568043325193294,
+        "eff_total_gap": 0.039430122070244544,
+        "independent_gap": 0.07172908590616184,
+        "off_diff": -0.060846559639958005,
+        "def_diff": -0.0617998377966544,
+        "pace_gap": 0.0794632552031152,
+        "rest_diff": -0.011395280388873254,
+        "rest_sum": 0.0052306706382433815,
+        "home_b2b": 0.2704174606573061,
+        "away_b2b": 0.23491920159477264,
+        "neutral": 0.018039048212081226,
+        "min_games": -0.004421177711277585
+      }
+    },
+    {
+      "market": "spread",
+      "mode": "strict-2025-2026",
+      "trainingGames": 4917,
+      "calibrationGames": 959,
+      "coefficients": {
+        "eff_margin_gap": -0.05590839542635489,
+        "eff_total_gap": 0.04356805676599577,
+        "independent_gap": 0.0587782036566147,
+        "off_diff": -0.04498805416060196,
+        "def_diff": -0.0262368074867939,
+        "pace_gap": 0.08059051260648002,
+        "rest_diff": -0.001052712627545409,
+        "rest_sum": -0.042406056307598826,
+        "home_b2b": 0.2226620619585084,
+        "away_b2b": 0.11168039782022648,
+        "neutral": -3.4518030325503903,
+        "min_games": -0.004033411312571942
+      }
+    },
+    {
+      "market": "total",
+      "mode": "rolling",
+      "testSeason": 2021,
+      "trainingGames": 884,
+      "calibrationGames": 915,
+      "coefficients": {
+        "eff_margin_gap": 0.001734914082421869,
+        "eff_total_gap": -0.07734124092199464,
+        "independent_gap": 0.06452019655512534,
+        "off_diff": 0.15633236294516978,
+        "def_diff": 0.23435570830608937,
+        "pace_gap": 0.022485180082004612,
+        "rest_diff": -0.8604790038230151,
+        "rest_sum": -0.12640774750202766,
+        "home_b2b": 0.6392719258541448,
+        "away_b2b": 1.4389072212582723,
+        "neutral": -23.63390979986977,
+        "min_games": 0.0701308112458895
+      }
+    },
+    {
+      "market": "total",
+      "mode": "rolling",
+      "testSeason": 2022,
+      "trainingGames": 1799,
+      "calibrationGames": 953,
+      "coefficients": {
+        "eff_margin_gap": -0.09118177803918967,
+        "eff_total_gap": -0.03579974056337193,
+        "independent_gap": 0.3484278925268537,
+        "off_diff": 0.13684815047407792,
+        "def_diff": -0.12016921372497305,
+        "pace_gap": -0.3047668179245912,
+        "rest_diff": -1.3309675862876205,
+        "rest_sum": -0.045413613128212356,
+        "home_b2b": -0.5796807351458997,
+        "away_b2b": 2.473406251164622,
+        "neutral": -8.79262386292903,
+        "min_games": 0.0708969422151297
+      }
+    },
+    {
+      "market": "total",
+      "mode": "rolling",
+      "testSeason": 2023,
+      "trainingGames": 2752,
+      "calibrationGames": 1098,
+      "coefficients": {
+        "eff_margin_gap": -0.0369458555640132,
+        "eff_total_gap": -0.08122775776708942,
+        "independent_gap": 0.19399021134413974,
+        "off_diff": 0.05796247257185417,
+        "def_diff": -0.08058330564820596,
+        "pace_gap": -0.2354994517444476,
+        "rest_diff": -0.3876608923793478,
+        "rest_sum": -0.0682220266374322,
+        "home_b2b": 0.01353018522801742,
+        "away_b2b": 0.1849948067407017,
+        "neutral": -8.787307962593,
+        "min_games": 0.06279379908506201
+      }
+    },
+    {
+      "market": "total",
+      "mode": "rolling",
+      "testSeason": 2024,
+      "trainingGames": 3850,
+      "calibrationGames": 1067,
+      "coefficients": {
+        "eff_margin_gap": -0.062473871256771056,
+        "eff_total_gap": -0.12029666724019616,
+        "independent_gap": 0.20082099286502889,
+        "off_diff": 0.07664387065335365,
+        "def_diff": 0.04389108959792455,
+        "pace_gap": -0.26121694761912034,
+        "rest_diff": -0.27476261446052,
+        "rest_sum": 0.05769514307064179,
+        "home_b2b": -0.07952888586839309,
+        "away_b2b": 1.1083253314467287,
+        "neutral": -9.24134775090883,
+        "min_games": 0.1474512235877573
+      }
+    },
+    {
+      "market": "total",
+      "mode": "rolling",
+      "testSeason": 2025,
+      "trainingGames": 4917,
+      "calibrationGames": 959,
+      "coefficients": {
+        "eff_margin_gap": -0.22168724373319923,
+        "eff_total_gap": -0.11432175115791862,
+        "independent_gap": 0.24271518870997252,
+        "off_diff": 0.015116666284085376,
+        "def_diff": 0.11572301674155179,
+        "pace_gap": -0.3064229340489076,
+        "rest_diff": 0.19018791432549945,
+        "rest_sum": 0.12215294837322328,
+        "home_b2b": 0.6809111977731315,
+        "away_b2b": 0.7661268744038944,
+        "neutral": -8.068048002436411,
+        "min_games": 0.13699304126332482
+      }
+    },
+    {
+      "market": "total",
+      "mode": "rolling",
+      "testSeason": 2026,
+      "trainingGames": 5876,
+      "calibrationGames": 1313,
+      "coefficients": {
+        "eff_margin_gap": -0.19563500584411253,
+        "eff_total_gap": -0.09391717908898334,
+        "independent_gap": 0.20865345519825246,
+        "off_diff": 0.02956522521994725,
+        "def_diff": 0.11362844682553634,
+        "pace_gap": -0.2671710823495356,
+        "rest_diff": 0.1294683666261695,
+        "rest_sum": 0.05807642326852745,
+        "home_b2b": 0.6615942656448747,
+        "away_b2b": 0.665824515348493,
+        "neutral": -6.137315824846372,
+        "min_games": 0.09937672722694975
+      }
+    },
+    {
+      "market": "total",
+      "mode": "strict-2025-2026",
+      "trainingGames": 4917,
+      "calibrationGames": 959,
+      "coefficients": {
+        "eff_margin_gap": -0.22168724373319923,
+        "eff_total_gap": -0.11432175115791862,
+        "independent_gap": 0.24271518870997252,
+        "off_diff": 0.015116666284085376,
+        "def_diff": 0.11572301674155179,
+        "pace_gap": -0.3064229340489076,
+        "rest_diff": 0.19018791432549945,
+        "rest_sum": 0.12215294837322328,
+        "home_b2b": 0.6809111977731315,
+        "away_b2b": 0.7661268744038944,
+        "neutral": -8.068048002436411,
+        "min_games": 0.13699304126332482
+      }
+    }
+  ],
+  "decision": "rejected",
+  "reason": "The fixed strict two-market improvement screen did not pass. Do not tune this version on the same quarantine.",
+  "limitations": [
+    "Previously inspected seasons: no untouched external validation.",
+    "Historical publication times are unknown; 8-hour release lag is an assumption; later revisions may remain.",
+    "Estimated possessions are a box-score proxy; not possession-by-possession event counts.",
+    "Historical injuries, announced starters and expected target-game minutes are excluded; participation is not a pregame injury report.",
+    "Historical consensus prices can mix books/lines. Paper returns cannot establish executable named-book ROI.",
+    "Totals side prices unavailable: 50% probability reference and separate assumed -110 sensitivity.",
+    "Marginal intervals do not correct for all past research trials. No production forecasts, cards, stakes or bets changed."
+  ]
+}
