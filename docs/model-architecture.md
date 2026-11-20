@@ -532,3 +532,15 @@ is unchanged. Models links the live evaluation report. No bets database is acces
 Availability history stays in git/CI and is excluded from application upload/server
 traces; the app only needs latest.json and its precomputed evaluation. This keeps the
 request bundle bounded as the prospective dataset grows.
+
+
+### Inline prediction availability (2026-11-19)
+
+AvailabilitySummary renders team/player statuses directly within Card picks and the
+Tonight prediction decision panel, independent of whether a saved market exists.
+Up to four players are shown per team (QB first, then recent rotation exposure),
+with remaining reports expandable. Stale player statuses and contradicted Out reports
+say to recheck; a stale/future/missing whole snapshot withholds current player details.
+Report time uses an explicit Eastern timezone. Full report and search links are secondary.
+This is presentation of the existing timestamped artifact, not a numeric injury
+adjustment: margins, totals, probabilities, leans, betting terms and stakes are unchanged.

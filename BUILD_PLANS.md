@@ -114,6 +114,11 @@ alone shrinks to nothing, so this is the only route to starter value.
 
 ## Shipped (most recent first)
 
+- 2026-11-19: inline injury details on prediction panels (`feat/inline-injury-predictions`).
+  Card and Tonight show listed players/statuses directly; Tonight places them beside
+  spread/total decision information even without a saved market. Sources stay in an
+  optional disclosure. Missing/stale reports remain explicit; forecast numbers unchanged.
+
 - 2026-11-18: evidence gate merged to `main`; college football taken off the daily card
   (`CARD_SPORTS` in `dirtiq_model/card/build.py`) at the owner's request: under 49% in every
   size and side of pick in the backtest, no positive live CLV. Still forecast, on Tonight
