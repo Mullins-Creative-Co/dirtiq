@@ -59,3 +59,30 @@ Post-evaluation compatibility correction: explicit `["select"]` column access av
 a DataFrame method-name collision on the newer CI dataframe library. The synthetic
 paper-return test reproduces that collision on the local runtime. This changes no
 features, fits, calibration, selection rule or reported result; no quarantine retuning.
+
+
+## Material player-source examples
+
+The material mismatches concentrate in Chicago team records in the frozen 2026 player
+release. Schedule/team-box scores agree; the player sums differ. These are candidates
+for explicit input quarantine before further player-model work, not a new betting filter:
+
+| Game ID | Team | Expected points | Player points | Expected minutes | Player minutes |
+|---|---|---:|---:|---:|---:|
+| 401810184 | CHI | 103 | 103 | 240 | 232 |
+| 401810150 | CHI | 101 | 99 | 240 | 229 |
+| 401810358 | CHI | 101 | 101 | 240 | 228 |
+| 401810372 | CHI | 93 | 91 | 240 | 224 |
+| 401810547 | CHI | 125 | 123 | 240 | 232 |
+| 401810560 | CHI | 91 | 82 | 240 | 230 |
+| 401810577 | CHI | 115 | 113 | 240 | 223 |
+| 401810633 | CHI | 105 | 98 | 240 | 236 |
+| 401810760 | CHI | 105 | 101 | 240 | 224 |
+
+The existing broad 220–400-minute admissibility range can accept these records and
+normalize an incomplete rotation. The rejected possession candidate did not use player
+inputs, so these cases do not alter its results. A separate complete-box input-policy
+change needs explicit versioning and preserved legacy prospective results; this study
+does not silently change the user-enabled live injury variant or erase its nine-game
+negative result. Smaller minute differences alone may be rounding and are not proof
+of missing players. No missing player or historical injury is inferred from these gaps.
