@@ -1,6 +1,6 @@
 {
  "sport": "nba",
- "generatedAt": "2026-11-19T19:22:24Z",
+ "generatedAt": "2026-11-20T00:44:41Z",
  "source": "The Odds API",
  "book": "odds-api consensus",
  "events": [
@@ -12,13 +12,13 @@
    "homeName": "Memphis Grizzlies",
    "awayName": "Golden State Warriors",
    "startsAt": "2026-11-20T01:10:00Z",
-   "observedAt": "2026-11-19T19:22:24Z",
+   "observedAt": "2026-11-20T00:44:41Z",
    "books": 9,
    "homeSpread": -5.5,
    "homeSpreadPrice": -110,
    "awaySpreadPrice": -110,
-   "homeMl": -217,
-   "awayMl": 180
+   "homeMl": -210,
+   "awayMl": 176
   },
   {
    "eventId": "20fa5e2d73cec494c113790161a89aec",
@@ -28,13 +28,13 @@
    "homeName": "San Antonio Spurs",
    "awayName": "Los Angeles Clippers",
    "startsAt": "2026-11-20T01:10:00Z",
-   "observedAt": "2026-11-19T19:22:24Z",
+   "observedAt": "2026-11-20T00:44:41Z",
    "books": 9,
    "homeSpread": -15.5,
    "homeSpreadPrice": -110,
    "awaySpreadPrice": -110,
    "homeMl": -1000,
-   "awayMl": 661
+   "awayMl": 660
   },
   {
    "eventId": "006df00e5e48650d849d1bb4cd81565d",
@@ -44,13 +44,13 @@
    "homeName": "Milwaukee Bucks",
    "awayName": "Portland Trail Blazers",
    "startsAt": "2026-11-20T01:10:00Z",
-   "observedAt": "2026-11-19T19:22:24Z",
+   "observedAt": "2026-11-20T00:44:41Z",
    "books": 9,
-   "homeSpread": 11.5,
+   "homeSpread": 9.5,
    "homeSpreadPrice": -110,
    "awaySpreadPrice": -110,
-   "homeMl": 380,
-   "awayMl": -500
+   "homeMl": 310,
+   "awayMl": -400
   },
   {
    "eventId": "5ee4efd00c1daaebd8249ff44fd6ac9d",
@@ -60,19 +60,99 @@
    "homeName": "Minnesota Timberwolves",
    "awayName": "New York Knicks",
    "startsAt": "2026-11-20T01:10:00Z",
-   "observedAt": "2026-11-19T19:22:24Z",
+   "observedAt": "2026-11-20T00:44:41Z",
    "books": 9,
    "homeSpread": 1.0,
-   "homeSpreadPrice": -114,
-   "awaySpreadPrice": -105,
-   "homeMl": -106,
-   "awayMl": -113
+   "homeSpreadPrice": -110,
+   "awaySpreadPrice": -110,
+   "homeMl": -105,
+   "awayMl": -114
+  },
+  {
+   "eventId": "f8ad540db00e4a4a360d67dfcb7a53b8",
+   "sport": "nba",
+   "home": "ATL",
+   "away": "CHA",
+   "homeName": "Atlanta Hawks",
+   "awayName": "Charlotte Hornets",
+   "startsAt": "2026-11-21T00:10:00Z",
+   "observedAt": "2026-11-20T00:44:41Z",
+   "books": 6,
+   "homeSpread": -5.0,
+   "homeSpreadPrice": -113,
+   "awaySpreadPrice": -106,
+   "homeMl": -205,
+   "awayMl": 166
+  },
+  {
+   "eventId": "6e1faf38d3fed9e0396d6613891770e1",
+   "sport": "nba",
+   "home": "BKN",
+   "away": "ORL",
+   "homeName": "Brooklyn Nets",
+   "awayName": "Orlando Magic",
+   "startsAt": "2026-11-21T00:40:00Z",
+   "observedAt": "2026-11-20T00:44:41Z",
+   "books": 6,
+   "homeSpread": 5.25,
+   "homeSpreadPrice": -108,
+   "awaySpreadPrice": -109,
+   "homeMl": 166,
+   "awayMl": -200
+  },
+  {
+   "eventId": "10e9b9aca502ce158d6a3a91bf00bfd2",
+   "sport": "nba",
+   "home": "CLE",
+   "away": "IND",
+   "homeName": "Cleveland Cavaliers",
+   "awayName": "Indiana Pacers",
+   "startsAt": "2026-11-21T00:40:00Z",
+   "observedAt": "2026-11-20T00:44:41Z",
+   "books": 6,
+   "homeSpread": -7.0,
+   "homeSpreadPrice": -106,
+   "awaySpreadPrice": -112,
+   "homeMl": -240,
+   "awayMl": 196
+  },
+  {
+   "eventId": "9051693857c6a0e5e1bc6bb2b4f6fe35",
+   "sport": "nba",
+   "home": "DET",
+   "away": "TOR",
+   "homeName": "Detroit Pistons",
+   "awayName": "Toronto Raptors",
+   "startsAt": "2026-11-21T00:40:00Z",
+   "observedAt": "2026-11-20T00:44:41Z",
+   "books": 6,
+   "homeSpread": -7.5,
+   "homeSpreadPrice": -110,
+   "awaySpreadPrice": -110,
+   "homeMl": -295,
+   "awayMl": 238
+  },
+  {
+   "eventId": "d6ed1e97c331fc604506e4c354ab1cdc",
+   "sport": "nba",
+   "home": "CHI",
+   "away": "WSH",
+   "homeName": "Chicago Bulls",
+   "awayName": "Washington Wizards",
+   "startsAt": "2026-11-21T01:10:00Z",
+   "observedAt": "2026-11-20T00:44:41Z",
+   "books": 5,
+   "homeSpread": -3.0,
+   "homeSpreadPrice": -111,
+   "awaySpreadPrice": -106,
+   "homeMl": -145,
+   "awayMl": 120
   }
  ],
  "unresolvedTeams": {},
  "quota": {
-  "x-requests-remaining": "366",
-  "x-requests-used": "134",
+  "x-requests-remaining": "358",
+  "x-requests-used": "142",
   "x-requests-last": "2"
  }
 }

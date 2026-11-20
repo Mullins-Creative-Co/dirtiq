@@ -1,7 +1,7 @@
 {
  "date": "2026-11-19",
- "generatedAt": "2026-11-19T19:22:25Z",
- "forecastsRefreshedAt": "2026-11-19T19:12:58Z",
+ "generatedAt": "2026-11-20T00:44:52Z",
+ "forecastsRefreshedAt": "2026-11-20T00:36:53Z",
  "unit": "1 unit = 1% of bankroll",
  "rules": [
   "Spread picks in NFL, NBA and college basketball; one pick per game, including unstaked tracking picks. College football is off the card: forecast and tracked in the ledger only.",
@@ -14,8 +14,8 @@
   "A pick is locked at the line it was first listed with and graded at that line."
  ],
  "evidence": "Stakes require both documented evidence conditions; each pick shows its sport's backtest record and gate. Unstaked picks remain tracked. Historical bucket frequencies are not per-game probabilities.",
- "priced": 33,
- "qualified": 14,
+ "priced": 22,
+ "qualified": 7,
  "stakingGates": {
   "nfl": {
    "passed": false,
@@ -56,10 +56,10 @@
    "requiredLower": 0.524,
    "minimumLiveGames": 100,
    "liveClv": {
-    "count": 218,
-    "meanPts": 0.20642201834862386,
-    "totalPts": 45.0,
-    "positiveRate": 0.24770642201834864
+    "count": 219,
+    "meanPts": 0.2009132420091324,
+    "totalPts": 44.0,
+    "positiveRate": 0.2465753424657534
    }
   }
  },
@@ -171,13 +171,9 @@
    },
    "note": "model +11.0 vs market +6.5: leans TOL by 4.5 pts (threshold 3.0)",
    "lockedAt": "2026-11-19T09:41:34Z",
-   "status": "playable",
+   "status": "started",
    "current": {
-    "checkedAt": "2026-11-19T19:22:26Z",
-    "line": -6.5,
-    "price": -115,
-    "edgePts": 4.49,
-    "lineObservedAt": "2026-11-19T19:12:38Z"
+    "checkedAt": "2026-11-20T00:44:53Z"
    },
    "rank": 4,
    "originallyListedStakeUnits": 0.0
@@ -272,13 +268,9 @@
    },
    "note": "model +5.9 vs market -1.5: leans LT by 7.4 pts (threshold 3.0)",
    "lockedAt": "2026-11-19T09:41:34Z",
-   "status": "playable",
+   "status": "started",
    "current": {
-    "checkedAt": "2026-11-19T19:22:26Z",
-    "line": -2.5,
-    "price": -105,
-    "edgePts": 3.39,
-    "lineObservedAt": "2026-11-19T19:12:38Z"
+    "checkedAt": "2026-11-20T00:44:53Z"
    },
    "rank": 1,
    "originallyListedStakeUnits": 0.0
@@ -373,9 +365,13 @@
    },
    "note": "model +3.8 vs market +7.5: leans GS by 3.7 pts (threshold 3.0)",
    "lockedAt": "2026-11-19T09:41:34Z",
-   "status": "no-current-line",
+   "status": "edge-gone",
    "current": {
-    "checkedAt": "2026-11-19T19:22:26Z"
+    "checkedAt": "2026-11-20T00:44:53Z",
+    "line": 5.5,
+    "price": -102,
+    "edgePts": 1.74,
+    "lineObservedAt": "2026-11-20T00:34:16Z"
    },
    "rank": 7,
    "originallyListedStakeUnits": 0.0
@@ -472,11 +468,11 @@
    "lockedAt": "2026-11-19T09:41:34Z",
    "status": "edge-gone",
    "current": {
-    "checkedAt": "2026-11-19T19:22:26Z",
+    "checkedAt": "2026-11-20T00:44:53Z",
     "line": 15.5,
-    "price": -110,
+    "price": -112,
     "edgePts": 2.27,
-    "lineObservedAt": "2026-11-19T19:09:47Z"
+    "lineObservedAt": "2026-11-20T00:34:16Z"
    },
    "rank": 8,
    "originallyListedStakeUnits": 0.0
@@ -528,10 +524,10 @@
     "requiredLower": 0.524,
     "minimumLiveGames": 100,
     "liveClv": {
-     "count": 218,
-     "meanPts": 0.20642201834862386,
-     "totalPts": 45.0,
-     "positiveRate": 0.24770642201834864
+     "count": 219,
+     "meanPts": 0.2009132420091324,
+     "totalPts": 44.0,
+     "positiveRate": 0.2465753424657534
     }
    },
    "stakingStatus": "unstaked",
@@ -573,11 +569,11 @@
    "lockedAt": "2026-11-19T09:41:34Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-19T19:22:26Z",
+    "checkedAt": "2026-11-20T00:44:53Z",
     "line": -3.5,
     "price": -110,
-    "edgePts": 4.54,
-    "lineObservedAt": "2026-11-19T19:12:38Z"
+    "edgePts": 4.55,
+    "lineObservedAt": "2026-11-20T00:36:49Z"
    },
    "rank": 3,
    "originallyListedStakeUnits": 0.0
@@ -674,11 +670,11 @@
    "lockedAt": "2026-11-19T09:41:34Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-19T19:22:26Z",
+    "checkedAt": "2026-11-20T00:44:53Z",
     "line": 12.5,
     "price": -114,
     "edgePts": 4.36,
-    "lineObservedAt": "2026-11-19T19:09:40Z"
+    "lineObservedAt": "2026-11-20T00:34:09Z"
    },
    "rank": 9,
    "originallyListedStakeUnits": 0.0
@@ -730,10 +726,10 @@
     "requiredLower": 0.524,
     "minimumLiveGames": 100,
     "liveClv": {
-     "count": 218,
-     "meanPts": 0.20642201834862386,
-     "totalPts": 45.0,
-     "positiveRate": 0.24770642201834864
+     "count": 219,
+     "meanPts": 0.2009132420091324,
+     "totalPts": 44.0,
+     "positiveRate": 0.2465753424657534
     }
    },
    "stakingStatus": "unstaked",
@@ -775,11 +771,11 @@
    "lockedAt": "2026-11-19T09:41:34Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-19T19:22:26Z",
+    "checkedAt": "2026-11-20T00:44:53Z",
     "line": 1.5,
-    "price": 102,
+    "price": -110,
     "edgePts": 4.3,
-    "lineObservedAt": "2026-11-19T19:12:38Z"
+    "lineObservedAt": "2026-11-20T00:36:49Z"
    },
    "rank": 2,
    "originallyListedStakeUnits": 0.0
@@ -831,10 +827,10 @@
     "requiredLower": 0.524,
     "minimumLiveGames": 100,
     "liveClv": {
-     "count": 218,
-     "meanPts": 0.20642201834862386,
-     "totalPts": 45.0,
-     "positiveRate": 0.24770642201834864
+     "count": 219,
+     "meanPts": 0.2009132420091324,
+     "totalPts": 44.0,
+     "positiveRate": 0.2465753424657534
     }
    },
    "stakingStatus": "unstaked",
@@ -876,11 +872,11 @@
    "lockedAt": "2026-11-19T09:41:34Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-19T19:22:26Z",
+    "checkedAt": "2026-11-20T00:44:53Z",
     "line": -16.5,
     "price": -115,
-    "edgePts": 4.44,
-    "lineObservedAt": "2026-11-19T19:12:38Z"
+    "edgePts": 4.43,
+    "lineObservedAt": "2026-11-20T00:36:49Z"
    },
    "rank": 5,
    "originallyListedStakeUnits": 0.0
@@ -932,10 +928,10 @@
     "requiredLower": 0.524,
     "minimumLiveGames": 100,
     "liveClv": {
-     "count": 218,
-     "meanPts": 0.20642201834862386,
-     "totalPts": 45.0,
-     "positiveRate": 0.24770642201834864
+     "count": 219,
+     "meanPts": 0.2009132420091324,
+     "totalPts": 44.0,
+     "positiveRate": 0.2465753424657534
     }
    },
    "stakingStatus": "unstaked",
@@ -977,11 +973,11 @@
    "lockedAt": "2026-11-19T09:41:34Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-19T19:22:26Z",
-    "line": -2.5,
-    "price": -108,
-    "edgePts": 4.27,
-    "lineObservedAt": "2026-11-19T19:12:38Z"
+    "checkedAt": "2026-11-20T00:44:53Z",
+    "line": -1.5,
+    "price": -118,
+    "edgePts": 5.27,
+    "lineObservedAt": "2026-11-20T00:36:49Z"
    },
    "rank": 6,
    "originallyListedStakeUnits": 0.0
