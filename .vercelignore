@@ -21,5 +21,8 @@ npm-debug.log*
 !/data/ml-predictions/
 !/data/ml-predictions/*.json
 
-# Immutable named-book research observations are used offline/CI only.
+# Offline availability evaluation history is retained in git, not the app bundle.
+/public/data/availability/history/
+
+# Exact-book observations are retained for offline research/CI, not app uploads.
 /observations/

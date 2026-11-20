@@ -65,3 +65,21 @@ navigation methods failed with the browser connection's `timeoutMs` error; no
 visual or browser-console pass is claimed. Initial build with a cross-worktree
 node_modules symlink was rejected by Turbopack; a clean local `npm ci` fixed it.
 No production environment files/credentials or bets database were read or changed.
+
+
+## Collection enabled against current main (2026-11-20)
+
+PR #3 was reconciled with the live injury-adjusted prediction work. Existing numeric
+forecasts, cards, stakes and $1 logging have no diff. Exact-book observations begin
+on the next normal odds snapshot after deployment, not retroactively. The public
+status reports the existing feed configured with 356 requests remaining at its last
+check; no credentials were read and this change does not request additional markets
+or increase frequency. Lack of a recent snapshot is not proof of current key validity.
+
+189 Python tests, typecheck and production build pass. One initial full TypeScript run
+failed the existing hung-request wall-clock test (52.1s versus <5.5s); a separate full
+rerun passed all 142 tests in 5.28s. No timeout implementation or test threshold changed.
+Lint has zero errors and two existing racing warnings. The observation archive remains
+outside deployed public assets; only current snapshots and aggregate reports are read.
+The separate NBA possession study is recorded in draft PR #6 and is rejected; this
+collection change does not promote that or any other candidate.

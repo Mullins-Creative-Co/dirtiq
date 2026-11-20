@@ -1,12 +1,15 @@
 "use client";
 
+import { injuryProjectionView } from "@/lib/availability-display";
+import { AvailabilitySummary } from "@/components/availability/summary";
+
 import Link from "next/link";
 import { InlineLogBet } from "@/components/bets/inline-log-bet";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState, useTransition } from "react";
 
 import { Chip, type Tone } from "@/components/ui/primitives";
-import { dateTime, probability as pct, relativeAge, signed } from "@/lib/format";
+import { dateTime, probability as pct, relativeAge, signed, num, spread } from "@/lib/format";
 import { FEATURED_PER_SPORT, isFreshLiveLine, LIVE_LINE_TTL_MS } from "@/lib/live-lines/core";
 import type { TonightBoard, TonightItem } from "@/lib/tonight";
 
@@ -76,7 +79,7 @@ export function TonightBoardView({ board, initialSport = "all" }: { board: Tonig
   return (
     <div className="space-y-6">
       <div className="note">
-        <strong>Favorites are not flagged for being favorites.</strong> A row is flagged for a spread lean, or for a moneyline only when the price beats the model’s own win probability by 8% or more and is no longer than +300. In the backtests those moneylines still lost about 4% a bet, so treat a flag as something to check, not as value. Over/under leans come from a simple team-scoring-pace model that hit 46–51% against closing totals, below the 52.4% needed to break even. Live lines are ESPN reference quotes; confirm the executable price with your book. Saved lines preserve the forecast snapshot. Injuries and lineups need a separate check.
+        <strong>Favorites are not flagged for being favorites.</strong> A row is flagged for a spread lean, or for a moneyline only when the price beats the model’s own win probability by 8% or more and is no longer than +300. In the backtests those moneylines still lost about 4% a bet, so treat a flag as something to check, not as value. Over/under leans come from a simple team-scoring-pace model that hit 46–51% against closing totals, below the 52.4% needed to break even. Live lines are ESPN reference quotes; confirm the executable price with your book. Saved lines preserve the forecast snapshot. Injury-adjusted spread and total estimates appear inside each game where supported; win probabilities and saved betting terms remain baseline estimates.
       </div>
       <p className={stale ? "note note-warn" : "note"} title={board.refreshedAt ? dateTime(board.refreshedAt) : undefined}>
         <strong>Forecasts and saved lines refreshed {relativeAge(board.refreshedAt, now)}.</strong>{" "}
@@ -138,6 +141,8 @@ function ItemCard({ item, now, index, open, onToggle }: { item: TonightItem; now
   const quoteTime = live?.observedAt ?? item.market?.observedAt;
   const quoteStatus = live ? "ESPN" : item.liveStatus === "unavailable" ? "Live unavailable · saved" : item.liveMarket ? "Live expired · saved" : "Saved";
   const logHref = live ? item.logHref : item.savedLogHref ?? item.logHref;
+  const projection = injuryProjectionView(item.availability,now);
+  const injuryLine = projection ? `${item.homeTeam} ${spread(projection.homeSpread)} · total ${num(projection.total,1)} · injury-adjusted (experimental)` : null;
   const panelId = `tonight-${item.key.replace(/[^a-z0-9]/gi, "-")}`;
   return (
     <li className={`panel overflow-hidden ${open ? "ring-1 ring-[var(--accent)]/40" : ""}`}>
@@ -150,14 +155,15 @@ function ItemCard({ item, now, index, open, onToggle }: { item: TonightItem; now
           {item.kind === "game" ? <span className="block text-xs text-[var(--muted)]" title={quoteTime ? dateTime(quoteTime) : undefined}>{quoteStatus} · {quoteTime ? `line ${relativeAge(quoteTime, now)}` : "line time unknown"}</span> : null}
         </span>
         <span className="hidden min-w-0 sm:block">
-          <span className="block truncate text-sm">{item.pickDetail}</span>
+          <span className="block truncate text-sm">{injuryLine ?? item.pickDetail}</span>
           <span className="block truncate text-xs text-[var(--muted)]">{item.readiness ? `${live ? `Live lean: ${live.lean ?? "none"} · ` : ""}Saved spread: ${item.readiness.spreadLean}` : `${item.raceTable?.length ?? 0} contenders shown`}</span>
         </span>
         <span className="hidden sm:block"><Chip tone={item.readiness ? "warn" : toneFor[item.confidenceLabel]}>{item.readiness?.label ?? `${item.confidenceLabel} likelihood`}</Chip></span>
         <span className="text-right">
           <span className="tnum block font-display text-2xl font-black leading-none">{item.kind === "game" ? (item.flags?.edgePts != null ? Math.abs(item.flags.edgePts).toFixed(1) : "—") : pct(item.confidence, 0)}</span>
-          <span className="block text-[10px] uppercase tracking-wider text-[var(--muted)]">{item.kind === "game" ? "pts off the line" : "vs runner-up"}</span>
+          <span className="block text-[10px] uppercase tracking-wider text-[var(--muted)]">{item.kind === "game" ? "baseline pts off line" : "vs runner-up"}</span>
         </span>
+        {injuryLine ? <span className="col-span-3 text-xs font-semibold sm:hidden">{injuryLine}</span> : null}
         {item.readiness ? <span className="col-span-3 text-xs text-[var(--muted-strong)] sm:hidden"><strong>{item.readiness.label}</strong> · {live ? `Live lean: ${live.lean ?? "none"} · ` : ""}Saved spread: {item.readiness.spreadLean}</span> : null}
       </button>
 
@@ -169,9 +175,10 @@ function ItemCard({ item, now, index, open, onToggle }: { item: TonightItem; now
                 <p className="kicker">Decision check</p>
                 <div className="mt-3 grid grid-cols-2 gap-4">
                   <dl><Stat label={item.flags?.moneyline?.kind ?? "Moneyline"} value={item.flags?.moneyline?.label ?? "No flag"} detail={item.flags?.moneyline?.detail ?? `Model has ${item.pick} ${pct(item.confidence, 0)} to win; neither price beats the model by enough`} /></dl>
-                  <dl><Stat label="Spread lean · saved line" value={item.readiness.spreadLean} detail={item.readiness.spreadCover ?? undefined} /></dl>
+                  <dl><Stat label="Baseline spread lean · saved line" value={item.readiness.spreadLean} detail={item.readiness.spreadCover ?? undefined} /></dl>
                   {item.flags?.total ? <dl><Stat label="Over/under" value={item.flags.total.label ?? `No lean · ${item.flags.total.line.toFixed(1)}`} detail={item.flags.total.detail} /></dl> : null}
                 </div>
+                <AvailabilitySummary game={item.availability} now={now} matchup={{sport:item.sport,label:item.title,startsAt:item.startsAt}}/>
                 {item.readiness.marketInformedWin !== null ? <p className="mt-3 text-xs text-[var(--muted-strong)]">Market-informed win: {item.pick} {pct(item.pick === item.matchupHeaders[0] ? item.readiness.marketInformedWin : 1 - item.readiness.marketInformedWin)}. Uses the saved market line, so it is not an independent second opinion.</p> : null}
                 <p className="mt-3 text-sm font-semibold">{item.readiness.label}</p>
                 <ul className="mt-1 list-disc space-y-1 pl-4 text-xs leading-5 text-[var(--muted-strong)]">{item.readiness.reasons.map((reason) => <li key={reason}>{reason}</li>)}</ul>

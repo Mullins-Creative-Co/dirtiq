@@ -391,6 +391,55 @@ export function listCardDates(): string[] {
 }
 
 
+export type AvailabilityPlayer = {
+  athleteId: string | null; name: string; position: string | null; status: string;
+  category: "out" | "uncertain" | "unknown"; publishedAt: string; stale: boolean;
+  note: string; sourceUrl: string | null; baselineMinutes?: number;
+  impactPointsIfOut?: number | null; contradictedByAppearance?: boolean;
+};
+export type AvailabilityTeam = {
+  team: string; name: string; coverage: string; reason?: string | null; qbFlag: boolean;
+  outMinutes: number | null; uncertainMinutes: number | null;
+  points: { listedOut: number; allUncertainOut: number; min: number; max: number; scenarios: number } | null;
+  players: AvailabilityPlayer[]; baselineGames?: number; baselineThrough?: string;
+};
+export type InjuryAdjustedProjection = {
+  status: "applied" | "unavailable"; experimental: true; asOf: string; reason: string;
+  homeMargin: number | null; homeSpread: number | null; total: number | null;
+  marginChange: number | null; totalChange: number | null;
+  baselineHomeMargin: number | null; baselineHomeSpread: number | null; baselineTotal: number | null;
+  homeMarginRange: [number, number] | null; totalRange: [number, number] | null;
+  method: string | null; totalMethod: string | null;
+  validation?: { marginGames: number; baselineMae: number | null; adjustedMae: number | null; totalGames: number };
+};
+export type AvailabilityGame = {
+  id: string; sport: string; gameId: string; home: string; away: string; startsAt: string; asOf: string;
+  injuryAdjustedProjection?: InjuryAdjustedProjection;
+  baselineTotal?: number | null; totalChange?: { min: number; max: number; listedOut: number } | null;
+  baselineHomeMargin: number | null; baselineForecastAt?: string; marketHomeMargin?: number | null; marketObservedAt?: string | null; appliedToForecast: boolean; appliedToBaselineForecast?: false; sourceUrl: string;
+  homeMarginChange: { min: number; max: number; listedOut: number } | null;
+  contexts: { home: AvailabilityTeam; away: AvailabilityTeam };
+};
+export type AvailabilityReport = {
+  generatedAt: string; policy: string; failures: string[];
+  feeds: Record<string, {officialSourceUrl?: string | null; coverage: string; reason: string | null; retrievedAt: string; sourcePublishedAt?: string; sourceUrl: string; listedPlayers: number; recentPlayers: number}>;
+  model: { version: string; trainedThrough: string; trainingGames: number } | null;
+  games: AvailabilityGame[];
+  totalEvaluation?: { games: number; baselineMae: number | null; listedOutScenarioMae: number | null };
+  evaluation: { games: number; pricedGames: number; baselineMaeOnPricedGames: number | null; listedOutScenarioMaeOnPricedGames: number | null; marketMae: number | null; baselineMae: number | null; listedOutScenarioMae: number | null; promoted: false; policy: string };
+};
+export function getAvailabilityReport(): AvailabilityReport | null {
+  return readJson<AvailabilityReport>("public/data/availability/latest.json");
+}
+export function getAvailabilityIndex(): Map<string, AvailabilityGame> {
+  return new Map((getAvailabilityReport()?.games ?? []).map(game => [game.id,game]));
+}
+
+export function getAvailabilityView() {
+  return { report: getAvailabilityReport(), loadedAt: new Date().toISOString() };
+}
+
+
 export type FairLineSelections = {
   bets: number; wins: number; losses: number; pushes: number;
   coverRate: number | null; lower95: number | null; units: number; roi: number | null; priceBasis: string;

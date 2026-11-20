@@ -1,7 +1,7 @@
 {
  "date": "2026-11-19",
- "generatedAt": "2026-11-19T19:22:25Z",
- "forecastsRefreshedAt": "2026-11-19T19:12:58Z",
+ "generatedAt": "2026-11-20T01:40:08Z",
+ "forecastsRefreshedAt": "2026-11-20T01:30:26Z",
  "unit": "1 unit = 1% of bankroll",
  "rules": [
   "Spread picks in NFL, NBA and college basketball; one pick per game, including unstaked tracking picks. College football is off the card: forecast and tracked in the ledger only.",
@@ -14,8 +14,8 @@
   "A pick is locked at the line it was first listed with and graded at that line."
  ],
  "evidence": "Stakes require both documented evidence conditions; each pick shows its sport's backtest record and gate. Unstaked picks remain tracked. Historical bucket frequencies are not per-game probabilities.",
- "priced": 33,
- "qualified": 14,
+ "priced": 10,
+ "qualified": 3,
  "stakingGates": {
   "nfl": {
    "passed": false,
@@ -26,8 +26,8 @@
    "requiredLower": 0.524,
    "minimumLiveGames": 100,
    "liveClv": {
-    "count": 2,
-    "meanPts": -0.25,
+    "count": 3,
+    "meanPts": -0.16666666666666666,
     "totalPts": -0.5,
     "positiveRate": 0.0
    }
@@ -56,10 +56,10 @@
    "requiredLower": 0.524,
    "minimumLiveGames": 100,
    "liveClv": {
-    "count": 218,
-    "meanPts": 0.20642201834862386,
-    "totalPts": 45.0,
-    "positiveRate": 0.24770642201834864
+    "count": 220,
+    "meanPts": 0.2,
+    "totalPts": 44.0,
+    "positiveRate": 0.24545454545454545
    }
   }
  },
@@ -74,10 +74,10 @@
   "roi": -0.2943,
   "unstakedGraded": 8,
   "clv": {
-   "count": 64,
-   "meanPts": 0.46875,
-   "totalPts": 30.0,
-   "positiveRate": 0.40625
+   "count": 67,
+   "meanPts": 0.4925373134328358,
+   "totalPts": 33.0,
+   "positiveRate": 0.417910447761194
   }
  },
  "picks": [
@@ -171,16 +171,23 @@
    },
    "note": "model +11.0 vs market +6.5: leans TOL by 4.5 pts (threshold 3.0)",
    "lockedAt": "2026-11-19T09:41:34Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
-    "checkedAt": "2026-11-19T19:22:26Z",
-    "line": -6.5,
-    "price": -115,
-    "edgePts": 4.49,
-    "lineObservedAt": "2026-11-19T19:12:38Z"
+    "checkedAt": "2026-11-20T01:40:09Z"
    },
    "rank": 4,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "result": {
+    "outcome": "win",
+    "homeScore": 83,
+    "awayScore": 76,
+    "units": 0.0
+   },
+   "clv": {
+    "points": 1.0,
+    "closeLine": -7.5,
+    "source": "last available pre-start ledger snapshot"
+   }
   },
   {
    "id": "ncaab:401919005",
@@ -272,16 +279,23 @@
    },
    "note": "model +5.9 vs market -1.5: leans LT by 7.4 pts (threshold 3.0)",
    "lockedAt": "2026-11-19T09:41:34Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
-    "checkedAt": "2026-11-19T19:22:26Z",
-    "line": -2.5,
-    "price": -105,
-    "edgePts": 3.39,
-    "lineObservedAt": "2026-11-19T19:12:38Z"
+    "checkedAt": "2026-11-20T01:40:09Z"
    },
    "rank": 1,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "result": {
+    "outcome": "win",
+    "homeScore": 74,
+    "awayScore": 67,
+    "units": 0.0
+   },
+   "clv": {
+    "points": 4.0,
+    "closeLine": -2.5,
+    "source": "last available pre-start ledger snapshot"
+   }
   },
   {
    "id": "nba:401910019",
@@ -373,12 +387,23 @@
    },
    "note": "model +3.8 vs market +7.5: leans GS by 3.7 pts (threshold 3.0)",
    "lockedAt": "2026-11-19T09:41:34Z",
-   "status": "no-current-line",
+   "status": "graded",
    "current": {
-    "checkedAt": "2026-11-19T19:22:26Z"
+    "checkedAt": "2026-11-20T01:40:09Z"
    },
    "rank": 7,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "clv": {
+    "points": 2.0,
+    "closeLine": 5.5,
+    "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "loss",
+    "homeScore": 126,
+    "awayScore": 98,
+    "units": -0.0
+   }
   },
   {
    "id": "nba:401910022",
@@ -470,16 +495,23 @@
    },
    "note": "model +13.2 vs market +16.5: leans LAC by 3.3 pts (threshold 3.0)",
    "lockedAt": "2026-11-19T09:41:34Z",
-   "status": "edge-gone",
+   "status": "graded",
    "current": {
-    "checkedAt": "2026-11-19T19:22:26Z",
-    "line": 15.5,
-    "price": -110,
-    "edgePts": 2.27,
-    "lineObservedAt": "2026-11-19T19:09:47Z"
+    "checkedAt": "2026-11-20T01:40:09Z"
    },
    "rank": 8,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "clv": {
+    "points": 1.0,
+    "closeLine": 15.5,
+    "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "win",
+    "homeScore": 124,
+    "awayScore": 112,
+    "units": 0.0
+   }
   },
   {
    "id": "ncaab:401921028",
@@ -528,10 +560,10 @@
     "requiredLower": 0.524,
     "minimumLiveGames": 100,
     "liveClv": {
-     "count": 218,
-     "meanPts": 0.20642201834862386,
-     "totalPts": 45.0,
-     "positiveRate": 0.24770642201834864
+     "count": 219,
+     "meanPts": 0.2009132420091324,
+     "totalPts": 44.0,
+     "positiveRate": 0.2465753424657534
     }
    },
    "stakingStatus": "unstaked",
@@ -571,16 +603,23 @@
    },
    "note": "model +8.0 vs market +3.5: leans HCU by 4.5 pts (threshold 3.0)",
    "lockedAt": "2026-11-19T09:41:34Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
-    "checkedAt": "2026-11-19T19:22:26Z",
-    "line": -3.5,
-    "price": -110,
-    "edgePts": 4.54,
-    "lineObservedAt": "2026-11-19T19:12:38Z"
+    "checkedAt": "2026-11-20T01:40:09Z"
    },
    "rank": 3,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 79,
+    "awayScore": 86,
+    "units": -0.0
+   },
+   "clv": {
+    "points": 0.0,
+    "closeLine": -3.5,
+    "source": "last available pre-start ledger snapshot"
+   }
   },
   {
    "id": "nfl:2026_11_IND_HOU",
@@ -672,16 +711,23 @@
    },
    "note": "model +8.1 vs market +12.5: leans IND by 4.4 pts (threshold 2.0)",
    "lockedAt": "2026-11-19T09:41:34Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
-    "checkedAt": "2026-11-19T19:22:26Z",
-    "line": 12.5,
-    "price": -114,
-    "edgePts": 4.36,
-    "lineObservedAt": "2026-11-19T19:09:40Z"
+    "checkedAt": "2026-11-20T01:40:09Z"
    },
    "rank": 9,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "clv": {
+    "points": 0.0,
+    "closeLine": 12.5,
+    "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "loss",
+    "homeScore": 26,
+    "awayScore": 3,
+    "units": -0.0
+   }
   },
   {
    "id": "ncaab:401928354",
@@ -730,10 +776,10 @@
     "requiredLower": 0.524,
     "minimumLiveGames": 100,
     "liveClv": {
-     "count": 218,
-     "meanPts": 0.20642201834862386,
-     "totalPts": 45.0,
-     "positiveRate": 0.24770642201834864
+     "count": 220,
+     "meanPts": 0.2,
+     "totalPts": 44.0,
+     "positiveRate": 0.24545454545454545
     }
    },
    "stakingStatus": "unstaked",
@@ -773,16 +819,27 @@
    },
    "note": "model +2.8 vs market -2.5: leans PEPP by 5.3 pts (threshold 3.0)",
    "lockedAt": "2026-11-19T09:41:34Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
-    "checkedAt": "2026-11-19T19:22:26Z",
+    "checkedAt": "2026-11-20T01:40:09Z",
     "line": 1.5,
-    "price": 102,
+    "price": -110,
     "edgePts": 4.3,
-    "lineObservedAt": "2026-11-19T19:12:38Z"
+    "lineObservedAt": "2026-11-20T01:30:21Z"
    },
    "rank": 2,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 80,
+    "awayScore": 88,
+    "units": -0.0
+   },
+   "clv": {
+    "points": 1.0,
+    "closeLine": 1.5,
+    "source": "last available pre-start ledger snapshot"
+   }
   },
   {
    "id": "ncaab:401920349",
@@ -831,10 +888,10 @@
     "requiredLower": 0.524,
     "minimumLiveGames": 100,
     "liveClv": {
-     "count": 218,
-     "meanPts": 0.20642201834862386,
-     "totalPts": 45.0,
-     "positiveRate": 0.24770642201834864
+     "count": 220,
+     "meanPts": 0.2,
+     "totalPts": 44.0,
+     "positiveRate": 0.24545454545454545
     }
    },
    "stakingStatus": "unstaked",
@@ -874,16 +931,27 @@
    },
    "note": "model +20.9 vs market +16.5: leans STAN by 4.4 pts (threshold 3.0)",
    "lockedAt": "2026-11-19T09:41:34Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
-    "checkedAt": "2026-11-19T19:22:26Z",
+    "checkedAt": "2026-11-20T01:40:09Z",
     "line": -16.5,
     "price": -115,
-    "edgePts": 4.44,
-    "lineObservedAt": "2026-11-19T19:12:38Z"
+    "edgePts": 4.43,
+    "lineObservedAt": "2026-11-20T01:30:21Z"
    },
    "rank": 5,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 78,
+    "awayScore": 65,
+    "units": -0.0
+   },
+   "clv": {
+    "points": 0.0,
+    "closeLine": -16.5,
+    "source": "last available pre-start ledger snapshot"
+   }
   },
   {
    "id": "ncaab:401917536",
@@ -932,10 +1000,10 @@
     "requiredLower": 0.524,
     "minimumLiveGames": 100,
     "liveClv": {
-     "count": 218,
-     "meanPts": 0.20642201834862386,
-     "totalPts": 45.0,
-     "positiveRate": 0.24770642201834864
+     "count": 220,
+     "meanPts": 0.2,
+     "totalPts": 44.0,
+     "positiveRate": 0.24545454545454545
     }
    },
    "stakingStatus": "unstaked",
@@ -975,16 +1043,27 @@
    },
    "note": "model +6.8 vs market +2.5: leans SCU by 4.3 pts (threshold 3.0)",
    "lockedAt": "2026-11-19T09:41:34Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
-    "checkedAt": "2026-11-19T19:22:26Z",
-    "line": -2.5,
-    "price": -108,
-    "edgePts": 4.27,
-    "lineObservedAt": "2026-11-19T19:12:38Z"
+    "checkedAt": "2026-11-20T01:40:09Z",
+    "line": -1.5,
+    "price": -118,
+    "edgePts": 5.27,
+    "lineObservedAt": "2026-11-20T01:30:21Z"
    },
    "rank": 6,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 77,
+    "awayScore": 83,
+    "units": -0.0
+   },
+   "clv": {
+    "points": -1.0,
+    "closeLine": -1.5,
+    "source": "last available pre-start ledger snapshot"
+   }
   }
  ]
 }

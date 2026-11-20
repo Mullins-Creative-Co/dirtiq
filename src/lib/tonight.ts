@@ -4,7 +4,7 @@ import { teamName, type TeamNames } from "@/lib/team-names";
 
 import { american, fairAmerican, num, probability as pct, signed, spread } from "@/lib/format";
 import {
-  SPORT_LABELS, getTeamNames, getLedgerIndex, getUpcomingRaceBoards, listSportReports,
+  getAvailabilityIndex, type AvailabilityGame, SPORT_LABELS, getTeamNames, getLedgerIndex, getUpcomingRaceBoards, listSportReports,
   type EmpiricalCover, type LedgerEventSummary, type RaceBoard, type SportReport, type SportUpcoming, type TeamForm,
 } from "@/lib/model-reports";
 import { forecastReadiness, hasMarket, isUpcomingGame, validProbability, type ForecastReadiness } from "@/lib/forecast-readiness";
@@ -29,6 +29,7 @@ export type TonightMarket = {
 };
 
 export type TonightItem = {
+  availability?: AvailabilityGame | null;
   key: string; kind: "game" | "race"; sport: string; sportLabel: string;
   startsAt: string; startsAtLabel: string; isToday: boolean; dayKey: string;
   title: string; subtitle: string;
@@ -336,6 +337,8 @@ export async function buildTonightBoard(horizonDays = 7, options: { live?: boole
         liveStatus: live ? "available" : "unavailable", savedLogHref: item.logHref };
     }));
   }
+  const availability = getAvailabilityIndex();
+  for (const item of items) if (item.kind === "game") item.availability = availability.get(item.key) ?? null;
   const counts = new Map<string, { sport: string; label: string; count: number }>();
   for (const item of items) {
     const entry = counts.get(item.sport) ?? { sport: item.sport, label: item.sportLabel, count: 0 };

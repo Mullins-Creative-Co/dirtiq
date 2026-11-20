@@ -18,7 +18,8 @@ targets:
   fair_lines experimental spread/total study (evaluate --input-dir ... --as-of YYYY-MM-DD)
   ledger   forecast ledger                   (summary | export | settle)
   odds     live odds snapshots               (snapshot --sport nfl; needs ODDS_API_KEY)
-  card     today's ranked, staked shortlist  (build)
+  card     today's ranked shortlist         (build)
+  availability  injury reports + NBA scenarios (refresh)
 """
 
 

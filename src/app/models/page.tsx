@@ -5,7 +5,7 @@ import { Nav } from "@/components/nav";
 import { Card, Chip, EmptyState, Note, PageHeader, Section, StatTile, Table, type Tone } from "@/components/ui/primitives";
 import { ReliabilityChart } from "@/components/ui/reliability-chart";
 import { dateTime, num, pct, relativeAge, signed, units } from "@/lib/format";
-import { SPORT_LABELS, getBookQuoteCoverage, getFairLineReport, getDailyCard, getModelHealth, getOddsStatus, getRacingReport, listSportReports } from "@/lib/model-reports";
+import { SPORT_LABELS, getBookQuoteCoverage, getFairLineReport, getAvailabilityReport, getDailyCard, getModelHealth, getOddsStatus, getRacingReport, listSportReports } from "@/lib/model-reports";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Model health", description: "Ledger scores, calibration, and backtests for every sportIQ model." };
@@ -26,6 +26,7 @@ export default async function ModelsPage() {
   const models = health?.models ?? [];
   const odds = getOddsStatus();
   const gates = getDailyCard()?.stakingGates ?? {};
+  const availability = getAvailabilityReport();
   const oddsRuns = Object.entries(odds?.sports ?? {});
 
   return (
@@ -78,6 +79,11 @@ export default async function ModelsPage() {
             })}</tbody>
           </Table>
           <p className="text-xs text-[var(--muted)]">The gate also requires positive mean live spread CLV on at least 100 unique games. Backtest cover evidence uses the headline model, existing threshold and under-4× card cap. Market-input variants are excluded from opener CLV because their saved forecasts already use the close.</p>
+        </Section>
+
+        <Section title="Injury context evaluation" description="New availability snapshots are evaluated prospectively. User-enabled experimental NBA injury adjustments change the displayed spread/total variant; baseline win probabilities and stakes stay unchanged.">
+          <p className="text-sm">{availability ? `${availability.evaluation.games} paired games · baseline MAE ${num(availability.evaluation.baselineMae,2)} · listed-out scenario MAE ${num(availability.evaluation.listedOutScenarioMae,2)}` : "No availability snapshots yet"}. <Link className="underline" href="/injuries">Reports, player values and coverage</Link></p>
+          <p className="text-sm">Totals forward evaluation: {availability?.totalEvaluation?.games ?? 0} paired games · baseline MAE {num(availability?.totalEvaluation?.baselineMae,2)} · injury-adjusted MAE {num(availability?.totalEvaluation?.listedOutScenarioMae,2)}. No validated improvement is claimed.</p>
         </Section>
 
         <Section id="fair-lines" kicker="Research" title="Can our fair lines beat the market?" description="Spreads and totals evaluated on the same games, using earlier seasons for fitting and calibration. Historical seasons have been examined before; this is model comparison, not untouched validation or proof of profit.">

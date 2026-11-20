@@ -4,7 +4,7 @@ Ranked list of what to build next in this repo, with enough context that any age
 person can pick one up cold. Keep it current: when a plan ships, move it to "Shipped"
 with the commit; when priorities change, reorder and say why. Pair this with
 `docs/model-architecture.md` (the contract for how things work) and `AGENTS.md`
-(hard constraints). Last revised 2026-11-19.
+(hard constraints). Last revised 2026-11-20.
 
 ## Focus (set 2026-11-11)
 
@@ -46,36 +46,20 @@ site orders sports the same way; the closing-line feed covers the four focus spo
 
 ## Plans, in priority order
 
-### Current priority: fair lines with genuinely new information (2026-11-19)
-Owner authorized taking the wheel on spread/total accuracy and comparisons with
-FanDuel/DraftKings. `feat/fair-line-lab` implements a frozen, reproducible historical
-comparison of separate offense/defense scoring states and market-residual ridge,
-with distinct fit/calibration/evaluation seasons, date-cluster uncertainty, full
-season results and honest price coverage on `/models`. Neither candidate beats the
-closing market reliably; no production forecast or staking change is justified.
-See `docs/fair-line-review-2026-11-19.md` and `docs/fair-line-protocol.md`.
+### Current validation work (2026-11-20)
+The owner agreed to one focused NBA candidate and evidence-based promotion. A frozen
+possession/efficiency study is recorded separately on `research/nba-possession-candidate`:
+it does not beat the market and is rejected. No production prediction/staking change
+follows from that result. Historical injury/announced-starter inputs remain unavailable.
 
-The same branch retains exact per-book spread/moneyline quotes from existing calls
-and freezes pregame baseline/quote observations for future evaluation. Collection
-starts on deployment; old consensus snapshots cannot support named-book ROI.
-Snapshot frequency/paid markets stay unchanged. Manual $1 card logging is preserved.
-
-Next implementation order:
-1. Reconcile/deploy the pending timestamped injury work (`feat/injury-context`, PR #2)
-   while preserving main's restored manual logging. Prospective observations first;
-   no retroactive injury history or automatic point-model promotion.
-2. Build verified as-of basketball possession/efficiency inputs, and football QB /
-   EPA-success-rate inputs plus timestamped weather forecasts. Audit coverage and
-   release lag before fitting. Repeating score-only filters is not a priority.
-3. Freeze a new feature experiment before outcomes are inspected; compare on the same
-   priced games, then run forward shadow forecasts with exact-book observations.
-4. Expand named-book totals collection only after a documented quota/source decision;
-   existing historical totals have no archived side prices. Track forecast/quote
-   times, accepted terms when manually logged, closing quotes and final results.
-
-Done when: a prospectively frozen candidate improves fair-line accuracy and probability
-calibration against the market, with sustained positive exact-price returns and CLV
-on sufficient independent games. Historical positive slices alone do not qualify.
+This change (PR #3) enables the prerequisite exact-book observations: retain source
+market timestamps, coherent FanDuel/DraftKings/other-book lines and prices, paired with
+frozen baseline forecasts. Existing quota-limited calls and schedule are unchanged;
+no new paid totals market. Collection begins on the next normal snapshot after deployment,
+not retroactively. Old consensus snapshots cannot establish named-book executable ROI.
+Next: investigate material player-box inconsistencies, collect timestamped expected
+minutes/availability, and judge frozen forward predictions with exact-book results/CLV.
+No more threshold searches on previously inspected historical seasons.
 
 
 ### 1. Closing lines for all four focus sports, and offline CLV
@@ -92,9 +76,10 @@ See `docs/card-evidence-review-2026-11-17.md` for validation and data limits.
 **Done when**: completed for independent headline spread leans; market-input opener
 replays and moneyline CLV need a separately scoped evaluation.
 
-### (old 2) Injuries and lineups for NBA and NFL
+### 2. Injuries and lineups — injury checking (2026-11-19)
 **Why**: rest is in; absence of stars is the largest remaining rating error in NBA; the
 NFL quarterback is the single biggest line mover.
+**Status**: implemented on `feat/injury-context` (PR #2; publication tracked on the PR), reconciled with current main and its restored personal $1 logging. Card/Tonight link timestamped reports and source checks; collection runs hourly after deployment. College coverage can be unavailable; NBA point values now feed a user-enabled experimental injury-adjusted spread/total variant; baseline probabilities, locked cards and stakes are unchanged. NFL/college point adjustments remain unsupported.
 **Build**: ESPN injuries endpoint per team snapshotted each refresh; NFL quarterback
 out/in flag first; NBA minutes-weighted available-strength adjustment learned in the stack.
 Snapshots start the day they begin, so the evaluation window is short; never leak a
@@ -145,9 +130,20 @@ alone shrinks to nothing, so this is the only route to starter value.
 
 ## Shipped (most recent first)
 
-- 2026-11-19: fair-line evaluation and named-book observation infrastructure implemented
-  on `feat/fair-line-lab` (pending review/deployment). All four focus sports and both
-  markets evaluated; no candidate promoted. See current priority above.
+- 2026-11-20: `feat/injury-adjusted-projections` implements the owner's explicit request
+  to apply injuries to displayed predictions. NBA listed-out replacement changes feed
+  a separate spread and total variant; total coefficients use their own total-points
+  response/design. Current source/model/forecast and replacement evidence are required;
+  unknowns remain unavailable. This is user-enabled experimental output, not validated
+  model promotion. First existing margin evaluation: 9 games, baseline MAE 9.402 versus
+  scenario 9.526; no accuracy improvement. Total prospective cohort starts at zero.
+  Baseline probabilities, locked cards and stakes stay unchanged. See
+  `docs/injury-adjustment-protocol.md` and `docs/availability.md`.
+
+- 2026-11-19: inline injury details on prediction panels (`feat/inline-injury-predictions`).
+  Card and Tonight show listed players/statuses directly; Tonight places them beside
+  spread/total decision information even without a saved market. Sources stay in an
+  optional disclosure. Missing/stale reports remain explicit; forecast numbers unchanged.
 
 - 2026-11-18: evidence gate merged to `main`; college football taken off the daily card
   (`CARD_SPORTS` in `dirtiq_model/card/build.py`) at the owner's request: under 49% in every
