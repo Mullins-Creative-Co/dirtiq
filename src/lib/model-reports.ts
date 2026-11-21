@@ -108,6 +108,7 @@ function readJson<T>(relative: string): T | null {
 }
 
 export type CardPick = {
+  quoteWithdrawn?: boolean; quoteIdentityVersion?: number | null;
   homeName?: string; awayName?: string; pickName?: string;
   id: string; sport: string; sportLabel: string; gameId: string; home: string; away: string; startsAt: string;
   market: "spread"; pick: string; opponent: string; side: "home" | "away";

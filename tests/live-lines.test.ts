@@ -180,3 +180,27 @@ test("ESPN price in close.pointSpread is rejected rather than used as a handicap
   assert.equal(quote?.homeSpreadPrice,null);
   assert.equal(quote?.total,143.5);
 });
+
+test("neutral-site Mercyhurst quotes follow team IDs, never schedule position", () => {
+  const payload = { items: [{ provider: { name: "DraftKings" }, spread: -5.5, overUnder: 129.5,
+    homeTeamOdds: { team: { $ref: "https://sports.core.api.espn.com/teams/2385?lang=en" }, favorite: true, moneyLine: -245, spreadOdds: -112 },
+    awayTeamOdds: { teamId: 2710, moneyLine: 200, spreadOdds: -108 } }] };
+  const line = consolidateLiveLines(payload, observedAt, { home: "2710", away: "2385" })!;
+  assert.equal(line.spread, 5.5); // schedule home WIU; Mercyhurst is -5.5
+  assert.equal(line.awaySpreadPrice, -112);
+  assert.equal(line.homeMl, 200);
+  assert.equal(line.awayMl, -245);
+  assert.equal(line.total, 129.5);
+  assert.equal(consolidateLiveLines(payload, observedAt, { home: "99", away: "2385" }), null);
+  assert.equal(consolidateLiveLines(fixture, observedAt, { home: "2710", away: "2385" }), null);
+});
+
+test("summary resolves expected team codes independently of source positions", async () => {
+  const { summaryTeamIds } = await import("../src/lib/live-lines/core.ts");
+  const payload = { header: { competitions: [{ competitors: [
+    { homeAway: "home", team: { id: "2385", abbreviation: "MERC" } },
+    { homeAway: "away", team: { id: "2710", abbreviation: "WIU" } },
+  ] }] } };
+  assert.deepEqual(summaryTeamIds(payload, "WIU", "MERC"), { home: "2710", away: "2385" });
+  assert.equal(summaryTeamIds(payload, "MER", "WIU"), null);
+});

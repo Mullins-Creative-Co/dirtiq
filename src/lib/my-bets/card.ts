@@ -8,7 +8,7 @@ import { teamName, type TeamNames } from "../team-names.ts";
  * evidence supports, the tracker records what the owner chose to bet.
  */
 export function cardBetInputs(card: DailyCard, names: TeamNames, now = new Date()): NewBet[] {
-  return card.picks.map(pick => ({
+  return card.picks.filter(pick => !pick.quoteWithdrawn).map(pick => ({
     sport: pick.sport, eventId: pick.id,
     eventLabel: `${teamName(names, pick.sport, pick.away)} at ${teamName(names, pick.sport, pick.home)}`,
     eventStart: pick.startsAt, market: "spread", selection: pick.pick,

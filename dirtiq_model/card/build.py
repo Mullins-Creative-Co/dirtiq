@@ -133,6 +133,7 @@ def candidate(sport: str, report: Dict[str, Any], game: Dict[str, Any], now: dat
     return {
         "id": "%s:%s" % (sport, game["gameId"]), "sport": sport, "sportLabel": report.get("label") or sport.upper(),
         "gameId": str(game["gameId"]), "home": game["home"], "away": game["away"], "startsAt": game["startsAt"],
+        "quoteIdentityVersion": game.get("quoteIdentityVersion"),
         "neutral": int(game.get("neutral") or 0),
         "market": "spread", "pick": team, "opponent": opponent, "side": "home" if home_pick else "away",
         "line": line, "price": int(price), "homeSpread": spread,
@@ -191,6 +192,10 @@ def refresh_status(pick: Dict[str, Any], games: Dict[str, Dict[str, Any]], now: 
     start = _parse(pick.get("startsAt"))
     game = games.get(pick["id"])
     current: Dict[str, Any] = {"checkedAt": now_iso()}
+    if game and game.get("quoteTeamOrderCorrected") and not pick.get("quoteIdentityVersion") and not pick.get("result"):
+        pick["quoteWithdrawn"] = True
+        pick["note"] = "Original quote withdrawn: provider home/away order differed from the schedule. Check the current team-specific price."
+
     if start is not None and start <= now:
         pick["status"] = "started"
     elif game is None or _num(game.get("marketHomeSpread")) is None or _num(game.get("projectedHomeMargin")) is None:
@@ -198,10 +203,10 @@ def refresh_status(pick: Dict[str, Any], games: Dict[str, Dict[str, Any]], now: 
     else:
         spread = float(game["marketHomeSpread"])
         edge = float(game["projectedHomeMargin"]) + spread
-        signed = edge if pick["side"] == "home" else -edge
+        signed = edge if pick["pick"] == game["home"] else -edge
         current.update({
-            "line": spread if pick["side"] == "home" else -spread,
-            "price": game.get("marketHomePrice" if pick["side"] == "home" else "marketAwayPrice"),
+            "line": spread if pick["pick"] == game["home"] else -spread,
+            "price": game.get("marketHomePrice" if pick["pick"] == game["home"] else "marketAwayPrice"),
             "edgePts": round(signed, 2), "lineObservedAt": game.get("lineObservedAt"),
         })
         pick["status"] = "playable" if signed >= pick["threshold"] else "edge-gone"
@@ -210,12 +215,17 @@ def refresh_status(pick: Dict[str, Any], games: Dict[str, Dict[str, Any]], now: 
 
 def grade(pick: Dict[str, Any], results: Dict[str, Dict[str, Any]]) -> bool:
     """Grade one pick at its locked line. Returns True when a result was written."""
-    if pick.get("result") or pick["id"] not in results:
+    if pick.get("quoteWithdrawn") or pick.get("result") or pick["id"] not in results:
         return False
     game = results[pick["id"]]
     home, away = _num(game.get("homeScore")), _num(game.get("awayScore"))
     if home is None or away is None:
         return False
+    if game.get("home") and game.get("away"):
+        if {game["home"], game["away"]} != {pick["home"], pick["away"]}:
+            return False
+        if game["home"] != pick["home"]:
+            home, away = away, home
     margin = (home - away) if pick["side"] == "home" else (away - home)
     covered = margin + pick["line"]
     outcome = "win" if covered > 0 else "loss" if covered < 0 else "push"

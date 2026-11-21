@@ -1,7 +1,7 @@
 {
  "date": "2026-11-21",
- "generatedAt": "2026-11-21T08:58:45Z",
- "forecastsRefreshedAt": "2026-11-21T08:49:11Z",
+ "generatedAt": "2026-11-21T16:18:37Z",
+ "forecastsRefreshedAt": "2026-11-21T16:18:33Z",
  "unit": "1 unit = 1% of bankroll",
  "rules": [
   "Spread picks in NFL, NBA and college basketball; one pick per game, including unstaked tracking picks. College football is off the card: forecast and tracked in the ledger only.",
@@ -14,8 +14,8 @@
   "A pick is locked at the line it was first listed with and graded at that line."
  ],
  "evidence": "Stakes require both documented evidence conditions; each pick shows its sport's backtest record and gate. Unstaked picks remain tracked. Historical bucket frequencies are not per-game probabilities.",
- "priced": 54,
- "qualified": 17,
+ "priced": 53,
+ "qualified": 15,
  "stakingGates": {
   "nfl": {
    "passed": false,
@@ -169,17 +169,19 @@
     "avgMargin": -9.0,
     "last": "1-4"
    },
-   "note": "model -3.4 vs market +6.5: leans MERC by 9.9 pts (threshold 3.0)",
+   "note": "Original quote withdrawn: provider home/away order differed from the schedule. Check the current team-specific price.",
    "lockedAt": "2026-11-21T08:58:45Z",
-   "status": "playable",
+   "status": "edge-gone",
    "current": {
-    "checkedAt": "2026-11-21T08:58:46Z",
-    "line": 6.5,
-    "price": -110,
-    "edgePts": 9.92,
-    "lineObservedAt": "2026-11-21T08:49:06Z"
+    "checkedAt": "2026-11-21T16:18:37Z",
+    "line": -5.5,
+    "price": -112,
+    "edgePts": -1.28,
+    "lineObservedAt": "2026-11-21T16:18:29Z"
    },
-   "rank": 1
+   "rank": 1,
+   "originallyListedStakeUnits": 0.0,
+   "quoteWithdrawn": true
   },
   {
    "id": "ncaab:401911022",
@@ -273,13 +275,14 @@
    "lockedAt": "2026-11-21T08:58:45Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-21T08:58:46Z",
+    "checkedAt": "2026-11-21T16:18:37Z",
     "line": -5.5,
     "price": -108,
-    "edgePts": 5.0,
-    "lineObservedAt": "2026-11-21T08:49:06Z"
+    "edgePts": 4.96,
+    "lineObservedAt": "2026-11-21T16:18:29Z"
    },
-   "rank": 6
+   "rank": 6,
+   "originallyListedStakeUnits": 0.0
   },
   {
    "id": "ncaab:401911199",
@@ -373,13 +376,14 @@
    "lockedAt": "2026-11-21T08:58:45Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-21T08:58:46Z",
-    "line": 5.5,
-    "price": -110,
-    "edgePts": 6.65,
-    "lineObservedAt": "2026-11-21T08:49:06Z"
+    "checkedAt": "2026-11-21T16:18:37Z",
+    "line": 4.5,
+    "price": -105,
+    "edgePts": 5.4,
+    "lineObservedAt": "2026-11-21T16:18:29Z"
    },
-   "rank": 2
+   "rank": 2,
+   "originallyListedStakeUnits": 0.0
   },
   {
    "id": "ncaab:401922222",
@@ -473,13 +477,14 @@
    "lockedAt": "2026-11-21T08:58:45Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-21T08:58:46Z",
+    "checkedAt": "2026-11-21T16:18:37Z",
     "line": 4.5,
-    "price": -108,
-    "edgePts": 5.88,
-    "lineObservedAt": "2026-11-21T08:49:06Z"
+    "price": -105,
+    "edgePts": 5.57,
+    "lineObservedAt": "2026-11-21T16:18:29Z"
    },
-   "rank": 3
+   "rank": 3,
+   "originallyListedStakeUnits": 0.0
   },
   {
    "id": "ncaab:401925065",
@@ -573,13 +578,14 @@
    "lockedAt": "2026-11-21T08:58:45Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-21T08:58:46Z",
-    "line": 3.5,
+    "checkedAt": "2026-11-21T16:18:37Z",
+    "line": 2.5,
     "price": -105,
-    "edgePts": 5.77,
-    "lineObservedAt": "2026-11-21T08:49:06Z"
+    "edgePts": 4.8,
+    "lineObservedAt": "2026-11-21T16:18:29Z"
    },
-   "rank": 4
+   "rank": 4,
+   "originallyListedStakeUnits": 0.0
   },
   {
    "id": "ncaab:401925049",
@@ -673,13 +679,14 @@
    "lockedAt": "2026-11-21T08:58:45Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-21T08:58:46Z",
+    "checkedAt": "2026-11-21T16:18:37Z",
     "line": -1.5,
-    "price": -110,
-    "edgePts": 5.61,
-    "lineObservedAt": "2026-11-21T08:49:06Z"
+    "price": -105,
+    "edgePts": 5.52,
+    "lineObservedAt": "2026-11-21T16:18:29Z"
    },
-   "rank": 5
+   "rank": 5,
+   "originallyListedStakeUnits": 0.0
   },
   {
    "id": "nba:401910028",
@@ -773,13 +780,14 @@
    "lockedAt": "2026-11-21T08:58:45Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-21T08:58:46Z",
+    "checkedAt": "2026-11-21T16:18:37Z",
     "line": -12.5,
     "price": -110,
     "edgePts": 3.42,
     "lineObservedAt": "2026-11-21T08:46:04Z"
    },
-   "rank": 7
+   "rank": 7,
+   "originallyListedStakeUnits": 0.0
   }
  ]
 }

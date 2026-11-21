@@ -285,3 +285,13 @@ for saved cards too, then exposes individual editors directly beneath the button
 linked picks are retained without overwriting edited terms; repeat/retried batch requests
 skip the same event, market and side. SQLite inserts conditionally; Postgres serializes
 each event/side check-and-insert with a transaction advisory lock.
+
+## Quote identity correction (2026-11-21)
+
+Mercyhurst–Western Illinois exposed a neutral-site schedule/odds home-away reversal.
+Live quote consumers now resolve team IDs independently of positional designation;
+NBA/NCAAB upcoming market ingestion aligns spread, side prices, moneylines and opening
+quotes by ID and withholds unmatched quotes. Legacy card quotes affected by a confirmed
+reversal are withdrawn and excluded from bulk logging. Locked terms and existing bets
+are preserved. Historical cached odds still require a separate identity audit; this
+change does not retroactively certify historical model performance.

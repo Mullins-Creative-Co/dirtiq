@@ -333,7 +333,7 @@ class LateFinalsTest(unittest.TestCase):
 
         def event(eid, home, away, name="STATUS_FINAL", done=True):
             return {"id": eid, "status": {"type": {"name": name, "completed": done}},
-                    "competitions": [{"competitors": [{"homeAway": "home", "score": str(home)}, {"homeAway": "away", "score": str(away)}]}]}
+                    "competitions": [{"competitors": [{"homeAway": "home", "score": str(home), "team": {"abbreviation": "PHI"}}, {"homeAway": "away", "score": str(away), "team": {"abbreviation": "TOR"}}]}]}
 
         calls = []
 
@@ -346,6 +346,13 @@ class LateFinalsTest(unittest.TestCase):
         self.assertEqual(len(calls), 1)
         self.assertIn("dates=20261112", calls[0])
         self.assertEqual([(r["eventId"], r["homeScore"], r["awayScore"]) for r in rows], [("nba:1", 123, 112)])
+        def reversed_fetch(url):
+            e = event("1", 112, 123)
+            c = e["competitions"][0]["competitors"]
+            c[0]["team"]["abbreviation"], c[1]["team"]["abbreviation"] = "TOR", "PHI"
+            return {"events": [e]}
+        reversed_rows = forecast.late_finals(cfg, games, now=now, fetch=reversed_fetch)
+        self.assertEqual((reversed_rows[0]["homeScore"], reversed_rows[0]["awayScore"]), (123, 112))
         nfl = type("C", (), {"sport": "nfl"})()
         self.assertEqual(forecast.late_finals(nfl, games, now=now, fetch=fetch), [])
 
