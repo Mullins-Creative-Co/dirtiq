@@ -10,6 +10,7 @@ export const FEATURED_PER_SPORT = 6;
 export const LIVE_SPORTS = ["nfl", "ncaaf", "nba", "ncaab"] as const;
 export type LiveSport = typeof LIVE_SPORTS[number];
 export type LiveLine = {
+  teamOrderCorrected?: boolean;
   spread: number | null; homeSpreadPrice: number | null; awaySpreadPrice: number | null;
   homeMl: number | null; awayMl: number | null; total: number | null; books: number; observedAt: string;
 };
@@ -47,7 +48,7 @@ const EXCLUDED = ["live", "accuscore", "numberfire", "teamrankings", "consensus"
 
 /** Mirrors adapters/espn_odds.py book_row + consolidate: close overrides top-level,
  * home handicap, paired moneylines, medians over real books only. */
-export function consolidateLiveLines(payload: unknown, observedAt: string): LiveLine | null {
+export function consolidateLiveLines(payload: unknown, observedAt: string, expected?: { home: string; away: string }): LiveLine | null {
   const items = obj(payload).items;
   if (!Array.isArray(items)) return null;
   const books = items.flatMap((raw) => {
@@ -57,12 +58,22 @@ export function consolidateLiveLines(payload: unknown, observedAt: string): Live
     let spread = number(item.spread);
     if (spread !== null && h.favorite !== null && h.favorite !== undefined) spread = h.favorite ? -Math.abs(spread) : Math.abs(spread);
     const book = {
+      teamOrderCorrected: false,
       spread: american(hc.pointSpread) ?? spread,
       homeSpreadPrice: legal(american(hc.spread) ?? number(h.spreadOdds)),
       awaySpreadPrice: legal(american(ac.spread) ?? number(a.spreadOdds)),
       homeMl: legal(american(hc.moneyLine) ?? number(h.moneyLine)),
       awayMl: legal(american(ac.moneyLine) ?? number(a.moneyLine)), total: number(item.overUnder),
     };
+    if (expected) {
+      const hi = oddsTeamId(h), ai = oddsTeamId(a);
+      if (hi === expected.away && ai === expected.home) {
+        book.teamOrderCorrected = true;
+        book.spread = book.spread === null ? null : -book.spread;
+        [book.homeSpreadPrice, book.awaySpreadPrice] = [book.awaySpreadPrice, book.homeSpreadPrice];
+        [book.homeMl, book.awayMl] = [book.awayMl, book.homeMl];
+      } else if (hi !== expected.home || ai !== expected.away) return [];
+    }
     if (book.spread !== null && Math.abs(book.spread) >= 100) {
       book.spread = null; book.homeSpreadPrice = null; book.awaySpreadPrice = null;
     }
@@ -74,6 +85,7 @@ export function consolidateLiveLines(payload: unknown, observedAt: string): Live
   const paired = books.filter((b) => b.homeMl !== null && b.awayMl !== null);
   const spreads = books.filter((b) => b.spread !== null);
   return {
+    ...(expected ? { teamOrderCorrected: books.some(b => b.teamOrderCorrected) } : {}),
     spread: median(spreads.map((b) => b.spread)),
     homeSpreadPrice: priceMedian(spreads.map((b) => b.homeSpreadPrice)),
     awaySpreadPrice: priceMedian(spreads.map((b) => b.awaySpreadPrice)),
@@ -184,4 +196,23 @@ export function nflEspnId(payload: unknown, home: string, away: string, startsAt
   });
   const id = matches.length === 1 ? String(obj(matches[0]).id ?? "") : "";
   return /^\d+$/.test(id) ? id : null;
+}
+
+/** Match identities independently of provider home/away designation (neutral sites can reverse it). */
+function oddsTeamId(side: Obj): string {
+  const team = obj(side.team);
+  return String(side.teamId ?? team.id ?? String(team.$ref ?? "").match(/\/teams\/(\d+)/)?.[1] ?? "");
+}
+export function summaryTeamIds(payload: unknown, home: string, away: string): { home: string; away: string } | null {
+  const competitions = obj(obj(payload).header).competitions;
+  if (!Array.isArray(competitions) || competitions.length !== 1) return null;
+  const competitors = obj(competitions[0]).competitors;
+  if (!Array.isArray(competitors)) return null;
+  const aliases: Record<string, string> = { WSH: "WAS", LAR: "LA", GS: "GSW", NY: "NYK", SA: "SAS", NO: "NOP", UTAH: "UTA" };
+  const norm = (v: unknown) => aliases[String(v)] ?? String(v);
+  const find = (code: string) => competitors.filter(c => norm(obj(obj(c).team).abbreviation) === norm(code));
+  const h = find(home), a = find(away);
+  if (h.length !== 1 || a.length !== 1) return null;
+  const hi = String(obj(obj(h[0]).team).id ?? ""), ai = String(obj(obj(a[0]).team).id ?? "");
+  return /^\d+$/.test(hi) && /^\d+$/.test(ai) && hi !== ai ? { home: hi, away: ai } : null;
 }

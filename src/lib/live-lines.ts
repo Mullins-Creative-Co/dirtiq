@@ -1,6 +1,6 @@
 import "server-only";
 
-import { consolidateLiveLines, LIVE_LINE_TTL_MS, nflEspnId, type LiveLine, type LiveSport } from "./live-lines/core.ts";
+import { consolidateLiveLines, LIVE_LINE_TTL_MS, nflEspnId, summaryTeamIds, type LiveLine, type LiveSport } from "./live-lines/core.ts";
 
 const LEAGUES: Record<LiveSport, string> = {
   nba: "basketball/nba", ncaab: "basketball/mens-college-basketball",
@@ -40,13 +40,14 @@ async function json(url: string): Promise<ResponseData | null> {
 }
 
 /** Fetch ESPN ids in parallel, with a process-wide 12-request limit and three-minute cache. */
-export async function getLiveLines(sport: LiveSport, eventIds: string[]): Promise<Map<string, LiveLine | null>> {
+export async function getLiveLines(sport: LiveSport, eventIds: string[], matchup?: { home: string; away: string }): Promise<Map<string, LiveLine | null>> {
   const entries = await Promise.all([...new Set(eventIds)].map(async (id): Promise<[string, LiveLine | null]> => {
     if (!/^\d+$/.test(id)) return [id, null];
     const path = LEAGUES[sport];
     const url = `https://sports.core.api.espn.com/v2/sports/${path.split("/")[0]}/leagues/${path.split("/")[1]}/events/${id}/competitions/${id}/odds?limit=50`;
-    const response = await json(url);
-    const value = response ? consolidateLiveLines(response.payload, response.observedAt) : null;
+    const [response, summary] = await Promise.all([json(url), matchup ? json(`https://site.api.espn.com/apis/site/v2/sports/${path}/summary?event=${id}`) : Promise.resolve(null)]);
+    const ids = matchup ? summaryTeamIds(summary?.payload, matchup.home, matchup.away) : undefined;
+    const value = response && ids !== null ? consolidateLiveLines(response.payload, response.observedAt, ids) : null;
     return [id, value];
   }));
   return new Map(entries);

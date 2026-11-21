@@ -624,3 +624,13 @@ are excluded. Observations are committed by the sports workflow for future offli
 book-specific evaluation and excluded from Vercel deployment input. These observations
 are baseline records, not live candidate forecasts or claimed profitable opportunities.
 No historical named-book records are fabricated from old consensus-only snapshots.
+
+### Team identity on market quotes
+
+Upcoming NBA/NCAAB adapters retain schedule team IDs. ESPN compact book records retain
+source team IDs; ingestion aligns spreads and paired prices to schedule IDs before
+consolidation. Missing or mismatched identities withhold the quote. Completed legacy
+caches remain unchanged and are not certified by this check. Request-time card/board
+quotes match summary abbreviations to IDs before aligning each book. New verified card
+quotes carry `quoteIdentityVersion`; a confirmed reversal withdraws an older unverified
+card quote (`quoteWithdrawn`) without rewriting its locked terms or personal bets.

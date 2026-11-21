@@ -32,3 +32,12 @@ test("bulk logging includes unstaked picks at a flat $1 without a model probabil
   assert.ok(inputs.every(input => input.stake === 1 && input.modelProb === null));
   assert.equal(inputs[0].eventId,card.picks[0].id);
 });
+
+test("withdrawn quotes are excluded while other unstaked picks remain loggable", () => {
+  const card = JSON.parse(readFileSync(new URL("../public/data/cards/2026-11-12.json",import.meta.url),"utf8")) as DailyCard;
+  card.picks.forEach(p => { p.stakeUnits = 0; });
+  card.picks[0].quoteWithdrawn = true;
+  const inputs = cardBetInputs(card, {});
+  assert.equal(inputs.length, card.picks.length - 1);
+  assert.ok(inputs.every(p => p.eventId !== card.picks[0].id && p.stake === 1));
+});

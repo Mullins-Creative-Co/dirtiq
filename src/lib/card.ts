@@ -29,7 +29,7 @@ function logHref(pick: CardPick, line: number, price: number | null): string {
 async function liveFor(pick: CardPick): Promise<LiveLine | null> {
   if (!isLiveSport(pick.sport)) return null;
   const id = pick.sport === "nfl" ? await resolveNflEvent(pick) : pick.gameId;
-  return id ? (await getLiveLines(pick.sport, [id])).get(id) ?? null : null;
+  return id ? (await getLiveLines(pick.sport, [id], pick)).get(id) ?? null : null;
 }
 
 /** Today's card with each open pick checked against ESPN's current line. */
@@ -57,6 +57,7 @@ export async function buildCardView(date?: string): Promise<CardView | null> {
     const edgePts = (pick.modelHomeMargin + quote.spread) * (home ? 1 : -1);
     return {
       ...pick,
+      quoteWithdrawn: pick.quoteWithdrawn || (quote.teamOrderCorrected && !pick.quoteIdentityVersion),
       live: { line, price, edgePts, observedAt: quote.observedAt, books: quote.books, moved: line - pick.line },
       liveStatus: edgePts >= pick.threshold ? "playable" : "edge-gone",
       logHref: logHref(pick, line, price),

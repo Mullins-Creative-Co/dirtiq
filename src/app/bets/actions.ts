@@ -4,7 +4,8 @@ import { revalidatePath } from "next/cache";
 import { parseBetInput, prepareBetEdit } from "@/lib/my-bets/input";
 
 import { addCardBet, addBet, deleteBet, setBetStatus, getBet, updateBet, settleOpenBets } from "@/lib/my-bets";
-import { getDailyCard, getTeamNames } from "@/lib/model-reports";
+import { getTeamNames } from "@/lib/model-reports";
+import { buildCardView } from "@/lib/card";
 import { cardBetInputs } from "@/lib/my-bets/card";
 import { BET_STATUSES, type MyBet, type BetStatus } from "@/lib/my-bets/grade";
 
@@ -48,7 +49,8 @@ export async function setBetStatusAction(fd: FormData): Promise<void> {
 export async function logCardBetsAction(date: string): Promise<{bets:MyBet[];added:number;existing:number;error?:string}> {
   const response = {bets:[] as MyBet[],added:0,existing:0,error:undefined as string|undefined};
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return {...response,error:"Choose a saved card date."};
-  const card = getDailyCard(date);
+  const view = await buildCardView(date);
+  const card = view ? { ...view, picks: view.picks.map(p => view.today === date && p.live ? { ...p, line: p.live.line, price: p.live.price ?? p.price } : p) } : null;
   if (!card) return {...response,error:"This saved card is unavailable."};
   try {
     for (const input of cardBetInputs(card,getTeamNames())) {

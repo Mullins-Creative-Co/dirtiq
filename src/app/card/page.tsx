@@ -18,6 +18,7 @@ export const metadata = { title: "Today’s card", description: "The day’s ran
 const startTime = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit" });
 
 function status(pick: CardPickView): { label: string; tone: Tone; detail: string } {
+  if (pick.quoteWithdrawn) return { label: "Withdrawn", tone: "bad", detail: `Original quote assigned to the wrong team. ${pick.live ? `Current ${pick.pickName ?? pick.pick} ${spread(pick.live.line)} (${american(pick.live.price)}).` : "Confirm the current team price at your book."} Excluded from Log all.` };
   if (pick.result) {
     const tone: Tone = pick.result.outcome === "win" ? "good" : pick.result.outcome === "loss" ? "bad" : "neutral";
     return { label: pick.result.outcome, tone, detail: `${pick.homeName ?? pick.home} ${pick.result.homeScore}, ${pick.awayName ?? pick.away} ${pick.result.awayScore} · ${units(pick.result.units)}` };
@@ -28,7 +29,7 @@ function status(pick: CardPickView): { label: string; tone: Tone; detail: string
     const now = `Now ${pick.pickName ?? pick.pick} ${spread(pick.live.line)} (${american(pick.live.price)}), ${moved}`;
     return pick.liveStatus === "playable"
       ? { label: "Playable", tone: "good", detail: `${now}; model still ${signed(pick.live.edgePts, 1)} pts past it.` }
-      : { label: "Edge gone", tone: "warn", detail: `${now}; the model is only ${signed(pick.live.edgePts, 1)} pts past it, under the ${pick.threshold}-pt bar. Skip unless you can still get ${spread(pick.line)}.` };
+      : { label: "Edge gone", tone: "warn", detail: `${now}; the model is only ${signed(pick.live.edgePts, 1)} pts past it, under the ${pick.threshold}-pt bar. Confirm the current line before logging.` };
   }
   return pick.status === "edge-gone"
     ? { label: "Edge gone", tone: "warn", detail: "At the last hourly refresh the line had moved under the bar. No live quote right now." }
@@ -80,7 +81,7 @@ export default async function CardPage({searchParams}:{searchParams:Promise<{dat
       <main className="mx-auto max-w-7xl space-y-3 px-3 py-3 sm:space-y-5 sm:px-6 sm:py-6 [&>header]:gap-3 [&>header]:pb-3 [&_.stat]:!p-2.5 [&_.stat-value]:!text-2xl [&_.stat-detail]:!text-[11px]">
         {current?<RefreshNotice />:null}
         <form method="get" className="flex flex-wrap items-center gap-2 text-sm"><label className="flex items-center gap-2">Card date<select name="date" defaultValue={card.date} className="input !w-auto !py-1.5">{dates.map(date=><option key={date} value={date}>{date}</option>)}</select></label><button className="text-xs font-bold text-[var(--accent)]" type="submit">View card</button></form>
-        <LogCardBets key={card.date} date={card.date} count={card.picks.length} unstaked={card.picks.filter(p => p.stakeUnits === 0).length} events={sorted.map(eventFor)} />
+        <LogCardBets key={card.date} date={card.date} count={card.picks.filter(p => !p.quoteWithdrawn).length} unstaked={card.picks.filter(p => !p.quoteWithdrawn && p.stakeUnits === 0).length} events={sorted.filter(p => !p.quoteWithdrawn).map(eventFor)} />
         <PageHeader
           kicker={new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", weekday: "long", month: "long", day: "numeric" }).format(new Date(`${card.date}T17:00:00Z`))}
           title={current?"Today’s card":"Past card"}
@@ -105,13 +106,13 @@ export default async function CardPage({searchParams}:{searchParams:Promise<{dat
           ) : (
             <>
             <div className="space-y-2 md:hidden">{sorted.map(pick=>{const s=status(pick);return <article key={pick.id} className="rounded-lg border border-[var(--border)] bg-[var(--surface)] p-3">
-              <div className="flex items-center justify-between gap-2 text-[11px] text-[var(--muted)]"><span>{pick.sportLabel} · {startTime.format(new Date(pick.startsAt))} ET</span><Chip tone={pick.stakeUnits === 0 ? "neutral" : s.tone}>{pick.stakeUnits === 0 ? "Unstaked" : s.label}</Chip></div>
+              <div className="flex items-center justify-between gap-2 text-[11px] text-[var(--muted)]"><span>{pick.sportLabel} · {startTime.format(new Date(pick.startsAt))} ET</span><Chip tone={pick.quoteWithdrawn ? "bad" : pick.stakeUnits === 0 ? "neutral" : s.tone}>{pick.quoteWithdrawn ? "Withdrawn" : pick.stakeUnits === 0 ? "Unstaked" : s.label}</Chip></div>
               <p className="mt-1 text-sm leading-5">{pick.awayName??pick.away} at {pick.homeName??pick.home}</p>
-              <p className="mt-1 text-sm font-bold">{pick.pickName??pick.pick} {spread(pick.line)} ({american(pick.price)})</p>
+              <p className="mt-1 text-sm font-bold">{pick.pickName??pick.pick} {spread(pick.live?.line ?? pick.line)} ({american(pick.live?.price ?? pick.price)})</p>
               <p className="mt-1 text-xs text-[var(--muted)]">{pick.stakeUnits === 0 ? "Unstaked · 0.0u" : `Card stake ${pick.stakeUnits.toFixed(1)}u`} · gap {pick.edgePts.toFixed(1)} pts</p>
               <p className="mt-1 text-xs text-[var(--muted)]">Historical cover {pick.empiricalCover?.coverRate == null ? "unavailable" : `${pct(pick.empiricalCover.coverRate)} · n=${pick.empiricalCover.sample}`}</p>
               <AvailabilitySummary game={pick.availability} now={now} matchup={{sport:pick.sport,label:`${pick.awayName??pick.away} at ${pick.homeName??pick.home}`,startsAt:pick.startsAt}}/>
-              <div className="mt-2"><InlineLogBet href={pick.logHref} event={eventFor(pick)} label="Log bet" /></div>
+              <div className="mt-2">{!pick.quoteWithdrawn ? <InlineLogBet href={pick.logHref} event={eventFor(pick)} label="Log bet" /> : null}</div>
               <details className="mt-2 text-xs text-[var(--muted)]"><summary>Price and model details</summary><p className="mt-1">{s.detail}</p><p className="mt-1">{empiricalText(pick)}</p><p className="mt-1">{clvText(pick)}</p><p className="mt-1">{pick.record?`${pct(pick.record.winRate)} wins, ${pct(pick.record.roi)} ROI in the backtest`:"No backtest record"}</p></details>
             </article>})}</div>
             <div className="hidden md:block [&_td]:!py-2"><Table caption="Card picks, strongest first">
@@ -122,19 +123,19 @@ export default async function CardPage({searchParams}:{searchParams:Promise<{dat
                 {sorted.map((pick) => {
                   const s = status(pick);
                   return (
-                    <InlineBetRow key={pick.id} href={pick.logHref} event={eventFor(pick)}>
+                    <InlineBetRow canLog={!pick.quoteWithdrawn} key={pick.id} href={pick.logHref} event={eventFor(pick)}>
                       <td className="num">{pick.rank}</td>
                       <td>
                         <span className="strong block">{pick.awayName ?? pick.away} at {pick.homeName ?? pick.home}</span>
                         <span className="block text-xs text-[var(--muted)]">{pick.sportLabel} · {startTime.format(new Date(pick.startsAt))} ET</span>
                       </td>
                       <td>
-                        <span className="strong block">{pick.pickName ?? pick.pick} {spread(pick.line)} ({american(pick.price)})</span>
-                        <span className="block text-xs text-[var(--muted)]" title={dateTime(pick.lockedAt)}>listed {relativeAge(pick.lockedAt, now)}</span>
+                        <span className="strong block">{pick.pickName ?? pick.pick} {spread(pick.live?.line ?? pick.line)} ({american(pick.live?.price ?? pick.price)})</span>
+                        <span className="block text-xs text-[var(--muted)]" title={dateTime(pick.lockedAt)}>{pick.live ? `Live quote; original ${spread(pick.line)} (${american(pick.price)})` : `listed ${relativeAge(pick.lockedAt, now)}`}</span>
                       </td>
                       <td className="num">{pick.stakeUnits === 0 ? "Unstaked · 0.0u" : `${pick.stakeUnits.toFixed(1)}u`}</td>
                       <td>
-                        <Chip tone={pick.stakeUnits === 0 ? "neutral" : s.tone}>{pick.stakeUnits === 0 ? "Unstaked" : s.label}</Chip>
+                        <Chip tone={pick.quoteWithdrawn ? "bad" : pick.stakeUnits === 0 ? "neutral" : s.tone}>{pick.quoteWithdrawn ? "Withdrawn" : pick.stakeUnits === 0 ? "Unstaked" : s.label}</Chip>
                         <span className="mt-1 block max-w-xs text-xs text-[var(--muted)]">{s.detail}{pick.live ? ` Quote ${relativeAge(pick.live.observedAt, now)}.` : ""}</span>
                       </td>
                       <td className="num">

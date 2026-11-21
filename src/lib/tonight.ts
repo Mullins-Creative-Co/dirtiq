@@ -332,7 +332,7 @@ export async function buildTonightBoard(horizonDays = 7, options: { live?: boole
       if (!featured.has(item.key) || !isLiveSport(item.sport)) return;
       const { report, game } = gamesByKey.get(item.key)!;
       const id = item.sport === "nfl" ? await resolveNflEvent(game) : game.gameId;
-      const live = id ? (await getLiveLines(item.sport, [id])).get(id) ?? null : null;
+      const live = id ? (await getLiveLines(item.sport, [id], game)).get(id) ?? null : null;
       items[index] = { ...gameItem(report, game, ledger, today, now, live, names),
         liveStatus: live ? "available" : "unavailable", savedLogHref: item.logHref };
     }));

@@ -74,6 +74,15 @@ def late_finals(cfg: SportConfig, games: pd.DataFrame, now: Optional[pd.Timestam
         if final is None:
             continue
         score = final["score"]
+        if cfg.sport in ("nba", "ncaab"):
+            def canonical(code: Any) -> str:
+                from .adapters.nba import normalize_team
+                return normalize_team(str(code)) if cfg.sport == "nba" else str(code)
+            pair = (canonical(final.get("home")), canonical(final.get("away")))
+            if pair == (str(r.away), str(r.home)):
+                score = (score[1], score[0])
+            elif pair != (str(r.home), str(r.away)):
+                continue
         if score[0] + score[1] <= 0 and cfg.sport != "nfl":
             continue
         rows.append({"eventId": f"{cfg.sport}:{r.game_id}", "gameId": str(r.game_id), "home": str(r.home), "away": str(r.away),
@@ -208,6 +217,8 @@ def upcoming_entry(row: pd.Series, book: Optional[str], observed_at: Optional[st
         "neutral": int(row["neutral"]), "week": int(row["week"]) if not pd.isna(row.get("week")) else None,
         "projectedHomeMargin": round_or_none(row["ind_mean"], 2), "marginSd": round_or_none(row["ind_sd"], 2),
         "homeWinProb": round_or_none(row["ind_home_win"]), "tieProb": round_or_none(row.get("ind_tie")),
+        "quoteTeamOrderCorrected": bool(row.get("odds_team_order_corrected", False)) if pd.notna(row.get("odds_team_order_corrected")) else False,
+        "quoteIdentityVersion": 1 if row.get("odds_identity_verified") is True or row.get("odds_identity_verified") == True else None,
         "marketHomeSpread": round_or_none(row.get("spread_line"), 2), "marketHomePrice": opt_int(row.get("spread_home_price")),
         "marketAwayPrice": opt_int(row.get("spread_away_price")),
         "marketHomeMl": opt_int(row.get("home_ml")), "marketAwayMl": opt_int(row.get("away_ml")),

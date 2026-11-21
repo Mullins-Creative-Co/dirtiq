@@ -30,6 +30,7 @@ when older than ``REFRESH_AFTER_HOURS`` or on ``refresh``).
 from __future__ import annotations
 
 import json
+import re
 import time
 import urllib.error
 import urllib.request
@@ -128,6 +129,33 @@ def valid_handicap(value: Any) -> Optional[float]:
     return v if v is not None and np.isfinite(v) and abs(v) < 100 else None
 
 
+def odds_team_id(side: Dict[str, Any]) -> str:
+    team = side.get("team") or {}
+    found = re.search(r"/teams/(\d+)", str(team.get("$ref", "")))
+    return str(side.get("teamId") or team.get("id") or (found.group(1) if found else ""))
+
+
+def align_books(books: Sequence[Dict[str, Any]], home: str, away: str) -> List[Dict[str, Any]]:
+    """Align prices to schedule identities; never infer a favorite from a positional side."""
+    out = []
+    for original in books:
+        h, a = str(original.get("home_team_id", "")), str(original.get("away_team_id", ""))
+        if not home or not away or not h or not a:
+            continue
+        b = dict(original)
+        if (h, a) == (away, home):
+            for key in ("spread", "open_spread"):
+                if b.get(key) is not None:
+                    b[key] = -b[key]
+            for x, y in (("home_spread_price", "away_spread_price"), ("home_ml", "away_ml"), ("open_home_ml", "open_away_ml")):
+                b[x], b[y] = b.get(y), b.get(x)
+            b["home_team_id"], b["away_team_id"] = home, away
+        elif (h, a) != (home, away):
+            continue
+        out.append(b)
+    return out
+
+
 def book_row(item: Dict[str, Any]) -> Optional[Dict[str, Any]]:
     """One ESPN odds item -> compact per-book record, or ``None`` for excluded providers.
 
@@ -145,6 +173,7 @@ def book_row(item: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         spread = -abs(spread) if fav else abs(spread)
     rec: Dict[str, Any] = {
         "provider": provider,
+        "home_team_id": odds_team_id(home), "away_team_id": odds_team_id(away),
         "spread": spread,
         "home_spread_price": _num(home.get("spreadOdds")),
         "away_spread_price": _num(away.get("spreadOdds")),
@@ -308,7 +337,7 @@ def fetch_odds(sport: str, cache: Path, wanted: pd.DataFrame, refresh: bool = Fa
             rec = records.get(eid)
             if rec is None:
                 todo.append((eid, completed))
-            elif not rec.get("final") and (refresh or completed or _stale(rec, now)):
+            elif not rec.get("final") and (refresh or completed or _stale(rec, now) or any(not b.get("home_team_id") for b in rec.get("books", []))):
                 todo.append((eid, completed))
         if todo:
             if log:
@@ -537,6 +566,16 @@ def attach(frame: pd.DataFrame, sport: str, cache: Path, refresh: bool = False, 
     idx = []
     for i, eid in zip(matched.index, matched["espn_id"].astype(str)):
         c = cons.get(eid)
+        if sport in ("nba", "ncaab") and not bool(out.loc[i, "completed"]):
+            def team_id(value: Any) -> str:
+                return str(int(value)) if pd.notna(value) else ""
+            h = team_id(out.loc[i].get("home_team_id"))
+            a = team_id(out.loc[i].get("away_team_id"))
+            raw_books = records.get(eid, {}).get("books", [])
+            aligned = align_books(raw_books, h, a)
+            c = consolidate(aligned)
+            out.loc[i, "odds_identity_verified"] = bool(aligned)
+            out.loc[i, "odds_team_order_corrected"] = any(str(b.get("home_team_id")) == a and str(b.get("away_team_id")) == h for b in raw_books) if h and a else False
         if not c:
             continue
         idx.append(i)

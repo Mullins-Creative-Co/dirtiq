@@ -66,6 +66,8 @@ def convert_frame(raw: pd.DataFrame) -> pd.DataFrame:
         "season": season,
         "week": week,
         "start": start,
+        "home_team_id": d.get("home_id", pd.Series(index=d.index, dtype=float)),
+        "away_team_id": d.get("away_id", pd.Series(index=d.index, dtype=float)),
         "home": d["home_abbreviation"].astype(str),
         "away": d["away_abbreviation"].astype(str),
         "neutral": d["neutral_site"].astype(bool).astype(int),
