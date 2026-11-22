@@ -1,236 +1,16 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-22T16:17:14.075Z",
-  "expiresAt": "2026-11-22T22:17:13.520Z",
+  "generatedAt": "2026-11-22T21:52:56.778Z",
+  "expiresAt": "2026-11-23T03:52:56.112Z",
   "status": "experimental-point-forecasts",
   "forecasts": [
-    {
-      "id": "nfl:espn:401873070",
-      "gameId": "2026_11_MIA_BUF",
-      "home": "BUF",
-      "away": "MIA",
-      "startsAt": "2026-11-22T18:00:00Z",
-      "featureAsOf": "2026-11-22T16:17:13.520650Z",
-      "off_epa_diff": 0.14107554032464903,
-      "def_epa_allowed_diff": -0.06677163409936523,
-      "home_field": 1,
-      "homeLatestGame": "2026_10_BUF_NYJ",
-      "awayLatestGame": "2026_10_MIA_IND",
-      "homeLatestAvailableAt": "2026-11-16T18:00:00Z",
-      "awayLatestAvailableAt": "2026-11-16T18:00:00Z",
-      "homeHistoryGames": 37,
-      "awayHistoryGames": 33,
-      "predicted": 11.814730745578704,
-      "trainCount": 705,
-      "trainingCutoff": "2025-11-05T18:00:00.000Z",
-      "modelVersion": "nfl-team-epa-development-v1",
-      "generatedAt": "2026-11-22T16:17:14.075Z"
-    },
-    {
-      "id": "nfl:espn:401873068",
-      "gameId": "2026_11_BAL_CAR",
-      "home": "CAR",
-      "away": "BAL",
-      "startsAt": "2026-11-22T18:00:00Z",
-      "featureAsOf": "2026-11-22T16:17:13.520650Z",
-      "off_epa_diff": -0.007088625124590012,
-      "def_epa_allowed_diff": 0.01857273786590423,
-      "home_field": 1,
-      "homeLatestGame": "2026_10_CAR_NO",
-      "awayLatestGame": "2026_10_LAC_BAL",
-      "homeLatestAvailableAt": "2026-11-16T18:00:00Z",
-      "awayLatestAvailableAt": "2026-11-18T01:15:00Z",
-      "homeHistoryGames": 34,
-      "awayHistoryGames": 35,
-      "predicted": 1.632093536657757,
-      "trainCount": 705,
-      "trainingCutoff": "2025-11-05T18:00:00.000Z",
-      "modelVersion": "nfl-team-epa-development-v1",
-      "generatedAt": "2026-11-22T16:17:14.075Z"
-    },
-    {
-      "id": "nfl:espn:401873071",
-      "gameId": "2026_11_NO_CHI",
-      "home": "CHI",
-      "away": "NO",
-      "startsAt": "2026-11-22T18:00:00Z",
-      "featureAsOf": "2026-11-22T16:17:13.520650Z",
-      "off_epa_diff": 0.08293530036650751,
-      "def_epa_allowed_diff": 0.02108178545578929,
-      "home_field": 1,
-      "homeLatestGame": "2026_09_TB_CHI",
-      "awayLatestGame": "2026_10_CAR_NO",
-      "homeLatestAvailableAt": "2026-11-10T01:20:00Z",
-      "awayLatestAvailableAt": "2026-11-16T18:00:00Z",
-      "homeHistoryGames": 35,
-      "awayHistoryGames": 32,
-      "predicted": 6.330326494478634,
-      "trainCount": 705,
-      "trainingCutoff": "2025-11-05T18:00:00.000Z",
-      "modelVersion": "nfl-team-epa-development-v1",
-      "generatedAt": "2026-11-22T16:17:14.075Z"
-    },
-    {
-      "id": "nfl:espn:401873073",
-      "gameId": "2026_11_TEN_DAL",
-      "home": "DAL",
-      "away": "TEN",
-      "startsAt": "2026-11-22T18:00:00Z",
-      "featureAsOf": "2026-11-22T16:17:13.520650Z",
-      "off_epa_diff": 0.13866657719046283,
-      "def_epa_allowed_diff": 0.025965844969786406,
-      "home_field": 1,
-      "homeLatestGame": "2026_10_SF_DAL",
-      "awayLatestGame": "2026_10_JAX_TEN",
-      "homeLatestAvailableAt": "2026-11-16T21:25:00Z",
-      "awayLatestAvailableAt": "2026-11-16T18:00:00Z",
-      "homeHistoryGames": 34,
-      "awayHistoryGames": 33,
-      "predicted": 9.147660588388185,
-      "trainCount": 705,
-      "trainingCutoff": "2025-11-05T18:00:00.000Z",
-      "modelVersion": "nfl-team-epa-development-v1",
-      "generatedAt": "2026-11-22T16:17:14.075Z"
-    },
-    {
-      "id": "nfl:espn:401873072",
-      "gameId": "2026_11_TB_DET",
-      "home": "DET",
-      "away": "TB",
-      "startsAt": "2026-11-22T18:00:00Z",
-      "featureAsOf": "2026-11-22T16:17:13.520650Z",
-      "off_epa_diff": 0.10428230727514293,
-      "def_epa_allowed_diff": 0.06855760397618144,
-      "home_field": 1,
-      "homeLatestGame": "2026_10_NE_DET",
-      "awayLatestGame": "2026_09_TB_CHI",
-      "homeLatestAvailableAt": "2026-11-16T14:30:00Z",
-      "awayLatestAvailableAt": "2026-11-10T01:20:00Z",
-      "homeHistoryGames": 34,
-      "awayHistoryGames": 34,
-      "predicted": 6.160620096192827,
-      "trainCount": 705,
-      "trainingCutoff": "2025-11-05T18:00:00.000Z",
-      "modelVersion": "nfl-team-epa-development-v1",
-      "generatedAt": "2026-11-22T16:17:14.075Z"
-    },
-    {
-      "id": "nfl:espn:401873067",
-      "gameId": "2026_11_ARI_KC",
-      "home": "KC",
-      "away": "ARI",
-      "startsAt": "2026-11-22T18:00:00Z",
-      "featureAsOf": "2026-11-22T16:17:13.520650Z",
-      "off_epa_diff": 0.08347311379331537,
-      "def_epa_allowed_diff": -0.13187719351327512,
-      "home_field": 1,
-      "homeLatestGame": "2026_10_KC_ATL",
-      "awayLatestGame": "2026_10_LA_ARI",
-      "homeLatestAvailableAt": "2026-11-16T18:00:00Z",
-      "awayLatestAvailableAt": "2026-11-16T21:05:00Z",
-      "homeHistoryGames": 36,
-      "awayHistoryGames": 34,
-      "predicted": 10.547413291423165,
-      "trainCount": 705,
-      "trainingCutoff": "2025-11-05T18:00:00.000Z",
-      "modelVersion": "nfl-team-epa-development-v1",
-      "generatedAt": "2026-11-22T16:17:14.075Z"
-    },
-    {
-      "id": "nfl:espn:401873069",
-      "gameId": "2026_11_JAX_NYG",
-      "home": "NYG",
-      "away": "JAX",
-      "startsAt": "2026-11-22T18:00:00Z",
-      "featureAsOf": "2026-11-22T16:17:13.520650Z",
-      "off_epa_diff": -0.0638964343765339,
-      "def_epa_allowed_diff": 0.08322023797866973,
-      "home_field": 1,
-      "homeLatestGame": "2026_10_WAS_NYG",
-      "awayLatestGame": "2026_10_JAX_TEN",
-      "homeLatestAvailableAt": "2026-11-14T01:15:00Z",
-      "awayLatestAvailableAt": "2026-11-16T18:00:00Z",
-      "homeHistoryGames": 33,
-      "awayHistoryGames": 33,
-      "predicted": -3.1462880977464103,
-      "trainCount": 705,
-      "trainingCutoff": "2025-11-05T18:00:00.000Z",
-      "modelVersion": "nfl-team-epa-development-v1",
-      "generatedAt": "2026-11-22T16:17:14.075Z"
-    },
-    {
-      "id": "nfl:espn:401873074",
-      "gameId": "2026_11_NYJ_LAC",
-      "home": "LAC",
-      "away": "NYJ",
-      "startsAt": "2026-11-22T21:05:00Z",
-      "featureAsOf": "2026-11-22T16:17:13.520650Z",
-      "off_epa_diff": -0.04794500631181436,
-      "def_epa_allowed_diff": -0.11547869497435768,
-      "home_field": 1,
-      "homeLatestGame": "2026_10_LAC_BAL",
-      "awayLatestGame": "2026_10_BUF_NYJ",
-      "homeLatestAvailableAt": "2026-11-18T01:15:00Z",
-      "awayLatestAvailableAt": "2026-11-16T18:00:00Z",
-      "homeHistoryGames": 35,
-      "awayHistoryGames": 33,
-      "predicted": 3.1395161829749023,
-      "trainCount": 705,
-      "trainingCutoff": "2025-11-05T18:00:00.000Z",
-      "modelVersion": "nfl-team-epa-development-v1",
-      "generatedAt": "2026-11-22T16:17:14.075Z"
-    },
-    {
-      "id": "nfl:espn:401873075",
-      "gameId": "2026_11_LV_DEN",
-      "home": "DEN",
-      "away": "LV",
-      "startsAt": "2026-11-22T21:25:00Z",
-      "featureAsOf": "2026-11-22T16:17:13.520650Z",
-      "off_epa_diff": 0.08947420653966213,
-      "def_epa_allowed_diff": -0.07564601612349957,
-      "home_field": 1,
-      "homeLatestGame": "2026_09_DEN_CAR",
-      "awayLatestGame": "2026_10_SEA_LV",
-      "homeLatestAvailableAt": "2026-11-09T18:00:00Z",
-      "awayLatestAvailableAt": "2026-11-16T21:05:00Z",
-      "homeHistoryGames": 35,
-      "awayHistoryGames": 34,
-      "predicted": 9.32535556273601,
-      "trainCount": 705,
-      "trainingCutoff": "2025-11-05T18:00:00.000Z",
-      "modelVersion": "nfl-team-epa-development-v1",
-      "generatedAt": "2026-11-22T16:17:14.075Z"
-    },
-    {
-      "id": "nfl:espn:401873076",
-      "gameId": "2026_11_PIT_PHI",
-      "home": "PHI",
-      "away": "PIT",
-      "startsAt": "2026-11-22T21:25:00Z",
-      "featureAsOf": "2026-11-22T16:17:13.520650Z",
-      "off_epa_diff": -0.03397745233728405,
-      "def_epa_allowed_diff": -0.0055104791327882105,
-      "home_field": 1,
-      "homeLatestGame": "2026_09_NYG_PHI",
-      "awayLatestGame": "2026_10_PIT_CIN",
-      "homeLatestAvailableAt": "2026-11-09T18:00:00Z",
-      "awayLatestAvailableAt": "2026-11-17T01:20:00Z",
-      "homeHistoryGames": 38,
-      "awayHistoryGames": 35,
-      "predicted": 0.8677699474600822,
-      "trainCount": 705,
-      "trainingCutoff": "2025-11-05T18:00:00.000Z",
-      "modelVersion": "nfl-team-epa-development-v1",
-      "generatedAt": "2026-11-22T16:17:14.075Z"
-    },
     {
       "id": "nfl:espn:401873077",
       "gameId": "2026_11_MIN_SF",
       "home": "SF",
       "away": "MIN",
       "startsAt": "2026-11-23T01:20:00Z",
-      "featureAsOf": "2026-11-22T16:17:13.520650Z",
+      "featureAsOf": "2026-11-22T21:52:56.112996Z",
       "off_epa_diff": 0.18148602884226495,
       "def_epa_allowed_diff": 0.11898734335449179,
       "home_field": 0,
@@ -244,7 +24,7 @@
       "trainCount": 705,
       "trainingCutoff": "2025-11-05T18:00:00.000Z",
       "modelVersion": "nfl-team-epa-development-v1",
-      "generatedAt": "2026-11-22T16:17:14.075Z"
+      "generatedAt": "2026-11-22T21:52:56.778Z"
     },
     {
       "id": "nfl:espn:401873078",
@@ -252,7 +32,7 @@
       "home": "WAS",
       "away": "CIN",
       "startsAt": "2026-11-24T01:15:00Z",
-      "featureAsOf": "2026-11-22T16:17:13.520650Z",
+      "featureAsOf": "2026-11-22T21:52:56.112996Z",
       "off_epa_diff": -0.09359460718031609,
       "def_epa_allowed_diff": 0.028111433468095456,
       "home_field": 1,
@@ -266,7 +46,7 @@
       "trainCount": 705,
       "trainingCutoff": "2025-11-05T18:00:00.000Z",
       "modelVersion": "nfl-team-epa-development-v1",
-      "generatedAt": "2026-11-22T16:17:14.075Z"
+      "generatedAt": "2026-11-22T21:52:56.778Z"
     },
     {
       "id": "nfl:espn:401873079",
@@ -274,7 +54,7 @@
       "home": "LA",
       "away": "GB",
       "startsAt": "2026-11-26T01:00:00Z",
-      "featureAsOf": "2026-11-22T16:17:13.520650Z",
+      "featureAsOf": "2026-11-22T21:52:56.112996Z",
       "off_epa_diff": 0.044312908835869566,
       "def_epa_allowed_diff": -0.05849443058610781,
       "home_field": 1,
@@ -288,7 +68,7 @@
       "trainCount": 705,
       "trainingCutoff": "2025-11-05T18:00:00.000Z",
       "modelVersion": "nfl-team-epa-development-v1",
-      "generatedAt": "2026-11-22T16:17:14.075Z"
+      "generatedAt": "2026-11-22T21:52:56.778Z"
     },
     {
       "id": "nfl:espn:401873081",
@@ -296,7 +76,7 @@
       "home": "DET",
       "away": "CHI",
       "startsAt": "2026-11-26T18:00:00Z",
-      "featureAsOf": "2026-11-22T16:17:13.520650Z",
+      "featureAsOf": "2026-11-22T21:52:56.112996Z",
       "off_epa_diff": 0.03810080445682824,
       "def_epa_allowed_diff": 0.00617682053976066,
       "home_field": 1,
@@ -310,7 +90,7 @@
       "trainCount": 705,
       "trainingCutoff": "2025-11-05T18:00:00.000Z",
       "modelVersion": "nfl-team-epa-development-v1",
-      "generatedAt": "2026-11-22T16:17:14.075Z"
+      "generatedAt": "2026-11-22T21:52:56.778Z"
     },
     {
       "id": "nfl:espn:401873080",
@@ -318,7 +98,7 @@
       "home": "DAL",
       "away": "PHI",
       "startsAt": "2026-11-26T21:30:00Z",
-      "featureAsOf": "2026-11-22T16:17:13.520650Z",
+      "featureAsOf": "2026-11-22T21:52:56.112996Z",
       "off_epa_diff": 0.11108776366657683,
       "def_epa_allowed_diff": 0.09762248889036852,
       "home_field": 1,
@@ -332,7 +112,7 @@
       "trainCount": 705,
       "trainingCutoff": "2025-11-05T18:00:00.000Z",
       "modelVersion": "nfl-team-epa-development-v1",
-      "generatedAt": "2026-11-22T16:17:14.075Z"
+      "generatedAt": "2026-11-22T21:52:56.778Z"
     },
     {
       "id": "nfl:espn:401873082",
@@ -340,7 +120,7 @@
       "home": "BUF",
       "away": "KC",
       "startsAt": "2026-11-27T01:20:00Z",
-      "featureAsOf": "2026-11-22T16:17:13.520650Z",
+      "featureAsOf": "2026-11-22T21:52:56.112996Z",
       "off_epa_diff": 0.05757065222613536,
       "def_epa_allowed_diff": 0.02588465791121498,
       "home_field": 1,
@@ -354,7 +134,7 @@
       "trainCount": 705,
       "trainingCutoff": "2025-11-05T18:00:00.000Z",
       "modelVersion": "nfl-team-epa-development-v1",
-      "generatedAt": "2026-11-22T16:17:14.075Z"
+      "generatedAt": "2026-11-22T21:52:56.778Z"
     },
     {
       "id": "nfl:espn:401873083",
@@ -362,7 +142,7 @@
       "home": "PIT",
       "away": "DEN",
       "startsAt": "2026-11-27T20:00:00Z",
-      "featureAsOf": "2026-11-22T16:17:13.520650Z",
+      "featureAsOf": "2026-11-22T21:52:56.112996Z",
       "off_epa_diff": -0.017540246604649794,
       "def_epa_allowed_diff": 0.03286287763449687,
       "home_field": 1,
@@ -376,7 +156,7 @@
       "trainCount": 705,
       "trainingCutoff": "2025-11-05T18:00:00.000Z",
       "modelVersion": "nfl-team-epa-development-v1",
-      "generatedAt": "2026-11-22T16:17:14.075Z"
+      "generatedAt": "2026-11-22T21:52:56.778Z"
     },
     {
       "id": "nfl:espn:401873087",
@@ -384,7 +164,7 @@
       "home": "CIN",
       "away": "NO",
       "startsAt": "2026-11-29T18:00:00Z",
-      "featureAsOf": "2026-11-22T16:17:13.520650Z",
+      "featureAsOf": "2026-11-22T21:52:56.112996Z",
       "off_epa_diff": 0.13928496228561005,
       "def_epa_allowed_diff": 0.04814773069701303,
       "home_field": 1,
@@ -398,7 +178,7 @@
       "trainCount": 705,
       "trainingCutoff": "2025-11-05T18:00:00.000Z",
       "modelVersion": "nfl-team-epa-development-v1",
-      "generatedAt": "2026-11-22T16:17:14.075Z"
+      "generatedAt": "2026-11-22T21:52:56.778Z"
     },
     {
       "id": "nfl:espn:401873085",
@@ -406,7 +186,7 @@
       "home": "HOU",
       "away": "BAL",
       "startsAt": "2026-11-29T18:00:00Z",
-      "featureAsOf": "2026-11-22T16:17:13.520650Z",
+      "featureAsOf": "2026-11-22T21:52:56.112996Z",
       "off_epa_diff": 0.005473819779836893,
       "def_epa_allowed_diff": -0.07475160382647483,
       "home_field": 1,
@@ -420,7 +200,7 @@
       "trainCount": 705,
       "trainingCutoff": "2025-11-05T18:00:00.000Z",
       "modelVersion": "nfl-team-epa-development-v1",
-      "generatedAt": "2026-11-22T16:17:14.075Z"
+      "generatedAt": "2026-11-22T21:52:56.778Z"
     },
     {
       "id": "nfl:espn:401873088",
@@ -428,7 +208,7 @@
       "home": "IND",
       "away": "NYG",
       "startsAt": "2026-11-29T18:00:00Z",
-      "featureAsOf": "2026-11-22T16:17:13.520650Z",
+      "featureAsOf": "2026-11-22T21:52:56.112996Z",
       "off_epa_diff": -0.08297285149544129,
       "def_epa_allowed_diff": 0.008839327219286208,
       "home_field": 1,
@@ -442,7 +222,7 @@
       "trainCount": 705,
       "trainingCutoff": "2025-11-05T18:00:00.000Z",
       "modelVersion": "nfl-team-epa-development-v1",
-      "generatedAt": "2026-11-22T16:17:14.075Z"
+      "generatedAt": "2026-11-22T21:52:56.778Z"
     },
     {
       "id": "nfl:espn:401873090",
@@ -450,7 +230,7 @@
       "home": "JAX",
       "away": "TEN",
       "startsAt": "2026-11-29T18:00:00Z",
-      "featureAsOf": "2026-11-22T16:17:13.520650Z",
+      "featureAsOf": "2026-11-22T21:52:56.112996Z",
       "off_epa_diff": 0.1472094645154859,
       "def_epa_allowed_diff": -0.14740451994999507,
       "home_field": 1,
@@ -464,7 +244,7 @@
       "trainCount": 705,
       "trainingCutoff": "2025-11-05T18:00:00.000Z",
       "modelVersion": "nfl-team-epa-development-v1",
-      "generatedAt": "2026-11-22T16:17:14.075Z"
+      "generatedAt": "2026-11-22T21:52:56.778Z"
     },
     {
       "id": "nfl:espn:401873089",
@@ -472,7 +252,7 @@
       "home": "MIA",
       "away": "NYJ",
       "startsAt": "2026-11-29T18:00:00Z",
-      "featureAsOf": "2026-11-22T16:17:13.520650Z",
+      "featureAsOf": "2026-11-22T21:52:56.112996Z",
       "off_epa_diff": 0.014028576552090069,
       "def_epa_allowed_diff": -0.04866654483240144,
       "home_field": 1,
@@ -486,7 +266,7 @@
       "trainCount": 705,
       "trainingCutoff": "2025-11-05T18:00:00.000Z",
       "modelVersion": "nfl-team-epa-development-v1",
-      "generatedAt": "2026-11-22T16:17:14.075Z"
+      "generatedAt": "2026-11-22T21:52:56.778Z"
     },
     {
       "id": "nfl:espn:401873084",
@@ -494,7 +274,7 @@
       "home": "MIN",
       "away": "ATL",
       "startsAt": "2026-11-29T18:00:00Z",
-      "featureAsOf": "2026-11-22T16:17:13.520650Z",
+      "featureAsOf": "2026-11-22T21:52:56.112996Z",
       "off_epa_diff": -0.03407804277291616,
       "def_epa_allowed_diff": -0.1159998331586424,
       "home_field": 1,
@@ -508,7 +288,7 @@
       "trainCount": 705,
       "trainingCutoff": "2025-11-05T18:00:00.000Z",
       "modelVersion": "nfl-team-epa-development-v1",
-      "generatedAt": "2026-11-22T16:17:14.075Z"
+      "generatedAt": "2026-11-22T21:52:56.778Z"
     },
     {
       "id": "nfl:espn:401873093",
@@ -516,7 +296,7 @@
       "home": "LAC",
       "away": "NE",
       "startsAt": "2026-11-29T21:05:00Z",
-      "featureAsOf": "2026-11-22T16:17:13.520650Z",
+      "featureAsOf": "2026-11-22T21:52:56.112996Z",
       "off_epa_diff": -0.1172369549474189,
       "def_epa_allowed_diff": -0.024731299569588493,
       "home_field": 1,
@@ -530,7 +310,7 @@
       "trainCount": 705,
       "trainingCutoff": "2025-11-05T18:00:00.000Z",
       "modelVersion": "nfl-team-epa-development-v1",
-      "generatedAt": "2026-11-22T16:17:14.075Z"
+      "generatedAt": "2026-11-22T21:52:56.778Z"
     },
     {
       "id": "nfl:espn:401873092",
@@ -538,7 +318,7 @@
       "home": "ARI",
       "away": "WAS",
       "startsAt": "2026-11-29T21:25:00Z",
-      "featureAsOf": "2026-11-22T16:17:13.520650Z",
+      "featureAsOf": "2026-11-22T21:52:56.112996Z",
       "off_epa_diff": -0.03343761876149485,
       "def_epa_allowed_diff": 0.0222230023204412,
       "home_field": 1,
@@ -552,7 +332,7 @@
       "trainCount": 705,
       "trainingCutoff": "2025-11-05T18:00:00.000Z",
       "modelVersion": "nfl-team-epa-development-v1",
-      "generatedAt": "2026-11-22T16:17:14.075Z"
+      "generatedAt": "2026-11-22T21:52:56.778Z"
     },
     {
       "id": "nfl:espn:401873091",
@@ -560,7 +340,7 @@
       "home": "SF",
       "away": "SEA",
       "startsAt": "2026-11-29T21:25:00Z",
-      "featureAsOf": "2026-11-22T16:17:13.520650Z",
+      "featureAsOf": "2026-11-22T21:52:56.112996Z",
       "off_epa_diff": 0.09408504341335126,
       "def_epa_allowed_diff": 0.10727391633099019,
       "home_field": 1,
@@ -574,7 +354,7 @@
       "trainCount": 705,
       "trainingCutoff": "2025-11-05T18:00:00.000Z",
       "modelVersion": "nfl-team-epa-development-v1",
-      "generatedAt": "2026-11-22T16:17:14.075Z"
+      "generatedAt": "2026-11-22T21:52:56.778Z"
     },
     {
       "id": "nfl:espn:401873086",
@@ -582,7 +362,7 @@
       "home": "CLE",
       "away": "LV",
       "startsAt": "2026-11-30T01:20:00Z",
-      "featureAsOf": "2026-11-22T16:17:13.520650Z",
+      "featureAsOf": "2026-11-22T21:52:56.112996Z",
       "off_epa_diff": -0.0036989661100540194,
       "def_epa_allowed_diff": -0.08701843083425645,
       "home_field": 1,
@@ -596,16 +376,16 @@
       "trainCount": 705,
       "trainingCutoff": "2025-11-05T18:00:00.000Z",
       "modelVersion": "nfl-team-epa-development-v1",
-      "generatedAt": "2026-11-22T16:17:14.075Z"
+      "generatedAt": "2026-11-22T21:52:56.778Z"
     }
   ],
   "blocked": [],
   "sources": [
     {
       "url": "https://raw.githubusercontent.com/nflverse/nfldata/master/data/games.csv",
-      "sha256": "ba5c5509f3e5a2584d4a403fb5dec096c4090e5ff4133407d9050c0472f26f4f",
-      "bytes": 2191363,
-      "retrievedAt": "2026-11-22T16:17:13.557958Z"
+      "sha256": "fd3e892dcc6b0ef5c436f9429b3dce7e358481e5b592e9e080b85a22fb7ef5fc",
+      "bytes": 2191070,
+      "retrievedAt": "2026-11-22T21:52:56.150232Z"
     },
     {
       "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2024.parquet",
@@ -621,9 +401,9 @@
     },
     {
       "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2026.parquet",
-      "sha256": "8c99f074c85dd51dc9ae169d14a517ca99491d47ecee528383403838ae8fb7a6",
+      "sha256": "f2410a7ef9cdb59a358b75257039fdb86a95caa0f0bb3aec75f33c4d4ee6da98",
       "bytes": 11839735,
-      "retrievedAt": "2026-11-22T16:17:13.873509Z"
+      "retrievedAt": "2026-11-22T21:52:56.558705Z"
     }
   ],
   "historySha256": "bad2fe0019fb332c3e68456ab4c7b022d680ec751694e1fa1f1c5ba6c3c5853d",
