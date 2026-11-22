@@ -1,578 +1,74 @@
 {
  "sport": "ncaab",
- "generatedAt": "2026-11-22T03:42:07Z",
+ "generatedAt": "2026-11-22T20:10:55Z",
  "source": "The Odds API",
  "book": "odds-api consensus",
  "events": [
   {
-   "eventId": "a771a9f91712c2747321ed9cadf62f36",
+   "eventId": "a4479cbdb9666b13f2c1f33e93f6e281",
    "sport": "ncaab",
-   "home": "PAC",
-   "away": "BRAD",
-   "homeName": "Pacific Tigers",
-   "awayName": "Bradley Braves",
-   "startsAt": "2026-11-22T03:02:30Z",
-   "observedAt": "2026-11-22T03:42:07Z",
+   "home": "DAY",
+   "away": "NORF",
+   "homeName": "Dayton Flyers",
+   "awayName": "Northwestern Wildcats",
+   "startsAt": "2026-11-22T18:00:45Z",
+   "observedAt": "2026-11-22T20:10:55Z",
    "books": 5,
-   "homeSpread": -6.5,
-   "homeSpreadPrice": -121,
-   "awaySpreadPrice": -110,
-   "homeMl": -375,
-   "awayMl": 275,
+   "homeSpread": 22.5,
+   "homeSpreadPrice": -110,
+   "awaySpreadPrice": -120,
+   "homeMl": null,
+   "awayMl": null,
    "bookQuotes": [
     {
-     "book": "draftkings",
-     "market": "h2h",
-     "line": null,
+     "book": "fanduel",
+     "market": "spreads",
+     "line": 22.5,
      "firstSide": "home",
-     "firstPrice": -445,
-     "secondPrice": 310,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "firstPrice": -108,
+     "secondPrice": -122,
+     "marketUpdatedAt": "2026-11-22T20:01:56Z",
+     "bookUpdatedAt": "2026-11-22T20:01:56Z"
     },
     {
      "book": "draftkings",
      "market": "spreads",
-     "line": -6.5,
+     "line": 22.5,
+     "firstSide": "home",
+     "firstPrice": -120,
+     "secondPrice": -110,
+     "marketUpdatedAt": "2026-11-22T20:00:25Z",
+     "bookUpdatedAt": "2026-11-22T20:00:25Z"
+    },
+    {
+     "book": "betmgm",
+     "market": "spreads",
+     "line": 24.5,
+     "firstSide": "home",
+     "firstPrice": -475,
+     "secondPrice": 320,
+     "marketUpdatedAt": "2026-11-22T20:01:57Z",
+     "bookUpdatedAt": "2026-11-22T20:01:57Z"
+    },
+    {
+     "book": "bovada",
+     "market": "spreads",
+     "line": 20.5,
      "firstSide": "home",
      "firstPrice": -110,
      "secondPrice": -120,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "fanduel",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -460,
-     "secondPrice": 330,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "fanduel",
-     "market": "spreads",
-     "line": -7.5,
-     "firstSide": "home",
-     "firstPrice": -122,
-     "secondPrice": -108,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "bovada",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -375,
-     "secondPrice": 260,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
-    },
-    {
-     "book": "bovada",
-     "market": "spreads",
-     "line": -6.5,
-     "firstSide": "home",
-     "firstPrice": -120,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
-    },
-    {
-     "book": "betmgm",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -375,
-     "secondPrice": 275,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
-    },
-    {
-     "book": "betmgm",
-     "market": "spreads",
-     "line": -6.5,
-     "firstSide": "home",
-     "firstPrice": -125,
-     "secondPrice": -105,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
-    },
-    {
-     "book": "betrivers",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -375,
-     "secondPrice": 225,
-     "marketUpdatedAt": "2026-11-22T03:41:30Z",
-     "bookUpdatedAt": "2026-11-22T03:41:30Z"
+     "marketUpdatedAt": "2026-11-22T19:56:23Z",
+     "bookUpdatedAt": "2026-11-22T19:56:23Z"
     },
     {
      "book": "betrivers",
      "market": "spreads",
-     "line": -5.5,
+     "line": 22.5,
      "firstSide": "home",
-     "firstPrice": -121,
-     "secondPrice": -121,
-     "marketUpdatedAt": "2026-11-22T03:41:30Z",
-     "bookUpdatedAt": "2026-11-22T03:41:30Z"
-    }
-   ]
-  },
-  {
-   "eventId": "9f7f8d885eb724ca669f64bacad9321c",
-   "sport": "ncaab",
-   "home": "DUKE",
-   "away": "WASH",
-   "homeName": "Duke Blue Devils",
-   "awayName": "Washington St Cougars",
-   "startsAt": "2026-11-22T04:00:00Z",
-   "observedAt": "2026-11-22T03:42:07Z",
-   "books": 8,
-   "homeSpread": -25.25,
-   "homeSpreadPrice": -110,
-   "awaySpreadPrice": -110,
-   "homeMl": -10000,
-   "awayMl": 2400,
-   "bookQuotes": [
-    {
-     "book": "betonlineag",
-     "market": "spreads",
-     "line": -25.0,
-     "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:42:00Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "lowvig",
-     "market": "spreads",
-     "line": -25.0,
-     "firstSide": "home",
-     "firstPrice": -106,
-     "secondPrice": -106,
-     "marketUpdatedAt": "2026-11-22T03:41:32Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
-    },
-    {
-     "book": "fanduel",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -20000,
-     "secondPrice": 2400,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "fanduel",
-     "market": "spreads",
-     "line": -25.5,
-     "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "draftkings",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -8000,
-     "secondPrice": 2200,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "draftkings",
-     "market": "spreads",
-     "line": -25.5,
-     "firstSide": "home",
-     "firstPrice": -105,
-     "secondPrice": -115,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "betrivers",
-     "market": "spreads",
-     "line": -25.5,
-     "firstSide": "home",
-     "firstPrice": -109,
-     "secondPrice": -114,
-     "marketUpdatedAt": "2026-11-22T03:41:30Z",
-     "bookUpdatedAt": "2026-11-22T03:41:30Z"
-    },
-    {
-     "book": "bovada",
-     "market": "spreads",
-     "line": -25.0,
-     "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
-    },
-    {
-     "book": "betmgm",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -10000,
-     "secondPrice": 2800,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
-    },
-    {
-     "book": "betmgm",
-     "market": "spreads",
-     "line": -25.5,
-     "firstSide": "home",
-     "firstPrice": -105,
-     "secondPrice": -115,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
-    },
-    {
-     "book": "betus",
-     "market": "spreads",
-     "line": -25.0,
-     "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    }
-   ]
-  },
-  {
-   "eventId": "9db5c4284531a6c45d11d71c9debdf30",
-   "sport": "ncaab",
-   "home": "NEB",
-   "away": "BUT",
-   "homeName": "Nebraska Cornhuskers",
-   "awayName": "Butler Bulldogs",
-   "startsAt": "2026-11-22T17:00:00Z",
-   "observedAt": "2026-11-22T03:42:07Z",
-   "books": 7,
-   "homeSpread": -11.5,
-   "homeSpreadPrice": -115,
-   "awaySpreadPrice": -105,
-   "homeMl": -800,
-   "awayMl": 561,
-   "bookQuotes": [
-    {
-     "book": "betonlineag",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -800,
-     "secondPrice": 561,
-     "marketUpdatedAt": "2026-11-22T03:42:00Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "betonlineag",
-     "market": "spreads",
-     "line": -11.5,
-     "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:42:00Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "lowvig",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -800,
-     "secondPrice": 561,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
-    },
-    {
-     "book": "lowvig",
-     "market": "spreads",
-     "line": -11.5,
-     "firstSide": "home",
-     "firstPrice": -106,
-     "secondPrice": -106,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
-    },
-    {
-     "book": "fanduel",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -800,
-     "secondPrice": 570,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "fanduel",
-     "market": "spreads",
-     "line": -11.5,
-     "firstSide": "home",
-     "firstPrice": -120,
-     "secondPrice": -102,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "draftkings",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -1050,
-     "secondPrice": 675,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "draftkings",
-     "market": "spreads",
-     "line": -11.5,
-     "firstSide": "home",
-     "firstPrice": -115,
-     "secondPrice": -105,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "betmgm",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -800,
-     "secondPrice": 550,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
-    },
-    {
-     "book": "betmgm",
-     "market": "spreads",
-     "line": -11.5,
-     "firstSide": "home",
-     "firstPrice": -115,
-     "secondPrice": -105,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
-    },
-    {
-     "book": "bovada",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -1100,
-     "secondPrice": 650,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
-    },
-    {
-     "book": "bovada",
-     "market": "spreads",
-     "line": -11.5,
-     "firstSide": "home",
-     "firstPrice": -115,
-     "secondPrice": -105,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
-    },
-    {
-     "book": "betus",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -800,
-     "secondPrice": 550,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "betus",
-     "market": "spreads",
-     "line": -11.5,
-     "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    }
-   ]
-  },
-  {
-   "eventId": "8df795d92371ff8d107e74c5f9e3a315",
-   "sport": "ncaab",
-   "home": "UIC",
-   "away": "MIA",
-   "homeName": "UIC Flames",
-   "awayName": "Miami (OH) RedHawks",
-   "startsAt": "2026-11-22T17:00:00Z",
-   "observedAt": "2026-11-22T03:42:07Z",
-   "books": 8,
-   "homeSpread": 1.5,
-   "homeSpreadPrice": -110,
-   "awaySpreadPrice": -106,
-   "homeMl": 105,
-   "awayMl": -125,
-   "bookQuotes": [
-    {
-     "book": "betonlineag",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": 105,
-     "secondPrice": -125,
-     "marketUpdatedAt": "2026-11-22T03:42:00Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "betonlineag",
-     "market": "spreads",
-     "line": 1.5,
-     "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:42:00Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "lowvig",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": 105,
-     "secondPrice": -125,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
-    },
-    {
-     "book": "lowvig",
-     "market": "spreads",
-     "line": 1.5,
-     "firstSide": "home",
-     "firstPrice": -106,
-     "secondPrice": -106,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
-    },
-    {
-     "book": "fanduel",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": 108,
-     "secondPrice": -130,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "fanduel",
-     "market": "spreads",
-     "line": 1.5,
-     "firstSide": "home",
-     "firstPrice": -104,
-     "secondPrice": -118,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "draftkings",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": 100,
-     "secondPrice": -120,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "draftkings",
-     "market": "spreads",
-     "line": 1.5,
-     "firstSide": "home",
-     "firstPrice": -120,
-     "secondPrice": 100,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "betmgm",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": 105,
-     "secondPrice": -125,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
-    },
-    {
-     "book": "bovada",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -115,
-     "secondPrice": -105,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
-    },
-    {
-     "book": "bovada",
-     "market": "spreads",
-     "line": 1.5,
-     "firstSide": "home",
-     "firstPrice": -120,
-     "secondPrice": 100,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
-    },
-    {
-     "book": "betus",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": 105,
-     "secondPrice": -125,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "betus",
-     "market": "spreads",
-     "line": 1.5,
-     "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "betrivers",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -120,
-     "secondPrice": -106,
-     "marketUpdatedAt": "2026-11-22T03:41:30Z",
-     "bookUpdatedAt": "2026-11-22T03:41:30Z"
-    },
-    {
-     "book": "betrivers",
-     "market": "spreads",
-     "line": -0.5,
-     "firstSide": "home",
-     "firstPrice": -120,
-     "secondPrice": -105,
-     "marketUpdatedAt": "2026-11-22T03:41:30Z",
-     "bookUpdatedAt": "2026-11-22T03:41:30Z"
+     "firstPrice": 106,
+     "secondPrice": -157,
+     "marketUpdatedAt": "2026-11-22T20:00:08Z",
+     "bookUpdatedAt": "2026-11-22T20:00:08Z"
     }
    ]
   },
@@ -583,292 +79,54 @@
    "away": "TOW",
    "homeName": "American Eagles",
    "awayName": "Towson Tigers",
-   "startsAt": "2026-11-22T18:00:00Z",
-   "observedAt": "2026-11-22T03:42:07Z",
-   "books": 6,
-   "homeSpread": -1.25,
-   "homeSpreadPrice": -106,
-   "awaySpreadPrice": -112,
-   "homeMl": -116,
-   "awayMl": -104,
-   "bookQuotes": [
-    {
-     "book": "betonlineag",
-     "market": "spreads",
-     "line": -1.0,
-     "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "lowvig",
-     "market": "spreads",
-     "line": -1.0,
-     "firstSide": "home",
-     "firstPrice": -106,
-     "secondPrice": -106,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
-    },
-    {
-     "book": "betmgm",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -118,
-     "secondPrice": -102,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
-    },
-    {
-     "book": "betmgm",
-     "market": "spreads",
-     "line": -1.5,
-     "firstSide": "home",
-     "firstPrice": -105,
-     "secondPrice": -115,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
-    },
-    {
-     "book": "fanduel",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -115,
-     "secondPrice": -104,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "fanduel",
-     "market": "spreads",
-     "line": -1.5,
-     "firstSide": "home",
-     "firstPrice": -105,
-     "secondPrice": -115,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "draftkings",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -115,
-     "secondPrice": -105,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "draftkings",
-     "market": "spreads",
-     "line": -1.5,
-     "firstSide": "home",
-     "firstPrice": -105,
-     "secondPrice": -115,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "betrivers",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -117,
-     "secondPrice": -109,
-     "marketUpdatedAt": "2026-11-22T03:41:30Z",
-     "bookUpdatedAt": "2026-11-22T03:41:30Z"
-    },
-    {
-     "book": "betrivers",
-     "market": "spreads",
-     "line": -0.5,
-     "firstSide": "home",
-     "firstPrice": -115,
-     "secondPrice": -108,
-     "marketUpdatedAt": "2026-11-22T03:41:30Z",
-     "bookUpdatedAt": "2026-11-22T03:41:30Z"
-    }
-   ]
-  },
-  {
-   "eventId": "a4479cbdb9666b13f2c1f33e93f6e281",
-   "sport": "ncaab",
-   "home": "NORF",
-   "away": "DAY",
-   "homeName": "Northwestern Wildcats",
-   "awayName": "Dayton Flyers",
-   "startsAt": "2026-11-22T18:00:00Z",
-   "observedAt": "2026-11-22T03:42:07Z",
-   "books": 8,
-   "homeSpread": 3.5,
+   "startsAt": "2026-11-22T18:02:43Z",
+   "observedAt": "2026-11-22T20:10:55Z",
+   "books": 4,
+   "homeSpread": -8.5,
    "homeSpreadPrice": -110,
-   "awaySpreadPrice": -110,
-   "homeMl": 136,
-   "awayMl": -160,
+   "awaySpreadPrice": -126,
+   "homeMl": null,
+   "awayMl": null,
    "bookQuotes": [
     {
-     "book": "betonlineag",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": 140,
-     "secondPrice": -160,
-     "marketUpdatedAt": "2026-11-22T03:42:00Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "betonlineag",
+     "book": "betmgm",
      "market": "spreads",
-     "line": 3.5,
+     "line": -8.5,
      "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:42:00Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "lowvig",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": 140,
-     "secondPrice": -160,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
-    },
-    {
-     "book": "lowvig",
-     "market": "spreads",
-     "line": 3.5,
-     "firstSide": "home",
-     "firstPrice": -106,
-     "secondPrice": -106,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
-    },
-    {
-     "book": "fanduel",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": 132,
-     "secondPrice": -160,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "firstPrice": 115,
+     "secondPrice": -150,
+     "marketUpdatedAt": "2026-11-22T20:10:35Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
     },
     {
      "book": "fanduel",
      "market": "spreads",
-     "line": 3.5,
+     "line": -8.5,
      "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "draftkings",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": 136,
-     "secondPrice": -162,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "firstPrice": -146,
+     "secondPrice": 110,
+     "marketUpdatedAt": "2026-11-22T20:07:29Z",
+     "bookUpdatedAt": "2026-11-22T20:07:30Z"
     },
     {
      "book": "draftkings",
      "market": "spreads",
-     "line": 3.5,
+     "line": -8.5,
      "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "betmgm",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": 135,
-     "secondPrice": -160,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
-    },
-    {
-     "book": "betmgm",
-     "market": "spreads",
-     "line": 3.5,
-     "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
-    },
-    {
-     "book": "bovada",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": 135,
-     "secondPrice": -160,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
-    },
-    {
-     "book": "bovada",
-     "market": "spreads",
-     "line": 3.5,
-     "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
-    },
-    {
-     "book": "betus",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": 138,
-     "secondPrice": -160,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "betus",
-     "market": "spreads",
-     "line": 3.5,
-     "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "betrivers",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": 133,
-     "secondPrice": -175,
-     "marketUpdatedAt": "2026-11-22T03:41:30Z",
-     "bookUpdatedAt": "2026-11-22T03:41:30Z"
+     "firstPrice": -105,
+     "secondPrice": -125,
+     "marketUpdatedAt": "2026-11-22T20:05:01Z",
+     "bookUpdatedAt": "2026-11-22T20:05:02Z"
     },
     {
      "book": "betrivers",
      "market": "spreads",
-     "line": 2.5,
+     "line": -7.5,
      "firstSide": "home",
-     "firstPrice": -103,
-     "secondPrice": -121,
-     "marketUpdatedAt": "2026-11-22T03:41:30Z",
-     "bookUpdatedAt": "2026-11-22T03:41:30Z"
+     "firstPrice": -115,
+     "secondPrice": -127,
+     "marketUpdatedAt": "2026-11-22T20:03:59Z",
+     "bookUpdatedAt": "2026-11-22T20:04:00Z"
     }
    ]
   },
@@ -879,292 +137,162 @@
    "away": "FAIR",
    "homeName": "LIU Sharks",
    "awayName": "Fairfield Stags",
-   "startsAt": "2026-11-22T18:00:00Z",
-   "observedAt": "2026-11-22T03:42:07Z",
-   "books": 6,
-   "homeSpread": -2.5,
-   "homeSpreadPrice": -114,
-   "awaySpreadPrice": -106,
-   "homeMl": -150,
-   "awayMl": 125,
+   "startsAt": "2026-11-22T18:05:39Z",
+   "observedAt": "2026-11-22T20:10:55Z",
+   "books": 3,
+   "homeSpread": 3.5,
+   "homeSpreadPrice": -150,
+   "awaySpreadPrice": 115,
+   "homeMl": 900,
+   "awayMl": -1950,
    "bookQuotes": [
     {
-     "book": "betonlineag",
-     "market": "spreads",
-     "line": -3.0,
-     "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "lowvig",
-     "market": "spreads",
-     "line": -3.0,
-     "firstSide": "home",
-     "firstPrice": -106,
-     "secondPrice": -106,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
-    },
-    {
      "book": "betmgm",
-     "market": "h2h",
-     "line": null,
+     "market": "spreads",
+     "line": 3.5,
      "firstSide": "home",
      "firstPrice": -150,
-     "secondPrice": 125,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
-    },
-    {
-     "book": "betmgm",
-     "market": "spreads",
-     "line": -2.5,
-     "firstSide": "home",
-     "firstPrice": -115,
-     "secondPrice": -105,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
+     "secondPrice": 115,
+     "marketUpdatedAt": "2026-11-22T19:59:38Z",
+     "bookUpdatedAt": "2026-11-22T19:59:38Z"
     },
     {
      "book": "draftkings",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": -155,
-     "secondPrice": 130,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "firstPrice": 1100,
+     "secondPrice": -2500,
+     "marketUpdatedAt": "2026-11-22T19:59:37Z",
+     "bookUpdatedAt": "2026-11-22T19:59:38Z"
     },
     {
-     "book": "draftkings",
-     "market": "spreads",
-     "line": -2.5,
-     "firstSide": "home",
-     "firstPrice": -112,
-     "secondPrice": -108,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "fanduel",
+     "book": "bovada",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": -150,
-     "secondPrice": 125,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "fanduel",
-     "market": "spreads",
-     "line": -2.5,
-     "firstSide": "home",
-     "firstPrice": -118,
-     "secondPrice": -104,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "betrivers",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -150,
-     "secondPrice": 118,
-     "marketUpdatedAt": "2026-11-22T03:41:30Z",
-     "bookUpdatedAt": "2026-11-22T03:41:30Z"
-    },
-    {
-     "book": "betrivers",
-     "market": "spreads",
-     "line": -1.5,
-     "firstSide": "home",
-     "firstPrice": -125,
-     "secondPrice": 102,
-     "marketUpdatedAt": "2026-11-22T03:41:30Z",
-     "bookUpdatedAt": "2026-11-22T03:41:30Z"
+     "firstPrice": 700,
+     "secondPrice": -1400,
+     "marketUpdatedAt": "2026-11-22T19:56:23Z",
+     "bookUpdatedAt": "2026-11-22T19:56:23Z"
     }
    ]
   },
   {
    "eventId": "9df92a4f1ca806fe512c3849b181da90",
    "sport": "ncaab",
-   "home": "WYO",
-   "away": "DUQ",
-   "homeName": "Wyoming Cowboys",
-   "awayName": "Duquesne Dukes",
+   "home": "DUQ",
+   "away": "WYO",
+   "homeName": "Duquesne Dukes",
+   "awayName": "Wyoming Cowboys",
    "startsAt": "2026-11-22T19:00:00Z",
-   "observedAt": "2026-11-22T03:42:07Z",
-   "books": 8,
-   "homeSpread": -3.75,
+   "observedAt": "2026-11-22T20:10:55Z",
+   "books": 5,
+   "homeSpread": 7.5,
    "homeSpreadPrice": -110,
-   "awaySpreadPrice": -110,
-   "homeMl": -176,
-   "awayMl": 146,
+   "awaySpreadPrice": -120,
+   "homeMl": 370,
+   "awayMl": -650,
    "bookQuotes": [
     {
-     "book": "betonlineag",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -167,
-     "secondPrice": 147,
-     "marketUpdatedAt": "2026-11-22T03:42:00Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "betonlineag",
-     "market": "spreads",
-     "line": -4.0,
-     "firstSide": "home",
-     "firstPrice": -107,
-     "secondPrice": -113,
-     "marketUpdatedAt": "2026-11-22T03:42:00Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "lowvig",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -167,
-     "secondPrice": 147,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
-    },
-    {
-     "book": "lowvig",
-     "market": "spreads",
-     "line": -4.0,
-     "firstSide": "home",
-     "firstPrice": -103,
-     "secondPrice": -109,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
-    },
-    {
      "book": "draftkings",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": -192,
-     "secondPrice": 160,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "firstPrice": 450,
+     "secondPrice": -720,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
     },
     {
      "book": "draftkings",
      "market": "spreads",
-     "line": -3.5,
+     "line": 7.5,
      "firstSide": "home",
-     "firstPrice": -115,
-     "secondPrice": -105,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "firstPrice": -110,
+     "secondPrice": -120,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
     },
     {
      "book": "betmgm",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": -180,
-     "secondPrice": 145,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
+     "firstPrice": 360,
+     "secondPrice": -525,
+     "marketUpdatedAt": "2026-11-22T20:10:36Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
     },
     {
      "book": "betmgm",
      "market": "spreads",
-     "line": -4.5,
-     "firstSide": "home",
-     "firstPrice": -102,
-     "secondPrice": -118,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
-    },
-    {
-     "book": "bovada",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -195,
-     "secondPrice": 165,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
-    },
-    {
-     "book": "bovada",
-     "market": "spreads",
-     "line": -3.5,
-     "firstSide": "home",
-     "firstPrice": -115,
-     "secondPrice": -105,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
-    },
-    {
-     "book": "fanduel",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -172,
-     "secondPrice": 142,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "fanduel",
-     "market": "spreads",
-     "line": -3.5,
-     "firstSide": "home",
-     "firstPrice": -120,
-     "secondPrice": -102,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "betus",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -165,
-     "secondPrice": 142,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "betus",
-     "market": "spreads",
-     "line": -4.0,
+     "line": 7.5,
      "firstSide": "home",
      "firstPrice": -105,
-     "secondPrice": -115,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "secondPrice": -125,
+     "marketUpdatedAt": "2026-11-22T20:10:36Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
+    },
+    {
+     "book": "bovada",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": 400,
+     "secondPrice": -650,
+     "marketUpdatedAt": "2026-11-22T20:03:16Z",
+     "bookUpdatedAt": "2026-11-22T20:03:16Z"
+    },
+    {
+     "book": "bovada",
+     "market": "spreads",
+     "line": 8.0,
+     "firstSide": "home",
+     "firstPrice": -110,
+     "secondPrice": -120,
+     "marketUpdatedAt": "2026-11-22T20:03:16Z",
+     "bookUpdatedAt": "2026-11-22T20:03:16Z"
+    },
+    {
+     "book": "fanduel",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": 280,
+     "secondPrice": -370,
+     "marketUpdatedAt": "2026-11-22T20:10:35Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
+    },
+    {
+     "book": "fanduel",
+     "market": "spreads",
+     "line": 6.5,
+     "firstSide": "home",
+     "firstPrice": -128,
+     "secondPrice": -104,
+     "marketUpdatedAt": "2026-11-22T20:10:35Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
     },
     {
      "book": "betrivers",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": -190,
-     "secondPrice": 145,
-     "marketUpdatedAt": "2026-11-22T03:41:30Z",
-     "bookUpdatedAt": "2026-11-22T03:41:30Z"
+     "firstPrice": 370,
+     "secondPrice": -715,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
     },
     {
      "book": "betrivers",
      "market": "spreads",
-     "line": -3.5,
+     "line": 7.5,
      "firstSide": "home",
-     "firstPrice": -113,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:30Z",
-     "bookUpdatedAt": "2026-11-22T03:41:30Z"
+     "firstPrice": -125,
+     "secondPrice": -117,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
     }
    ]
   },
@@ -1175,242 +303,104 @@
    "away": "EVAN",
    "homeName": "Memphis Tigers",
    "awayName": "Evansville Purple Aces",
-   "startsAt": "2026-11-22T19:00:00Z",
-   "observedAt": "2026-11-22T03:42:07Z",
-   "books": 7,
-   "homeSpread": -21.5,
-   "homeSpreadPrice": -115,
-   "awaySpreadPrice": -105,
-   "homeMl": -7500,
-   "awayMl": 1646,
+   "startsAt": "2026-11-22T19:02:05Z",
+   "observedAt": "2026-11-22T20:10:55Z",
+   "books": 5,
+   "homeSpread": -18.5,
+   "homeSpreadPrice": -120,
+   "awaySpreadPrice": -114,
+   "homeMl": -15000,
+   "awayMl": 2350,
    "bookQuotes": [
     {
-     "book": "betonlineag",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -8000,
-     "secondPrice": 1692,
-     "marketUpdatedAt": "2026-11-22T03:42:00Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "betonlineag",
-     "market": "spreads",
-     "line": -21.5,
-     "firstSide": "home",
-     "firstPrice": -115,
-     "secondPrice": -105,
-     "marketUpdatedAt": "2026-11-22T03:42:00Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "lowvig",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -8000,
-     "secondPrice": 1692,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
-    },
-    {
-     "book": "lowvig",
-     "market": "spreads",
-     "line": -21.5,
-     "firstSide": "home",
-     "firstPrice": -111,
-     "secondPrice": -101,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
-    },
-    {
      "book": "betmgm",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -5000,
-     "secondPrice": 1500,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
-    },
-    {
-     "book": "betmgm",
-     "market": "spreads",
-     "line": -21.5,
-     "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
-    },
-    {
-     "book": "draftkings",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -5000,
-     "secondPrice": 1800,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "draftkings",
-     "market": "spreads",
-     "line": -21.5,
-     "firstSide": "home",
-     "firstPrice": -115,
-     "secondPrice": -105,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "bovada",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
      "firstPrice": -10000,
-     "secondPrice": 1600,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
-    },
-    {
-     "book": "bovada",
-     "market": "spreads",
-     "line": -21.0,
-     "firstSide": "home",
-     "firstPrice": -115,
-     "secondPrice": -105,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
-    },
-    {
-     "book": "fanduel",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -7000,
-     "secondPrice": 1600,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "fanduel",
-     "market": "spreads",
-     "line": -20.5,
-     "firstSide": "home",
-     "firstPrice": -118,
-     "secondPrice": -104,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "betus",
-     "market": "spreads",
-     "line": -21.5,
-     "firstSide": "home",
-     "firstPrice": -115,
-     "secondPrice": -105,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    }
-   ]
-  },
-  {
-   "eventId": "20c6981840df47c0889d7ae41c56aa84",
-   "sport": "ncaab",
-   "home": "SOU",
-   "away": "UTAH",
-   "homeName": "South Dakota Coyotes",
-   "awayName": "Utah Tech Trailblazers",
-   "startsAt": "2026-11-22T19:00:00Z",
-   "observedAt": "2026-11-22T03:42:07Z",
-   "books": 6,
-   "homeSpread": 0.0,
-   "homeSpreadPrice": -110,
-   "awaySpreadPrice": -108,
-   "homeMl": -114,
-   "awayMl": -106,
-   "bookQuotes": [
-    {
-     "book": "betonlineag",
-     "market": "spreads",
-     "line": 0.0,
-     "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:42:00Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "lowvig",
-     "market": "spreads",
-     "line": 0.0,
-     "firstSide": "home",
-     "firstPrice": -106,
-     "secondPrice": -106,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
-    },
-    {
-     "book": "betmgm",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -118,
-     "secondPrice": -102,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
+     "secondPrice": 2200,
+     "marketUpdatedAt": "2026-11-22T20:10:36Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
     },
     {
      "book": "betmgm",
      "market": "spreads",
-     "line": -1.5,
+     "line": -18.5,
      "firstSide": "home",
      "firstPrice": -105,
-     "secondPrice": -115,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
+     "secondPrice": -125,
+     "marketUpdatedAt": "2026-11-22T20:10:36Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
     },
     {
      "book": "draftkings",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "firstPrice": -20000,
+     "secondPrice": 3000,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
     },
     {
      "book": "draftkings",
      "market": "spreads",
-     "line": 1.5,
+     "line": -17.5,
      "firstSide": "home",
-     "firstPrice": -130,
-     "secondPrice": 110,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "firstPrice": -125,
+     "secondPrice": -105,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
+    },
+    {
+     "book": "bovada",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -3300,
+     "secondPrice": 1200,
+     "marketUpdatedAt": "2026-11-22T20:03:16Z",
+     "bookUpdatedAt": "2026-11-22T20:03:16Z"
     },
     {
      "book": "bovada",
      "market": "spreads",
-     "line": 1.5,
+     "line": -14.5,
      "firstSide": "home",
-     "firstPrice": -130,
-     "secondPrice": 110,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
+     "firstPrice": -120,
+     "secondPrice": -110,
+     "marketUpdatedAt": "2026-11-22T20:03:16Z",
+     "bookUpdatedAt": "2026-11-22T20:03:16Z"
     },
     {
-     "book": "betus",
-     "market": "spreads",
-     "line": 0.0,
+     "book": "fanduel",
+     "market": "h2h",
+     "line": null,
      "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "firstPrice": -20000,
+     "secondPrice": 2500,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
+    },
+    {
+     "book": "fanduel",
+     "market": "spreads",
+     "line": -18.5,
+     "firstSide": "home",
+     "firstPrice": -114,
+     "secondPrice": -114,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
+    },
+    {
+     "book": "betrivers",
+     "market": "spreads",
+     "line": -18.5,
+     "firstSide": "home",
+     "firstPrice": -122,
+     "secondPrice": -120,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
     }
    ]
   },
@@ -1422,83 +412,103 @@
    "homeName": "Troy Trojans",
    "awayName": "Nicholls St Colonels",
    "startsAt": "2026-11-22T20:00:00Z",
-   "observedAt": "2026-11-22T03:42:07Z",
-   "books": 5,
+   "observedAt": "2026-11-22T20:10:55Z",
+   "books": 7,
    "homeSpread": -5.5,
-   "homeSpreadPrice": -112,
-   "awaySpreadPrice": -106,
+   "homeSpreadPrice": -110,
+   "awaySpreadPrice": -110,
    "homeMl": -235,
-   "awayMl": 190,
+   "awayMl": 195,
    "bookQuotes": [
     {
      "book": "betonlineag",
-     "market": "spreads",
-     "line": -6.0,
-     "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "lowvig",
-     "market": "spreads",
-     "line": -6.0,
-     "firstSide": "home",
-     "firstPrice": -106,
-     "secondPrice": -106,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
-    },
-    {
-     "book": "betmgm",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
      "firstPrice": -235,
-     "secondPrice": 190,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
+     "secondPrice": 195,
+     "marketUpdatedAt": "2026-11-22T20:00:41Z",
+     "bookUpdatedAt": "2026-11-22T20:00:41Z"
+    },
+    {
+     "book": "betonlineag",
+     "market": "spreads",
+     "line": -5.5,
+     "firstSide": "home",
+     "firstPrice": -110,
+     "secondPrice": -110,
+     "marketUpdatedAt": "2026-11-22T20:00:41Z",
+     "bookUpdatedAt": "2026-11-22T20:00:41Z"
+    },
+    {
+     "book": "lowvig",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -235,
+     "secondPrice": 195,
+     "marketUpdatedAt": "2026-11-22T20:00:11Z",
+     "bookUpdatedAt": "2026-11-22T20:00:11Z"
+    },
+    {
+     "book": "lowvig",
+     "market": "spreads",
+     "line": -5.5,
+     "firstSide": "home",
+     "firstPrice": -106,
+     "secondPrice": -106,
+     "marketUpdatedAt": "2026-11-22T20:00:11Z",
+     "bookUpdatedAt": "2026-11-22T20:00:11Z"
+    },
+    {
+     "book": "betmgm",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -135,
+     "secondPrice": 105,
+     "marketUpdatedAt": "2026-11-22T20:10:36Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
     },
     {
      "book": "betmgm",
      "market": "spreads",
-     "line": -5.5,
+     "line": -1.5,
      "firstSide": "home",
-     "firstPrice": -118,
-     "secondPrice": -102,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
+     "firstPrice": -110,
+     "secondPrice": -118,
+     "marketUpdatedAt": "2026-11-22T20:10:36Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
     },
     {
      "book": "draftkings",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": -225,
-     "secondPrice": 185,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "firstPrice": -140,
+     "secondPrice": 110,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
     },
     {
      "book": "draftkings",
      "market": "spreads",
-     "line": -5.5,
+     "line": -1.5,
      "firstSide": "home",
-     "firstPrice": -112,
-     "secondPrice": -108,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "firstPrice": -120,
+     "secondPrice": -110,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
     },
     {
      "book": "fanduel",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": -245,
-     "secondPrice": 202,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "firstPrice": -240,
+     "secondPrice": 195,
+     "marketUpdatedAt": "2026-11-22T20:01:56Z",
+     "bookUpdatedAt": "2026-11-22T20:01:56Z"
     },
     {
      "book": "fanduel",
@@ -1507,8 +517,48 @@
      "firstSide": "home",
      "firstPrice": -120,
      "secondPrice": -102,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "marketUpdatedAt": "2026-11-22T20:01:56Z",
+     "bookUpdatedAt": "2026-11-22T20:01:56Z"
+    },
+    {
+     "book": "betrivers",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -159,
+     "secondPrice": 108,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
+    },
+    {
+     "book": "betrivers",
+     "market": "spreads",
+     "line": -2.5,
+     "firstSide": "home",
+     "firstPrice": -114,
+     "secondPrice": -129,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
+    },
+    {
+     "book": "bovada",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -235,
+     "secondPrice": 195,
+     "marketUpdatedAt": "2026-11-22T20:00:59Z",
+     "bookUpdatedAt": "2026-11-22T20:01:00Z"
+    },
+    {
+     "book": "bovada",
+     "market": "spreads",
+     "line": -6.0,
+     "firstSide": "home",
+     "firstPrice": -105,
+     "secondPrice": -115,
+     "marketUpdatedAt": "2026-11-22T20:00:59Z",
+     "bookUpdatedAt": "2026-11-22T20:01:00Z"
     }
    ]
   },
@@ -1520,93 +570,113 @@
    "homeName": "Texas Longhorns",
    "awayName": "Southern Indiana Screaming Eagles",
    "startsAt": "2026-11-22T20:00:00Z",
-   "observedAt": "2026-11-22T03:42:07Z",
+   "observedAt": "2026-11-22T20:10:55Z",
    "books": 8,
-   "homeSpread": -39.5,
-   "homeSpreadPrice": -110,
-   "awaySpreadPrice": -108,
-   "homeMl": null,
-   "awayMl": null,
+   "homeSpread": -37.5,
+   "homeSpreadPrice": -114,
+   "awaySpreadPrice": -110,
+   "homeMl": -55000,
+   "awayMl": 3650,
    "bookQuotes": [
     {
      "book": "betonlineag",
      "market": "spreads",
-     "line": -39.0,
+     "line": -37.5,
      "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "firstPrice": -115,
+     "secondPrice": -105,
+     "marketUpdatedAt": "2026-11-22T20:02:11Z",
+     "bookUpdatedAt": "2026-11-22T20:02:12Z"
     },
     {
      "book": "lowvig",
      "market": "spreads",
-     "line": -39.0,
+     "line": -37.5,
      "firstSide": "home",
-     "firstPrice": -106,
-     "secondPrice": -106,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
+     "firstPrice": -111,
+     "secondPrice": -101,
+     "marketUpdatedAt": "2026-11-22T20:01:31Z",
+     "bookUpdatedAt": "2026-11-22T20:01:31Z"
+    },
+    {
+     "book": "betmgm",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -10000,
+     "secondPrice": 3300,
+     "marketUpdatedAt": "2026-11-22T20:10:36Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
     },
     {
      "book": "betmgm",
      "market": "spreads",
-     "line": -39.5,
+     "line": -36.5,
      "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
+     "firstPrice": -115,
+     "secondPrice": -115,
+     "marketUpdatedAt": "2026-11-22T20:10:36Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
+    },
+    {
+     "book": "draftkings",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -100000,
+     "secondPrice": 4000,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
     },
     {
      "book": "draftkings",
      "market": "spreads",
-     "line": -39.5,
+     "line": -35.5,
      "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "firstPrice": -115,
+     "secondPrice": -115,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
     },
     {
      "book": "bovada",
      "market": "spreads",
-     "line": -39.5,
+     "line": -36.5,
      "firstSide": "home",
-     "firstPrice": -115,
-     "secondPrice": -105,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
+     "firstPrice": -120,
+     "secondPrice": -110,
+     "marketUpdatedAt": "2026-11-22T20:03:16Z",
+     "bookUpdatedAt": "2026-11-22T20:03:16Z"
     },
     {
      "book": "betus",
      "market": "spreads",
-     "line": -39.0,
+     "line": -38.0,
      "firstSide": "home",
      "firstPrice": -110,
      "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "marketUpdatedAt": "2026-11-22T20:02:56Z",
+     "bookUpdatedAt": "2026-11-22T20:02:56Z"
     },
     {
      "book": "betrivers",
      "market": "spreads",
-     "line": -39.5,
+     "line": -37.5,
      "firstSide": "home",
-     "firstPrice": -117,
-     "secondPrice": -107,
-     "marketUpdatedAt": "2026-11-22T03:41:30Z",
-     "bookUpdatedAt": "2026-11-22T03:41:30Z"
+     "firstPrice": -114,
+     "secondPrice": -127,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
     },
     {
      "book": "fanduel",
      "market": "spreads",
-     "line": -39.5,
+     "line": -38.5,
      "firstSide": "home",
-     "firstPrice": -114,
-     "secondPrice": -106,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "firstPrice": -110,
+     "secondPrice": -110,
+     "marketUpdatedAt": "2026-11-22T20:00:25Z",
+     "bookUpdatedAt": "2026-11-22T20:00:26Z"
     }
    ]
   },
@@ -1618,14 +688,24 @@
    "homeName": "Texas State Bobcats",
    "awayName": "McNeese Cowboys",
    "startsAt": "2026-11-22T20:30:00Z",
-   "observedAt": "2026-11-22T03:42:07Z",
-   "books": 6,
+   "observedAt": "2026-11-22T20:10:55Z",
+   "books": 7,
    "homeSpread": -2.5,
-   "homeSpreadPrice": -109,
-   "awaySpreadPrice": -110,
-   "homeMl": -148,
-   "awayMl": 119,
+   "homeSpreadPrice": -105,
+   "awaySpreadPrice": -115,
+   "homeMl": -145,
+   "awayMl": 120,
    "bookQuotes": [
+    {
+     "book": "betonlineag",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -145,
+     "secondPrice": 125,
+     "marketUpdatedAt": "2026-11-22T20:10:50Z",
+     "bookUpdatedAt": "2026-11-22T20:10:50Z"
+    },
     {
      "book": "betonlineag",
      "market": "spreads",
@@ -1633,8 +713,18 @@
      "firstSide": "home",
      "firstPrice": -105,
      "secondPrice": -115,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "marketUpdatedAt": "2026-11-22T20:10:50Z",
+     "bookUpdatedAt": "2026-11-22T20:10:50Z"
+    },
+    {
+     "book": "lowvig",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -145,
+     "secondPrice": 125,
+     "marketUpdatedAt": "2026-11-22T20:10:37Z",
+     "bookUpdatedAt": "2026-11-22T20:10:37Z"
     },
     {
      "book": "lowvig",
@@ -1643,8 +733,8 @@
      "firstSide": "home",
      "firstPrice": -101,
      "secondPrice": -111,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
+     "marketUpdatedAt": "2026-11-22T20:10:37Z",
+     "bookUpdatedAt": "2026-11-22T20:10:37Z"
     },
     {
      "book": "betmgm",
@@ -1653,48 +743,48 @@
      "firstSide": "home",
      "firstPrice": -145,
      "secondPrice": 118,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
+     "marketUpdatedAt": "2026-11-22T20:10:37Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
     },
     {
      "book": "betmgm",
      "market": "spreads",
      "line": -2.5,
      "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
+     "firstPrice": -105,
+     "secondPrice": -115,
+     "marketUpdatedAt": "2026-11-22T20:10:37Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
     },
     {
      "book": "fanduel",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": -138,
-     "secondPrice": 116,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "firstPrice": -132,
+     "secondPrice": 110,
+     "marketUpdatedAt": "2026-11-22T20:10:35Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
     },
     {
      "book": "fanduel",
      "market": "spreads",
      "line": -2.5,
      "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "firstPrice": -105,
+     "secondPrice": -115,
+     "marketUpdatedAt": "2026-11-22T20:10:35Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
     },
     {
      "book": "draftkings",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": -155,
-     "secondPrice": 130,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "firstPrice": -142,
+     "secondPrice": 120,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
     },
     {
      "book": "draftkings",
@@ -1703,8 +793,8 @@
      "firstSide": "home",
      "firstPrice": -108,
      "secondPrice": -112,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
     },
     {
      "book": "betrivers",
@@ -1712,19 +802,39 @@
      "line": null,
      "firstSide": "home",
      "firstPrice": -152,
-     "secondPrice": 120,
-     "marketUpdatedAt": "2026-11-22T03:41:30Z",
-     "bookUpdatedAt": "2026-11-22T03:41:30Z"
+     "secondPrice": 123,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
     },
     {
      "book": "betrivers",
      "market": "spreads",
-     "line": -1.5,
+     "line": -2.5,
      "firstSide": "home",
-     "firstPrice": -129,
-     "secondPrice": 104,
-     "marketUpdatedAt": "2026-11-22T03:41:30Z",
-     "bookUpdatedAt": "2026-11-22T03:41:30Z"
+     "firstPrice": -108,
+     "secondPrice": -115,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
+    },
+    {
+     "book": "bovada",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -140,
+     "secondPrice": 120,
+     "marketUpdatedAt": "2026-11-22T20:03:16Z",
+     "bookUpdatedAt": "2026-11-22T20:03:16Z"
+    },
+    {
+     "book": "bovada",
+     "market": "spreads",
+     "line": -2.5,
+     "firstSide": "home",
+     "firstPrice": -105,
+     "secondPrice": -115,
+     "marketUpdatedAt": "2026-11-22T20:03:16Z",
+     "bookUpdatedAt": "2026-11-22T20:03:16Z"
     }
    ]
   },
@@ -1736,14 +846,24 @@
    "homeName": "IUPUI Jaguars",
    "awayName": "Maryland-Eastern Shore Hawks",
    "startsAt": "2026-11-22T21:30:00Z",
-   "observedAt": "2026-11-22T03:42:07Z",
-   "books": 4,
-   "homeSpread": -10.25,
-   "homeSpreadPrice": -110,
+   "observedAt": "2026-11-22T20:10:55Z",
+   "books": 7,
+   "homeSpread": -10.5,
+   "homeSpreadPrice": -111,
    "awaySpreadPrice": -108,
    "homeMl": -600,
-   "awayMl": 425,
+   "awayMl": 437,
    "bookQuotes": [
+    {
+     "book": "betonlineag",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -585,
+     "secondPrice": 437,
+     "marketUpdatedAt": "2026-11-22T20:10:50Z",
+     "bookUpdatedAt": "2026-11-22T20:10:50Z"
+    },
     {
      "book": "betonlineag",
      "market": "spreads",
@@ -1751,8 +871,18 @@
      "firstSide": "home",
      "firstPrice": -115,
      "secondPrice": -105,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "marketUpdatedAt": "2026-11-22T20:10:50Z",
+     "bookUpdatedAt": "2026-11-22T20:10:50Z"
+    },
+    {
+     "book": "lowvig",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -585,
+     "secondPrice": 437,
+     "marketUpdatedAt": "2026-11-22T20:10:37Z",
+     "bookUpdatedAt": "2026-11-22T20:10:37Z"
     },
     {
      "book": "lowvig",
@@ -1761,8 +891,8 @@
      "firstSide": "home",
      "firstPrice": -111,
      "secondPrice": -101,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
+     "marketUpdatedAt": "2026-11-22T20:10:37Z",
+     "bookUpdatedAt": "2026-11-22T20:10:37Z"
     },
     {
      "book": "betmgm",
@@ -1771,8 +901,8 @@
      "firstSide": "home",
      "firstPrice": -600,
      "secondPrice": 425,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
+     "marketUpdatedAt": "2026-11-22T20:10:37Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
     },
     {
      "book": "betmgm",
@@ -1781,8 +911,18 @@
      "firstSide": "home",
      "firstPrice": -110,
      "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
+     "marketUpdatedAt": "2026-11-22T20:10:37Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
+    },
+    {
+     "book": "draftkings",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -600,
+     "secondPrice": 440,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
     },
     {
      "book": "draftkings",
@@ -1791,8 +931,68 @@
      "firstSide": "home",
      "firstPrice": -110,
      "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
+    },
+    {
+     "book": "betrivers",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -715,
+     "secondPrice": 460,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
+    },
+    {
+     "book": "betrivers",
+     "market": "spreads",
+     "line": -10.5,
+     "firstSide": "home",
+     "firstPrice": -115,
+     "secondPrice": -108,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
+    },
+    {
+     "book": "bovada",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -650,
+     "secondPrice": 450,
+     "marketUpdatedAt": "2026-11-22T20:03:16Z",
+     "bookUpdatedAt": "2026-11-22T20:03:16Z"
+    },
+    {
+     "book": "bovada",
+     "market": "spreads",
+     "line": -10.5,
+     "firstSide": "home",
+     "firstPrice": -115,
+     "secondPrice": -105,
+     "marketUpdatedAt": "2026-11-22T20:03:16Z",
+     "bookUpdatedAt": "2026-11-22T20:03:16Z"
+    },
+    {
+     "book": "fanduel",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -550,
+     "secondPrice": 420,
+     "marketUpdatedAt": "2026-11-22T20:10:35Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
+    },
+    {
+     "book": "fanduel",
+     "market": "spreads",
+     "line": -10.5,
+     "firstSide": "home",
+     "firstPrice": -110,
+     "secondPrice": -110,
+     "marketUpdatedAt": "2026-11-22T20:10:35Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
     }
    ]
   },
@@ -1804,23 +1004,23 @@
    "homeName": "Portland St Vikings",
    "awayName": "CSU Fullerton Titans",
    "startsAt": "2026-11-22T22:00:00Z",
-   "observedAt": "2026-11-22T03:42:07Z",
-   "books": 6,
+   "observedAt": "2026-11-22T20:10:55Z",
+   "books": 8,
    "homeSpread": -4.5,
    "homeSpreadPrice": -110,
    "awaySpreadPrice": -110,
-   "homeMl": -188,
-   "awayMl": 162,
+   "homeMl": -198,
+   "awayMl": 170,
    "bookQuotes": [
     {
      "book": "betonlineag",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": -182,
-     "secondPrice": 159,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "firstPrice": -195,
+     "secondPrice": 170,
+     "marketUpdatedAt": "2026-11-22T20:10:50Z",
+     "bookUpdatedAt": "2026-11-22T20:10:50Z"
     },
     {
      "book": "betonlineag",
@@ -1829,18 +1029,18 @@
      "firstSide": "home",
      "firstPrice": -110,
      "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "marketUpdatedAt": "2026-11-22T20:10:50Z",
+     "bookUpdatedAt": "2026-11-22T20:10:50Z"
     },
     {
      "book": "lowvig",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": -182,
-     "secondPrice": 159,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
+     "firstPrice": -195,
+     "secondPrice": 170,
+     "marketUpdatedAt": "2026-11-22T20:10:36Z",
+     "bookUpdatedAt": "2026-11-22T20:10:37Z"
     },
     {
      "book": "lowvig",
@@ -1849,8 +1049,8 @@
      "firstSide": "home",
      "firstPrice": -106,
      "secondPrice": -106,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
+     "marketUpdatedAt": "2026-11-22T20:10:36Z",
+     "bookUpdatedAt": "2026-11-22T20:10:37Z"
     },
     {
      "book": "betmgm",
@@ -1859,78 +1059,118 @@
      "firstSide": "home",
      "firstPrice": -200,
      "secondPrice": 165,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
+     "marketUpdatedAt": "2026-11-22T20:10:39Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
     },
     {
      "book": "betmgm",
      "market": "spreads",
      "line": -4.5,
      "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
+     "firstPrice": -115,
+     "secondPrice": -105,
+     "marketUpdatedAt": "2026-11-22T20:10:39Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
     },
     {
      "book": "draftkings",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": -198,
-     "secondPrice": 164,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "firstPrice": -205,
+     "secondPrice": 170,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
     },
     {
      "book": "draftkings",
      "market": "spreads",
      "line": -4.5,
      "firstSide": "home",
-     "firstPrice": -108,
-     "secondPrice": -112,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "firstPrice": -115,
+     "secondPrice": -105,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
     },
     {
      "book": "betus",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -180,
-     "secondPrice": 155,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "betus",
-     "market": "spreads",
-     "line": -4.5,
-     "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "bovada",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
      "firstPrice": -195,
-     "secondPrice": 165,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
+     "secondPrice": 167,
+     "marketUpdatedAt": "2026-11-22T20:10:04Z",
+     "bookUpdatedAt": "2026-11-22T20:10:04Z"
     },
     {
-     "book": "bovada",
+     "book": "betus",
      "market": "spreads",
      "line": -4.5,
      "firstSide": "home",
      "firstPrice": -110,
      "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
+     "marketUpdatedAt": "2026-11-22T20:10:04Z",
+     "bookUpdatedAt": "2026-11-22T20:10:04Z"
+    },
+    {
+     "book": "bovada",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -200,
+     "secondPrice": 170,
+     "marketUpdatedAt": "2026-11-22T20:03:16Z",
+     "bookUpdatedAt": "2026-11-22T20:03:16Z"
+    },
+    {
+     "book": "bovada",
+     "market": "spreads",
+     "line": -5.0,
+     "firstSide": "home",
+     "firstPrice": -105,
+     "secondPrice": -115,
+     "marketUpdatedAt": "2026-11-22T20:03:16Z",
+     "bookUpdatedAt": "2026-11-22T20:03:16Z"
+    },
+    {
+     "book": "betrivers",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -215,
+     "secondPrice": 170,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
+    },
+    {
+     "book": "betrivers",
+     "market": "spreads",
+     "line": -4.5,
+     "firstSide": "home",
+     "firstPrice": -112,
+     "secondPrice": -112,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
+    },
+    {
+     "book": "fanduel",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -192,
+     "secondPrice": 160,
+     "marketUpdatedAt": "2026-11-22T20:10:35Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
+    },
+    {
+     "book": "fanduel",
+     "market": "spreads",
+     "line": -4.5,
+     "firstSide": "home",
+     "firstPrice": -110,
+     "secondPrice": -110,
+     "marketUpdatedAt": "2026-11-22T20:10:35Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
     }
    ]
   },
@@ -1942,33 +1182,53 @@
    "homeName": "Rice Owls",
    "awayName": "Lamar Cardinals",
    "startsAt": "2026-11-22T22:00:00Z",
-   "observedAt": "2026-11-22T03:42:07Z",
-   "books": 5,
-   "homeSpread": 2.5,
-   "homeSpreadPrice": -108,
-   "awaySpreadPrice": -112,
+   "observedAt": "2026-11-22T20:10:55Z",
+   "books": 7,
+   "homeSpread": 2.0,
+   "homeSpreadPrice": -106,
+   "awaySpreadPrice": -113,
    "homeMl": 110,
-   "awayMl": -130,
+   "awayMl": -135,
    "bookQuotes": [
     {
      "book": "betonlineag",
-     "market": "spreads",
-     "line": 2.5,
+     "market": "h2h",
+     "line": null,
      "firstSide": "home",
-     "firstPrice": -108,
-     "secondPrice": -112,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "firstPrice": 115,
+     "secondPrice": -135,
+     "marketUpdatedAt": "2026-11-22T20:10:50Z",
+     "bookUpdatedAt": "2026-11-22T20:10:50Z"
+    },
+    {
+     "book": "betonlineag",
+     "market": "spreads",
+     "line": 2.0,
+     "firstSide": "home",
+     "firstPrice": -110,
+     "secondPrice": -110,
+     "marketUpdatedAt": "2026-11-22T20:10:50Z",
+     "bookUpdatedAt": "2026-11-22T20:10:50Z"
+    },
+    {
+     "book": "lowvig",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": 115,
+     "secondPrice": -135,
+     "marketUpdatedAt": "2026-11-22T20:10:37Z",
+     "bookUpdatedAt": "2026-11-22T20:10:37Z"
     },
     {
      "book": "lowvig",
      "market": "spreads",
-     "line": 2.5,
+     "line": 2.0,
      "firstSide": "home",
-     "firstPrice": -104,
-     "secondPrice": -108,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
+     "firstPrice": -106,
+     "secondPrice": -106,
+     "marketUpdatedAt": "2026-11-22T20:10:37Z",
+     "bookUpdatedAt": "2026-11-22T20:10:37Z"
     },
     {
      "book": "betmgm",
@@ -1977,38 +1237,38 @@
      "firstSide": "home",
      "firstPrice": 110,
      "secondPrice": -135,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
+     "marketUpdatedAt": "2026-11-22T20:10:38Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
     },
     {
      "book": "betmgm",
      "market": "spreads",
      "line": 2.5,
      "firstSide": "home",
-     "firstPrice": -115,
-     "secondPrice": -105,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
+     "firstPrice": -118,
+     "secondPrice": -102,
+     "marketUpdatedAt": "2026-11-22T20:10:38Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
     },
     {
      "book": "fanduel",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": 104,
-     "secondPrice": -122,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "firstPrice": 106,
+     "secondPrice": -128,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
     },
     {
      "book": "fanduel",
      "market": "spreads",
      "line": 1.5,
      "firstSide": "home",
-     "firstPrice": -106,
-     "secondPrice": -114,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "firstPrice": -105,
+     "secondPrice": -115,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
     },
     {
      "book": "draftkings",
@@ -2017,18 +1277,58 @@
      "firstSide": "home",
      "firstPrice": 110,
      "secondPrice": -130,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
     },
     {
      "book": "draftkings",
      "market": "spreads",
+     "line": 1.5,
+     "firstSide": "home",
+     "firstPrice": -105,
+     "secondPrice": -115,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
+    },
+    {
+     "book": "betrivers",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": 120,
+     "secondPrice": -152,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
+    },
+    {
+     "book": "betrivers",
+     "market": "spreads",
      "line": 2.5,
      "firstSide": "home",
-     "firstPrice": -108,
-     "secondPrice": -112,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "firstPrice": -110,
+     "secondPrice": -113,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
+    },
+    {
+     "book": "bovada",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": 110,
+     "secondPrice": -130,
+     "marketUpdatedAt": "2026-11-22T20:03:16Z",
+     "bookUpdatedAt": "2026-11-22T20:03:16Z"
+    },
+    {
+     "book": "bovada",
+     "market": "spreads",
+     "line": 1.5,
+     "firstSide": "home",
+     "firstPrice": -105,
+     "secondPrice": -115,
+     "marketUpdatedAt": "2026-11-22T20:03:16Z",
+     "bookUpdatedAt": "2026-11-22T20:03:16Z"
     }
    ]
   },
@@ -2040,73 +1340,153 @@
    "homeName": "Samford Bulldogs",
    "awayName": "UNC Asheville Bulldogs",
    "startsAt": "2026-11-22T22:00:00Z",
-   "observedAt": "2026-11-22T03:42:07Z",
-   "books": 4,
-   "homeSpread": -9.5,
+   "observedAt": "2026-11-22T20:10:55Z",
+   "books": 7,
+   "homeSpread": -10.5,
    "homeSpreadPrice": -110,
-   "awaySpreadPrice": -110,
-   "homeMl": -418,
-   "awayMl": 320,
+   "awaySpreadPrice": -111,
+   "homeMl": -550,
+   "awayMl": 400,
    "bookQuotes": [
     {
      "book": "betonlineag",
-     "market": "spreads",
-     "line": -9.5,
+     "market": "h2h",
+     "line": null,
      "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "firstPrice": -525,
+     "secondPrice": 400,
+     "marketUpdatedAt": "2026-11-22T20:10:50Z",
+     "bookUpdatedAt": "2026-11-22T20:10:50Z"
+    },
+    {
+     "book": "betonlineag",
+     "market": "spreads",
+     "line": -10.5,
+     "firstSide": "home",
+     "firstPrice": -105,
+     "secondPrice": -115,
+     "marketUpdatedAt": "2026-11-22T20:10:50Z",
+     "bookUpdatedAt": "2026-11-22T20:10:50Z"
+    },
+    {
+     "book": "lowvig",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -525,
+     "secondPrice": 400,
+     "marketUpdatedAt": "2026-11-22T20:10:37Z",
+     "bookUpdatedAt": "2026-11-22T20:10:37Z"
     },
     {
      "book": "lowvig",
      "market": "spreads",
-     "line": -9.5,
+     "line": -10.5,
      "firstSide": "home",
-     "firstPrice": -106,
-     "secondPrice": -106,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
+     "firstPrice": -101,
+     "secondPrice": -111,
+     "marketUpdatedAt": "2026-11-22T20:10:37Z",
+     "bookUpdatedAt": "2026-11-22T20:10:37Z"
     },
     {
      "book": "betmgm",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": -425,
-     "secondPrice": 320,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
+     "firstPrice": -550,
+     "secondPrice": 400,
+     "marketUpdatedAt": "2026-11-22T20:10:38Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
     },
     {
      "book": "betmgm",
      "market": "spreads",
-     "line": -9.5,
+     "line": -10.5,
      "firstSide": "home",
      "firstPrice": -110,
      "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
+     "marketUpdatedAt": "2026-11-22T20:10:38Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
     },
     {
      "book": "draftkings",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": -410,
-     "secondPrice": 320,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "firstPrice": -535,
+     "secondPrice": 400,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
     },
     {
      "book": "draftkings",
      "market": "spreads",
-     "line": -9.5,
+     "line": -10.5,
+     "firstSide": "home",
+     "firstPrice": -112,
+     "secondPrice": -108,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
+    },
+    {
+     "book": "betrivers",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -625,
+     "secondPrice": 425,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
+    },
+    {
+     "book": "betrivers",
+     "market": "spreads",
+     "line": -10.5,
+     "firstSide": "home",
+     "firstPrice": -110,
+     "secondPrice": -113,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
+    },
+    {
+     "book": "bovada",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -550,
+     "secondPrice": 390,
+     "marketUpdatedAt": "2026-11-22T20:03:16Z",
+     "bookUpdatedAt": "2026-11-22T20:03:16Z"
+    },
+    {
+     "book": "bovada",
+     "market": "spreads",
+     "line": -10.5,
+     "firstSide": "home",
+     "firstPrice": -105,
+     "secondPrice": -115,
+     "marketUpdatedAt": "2026-11-22T20:03:16Z",
+     "bookUpdatedAt": "2026-11-22T20:03:16Z"
+    },
+    {
+     "book": "fanduel",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -580,
+     "secondPrice": 440,
+     "marketUpdatedAt": "2026-11-22T20:10:35Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
+    },
+    {
+     "book": "fanduel",
+     "market": "spreads",
+     "line": -10.5,
      "firstSide": "home",
      "firstPrice": -110,
      "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "marketUpdatedAt": "2026-11-22T20:10:35Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
     }
    ]
   },
@@ -2118,53 +1498,53 @@
    "homeName": "Stephen F. Austin Lumberjacks",
    "awayName": "Temple Owls",
    "startsAt": "2026-11-22T22:30:00Z",
-   "observedAt": "2026-11-22T03:42:07Z",
-   "books": 6,
-   "homeSpread": 1.5,
+   "observedAt": "2026-11-22T20:10:55Z",
+   "books": 8,
+   "homeSpread": 2.5,
    "homeSpreadPrice": -110,
-   "awaySpreadPrice": -110,
-   "homeMl": 104,
-   "awayMl": -124,
+   "awaySpreadPrice": -109,
+   "homeMl": 118,
+   "awayMl": -140,
    "bookQuotes": [
     {
      "book": "betonlineag",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": 104,
-     "secondPrice": -124,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "firstPrice": 125,
+     "secondPrice": -145,
+     "marketUpdatedAt": "2026-11-22T20:10:50Z",
+     "bookUpdatedAt": "2026-11-22T20:10:50Z"
     },
     {
      "book": "betonlineag",
      "market": "spreads",
-     "line": 1.5,
+     "line": 2.5,
      "firstSide": "home",
      "firstPrice": -110,
      "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "marketUpdatedAt": "2026-11-22T20:10:50Z",
+     "bookUpdatedAt": "2026-11-22T20:10:50Z"
     },
     {
      "book": "lowvig",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": 104,
-     "secondPrice": -124,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
+     "firstPrice": 125,
+     "secondPrice": -145,
+     "marketUpdatedAt": "2026-11-22T20:10:36Z",
+     "bookUpdatedAt": "2026-11-22T20:10:37Z"
     },
     {
      "book": "lowvig",
      "market": "spreads",
-     "line": 1.5,
+     "line": 2.5,
      "firstSide": "home",
      "firstPrice": -106,
      "secondPrice": -106,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
+     "marketUpdatedAt": "2026-11-22T20:10:36Z",
+     "bookUpdatedAt": "2026-11-22T20:10:37Z"
     },
     {
      "book": "draftkings",
@@ -2173,78 +1553,118 @@
      "firstSide": "home",
      "firstPrice": 110,
      "secondPrice": -130,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
     },
     {
      "book": "draftkings",
      "market": "spreads",
-     "line": 1.5,
+     "line": 2.5,
      "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "firstPrice": -112,
+     "secondPrice": -108,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
     },
     {
      "book": "betmgm",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": 105,
-     "secondPrice": -125,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
+     "firstPrice": 115,
+     "secondPrice": -140,
+     "marketUpdatedAt": "2026-11-22T20:10:39Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
     },
     {
      "book": "betmgm",
      "market": "spreads",
-     "line": 1.5,
+     "line": 2.5,
      "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
+     "firstPrice": -115,
+     "secondPrice": -105,
+     "marketUpdatedAt": "2026-11-22T20:10:39Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
     },
     {
      "book": "bovada",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": 100,
-     "secondPrice": -120,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
+     "firstPrice": 120,
+     "secondPrice": -140,
+     "marketUpdatedAt": "2026-11-22T20:03:16Z",
+     "bookUpdatedAt": "2026-11-22T20:03:16Z"
     },
     {
      "book": "bovada",
      "market": "spreads",
-     "line": 1.5,
+     "line": 2.0,
      "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
+     "firstPrice": -105,
+     "secondPrice": -115,
+     "marketUpdatedAt": "2026-11-22T20:03:16Z",
+     "bookUpdatedAt": "2026-11-22T20:03:16Z"
     },
     {
      "book": "betus",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": 105,
-     "secondPrice": -125,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "firstPrice": 125,
+     "secondPrice": -145,
+     "marketUpdatedAt": "2026-11-22T20:10:04Z",
+     "bookUpdatedAt": "2026-11-22T20:10:04Z"
     },
     {
      "book": "betus",
      "market": "spreads",
+     "line": 2.0,
+     "firstSide": "home",
+     "firstPrice": -105,
+     "secondPrice": -115,
+     "marketUpdatedAt": "2026-11-22T20:10:04Z",
+     "bookUpdatedAt": "2026-11-22T20:10:04Z"
+    },
+    {
+     "book": "betrivers",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": 107,
+     "secondPrice": -132,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
+    },
+    {
+     "book": "betrivers",
+     "market": "spreads",
      "line": 1.5,
      "firstSide": "home",
      "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "secondPrice": -113,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
+    },
+    {
+     "book": "fanduel",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": 112,
+     "secondPrice": -132,
+     "marketUpdatedAt": "2026-11-22T20:10:35Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
+    },
+    {
+     "book": "fanduel",
+     "market": "spreads",
+     "line": 2.5,
+     "firstSide": "home",
+     "firstPrice": -120,
+     "secondPrice": -102,
+     "marketUpdatedAt": "2026-11-22T20:10:35Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
     }
    ]
   },
@@ -2256,173 +1676,173 @@
    "homeName": "Minnesota Golden Gophers",
    "awayName": "Utah Utes",
    "startsAt": "2026-11-22T23:00:00Z",
-   "observedAt": "2026-11-22T03:42:07Z",
+   "observedAt": "2026-11-22T20:10:55Z",
    "books": 8,
-   "homeSpread": -10.5,
+   "homeSpread": -9.5,
    "homeSpreadPrice": -108,
    "awaySpreadPrice": -110,
-   "homeMl": -700,
-   "awayMl": 502,
+   "homeMl": -515,
+   "awayMl": 386,
    "bookQuotes": [
     {
      "book": "betonlineag",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": -700,
-     "secondPrice": 505,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "firstPrice": -515,
+     "secondPrice": 393,
+     "marketUpdatedAt": "2026-11-22T20:10:50Z",
+     "bookUpdatedAt": "2026-11-22T20:10:50Z"
     },
     {
      "book": "betonlineag",
      "market": "spreads",
-     "line": -10.5,
+     "line": -9.5,
      "firstSide": "home",
-     "firstPrice": -105,
-     "secondPrice": -115,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "firstPrice": -107,
+     "secondPrice": -113,
+     "marketUpdatedAt": "2026-11-22T20:10:50Z",
+     "bookUpdatedAt": "2026-11-22T20:10:50Z"
     },
     {
      "book": "lowvig",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": -700,
-     "secondPrice": 505,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
+     "firstPrice": -515,
+     "secondPrice": 393,
+     "marketUpdatedAt": "2026-11-22T20:10:36Z",
+     "bookUpdatedAt": "2026-11-22T20:10:37Z"
     },
     {
      "book": "lowvig",
      "market": "spreads",
-     "line": -10.5,
+     "line": -9.5,
      "firstSide": "home",
-     "firstPrice": -101,
-     "secondPrice": -111,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
-    },
-    {
-     "book": "fanduel",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -670,
-     "secondPrice": 490,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "fanduel",
-     "market": "spreads",
-     "line": -11.5,
-     "firstSide": "home",
-     "firstPrice": -106,
-     "secondPrice": -114,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "draftkings",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -800,
-     "secondPrice": 550,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "draftkings",
-     "market": "spreads",
-     "line": -10.5,
-     "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "bovada",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -850,
-     "secondPrice": 550,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
-    },
-    {
-     "book": "bovada",
-     "market": "spreads",
-     "line": -10.5,
-     "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
-    },
-    {
-     "book": "betmgm",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -700,
-     "secondPrice": 500,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
-    },
-    {
-     "book": "betmgm",
-     "market": "spreads",
-     "line": -10.5,
-     "firstSide": "home",
-     "firstPrice": -115,
-     "secondPrice": -105,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
-    },
-    {
-     "book": "betus",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -700,
-     "secondPrice": 500,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "betus",
-     "market": "spreads",
-     "line": -10.5,
-     "firstSide": "home",
-     "firstPrice": -105,
-     "secondPrice": -115,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "betrivers",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -715,
-     "secondPrice": 450,
-     "marketUpdatedAt": "2026-11-22T03:41:30Z",
-     "bookUpdatedAt": "2026-11-22T03:41:30Z"
-    },
-    {
-     "book": "betrivers",
-     "market": "spreads",
-     "line": -10.5,
-     "firstSide": "home",
-     "firstPrice": -114,
+     "firstPrice": -103,
      "secondPrice": -109,
-     "marketUpdatedAt": "2026-11-22T03:41:30Z",
-     "bookUpdatedAt": "2026-11-22T03:41:30Z"
+     "marketUpdatedAt": "2026-11-22T20:10:36Z",
+     "bookUpdatedAt": "2026-11-22T20:10:37Z"
+    },
+    {
+     "book": "fanduel",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -490,
+     "secondPrice": 375,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
+    },
+    {
+     "book": "fanduel",
+     "market": "spreads",
+     "line": -9.5,
+     "firstSide": "home",
+     "firstPrice": -110,
+     "secondPrice": -110,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
+    },
+    {
+     "book": "draftkings",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -550,
+     "secondPrice": 410,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
+    },
+    {
+     "book": "draftkings",
+     "market": "spreads",
+     "line": -9.5,
+     "firstSide": "home",
+     "firstPrice": -110,
+     "secondPrice": -110,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
+    },
+    {
+     "book": "bovada",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -510,
+     "secondPrice": 370,
+     "marketUpdatedAt": "2026-11-22T20:03:16Z",
+     "bookUpdatedAt": "2026-11-22T20:03:16Z"
+    },
+    {
+     "book": "bovada",
+     "market": "spreads",
+     "line": -9.5,
+     "firstSide": "home",
+     "firstPrice": -110,
+     "secondPrice": -110,
+     "marketUpdatedAt": "2026-11-22T20:03:16Z",
+     "bookUpdatedAt": "2026-11-22T20:03:16Z"
+    },
+    {
+     "book": "betmgm",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -500,
+     "secondPrice": 375,
+     "marketUpdatedAt": "2026-11-22T20:10:39Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
+    },
+    {
+     "book": "betmgm",
+     "market": "spreads",
+     "line": -9.5,
+     "firstSide": "home",
+     "firstPrice": -110,
+     "secondPrice": -110,
+     "marketUpdatedAt": "2026-11-22T20:10:39Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
+    },
+    {
+     "book": "betus",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -515,
+     "secondPrice": 400,
+     "marketUpdatedAt": "2026-11-22T20:10:04Z",
+     "bookUpdatedAt": "2026-11-22T20:10:04Z"
+    },
+    {
+     "book": "betus",
+     "market": "spreads",
+     "line": -9.5,
+     "firstSide": "home",
+     "firstPrice": -105,
+     "secondPrice": -115,
+     "marketUpdatedAt": "2026-11-22T20:10:04Z",
+     "bookUpdatedAt": "2026-11-22T20:10:04Z"
+    },
+    {
+     "book": "betrivers",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -560,
+     "secondPrice": 380,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
+    },
+    {
+     "book": "betrivers",
+     "market": "spreads",
+     "line": -9.5,
+     "firstSide": "home",
+     "firstPrice": -107,
+     "secondPrice": -115,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
     }
    ]
   },
@@ -2434,153 +1854,173 @@
    "homeName": "Southern Miss Golden Eagles",
    "awayName": "Valparaiso Beacons",
    "startsAt": "2026-11-22T23:00:00Z",
-   "observedAt": "2026-11-22T03:42:07Z",
-   "books": 7,
-   "homeSpread": 7.5,
-   "homeSpreadPrice": -108,
+   "observedAt": "2026-11-22T20:10:55Z",
+   "books": 8,
+   "homeSpread": 9.0,
+   "homeSpreadPrice": -109,
    "awaySpreadPrice": -110,
-   "homeMl": 280,
-   "awayMl": -360,
+   "homeMl": 320,
+   "awayMl": -412,
    "bookQuotes": [
     {
      "book": "betonlineag",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": 299,
-     "secondPrice": -375,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "firstPrice": 316,
+     "secondPrice": -400,
+     "marketUpdatedAt": "2026-11-22T20:10:50Z",
+     "bookUpdatedAt": "2026-11-22T20:10:50Z"
     },
     {
      "book": "betonlineag",
      "market": "spreads",
-     "line": 8.0,
+     "line": 9.0,
      "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "firstPrice": -112,
+     "secondPrice": -108,
+     "marketUpdatedAt": "2026-11-22T20:10:50Z",
+     "bookUpdatedAt": "2026-11-22T20:10:50Z"
     },
     {
      "book": "lowvig",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": 299,
-     "secondPrice": -375,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
+     "firstPrice": 316,
+     "secondPrice": -400,
+     "marketUpdatedAt": "2026-11-22T20:10:36Z",
+     "bookUpdatedAt": "2026-11-22T20:10:37Z"
     },
     {
      "book": "lowvig",
      "market": "spreads",
-     "line": 8.0,
+     "line": 9.0,
      "firstSide": "home",
-     "firstPrice": -106,
-     "secondPrice": -106,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
+     "firstPrice": -108,
+     "secondPrice": -104,
+     "marketUpdatedAt": "2026-11-22T20:10:36Z",
+     "bookUpdatedAt": "2026-11-22T20:10:37Z"
     },
     {
      "book": "betmgm",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": 275,
-     "secondPrice": -350,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
+     "firstPrice": 325,
+     "secondPrice": -425,
+     "marketUpdatedAt": "2026-11-22T20:10:39Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
     },
     {
      "book": "betmgm",
      "market": "spreads",
-     "line": 7.5,
+     "line": 8.5,
      "firstSide": "home",
      "firstPrice": -105,
      "secondPrice": -115,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
+     "marketUpdatedAt": "2026-11-22T20:10:39Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
     },
     {
      "book": "betus",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": 300,
-     "secondPrice": -375,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "firstPrice": 312,
+     "secondPrice": -390,
+     "marketUpdatedAt": "2026-11-22T20:10:04Z",
+     "bookUpdatedAt": "2026-11-22T20:10:04Z"
     },
     {
      "book": "betus",
      "market": "spreads",
-     "line": 8.0,
+     "line": 9.0,
      "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "firstPrice": -115,
+     "secondPrice": -105,
+     "marketUpdatedAt": "2026-11-22T20:10:04Z",
+     "bookUpdatedAt": "2026-11-22T20:10:04Z"
     },
     {
      "book": "draftkings",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": 280,
-     "secondPrice": -355,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "firstPrice": 310,
+     "secondPrice": -395,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
     },
     {
      "book": "draftkings",
      "market": "spreads",
-     "line": 7.5,
+     "line": 8.5,
      "firstSide": "home",
      "firstPrice": -108,
      "secondPrice": -112,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
     },
     {
      "book": "bovada",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": 280,
-     "secondPrice": -360,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
+     "firstPrice": 325,
+     "secondPrice": -435,
+     "marketUpdatedAt": "2026-11-22T20:03:16Z",
+     "bookUpdatedAt": "2026-11-22T20:03:16Z"
     },
     {
      "book": "bovada",
      "market": "spreads",
-     "line": 7.5,
+     "line": 9.0,
      "firstSide": "home",
      "firstPrice": -110,
      "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
+     "marketUpdatedAt": "2026-11-22T20:03:16Z",
+     "bookUpdatedAt": "2026-11-22T20:03:16Z"
     },
     {
      "book": "fanduel",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": 255,
-     "secondPrice": -320,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "firstPrice": 340,
+     "secondPrice": -450,
+     "marketUpdatedAt": "2026-11-22T20:10:35Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
     },
     {
      "book": "fanduel",
      "market": "spreads",
-     "line": 7.5,
+     "line": 9.5,
+     "firstSide": "home",
+     "firstPrice": -110,
+     "secondPrice": -110,
+     "marketUpdatedAt": "2026-11-22T20:10:35Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
+    },
+    {
+     "book": "betrivers",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": 340,
+     "secondPrice": -480,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
+    },
+    {
+     "book": "betrivers",
+     "market": "spreads",
+     "line": 8.5,
      "firstSide": "home",
      "firstPrice": -106,
-     "secondPrice": -114,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "secondPrice": -118,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
     }
    ]
   },
@@ -2592,143 +2032,173 @@
    "homeName": "Portland Pilots",
    "awayName": "Cal Baptist Lancers",
    "startsAt": "2026-11-23T00:00:00Z",
-   "observedAt": "2026-11-22T03:42:07Z",
-   "books": 7,
-   "homeSpread": -9.5,
-   "homeSpreadPrice": -110,
-   "awaySpreadPrice": -110,
-   "homeMl": -538,
-   "awayMl": 404,
+   "observedAt": "2026-11-22T20:10:55Z",
+   "books": 8,
+   "homeSpread": -7.5,
+   "homeSpreadPrice": -114,
+   "awaySpreadPrice": -106,
+   "homeMl": -350,
+   "awayMl": 280,
    "bookQuotes": [
     {
      "book": "betonlineag",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": -540,
-     "secondPrice": 409,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "firstPrice": -350,
+     "secondPrice": 280,
+     "marketUpdatedAt": "2026-11-22T20:10:50Z",
+     "bookUpdatedAt": "2026-11-22T20:10:50Z"
     },
     {
      "book": "betonlineag",
      "market": "spreads",
-     "line": -9.5,
+     "line": -7.5,
      "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "firstPrice": -107,
+     "secondPrice": -113,
+     "marketUpdatedAt": "2026-11-22T20:10:50Z",
+     "bookUpdatedAt": "2026-11-22T20:10:50Z"
     },
     {
      "book": "lowvig",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": -540,
-     "secondPrice": 409,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
+     "firstPrice": -350,
+     "secondPrice": 280,
+     "marketUpdatedAt": "2026-11-22T20:10:37Z",
+     "bookUpdatedAt": "2026-11-22T20:10:37Z"
     },
     {
      "book": "lowvig",
      "market": "spreads",
-     "line": -9.5,
+     "line": -7.5,
      "firstSide": "home",
-     "firstPrice": -106,
-     "secondPrice": -106,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
+     "firstPrice": -103,
+     "secondPrice": -109,
+     "marketUpdatedAt": "2026-11-22T20:10:37Z",
+     "bookUpdatedAt": "2026-11-22T20:10:37Z"
+    },
+    {
+     "book": "betmgm",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -350,
+     "secondPrice": 280,
+     "marketUpdatedAt": "2026-11-22T20:10:39Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
     },
     {
      "book": "betmgm",
      "market": "spreads",
-     "line": -9.5,
-     "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
-    },
-    {
-     "book": "fanduel",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -430,
-     "secondPrice": 330,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "fanduel",
-     "market": "spreads",
-     "line": -8.5,
-     "firstSide": "home",
-     "firstPrice": -120,
-     "secondPrice": -102,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
-    },
-    {
-     "book": "betus",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -540,
-     "secondPrice": 417,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "betus",
-     "market": "spreads",
-     "line": -9.5,
-     "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "draftkings",
-     "market": "h2h",
-     "line": null,
-     "firstSide": "home",
-     "firstPrice": -535,
-     "secondPrice": 400,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
-    },
-    {
-     "book": "draftkings",
-     "market": "spreads",
-     "line": -9.5,
+     "line": -7.5,
      "firstSide": "home",
      "firstPrice": -115,
      "secondPrice": -105,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "marketUpdatedAt": "2026-11-22T20:10:39Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
+    },
+    {
+     "book": "fanduel",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -345,
+     "secondPrice": 275,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
+    },
+    {
+     "book": "fanduel",
+     "market": "spreads",
+     "line": -7.5,
+     "firstSide": "home",
+     "firstPrice": -120,
+     "secondPrice": -102,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
+    },
+    {
+     "book": "betus",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -350,
+     "secondPrice": 280,
+     "marketUpdatedAt": "2026-11-22T20:10:04Z",
+     "bookUpdatedAt": "2026-11-22T20:10:04Z"
+    },
+    {
+     "book": "betus",
+     "market": "spreads",
+     "line": -7.5,
+     "firstSide": "home",
+     "firstPrice": -110,
+     "secondPrice": -110,
+     "marketUpdatedAt": "2026-11-22T20:10:04Z",
+     "bookUpdatedAt": "2026-11-22T20:10:04Z"
+    },
+    {
+     "book": "draftkings",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -375,
+     "secondPrice": 295,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
+    },
+    {
+     "book": "draftkings",
+     "market": "spreads",
+     "line": -7.5,
+     "firstSide": "home",
+     "firstPrice": -112,
+     "secondPrice": -108,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
     },
     {
      "book": "bovada",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": -525,
-     "secondPrice": 375,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
+     "firstPrice": -390,
+     "secondPrice": 295,
+     "marketUpdatedAt": "2026-11-22T20:03:16Z",
+     "bookUpdatedAt": "2026-11-22T20:03:16Z"
     },
     {
      "book": "bovada",
      "market": "spreads",
-     "line": -9.5,
+     "line": -7.5,
      "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
+     "firstPrice": -115,
+     "secondPrice": -105,
+     "marketUpdatedAt": "2026-11-22T20:03:16Z",
+     "bookUpdatedAt": "2026-11-22T20:03:16Z"
+    },
+    {
+     "book": "betrivers",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -385,
+     "secondPrice": 290,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
+    },
+    {
+     "book": "betrivers",
+     "market": "spreads",
+     "line": -7.5,
+     "firstSide": "home",
+     "firstPrice": -120,
+     "secondPrice": -105,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
     }
    ]
   },
@@ -2740,33 +2210,33 @@
    "homeName": "UCLA Bruins",
    "awayName": "Delaware Blue Hens",
    "startsAt": "2026-11-23T00:00:00Z",
-   "observedAt": "2026-11-22T03:42:07Z",
+   "observedAt": "2026-11-22T20:10:55Z",
    "books": 8,
-   "homeSpread": -29.5,
-   "homeSpreadPrice": -114,
-   "awaySpreadPrice": -106,
-   "homeMl": -50000,
-   "awayMl": 3500,
+   "homeSpread": -28.5,
+   "homeSpreadPrice": -111,
+   "awaySpreadPrice": -110,
+   "homeMl": -30000,
+   "awayMl": 3400,
    "bookQuotes": [
     {
      "book": "betonlineag",
      "market": "spreads",
-     "line": -29.5,
+     "line": -28.0,
      "firstSide": "home",
-     "firstPrice": -115,
-     "secondPrice": -105,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "firstPrice": -116,
+     "secondPrice": -104,
+     "marketUpdatedAt": "2026-11-22T20:10:50Z",
+     "bookUpdatedAt": "2026-11-22T20:10:50Z"
     },
     {
      "book": "lowvig",
      "market": "spreads",
-     "line": -29.5,
+     "line": -28.0,
      "firstSide": "home",
-     "firstPrice": -111,
-     "secondPrice": -101,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
+     "firstPrice": -112,
+     "secondPrice": 100,
+     "marketUpdatedAt": "2026-11-22T20:10:37Z",
+     "bookUpdatedAt": "2026-11-22T20:10:37Z"
     },
     {
      "book": "fanduel",
@@ -2775,68 +2245,78 @@
      "firstSide": "home",
      "firstPrice": -50000,
      "secondPrice": 3500,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
     },
     {
      "book": "fanduel",
      "market": "spreads",
-     "line": -29.5,
+     "line": -28.5,
      "firstSide": "home",
      "firstPrice": -110,
      "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
     },
     {
      "book": "draftkings",
      "market": "spreads",
-     "line": -29.5,
+     "line": -28.5,
      "firstSide": "home",
-     "firstPrice": -112,
-     "secondPrice": -108,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "firstPrice": -105,
+     "secondPrice": -115,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
+    },
+    {
+     "book": "betmgm",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -10000,
+     "secondPrice": 3300,
+     "marketUpdatedAt": "2026-11-22T20:10:39Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
     },
     {
      "book": "betmgm",
      "market": "spreads",
-     "line": -29.5,
+     "line": -28.5,
      "firstSide": "home",
-     "firstPrice": -115,
-     "secondPrice": -105,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
+     "firstPrice": -110,
+     "secondPrice": -110,
+     "marketUpdatedAt": "2026-11-22T20:10:39Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
     },
     {
      "book": "bovada",
      "market": "spreads",
-     "line": -30.0,
+     "line": -28.5,
      "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
+     "firstPrice": -115,
+     "secondPrice": -105,
+     "marketUpdatedAt": "2026-11-22T20:03:16Z",
+     "bookUpdatedAt": "2026-11-22T20:03:16Z"
     },
     {
      "book": "betus",
      "market": "spreads",
-     "line": -29.5,
+     "line": -28.5,
      "firstSide": "home",
-     "firstPrice": -115,
-     "secondPrice": -105,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "firstPrice": -110,
+     "secondPrice": -110,
+     "marketUpdatedAt": "2026-11-22T20:10:04Z",
+     "bookUpdatedAt": "2026-11-22T20:10:04Z"
     },
     {
      "book": "betrivers",
      "market": "spreads",
-     "line": -29.5,
+     "line": -28.5,
      "firstSide": "home",
-     "firstPrice": -115,
-     "secondPrice": -107,
-     "marketUpdatedAt": "2026-11-22T03:41:30Z",
-     "bookUpdatedAt": "2026-11-22T03:41:30Z"
+     "firstPrice": -113,
+     "secondPrice": -110,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
     }
    ]
   },
@@ -2848,93 +2328,113 @@
    "homeName": "USC Trojans",
    "awayName": "Louisiana Ragin' Cajuns",
    "startsAt": "2026-11-23T01:00:00Z",
-   "observedAt": "2026-11-22T03:42:07Z",
+   "observedAt": "2026-11-22T20:10:55Z",
    "books": 8,
-   "homeSpread": -33.0,
-   "homeSpreadPrice": -116,
-   "awaySpreadPrice": -104,
-   "homeMl": null,
-   "awayMl": null,
+   "homeSpread": -32.0,
+   "homeSpreadPrice": -110,
+   "awaySpreadPrice": -110,
+   "homeMl": -55000,
+   "awayMl": 3400,
    "bookQuotes": [
     {
      "book": "betonlineag",
      "market": "spreads",
-     "line": -33.0,
+     "line": -32.0,
      "firstSide": "home",
-     "firstPrice": -118,
-     "secondPrice": -102,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "firstPrice": -110,
+     "secondPrice": -110,
+     "marketUpdatedAt": "2026-11-22T20:10:50Z",
+     "bookUpdatedAt": "2026-11-22T20:10:50Z"
     },
     {
      "book": "lowvig",
      "market": "spreads",
-     "line": -33.0,
+     "line": -32.0,
      "firstSide": "home",
-     "firstPrice": -114,
-     "secondPrice": 102,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
+     "firstPrice": -106,
+     "secondPrice": -106,
+     "marketUpdatedAt": "2026-11-22T20:10:37Z",
+     "bookUpdatedAt": "2026-11-22T20:10:37Z"
+    },
+    {
+     "book": "betmgm",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -10000,
+     "secondPrice": 3300,
+     "marketUpdatedAt": "2026-11-22T20:10:40Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
     },
     {
      "book": "betmgm",
      "market": "spreads",
-     "line": -33.5,
+     "line": -32.5,
      "firstSide": "home",
-     "firstPrice": -115,
-     "secondPrice": -105,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
+     "firstPrice": -105,
+     "secondPrice": -115,
+     "marketUpdatedAt": "2026-11-22T20:10:40Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
+    },
+    {
+     "book": "fanduel",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -100000,
+     "secondPrice": 3500,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
     },
     {
      "book": "fanduel",
      "market": "spreads",
-     "line": -32.5,
+     "line": -31.5,
      "firstSide": "home",
      "firstPrice": -118,
      "secondPrice": -104,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
     },
     {
      "book": "betus",
      "market": "spreads",
-     "line": -33.0,
+     "line": -31.5,
      "firstSide": "home",
-     "firstPrice": -120,
-     "secondPrice": 100,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "firstPrice": -110,
+     "secondPrice": -110,
+     "marketUpdatedAt": "2026-11-22T20:10:04Z",
+     "bookUpdatedAt": "2026-11-22T20:10:04Z"
     },
     {
      "book": "draftkings",
      "market": "spreads",
-     "line": -33.5,
+     "line": -32.5,
      "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "firstPrice": -108,
+     "secondPrice": -112,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
     },
     {
      "book": "bovada",
      "market": "spreads",
-     "line": -33.0,
+     "line": -32.0,
      "firstSide": "home",
      "firstPrice": -115,
      "secondPrice": -105,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
+     "marketUpdatedAt": "2026-11-22T20:03:16Z",
+     "bookUpdatedAt": "2026-11-22T20:03:16Z"
     },
     {
      "book": "betrivers",
      "market": "spreads",
      "line": -32.5,
      "firstSide": "home",
-     "firstPrice": -120,
-     "secondPrice": -105,
-     "marketUpdatedAt": "2026-11-22T03:41:30Z",
-     "bookUpdatedAt": "2026-11-22T03:41:30Z"
+     "firstPrice": -112,
+     "secondPrice": -110,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
     }
    ]
   },
@@ -2946,83 +2446,83 @@
    "homeName": "Utah Valley Wolverines",
    "awayName": "Tenn-Martin Skyhawks",
    "startsAt": "2026-11-23T01:00:00Z",
-   "observedAt": "2026-11-22T03:42:07Z",
-   "books": 7,
-   "homeSpread": -7.5,
-   "homeSpreadPrice": -111,
-   "awaySpreadPrice": -108,
-   "homeMl": -345,
-   "awayMl": 278,
+   "observedAt": "2026-11-22T20:10:55Z",
+   "books": 8,
+   "homeSpread": -7.0,
+   "homeSpreadPrice": -112,
+   "awaySpreadPrice": -106,
+   "homeMl": -318,
+   "awayMl": 252,
    "bookQuotes": [
     {
      "book": "betonlineag",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": -345,
-     "secondPrice": 278,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "firstPrice": -325,
+     "secondPrice": 263,
+     "marketUpdatedAt": "2026-11-22T20:10:50Z",
+     "bookUpdatedAt": "2026-11-22T20:10:50Z"
     },
     {
      "book": "betonlineag",
      "market": "spreads",
      "line": -7.0,
      "firstSide": "home",
-     "firstPrice": -115,
-     "secondPrice": -105,
-     "marketUpdatedAt": "2026-11-22T03:42:01Z",
-     "bookUpdatedAt": "2026-11-22T03:42:01Z"
+     "firstPrice": -112,
+     "secondPrice": -108,
+     "marketUpdatedAt": "2026-11-22T20:10:50Z",
+     "bookUpdatedAt": "2026-11-22T20:10:50Z"
     },
     {
      "book": "lowvig",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": -345,
-     "secondPrice": 278,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
+     "firstPrice": -325,
+     "secondPrice": 263,
+     "marketUpdatedAt": "2026-11-22T20:10:37Z",
+     "bookUpdatedAt": "2026-11-22T20:10:37Z"
     },
     {
      "book": "lowvig",
      "market": "spreads",
      "line": -7.0,
      "firstSide": "home",
-     "firstPrice": -111,
-     "secondPrice": -101,
-     "marketUpdatedAt": "2026-11-22T03:41:33Z",
-     "bookUpdatedAt": "2026-11-22T03:41:33Z"
+     "firstPrice": -108,
+     "secondPrice": -104,
+     "marketUpdatedAt": "2026-11-22T20:10:37Z",
+     "bookUpdatedAt": "2026-11-22T20:10:37Z"
     },
     {
      "book": "betmgm",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": -350,
-     "secondPrice": 275,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
+     "firstPrice": -300,
+     "secondPrice": 240,
+     "marketUpdatedAt": "2026-11-22T20:10:40Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
     },
     {
      "book": "betmgm",
      "market": "spreads",
      "line": -7.5,
      "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:41:47Z",
-     "bookUpdatedAt": "2026-11-22T03:41:47Z"
+     "firstPrice": -102,
+     "secondPrice": -118,
+     "marketUpdatedAt": "2026-11-22T20:10:40Z",
+     "bookUpdatedAt": "2026-11-22T20:10:41Z"
     },
     {
      "book": "betus",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": -345,
-     "secondPrice": 278,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "firstPrice": -330,
+     "secondPrice": 270,
+     "marketUpdatedAt": "2026-11-22T20:10:04Z",
+     "bookUpdatedAt": "2026-11-22T20:10:04Z"
     },
     {
      "book": "betus",
@@ -3031,63 +2531,100 @@
      "firstSide": "home",
      "firstPrice": -115,
      "secondPrice": -105,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "marketUpdatedAt": "2026-11-22T20:10:04Z",
+     "bookUpdatedAt": "2026-11-22T20:10:04Z"
+    },
+    {
+     "book": "draftkings",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -305,
+     "secondPrice": 245,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
     },
     {
      "book": "draftkings",
      "market": "spreads",
-     "line": -7.5,
+     "line": -6.5,
      "firstSide": "home",
-     "firstPrice": -112,
-     "secondPrice": -108,
-     "marketUpdatedAt": "2026-11-22T03:41:59Z",
-     "bookUpdatedAt": "2026-11-22T03:41:59Z"
+     "firstPrice": -115,
+     "secondPrice": -105,
+     "marketUpdatedAt": "2026-11-22T20:10:34Z",
+     "bookUpdatedAt": "2026-11-22T20:10:34Z"
+    },
+    {
+     "book": "bovada",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -320,
+     "secondPrice": 260,
+     "marketUpdatedAt": "2026-11-22T20:03:16Z",
+     "bookUpdatedAt": "2026-11-22T20:03:16Z"
     },
     {
      "book": "bovada",
      "market": "spreads",
-     "line": -7.5,
+     "line": -7.0,
      "firstSide": "home",
-     "firstPrice": -110,
-     "secondPrice": -110,
-     "marketUpdatedAt": "2026-11-22T03:40:48Z",
-     "bookUpdatedAt": "2026-11-22T03:40:48Z"
+     "firstPrice": -105,
+     "secondPrice": -115,
+     "marketUpdatedAt": "2026-11-22T20:03:16Z",
+     "bookUpdatedAt": "2026-11-22T20:03:16Z"
     },
     {
      "book": "betrivers",
      "market": "h2h",
      "line": null,
      "firstSide": "home",
-     "firstPrice": -480,
-     "secondPrice": 330,
-     "marketUpdatedAt": "2026-11-22T03:41:30Z",
-     "bookUpdatedAt": "2026-11-22T03:41:30Z"
+     "firstPrice": -315,
+     "secondPrice": 235,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
     },
     {
      "book": "betrivers",
      "market": "spreads",
-     "line": -9.5,
+     "line": -6.5,
      "firstSide": "home",
-     "firstPrice": 102,
-     "secondPrice": -125,
-     "marketUpdatedAt": "2026-11-22T03:41:30Z",
-     "bookUpdatedAt": "2026-11-22T03:41:30Z"
+     "firstPrice": -113,
+     "secondPrice": -110,
+     "marketUpdatedAt": "2026-11-22T20:10:19Z",
+     "bookUpdatedAt": "2026-11-22T20:10:19Z"
+    },
+    {
+     "book": "fanduel",
+     "market": "h2h",
+     "line": null,
+     "firstSide": "home",
+     "firstPrice": -295,
+     "secondPrice": 235,
+     "marketUpdatedAt": "2026-11-22T20:10:35Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
+    },
+    {
+     "book": "fanduel",
+     "market": "spreads",
+     "line": -6.5,
+     "firstSide": "home",
+     "firstPrice": -120,
+     "secondPrice": -102,
+     "marketUpdatedAt": "2026-11-22T20:10:35Z",
+     "bookUpdatedAt": "2026-11-22T20:10:35Z"
     }
    ]
   }
  ],
  "unresolvedTeams": {
-  "Oral Roberts Golden Eagles": 1,
-  "Western Illinois Leathernecks": 1,
-  "Chicago St Cougars": 1,
   "UMass Lowell River Hawks": 1,
   "San Diego Toreros": 1,
-  "Western Kentucky Hilltoppers": 1,
   "Youngstown St Penguins": 1,
   "William & Mary Tribe": 1,
-  "New Mexico St Aggies": 1,
+  "Western Kentucky Hilltoppers": 1,
   "Robert Morris Colonials": 1,
+  "New Mexico St Aggies": 1,
   "West Florida Argonauts": 1,
   "Mercyhurst Lakers": 1,
   "Oklahoma St Cowboys": 1,
@@ -3102,8 +2639,8 @@
   "San Jos\u00e9 St Spartans": 1
  },
  "quota": {
-  "x-requests-remaining": "330",
-  "x-requests-used": "170",
+  "x-requests-remaining": "324",
+  "x-requests-used": "176",
   "x-requests-last": "2"
  }
 }
