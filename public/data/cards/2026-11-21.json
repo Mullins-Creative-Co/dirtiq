@@ -942,7 +942,7 @@
    },
    "note": "model -15.9 vs market -12.5: leans BOS by 3.4 pts (threshold 3.0)",
    "lockedAt": "2026-11-21T08:58:45Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-22T03:42:19Z"
    },
@@ -952,6 +952,12 @@
     "points": -0.5,
     "closeLine": -12.0,
     "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "loss",
+    "homeScore": 97,
+    "awayScore": 96,
+    "units": -0.0
    }
   }
  ]
