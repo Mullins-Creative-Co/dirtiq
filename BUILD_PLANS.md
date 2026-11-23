@@ -46,6 +46,17 @@ site orders sports the same way; the closing-line feed covers the four focus spo
 
 ## Plans, in priority order
 
+### Baseline model repair audit (2026-11-23)
+The owner asked why NBA/NFL miss and requested work on all four models. The reproducible
+[historical audit](docs/historical-model-audit-2026-11-23.md) compares complete seasons on
+identical priced games. All four trail the market; selected cover is about 49.7% NBA,
+49.6% NFL, 51.1% NCAAB, 47.7% NCAAF. Raw selected cover probabilities are overstated.
+Priorities: certify input identities/times, separate winner/spread/betting objectives,
+continue NBA expected-minutes collection and NFL QB/as-of provenance, then frozen
+prospective validation. Historical college results do not justify raising stakes.
+No new production candidate is promoted. Preserve the existing reserved NFL final test.
+
+
 ### Current validation work (2026-11-20)
 The owner agreed to one focused NBA candidate and evidence-based promotion. A frozen
 possession/efficiency study is recorded separately on `research/nba-possession-candidate`:
