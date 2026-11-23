@@ -1,7 +1,7 @@
 {
  "date": "2026-11-23",
- "generatedAt": "2026-11-23T10:03:14Z",
- "forecastsRefreshedAt": "2026-11-23T09:50:03Z",
+ "generatedAt": "2026-11-23T16:08:59Z",
+ "forecastsRefreshedAt": "2026-11-23T16:02:00Z",
  "unit": "1 unit = 1% of bankroll",
  "rules": [
   "Spread picks in NFL, NBA and college basketball; one pick per game, including unstaked tracking picks. College football is off the card: forecast and tracked in the ledger only.",
@@ -15,7 +15,7 @@
  ],
  "evidence": "Stakes require both documented evidence conditions; each pick shows its sport's backtest record and gate. Unstaked picks remain tracked. Historical bucket frequencies are not per-game probabilities.",
  "priced": 41,
- "qualified": 11,
+ "qualified": 15,
  "stakingGates": {
   "nfl": {
    "passed": false,
@@ -172,13 +172,9 @@
    },
    "note": "model -0.3 vs market -5.5: leans APP by 5.2 pts (threshold 3.0)",
    "lockedAt": "2026-11-23T10:03:14Z",
-   "status": "playable",
+   "status": "started",
    "current": {
-    "checkedAt": "2026-11-23T10:03:16Z",
-    "line": 5.5,
-    "price": -118,
-    "edgePts": 5.22,
-    "lineObservedAt": "2026-11-23T09:49:55Z"
+    "checkedAt": "2026-11-23T16:09:00Z"
    },
    "rank": 3
   },
@@ -275,13 +271,14 @@
    "lockedAt": "2026-11-23T10:03:14Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-23T10:03:16Z",
+    "checkedAt": "2026-11-23T16:09:00Z",
     "line": 2.5,
-    "price": -105,
-    "edgePts": 3.16,
-    "lineObservedAt": "2026-11-23T09:49:55Z"
+    "price": -110,
+    "edgePts": 3.17,
+    "lineObservedAt": "2026-11-23T16:01:44Z"
    },
-   "rank": 6
+   "rank": 6,
+   "originallyListedStakeUnits": 0.0
   },
   {
    "id": "ncaab:401921701",
@@ -376,13 +373,14 @@
    "lockedAt": "2026-11-23T10:03:14Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-23T10:03:16Z",
+    "checkedAt": "2026-11-23T16:09:00Z",
     "line": 6.5,
     "price": -110,
-    "edgePts": 3.93,
-    "lineObservedAt": "2026-11-23T09:49:55Z"
+    "edgePts": 3.99,
+    "lineObservedAt": "2026-11-23T16:01:44Z"
    },
-   "rank": 5
+   "rank": 5,
+   "originallyListedStakeUnits": 0.0
   },
   {
    "id": "ncaab:401929445",
@@ -477,13 +475,14 @@
    "lockedAt": "2026-11-23T10:03:14Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-23T10:03:16Z",
-    "line": 7.5,
-    "price": -112,
-    "edgePts": 10.47,
-    "lineObservedAt": "2026-11-23T09:49:55Z"
+    "checkedAt": "2026-11-23T16:09:00Z",
+    "line": 6.5,
+    "price": -108,
+    "edgePts": 9.5,
+    "lineObservedAt": "2026-11-23T16:01:44Z"
    },
-   "rank": 1
+   "rank": 1,
+   "originallyListedStakeUnits": 0.0
   },
   {
    "id": "nba:401910037",
@@ -578,13 +577,14 @@
    "lockedAt": "2026-11-23T10:03:14Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-23T10:03:16Z",
-    "line": 4.5,
+    "checkedAt": "2026-11-23T16:09:00Z",
+    "line": 3.5,
     "price": -115,
-    "edgePts": 5.15,
-    "lineObservedAt": "2026-11-23T09:45:22Z"
+    "edgePts": 4.15,
+    "lineObservedAt": "2026-11-23T15:59:37Z"
    },
-   "rank": 8
+   "rank": 8,
+   "originallyListedStakeUnits": 0.0
   },
   {
    "id": "ncaab:401921157",
@@ -679,13 +679,14 @@
    "lockedAt": "2026-11-23T10:03:14Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-23T10:03:16Z",
+    "checkedAt": "2026-11-23T16:09:00Z",
     "line": 2.5,
     "price": -110,
-    "edgePts": 3.14,
-    "lineObservedAt": "2026-11-23T09:49:55Z"
+    "edgePts": 3.12,
+    "lineObservedAt": "2026-11-23T16:01:44Z"
    },
-   "rank": 7
+   "rank": 7,
+   "originallyListedStakeUnits": 0.0
   },
   {
    "id": "nba:401910038",
@@ -780,13 +781,14 @@
    "lockedAt": "2026-11-23T10:03:14Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-23T10:03:16Z",
+    "checkedAt": "2026-11-23T16:09:00Z",
     "line": -4.5,
-    "price": -113,
+    "price": -118,
     "edgePts": 4.51,
-    "lineObservedAt": "2026-11-23T09:45:22Z"
+    "lineObservedAt": "2026-11-23T15:59:37Z"
    },
-   "rank": 4
+   "rank": 4,
+   "originallyListedStakeUnits": 0.0
   },
   {
    "id": "ncaab:401919032",
@@ -881,13 +883,14 @@
    "lockedAt": "2026-11-23T10:03:14Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-23T10:03:16Z",
-    "line": 21.5,
-    "price": -112,
-    "edgePts": 6.27,
-    "lineObservedAt": "2026-11-23T09:49:55Z"
+    "checkedAt": "2026-11-23T16:09:00Z",
+    "line": 19.5,
+    "price": -108,
+    "edgePts": 4.28,
+    "lineObservedAt": "2026-11-23T16:01:44Z"
    },
-   "rank": 2
+   "rank": 2,
+   "originallyListedStakeUnits": 0.0
   },
   {
    "id": "nba:401910045",
@@ -982,13 +985,14 @@
    "lockedAt": "2026-11-23T10:03:14Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-23T10:03:16Z",
+    "checkedAt": "2026-11-23T16:09:00Z",
     "line": -10.5,
     "price": -115,
     "edgePts": 3.94,
-    "lineObservedAt": "2026-11-23T09:45:22Z"
+    "lineObservedAt": "2026-11-23T15:59:37Z"
    },
-   "rank": 9
+   "rank": 9,
+   "originallyListedStakeUnits": 0.0
   }
  ]
 }
