@@ -61,7 +61,7 @@ export default async function BetsPage({ searchParams }: { searchParams: Promise
       <main className="mx-auto max-w-6xl space-y-5 px-3 pb-24 pt-4 sm:px-6 [&>header]:pb-4">
         <PageHeader kicker="My bets" title="Profit and loss" lede="Log current or past bets. Linked games grade automatically; edit details any time." />
 
-        {storage === "sqlite" ? <Note tone="warn">Bets are being stored in the local database. On the hosted site they go to the Postgres database set in <code>DATABASE_URL</code>.</Note> : null}
+        {storage === "sqlite" ? <Note tone="warn">This copy uses local storage. Hosted saves are disabled here to prevent disappearing bets. Use <a href="https://dirtiq-9h.vercel.app/bets" className="underline">the main My bets page</a> for persistent saves. Local development saves remain available.</Note> : null}
         {graded ? <Note>{graded} bet{graded === 1 ? "" : "s"} just graded from new results.</Note> : null}
 
         <Section kicker="Totals" title={summary.settled ? `${summary.wins}–${summary.losses}${summary.pushes ? `–${summary.pushes}` : ""} on ${summary.settled} settled` : "Nothing settled yet"} description={summary.open ? `${summary.open} open bet${summary.open === 1 ? "" : "s"} with ${money(summary.openStake).replace("+", "")} at risk.` : undefined}>
