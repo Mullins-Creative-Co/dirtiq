@@ -1,5 +1,6 @@
 import "server-only";
 
+import { betStorageError } from "./my-bets/storage";
 import { getDb } from "./db";
 import { getNflFinalResults } from "./live-results";
 import { ensureLiveBetTables, getLiveBetSql, hasLiveBetDatabase, toIsoString } from "./live-bets-db";
@@ -71,6 +72,14 @@ function toBet(row: Record<string, unknown>): MyBet {
   };
 }
 
+export function betSaveError(): string | null {
+  return betStorageError(Boolean(process.env.VERCEL), hasLiveBetDatabase());
+}
+function requirePersistentHostedStorage() {
+  const error = betSaveError();
+  if (error) throw new Error(error);
+}
+
 export function myBetsStorage(): "postgres" | "sqlite" {
   return hasLiveBetDatabase() ? "postgres" : "sqlite";
 }
@@ -99,6 +108,7 @@ export async function getBet(id: number): Promise<MyBet | null> {
 }
 
 export async function addBet(bet: NewBet, grading: BetGrading = AUTO_GRADING): Promise<MyBet> {
+  requirePersistentHostedStorage();
   const settledAt = grading.status === "open" ? null : new Date().toISOString();
   if (hasLiveBetDatabase()) {
     const sql = await ensurePg();
@@ -118,6 +128,7 @@ export async function addBet(bet: NewBet, grading: BetGrading = AUTO_GRADING): P
 
 /** Bulk logging is retryable and serialized per event/side across server instances. */
 export async function addCardBet(bet: NewBet): Promise<{bet: MyBet; added: boolean}> {
+  requirePersistentHostedStorage();
   if (!bet.eventId) throw new Error("Card picks must be linked to a game.");
   if (hasLiveBetDatabase()) {
     const sql = await ensurePg();
@@ -144,6 +155,7 @@ export async function addCardBet(bet: NewBet): Promise<{bet: MyBet; added: boole
 }
 
 export async function updateBet(id: number, bet: NewBet, grading: BetGrading): Promise<MyBet | null> {
+  requirePersistentHostedStorage();
   const settledAt = grading.status === "open" ? null : grading.settledAt ?? new Date().toISOString();
   if (hasLiveBetDatabase()) {
     const sql = await ensurePg();
@@ -161,6 +173,7 @@ export async function updateBet(id: number, bet: NewBet, grading: BetGrading): P
 }
 
 export async function deleteBet(id: number): Promise<void> {
+  requirePersistentHostedStorage();
   if (hasLiveBetDatabase()) {
     const sql = await ensurePg();
     await sql`DELETE FROM my_bets WHERE id = ${id}`;
@@ -170,6 +183,7 @@ export async function deleteBet(id: number): Promise<void> {
 }
 
 export async function setBetStatus(id: number, status: BetStatus, manual = true): Promise<void> {
+  requirePersistentHostedStorage();
   const settledAt = status === "open" ? null : new Date().toISOString();
   if (hasLiveBetDatabase()) {
     const sql = await ensurePg();

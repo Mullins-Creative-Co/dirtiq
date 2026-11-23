@@ -3,13 +3,15 @@
 import { revalidatePath } from "next/cache";
 import { parseBetInput, prepareBetEdit } from "@/lib/my-bets/input";
 
-import { addCardBet, addBet, deleteBet, setBetStatus, getBet, updateBet, settleOpenBets } from "@/lib/my-bets";
+import { betSaveError, addCardBet, addBet, deleteBet, setBetStatus, getBet, updateBet, settleOpenBets } from "@/lib/my-bets";
 import { getTeamNames } from "@/lib/model-reports";
 import { buildCardView } from "@/lib/card";
 import { cardBetInputs } from "@/lib/my-bets/card";
 import { BET_STATUSES, type MyBet, type BetStatus } from "@/lib/my-bets/grade";
 
 export async function logBetAction(fd: FormData): Promise<{ error?: string; id?: number; bet?: MyBet }> {
+  const storageError = betSaveError();
+  if (storageError) return {error:storageError};
   const input = parseBetInput(fd);
   if ("error" in input) return input;
   const bet = await addBet(input.bet,input.grading);
@@ -23,6 +25,8 @@ export async function updateBetAction(fd: FormData): Promise<{ error?: string; i
   if (!Number.isSafeInteger(id)||id<=0) return {error:"Invalid bet."};
   const previous = await getBet(id);
   if (!previous) return {error:"That bet no longer exists."};
+  const storageError = betSaveError();
+  if (storageError) return {error:storageError};
   const input = parseBetInput(fd);
   if ("error" in input) return input;
   const edited = prepareBetEdit(previous,input);
@@ -48,6 +52,8 @@ export async function setBetStatusAction(fd: FormData): Promise<void> {
 
 export async function logCardBetsAction(date: string): Promise<{bets:MyBet[];added:number;existing:number;error?:string}> {
   const response = {bets:[] as MyBet[],added:0,existing:0,error:undefined as string|undefined};
+  const storageError = betSaveError();
+  if (storageError) return {...response,error:storageError};
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return {...response,error:"Choose a saved card date."};
   const view = await buildCardView(date);
   const card = view ? { ...view, picks: view.picks.map(p => view.today === date && p.live ? { ...p, line: p.live.line, price: p.live.price ?? p.price } : p) } : null;

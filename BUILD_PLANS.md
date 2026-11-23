@@ -295,3 +295,11 @@ quotes by ID and withholds unmatched quotes. Legacy card quotes affected by a co
 reversal are withdrawn and excluded from bulk logging. Locked terms and existing bets
 are preserved. Historical cached odds still require a separate identity audit; this
 change does not retroactively certify historical model performance.
+
+## Bet save durability (2026-11-23)
+
+Two Vercel projects publish this repository. `dirtiq-9h` has persistent bet storage;
+the secondary `dirtiq` project has no database variables. Hosted bet writes must reject
+SQLite fallback, with a link to the persistent deployment. Refresh the client view
+after inline and bulk saves. Missing November 22 bets have not been recreated: the
+original site address and actual saved terms must be established first.

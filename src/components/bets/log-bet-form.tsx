@@ -39,7 +39,7 @@ export function LogBetForm({prefill,events,inline=false,editId,onSaved}:{prefill
       if(res.error){setError(res.error);return;}
       if(res.bet)onSaved?.(res.bet);
       setSaved(`${editId?"Updated":"Logged"} bet #${res.id}.`);
-      if(editId)router.refresh();
+      if(editId||inline)router.refresh();
       else if(!inline){setSelection("");setEventId("");setEventLabel("");setEventStart("");router.replace("/bets");router.refresh();}
     }catch{setError("Could not confirm the save. Check My bets before trying again.");}});
   }}>
