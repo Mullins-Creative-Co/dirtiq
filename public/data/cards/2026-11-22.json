@@ -1051,7 +1051,7 @@
    },
    "note": "model -1.6 vs market +3.5: leans OKC by 5.1 pts (threshold 3.0)",
    "lockedAt": "2026-11-22T12:12:52Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-23T01:19:34Z"
    },
@@ -1061,6 +1061,12 @@
     "points": -0.5,
     "closeLine": 4.0,
     "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "loss",
+    "homeScore": 123,
+    "awayScore": 113,
+    "units": -0.0
    }
   },
   {
@@ -1154,7 +1160,7 @@
    },
    "note": "model -5.0 vs market -8.5: leans CHI by 3.5 pts (threshold 3.0)",
    "lockedAt": "2026-11-22T12:12:52Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-23T01:19:34Z"
    },
@@ -1164,6 +1170,12 @@
     "points": -1.5,
     "closeLine": 10.0,
     "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "win",
+    "homeScore": 145,
+    "awayScore": 151,
+    "units": 0.0
    }
   },
   {
@@ -1257,7 +1269,7 @@
    },
    "note": "model +12.0 vs market +7.5: leans NY by 4.5 pts (threshold 3.0)",
    "lockedAt": "2026-11-22T20:11:06Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-23T01:19:34Z"
    },
@@ -1266,6 +1278,12 @@
     "points": 0.0,
     "closeLine": -7.5,
     "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "loss",
+    "homeScore": 113,
+    "awayScore": 106,
+    "units": -0.0
    }
   },
   {
@@ -1359,12 +1377,23 @@
    },
    "note": "model -0.1 vs market +7.5: leans UTM by 7.6 pts (threshold 3.0)",
    "lockedAt": "2026-11-22T12:12:52Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-23T01:19:34Z"
    },
    "rank": 3,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "result": {
+    "outcome": "win",
+    "homeScore": 78,
+    "awayScore": 76,
+    "units": 0.0
+   },
+   "clv": {
+    "points": 1.0,
+    "closeLine": 6.5,
+    "source": "last available pre-start ledger snapshot"
+   }
   },
   {
    "id": "nfl:2026_11_MIN_SF",
@@ -1457,7 +1486,7 @@
    },
    "note": "model +0.7 vs market +3.5: leans MIN by 2.8 pts (threshold 2.0)",
    "lockedAt": "2026-11-22T12:12:52Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-23T01:19:34Z",
     "line": 4.5,
@@ -1466,7 +1495,18 @@
     "lineObservedAt": "2026-11-23T01:08:17Z"
    },
    "rank": 8,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 35,
+    "awayScore": 10,
+    "units": -0.0
+   },
+   "clv": {
+    "points": -1.0,
+    "closeLine": 4.5,
+    "source": "last available pre-start ledger snapshot"
+   }
   },
   {
    "id": "nba:401910035",
@@ -1559,7 +1599,7 @@
    },
    "note": "model -2.9 vs market -9.5: leans GS by 6.6 pts (threshold 3.0)",
    "lockedAt": "2026-11-22T12:12:52Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-23T01:19:34Z",
     "line": 8.5,
@@ -1568,7 +1608,18 @@
     "lineObservedAt": "2026-11-23T01:08:31Z"
    },
    "rank": 10,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "result": {
+    "outcome": "win",
+    "homeScore": 88,
+    "awayScore": 87,
+    "units": 0.0
+   },
+   "clv": {
+    "points": 1.0,
+    "closeLine": 8.5,
+    "source": "last available pre-start ledger snapshot"
+   }
   }
  ]
 }
