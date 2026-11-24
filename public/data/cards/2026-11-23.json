@@ -506,12 +506,23 @@
    },
    "note": "model +3.0 vs market -7.5: leans SUU by 10.5 pts (threshold 3.0)",
    "lockedAt": "2026-11-23T10:03:14Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-23T22:31:01Z"
    },
    "rank": 1,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "result": {
+    "outcome": "win",
+    "homeScore": 102,
+    "awayScore": 104,
+    "units": 0.0
+   },
+   "clv": {
+    "points": 1.0,
+    "closeLine": 6.5,
+    "source": "last available pre-start ledger snapshot"
+   }
   },
   {
    "id": "nba:401910037",
@@ -604,7 +615,7 @@
    },
    "note": "model -0.7 vs market +4.5: leans POR by 5.2 pts (threshold 3.0)",
    "lockedAt": "2026-11-23T10:03:14Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-23T22:31:01Z",
     "line": 2.5,
@@ -613,7 +624,18 @@
     "lineObservedAt": "2026-11-23T22:13:59Z"
    },
    "rank": 9,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "result": {
+    "outcome": "win",
+    "homeScore": 111,
+    "awayScore": 128,
+    "units": 0.0
+   },
+   "clv": {
+    "points": 6.0,
+    "closeLine": -1.5,
+    "source": "last available pre-start ledger snapshot"
+   }
   },
   {
    "id": "ncaab:401921157",
@@ -706,7 +728,7 @@
    },
    "note": "model +0.6 vs market -2.5: leans SCST by 3.1 pts (threshold 3.0)",
    "lockedAt": "2026-11-23T10:03:14Z",
-   "status": "edge-gone",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-23T22:31:01Z",
     "line": 1.5,
@@ -715,7 +737,18 @@
     "lineObservedAt": "2026-11-23T22:18:12Z"
    },
    "rank": 8,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "result": {
+    "outcome": "win",
+    "homeScore": 60,
+    "awayScore": 62,
+    "units": 0.0
+   },
+   "clv": {
+    "points": 1.0,
+    "closeLine": 1.5,
+    "source": "last available pre-start ledger snapshot"
+   }
   },
   {
    "id": "nba:401910038",
@@ -808,7 +841,7 @@
    },
    "note": "model -9.0 vs market -4.5: leans OKC by 4.5 pts (threshold 3.0)",
    "lockedAt": "2026-11-23T10:03:14Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-23T22:31:01Z",
     "line": -5.5,
@@ -817,7 +850,18 @@
     "lineObservedAt": "2026-11-23T22:13:59Z"
    },
    "rank": 4,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 125,
+    "awayScore": 120,
+    "units": -0.0
+   },
+   "clv": {
+    "points": 0.0,
+    "closeLine": -4.5,
+    "source": "last available pre-start ledger snapshot"
+   }
   },
   {
    "id": "nba:401910040",
@@ -910,7 +954,7 @@
    },
    "note": "model +14.4 vs market +10.5: leans MIN by 3.9 pts (threshold 3.0)",
    "lockedAt": "2026-11-23T22:30:59Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-23T22:31:01Z",
     "line": -10.5,
@@ -918,7 +962,18 @@
     "edgePts": 3.87,
     "lineObservedAt": "2026-11-23T22:13:59Z"
    },
-   "rank": 11
+   "rank": 11,
+   "result": {
+    "outcome": "win",
+    "homeScore": 142,
+    "awayScore": 116,
+    "units": 0.0
+   },
+   "clv": {
+    "points": 0.0,
+    "closeLine": -10.5,
+    "source": "last available pre-start ledger snapshot"
+   }
   },
   {
    "id": "ncaab:401919032",
@@ -1011,7 +1066,7 @@
    },
    "note": "model +15.2 vs market +21.5: leans AMCC by 6.3 pts (threshold 3.0)",
    "lockedAt": "2026-11-23T10:03:14Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-23T22:31:01Z",
     "line": 19.5,
@@ -1020,7 +1075,18 @@
     "lineObservedAt": "2026-11-23T22:18:12Z"
    },
    "rank": 2,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "result": {
+    "outcome": "win",
+    "homeScore": 91,
+    "awayScore": 73,
+    "units": 0.0
+   },
+   "clv": {
+    "points": 3.0,
+    "closeLine": 18.5,
+    "source": "last available pre-start ledger snapshot"
+   }
   },
   {
    "id": "nba:401910041",
@@ -1113,7 +1179,7 @@
    },
    "note": "model -5.5 vs market -9.5: leans CHI by 4.0 pts (threshold 3.0)",
    "lockedAt": "2026-11-23T22:30:59Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-23T22:31:01Z",
     "line": 9.5,
@@ -1121,7 +1187,18 @@
     "edgePts": 3.99,
     "lineObservedAt": "2026-11-23T22:13:59Z"
    },
-   "rank": 5
+   "rank": 5,
+   "result": {
+    "outcome": "win",
+    "homeScore": 122,
+    "awayScore": 108,
+    "units": 0.0
+   },
+   "clv": {
+    "points": 1.0,
+    "closeLine": 8.5,
+    "source": "last available pre-start ledger snapshot"
+   }
   },
   {
    "id": "nba:401910045",
@@ -1214,7 +1291,7 @@
    },
    "note": "model -14.4 vs market -10.5: leans SA by 3.9 pts (threshold 3.0)",
    "lockedAt": "2026-11-23T10:03:14Z",
-   "status": "edge-gone",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-23T22:31:01Z",
     "line": -12.5,
@@ -1223,7 +1300,18 @@
     "lineObservedAt": "2026-11-23T22:13:59Z"
    },
    "rank": 10,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "result": {
+    "outcome": "win",
+    "homeScore": 107,
+    "awayScore": 123,
+    "units": 0.0
+   },
+   "clv": {
+    "points": -2.0,
+    "closeLine": -8.5,
+    "source": "last available pre-start ledger snapshot"
+   }
   }
  ]
 }
