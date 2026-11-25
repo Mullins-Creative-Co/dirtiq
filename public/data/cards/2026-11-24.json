@@ -619,12 +619,23 @@
    },
    "note": "model +22.6 vs market +29.5: leans UNCA by 6.9 pts (threshold 3.0)",
    "lockedAt": "2026-11-24T06:40:25Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-25T04:02:33Z"
    },
    "rank": 4,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 97,
+    "awayScore": 61,
+    "units": -0.0
+   },
+   "clv": {
+    "points": -1.0,
+    "closeLine": 30.5,
+    "source": "last available pre-start ledger snapshot"
+   }
   },
   {
    "id": "ncaab:401911253",
@@ -717,12 +728,23 @@
    },
    "note": "model +5.3 vs market -1.5: leans SLU by 6.8 pts (threshold 3.0)",
    "lockedAt": "2026-11-24T06:40:25Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-25T04:02:33Z"
    },
    "rank": 5,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 88,
+    "awayScore": 91,
+    "units": -0.0
+   },
+   "clv": {
+    "points": 0.0,
+    "closeLine": 1.5,
+    "source": "last available pre-start ledger snapshot"
+   }
   }
  ]
 }
