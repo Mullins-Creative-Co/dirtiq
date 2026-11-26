@@ -1,7 +1,7 @@
 {
  "date": "2026-11-26",
- "generatedAt": "2026-11-26T09:08:31Z",
- "forecastsRefreshedAt": "2026-11-26T08:57:35Z",
+ "generatedAt": "2026-11-26T19:59:53Z",
+ "forecastsRefreshedAt": "2026-11-26T19:52:22Z",
  "unit": "1 unit = 1% of bankroll",
  "rules": [
   "Spread picks in NFL, NBA and college basketball; one pick per game, including unstaked tracking picks. College football is off the card: forecast and tracked in the ledger only.",
@@ -14,8 +14,8 @@
   "A pick is locked at the line it was first listed with and graded at that line."
  ],
  "evidence": "Stakes require both documented evidence conditions; each pick shows its sport's backtest record and gate. Unstaked picks remain tracked. Historical bucket frequencies are not per-game probabilities.",
- "priced": 24,
- "qualified": 10,
+ "priced": 16,
+ "qualified": 6,
  "stakingGates": {
   "nfl": {
    "passed": false,
@@ -56,28 +56,28 @@
    "requiredLower": 0.524,
    "minimumLiveGames": 100,
    "liveClv": {
-    "count": 374,
-    "meanPts": 0.21390374331550802,
-    "totalPts": 80.0,
-    "positiveRate": 0.24064171122994651
+    "count": 376,
+    "meanPts": 0.22340425531914893,
+    "totalPts": 84.0,
+    "positiveRate": 0.24468085106382978
    }
   }
  },
  "totalUnits": 0.0,
  "record": {
-  "days": 14,
-  "wins": 57,
-  "losses": 69,
+  "days": 15,
+  "wins": 58,
+  "losses": 70,
   "pushes": 0,
   "units": -9.564,
   "staked": 32.5,
   "roi": -0.2943,
-  "unstakedGraded": 70,
+  "unstakedGraded": 72,
   "clv": {
-   "count": 127,
-   "meanPts": 0.6023622047244095,
-   "totalPts": 76.5,
-   "positiveRate": 0.4094488188976378
+   "count": 129,
+   "meanPts": 0.624031007751938,
+   "totalPts": 80.5,
+   "positiveRate": 0.4186046511627907
   }
  },
  "picks": [
@@ -172,7 +172,7 @@
    },
    "note": "model +10.5 vs market +4.5: leans PUR by 6.0 pts (threshold 3.0)",
    "lockedAt": "2026-11-26T09:08:31Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-26T09:08:33Z",
     "line": -4.5,
@@ -180,7 +180,18 @@
     "edgePts": 5.98,
     "lineObservedAt": "2026-11-26T08:57:29Z"
    },
-   "rank": 2
+   "rank": 2,
+   "clv": {
+    "points": 1.0,
+    "closeLine": -5.5,
+    "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "loss",
+    "homeScore": 63,
+    "awayScore": 70,
+    "units": -0.0
+   }
   },
   {
    "id": "ncaab:401912231",
@@ -273,7 +284,7 @@
    },
    "note": "model +7.8 vs market +13.5: leans ARMY by 5.7 pts (threshold 3.0)",
    "lockedAt": "2026-11-26T09:08:31Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-26T09:08:33Z",
     "line": 13.5,
@@ -281,7 +292,18 @@
     "edgePts": 5.67,
     "lineObservedAt": "2026-11-26T08:57:29Z"
    },
-   "rank": 3
+   "rank": 3,
+   "clv": {
+    "points": 3.0,
+    "closeLine": 10.5,
+    "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "win",
+    "homeScore": 61,
+    "awayScore": 79,
+    "units": 0.0
+   }
   },
   {
    "id": "ncaab:401920528",
@@ -374,13 +396,9 @@
    },
    "note": "model -0.9 vs market +4.5: leans SDSU by 5.4 pts (threshold 3.0)",
    "lockedAt": "2026-11-26T09:08:31Z",
-   "status": "playable",
+   "status": "started",
    "current": {
-    "checkedAt": "2026-11-26T09:08:33Z",
-    "line": 4.5,
-    "price": -108,
-    "edgePts": 5.41,
-    "lineObservedAt": "2026-11-26T08:57:29Z"
+    "checkedAt": "2026-11-26T19:59:54Z"
    },
    "rank": 5
   },
@@ -475,13 +493,9 @@
    },
    "note": "model +3.4 vs market -1.5: leans DET by 4.9 pts (threshold 2.0)",
    "lockedAt": "2026-11-26T09:08:31Z",
-   "status": "playable",
+   "status": "started",
    "current": {
-    "checkedAt": "2026-11-26T09:08:33Z",
-    "line": 1.5,
-    "price": -113,
-    "edgePts": 4.9,
-    "lineObservedAt": "2026-11-26T08:53:21Z"
+    "checkedAt": "2026-11-26T19:59:54Z"
    },
    "rank": 1
   },
@@ -533,10 +547,10 @@
     "requiredLower": 0.524,
     "minimumLiveGames": 100,
     "liveClv": {
-     "count": 374,
-     "meanPts": 0.21390374331550802,
-     "totalPts": 80.0,
-     "positiveRate": 0.24064171122994651
+     "count": 376,
+     "meanPts": 0.22340425531914893,
+     "totalPts": 84.0,
+     "positiveRate": 0.24468085106382978
     }
    },
    "stakingStatus": "unstaked",
@@ -578,13 +592,14 @@
    "lockedAt": "2026-11-26T09:08:31Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-26T09:08:33Z",
-    "line": 3.5,
-    "price": -112,
-    "edgePts": 5.15,
-    "lineObservedAt": "2026-11-26T08:57:29Z"
+    "checkedAt": "2026-11-26T19:59:54Z",
+    "line": 1.5,
+    "price": -110,
+    "edgePts": 3.36,
+    "lineObservedAt": "2026-11-26T19:52:19Z"
    },
-   "rank": 6
+   "rank": 6,
+   "originallyListedStakeUnits": 0.0
   },
   {
    "id": "nfl:2026_12_PHI_DAL",
@@ -679,13 +694,14 @@
    "lockedAt": "2026-11-26T09:08:31Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-26T09:08:33Z",
+    "checkedAt": "2026-11-26T19:59:54Z",
     "line": 8.5,
-    "price": -108,
+    "price": -110,
     "edgePts": 3.17,
-    "lineObservedAt": "2026-11-26T08:53:21Z"
+    "lineObservedAt": "2026-11-26T19:49:37Z"
    },
-   "rank": 8
+   "rank": 8,
+   "originallyListedStakeUnits": 0.0
   },
   {
    "id": "ncaab:401911523",
@@ -735,10 +751,10 @@
     "requiredLower": 0.524,
     "minimumLiveGames": 100,
     "liveClv": {
-     "count": 374,
-     "meanPts": 0.21390374331550802,
-     "totalPts": 80.0,
-     "positiveRate": 0.24064171122994651
+     "count": 376,
+     "meanPts": 0.22340425531914893,
+     "totalPts": 84.0,
+     "positiveRate": 0.24468085106382978
     }
    },
    "stakingStatus": "unstaked",
@@ -780,13 +796,14 @@
    "lockedAt": "2026-11-26T09:08:31Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-26T09:08:33Z",
-    "line": -1.5,
-    "price": -115,
-    "edgePts": 5.64,
-    "lineObservedAt": "2026-11-26T08:57:29Z"
+    "checkedAt": "2026-11-26T19:59:54Z",
+    "line": -3.5,
+    "price": -102,
+    "edgePts": 3.6,
+    "lineObservedAt": "2026-11-26T19:52:19Z"
    },
-   "rank": 4
+   "rank": 4,
+   "originallyListedStakeUnits": 0.0
   },
   {
    "id": "ncaab:401920530",
@@ -836,10 +853,10 @@
     "requiredLower": 0.524,
     "minimumLiveGames": 100,
     "liveClv": {
-     "count": 374,
-     "meanPts": 0.21390374331550802,
-     "totalPts": 80.0,
-     "positiveRate": 0.24064171122994651
+     "count": 376,
+     "meanPts": 0.22340425531914893,
+     "totalPts": 84.0,
+     "positiveRate": 0.24468085106382978
     }
    },
    "stakingStatus": "unstaked",
@@ -881,13 +898,14 @@
    "lockedAt": "2026-11-26T09:08:31Z",
    "status": "playable",
    "current": {
-    "checkedAt": "2026-11-26T09:08:33Z",
+    "checkedAt": "2026-11-26T19:59:54Z",
     "line": -1.5,
-    "price": -120,
-    "edgePts": 4.39,
-    "lineObservedAt": "2026-11-26T08:57:29Z"
+    "price": -110,
+    "edgePts": 6.49,
+    "lineObservedAt": "2026-11-26T19:52:19Z"
    },
-   "rank": 7
+   "rank": 7,
+   "originallyListedStakeUnits": 0.0
   }
  ]
 }
