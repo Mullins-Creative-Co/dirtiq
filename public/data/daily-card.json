@@ -1,7 +1,7 @@
 {
  "date": "2026-11-26",
- "generatedAt": "2026-11-26T19:59:53Z",
- "forecastsRefreshedAt": "2026-11-26T19:52:22Z",
+ "generatedAt": "2026-11-27T03:34:32Z",
+ "forecastsRefreshedAt": "2026-11-27T03:21:19Z",
  "unit": "1 unit = 1% of bankroll",
  "rules": [
   "Spread picks in NFL, NBA and college basketball; one pick per game, including unstaked tracking picks. College football is off the card: forecast and tracked in the ledger only.",
@@ -14,8 +14,8 @@
   "A pick is locked at the line it was first listed with and graded at that line."
  ],
  "evidence": "Stakes require both documented evidence conditions; each pick shows its sport's backtest record and gate. Unstaked picks remain tracked. Historical bucket frequencies are not per-game probabilities.",
- "priced": 16,
- "qualified": 6,
+ "priced": 2,
+ "qualified": 0,
  "stakingGates": {
   "nfl": {
    "passed": false,
@@ -26,8 +26,8 @@
    "requiredLower": 0.524,
    "minimumLiveGames": 100,
    "liveClv": {
-    "count": 8,
-    "meanPts": -0.0625,
+    "count": 10,
+    "meanPts": -0.05,
     "totalPts": -0.5,
     "positiveRate": 0.0
    }
@@ -56,28 +56,28 @@
    "requiredLower": 0.524,
    "minimumLiveGames": 100,
    "liveClv": {
-    "count": 376,
-    "meanPts": 0.22340425531914893,
-    "totalPts": 84.0,
-    "positiveRate": 0.24468085106382978
+    "count": 380,
+    "meanPts": 0.21842105263157896,
+    "totalPts": 83.0,
+    "positiveRate": 0.24210526315789474
    }
   }
  },
  "totalUnits": 0.0,
  "record": {
   "days": 15,
-  "wins": 58,
-  "losses": 70,
+  "wins": 61,
+  "losses": 72,
   "pushes": 0,
   "units": -9.564,
   "staked": 32.5,
   "roi": -0.2943,
-  "unstakedGraded": 72,
+  "unstakedGraded": 77,
   "clv": {
-   "count": 129,
-   "meanPts": 0.624031007751938,
-   "totalPts": 80.5,
-   "positiveRate": 0.4186046511627907
+   "count": 134,
+   "meanPts": 0.6231343283582089,
+   "totalPts": 83.5,
+   "positiveRate": 0.417910447761194
   }
  },
  "picks": [
@@ -396,11 +396,22 @@
    },
    "note": "model -0.9 vs market +4.5: leans SDSU by 5.4 pts (threshold 3.0)",
    "lockedAt": "2026-11-26T09:08:31Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-26T19:59:54Z"
    },
-   "rank": 5
+   "rank": 5,
+   "clv": {
+    "points": -1.0,
+    "closeLine": 5.5,
+    "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "win",
+    "homeScore": 71,
+    "awayScore": 75,
+    "units": 0.0
+   }
   },
   {
    "id": "nfl:2026_12_CHI_DET",
@@ -493,11 +504,22 @@
    },
    "note": "model +3.4 vs market -1.5: leans DET by 4.9 pts (threshold 2.0)",
    "lockedAt": "2026-11-26T09:08:31Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-26T19:59:54Z"
    },
-   "rank": 1
+   "rank": 1,
+   "clv": {
+    "points": 0.0,
+    "closeLine": 1.5,
+    "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "loss",
+    "homeScore": 35,
+    "awayScore": 39,
+    "units": -0.0
+   }
   },
   {
    "id": "ncaab:401921673",
@@ -590,7 +612,7 @@
    },
    "note": "model -1.6 vs market +3.5: leans USU by 5.1 pts (threshold 3.0)",
    "lockedAt": "2026-11-26T09:08:31Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-26T19:59:54Z",
     "line": 1.5,
@@ -599,7 +621,18 @@
     "lineObservedAt": "2026-11-26T19:52:19Z"
    },
    "rank": 6,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "clv": {
+    "points": 2.0,
+    "closeLine": 1.5,
+    "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "win",
+    "homeScore": 74,
+    "awayScore": 78,
+    "units": 0.0
+   }
   },
   {
    "id": "nfl:2026_12_PHI_DAL",
@@ -692,7 +725,7 @@
    },
    "note": "model +5.3 vs market +8.5: leans PHI by 3.2 pts (threshold 2.0)",
    "lockedAt": "2026-11-26T09:08:31Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-26T19:59:54Z",
     "line": 8.5,
@@ -701,7 +734,18 @@
     "lineObservedAt": "2026-11-26T19:49:37Z"
    },
    "rank": 8,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "clv": {
+    "points": 0.0,
+    "closeLine": 8.5,
+    "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "win",
+    "homeScore": 38,
+    "awayScore": 39,
+    "units": 0.0
+   }
   },
   {
    "id": "ncaab:401911523",
@@ -794,7 +838,7 @@
    },
    "note": "model -7.1 vs market -1.5: leans JXST by 5.6 pts (threshold 3.0)",
    "lockedAt": "2026-11-26T09:08:31Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-26T19:59:54Z",
     "line": -3.5,
@@ -803,7 +847,18 @@
     "lineObservedAt": "2026-11-26T19:52:19Z"
    },
    "rank": 4,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "clv": {
+    "points": 2.0,
+    "closeLine": -3.5,
+    "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "loss",
+    "homeScore": 68,
+    "awayScore": 63,
+    "units": -0.0
+   }
   },
   {
    "id": "ncaab:401920530",
@@ -896,13 +951,9 @@
    },
    "note": "model -5.9 vs market -1.5: leans SJU by 4.4 pts (threshold 3.0)",
    "lockedAt": "2026-11-26T09:08:31Z",
-   "status": "playable",
+   "status": "started",
    "current": {
-    "checkedAt": "2026-11-26T19:59:54Z",
-    "line": -1.5,
-    "price": -110,
-    "edgePts": 6.49,
-    "lineObservedAt": "2026-11-26T19:52:19Z"
+    "checkedAt": "2026-11-27T03:34:35Z"
    },
    "rank": 7,
    "originallyListedStakeUnits": 0.0
