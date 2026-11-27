@@ -951,12 +951,23 @@
    },
    "note": "model -5.9 vs market -1.5: leans SJU by 4.4 pts (threshold 3.0)",
    "lockedAt": "2026-11-26T09:08:31Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-27T03:34:35Z"
    },
    "rank": 7,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 93,
+    "awayScore": 90,
+    "units": -0.0
+   },
+   "clv": {
+    "points": 0.0,
+    "closeLine": -1.5,
+    "source": "last available pre-start ledger snapshot"
+   }
   }
  ]
 }
