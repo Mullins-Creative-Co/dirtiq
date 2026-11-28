@@ -1,7 +1,7 @@
 {
  "date": "2026-11-27",
- "generatedAt": "2026-11-27T22:33:17Z",
- "forecastsRefreshedAt": "2026-11-27T22:23:25Z",
+ "generatedAt": "2026-11-28T04:25:40Z",
+ "forecastsRefreshedAt": "2026-11-28T04:17:22Z",
  "unit": "1 unit = 1% of bankroll",
  "rules": [
   "Spread picks in NFL, NBA and college basketball; one pick per game, including unstaked tracking picks. College football is off the card: forecast and tracked in the ledger only.",
@@ -14,8 +14,8 @@
   "A pick is locked at the line it was first listed with and graded at that line."
  ],
  "evidence": "Stakes require both documented evidence conditions; each pick shows its sport's backtest record and gate. Unstaked picks remain tracked. Historical bucket frequencies are not per-game probabilities.",
- "priced": 31,
- "qualified": 14,
+ "priced": 1,
+ "qualified": 0,
  "stakingGates": {
   "nfl": {
    "passed": false,
@@ -26,8 +26,8 @@
    "requiredLower": 0.524,
    "minimumLiveGames": 100,
    "liveClv": {
-    "count": 10,
-    "meanPts": -0.05,
+    "count": 11,
+    "meanPts": -0.045454545454545456,
     "totalPts": -0.5,
     "positiveRate": 0.0
    }
@@ -41,10 +41,10 @@
    "requiredLower": 0.524,
    "minimumLiveGames": 100,
    "liveClv": {
-    "count": 26,
-    "meanPts": 0.038461538461538464,
-    "totalPts": 1.0,
-    "positiveRate": 0.19230769230769232
+    "count": 31,
+    "meanPts": 0.0,
+    "totalPts": 0.0,
+    "positiveRate": 0.16129032258064516
    }
   },
   "ncaab": {
@@ -56,28 +56,28 @@
    "requiredLower": 0.524,
    "minimumLiveGames": 100,
    "liveClv": {
-    "count": 387,
-    "meanPts": 0.2351421188630491,
+    "count": 399,
+    "meanPts": 0.22807017543859648,
     "totalPts": 91.0,
-    "positiveRate": 0.2454780361757106
+    "positiveRate": 0.24310776942355888
    }
   }
  },
  "totalUnits": 0.0,
  "record": {
   "days": 16,
-  "wins": 62,
-  "losses": 73,
+  "wins": 68,
+  "losses": 77,
   "pushes": 0,
   "units": -9.564,
   "staked": 32.5,
   "roi": -0.2943,
-  "unstakedGraded": 79,
+  "unstakedGraded": 89,
   "clv": {
-   "count": 136,
-   "meanPts": 0.6066176470588235,
-   "totalPts": 82.5,
-   "positiveRate": 0.4117647058823529
+   "count": 147,
+   "meanPts": 0.5884353741496599,
+   "totalPts": 86.5,
+   "positiveRate": 0.41496598639455784
   }
  },
  "picks": [
@@ -284,11 +284,22 @@
    },
    "note": "model -1.4 vs market -4.5: leans PIT by 3.1 pts (threshold 2.0)",
    "lockedAt": "2026-11-27T13:23:35Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-27T22:33:19Z"
    },
-   "rank": 11
+   "rank": 11,
+   "clv": {
+    "points": 0.0,
+    "closeLine": 4.5,
+    "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "win",
+    "homeScore": 27,
+    "awayScore": 5,
+    "units": 0.0
+   }
   },
   {
    "id": "ncaab:401924845",
@@ -381,11 +392,22 @@
    },
    "note": "model +9.4 vs market +4.5: leans LAF by 4.9 pts (threshold 3.0)",
    "lockedAt": "2026-11-27T13:23:35Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-27T22:33:19Z"
    },
-   "rank": 4
+   "rank": 4,
+   "clv": {
+    "points": 1.0,
+    "closeLine": -5.5,
+    "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "win",
+    "homeScore": 82,
+    "awayScore": 54,
+    "units": 0.0
+   }
   },
   {
    "id": "nba:401909326",
@@ -478,7 +500,7 @@
    },
    "note": "model +7.4 vs market +2.5: leans NY by 4.9 pts (threshold 3.0)",
    "lockedAt": "2026-11-27T22:33:17Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-27T22:33:19Z",
     "line": -2.5,
@@ -486,7 +508,18 @@
     "edgePts": 4.93,
     "lineObservedAt": "2026-11-27T22:20:03Z"
    },
-   "rank": 10
+   "rank": 10,
+   "clv": {
+    "points": 0.0,
+    "closeLine": -2.5,
+    "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "loss",
+    "homeScore": 105,
+    "awayScore": 108,
+    "units": -0.0
+   }
   },
   {
    "id": "ncaab:401912711",
@@ -579,7 +612,7 @@
    },
    "note": "model +1.9 vs market -2.5: leans UNC by 4.4 pts (threshold 3.0)",
    "lockedAt": "2026-11-27T13:23:35Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-27T22:33:19Z",
     "line": 3.5,
@@ -588,7 +621,18 @@
     "lineObservedAt": "2026-11-27T22:23:20Z"
    },
    "rank": 5,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "clv": {
+    "points": -1.0,
+    "closeLine": 3.5,
+    "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "loss",
+    "homeScore": 59,
+    "awayScore": 72,
+    "units": -0.0
+   }
   },
   {
    "id": "nba:401909327",
@@ -681,7 +725,7 @@
    },
    "note": "model +14.9 vs market +8.5: leans DET by 6.4 pts (threshold 3.0)",
    "lockedAt": "2026-11-27T13:23:35Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-27T22:33:19Z",
     "line": -9.5,
@@ -690,7 +734,18 @@
     "lineObservedAt": "2026-11-27T22:20:03Z"
    },
    "rank": 8,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "clv": {
+    "points": 1.0,
+    "closeLine": -9.5,
+    "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "win",
+    "homeScore": 113,
+    "awayScore": 98,
+    "units": 0.0
+   }
   },
   {
    "id": "nba:401909329",
@@ -783,7 +838,7 @@
    },
    "note": "model +11.3 vs market +7.5: leans TOR by 3.8 pts (threshold 3.0)",
    "lockedAt": "2026-11-27T13:23:35Z",
-   "status": "edge-gone",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-27T22:33:19Z",
     "line": -9.5,
@@ -792,7 +847,18 @@
     "lineObservedAt": "2026-11-27T22:20:03Z"
    },
    "rank": 13,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "clv": {
+    "points": 2.0,
+    "closeLine": -9.5,
+    "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "win",
+    "homeScore": 124,
+    "awayScore": 100,
+    "units": 0.0
+   }
   },
   {
    "id": "nba:401909330",
@@ -885,7 +951,7 @@
    },
    "note": "model +5.2 vs market +8.5: leans ATL by 3.3 pts (threshold 3.0)",
    "lockedAt": "2026-11-27T13:23:35Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-27T22:33:19Z",
     "line": 8.5,
@@ -894,7 +960,18 @@
     "lineObservedAt": "2026-11-27T22:20:03Z"
    },
    "rank": 7,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "clv": {
+    "points": -1.0,
+    "closeLine": 9.5,
+    "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "win",
+    "homeScore": 86,
+    "awayScore": 87,
+    "units": 0.0
+   }
   },
   {
    "id": "ncaab:401925829",
@@ -987,7 +1064,7 @@
    },
    "note": "model +9.8 vs market +5.5: leans UNT by 4.3 pts (threshold 3.0)",
    "lockedAt": "2026-11-27T13:23:35Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-27T22:33:19Z",
     "line": -5.5,
@@ -996,7 +1073,18 @@
     "lineObservedAt": "2026-11-27T22:23:20Z"
    },
    "rank": 6,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "clv": {
+    "points": 0.0,
+    "closeLine": -5.5,
+    "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "loss",
+    "homeScore": 75,
+    "awayScore": 73,
+    "units": -0.0
+   }
   },
   {
    "id": "ncaab:401928624",
@@ -1089,7 +1177,7 @@
    },
    "note": "model +9.4 vs market +3.5: leans ORU by 5.9 pts (threshold 3.0)",
    "lockedAt": "2026-11-27T13:23:35Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-27T22:33:19Z",
     "line": -4.5,
@@ -1098,7 +1186,18 @@
     "lineObservedAt": "2026-11-27T22:23:20Z"
    },
    "rank": 3,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "clv": {
+    "points": 1.0,
+    "closeLine": -4.5,
+    "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "win",
+    "homeScore": 72,
+    "awayScore": 66,
+    "units": 0.0
+   }
   },
   {
    "id": "nba:401909331",
@@ -1191,7 +1290,7 @@
    },
    "note": "model +6.4 vs market +2.5: leans MIN by 3.9 pts (threshold 3.0)",
    "lockedAt": "2026-11-27T22:33:17Z",
-   "status": "playable",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-27T22:33:19Z",
     "line": -2.5,
@@ -1199,7 +1298,18 @@
     "edgePts": 3.91,
     "lineObservedAt": "2026-11-27T22:20:03Z"
    },
-   "rank": 12
+   "rank": 12,
+   "clv": {
+    "points": 0.0,
+    "closeLine": -2.5,
+    "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "loss",
+    "homeScore": 109,
+    "awayScore": 114,
+    "units": -0.0
+   }
   },
   {
    "id": "nba:401909334",
@@ -1292,16 +1402,17 @@
    },
    "note": "model -4.4 vs market -10.5: leans UTAH by 6.1 pts (threshold 3.0)",
    "lockedAt": "2026-11-27T13:23:35Z",
-   "status": "playable",
+   "status": "started",
    "current": {
-    "checkedAt": "2026-11-27T22:33:19Z",
-    "line": 9.5,
-    "price": -105,
-    "edgePts": 5.15,
-    "lineObservedAt": "2026-11-27T22:20:03Z"
+    "checkedAt": "2026-11-28T04:25:41Z"
    },
    "rank": 9,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "clv": {
+    "points": 1.0,
+    "closeLine": 9.5,
+    "source": "last available pre-start ledger snapshot"
+   }
   },
   {
    "id": "ncaab:401926783",
@@ -1394,13 +1505,9 @@
    },
    "note": "model -13.7 vs market -5.5: leans JXST by 8.2 pts (threshold 3.0)",
    "lockedAt": "2026-11-27T13:23:35Z",
-   "status": "playable",
+   "status": "started",
    "current": {
-    "checkedAt": "2026-11-27T22:33:19Z",
-    "line": -4.5,
-    "price": -118,
-    "edgePts": 9.09,
-    "lineObservedAt": "2026-11-27T22:23:20Z"
+    "checkedAt": "2026-11-28T04:25:41Z"
    },
    "rank": 1,
    "originallyListedStakeUnits": 0.0
