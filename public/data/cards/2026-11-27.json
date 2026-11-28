@@ -1402,7 +1402,7 @@
    },
    "note": "model -4.4 vs market -10.5: leans UTAH by 6.1 pts (threshold 3.0)",
    "lockedAt": "2026-11-27T13:23:35Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-28T04:25:41Z"
    },
@@ -1412,6 +1412,12 @@
     "points": 1.0,
     "closeLine": 9.5,
     "source": "last available pre-start ledger snapshot"
+   },
+   "result": {
+    "outcome": "loss",
+    "homeScore": 107,
+    "awayScore": 120,
+    "units": -0.0
    }
   },
   {
@@ -1505,12 +1511,23 @@
    },
    "note": "model -13.7 vs market -5.5: leans JXST by 8.2 pts (threshold 3.0)",
    "lockedAt": "2026-11-27T13:23:35Z",
-   "status": "started",
+   "status": "graded",
    "current": {
     "checkedAt": "2026-11-28T04:25:41Z"
    },
    "rank": 1,
-   "originallyListedStakeUnits": 0.0
+   "originallyListedStakeUnits": 0.0,
+   "result": {
+    "outcome": "loss",
+    "homeScore": 78,
+    "awayScore": 69,
+    "units": -0.0
+   },
+   "clv": {
+    "points": -1.0,
+    "closeLine": -4.5,
+    "source": "last available pre-start ledger snapshot"
+   }
   }
  ]
 }
